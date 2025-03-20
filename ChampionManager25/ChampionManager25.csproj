@@ -1,0 +1,1098 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="championsManagerDB.db" />
+    <None Remove="Recursos\audio\backgroundMatchSounds.wav" />
+    <None Remove="Recursos\audio\backgroundMusic.wav" />
+    <None Remove="Recursos\audio\backgroundMusic2.wav" />
+    <None Remove="Recursos\audio\backgroundTrainingSounds.wav" />
+    <None Remove="Recursos\audio\click.wav" />
+    <None Remove="Recursos\audio\transicion.wav" />
+    <None Remove="Recursos\img\backgroundCarga1920x1080.png" />
+    <None Remove="Recursos\img\backgroundPrincipal1920x1080.png" />
+    <None Remove="Recursos\img\cargarPartida.png" />
+    <None Remove="Recursos\img\cargarPartidaHover.png" />
+    <None Remove="Recursos\img\editorJuego.png" />
+    <None Remove="Recursos\img\editorJuegoHover.png" />
+    <None Remove="Recursos\img\escudos_equipos\1.png" />
+    <None Remove="Recursos\img\escudos_equipos\10.png" />
+    <None Remove="Recursos\img\escudos_equipos\11.png" />
+    <None Remove="Recursos\img\escudos_equipos\12.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\1.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\10.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\11.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\12.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\13.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\14.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\15.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\16.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\17.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\18.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\19.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\2.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\20.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\21.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\22.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\23.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\24.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\25.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\26.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\27.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\28.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\29.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\3.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\30.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\31.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\32.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\33.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\34.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\35.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\36.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\4.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\5.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\6.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\7.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\8.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\9.png" />
+    <None Remove="Recursos\img\escudos_equipos\13.png" />
+    <None Remove="Recursos\img\escudos_equipos\14.png" />
+    <None Remove="Recursos\img\escudos_equipos\15.png" />
+    <None Remove="Recursos\img\escudos_equipos\16.png" />
+    <None Remove="Recursos\img\escudos_equipos\17.png" />
+    <None Remove="Recursos\img\escudos_equipos\18.png" />
+    <None Remove="Recursos\img\escudos_equipos\19.png" />
+    <None Remove="Recursos\img\escudos_equipos\2.png" />
+    <None Remove="Recursos\img\escudos_equipos\20.png" />
+    <None Remove="Recursos\img\escudos_equipos\21.png" />
+    <None Remove="Recursos\img\escudos_equipos\22.png" />
+    <None Remove="Recursos\img\escudos_equipos\23.png" />
+    <None Remove="Recursos\img\escudos_equipos\24.png" />
+    <None Remove="Recursos\img\escudos_equipos\25.png" />
+    <None Remove="Recursos\img\escudos_equipos\26.png" />
+    <None Remove="Recursos\img\escudos_equipos\27.png" />
+    <None Remove="Recursos\img\escudos_equipos\28.png" />
+    <None Remove="Recursos\img\escudos_equipos\29.png" />
+    <None Remove="Recursos\img\escudos_equipos\3.png" />
+    <None Remove="Recursos\img\escudos_equipos\30.png" />
+    <None Remove="Recursos\img\escudos_equipos\31.png" />
+    <None Remove="Recursos\img\escudos_equipos\32.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\1.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\10.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\11.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\12.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\13.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\14.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\15.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\16.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\17.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\18.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\19.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\2.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\20.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\21.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\22.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\23.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\24.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\25.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\26.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\27.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\28.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\29.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\3.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\30.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\31.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\32.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\33.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\34.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\35.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\36.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\4.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\5.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\6.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\7.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\8.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\9.png" />
+    <None Remove="Recursos\img\escudos_equipos\33.png" />
+    <None Remove="Recursos\img\escudos_equipos\34.png" />
+    <None Remove="Recursos\img\escudos_equipos\35.png" />
+    <None Remove="Recursos\img\escudos_equipos\36.png" />
+    <None Remove="Recursos\img\escudos_equipos\4.png" />
+    <None Remove="Recursos\img\escudos_equipos\5.png" />
+    <None Remove="Recursos\img\escudos_equipos\6.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\1.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\10.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\11.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\12.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\13.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\14.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\15.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\16.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\17.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\18.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\19.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\2.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\20.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\21.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\22.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\23.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\24.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\25.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\26.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\27.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\28.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\29.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\3.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\30.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\31.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\32.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\33.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\34.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\35.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\36.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\4.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\5.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\6.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\7.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\8.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\9.png" />
+    <None Remove="Recursos\img\escudos_equipos\7.png" />
+    <None Remove="Recursos\img\escudos_equipos\8.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\1.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\10.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\11.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\12.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\13.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\14.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\15.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\16.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\17.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\18.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\19.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\2.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\20.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\21.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\22.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\23.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\24.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\25.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\26.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\27.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\28.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\29.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\3.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\30.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\31.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\32.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\33.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\34.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\35.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\36.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\4.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\5.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\6.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\7.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\8.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\9.png" />
+    <None Remove="Recursos\img\escudos_equipos\9.png" />
+    <None Remove="Recursos\img\icons\abajo_icon.png" />
+    <None Remove="Recursos\img\icons\acuerdo_icon.png" />
+    <None Remove="Recursos\img\icons\ajustesBlanco.png" />
+    <None Remove="Recursos\img\icons\ajustesNegro.png" />
+    <None Remove="Recursos\img\icons\ampliar_icon.png" />
+    <None Remove="Recursos\img\icons\arriba_icon.png" />
+    <None Remove="Recursos\img\icons\asistenciaGol_img.png" />
+    <None Remove="Recursos\img\icons\asistencia_img.png" />
+    <None Remove="Recursos\img\icons\avatar.png" />
+    <None Remove="Recursos\img\icons\avionNegro_icon.png" />
+    <None Remove="Recursos\img\icons\avion_icon.png" />
+    <None Remove="Recursos\img\icons\balon_icon.png" />
+    <None Remove="Recursos\img\icons\borrar_icon.png" />
+    <None Remove="Recursos\img\icons\calendario_icon.png" />
+    <None Remove="Recursos\img\icons\camisetaFutbol_icon.png" />
+    <None Remove="Recursos\img\icons\casaNegro_icon.png" />
+    <None Remove="Recursos\img\icons\casa_icon.png" />
+    <None Remove="Recursos\img\icons\cerrar32px.png" />
+    <None Remove="Recursos\img\icons\cerrar64px.png" />
+    <None Remove="Recursos\img\icons\club_icon.png" />
+    <None Remove="Recursos\img\icons\competicion1.png" />
+    <None Remove="Recursos\img\icons\competicionesNegro_icon.png" />
+    <None Remove="Recursos\img\icons\competiciones_icon.png" />
+    <None Remove="Recursos\img\icons\correo_icon.png" />
+    <None Remove="Recursos\img\icons\derecha_icon.png" />
+    <None Remove="Recursos\img\icons\entrenador_icon.png" />
+    <None Remove="Recursos\img\icons\estadioBlanco_icon.png" />
+    <None Remove="Recursos\img\icons\estadioNegro_icon.png" />
+    <None Remove="Recursos\img\icons\estrellaOff.png" />
+    <None Remove="Recursos\img\icons\estrellaOn.png" />
+    <None Remove="Recursos\img\icons\europa_icon.png" />
+    <None Remove="Recursos\img\icons\flechaDerecha32px.png" />
+    <None Remove="Recursos\img\icons\flechaDerechaBlanca32px.png" />
+    <None Remove="Recursos\img\icons\flechaDerechaBlanca64px_icon.png" />
+    <None Remove="Recursos\img\icons\flechaDerechaNegra64px_icon.png" />
+    <None Remove="Recursos\img\icons\flechaIzquierda32px.png" />
+    <None Remove="Recursos\img\icons\flechaIzquierdaBlanca32px.png" />
+    <None Remove="Recursos\img\icons\flechaIzquierdaBlanca64px_icon.png" />
+    <None Remove="Recursos\img\icons\flechaIzquierdaNegra64px_icon.png" />
+    <None Remove="Recursos\img\icons\gol_img.png" />
+    <None Remove="Recursos\img\icons\hattrick_img.png" />
+    <None Remove="Recursos\img\icons\home_icon.png" />
+    <None Remove="Recursos\img\icons\lesion.png" />
+    <None Remove="Recursos\img\icons\manager_icon.png" />
+    <None Remove="Recursos\img\icons\media_img.png" />
+    <None Remove="Recursos\img\icons\mensaje_abierto.png" />
+    <None Remove="Recursos\img\icons\mirilla.png" />
+    <None Remove="Recursos\img\icons\mvp_img.png" />
+    <None Remove="Recursos\img\icons\pabellon_icon.png" />
+    <None Remove="Recursos\img\icons\plantilla_datos.png" />
+    <None Remove="Recursos\img\icons\plantilla_estadisticas.png" />
+    <None Remove="Recursos\img\icons\plantilla_puntuacion.png" />
+    <None Remove="Recursos\img\icons\rechazado_icon.png" />
+    <None Remove="Recursos\img\icons\renovar_icon.png" />
+    <None Remove="Recursos\img\icons\rol1_icon.png" />
+    <None Remove="Recursos\img\icons\rol2_icon.png" />
+    <None Remove="Recursos\img\icons\rol3_icon.png" />
+    <None Remove="Recursos\img\icons\rol4_icon.png" />
+    <None Remove="Recursos\img\icons\salir_icon.png" />
+    <None Remove="Recursos\img\icons\tarjetaAmarilla_img.png" />
+    <None Remove="Recursos\img\icons\tarjetaRoja_img.png" />
+    <None Remove="Recursos\img\icons\verificado_icon.png" />
+    <None Remove="Recursos\img\icons\volver_icon.png" />
+    <None Remove="Recursos\img\jugarCampeonato.png" />
+    <None Remove="Recursos\img\jugarCampeonatoHover.png" />
+    <None Remove="Recursos\img\logo100x100.png" />
+    <None Remove="Recursos\img\logo200x200.png" />
+    <None Remove="Recursos\img\logo300x300.png" />
+    <None Remove="Recursos\img\logo400x400.png" />
+    <None Remove="Recursos\img\logoBuitragoStudios.png" />
+    <None Remove="Recursos\img\logos_competiciones\1.png" />
+    <None Remove="Recursos\img\logos_competiciones\80x80\1.png" />
+    <None Remove="Recursos\img\logos_competiciones\competicionTicket10.png" />
+    <None Remove="Recursos\img\logos_competiciones\competicionTicket7.png" />
+    <None Remove="Recursos\img\salirJuego.png" />
+    <None Remove="Recursos\img\salirJuegoHover.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="championsManagerDB.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\audio\backgroundMatchSounds.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\audio\backgroundMusic.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\audio\backgroundMusic2.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\audio\backgroundTrainingSounds.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\audio\click.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\audio\transicion.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\backgroundCarga1920x1080.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\backgroundPrincipal1920x1080.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cargarPartida.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cargarPartidaHover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\editorJuego.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\editorJuegoHover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\10.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\11.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\12.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\10.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\11.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\12.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\13.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\14.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\15.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\17.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\18.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\19.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\20.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\21.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\22.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\23.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\24.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\25.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\26.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\27.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\28.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\29.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\30.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\31.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\32.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\33.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\34.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\35.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\36.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\8.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\9.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\13.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\14.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\15.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\17.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\18.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\19.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\20.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\21.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\22.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\23.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\24.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\25.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\26.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\27.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\28.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\29.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\30.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\31.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\10.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\11.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\12.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\13.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\14.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\15.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\17.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\18.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\19.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\20.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\21.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\22.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\23.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\24.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\25.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\26.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\27.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\28.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\29.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\30.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\31.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\32.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\33.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\34.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\35.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\36.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\8.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\9.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\33.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\34.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\35.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\36.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\10.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\11.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\12.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\13.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\14.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\15.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\17.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\18.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\19.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\20.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\21.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\22.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\23.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\24.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\25.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\26.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\27.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\28.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\29.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\30.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\31.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\32.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\33.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\34.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\35.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\36.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\8.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\9.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\8.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\10.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\11.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\12.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\13.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\14.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\15.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\17.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\18.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\19.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\20.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\21.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\22.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\23.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\24.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\25.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\26.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\27.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\28.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\29.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\30.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\31.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\32.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\33.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\34.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\35.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\36.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\8.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\9.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\9.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\abajo_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\acuerdo_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\ajustesBlanco.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\ajustesNegro.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\ampliar_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\arriba_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\asistenciaGol_img.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\asistencia_img.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\avatar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\avionNegro_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\avion_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\balon_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\borrar_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\calendario_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\camisetaFutbol_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\casaNegro_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\casa_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\cerrar32px.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\cerrar64px.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\club_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\competicion1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\competicionesNegro_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\competiciones_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\correo_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\derecha_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\entrenador_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\estadioBlanco_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\estadioNegro_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\estrellaOff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\estrellaOn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\europa_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\flechaDerecha32px.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\flechaDerechaBlanca32px.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\flechaDerechaBlanca64px_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\flechaDerechaNegra64px_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\flechaIzquierda32px.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\flechaIzquierdaBlanca32px.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\flechaIzquierdaBlanca64px_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\flechaIzquierdaNegra64px_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\gol_img.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\hattrick_img.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\home_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\lesion.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\manager_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\media_img.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\mensaje_abierto.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\mirilla.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\mvp_img.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\pabellon_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\plantilla_datos.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\plantilla_estadisticas.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\plantilla_puntuacion.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\rechazado_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\renovar_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\rol1_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\rol2_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\rol3_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\rol4_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\salir_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\tarjetaAmarilla_img.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\tarjetaRoja_img.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\verificado_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\volver_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugarCampeonato.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugarCampeonatoHover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\logo100x100.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\logo200x200.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\logo300x300.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\logo400x400.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\logoBuitragoStudios.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\logos_competiciones\1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\logos_competiciones\80x80\1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\logos_competiciones\competicionTicket10.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\logos_competiciones\competicionTicket7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\salirJuego.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\salirJuegoHover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NAudio" Version="2.2.1" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
+  </ItemGroup>
+
+</Project>

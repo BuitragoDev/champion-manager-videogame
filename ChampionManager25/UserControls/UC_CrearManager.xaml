@@ -1,0 +1,219 @@
+﻿<UserControl x:Name="crearManager" x:Class="ChampionManager25.UserControls.UC_CrearManager"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ChampionManager25.UserControls"
+             mc:Ignorable="d" d:DesignHeight="1080" d:DesignWidth="1920" Loaded="crearManager_Loaded">
+    <Grid>
+        <!-- Imagen de Fondo del UserControl-->
+        <Grid.Background>
+            <ImageBrush ImageSource="/Recursos/img/backgroundCarga1920x1080.png" Stretch="UniformToFill" TileMode="None"/>
+        </Grid.Background>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- BARRA SUPERIOR -->
+        <Border x:Name="borderBarraSuperior" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="#23282d">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Column="0" Grid.Row="0" Background="#23282d">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0" Background="WhiteSmoke">
+                            <Image x:Name="imgBotonAtras" Width="32" Height="32" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" 
+                                   Source="/Recursos/img/icons/flechaIzquierdaNegra64px_icon.png" Cursor="Hand" MouseLeftButtonDown="imgBotonAtras_MouseLeftButtonDown" />
+                        </Border>
+                    </Grid>
+                </Border>
+                <TextBlock Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Crear Nuevo Manager"
+                           Foreground="WhiteSmoke" FontSize="28" FontFamily="Cascadia Code SemiBold" />
+
+                <Button x:Name="btnAvanzar" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"
+                        Height="50" Width="280" Margin="0,0,20,0"
+                        FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" IsEnabled="False" Click="btnAvanzar_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <!-- Configuración inicial -->
+                            <Setter Property="Background" Value="#1d6a7d"/>
+                            <Setter Property="Foreground" Value="WhiteSmoke"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <!-- Texto del botón -->
+                                                <TextBlock Text="SELECCIÓN DE EQUIPO" 
+                                                           Foreground="{TemplateBinding Foreground}" 
+                                                           VerticalAlignment="Center" 
+                                                           Margin="0,0,5,0"/>
+                                                <!-- Imagen de la flecha -->
+                                                <Image Source="/Recursos/img/icons/flechaDerechaBlanca64px_icon.png" Height="18" Width="18" VerticalAlignment="Center" Stretch="Uniform"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+
+                            <!-- Configuración al pasar el ratón -->
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
+
+            </Grid>
+        </Border>
+
+        <!-- ZONA DE CREACIÓN DEL MANAGER -->
+        <Border x:Name="borderFormularioCreacion" Grid.Column="1" Grid.Row="1" Background="WhiteSmoke" BorderBrush="#23282d" BorderThickness="1"
+                Margin="100,100,100,100">
+            <Border.Effect>
+                <DropShadowEffect Color="Black" 
+                          BlurRadius="10" 
+                          ShadowDepth="5" 
+                          Direction="320" 
+                          Opacity="0.5"/>
+            </Border.Effect>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Imagen del Mánager -->
+                <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Background="#23282d">
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="IMAGEN DEL MANAGER"
+                               Foreground="WhiteSmoke" FontSize="18" FontFamily="Cascadia Code SemiBold" />
+                </Border>
+
+                <Image x:Name="imgAvatar" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Width="256" Height="256" VerticalAlignment="Center" 
+                       HorizontalAlignment="Center" Source="/Recursos/img/icons/avatar.png" Cursor="Hand" />
+
+                <!-- Nombre -->
+                <Border Grid.Column="0" Grid.Row="2" Background="#23282d">
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="NOMBRE"
+                               Foreground="WhiteSmoke" FontSize="18" FontFamily="Cascadia Code SemiBold" />
+                </Border>
+
+                <TextBox x:Name="txtNombre" Grid.Column="0" Grid.Row="3" FontFamily="Cascadia Code SemiBold" FontSize="20" 
+                        Width="300" Height="40" VerticalContentAlignment="Center" TextAlignment="Center" 
+                        MaxLength="15" VerticalAlignment="Center" HorizontalAlignment="Center" PreviewTextInput="txtNombre_PreviewTextInput" TextChanged="txtNombre_TextChanged" />
+
+                <!-- Apellido -->
+                <Border Grid.Column="1" Grid.Row="2" Background="#23282d">
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="APELLIDO"
+                               Foreground="WhiteSmoke" FontSize="18" FontFamily="Cascadia Code SemiBold" />
+                </Border>
+
+                <TextBox x:Name="txtApellido" Grid.Column="1" Grid.Row="3" FontFamily="Cascadia Code SemiBold" FontSize="20" 
+                         Width="300" Height="40" VerticalContentAlignment="Center" TextAlignment="Center" 
+                         MaxLength="15" VerticalAlignment="Center" HorizontalAlignment="Center" PreviewTextInput="txtApellido_PreviewTextInput" TextChanged="txtApellido_TextChanged" />
+
+                <!-- Nacionalidad -->
+                <Border Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Background="#23282d">
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="NACIONALIDAD"
+                               Foreground="WhiteSmoke" FontSize="18" FontFamily="Cascadia Code SemiBold" />
+                </Border>
+
+                <ComboBox x:Name="cbNacionalidad" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Center" 
+                          Width="350" Height="40" VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="20" 
+                          VerticalContentAlignment="Center" SelectedIndex="59" Cursor="Hand"/>
+
+                <!-- Fecha de Nacimiento -->
+                <Border Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Background="#23282d">
+                    <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center" Text="FECHA DE NACIMIENTO"
+                               Foreground="WhiteSmoke" FontSize="18" FontFamily="Cascadia Code SemiBold" />
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- DIA -->
+                        <Border Grid.Column="0" Grid.Row="0" Background="#23282d">
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="DIA"
+                                       Foreground="WhiteSmoke" FontSize="18" FontFamily="Cascadia Code SemiBold" />
+                        </Border>
+
+                        <TextBox x:Name="txtDia" Grid.Column="0" Grid.Row="1" FontFamily="Cascadia Code SemiBold" FontSize="20" 
+                                 Width="75" Height="40" VerticalContentAlignment="Center" TextAlignment="Center" 
+                                 MaxLength="2" VerticalAlignment="Center" HorizontalAlignment="Center" PreviewTextInput="txtDia_PreviewTextInput" TextChanged="txtDia_TextChanged" PreviewKeyDown="txtDia_PreviewKeyDown" />
+
+                        <!-- MES -->
+                        <Border Grid.Column="1" Grid.Row="0" Background="#23282d">
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MES"
+                                       Foreground="WhiteSmoke" FontSize="18" FontFamily="Cascadia Code SemiBold" />
+                        </Border>
+
+                        <TextBox x:Name="txtMes" Grid.Column="1" Grid.Row="1" FontFamily="Cascadia Code SemiBold" FontSize="20" 
+                                 Width="75" Height="40" VerticalContentAlignment="Center" TextAlignment="Center" 
+                                 MaxLength="2" VerticalAlignment="Center" HorizontalAlignment="Center" PreviewTextInput="txtMes_PreviewTextInput" TextChanged="txtMes_TextChanged" PreviewKeyDown="txtMes_PreviewKeyDown" />
+
+                        <!-- AÑO -->
+                        <Border Grid.Column="2" Grid.Row="0" Background="#23282d">
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="AÑO"
+                                       Foreground="WhiteSmoke" FontSize="18" FontFamily="Cascadia Code SemiBold" />
+                        </Border>
+
+                        <TextBox x:Name="txtAnio" Grid.Column="2" Grid.Row="1" FontFamily="Cascadia Code SemiBold" FontSize="20" 
+                                 Width="100" Height="40" VerticalContentAlignment="Center" TextAlignment="Center" 
+                                 MaxLength="4" VerticalAlignment="Center" HorizontalAlignment="Center" PreviewTextInput="txtAnio_PreviewTextInput" TextChanged="txtAnio_TextChanged" PreviewKeyDown="txtAnio_PreviewKeyDown" />
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
