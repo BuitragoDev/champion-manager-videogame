@@ -1,0 +1,272 @@
+﻿<UserControl x:Name="inicioTemporada" x:Class="ChampionManager25.UserControls.UC_InicioTemporada"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ChampionManager25.UserControls"
+             mc:Ignorable="d" Height="1080" Width="1920" Loaded="inicioTemporada_Loaded">
+    <Grid>
+        <!-- Imagen de Fondo del UserControl-->
+        <Grid.Background>
+            <ImageBrush ImageSource="/Recursos/img/backgroundPrincipal1920x1080.png" Stretch="UniformToFill" TileMode="None"/>
+        </Grid.Background>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="150"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+        <!-- BARRA SUPERIOR -->
+        <Border x:Name="borderBarraSuperior" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Background="#23282d">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Column="0" Grid.Row="0" Background="#23282d">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0" Background="WhiteSmoke">
+                            <Image x:Name="imgBotonAtras" Width="32" Height="32" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" 
+                               Source="/Recursos/img/icons/flechaIzquierdaNegra64px_icon.png" Cursor="Hand" MouseLeftButtonDown="imgBotonAtras_MouseLeftButtonDown" />
+                        </Border>
+                    </Grid>
+                </Border>
+                <TextBlock x:Name="lblSeleccionEquipo" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                           Text="Objetivos de Temporada" Foreground="WhiteSmoke" FontSize="28" FontFamily="Cascadia Code SemiBold" />
+
+                <Button x:Name="btnAvanzar" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"
+                    Height="50" Width="280" Margin="0,0,20,0"
+                    FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnAvanzar_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <!-- Configuración inicial -->
+                            <Setter Property="Background" Value="#1d6a7d"/>
+                            <Setter Property="Foreground" Value="WhiteSmoke"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <!-- Texto del botón -->
+                                                <TextBlock Text="CONTINUAR" 
+                                                       Foreground="{TemplateBinding Foreground}" 
+                                                       VerticalAlignment="Center" 
+                                                       Margin="0,0,5,0"/>
+                                                <!-- Imagen de la flecha -->
+                                                <Image Source="/Recursos/img/icons/flechaDerechaBlanca64px_icon.png" Height="18" Width="18" VerticalAlignment="Center" Stretch="Uniform"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+
+                            <!-- Configuración al pasar el ratón -->
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
+
+            </Grid>
+        </Border>
+
+        <!-- Área lista competiciones -->
+        <Border Grid.Column="1" Grid.Row="2" Background="WhiteSmoke" BorderBrush="#23282d" BorderThickness="1" Margin="20,0,20,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Column="0" Grid.Row="0" Background="#1d6a7d">
+                    <TextBlock Text="COMPETICIÓN" VerticalAlignment="Center" 
+                               HorizontalAlignment="Center" FontFamily="Cascadia Code SemiBold" Foreground="WhiteSmoke" FontSize="16"/>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="1" Background="WhiteSmoke">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Image x:Name="imgLiga1" Grid.Column="0" Grid.Row="0" Width="80" Height="80" Stretch="Uniform" VerticalAlignment="Center" 
+                               HorizontalAlignment="Center" Margin="10" Source="/Recursos/img/logos_competiciones/80x80/1.png" />
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- Área lista de equipos -->
+        <Border Grid.Column="1" Grid.Row="4" Background="WhiteSmoke" BorderBrush="#23282d" BorderThickness="1" Margin="20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Column="0" Grid.Row="0" Background="#1d6a7d">
+                    <TextBlock Text="OBJETIVOS DE LOS ENTRENADORES" VerticalAlignment="Center" 
+                               HorizontalAlignment="Center" FontFamily="Cascadia Code SemiBold" Foreground="WhiteSmoke" FontSize="16"/>
+                </Border>
+
+                <Grid Grid.Column="0" Grid.Row="1" Background="WhiteSmoke" Margin="22,10,22,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <DataGrid x:Name="dgObjetivos" Grid.Column="0" Grid.Row="0" IsReadOnly="True" AutoGenerateColumns="True" Background="Transparent"
+                              GridLinesVisibility="None" FontFamily="Cascadia Code Light" FontSize="16" Margin="10,0,10,0">
+
+                        <DataGrid.Style>
+                            <Style TargetType="DataGrid">
+                                <Setter Property="RowBackground" Value="LightGray" />
+                                <!-- Color de fondo para filas impares -->
+                                <Setter Property="AlternatingRowBackground" Value="WhiteSmoke" />
+                                <!-- Color de fondo para filas pares -->
+                                <Setter Property="BorderBrush" Value="Transparent" />
+                                <!-- Sin borde en el DataGrid -->
+                                <Setter Property="BorderThickness" Value="0" />
+                                <!-- Sin borde en el DataGrid -->
+                                <Setter Property="CellStyle">
+                                    <Setter.Value>
+                                        <Style TargetType="DataGridCell">
+                                            <Setter Property="BorderBrush" Value="Transparent" />
+                                            <!-- Sin borde en las celdas -->
+                                            <Setter Property="BorderThickness" Value="0" />
+                                            <!-- Sin borde en las celdas -->
+                                        </Style>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGrid.Style>
+                    </DataGrid>
+                </Grid>
+            </Grid>
+
+        </Border>
+
+        <!-- Área lista de mi equipo -->
+        <Border Grid.Column="2" Grid.Row="4" Background="WhiteSmoke" BorderBrush="#23282d" BorderThickness="1" Margin="20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Column="0" Grid.Row="0" Background="#1d6a7d">
+                    <TextBlock Text="OBJETIVO DE MI EQUIPO" VerticalAlignment="Center" 
+                               HorizontalAlignment="Center" FontFamily="Cascadia Code SemiBold" Foreground="WhiteSmoke" FontSize="16"/>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="1" BorderBrush="#1d6a7d" BorderThickness="1">
+                    <Grid Grid.Column="0" Grid.Row="1" Margin="10,10,10,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="260"/>
+                            <RowDefinition Height="50"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Escudo equipo -->
+                        <Image x:Name="imgLogoEquipo" Grid.Column="0" Grid.Row="0" Width="200" Height="200" 
+                               VerticalAlignment="Center" HorizontalAlignment="Center"  />
+
+                        <!-- Nombre equipo -->
+                        <Border Grid.Column="0" Grid.Row="1" Background="Lightgray">
+                            <TextBlock x:Name="lblNombreEquipo" Text="NombreEquipo" TextAlignment="Center"
+                                       VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Cascadia Code SemiBold" 
+                                       FontSize="18" Foreground="#23282d"/>
+                        </Border>
+
+                        <!-- Objetivo equipo -->
+                        <Border Grid.Column="0" Grid.Row="2" Background="#1d6a7d">
+                            <Grid Grid.Column="0" Grid.Row="1" Margin="10,10,10,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="30"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Image Grid.Column="0" Grid.Row="0" Width="24" Height="24" Stretch="Uniform"
+                                       VerticalAlignment="Center" HorizontalAlignment="Center" Source="/Recursos/img/icons/mirilla.png" />
+
+                                <TextBlock x:Name="lblObjetivoEquipo" Grid.Column="1" Grid.Row="0" Text="ObjetivoEquipo" TextAlignment="Center"
+                                           VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Cascadia Code SemiBold" 
+                                           FontSize="18" Foreground="WhiteSmoke"/>
+
+                                <Image Grid.Column="2" Grid.Row="0" Width="24" Height="24" Stretch="Uniform"
+                                       VerticalAlignment="Center" HorizontalAlignment="Center" Source="/Recursos/img/icons/mirilla.png" />
+                            </Grid>
+                        </Border>
+
+                        <!-- Imagen entrenador -->
+                        <Image x:Name="imgImagenEntrenador" Grid.Column="0" Grid.Row="3" Width="128" Height="128" Stretch="Uniform"
+                               VerticalAlignment="Center" HorizontalAlignment="Center" Source="/Recursos/img/icons/avatar.png" />
+
+                        <!-- Nombre entrenador -->
+                        <Border Grid.Column="0" Grid.Row="4" Background="Lightgray">
+                            <TextBlock x:Name="lblNombreManager" Text="NombreEntrenador" TextAlignment="Center"
+                                       VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Cascadia Code SemiBold" 
+                                       FontSize="18" Foreground="#23282d"/>
+                        </Border>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

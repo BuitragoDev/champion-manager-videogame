@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\App.xaml
-101157407864
-5901219594245
-30285340658
+15-1770695665
+672599655970
+641488372902
 214-600826687
-MainWindow.xaml;UserControls\UC_CrearManager.xaml;UserControls\UC_InformacionEquipo.xaml;UserControls\UC_InformacionPalmares.xaml;UserControls\UC_InformacionPlantilla.xaml;UserControls\UC_PantallaCarga.xaml;UserControls\UC_Portada.xaml;UserControls\UC_Pretemporada.xaml;UserControls\UC_SeleccionEquipo.xaml;Vistas\frmVerDetallesEquipo.xaml;
+MainWindow.xaml;UserControls\UC_CrearManager.xaml;UserControls\UC_InformacionEquipo.xaml;UserControls\UC_InformacionPalmares.xaml;UserControls\UC_InformacionPlantilla.xaml;UserControls\UC_InicioTemporada.xaml;UserControls\UC_Menu_Home_MenuPrincipal.xaml;UserControls\UC_PantallaCarga.xaml;UserControls\UC_PantallaPrincipal.xaml;UserControls\UC_Portada.xaml;UserControls\UC_Pretemporada.xaml;UserControls\UC_ResumenPresentacion.xaml;UserControls\UC_RuedaPrensaPresentacion.xaml;UserControls\UC_SeleccionEquipo.xaml;Vistas\frmVerDetallesEquipo.xaml;
 
-False
+True
 

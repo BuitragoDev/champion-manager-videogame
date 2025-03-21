@@ -1,12 +1,405 @@
-﻿<UserControl x:Class="ChampionManager25.UserControls.UC_Pretemporada"
+﻿<UserControl x:Name="pretemporada" x:Class="ChampionManager25.UserControls.UC_Pretemporada"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ChampionManager25.UserControls"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d" Height="1080" Width="1920" Loaded="pretemporada_Loaded">
     <Grid>
-            
+        <!-- Imagen de Fondo del UserControl-->
+        <Grid.Background>
+            <ImageBrush ImageSource="/Recursos/img/backgroundPrincipal1920x1080.png" Stretch="UniformToFill" TileMode="None"/>
+        </Grid.Background>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="80"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="180"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="410"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+
+        <!-- BARRA SUPERIOR -->
+        <Border x:Name="borderBarraSuperior" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="#23282d">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Column="0" Grid.Row="0" Background="#23282d">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0" Background="WhiteSmoke">
+                            <Image x:Name="imgBotonAtras" Width="32" Height="32" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" 
+                                   Source="/Recursos/img/icons/flechaIzquierdaNegra64px_icon.png" Cursor="Hand" MouseLeftButtonDown="imgBotonAtras_MouseLeftButtonDown" />
+                        </Border>
+                    </Grid>
+                </Border>
+                <TextBlock x:Name="lblSeleccionEquipo" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Partidos de Pretemporada"
+                           Foreground="WhiteSmoke" FontSize="28" FontFamily="Cascadia Code SemiBold" />
+
+                <Button x:Name="btnAvanzar" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"
+                        Height="50" Width="280" Margin="0,0,20,0"
+                        FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnAvanzar_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <!-- Configuración inicial -->
+                            <Setter Property="Background" Value="#1d6a7d"/>
+                            <Setter Property="Foreground" Value="WhiteSmoke"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <!-- Texto del botón -->
+                                                <TextBlock Text="EMPEZAR TEMPORADA" 
+                                                           Foreground="{TemplateBinding Foreground}" 
+                                                           VerticalAlignment="Center" 
+                                                           Margin="0,0,5,0"/>
+                                                <!-- Imagen de la flecha -->
+                                                <Image Source="/Recursos/img/icons/flechaDerechaBlanca64px_icon.png" Height="18" Width="18" VerticalAlignment="Center" Stretch="Uniform"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+
+                            <!-- Configuración al pasar el ratón -->
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </Grid>
+        </Border>
+
+        <!-- Selección de la competición -->
+        <Border Grid.Column="1" Grid.Row="2" Background="WhiteSmoke" BorderBrush="#23282d" BorderThickness="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="130"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" Background="#1d6a7d" Height="30">
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="SELECCIONA UNA COMPETICIÓN"
+                               Foreground="WhiteSmoke" FontSize="16" FontFamily="Cascadia Code SemiBold" />
+                </Border>
+
+                <Image x:Name="imgChampions" Grid.Column="2" Grid.Row="1" Stretch="Uniform" VerticalAlignment="Center" 
+                       HorizontalAlignment="Center" Source="/Recursos/img/logos_competiciones/1.png" Cursor="Hand" Margin="0,10,0,0" MouseLeftButtonDown="imgChampions_MouseLeftButtonDown" />
+
+            </Grid>
+        </Border>
+
+        <!-- Listado de Equipos -->
+        <Border Grid.Column="1" Grid.Row="4" Background="WhiteSmoke" BorderBrush="#23282d" BorderThickness="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Column="0" Grid.Row="0" Background="#1d6a7d" Height="30">
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="SELECCIONA UN EQUIPO"
+                   Foreground="WhiteSmoke" FontSize="16" FontFamily="Cascadia Code SemiBold" />
+                </Border>
+
+                <WrapPanel Name="wrapPanelEquipos" Grid.Row="1" Height="350" Width="1720" HorizontalAlignment="Center" 
+                           VerticalAlignment="Center" ItemWidth="80" ItemHeight="80" />
+            </Grid>
+
+        </Border>
+
+        <!-- Zona Partidos -->
+        <Border Grid.Column="1" Grid.Row="6" Background="WhiteSmoke" BorderBrush="#23282d" BorderThickness="1">
+            <DockPanel x:Name="panelPartidos" Grid.Row="2" Height="350" Margin="20,10,20,10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Fila nombre de mi Equipo -->
+                    <Border Grid.Row="0" Grid.ColumnSpan="7" BorderBrush="#23282d" BorderThickness="1" Background="LightGray">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <!-- Columna para la imagen -->
+                                <ColumnDefinition Width="*"/>
+                                <!-- Columna para el texto -->
+                            </Grid.ColumnDefinitions>
+
+                            <Image x:Name="imgLogoMiEquipo" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" 
+                                       Height="32" Width="32" Margin="20,0,0,0" />
+                            <TextBlock x:Name="lblNombreMiEquipo" Grid.Column="1" Text="NombreDelEquipo" VerticalAlignment="Center" 
+                                           HorizontalAlignment="Left" Margin="20,0,0,0" FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                        </Grid>
+                    </Border>
+                    <!-- Fila de los nombres de cabeceras -->
+                    <Border Grid.Row="1" Grid.ColumnSpan="7" BorderBrush="#23282d" BorderThickness="1" Background="#9b8b5a" >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Column="0" Grid.Row="0" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                    FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <TextBlock Grid.Column="1" Grid.Row="0" Text="PARTIDO" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <TextBlock Grid.Column="2" Grid.Row="0" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <TextBlock Grid.Column="3" Grid.Row="0" Text="RIVAL" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <TextBlock Grid.Column="4" Grid.Row="0" Text="ESTADIO" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <TextBlock Grid.Column="5" Grid.Row="0" Text="FECHA" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <TextBlock Grid.Column="6" Grid.Row="0" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Fila del Partido 1 -->
+                    <Border x:Name="fila1" Grid.Row="2" Grid.ColumnSpan="7" BorderBrush="#23282d" BorderThickness="1" Background="WhiteSmoke" >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock x:Name="txtPartido1" Grid.Column="0" Grid.Row="0" Text="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                       FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <TextBlock x:Name="txtTipo1" Grid.Column="1" Grid.Row="0" Text="" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                       FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <Image x:Name="imgLogo1" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Width="32" />
+                            <TextBlock x:Name="txtRival1" Grid.Column="3" Grid.Row="0" Text="" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                       FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <TextBlock x:Name="txtCancha1" Grid.Column="4" Grid.Row="0" Text="" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                       FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <TextBlock x:Name="txtFecha1" Grid.Column="5" Grid.Row="0" Text="" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                       FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <Button x:Name="btnNoJugar1" Grid.Column="3" Grid.Row="0" Padding="5,5,5,5" Margin="42,10,42,10" FontFamily="Cascadia Code SemiBold"
+                                                    FontSize="14" Background="LightGray" Cursor="Hand" Click="btnNoJugar1_Click">NO JUGAR</Button>
+                            <Image x:Name="btnBorrar1" Grid.Column="6" Grid.Row="0" Margin="5,5,5,5" Source="/Recursos/img/icons/cerrar32px.png" 
+                                                   Width="32" Height="32" Stretch="Uniform" Cursor="Hand" 
+                                                   Visibility="Hidden" MouseLeftButtonDown="btnBorrar1_MouseLeftButtonDown"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Fila del Partido 2 -->
+                    <Border x:Name="fila2" Grid.Row="3" Grid.ColumnSpan="7" Visibility="Hidden" BorderBrush="#23282d" BorderThickness="1" Background="WhiteSmoke" >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock x:Name="txtPartido2" Grid.Column="0" Grid.Row="0" Text="2" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <TextBlock x:Name="txtTipo2" Grid.Column="1" Grid.Row="0" Text="" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <Image x:Name="imgLogo2" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Width="32" />
+                            <TextBlock x:Name="txtRival2" Grid.Column="3" Grid.Row="0" Text="" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <TextBlock x:Name="txtCancha2" Grid.Column="4" Grid.Row="0" Text="" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <TextBlock x:Name="txtFecha2" Grid.Column="5" Grid.Row="0" Text="" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <Button x:Name="btnNoJugar2" Grid.Column="3" Grid.Row="0" Padding="5,5,5,5" Margin="42,10,42,10" FontFamily="Cascadia Code SemiBold"
+                                        FontSize="14" Background="LightGray" Cursor="Hand"  Click="btnNoJugar2_Click">NO JUGAR</Button>
+                            <Image x:Name="btnBorrar2" Grid.Column="6" Grid.Row="0" Margin="5,5,5,5" Source="/Recursos/img/icons/cerrar32px.png" 
+                                       Width="32" Height="32" Stretch="Uniform" Cursor="Hand" 
+                                       Visibility="Hidden" MouseLeftButtonDown="btnBorrar2_MouseLeftButtonDown"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Fila del Partido 3 -->
+                    <Border x:Name="fila3" Grid.Row="4" Grid.ColumnSpan="7" Visibility="Hidden" BorderBrush="#23282d" BorderThickness="1" Background="WhiteSmoke" >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock x:Name="txtPartido3" Grid.Column="0" Grid.Row="0" Text="3" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <TextBlock x:Name="txtTipo3" Grid.Column="1" Grid.Row="0" Text="" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <Image x:Name="imgLogo3" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Width="32" />
+                            <TextBlock x:Name="txtRival3" Grid.Column="3" Grid.Row="0" Text="" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <TextBlock x:Name="txtCancha3" Grid.Column="4" Grid.Row="0" Text="" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <TextBlock x:Name="txtFecha3" Grid.Column="5" Grid.Row="0" Text="" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <Button x:Name="btnNoJugar3" Grid.Column="3" Grid.Row="0" Padding="5,5,5,5" Margin="42,10,42,10" FontFamily="Cascadia Code SemiBold"
+                                        FontSize="14" Background="LightGray" Cursor="Hand"  Click="btnNoJugar3_Click">NO JUGAR</Button>
+                            <Image x:Name="btnBorrar3" Grid.Column="6" Grid.Row="0" Margin="5,5,5,5" Source="/Recursos/img/icons/cerrar32px.png" 
+                                       Width="32" Height="32" Stretch="Uniform" Cursor="Hand" 
+                                       Visibility="Hidden" MouseLeftButtonDown="btnBorrar3_MouseLeftButtonDown"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Fila del Partido 4 -->
+                    <Border x:Name="fila4" Grid.Row="5" Grid.ColumnSpan="7" Visibility="Hidden" BorderBrush="#23282d" BorderThickness="1" Background="WhiteSmoke" >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock x:Name="txtPartido4" Grid.Column="0" Grid.Row="0" Text="4" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <TextBlock x:Name="txtTipo4" Grid.Column="1" Grid.Row="0" Text="" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <Image x:Name="imgLogo4" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Width="32" />
+                            <TextBlock x:Name="txtRival4" Grid.Column="3" Grid.Row="0" Text="" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <TextBlock x:Name="txtCancha4" Grid.Column="4" Grid.Row="0" Text="" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <TextBlock x:Name="txtFecha4" Grid.Column="5" Grid.Row="0" Text="" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <Button x:Name="btnNoJugar4" Grid.Column="3" Grid.Row="0" Padding="5,5,5,5" Margin="42,10,42,10" FontFamily="Cascadia Code SemiBold"
+                                        FontSize="14" Background="LightGray" Cursor="Hand"  Click="btnNoJugar4_Click">NO JUGAR</Button>
+                            <Image x:Name="btnBorrar4" Grid.Column="6" Grid.Row="0" Margin="5,5,5,5" Source="/Recursos/img/icons/cerrar32px.png" 
+                                       Width="32" Height="32" Stretch="Uniform" Cursor="Hand" 
+                                       Visibility="Hidden" MouseLeftButtonDown="btnBorrar4_MouseLeftButtonDown"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Fila del Partido 5 -->
+                    <Border x:Name="fila5" Grid.Row="6" Grid.ColumnSpan="7" Visibility="Hidden" BorderBrush="#23282d" BorderThickness="1" Background="WhiteSmoke" >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock x:Name="txtPartido5" Grid.Column="0" Grid.Row="0" Text="5" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <TextBlock x:Name="txtTipo5" Grid.Column="1" Grid.Row="0" Text="" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <Image x:Name="imgLogo5" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Width="32" />
+                            <TextBlock x:Name="txtRival5" Grid.Column="3" Grid.Row="0" Text="" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <TextBlock x:Name="txtCancha5" Grid.Column="4" Grid.Row="0" Text="" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <TextBlock x:Name="txtFecha5" Grid.Column="5" Grid.Row="0" Text="" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16"/>
+                            <Button x:Name="btnNoJugar5" Grid.Column="3" Grid.Row="0" Padding="5,5,5,5" Margin="42,10,42,10" FontFamily="Cascadia Code SemiBold"
+                                        FontSize="14" Background="LightGray" Cursor="Hand"  Click="btnNoJugar5_Click">NO JUGAR</Button>
+                            <Image x:Name="btnBorrar5" Grid.Column="6" Grid.Row="0" Margin="5,5,5,5" Source="/Recursos/img/icons/cerrar32px.png" 
+                                       Width="32" Height="32" Stretch="Uniform" Cursor="Hand" 
+                                       Visibility="Hidden" MouseLeftButtonDown="btnBorrar5_MouseLeftButtonDown"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </DockPanel>
+        </Border>
     </Grid>
 </UserControl>

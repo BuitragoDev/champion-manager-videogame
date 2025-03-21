@@ -14,13 +14,28 @@
     <Compile Update="UserControls\UC_InformacionPlantilla.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\UC_InicioTemporada.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Home_MenuPrincipal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\UC_PantallaCarga.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_PantallaPrincipal.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControls\UC_Portada.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControls\UC_Pretemporada.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_ResumenPresentacion.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_RuedaPrensaPresentacion.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControls\UC_SeleccionEquipo.xaml.cs">

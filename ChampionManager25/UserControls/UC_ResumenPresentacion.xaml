@@ -1,0 +1,211 @@
+﻿<UserControl x:Name="resumenRuedaPrensa" x:Class="ChampionManager25.UserControls.UC_ResumenPresentacion"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ChampionManager25.UserControls"
+             mc:Ignorable="d" Height="1080" Width="1920" Loaded="resumenRuedaPrensa_Loaded">
+    <Grid>
+        <!-- Imagen de Fondo del UserControl-->
+        <Grid.Background>
+            <ImageBrush ImageSource="/Recursos/img/backgroundPrincipal1920x1080.png" Stretch="UniformToFill" TileMode="None"/>
+        </Grid.Background>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="150"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="550"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- BARRA SUPERIOR -->
+        <Border x:Name="borderBarraSuperior" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="#23282d">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock x:Name="lblSeleccionEquipo" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                   Text="Rueda de Prensa de Presentación" Foreground="WhiteSmoke" FontSize="28" FontFamily="Cascadia Code SemiBold" />
+
+                <Button x:Name="btnAvanzar" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"
+                        Height="50" Width="280" Margin="0,0,20,0" FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnAvanzar_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <!-- Configuración inicial -->
+                            <Setter Property="Background" Value="#1d6a7d"/>
+                            <Setter Property="Foreground" Value="WhiteSmoke"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <!-- Texto del botón -->
+                                                <TextBlock Text="CONTINUAR" 
+                                                           Foreground="{TemplateBinding Foreground}" 
+                                                           VerticalAlignment="Center" 
+                                                           Margin="0,0,5,0"/>
+                                                <!-- Imagen de la flecha -->
+                                                <Image x:Name="imgLoading" Source="/Recursos/img/icons/flechaDerechaBlanca64px_icon.png" Height="18" Width="18" VerticalAlignment="Center" Stretch="Uniform"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+
+                            <!-- Configuración al pasar el ratón -->
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </Grid>
+        </Border>
+
+        <!-- Imagen de la mesa con micrófonos -->
+        <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3">
+            <Grid>
+                <!-- Imagen de Fondo del UserControl-->
+                <Grid.Background>
+                    <ImageBrush ImageSource="/Recursos/img/microfonos_ruedaPrensa.png" Stretch="UniformToFill" TileMode="None"/>
+                </Grid.Background>
+            </Grid>
+        </Border>
+
+        <!-- BARRA TITULO -->
+        <Border Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Background="#23282d">
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" 
+                       Text="RESUMEN DE LA RUEDA DE PRENSA" Foreground="WhiteSmoke" FontSize="24" FontFamily="Cascadia Code SemiBold" />
+        </Border>
+
+        <!-- BARRA REACCIONES -->
+        <Border Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Background="WhiteSmoke">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="350"/>
+                    <ColumnDefinition Width="350"/>
+                    <ColumnDefinition Width="350"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Título Reacciones -->
+                <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Background="#1d6a7d">
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" 
+                               Text="REACCIONES" Foreground="WhiteSmoke" FontSize="18" FontFamily="Cascadia Code SemiBold" />
+                </Border>
+
+                <!-- Confianza Directiva -->
+                <Border Grid.Column="0" Grid.Row="1" Background="LightGray" Margin="10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" 
+                                   TextAlignment="Center" Text="CONFIANZA DE LA DIRECTIVA" Foreground="#23282d" FontSize="18" 
+                                   FontFamily="Cascadia Code SemiBold" Width="192" />
+                        <Ellipse x:Name="elipseDirectiva" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" Height="115" Stroke="Black" 
+                                 VerticalAlignment="Center" Width="115" StrokeThickness="10"/>
+                        <TextBlock x:Name="lblPuntosDirectiva" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" TextWrapping="Wrap" 
+                                   VerticalAlignment="Center" TextAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="40" Height="51" 
+                                   Text="00" Width="69"/>
+                    </Grid>
+                </Border>
+
+                <!-- Confianza Fans -->
+                <Border Grid.Column="1" Grid.Row="1" Background="LightGray" Margin="10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" 
+                                   TextAlignment="Center" Text="CONFIANZA DE LOS FANS" Foreground="#23282d" FontSize="18" 
+                                   FontFamily="Cascadia Code SemiBold" Width="192" />
+                        <Ellipse x:Name="elipseFans" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" Height="115" Stroke="Black" 
+                                 VerticalAlignment="Center" Width="115" StrokeThickness="10"/>
+                        <TextBlock x:Name="lblPuntosFans" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" TextWrapping="Wrap" 
+                                   VerticalAlignment="Center" TextAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="40" Height="51" 
+                                   Text="00" Width="69"/>
+                    </Grid>
+                </Border>
+
+                <!-- Confianza Jugadores -->
+                <Border Grid.Column="2" Grid.Row="1" Background="LightGray" Margin="10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" 
+                                   TextAlignment="Center" Text="CONFIANZA DE LOS JUGADORES" Foreground="#23282d" FontSize="18" 
+                                   FontFamily="Cascadia Code SemiBold" Width="192" />
+                        <Ellipse x:Name="elipseJugadores" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" Height="115" Stroke="Black" 
+                                 VerticalAlignment="Center" Width="115" StrokeThickness="10"/>
+                        <TextBlock x:Name="lblPuntosJugadores" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" TextWrapping="Wrap" 
+                                   VerticalAlignment="Center" TextAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="40" Height="51" 
+                                   Text="00" Width="69"/>
+                    </Grid>
+                </Border>
+
+                <!-- Zona de las Frases -->
+                <Border Grid.Column="3" Grid.Row="1" Background="LightGray" Margin="10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock x:Name="lblFrase1" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" FontSize="16" Height="70" Width="722" Text="Frase de la Directiva" Margin="50,0,0,0"/>
+
+                        <TextBlock x:Name="lblFrase2" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" FontSize="16" Height="70" Width="722" Text="Frase de los Fans" Margin="50,0,0,0"/>
+
+                        <TextBlock x:Name="lblFrase3" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" FontSize="16" Height="70" Width="722" Text="Frase de los Jugadores" Margin="50,0,0,0"/>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

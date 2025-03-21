@@ -6,18 +6,29 @@ using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using ChampionManager25.Entidades;
+using ChampionManager25.Datos;
 
 namespace ChampionManager25.MisMetodos
 {
     public class Metodos
     {
+        // Instancia de FechaDatos
+        private FechaDatos datos = new FechaDatos();
+
+        #region "Variables GLOBALES"
+        public static int temporadaActual;
+        public static DateTime hoy;
+
+        #endregion
+
         #region "Variables"
         private static MediaPlayer? mediaPlayer; // Variable estática para mantener una única instancia del MediaPlayer
         #endregion
 
         public Metodos()
         {
-            
+            InicializarTemporadaActual();
         }
 
         #region "Métodos"
@@ -101,6 +112,23 @@ namespace ChampionManager25.MisMetodos
             {
                 // Manejo de excepciones en caso de que no se pueda reproducir el sonido
                 System.Diagnostics.Debug.WriteLine("Error al reproducir el sonido: " + ex.Message);
+            }
+        }
+        // --------------------------------------------------------------------------------------------------------------
+
+        // --------------------------------------------------------------------- MÉTODO PARA INICIALIZAR TEMPORADA ACTUAL
+        public void InicializarTemporadaActual()
+        {
+            Fecha fechaHoy = datos.ObtenerFechaHoy();
+            if (fechaHoy != null)
+            {
+                temporadaActual = fechaHoy.Anio; // Asignar el valor del año
+                hoy = DateTime.Parse(fechaHoy.Hoy);
+            }
+            else
+            {
+                temporadaActual = 2024;
+                hoy = DateTime.Parse("2024-07-15");
             }
         }
         // --------------------------------------------------------------------------------------------------------------

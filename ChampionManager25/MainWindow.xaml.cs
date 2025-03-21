@@ -70,27 +70,54 @@ public partial class MainWindow : Window
     }
     // --------------------------------------------------------------------------------------
 
-    // ----------------------------------------- METODO PARA CARGAR EL USERCONTROL UC_CrearManager
+    // ------------------------------------ METODO PARA CARGAR EL USERCONTROL UC_CrearManager
     public void CargarCrearManager()
     {
-        // Cambiar el contenido de MainContent a UC_CrearManager
         MainContent.Content = new UC_CrearManager();
     }
     // --------------------------------------------------------------------------------------
 
-    // ----------------------------------------- METODO PARA CARGAR EL USERCONTROL UC_SeleccionEquipo
+    // --------------------------------- METODO PARA CARGAR EL USERCONTROL UC_SeleccionEquipo
     public void CargarSeleccionEquipo(Manager manager)
     {
-        // Cambiar el contenido de MainContent a UC_SeleccionEquipo con el manager pasado
         MainContent.Content = new UC_SeleccionEquipo(manager);
     }
     // --------------------------------------------------------------------------------------
 
-    // ----------------------------------------- METODO PARA CARGAR EL USERCONTROL UC_Pretemporada
+    // ------------------------------------ METODO PARA CARGAR EL USERCONTROL UC_Pretemporada
     public void CargarPretemporada(Manager manager, int equipo)
     {
-        // Cambiar el contenido de MainContent a UC_Pretemporada con el manager pasado
         MainContent.Content = new UC_Pretemporada(manager, equipo);
     }
     // --------------------------------------------------------------------------------------
+
+    // --------------------------------- METODO PARA CARGAR EL USERCONTROL UC_InicioTemporada
+    public void CargarInicioTemporada(Manager manager, int equipo, List<int> ids)
+    {
+        MainContent.Content = new UC_InicioTemporada(manager, equipo, ids);
+    }
+    // --------------------------------------------------------------------------------------
+
+    // ------------------------- METODO PARA CARGAR EL USERCONTROL UC_RuedaPrensaPresentacion 
+    public void CargarPresentacion(Manager manager, int equipo, List<int> ids)
+    {
+        MainContent.Content = new UC_RuedaPrensaPresentacion(manager, equipo, ids);
+    }
+    // ---------------------------------------------------------------------------------------
+
+    // ----------------------------------- METODO PARA CARGAR EL USERCONTROL UC_ResumenPresentacion
+    public void CargarResumenPresentacion(Manager manager, int equipo, int directiva, int fans, int jugadores)
+    {
+        // Cambiar el contenido de MainContent a UC_RuedaPrensaPresentacion
+        MainContent.Content = new UC_ResumenPresentacion(manager, equipo, directiva, fans, jugadores);
+    }
+    // --------------------------------------------------------------------------------------------------------------------------
+
+    // -------------------------------- METODO PARA CARGAR EL USERCONTROL UC_PantallaPrincipal
+    public void CargarPantallaPrincipal(Manager manager, int equipo)
+    {
+        MainContent.Content = null;
+        MainContent.Content = new UC_PantallaPrincipal(manager, equipo);
+    }
+    // ---------------------------------------------------------------------------------------
 }

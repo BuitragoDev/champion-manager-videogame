@@ -1,5 +1,4 @@
-﻿using ChampionManager25.Entidades;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ChampionManager25.Entidades;
+using ChampionManager25.Logica;
 
 namespace ChampionManager25.UserControls
 {
@@ -23,12 +24,17 @@ namespace ChampionManager25.UserControls
         #endregion
 
         // Instancias de la LOGICA
-
+        PalmaresLogica _logicaPalmares = new PalmaresLogica();
 
         public UC_InformacionPalmares(Equipo eqp)
         {
             InitializeComponent();
             this.equipo = eqp;
+        }
+
+        private void informacionPalmares_Loaded(object sender, RoutedEventArgs e)
+        {
+            lblChampionsLeague.Text = _logicaPalmares.numTitulosEquipoCompeticion(equipo.IdEquipo, 1).ToString();
         }
     }
 }

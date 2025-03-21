@@ -1,0 +1,192 @@
+﻿<UserControl x:Name="pantallaPrincipal" x:Class="ChampionManager25.UserControls.UC_PantallaPrincipal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ChampionManager25.UserControls"
+             mc:Ignorable="d" Height="1080" Width="1920" Loaded="pantallaPrincipal_Loaded" Unloaded="pantallaPrincipal_Unloaded">
+    <Grid>
+        <!-- Imagen de Fondo del UserControl-->
+        <Grid.Background>
+            <ImageBrush ImageSource="pack://application:,,,/Recursos/img/backgroundPrincipal1920x1080.png" Stretch="UniformToFill" TileMode="None"/>
+        </Grid.Background>
+
+        <!-- DOCK PANEL SUPERIOR -->
+        <DockPanel x:Name="DockPanel_Superior" LastChildFill="False" Height="100" VerticalAlignment="Top">
+            <Grid>
+                <Grid.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/Recursos/img/fondoDockPanelSuperior.png" Stretch="UniformToFill" TileMode="None"/>
+                </Grid.Background>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="510"/>
+                    <ColumnDefinition Width="560"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="400"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- LOGO DEL EQUIPO -->
+                <!-- Fondo blanco para la segunda columna -->
+                <Border Grid.Column="0" Background="WhiteSmoke"/>
+                <Image x:Name="imgLogoEquipo" Grid.Row="0" Grid.Column="0" Height="80" Width="80" Stretch="Uniform"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand"/>
+
+                <!-- EQUIPO Y PRESUPUESTO -->
+                <TextBlock x:Name="lblEquipo" Grid.Column="1" HorizontalAlignment="Left" Text="Equipo" VerticalAlignment="Top" FontFamily="Cascadia Code Light" FontSize="16" Foreground="WhiteSmoke" Margin="57,21,0,0"/>
+                <TextBlock x:Name="lblManager1" Grid.Column="1" HorizontalAlignment="Left" Text="Mánager" VerticalAlignment="Top" FontFamily="Cascadia Code Light" FontSize="16" Foreground="WhiteSmoke" Margin="57,55,0,0"/>
+                <TextBlock x:Name="txtEquipo" Grid.Column="1" HorizontalAlignment="Left" Text="Equipo" VerticalAlignment="Top" FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" Margin="207,21,0,0" FontWeight="Bold"/>
+                <TextBlock x:Name="txtManager" Grid.Column="1" HorizontalAlignment="Left" Text="NombreManager" VerticalAlignment="Top" FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" Margin="207,54,0,0" FontWeight="Bold"/>
+
+                <!-- ENTRENADOR -->
+                <TextBlock x:Name="lblReputacion" Grid.Column="2" HorizontalAlignment="Left" Text="Reputación" VerticalAlignment="Top" FontFamily="Cascadia Code Light" FontSize="16" Foreground="WhiteSmoke" Margin="91,22,0,0" Width="202"/>
+                <Canvas x:Name="canvasEstrellas" Grid.Column="2" Margin="91,46,90,14"/>
+
+                <!-- BOTON AJUSTES -->
+                <Image x:Name="imgAjustes" Grid.Row="0" Grid.Column="3"  Height="32" Width="32"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Source="/Recursos/img/icons/ajustesBlanco.png" MouseLeftButtonDown="imgAjustes_MouseLeftButtonDown"/>
+
+                <!-- FECHA -->
+                <TextBlock x:Name="txtFechaActual" Grid.Column="4" HorizontalAlignment="Center" Text="Fecha de hoy" VerticalAlignment="Top" FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" Margin="0,24,0,0" FontWeight="Bold" Width="180" TextAlignment="Center"/>
+                <TextBlock x:Name="txtDiaSemana" Grid.Column="4" HorizontalAlignment="Center" Text="Dia semana" VerticalAlignment="Top" FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" FontWeight="Bold" Width="180" TextAlignment="Center" Margin="0,55,0,0"/>
+
+                <!-- BOTON CONTINUAR -->
+                <Button x:Name="btnAvanzar" Grid.Column="5" VerticalAlignment="Center" HorizontalAlignment="Left"
+                        Height="50" Width="345" Margin="35,0,0,0"
+                        FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <!-- Configuración inicial -->
+                            <Setter Property="Background" Value="WhiteSmoke"/>
+                            <Setter Property="Foreground" Value="#FF23282D"/>
+                            <Setter Property="BorderBrush" Value="#FF23282D"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                            <Border.Effect>
+                                                <DropShadowEffect Color="Black" Opacity="0.8" BlurRadius="10" ShadowDepth="5"/>
+                                            </Border.Effect>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <!-- Texto del botón -->
+                                                <TextBlock Text="CONTINUAR" 
+                                                           Foreground="{TemplateBinding Foreground}" 
+                                                           VerticalAlignment="Center" 
+                                                           Margin="0,0,5,0"/>
+                                                <!-- Imagen de la flecha -->
+                                                <Image Source="/Recursos/img/icons/flechaDerechaNegra64px_icon.png" Height="18" Width="18" VerticalAlignment="Center" Stretch="Uniform" Margin="10,0,0,0"/>
+                                                <Image Source="/Recursos/img/icons/flechaDerechaNegra64px_icon.png" Height="18" Width="18" VerticalAlignment="Center" Stretch="Uniform"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+
+                            <!-- Configuración al pasar el ratón -->
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </Grid>
+        </DockPanel>
+        <!-- DOCK PANEL MENU SUPERIOR -->
+        <DockPanel x:Name="DockPanel_MenuSuperior" LastChildFill="False" Height="50" 
+                   Background="#FF23282D" VerticalAlignment="Top" Margin="0,100,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Image x:Name="imgHome" Grid.Row="0" Grid.Column="0" Height="32" Width="32"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Source="/Recursos/img/icons/home_icon.png" MouseLeftButtonDown="imgHome_MouseLeftButtonDown"/>
+                <DockPanel x:Name="DockPanel_Submenu" Grid.Row="0" Grid.Column="1" LastChildFill="False" Height="50" Width="1845" 
+                           Background="#FF23282D" VerticalAlignment="Top" Visibility="Visible" />
+            </Grid>
+        </DockPanel>
+
+        <!-- DOCK PANEL MENU IZQUIERDO -->
+        <DockPanel x:Name="DockPanel_MenuIzquierdo" LastChildFill="False" Background="#FF23282D" HorizontalAlignment="Left" Margin="0,150,0,0" Width="75">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- ICONOS DEL MENU -->
+                <Image x:Name="imgClub" Grid.Row="0" Grid.Column="0" Height="48" Width="48"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Source="/Recursos/img/icons/club_icon.png" MouseLeftButtonDown="imgClub_MouseLeftButtonDown">
+                    <Image.ToolTip>
+                        <ToolTip Content="Equipo" />
+                    </Image.ToolTip>
+                </Image>
+                
+                <Image x:Name="imgEntrenador" Grid.Row="1" Grid.Column="0" Height="48" Width="48"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Source="/Recursos/img/icons/entrenador_icon.png" MouseLeftButtonDown="imgEntrenador_MouseLeftButtonDown">
+                    <Image.ToolTip>
+                        <ToolTip Content="Entrenador" />
+                    </Image.ToolTip>
+                </Image>
+                
+                <Image x:Name="imgCompeticiones" Grid.Row="2" Grid.Column="0" Height="48" Width="48"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Source="/Recursos/img/icons/competiciones_icon.png">
+                    <Image.ToolTip>
+                        <ToolTip Content="Competiciones" />
+                    </Image.ToolTip>
+                </Image>
+                
+                <Image x:Name="imgCalendario" Grid.Row="3" Grid.Column="0" Height="48" Width="48"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Source="/Recursos/img/icons/calendario_icon.png" MouseLeftButtonDown="imgCalendario_MouseLeftButtonDown">
+                    <Image.ToolTip>
+                        <ToolTip Content="Calendario" />
+                    </Image.ToolTip>
+                </Image>
+
+                <Image x:Name="imgPabellon" Grid.Row="4" Grid.Column="0" Height="48" Width="48"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Source="/Recursos/img/icons/estadioBlanco_icon.png" MouseLeftButtonDown="imgPabellon_MouseLeftButtonDown">
+                    <Image.ToolTip>
+                        <ToolTip Content="Estadio" />
+                    </Image.ToolTip>
+                </Image>
+                
+                <Image x:Name="imgManager" Grid.Row="5" Grid.Column="0" Height="48" Width="48"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Source="/Recursos/img/icons/manager_icon.png" MouseLeftButtonDown="imgManager_MouseLeftButtonDown">
+                    <Image.ToolTip>
+                        <ToolTip Content="Mánager" />
+                    </Image.ToolTip>
+                </Image>
+                
+                <Image x:Name="imgCorreo" Grid.Row="6" Grid.Column="0" Height="48" Width="48"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Source="/Recursos/img/icons/correo_icon.png" MouseLeftButtonDown="imgCorreo_MouseLeftButtonDown">
+                    <Image.ToolTip>
+                        <ToolTip Content="Mensajes" />
+                    </Image.ToolTip>
+                </Image>
+            </Grid>
+        </DockPanel>
+
+        <DockPanel x:Name="DockPanel_Central" Background="WhiteSmoke" Width="1845" Height="930" VerticalAlignment="Top" LastChildFill="True" Margin="75,150,0,0"/>
+    </Grid>
+</UserControl>

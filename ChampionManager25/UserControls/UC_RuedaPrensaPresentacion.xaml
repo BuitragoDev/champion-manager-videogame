@@ -1,0 +1,199 @@
+﻿<UserControl x:Name="ruedaPrensa" x:Class="ChampionManager25.UserControls.UC_RuedaPrensaPresentacion"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ChampionManager25.UserControls"
+             mc:Ignorable="d" Height="1080" Width="1920" Loaded="ruedaPrensa_Loaded">
+    <Grid>
+        <!-- Imagen de Fondo del UserControl-->
+        <Grid.Background>
+            <ImageBrush ImageSource="/Recursos/img/backgroundPrincipal1920x1080.png" Stretch="UniformToFill" TileMode="None"/>
+        </Grid.Background>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="150"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- BARRA SUPERIOR -->
+        <Border x:Name="borderBarraSuperior" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="#23282d">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Column="0" Grid.Row="0" Background="#23282d">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0" Background="WhiteSmoke">
+                            <Image x:Name="imgBotonAtras" Width="32" Height="32" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" 
+                           Source="/Recursos/img/icons/flechaIzquierdaNegra64px_icon.png" Cursor="Hand" MouseLeftButtonDown="imgBotonAtras_MouseLeftButtonDown" />
+                        </Border>
+                    </Grid>
+                </Border>
+                <TextBlock x:Name="lblSeleccionEquipo" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                       Text="Rueda de Prensa de Presentación" Foreground="WhiteSmoke" FontSize="28" FontFamily="Cascadia Code SemiBold" />
+            </Grid>
+        </Border>
+
+        <!-- CONTENIDO CENTRAL -->
+        <Border x:Name="borderContenidoCentral" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3">
+            <Grid>
+                <!-- Imagen de Fondo del UserControl-->
+                <Grid.Background>
+                    <ImageBrush ImageSource="/Recursos/img/background_ruedaPrensa.png" Stretch="UniformToFill" TileMode="None"/>
+                </Grid.Background>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Canvas x:Name="canvasSlider" Margin="345,22,52,927" Height="51">
+                    <Label x:Name="lblSlider" Content="Slider en movimiento" HorizontalAlignment="Center" VerticalAlignment="Top"  
+                               FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="White" Width="1503" Canvas.Left="10" Canvas.Top="8">
+                        <Label.Clip>
+                            <!-- Definimos un recorte en forma de rectángulo para ocultar la parte del texto que se desplaza fuera del Canvas -->
+                            <RectangleGeometry Rect="0,0,1150,51"/>
+                        </Label.Clip>
+                    </Label>
+                </Canvas>
+
+                <Image x:Name="imgLogo1" HorizontalAlignment="Left" Height="64" Width="64" Margin="141,280,0,0" VerticalAlignment="Top" />
+                <Image x:Name="imgLogo2" HorizontalAlignment="Left" Height="64" Width="64" Margin="450,146,0,0" VerticalAlignment="Top" />
+                <Image x:Name="imgLogo3" HorizontalAlignment="Left" Height="64" Width="64" Margin="759,279,0,0" VerticalAlignment="Top" />
+                <Label Content="HOY" HorizontalAlignment="Left" Margin="156,470,0,0" VerticalAlignment="Top" 
+                       FontFamily="Cascadia Code SemiBold" FontSize="30" Foreground="White" Height="40"/>
+
+                <Label x:Name="lblTitulo1" Content="NombreEntrenador" HorizontalAlignment="Left" Margin="344,386,0,0" VerticalAlignment="Top" 
+                       FontFamily="Cascadia Code SemiBold" FontSize="30" Foreground="#FF373434" Height="40" Width="639"/>
+                <Label x:Name="lblTitulo2" Content="Nuevo entrenador..." HorizontalAlignment="Left" Margin="345,431,0,0" VerticalAlignment="Top" 
+                       FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="#FF525050" Height="40" Width="639"/>
+                <Label x:Name="lblTitulo3" Content="EN DIRECTO DESDE..." HorizontalAlignment="Left" Margin="345,475,0,0" VerticalAlignment="Top" 
+                       FontFamily="Cascadia Code SemiBold" FontSize="24" Foreground="White" Height="40" Width="660"/>
+
+                <Image x:Name="imgLogo4" HorizontalAlignment="Left" Height="200" Width="200" Margin="205,586,0,0" VerticalAlignment="Top" />
+                <TextBlock x:Name="lblPresidente" TextAlignment="Center" HorizontalAlignment="Left" Margin="62,833,0,0" TextWrapping="Wrap" 
+                           Text="Presidente" VerticalAlignment="Top" FontFamily="Cascadia Code SemiBold" FontSize="24" Width="506" Foreground="WhiteSmoke"/>
+                <TextBlock x:Name="lblEquipo" TextAlignment="Center" HorizontalAlignment="Left" Margin="62,901,0,0" TextWrapping="Wrap" 
+                           Text="Equipo" VerticalAlignment="Top" FontFamily="Cascadia Code SemiBold" FontSize="24" Width="506"/>
+
+                <Button x:Name="btnEmpezarRueda" Grid.Row="0" HorizontalAlignment="Left" Margin="675,898,0,0" VerticalAlignment="Top"
+                        Height="50" Width="456"
+                        FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnEmpezarRueda_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <!-- Configuración inicial -->
+                            <Setter Property="Background" Value="#1d6a7d"/>
+                            <Setter Property="Foreground" Value="WhiteSmoke"/>
+                            <Setter Property="BorderBrush" Value="Black"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <!-- Texto del botón -->
+                                                <TextBlock Text="EMPEZAR RUEDA DE PRENSA" 
+                                                           Foreground="{TemplateBinding Foreground}" 
+                                                           VerticalAlignment="Center" 
+                                                           Margin="0,0,5,0"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+
+                            <!-- Configuración al pasar el ratón -->
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
+                <Button x:Name="btnDeclinarRueda" Grid.Row="0" HorizontalAlignment="Left" Margin="1331,898,0,0" VerticalAlignment="Top"
+                    Height="50" Width="456"
+                    FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnDeclinarRueda_Click">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <!-- Configuración inicial -->
+                            <Setter Property="Background" Value="#7c2219"/>
+                            <Setter Property="Foreground" Value="WhiteSmoke"/>
+                            <Setter Property="BorderBrush" Value="Black"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <TextBlock Text="DECLINAR RUEDA DE PRENSA" 
+                                                    Foreground="{TemplateBinding Foreground}" 
+                                                    VerticalAlignment="Center" 
+                                                    Margin="0,0,5,0"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+
+                            <!-- Configuración al pasar el ratón -->
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
+                <TextBlock x:Name="lblPregunta" TextAlignment="Center" HorizontalAlignment="Left" Margin="618,630,0,0" TextWrapping="Wrap" 
+                               Text="Pregunta" VerticalAlignment="Top" FontFamily="Cascadia Code SemiBold" FontSize="16" Width="1223" Height="87" 
+                               LineHeight="24" />
+
+                <StackPanel x:Name="respuestasPanel" Orientation="Vertical" Margin="618,737,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                            Visibility="Hidden" Width="1223" Height="124">
+                    <RadioButton x:Name="rbRespuesta1" Content="Respuesta 1" Margin="0,5,0,0"
+                                     FontFamily="Cascadia Code Light" FontSize="16" Click="rbRespuesta1_Click" Cursor="Hand" />
+                    <RadioButton x:Name="rbRespuesta2" Content="Respuesta 2" Margin="0,25,0,0"
+                                     FontFamily="Cascadia Code Light" FontSize="16" Click="rbRespuesta2_Click" Cursor="Hand" />
+                    <RadioButton x:Name="rbRespuesta3" Content="Respuesta 3" Margin="0,25,0,0"
+                                     FontFamily="Cascadia Code Light" FontSize="16" Click="rbRespuesta3_Click" Cursor="Hand" />
+                </StackPanel>
+
+                <TextBlock x:Name="lblEntrevistador" TextAlignment="Center" HorizontalAlignment="Left" Margin="802,596,0,0" 
+                               TextWrapping="Wrap" Text="Entrevistador" VerticalAlignment="Top" FontFamily="Cascadia Code SemiBold" 
+                               FontSize="18" Width="856" Foreground="DarkRed" Visibility="Hidden"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

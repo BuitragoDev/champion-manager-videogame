@@ -1,0 +1,673 @@
+﻿<UserControl x:Name="homeMenuPrincipal" x:Class="ChampionManager25.UserControls.UC_Menu_Home_MenuPrincipal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ChampionManager25.UserControls"
+             mc:Ignorable="d" d:DesignHeight="935" d:DesignWidth="1845" Loaded="homeMenuPrincipal_Loaded">
+    <Grid Background="WhiteSmoke">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1845"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="160"/>
+            <RowDefinition Height="775"/>
+        </Grid.RowDefinitions>
+
+        <!-- Área superior -->
+        <DockPanel Grid.Column="0" Grid.Row="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Dock Panel Partido Anterior -->
+                <DockPanel Grid.Column="0" Grid.Row="0">
+                    <Border Background="WhiteSmoke"
+                            BorderThickness="2"
+                            BorderBrush="#1d6a7d"
+                            Margin="5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="120"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="32"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="#1d6a7d" BorderThickness="0" BorderBrush="#1d6a7d"/>
+                            <Image x:Name="imgLocalVisitanteUltimoPartido" Grid.Row="0" Grid.Column="0" Height="32" Width="32" HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center" />
+                            <TextBlock x:Name="txtUltimoPartido" Grid.Row="0" Grid.Column="1" Text="Último Partido" HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" 
+                                       FontWeight="Bold" Width="auto" TextAlignment="Center" />
+                            <Image x:Name="imgEscudoLocal" Grid.Row="1" Grid.Column="0" Height="48" Width="48" HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center" Stretch="Uniform" />
+                            <Image x:Name="imgEscudoVisitante" Grid.Row="2" Grid.Column="0" Height="48" Width="48" HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center" Stretch="Uniform" />
+                            <TextBlock x:Name="txtUltimoPartidoLocal" Grid.Row="1" Grid.Column="1" Text="" HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" 
+                                       FontWeight="Bold" Width="auto" TextAlignment="Center" />
+                            <TextBlock x:Name="txtUltimoPartidoVisitante" Grid.Row="2" Grid.Column="1" Text="" HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" 
+                                       FontWeight="Bold" Width="auto" TextAlignment="Center" />
+
+                            <Border Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" Background="DarkGray" BorderThickness="0" BorderBrush="DarkGray"/>
+                            <TextBlock x:Name="txtPuntosLocal" Grid.Row="1" Grid.Column="2" Text="" HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="32" Foreground="Black" 
+                                       FontWeight="Bold" Width="auto" TextAlignment="Center" />
+                            <TextBlock x:Name="txtPuntosVisitante" Grid.Row="2" Grid.Column="2" Text="" HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="32" Foreground="Black" 
+                                       FontWeight="Bold" Width="auto" TextAlignment="Center" />
+
+                        </Grid>
+                    </Border>
+                </DockPanel>
+
+                <!-- Dock Panel Próximo Partido -->
+                <DockPanel Grid.Column="1" Grid.Row="0" Margin="0,0,10,0" Width="1222">
+                    <Border Background="WhiteSmoke"
+                            BorderThickness="2"
+                            BorderBrush="#1d6a7d"
+                            Margin="5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="90"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="32"/>
+                                <RowDefinition Height="86"/>
+                                <RowDefinition Height="32"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="#1d6a7d" BorderThickness="0" BorderBrush="#1d6a7d"/>
+
+                            <Image x:Name="imgLocalVisitante" Grid.Row="0" Grid.Column="0" Height="32" Width="32" HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center" />
+
+                            <Image x:Name="imgLogoLocal" Grid.Row="1" Grid.Column="0" Height="80" Width="80"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" />
+                            <Image x:Name="imgLogoVisitante" Grid.Row="1" Grid.Column="2" Height="80" Width="80"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" />
+                            <TextBlock x:Name="txtNombreEquipos" Grid.Row="1" Grid.Column="1" Text="Próximo Partido" HorizontalAlignment="Center" 
+                                       VerticalAlignment="Top" FontFamily="Cascadia Code SemiBold" FontSize="24" Foreground="Black" 
+                                       FontWeight="Bold" Width="auto" TextAlignment="Center" Margin="0,15,0,0" />
+                            <TextBlock x:Name="txtCancha" Grid.Row="1" Grid.Column="1" Text="Cancha" HorizontalAlignment="Center" 
+                                       VerticalAlignment="Bottom" FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="#3c3c3c" 
+                                       FontWeight="Bold" Width="auto" TextAlignment="Center" Margin="0,0,-15,15" />
+                            <TextBlock x:Name="txtProximoPartido" Grid.Row="0" Grid.Column="1" Text="Próximo Partido" HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" 
+                                       FontWeight="Bold" Width="auto" TextAlignment="Center" />
+
+                            <Border Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Background="#1d6a7d" BorderThickness="0" BorderBrush="#1d6a7d"/>
+                            <TextBlock x:Name="txtFechaProximoPartido" Grid.Row="2" Grid.Column="1" Text="Fecha" HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" 
+                                       FontWeight="Bold" Width="auto" TextAlignment="Center" />
+                        </Grid>
+
+                    </Border>
+                </DockPanel>
+            </Grid>
+        </DockPanel>
+
+        <!-- Área inferior -->
+        <DockPanel Grid.Column="0" Grid.Row="1">
+            <Grid Width="1830">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Clasificacion -->
+                <Border Background="WhiteSmoke"
+                        BorderThickness="2"
+                        BorderBrush="#1d6a7d"
+                        Margin="5,5,5,0"
+                        Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Height="760" VerticalAlignment="Top">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <DockPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="42"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="5" Background="#1d6a7d" BorderThickness="0" BorderBrush="DarkOrange"/>
+                                <TextBlock x:Name="txtClasificacion" Grid.Row="0" Grid.Column="0" Text="CLASIFICACIÓN" HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" 
+                                           FontWeight="Bold" Width="auto" TextAlignment="Center" />
+
+                                <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Background="WhiteSmoke" BorderThickness="0" Margin="5">
+                                    <DockPanel>
+                                        <DataGrid x:Name="dgClasificacion" IsReadOnly="True" HeadersVisibility="None" GridLinesVisibility="None" 
+                                                  FontFamily="Cascadia Code Light" FontSize="16" DockPanel.Dock="Top" Height="692" />
+                                    </DockPanel>
+                                </Border>
+                            </Grid>
+                        </DockPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Estadísticas de los Jugadores -->
+                <Border Background="WhiteSmoke"
+                        BorderThickness="2"
+                        BorderBrush="#1d6a7d"
+                        Margin="5,5,5,10"
+                        Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <DockPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="42"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="5" Background="#1d6a7d" BorderThickness="0" BorderBrush="DarkOrange"/>
+                                <TextBlock x:Name="txtEstadisticasJugadores" Grid.Row="0" Grid.Column="0" Text="ESTADÍSTICAS DE LOS JUGADORES" HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" 
+                                           FontWeight="Bold" Width="auto" TextAlignment="Center" />
+
+                                <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Background="WhiteSmoke" BorderThickness="0" Margin="5">
+                                    <DockPanel>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+
+                                            <Border Grid.Column="0" Grid.Row="0" Background="LightGray" BorderThickness="0" Margin="2">
+                                                <DockPanel>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="100"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="110"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*"/>
+                                                        </Grid.RowDefinitions>
+                                                        <Image x:Name="imgFotoGoles" Height="80" Width="80" Stretch="Uniform"
+                                                               HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                        <TextBlock x:Name="txtGoles" Grid.Row="0" Grid.Column="1" Text="GOLES" 
+                                                                   HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" 
+                                                                   Width="auto" TextAlignment="Left" Margin="10,-50,0,0" />
+                                                        <TextBlock x:Name="txtNombreJugadorGoles" Grid.Row="0" Grid.Column="1" Text="Nombre Jugador" 
+                                                                   HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Code SemiBold" FontSize="22" Foreground="Black" 
+                                                                   Width="auto" TextAlignment="Left" Margin="10,0,0,0" />
+                                                        <TextBlock x:Name="txtGolesPJ" Grid.Row="0" Grid.Column="1" Text="Partidos jugados:" 
+                                                                   HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Mono ExtraLight" FontSize="14" Foreground="Black" 
+                                                                   Width="auto" TextAlignment="Left" Margin="10,50,0,0" FontStyle="Italic" />
+                                                        <TextBlock x:Name="txtGolesValor" Grid.Row="0" Grid.Column="2" Text="0" 
+                                                                   HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Code SemiBold" FontSize="32" Foreground="Black" 
+                                                                   Width="auto" TextAlignment="Center" />
+                                                    </Grid>
+                                                </DockPanel>
+                                            </Border>
+
+                                            <Border Grid.Column="0" Grid.Row="1" Background="LightGray" BorderThickness="0" Margin="2">
+                                                <DockPanel>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="100"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="110"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*"/>
+                                                        </Grid.RowDefinitions>
+                                                        <Image x:Name="imgFotoAsistencias" Height="80" Width="80" Stretch="Uniform"
+                                                               HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                        <TextBlock x:Name="txtAsistencias" Grid.Row="0" Grid.Column="1" Text="ASISTENCIAS" 
+                                                                   HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" 
+                                                                   Width="auto" TextAlignment="Left" Margin="10,-50,0,0" />
+                                                        <TextBlock x:Name="txtNombreJugadorAsistencias" Grid.Row="0" Grid.Column="1" Text="Nombre Jugador" 
+                                                                   HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Code SemiBold" FontSize="22" Foreground="Black" 
+                                                                   Width="auto" TextAlignment="Left" Margin="10,0,0,0" />
+                                                        <TextBlock x:Name="txtAsistenciasPJ" Grid.Row="0" Grid.Column="1" Text="Partidos jugados:" 
+                                                                   HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Mono ExtraLight" FontSize="14" Foreground="Black" 
+                                                                   Width="auto" TextAlignment="Left" Margin="10,50,0,0" FontStyle="Italic" />
+                                                        <TextBlock x:Name="txtAsistenciasValor" Grid.Row="0" Grid.Column="2" Text="0" 
+                                                                   HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Code SemiBold" FontSize="32" Foreground="Black" 
+                                                                   Width="auto" TextAlignment="Center" />
+                                                    </Grid>
+                                                </DockPanel>
+                                            </Border>
+                                            
+                                            <Border Grid.Column="0" Grid.Row="2" Background="LightGray" BorderThickness="0" Margin="2">
+                                                <DockPanel>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="100"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="110"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*"/>
+                                                        </Grid.RowDefinitions>
+                                                        <Image x:Name="imgFotoTarjetasAmarillas" Height="80" Width="80" Stretch="Uniform"
+                                                               HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                        <TextBlock x:Name="txtTarjetasAmarillas" Grid.Row="0" Grid.Column="1" Text="TARJETAS AMARILLAS" 
+                                                                   HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" 
+                                                                   Width="auto" TextAlignment="Left" Margin="10,-50,0,0" />
+                                                        <TextBlock x:Name="txtNombreJugadorTarjetasAmarillas" Grid.Row="0" Grid.Column="1" Text="Nombre Jugador" 
+                                                                   HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Code SemiBold" FontSize="22" Foreground="Black" 
+                                                                   Width="auto" TextAlignment="Left" Margin="10,0,0,0" />
+                                                        <TextBlock x:Name="txtTarjetasAmarillasPJ" Grid.Row="0" Grid.Column="1" Text="Partidos jugados:" 
+                                                                   HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Mono ExtraLight" FontSize="14" Foreground="Black" 
+                                                                   Width="auto" TextAlignment="Left" Margin="10,50,0,0" FontStyle="Italic" />
+                                                        <TextBlock x:Name="txtTarjetasAmarillasValor" Grid.Row="0" Grid.Column="2" Text="0" 
+                                                                   HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Code SemiBold" FontSize="32" Foreground="Black" 
+                                                                   Width="auto" TextAlignment="Center" />
+                                                    </Grid>
+                                                </DockPanel>
+                                            </Border>
+
+                                            <Border Grid.Column="0" Grid.Row="3" Background="LightGray" BorderThickness="0" Margin="2">
+                                                <DockPanel>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="100"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="110"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*"/>
+                                                        </Grid.RowDefinitions>
+                                                        <Image x:Name="imgFotoTarjetasRojas" Height="80" Width="80" Stretch="Uniform"
+                                                               HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                        <TextBlock x:Name="txtTarjetasRojas" Grid.Row="0" Grid.Column="1" Text="TARJETAS ROJAS" 
+                                                                   HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" 
+                                                                   Width="auto" TextAlignment="Left" Margin="10,-50,0,0" />
+                                                        <TextBlock x:Name="txtNombreJugadorTarjetasRojas" Grid.Row="0" Grid.Column="1" Text="Nombre Jugador" 
+                                                                   HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Code SemiBold" FontSize="22" Foreground="Black" 
+                                                                   Width="auto" TextAlignment="Left" Margin="10,0,0,0" />
+                                                        <TextBlock x:Name="txtTarjetasRojasPJ" Grid.Row="0" Grid.Column="1" Text="Partidos jugados:" 
+                                                                   HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Mono ExtraLight" FontSize="14" Foreground="Black" 
+                                                                   Width="auto" TextAlignment="Left" Margin="10,50,0,0" FontStyle="Italic" />
+                                                        <TextBlock x:Name="txtTarjetasRojasValor" Grid.Row="0" Grid.Column="2" Text="0" 
+                                                                   HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Code SemiBold" FontSize="32" Foreground="Black" 
+                                                                   Width="auto" TextAlignment="Center" />
+                                                    </Grid>
+                                                </DockPanel>
+                                            </Border>
+
+                                            <Border Grid.Column="0" Grid.Row="4" Background="LightGray" BorderThickness="0" Margin="2">
+                                                <DockPanel>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="100"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="110"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*"/>
+                                                        </Grid.RowDefinitions>
+                                                        <Image x:Name="imgFotoMvp" Height="80" Width="80" Stretch="Uniform"
+                                                               HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                        <TextBlock x:Name="txtMvp" Grid.Row="0" Grid.Column="1" Text="MVP DEL PARTIDO" 
+                                                                   HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" 
+                                                                   Width="auto" TextAlignment="Left" Margin="10,-50,0,0" />
+                                                        <TextBlock x:Name="txtNombreJugadorMvp" Grid.Row="0" Grid.Column="1" Text="Nombre Jugador" 
+                                                                   HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Code SemiBold" FontSize="22" Foreground="Black" 
+                                                                   Width="auto" TextAlignment="Left" Margin="10,0,0,0" />
+                                                        <TextBlock x:Name="txtMvpPJ" Grid.Row="0" Grid.Column="1" Text="Partidos jugados:" 
+                                                                   HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Mono ExtraLight" FontSize="14" Foreground="Black" 
+                                                                   Width="auto" TextAlignment="Left" Margin="10,50,0,0" FontStyle="Italic" />
+                                                        <TextBlock x:Name="txtMvpValor" Grid.Row="0" Grid.Column="2" Text="0" 
+                                                                   HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Code SemiBold" FontSize="32" Foreground="Black" 
+                                                                   Width="auto" TextAlignment="Center" />
+                                                    </Grid>
+                                                </DockPanel>
+                                            </Border>
+                                        </Grid>
+                                    </DockPanel>
+                                </Border>
+                            </Grid>
+                        </DockPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Estadisticas del Equipo-->
+                <Border Background="WhiteSmoke"
+                        BorderThickness="2"
+                        BorderBrush="#1d6a7d"
+                        Margin="5"
+                        Grid.Column="2" Grid.Row="0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <DockPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="42"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="5" Background="#1d6a7d" BorderThickness="0" BorderBrush="DarkOrange"/>
+                                <TextBlock x:Name="txtEstadisticasEquipos" Grid.Row="0" Grid.Column="0" Text="ESTADÍSTICAS DEL EQUIPO" HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" 
+                                           FontWeight="Bold" Width="auto" TextAlignment="Center" />
+
+                                <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Background="WhiteSmoke" BorderThickness="0" Margin="5">
+                                    <DockPanel>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+
+                                            <Border Grid.Column="0" Grid.Row="0" Background="LightGray" BorderThickness="0" Margin="2">
+                                                <DockPanel>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="5*"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*"/>
+                                                        </Grid.RowDefinitions>
+                                                        <Image x:Name="imgTrofeo" Height="64" Width="64" Stretch="Uniform"
+                                                               HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                               Source="/Recursos/img/icons/competicionesNegro_icon.png"/>
+                                                        <TextBlock x:Name="txtObjetivoTitulo" Grid.Row="0" Grid.Column="1" Text="Objetivo de la Temporada" 
+                                                                   HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" 
+                                                                   Width="auto" TextAlignment="Left" Margin="10,0,0,25" />
+                                                        <TextBlock x:Name="txtObjetivoContenido" Grid.Row="0" Grid.Column="1" Text="Objetivo" 
+                                                                   HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Code Light" FontSize="16" Foreground="Black" 
+                                                                   Width="auto" TextAlignment="Left" Margin="10,25,0,0" />
+                                                        <Image x:Name="imgObjetivoResultado" Grid.Row="0" Grid.Column="2" Height="32" Width="32" 
+                                                               Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                    </Grid>
+                                                </DockPanel>
+                                            </Border>
+
+                                            <Border Grid.Column="0" Grid.Row="1" Background="WhiteSmoke" BorderThickness="0" Margin="2">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="5*"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Image x:Name="imgLogoLiga" Height="64" Width="64" Stretch="Uniform"
+                                                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                    <TextBlock x:Name="txtNombreLiga" Grid.Row="0" Grid.Column="1" Text="Liga" 
+                                                               HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                               FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" 
+                                                               Width="auto" TextAlignment="Left" Margin="10,0,0,25" />
+                                                    <TextBlock x:Name="txtRacha" Grid.Row="0" Grid.Column="1" Text="Racha" 
+                                                               HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                               FontFamily="Cascadia Code Light" FontSize="16" Foreground="Black" 
+                                                               Width="auto" TextAlignment="Left" Margin="10,25,0,0" />
+                                                    <TextBlock x:Name="txtRachaNumero" Grid.Row="0" Grid.Column="2" Text="00" 
+                                                               HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                               FontFamily="Cascadia Code SemiBold" FontSize="32" Foreground="Black" 
+                                                               Width="auto" TextAlignment="Center" />
+                                                </Grid>
+                                            </Border>
+
+                                            <Border Grid.Column="0" Grid.Row="2" Background="LightGray" BorderThickness="0" Margin="2">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="5*"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Image x:Name="imgEscudoEquipo" Height="64" Width="64" Stretch="Uniform"
+                                                           HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                           Source="/Recursos/img/icons/media_img.png" />
+                                                    <TextBlock x:Name="txtMediaEquipo" Grid.Row="0" Grid.Column="1" Text="Media Equipo" 
+                                                               HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                               FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" 
+                                                               Width="auto" TextAlignment="Left" Margin="10,0,0,0" />
+                                                    <TextBlock x:Name="txtMediaNumero" Grid.Row="0" Grid.Column="2" Text="00" 
+                                                               HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                               FontFamily="Cascadia Code SemiBold" FontSize="32" Foreground="Black" 
+                                                               Width="auto" TextAlignment="Center" />
+                                                </Grid>
+                                            </Border>
+
+                                            <Border Grid.Column="0" Grid.Row="3" Background="WhiteSmoke" BorderThickness="0" Margin="2">
+                                                <DockPanel>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="5*"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*"/>
+                                                        </Grid.RowDefinitions>
+                                                        <Image x:Name="imgPabellon" Grid.Column="0" Grid.Row="0" Height="64" Width="64" Stretch="Uniform"
+                                                               HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                               Source="/Recursos/img/icons/estadioNegro_icon.png"/>
+                                                        <TextBlock x:Name="txtNombreCancha" Grid.Row="0" Grid.Column="1" Text="Nombre Cancha" 
+                                                                   HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" 
+                                                                   Width="auto" TextAlignment="Left" Margin="10,0,0,25" />
+                                                        <TextBlock x:Name="txtCapacidadCancha" Grid.Row="0" Grid.Column="1" Text="xx.xxx espectadores" 
+                                                                   HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Code Light" FontSize="16" Foreground="Black" 
+                                                                   Width="auto" TextAlignment="Left" Margin="10,25,0,0" />
+                                                    </Grid>
+                                                </DockPanel>
+                                            </Border>
+                                        </Grid>
+                                    </DockPanel>
+                                </Border>
+                            </Grid>
+                        </DockPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Relaciones -->
+                <Border Background="WhiteSmoke"
+                        BorderThickness="2"
+                        BorderBrush="#1d6a7d"
+                        Margin="5,4,5,10"
+                        Grid.Column="2" Grid.Row="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <DockPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="42"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="5" Background="#1d6a7d" BorderThickness="0" BorderBrush="DarkOrange"/>
+                                <TextBlock x:Name="txtRelaciones" Grid.Row="0" Grid.Column="0" Text="RELACIONES" HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" 
+                                           FontWeight="Bold" Width="auto" TextAlignment="Center" />
+
+                                <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Background="WhiteSmoke" BorderThickness="0" Margin="5">
+                                    <DockPanel>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+
+                                            <Border Grid.Column="0" Grid.Row="0" Background="LightGray" BorderThickness="0" Margin="2">
+                                                <DockPanel>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*"/>
+                                                            <RowDefinition Height="2*"/>
+                                                        </Grid.RowDefinitions>
+
+                                                        <TextBlock x:Name="txtConfianzaDirectiva" Grid.Row="0" Grid.Column="0" Text="Confianza de la Directiva" 
+                                                                   HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" 
+                                                                   Width="150" TextAlignment="Center" TextWrapping="Wrap" />
+                                                        <Ellipse x:Name="elipseConfianzaDirectiva" Grid.Row="1" Grid.Column="0" 
+                                                                 Stroke="Black" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                                 Width="130" Height="130" StrokeThickness="10"/>
+                                                        <TextBlock x:Name="txtConfianzaDirectivaValor" Grid.Row="1" Grid.Column="0" 
+                                                                   Text="00" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Code SemiBold" FontSize="50" Foreground="Black" 
+                                                                   Width="auto" TextAlignment="Center" />
+                                                    </Grid>
+                                                </DockPanel>
+                                            </Border>
+
+                                            <Border Grid.Column="1" Grid.Row="0" Background="LightGray" BorderThickness="0" Margin="2">
+                                                <DockPanel>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*"/>
+                                                            <RowDefinition Height="2*"/>
+                                                        </Grid.RowDefinitions>
+
+                                                        <TextBlock x:Name="txtConfianzaFans" Grid.Row="0" Grid.Column="0" Text="Confianza de los Fans" 
+                                                                   HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" 
+                                                                   Width="150" TextAlignment="Center" TextWrapping="Wrap" />
+                                                        <Ellipse x:Name="elipseConfianzaFans" Grid.Row="1" Grid.Column="0" 
+                                                                 Stroke="Black" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                                 Width="130" Height="130" StrokeThickness="10"/>
+                                                        <TextBlock x:Name="txtConfianzaFansValor" Grid.Row="1" Grid.Column="0" 
+                                                                   Text="00" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Code SemiBold" FontSize="50" Foreground="Black" 
+                                                                   Width="auto" TextAlignment="Center" />
+                                                    </Grid>
+                                                </DockPanel>
+                                            </Border>
+
+                                            <Border Grid.Column="2" Grid.Row="0" Background="LightGray" BorderThickness="0" Margin="2">
+                                                <DockPanel>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*"/>
+                                                            <RowDefinition Height="2*"/>
+                                                        </Grid.RowDefinitions>
+
+                                                        <TextBlock x:Name="txtConfianzaJugadores" Grid.Row="0" Grid.Column="0" Text="Confianza de los Jugadores" 
+                                                                   HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" 
+                                                                   Width="150" TextAlignment="Center" TextWrapping="Wrap" />
+                                                        <Ellipse x:Name="elipseConfianzaJugadores" Grid.Row="1" Grid.Column="0" 
+                                                                 Stroke="Black" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                                 Width="130" Height="130" StrokeThickness="10"/>
+                                                        <TextBlock x:Name="txtConfianzaJugadoresValor" Grid.Row="1" Grid.Column="0" 
+                                                                   Text="00" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                                   FontFamily="Cascadia Code SemiBold" FontSize="50" Foreground="Black" 
+                                                                   Width="auto" TextAlignment="Center" />
+                                                    </Grid>
+                                                </DockPanel>
+                                            </Border>
+                                        </Grid>
+                                    </DockPanel>
+                                </Border>
+                            </Grid>
+                        </DockPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+        </DockPanel>
+    </Grid>
+</UserControl>
