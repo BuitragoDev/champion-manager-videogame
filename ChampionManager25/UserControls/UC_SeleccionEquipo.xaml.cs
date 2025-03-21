@@ -1,7 +1,4 @@
-﻿using ChampionManager25.Entidades;
-using ChampionManager25.Logica;
-using ChampionManager25.MisMetodos;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ChampionManager25.Entidades;
+using ChampionManager25.Logica;
+using ChampionManager25.MisMetodos;
+using ChampionManager25.Vistas;
 
 namespace ChampionManager25.UserControls
 {
@@ -79,10 +80,9 @@ namespace ChampionManager25.UserControls
         private void btnVerDetalles_Click(object sender, RoutedEventArgs e)
         {
             Metodos.ReproducirSonidoTransicion();
-            // Crear una nueva instancia de la ventana de detalles
-            //frmVerDetallesEquipo detallesEquipoWindow = new frmVerDetallesEquipo(equipoSeleccionado); 
-
-            //detallesEquipoWindow.ShowDialog();
+   
+            frmVerDetallesEquipo detallesEquipoWindow = new frmVerDetallesEquipo(equipoSeleccionado); 
+            detallesEquipoWindow.ShowDialog();
         }
         // --------------------------------------------------------------------------------------------------------------------------------
 

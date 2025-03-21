@@ -5,6 +5,15 @@
     <Compile Update="UserControls\UC_CrearManager.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\UC_InformacionEquipo.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_InformacionPalmares.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_InformacionPlantilla.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\UC_PantallaCarga.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

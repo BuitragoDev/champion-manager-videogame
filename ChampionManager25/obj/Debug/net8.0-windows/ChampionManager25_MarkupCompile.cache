@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\App.xaml
-5338600261
-2691919505588
-17-1766774058
+101157407864
+5901219594245
+281140228672
 214-600826687
-MainWindow.xaml;UserControls\UC_CrearManager.xaml;UserControls\UC_PantallaCarga.xaml;UserControls\UC_Portada.xaml;UserControls\UC_SeleccionEquipo.xaml;
+MainWindow.xaml;UserControls\UC_CrearManager.xaml;UserControls\UC_InformacionEquipo.xaml;UserControls\UC_InformacionPalmares.xaml;UserControls\UC_InformacionPlantilla.xaml;UserControls\UC_PantallaCarga.xaml;UserControls\UC_Portada.xaml;UserControls\UC_Pretemporada.xaml;UserControls\UC_SeleccionEquipo.xaml;Vistas\frmVerDetallesEquipo.xaml;
 
 False
 

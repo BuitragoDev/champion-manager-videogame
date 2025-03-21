@@ -18,6 +18,200 @@
     <None Remove="Recursos\audio\transicion.wav" />
     <None Remove="Recursos\img\backgroundCarga1920x1080.png" />
     <None Remove="Recursos\img\backgroundPrincipal1920x1080.png" />
+    <None Remove="Recursos\img\banderas\AFG.png" />
+    <None Remove="Recursos\img\banderas\AGO.png" />
+    <None Remove="Recursos\img\banderas\ALB.png" />
+    <None Remove="Recursos\img\banderas\AND.png" />
+    <None Remove="Recursos\img\banderas\ARE.png" />
+    <None Remove="Recursos\img\banderas\ARG.png" />
+    <None Remove="Recursos\img\banderas\ARM.png" />
+    <None Remove="Recursos\img\banderas\ATG.png" />
+    <None Remove="Recursos\img\banderas\AUS.png" />
+    <None Remove="Recursos\img\banderas\AUT.png" />
+    <None Remove="Recursos\img\banderas\AZE.png" />
+    <None Remove="Recursos\img\banderas\BDI.png" />
+    <None Remove="Recursos\img\banderas\BEL.png" />
+    <None Remove="Recursos\img\banderas\BEN.png" />
+    <None Remove="Recursos\img\banderas\BFA.png" />
+    <None Remove="Recursos\img\banderas\BGD.png" />
+    <None Remove="Recursos\img\banderas\BGR.png" />
+    <None Remove="Recursos\img\banderas\BHR.png" />
+    <None Remove="Recursos\img\banderas\BHS.png" />
+    <None Remove="Recursos\img\banderas\BIH.png" />
+    <None Remove="Recursos\img\banderas\BLR.png" />
+    <None Remove="Recursos\img\banderas\BLZ.png" />
+    <None Remove="Recursos\img\banderas\BOL.png" />
+    <None Remove="Recursos\img\banderas\BRA.png" />
+    <None Remove="Recursos\img\banderas\BRB.png" />
+    <None Remove="Recursos\img\banderas\BRN.png" />
+    <None Remove="Recursos\img\banderas\BTN.png" />
+    <None Remove="Recursos\img\banderas\BWA.png" />
+    <None Remove="Recursos\img\banderas\CAF.png" />
+    <None Remove="Recursos\img\banderas\CAN.png" />
+    <None Remove="Recursos\img\banderas\CHE.png" />
+    <None Remove="Recursos\img\banderas\CHL.png" />
+    <None Remove="Recursos\img\banderas\CHN.png" />
+    <None Remove="Recursos\img\banderas\CIV.png" />
+    <None Remove="Recursos\img\banderas\CMR.png" />
+    <None Remove="Recursos\img\banderas\COD.png" />
+    <None Remove="Recursos\img\banderas\COG.png" />
+    <None Remove="Recursos\img\banderas\COL.png" />
+    <None Remove="Recursos\img\banderas\CPV.png" />
+    <None Remove="Recursos\img\banderas\CRI.png" />
+    <None Remove="Recursos\img\banderas\CRZ.png" />
+    <None Remove="Recursos\img\banderas\CUB.png" />
+    <None Remove="Recursos\img\banderas\CYP.png" />
+    <None Remove="Recursos\img\banderas\CZE.png" />
+    <None Remove="Recursos\img\banderas\default.png" />
+    <None Remove="Recursos\img\banderas\DEU.png" />
+    <None Remove="Recursos\img\banderas\DNK.png" />
+    <None Remove="Recursos\img\banderas\DOM.png" />
+    <None Remove="Recursos\img\banderas\DZA.png" />
+    <None Remove="Recursos\img\banderas\ECU.png" />
+    <None Remove="Recursos\img\banderas\EGY.png" />
+    <None Remove="Recursos\img\banderas\ERI.png" />
+    <None Remove="Recursos\img\banderas\ESP.png" />
+    <None Remove="Recursos\img\banderas\EST.png" />
+    <None Remove="Recursos\img\banderas\ETH.png" />
+    <None Remove="Recursos\img\banderas\EUR.png" />
+    <None Remove="Recursos\img\banderas\FER.png" />
+    <None Remove="Recursos\img\banderas\FIN.png" />
+    <None Remove="Recursos\img\banderas\FJI.png" />
+    <None Remove="Recursos\img\banderas\FRA.png" />
+    <None Remove="Recursos\img\banderas\GAB.png" />
+    <None Remove="Recursos\img\banderas\GBR.png" />
+    <None Remove="Recursos\img\banderas\GEO.png" />
+    <None Remove="Recursos\img\banderas\GHA.png" />
+    <None Remove="Recursos\img\banderas\GIB.png" />
+    <None Remove="Recursos\img\banderas\GIN.png" />
+    <None Remove="Recursos\img\banderas\GMB.png" />
+    <None Remove="Recursos\img\banderas\GNB.png" />
+    <None Remove="Recursos\img\banderas\GNQ.png" />
+    <None Remove="Recursos\img\banderas\GRC.png" />
+    <None Remove="Recursos\img\banderas\GTM.png" />
+    <None Remove="Recursos\img\banderas\HND.png" />
+    <None Remove="Recursos\img\banderas\HRV.png" />
+    <None Remove="Recursos\img\banderas\HTI.png" />
+    <None Remove="Recursos\img\banderas\HUN.png" />
+    <None Remove="Recursos\img\banderas\IDN.png" />
+    <None Remove="Recursos\img\banderas\IND.png" />
+    <None Remove="Recursos\img\banderas\IRL.png" />
+    <None Remove="Recursos\img\banderas\IRN.png" />
+    <None Remove="Recursos\img\banderas\IRQ.png" />
+    <None Remove="Recursos\img\banderas\ISL.png" />
+    <None Remove="Recursos\img\banderas\ISR.png" />
+    <None Remove="Recursos\img\banderas\ITA.png" />
+    <None Remove="Recursos\img\banderas\JAM.png" />
+    <None Remove="Recursos\img\banderas\JOR.png" />
+    <None Remove="Recursos\img\banderas\JPN.png" />
+    <None Remove="Recursos\img\banderas\KAZ.png" />
+    <None Remove="Recursos\img\banderas\KEN.png" />
+    <None Remove="Recursos\img\banderas\KGZ.png" />
+    <None Remove="Recursos\img\banderas\KHM.png" />
+    <None Remove="Recursos\img\banderas\KIR.png" />
+    <None Remove="Recursos\img\banderas\KNA.png" />
+    <None Remove="Recursos\img\banderas\KOR.png" />
+    <None Remove="Recursos\img\banderas\KOS.png" />
+    <None Remove="Recursos\img\banderas\KWT.png" />
+    <None Remove="Recursos\img\banderas\LAO.png" />
+    <None Remove="Recursos\img\banderas\LBN.png" />
+    <None Remove="Recursos\img\banderas\LBR.png" />
+    <None Remove="Recursos\img\banderas\LBY.png" />
+    <None Remove="Recursos\img\banderas\LCA.png" />
+    <None Remove="Recursos\img\banderas\LIE.png" />
+    <None Remove="Recursos\img\banderas\LKA.png" />
+    <None Remove="Recursos\img\banderas\LSO.png" />
+    <None Remove="Recursos\img\banderas\LTU.png" />
+    <None Remove="Recursos\img\banderas\LUX.png" />
+    <None Remove="Recursos\img\banderas\LVA.png" />
+    <None Remove="Recursos\img\banderas\MAR.png" />
+    <None Remove="Recursos\img\banderas\MCO.png" />
+    <None Remove="Recursos\img\banderas\MDA.png" />
+    <None Remove="Recursos\img\banderas\MDG.png" />
+    <None Remove="Recursos\img\banderas\MDV.png" />
+    <None Remove="Recursos\img\banderas\MEX.png" />
+    <None Remove="Recursos\img\banderas\MKD.png" />
+    <None Remove="Recursos\img\banderas\MLI.png" />
+    <None Remove="Recursos\img\banderas\MLT.png" />
+    <None Remove="Recursos\img\banderas\MMR.png" />
+    <None Remove="Recursos\img\banderas\MNE.png" />
+    <None Remove="Recursos\img\banderas\MNG.png" />
+    <None Remove="Recursos\img\banderas\MOZ.png" />
+    <None Remove="Recursos\img\banderas\MRT.png" />
+    <None Remove="Recursos\img\banderas\MTN.png" />
+    <None Remove="Recursos\img\banderas\MWI.png" />
+    <None Remove="Recursos\img\banderas\MYS.png" />
+    <None Remove="Recursos\img\banderas\NAM.png" />
+    <None Remove="Recursos\img\banderas\NER.png" />
+    <None Remove="Recursos\img\banderas\NGA.png" />
+    <None Remove="Recursos\img\banderas\NIC.png" />
+    <None Remove="Recursos\img\banderas\NLD.png" />
+    <None Remove="Recursos\img\banderas\NOR.png" />
+    <None Remove="Recursos\img\banderas\NPL.png" />
+    <None Remove="Recursos\img\banderas\NZL.png" />
+    <None Remove="Recursos\img\banderas\OMN.png" />
+    <None Remove="Recursos\img\banderas\PAK.png" />
+    <None Remove="Recursos\img\banderas\PAN.png" />
+    <None Remove="Recursos\img\banderas\PER.png" />
+    <None Remove="Recursos\img\banderas\PHL.png" />
+    <None Remove="Recursos\img\banderas\PLW.png" />
+    <None Remove="Recursos\img\banderas\PNG.png" />
+    <None Remove="Recursos\img\banderas\POL.png" />
+    <None Remove="Recursos\img\banderas\PRK.png" />
+    <None Remove="Recursos\img\banderas\PRT.png" />
+    <None Remove="Recursos\img\banderas\PRY.png" />
+    <None Remove="Recursos\img\banderas\QAT.png" />
+    <None Remove="Recursos\img\banderas\ROU.png" />
+    <None Remove="Recursos\img\banderas\RUS.png" />
+    <None Remove="Recursos\img\banderas\RWA.png" />
+    <None Remove="Recursos\img\banderas\SAU.png" />
+    <None Remove="Recursos\img\banderas\SCO.png" />
+    <None Remove="Recursos\img\banderas\SDN.png" />
+    <None Remove="Recursos\img\banderas\SEN.png" />
+    <None Remove="Recursos\img\banderas\SGP.png" />
+    <None Remove="Recursos\img\banderas\SLB.png" />
+    <None Remove="Recursos\img\banderas\SLE.png" />
+    <None Remove="Recursos\img\banderas\SLV.png" />
+    <None Remove="Recursos\img\banderas\SMR.png" />
+    <None Remove="Recursos\img\banderas\SOM.png" />
+    <None Remove="Recursos\img\banderas\SRB.png" />
+    <None Remove="Recursos\img\banderas\SSD.png" />
+    <None Remove="Recursos\img\banderas\STP.png" />
+    <None Remove="Recursos\img\banderas\SUR.png" />
+    <None Remove="Recursos\img\banderas\SVK.png" />
+    <None Remove="Recursos\img\banderas\SVN.png" />
+    <None Remove="Recursos\img\banderas\SWE.png" />
+    <None Remove="Recursos\img\banderas\SWZ.png" />
+    <None Remove="Recursos\img\banderas\SYC.png" />
+    <None Remove="Recursos\img\banderas\SYR.png" />
+    <None Remove="Recursos\img\banderas\TCD.png" />
+    <None Remove="Recursos\img\banderas\TGO.png" />
+    <None Remove="Recursos\img\banderas\THA.png" />
+    <None Remove="Recursos\img\banderas\TJK.png" />
+    <None Remove="Recursos\img\banderas\TKM.png" />
+    <None Remove="Recursos\img\banderas\TON.png" />
+    <None Remove="Recursos\img\banderas\TTO.png" />
+    <None Remove="Recursos\img\banderas\TUN.png" />
+    <None Remove="Recursos\img\banderas\TUR.png" />
+    <None Remove="Recursos\img\banderas\TUV.png" />
+    <None Remove="Recursos\img\banderas\TWN.png" />
+    <None Remove="Recursos\img\banderas\TZA.png" />
+    <None Remove="Recursos\img\banderas\UGA.png" />
+    <None Remove="Recursos\img\banderas\UKR.png" />
+    <None Remove="Recursos\img\banderas\URY.png" />
+    <None Remove="Recursos\img\banderas\USA.png" />
+    <None Remove="Recursos\img\banderas\UZB.png" />
+    <None Remove="Recursos\img\banderas\VAT.png" />
+    <None Remove="Recursos\img\banderas\VCT.png" />
+    <None Remove="Recursos\img\banderas\VEN.png" />
+    <None Remove="Recursos\img\banderas\VNM.png" />
+    <None Remove="Recursos\img\banderas\VUT.png" />
+    <None Remove="Recursos\img\banderas\WAL.png" />
+    <None Remove="Recursos\img\banderas\WSM.png" />
+    <None Remove="Recursos\img\banderas\YEM.png" />
+    <None Remove="Recursos\img\banderas\ZAF.png" />
+    <None Remove="Recursos\img\banderas\ZMB.png" />
+    <None Remove="Recursos\img\banderas\ZWE.png" />
     <None Remove="Recursos\img\cargarPartida.png" />
     <None Remove="Recursos\img\cargarPartidaHover.png" />
     <None Remove="Recursos\img\editorJuego.png" />
@@ -202,6 +396,12 @@
     <None Remove="Recursos\img\escudos_equipos\80x80\8.png" />
     <None Remove="Recursos\img\escudos_equipos\80x80\9.png" />
     <None Remove="Recursos\img\escudos_equipos\9.png" />
+    <None Remove="Recursos\img\estadios\1exterior.png" />
+    <None Remove="Recursos\img\estadios\1interior.png" />
+    <None Remove="Recursos\img\estadios\2exterior.png" />
+    <None Remove="Recursos\img\estadios\2interior.png" />
+    <None Remove="Recursos\img\estadios\3exterior.png" />
+    <None Remove="Recursos\img\estadios\3interior.png" />
     <None Remove="Recursos\img\icons\abajo_icon.png" />
     <None Remove="Recursos\img\icons\acuerdo_icon.png" />
     <None Remove="Recursos\img\icons\ajustesBlanco.png" />
@@ -265,8 +465,129 @@
     <None Remove="Recursos\img\icons\tarjetaRoja_img.png" />
     <None Remove="Recursos\img\icons\verificado_icon.png" />
     <None Remove="Recursos\img\icons\volver_icon.png" />
+    <None Remove="Recursos\img\jugadores\1.png" />
+    <None Remove="Recursos\img\jugadores\10.png" />
+    <None Remove="Recursos\img\jugadores\11.png" />
+    <None Remove="Recursos\img\jugadores\12.png" />
+    <None Remove="Recursos\img\jugadores\13.png" />
+    <None Remove="Recursos\img\jugadores\14.png" />
+    <None Remove="Recursos\img\jugadores\15.png" />
+    <None Remove="Recursos\img\jugadores\16.png" />
+    <None Remove="Recursos\img\jugadores\17.png" />
+    <None Remove="Recursos\img\jugadores\18.png" />
+    <None Remove="Recursos\img\jugadores\19.png" />
+    <None Remove="Recursos\img\jugadores\2.png" />
+    <None Remove="Recursos\img\jugadores\20.png" />
+    <None Remove="Recursos\img\jugadores\21.png" />
+    <None Remove="Recursos\img\jugadores\22.png" />
+    <None Remove="Recursos\img\jugadores\23.png" />
+    <None Remove="Recursos\img\jugadores\24.png" />
+    <None Remove="Recursos\img\jugadores\25.png" />
+    <None Remove="Recursos\img\jugadores\26.png" />
+    <None Remove="Recursos\img\jugadores\27.png" />
+    <None Remove="Recursos\img\jugadores\28.png" />
+    <None Remove="Recursos\img\jugadores\29.png" />
+    <None Remove="Recursos\img\jugadores\3.png" />
+    <None Remove="Recursos\img\jugadores\30.png" />
+    <None Remove="Recursos\img\jugadores\31.png" />
+    <None Remove="Recursos\img\jugadores\32.png" />
+    <None Remove="Recursos\img\jugadores\33.png" />
+    <None Remove="Recursos\img\jugadores\34.png" />
+    <None Remove="Recursos\img\jugadores\35.png" />
+    <None Remove="Recursos\img\jugadores\36.png" />
+    <None Remove="Recursos\img\jugadores\37.png" />
+    <None Remove="Recursos\img\jugadores\38.png" />
+    <None Remove="Recursos\img\jugadores\39.png" />
+    <None Remove="Recursos\img\jugadores\4.png" />
+    <None Remove="Recursos\img\jugadores\40.png" />
+    <None Remove="Recursos\img\jugadores\41.png" />
+    <None Remove="Recursos\img\jugadores\42.png" />
+    <None Remove="Recursos\img\jugadores\43.png" />
+    <None Remove="Recursos\img\jugadores\44.png" />
+    <None Remove="Recursos\img\jugadores\45.png" />
+    <None Remove="Recursos\img\jugadores\46.png" />
+    <None Remove="Recursos\img\jugadores\47.png" />
+    <None Remove="Recursos\img\jugadores\48.png" />
+    <None Remove="Recursos\img\jugadores\49.png" />
+    <None Remove="Recursos\img\jugadores\5.png" />
+    <None Remove="Recursos\img\jugadores\6.png" />
+    <None Remove="Recursos\img\jugadores\7.png" />
+    <None Remove="Recursos\img\jugadores\8.png" />
+    <None Remove="Recursos\img\jugadores\9.png" />
     <None Remove="Recursos\img\jugarCampeonato.png" />
     <None Remove="Recursos\img\jugarCampeonatoHover.png" />
+    <None Remove="Recursos\img\kits\10local.png" />
+    <None Remove="Recursos\img\kits\10visitante.png" />
+    <None Remove="Recursos\img\kits\11local.png" />
+    <None Remove="Recursos\img\kits\11visitante.png" />
+    <None Remove="Recursos\img\kits\12local.png" />
+    <None Remove="Recursos\img\kits\12visitante.png" />
+    <None Remove="Recursos\img\kits\13local.png" />
+    <None Remove="Recursos\img\kits\13visitante.png" />
+    <None Remove="Recursos\img\kits\14local.png" />
+    <None Remove="Recursos\img\kits\14visitante.png" />
+    <None Remove="Recursos\img\kits\15local.png" />
+    <None Remove="Recursos\img\kits\15visitante.png" />
+    <None Remove="Recursos\img\kits\16local.png" />
+    <None Remove="Recursos\img\kits\16visitante.png" />
+    <None Remove="Recursos\img\kits\17local.png" />
+    <None Remove="Recursos\img\kits\17visitante.png" />
+    <None Remove="Recursos\img\kits\18local.png" />
+    <None Remove="Recursos\img\kits\18visitante.png" />
+    <None Remove="Recursos\img\kits\19local.png" />
+    <None Remove="Recursos\img\kits\19visitante.png" />
+    <None Remove="Recursos\img\kits\1local.png" />
+    <None Remove="Recursos\img\kits\1visitante.png" />
+    <None Remove="Recursos\img\kits\20local.png" />
+    <None Remove="Recursos\img\kits\20visitante.png" />
+    <None Remove="Recursos\img\kits\21local.png" />
+    <None Remove="Recursos\img\kits\21visitante.png" />
+    <None Remove="Recursos\img\kits\22local.png" />
+    <None Remove="Recursos\img\kits\22visitante.png" />
+    <None Remove="Recursos\img\kits\23local.png" />
+    <None Remove="Recursos\img\kits\23visitante.png" />
+    <None Remove="Recursos\img\kits\24local.png" />
+    <None Remove="Recursos\img\kits\24visitante.png" />
+    <None Remove="Recursos\img\kits\25local.png" />
+    <None Remove="Recursos\img\kits\25visitante.png" />
+    <None Remove="Recursos\img\kits\26local.png" />
+    <None Remove="Recursos\img\kits\26visitante.png" />
+    <None Remove="Recursos\img\kits\27local.png" />
+    <None Remove="Recursos\img\kits\27visitante.png" />
+    <None Remove="Recursos\img\kits\28local.png" />
+    <None Remove="Recursos\img\kits\28visitante.png" />
+    <None Remove="Recursos\img\kits\29local.png" />
+    <None Remove="Recursos\img\kits\29visitante.png" />
+    <None Remove="Recursos\img\kits\2local.png" />
+    <None Remove="Recursos\img\kits\2visitante.png" />
+    <None Remove="Recursos\img\kits\30local.png" />
+    <None Remove="Recursos\img\kits\30visitante.png" />
+    <None Remove="Recursos\img\kits\31local.png" />
+    <None Remove="Recursos\img\kits\31visitante.png" />
+    <None Remove="Recursos\img\kits\32local.png" />
+    <None Remove="Recursos\img\kits\32visitante.png" />
+    <None Remove="Recursos\img\kits\33local.png" />
+    <None Remove="Recursos\img\kits\33visitante.png" />
+    <None Remove="Recursos\img\kits\34local.png" />
+    <None Remove="Recursos\img\kits\34visitante.png" />
+    <None Remove="Recursos\img\kits\35local.png" />
+    <None Remove="Recursos\img\kits\35visitante.png" />
+    <None Remove="Recursos\img\kits\36local.png" />
+    <None Remove="Recursos\img\kits\36visitante.png" />
+    <None Remove="Recursos\img\kits\3local.png" />
+    <None Remove="Recursos\img\kits\3visitante.png" />
+    <None Remove="Recursos\img\kits\4local.png" />
+    <None Remove="Recursos\img\kits\4visitante.png" />
+    <None Remove="Recursos\img\kits\5local.png" />
+    <None Remove="Recursos\img\kits\5visitante.png" />
+    <None Remove="Recursos\img\kits\6local.png" />
+    <None Remove="Recursos\img\kits\6visitante.png" />
+    <None Remove="Recursos\img\kits\7local.png" />
+    <None Remove="Recursos\img\kits\7visitante.png" />
+    <None Remove="Recursos\img\kits\8local.png" />
+    <None Remove="Recursos\img\kits\8visitante.png" />
+    <None Remove="Recursos\img\kits\9local.png" />
+    <None Remove="Recursos\img\kits\9visitante.png" />
     <None Remove="Recursos\img\logo100x100.png" />
     <None Remove="Recursos\img\logo200x200.png" />
     <None Remove="Recursos\img\logo300x300.png" />
@@ -306,6 +627,588 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\backgroundPrincipal1920x1080.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\AFG.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\AGO.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\ALB.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\AND.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\ARE.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\ARG.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\ARM.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\ATG.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\AUS.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\AUT.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\AZE.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\BDI.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\BEL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\BEN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\BFA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\BGD.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\BGR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\BHR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\BHS.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\BIH.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\BLR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\BLZ.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\BOL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\BRA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\BRB.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\BRN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\BTN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\BWA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\CAF.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\CAN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\CHE.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\CHL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\CHN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\CIV.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\CMR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\COD.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\COG.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\COL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\CPV.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\CRI.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\CRZ.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\CUB.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\CYP.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\CZE.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\default.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\DEU.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\DNK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\DOM.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\DZA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\ECU.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\EGY.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\ERI.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\ESP.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\EST.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\ETH.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\EUR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\FER.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\FIN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\FJI.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\FRA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\GAB.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\GBR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\GEO.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\GHA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\GIB.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\GIN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\GMB.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\GNB.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\GNQ.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\GRC.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\GTM.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\HND.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\HRV.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\HTI.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\HUN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\IDN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\IND.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\IRL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\IRN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\IRQ.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\ISL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\ISR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\ITA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\JAM.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\JOR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\JPN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\KAZ.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\KEN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\KGZ.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\KHM.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\KIR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\KNA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\KOR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\KOS.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\KWT.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\LAO.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\LBN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\LBR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\LBY.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\LCA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\LIE.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\LKA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\LSO.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\LTU.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\LUX.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\LVA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\MAR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\MCO.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\MDA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\MDG.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\MDV.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\MEX.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\MKD.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\MLI.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\MLT.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\MMR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\MNE.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\MNG.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\MOZ.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\MRT.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\MTN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\MWI.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\MYS.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\NAM.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\NER.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\NGA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\NIC.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\NLD.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\NOR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\NPL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\NZL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\OMN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\PAK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\PAN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\PER.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\PHL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\PLW.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\PNG.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\POL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\PRK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\PRT.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\PRY.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\QAT.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\ROU.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\RUS.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\RWA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\SAU.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\SCO.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\SDN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\SEN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\SGP.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\SLB.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\SLE.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\SLV.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\SMR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\SOM.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\SRB.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\SSD.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\STP.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\SUR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\SVK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\SVN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\SWE.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\SWZ.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\SYC.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\SYR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\TCD.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\TGO.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\THA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\TJK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\TKM.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\TON.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\TTO.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\TUN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\TUR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\TUV.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\TWN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\TZA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\UGA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\UKR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\URY.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\USA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\UZB.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\VAT.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\VCT.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\VEN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\VNM.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\VUT.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\WAL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\WSM.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\YEM.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\ZAF.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\ZMB.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\banderas\ZWE.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\cargarPartida.png">
@@ -860,6 +1763,24 @@
     <Content Include="Recursos\img\escudos_equipos\9.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\estadios\1exterior.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\estadios\1interior.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\estadios\2exterior.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\estadios\2interior.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\estadios\3exterior.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\estadios\3interior.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\icons\abajo_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1049,10 +1970,373 @@
     <Content Include="Recursos\img\icons\volver_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\jugadores\1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\10.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\11.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\12.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\13.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\14.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\15.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\17.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\18.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\19.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\20.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\21.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\22.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\23.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\24.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\25.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\26.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\27.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\28.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\29.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\30.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\31.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\32.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\33.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\34.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\35.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\36.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\37.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\38.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\39.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\40.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\41.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\42.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\43.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\44.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\45.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\46.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\47.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\48.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\49.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\8.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\9.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\jugarCampeonato.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\jugarCampeonatoHover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\10local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\10visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\11local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\11visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\12local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\12visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\13local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\13visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\14local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\14visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\15local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\15visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\16local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\16visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\17local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\17visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\18local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\18visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\19local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\19visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\1local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\1visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\20local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\20visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\21local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\21visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\22local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\22visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\23local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\23visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\24local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\24visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\25local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\25visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\26local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\26visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\27local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\27visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\28local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\28visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\29local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\29visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\2local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\2visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\30local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\30visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\31local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\31visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\32local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\32visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\33local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\33visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\34local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\34visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\35local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\35visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\36local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\36visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\3local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\3visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\4local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\4visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\5local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\5visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\6local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\6visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\7local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\7visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\8local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\8visitante.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\9local.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\kits\9visitante.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\logo100x100.png">

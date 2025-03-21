@@ -114,7 +114,7 @@ namespace ChampionManager25.Datos
                                 Aforo = int.TryParse(dr["aforo"]?.ToString(), out int capacidad) ? capacidad : 0,
                                 Reputacion = int.TryParse(dr["reputacion"]?.ToString(), out int reputacion) ? reputacion : 0,
                                 Objetivo = dr["objetivo"]?.ToString() ?? string.Empty,
-                                Rival = int.TryParse(dr["rival1"]?.ToString(), out int rival1) ? rival1 : 0,
+                                Rival = int.TryParse(dr["rival"]?.ToString(), out int rival) ? rival : 0,
                                 IdCompeticion = dr["id_competicion"] != DBNull.Value ? Convert.ToInt32(dr["id_competicion"]) : 0
                             };
                         }
@@ -176,7 +176,7 @@ namespace ChampionManager25.Datos
                                     Objetivo = dr["objetivo"] as string ?? string.Empty,
                                     Aforo = dr["capacidad"] != DBNull.Value ? Convert.ToInt32(dr["capacidad"]) : 0,
                                     Reputacion = dr["reputacion"] != DBNull.Value ? Convert.ToInt32(dr["reputacion"]) : 0,
-                                    Rival = dr["rival1"] != DBNull.Value ? Convert.ToInt32(dr["rival1"]) : 0,
+                                    Rival = dr["rival"] != DBNull.Value ? Convert.ToInt32(dr["rival"]) : 0,
                                 });
                             }
                         }
