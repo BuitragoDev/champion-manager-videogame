@@ -120,6 +120,15 @@ namespace ChampionManager25.UserControls
         private void imgHome_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Metodos.ReproducirSonidoClick();
+            // Cargar Submenú
+            DockPanel_Submenu.Children.Clear();
+            UC_Menu_Home menuPrincipal = new UC_Menu_Home();
+            DockPanel_Submenu.Children.Add(menuPrincipal);
+
+            // Cargar Panel Principal
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Home_MenuPrincipal homeMenuPrincipal = new UC_Menu_Home_MenuPrincipal(_manager, _equipo);
+            DockPanel_Central.Children.Add(homeMenuPrincipal);
 
         }
         // ------------------------------------------------------------------------------------------------------------
@@ -129,6 +138,22 @@ namespace ChampionManager25.UserControls
         {
             Metodos.ReproducirSonidoClick();
 
+            // Cargar Submenú
+            DockPanel_Submenu.Children.Clear();
+            UC_Menu_Club menuClub = new UC_Menu_Club();
+            DockPanel_Submenu.Children.Add(menuClub);
+
+            // Suscribirse a los eventos
+            menuClub.MostrarInformacion += CargarClubInformacion;
+            menuClub.MostrarPlantilla += CargarClubPlantilla;
+
+            // Cambiar el color del texto "Ingresos" a naranja
+            menuClub.lblInformacion.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+
+            // Cargar Panel Principal
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Club_Informacion clubInformacion = new UC_Menu_Club_Informacion(_manager, _equipo);
+            DockPanel_Central.Children.Add(clubInformacion);
         }
         // ------------------------------------------------------------------------------------------------------------
 
@@ -140,11 +165,28 @@ namespace ChampionManager25.UserControls
         }
         // ------------------------------------------------------------------------------------------------------------
 
+        // ----------------------------------------------------------------------------- Evento CLICK del botón COMPETICION
+        private void imgCompeticiones_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Metodos.ReproducirSonidoClick();
+
+        }
+        // ------------------------------------------------------------------------------------------------------------
+
         // ----------------------------------------------------------------------------- Evento CLICK del botón CALENDARIO 
         private void imgCalendario_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Metodos.ReproducirSonidoClick();
 
+            // Cargar Submenú
+            DockPanel_Submenu.Children.Clear();
+            UC_Menu_Calendario menuCalendario = new UC_Menu_Calendario();
+            DockPanel_Submenu.Children.Add(menuCalendario);
+
+            // Cargar Panel Principal
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Calendario_Principal calendarioPrincipal = new UC_Menu_Calendario_Principal(_manager, _equipo);
+            DockPanel_Central.Children.Add(calendarioPrincipal);
         }
         // ---------------------------------------------------------------------------------------------------------------
 
@@ -153,6 +195,15 @@ namespace ChampionManager25.UserControls
         {
             Metodos.ReproducirSonidoClick();
 
+            // Cargar Submenú
+            DockPanel_Submenu.Children.Clear();
+            UC_Menu_Estadio menuEstadio = new UC_Menu_Estadio();
+            DockPanel_Submenu.Children.Add(menuEstadio);
+
+            // Cargar Panel Principal
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Estadio_Informacion pabellonInformacion = new UC_Menu_Estadio_Informacion(_manager, _equipo);
+            DockPanel_Central.Children.Add(pabellonInformacion);
         }
         // ---------------------------------------------------------------------------------------------------------------
 
@@ -161,6 +212,22 @@ namespace ChampionManager25.UserControls
         {
             Metodos.ReproducirSonidoClick();
 
+            // Cargar Submenú
+            DockPanel_Submenu.Children.Clear();
+            UC_Menu_Manager menuManager = new UC_Menu_Manager();
+            DockPanel_Submenu.Children.Add(menuManager);
+
+            // Suscribirse a los eventos MostrarPalmares y MostrarFicha
+            menuManager.MostrarPalmares += CargarManagerPalmares;
+            menuManager.MostrarFicha += CargarManagerFicha;
+
+            // Cambiar el color del texto "Ficha" a naranja
+            menuManager.lblFicha.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+
+            // Cargar Panel Principal
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Manager_Ficha managerFicha = new UC_Menu_Manager_Ficha(_manager, _equipo);
+            DockPanel_Central.Children.Add(managerFicha);
         }
         // ------------------------------------------------------------------------------------------------------------
 
@@ -169,6 +236,15 @@ namespace ChampionManager25.UserControls
         {
             Metodos.ReproducirSonidoClick();
 
+            // Cargar Submenú
+            DockPanel_Submenu.Children.Clear();
+            UC_Menu_Correo menuCorreo = new UC_Menu_Correo();
+            DockPanel_Submenu.Children.Add(menuCorreo);
+
+            // Cargar Panel Principal
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Correo_Principal correoPrincipal = new UC_Menu_Correo_Principal(_manager, _equipo);
+            DockPanel_Central.Children.Add(correoPrincipal);
         }
         // ------------------------------------------------------------------------------------------------------------
 
@@ -234,49 +310,44 @@ namespace ChampionManager25.UserControls
         // Método para cargar UC_Menu_Club_Informacion
         private void CargarClubInformacion()
         {
-          
+            // Cargar UC_Menu_Club_Informacion
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Club_Informacion clubInformacion = new UC_Menu_Club_Informacion(_manager, _equipo);
+            DockPanel_Central.Children.Add(clubInformacion);
         }
 
         // Método para cargar UC_Menu_Club_Plantilla
         private void CargarClubPlantilla()
         {
-           
-        }
-
-        // Método para cargar UC_Menu_Club_Empleados
-        private void CargarClubEmpleados()
-        {
-            
-        }
-
-        // Método para cargar UC_Menu_Club_Palmares
-        private void CargarClubPalmares()
-        {
-           
-        }
-
-        // Método para cargar UC_Menu_Club_Records
-        private void CargarClubRecords()
-        {
-            
-        }
-
-        // Método para cargar UC_Menu_Manager_Palmares
-        private void CargarManagerPalmares()
-        {
-     
+            // Cargar UC_Menu_Club_Plantilla
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Club_Plantilla clubPlantilla = new UC_Menu_Club_Plantilla(_manager, _equipo);
+            DockPanel_Central.Children.Add(clubPlantilla);
         }
 
         // Método para cargar UC_Menu_Manager_Ficha
         private void CargarManagerFicha()
         {
-           
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Manager_Ficha managerFicha = new UC_Menu_Manager_Ficha(_manager, _equipo);
+            DockPanel_Central.Children.Add(managerFicha);
+        }
+
+        // Método para cargar UC_Menu_Manager_Palmares
+        private void CargarManagerPalmares()
+        {
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Manager_Palmares managerPalmares = new UC_Menu_Manager_Palmares(_manager, _equipo);
+            DockPanel_Central.Children.Add(managerPalmares);
         }
 
         // Método para cargar UC_Menu_Estadio_Informacion
         private void CargarEstadioInformacion()
         {
-          
+            // Cargar UC_Menu_Estadio_Informacion
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Estadio_Informacion pabellonInformacion = new UC_Menu_Estadio_Informacion(_manager, _equipo);
+            DockPanel_Central.Children.Add(pabellonInformacion);
         }
         #endregion
     }

@@ -47,7 +47,7 @@ namespace ChampionManager25.Datos
         }
 
         // ===================================================================== Método para Mostrar el Palmarés del Manager
-        /*public List<PalmaresManager> MostrarPalmaresManager(int equipo, int manager)
+        public List<PalmaresManager> MostrarPalmaresManager(int equipo, int manager)
         {
             List<PalmaresManager> listadoPalmares = new List<PalmaresManager>();
 
@@ -89,6 +89,6 @@ namespace ChampionManager25.Datos
             }
 
             return listadoPalmares;
-        }*/
+        }
     }
 }

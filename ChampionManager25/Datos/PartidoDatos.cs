@@ -89,28 +89,14 @@ namespace ChampionManager25.Datos
             }
         }
 
-        // ------------------------------------------------------------------------------------- Generar el calendario de la temporada.
-        public void GenerarCalendario(int temporadaActual, int idManager, int idCompeticion)
-        {
-            List<int> equipos = ObtenerEquiposLiga(idCompeticion);
-            if (equipos.Count < 2)
-            {
-                throw new Exception("No hay suficientes equipos para generar un calendario.");
-            }
-
-            List<List<Tuple<int, int>>> calendario = GenerarRoundRobin(equipos);
-
-            GuardarCalendario(calendario, temporadaActual, idManager, idCompeticion);
-        }
-
-
+        // ----------------------------------------------------------------- METODO PARA OBTENER LOS EQUIPOS DE LA LIGA DE FORMA ALEATORIA
         private List<int> ObtenerEquiposLiga(int idCompeticion)
         {
             List<int> equipos = new List<int>();
             using (SQLiteConnection conn = new SQLiteConnection(cadena))
             {
                 conn.Open();
-                string query = "SELECT id_equipo FROM equipos WHERE id_competicion = @idCompeticion";
+                string query = "SELECT id_equipo FROM equipos WHERE id_competicion = @idCompeticion ORDER BY RANDOM()";
                 using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@idCompeticion", idCompeticion);
@@ -125,6 +111,21 @@ namespace ChampionManager25.Datos
             }
             return equipos;
         }
+
+        // -------------------------------------------------------------------- METODO PARA CREAR EL CALENDARIO
+        public void GenerarCalendario(int temporadaActual, int idManager, int idCompeticion)
+        {
+            List<int> equipos = ObtenerEquiposLiga(idCompeticion);
+            if (equipos.Count < 2)
+            {
+                throw new Exception("No hay suficientes equipos para generar un calendario.");
+            }
+
+            List<List<Tuple<int, int>>> calendario = GenerarRoundRobin(equipos);
+
+            GuardarCalendario(calendario, temporadaActual, idManager, idCompeticion);
+        }
+
         private List<List<Tuple<int, int>>> GenerarRoundRobin(List<int> equipos)
         {
             int numEquipos = equipos.Count;
@@ -181,16 +182,6 @@ namespace ChampionManager25.Datos
                 rotables.Insert(0, rotables[^1]);
                 rotables.RemoveAt(rotables.Count - 1);
             }
-
-            // Generar la segunda vuelta invirtiendo local/visitante
-            List<List<Tuple<int, int>>> segundaVuelta = jornadas
-                .Select(jornada => jornada
-                    .Select(partido => new Tuple<int, int>(partido.Item2, partido.Item1))
-                    .ToList())
-                .ToList();
-
-            // Unir ida y vuelta
-            jornadas.AddRange(segundaVuelta);
 
             return jornadas;
         }

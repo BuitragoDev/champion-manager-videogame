@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="ChampionManager25.UserControls.UC_Menu_Club_Plantilla"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ChampionManager25.UserControls"
+             mc:Ignorable="d" d:DesignHeight="935" d:DesignWidth="1845" Loaded="UserControl_Loaded">
+    <Grid Background="WhiteSmoke">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1845"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Column="0" Grid.Row="0" BorderBrush="#1d6a7d" BorderThickness="1" Margin="10">
+            <Grid Background="WhiteSmoke">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="90"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Background="#1d6a7d" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+                    <TextBlock Text="JUGADORES EN PLANTILLA" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                               FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                </Border>
+
+                <!-- Menu lateral derecha-->
+                <Border Background="#FF23282D" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Image x:Name="imgPlantillaPuntuacion" Grid.Column="0" Grid.Row="1" Width="64" Height="64" VerticalAlignment="Center"
+                               HorizontalAlignment="Center" Source="/Recursos/img/icons/plantilla_puntuacion.png" IsEnabled="False" Cursor="Hand" MouseLeftButtonDown="imgPlantillaPuntuacion_MouseLeftButtonDown" />
+
+                        <Image x:Name="imgPlantillaDatos" Grid.Column="0" Grid.Row="3" Width="64" Height="64" VerticalAlignment="Center" Cursor="Hand"
+                               HorizontalAlignment="Center" Source="/Recursos/img/icons/plantilla_datos.png" MouseLeftButtonDown="imgPlantillaDatos_MouseLeftButtonDown" />
+
+                        <Image x:Name="imgPlantillaEstadisticas" Grid.Column="0" Grid.Row="5" Width="64" Height="64" VerticalAlignment="Center" Cursor="Hand"
+                               HorizontalAlignment="Center" Source="/Recursos/img/icons/plantilla_estadisticas.png" MouseLeftButtonDown="imgPlantillaEstadisticas_MouseLeftButtonDown" />
+                    </Grid>
+                </Border>
+
+                <!-- DataGrid de la Plantilla-->
+                <WrapPanel Grid.Column="0" Grid.Row="1" Margin="10" >
+                    <DataGrid x:Name="dgPlantilla" Width="1703" IsReadOnly="True" AutoGenerateColumns="False"
+                              GridLinesVisibility="None" FontFamily="Cascadia Code Light" FontSize="16" DockPanel.Dock="Top" Height="863" SelectionChanged="DgPlantilla_SelectionChanged" Cursor="Hand" />
+                </WrapPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

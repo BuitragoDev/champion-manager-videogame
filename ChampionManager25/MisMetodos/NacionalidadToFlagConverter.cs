@@ -121,6 +121,7 @@ namespace ChampionManager25.MisMetodos
                 "Irak" => "IRQ",
                 "Irán" => "IRN",
                 "Irlanda" => "IRL",
+                "Irlanda del Norte" => "NIR",
                 "Islandia" => "ISL",
                 "Islas Feroe" => "FER",
                 "Islas Marshall" => "MHL",

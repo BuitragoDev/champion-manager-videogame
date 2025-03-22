@@ -16,16 +16,14 @@ namespace ChampionManager25.Entidades
         public int Asistencias { get; set; } = 0;
         public int TarjetasAmarillas { get; set; } = 0;
         public int TarjetasRojas { get; set; } = 0;
-        public int MinutosJugados { get; set; } = 0;
         public int MVP { get; set; } = 0;
-        public int Hattrick { get; set; } = 0;
         public int IdManager { get; set; }
 
         // Atributos extra
         public string? Nombre { get; set; }
         public string? Apellido { get; set; }
         public string? NombreCompleto => $"{Nombre} {Apellido}";
-        public string? Nacionalidad1 { get; set; }
+        public string? Nacionalidad { get; set; }
         public int? Dorsal { get; set; }
         public int? RolId { get; set; }
 
@@ -35,7 +33,7 @@ namespace ChampionManager25.Entidades
 
         // Constructor con parámetros
         public Estadistica(int idEstadistica, int idJugador, int partidosJugados, int goles, int asistencias,
-                           int tarjetasAmarillas, int tarjetasRojas, int minutosJugados, int mvp, int hattrick, int idManager)
+                           int tarjetasAmarillas, int tarjetasRojas, int mvp, int idManager)
         {
             IdEstadistica = idEstadistica;
             IdJugador = idJugador;
@@ -44,15 +42,13 @@ namespace ChampionManager25.Entidades
             Asistencias = asistencias;
             TarjetasAmarillas = tarjetasAmarillas;
             TarjetasRojas = tarjetasRojas;
-            MinutosJugados = minutosJugados;
             MVP = mvp;
-            Hattrick = hattrick;
             IdManager = idManager;
         }
 
         // Constructor con parámetros SIN ID
         public Estadistica(int idJugador, int partidosJugados, int goles, int asistencias,
-                           int tarjetasAmarillas, int tarjetasRojas, int minutosJugados, int mvp, int hattrick, int idManager)
+                           int tarjetasAmarillas, int tarjetasRojas, int mvp, int idManager)
         {
             IdJugador = idJugador;
             PartidosJugados = partidosJugados;
@@ -60,9 +56,7 @@ namespace ChampionManager25.Entidades
             Asistencias = asistencias;
             TarjetasAmarillas = tarjetasAmarillas;
             TarjetasRojas = tarjetasRojas;
-            MinutosJugados = minutosJugados;
             MVP = mvp;
-            Hattrick = hattrick;
             IdManager = idManager;
         }
 
@@ -70,7 +64,7 @@ namespace ChampionManager25.Entidades
         {
             return $"ID: {IdEstadistica}, Jugador: {IdJugador}, Partidos: {PartidosJugados}, " +
                    $"Goles: {Goles}, Asistencias: {Asistencias}, Amarillas: {TarjetasAmarillas}, " +
-                   $"Rojas: {TarjetasRojas}, Minutos: {MinutosJugados}, MVP: {MVP}, Hattricks: {Hattrick}";
+                   $"Rojas: {TarjetasRojas}, MVP: {MVP}";
         }
     }
 }

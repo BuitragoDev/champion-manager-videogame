@@ -5,6 +5,9 @@
     <Compile Update="UserControls\UC_CrearManager.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\UC_FichaJugador.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\UC_InformacionEquipo.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -17,7 +20,46 @@
     <Compile Update="UserControls\UC_InicioTemporada.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\UC_Menu_Calendario.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Calendario_Principal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Club.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Club_Informacion.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Club_Plantilla.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Correo.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Correo_Principal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Estadio.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Estadio_Informacion.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Home.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\UC_Menu_Home_MenuPrincipal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Manager.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Manager_Ficha.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Manager_Palmares.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControls\UC_PantallaCarga.xaml.cs">

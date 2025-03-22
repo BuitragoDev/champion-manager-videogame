@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="ChampionManager25.UserControls.UC_Menu_Estadio_Informacion"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ChampionManager25.UserControls"
+             mc:Ignorable="d" d:DesignHeight="935" d:DesignWidth="1845" Loaded="UserControl_Loaded">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush x:Name="imgFondo" ImageSource="pack://application:,,,/Recursos/img/backgroundEstadio_img.png" Stretch="UniformToFill" TileMode="None"/>
+        </Grid.Background>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="745"/>
+            <ColumnDefinition Width="1100"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="930"/>
+        </Grid.RowDefinitions>
+
+        <!-- Área Cuadro Principal -->
+        <Border Background="WhiteSmoke"
+                BorderThickness="5"
+                BorderBrush="#1d6a7d"
+                Margin="37,100,5,0"
+                Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Height="764">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="700"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="64"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="540"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Column="0" Grid.Row="0" Background="#23282d">
+                    <TextBlock x:Name="txtNombrePabellon" Grid.Column="2" HorizontalAlignment="Left" Text="Nombre Pabellon" VerticalAlignment="Center" 
+                               FontFamily="Cascadia Code SemiBold" FontSize="24" Foreground="WhiteSmoke" Margin="20,0,0,0"/>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="1" Background="#1d6a7d">
+                    <TextBlock x:Name="txtCancha" Grid.Column="2" HorizontalAlignment="Left" Text="CAPACIDAD" VerticalAlignment="Center" 
+                               FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" Margin="20,0,0,0"/>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="84"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Image x:Name="imgPabellonIcono" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"  
+                               Width="50" Height="50" Stretch="Uniform" Source="/Recursos/img/icons/estadioNegro_icon.png" Margin="20,0,0,0" />
+                        <TextBlock x:Name="txtCapacidad" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Text="espectadores" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="Black" Margin="20,0,0,0"/>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="3" Background="#1d6a7d">
+                    <TextBlock x:Name="txtEquipamiento" Grid.Column="2" HorizontalAlignment="Left" Text="INTERIOR DEL ESTADIO" VerticalAlignment="Center" 
+                               FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" Margin="20,0,0,0"/>
+                </Border>
+                <Image x:Name="imgPabellon" Grid.Row="4" VerticalAlignment="Top" HorizontalAlignment="Left"  
+                       Width="700" Height="540" Stretch="UniformToFill" />
+
+            </Grid>
+        </Border>
+        <Image x:Name="imgLogo" Grid.Column="1" HorizontalAlignment="Left" Height="200" Margin="132,322,0,0" VerticalAlignment="Top" Width="200"/>
+    </Grid>
+</UserControl>

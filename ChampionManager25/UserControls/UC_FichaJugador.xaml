@@ -1,0 +1,469 @@
+﻿<UserControl x:Class="ChampionManager25.UserControls.UC_FichaJugador"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ChampionManager25.UserControls"
+             mc:Ignorable="d" d:DesignHeight="935" d:DesignWidth="1845" Loaded="UserControl_Loaded">
+    <Grid Background="WhiteSmoke">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1845"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="#1d6a7d" Grid.Column="0" Grid.Row="0">
+            <TextBlock Text="FICHA DE JUGADOR" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" 
+                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+        </Border>
+
+        <Border Grid.Column="0" Grid.Row="1" Margin="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Column="0" Grid.Row="0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0" Background="LightGray">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="120"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- Dorsal, Nombre y Foto -->
+                                <Border Grid.Column="0" Grid.Row="0" Background="#1d6a7d">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="120"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="120"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Grid.Column="0" Grid.Row="0" x:Name="txtDorsal" Text="00" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                   FontFamily="Cascadia Code SemiBold" FontSize="48" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                        <TextBlock Grid.Column="1" Grid.Row="0" x:Name="txtNombreJugador" Text="NombreJugador" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                   FontFamily="Cascadia Code SemiBold" FontSize="32" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                        <Image x:Name="imgFotoJugador" Grid.Column="2" Grid.Row="0" Width="100" Height="100" VerticalAlignment="Center" 
+                                               HorizontalAlignment="Center" Source="/Recursos/img/jugadores/1.png" />
+                                    </Grid>
+                                </Border>
+
+                                <!-- Equipo, Media y Datos Personales -->
+                                <Border Grid.Column="0" Grid.Row="1">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="300"/>
+                                            <ColumnDefinition Width="200"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <!-- Escudo Equipo y Media -->
+                                        <Image x:Name="imgEscudoEquipo" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Width="120" Height="120" VerticalAlignment="Center" 
+                                               HorizontalAlignment="Center" Source="/Recursos/img/escudos_equipos/80x80/1.png" />
+
+                                        <Ellipse x:Name="elipseMedia" Grid.Column="0" Grid.Row="3" Grid.RowSpan="3" HorizontalAlignment="Center" Height="120" Stroke="Green" 
+                                                 VerticalAlignment="Center" Width="120" StrokeThickness="20"/>
+                                        <TextBlock x:Name="lblAverage" Grid.Column="0" Grid.Row="3" Grid.RowSpan="3" Text="99" FontFamily="Cascadia Code SemiBold" 
+                                                   FontSize="32" VerticalAlignment="Center" HorizontalAlignment="Center" />
+
+                                        <!-- Datos Personales -->
+                                        <TextBlock Grid.Column="1" Grid.Row="0" Text="Equipo:" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                   FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <TextBlock Grid.Column="1" Grid.Row="1" Text="Posición:" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                   FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <TextBlock Grid.Column="1" Grid.Row="2" Text="Altura:" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                   FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <TextBlock Grid.Column="1" Grid.Row="3" Text="Peso:" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                   FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <TextBlock Grid.Column="1" Grid.Row="4" Text="Edad:" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                   FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <TextBlock Grid.Column="1" Grid.Row="5" Text="Nacionalidad:" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                   FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                       
+                                        <TextBlock x:Name="txtNombreEquipo" Grid.Column="2" Grid.Row="0" Text="Equipo" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                   FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <TextBlock x:Name="txtPosicion" Grid.Column="2" Grid.Row="1" Text="Posicion" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                   FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <TextBlock x:Name="txtAltura" Grid.Column="2" Grid.Row="2" Text="Altura" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                   FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <TextBlock x:Name="txtPeso" Grid.Column="2" Grid.Row="3" Text="Peso" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                   FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <TextBlock x:Name="txtEdad" Grid.Column="2" Grid.Row="4" Text="Edad" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                   FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <TextBlock x:Name="txtNacionalidad" Grid.Column="2" Grid.Row="5" Text="Nacionalidad" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                   FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                    </Grid>
+                                </Border>
+
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Column="1" Grid.Row="0" Margin="20,0,0,0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Border Background="#1d6a7d" Grid.Column="0" Grid.Row="0" BorderBrush="#1d6a7d" BorderThickness="1" >
+                                    <TextBlock Text="POSICIÓN EN EL CAMPO" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                               FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                </Border>
+
+                                <Border Grid.Column="0" Grid.Row="1" BorderBrush="#1d6a7d" BorderThickness="1" >
+                                    <Image x:Name="imgCoordenadas" Grid.Column="0" Grid.Row="0" Width="464" Height="300" VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"  />
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="1" Margin="0,20,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Estado Actual -->
+                        <Border Background="#1d6a7d" Grid.Column="0" Grid.Row="0" BorderBrush="#1d6a7d" BorderThickness="1" >
+                            <TextBlock Text="ESTADO ACTUAL" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                        </Border>
+
+                        <Border Grid.Column="0" Grid.Row="1" BorderBrush="#1d6a7d" BorderThickness="1" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- Condición Física -->
+                                <Border Background="WhiteSmoke" Grid.Column="0" Grid.Row="0" Margin="5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="70"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Condición Física:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"
+                                                   FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <TextBlock x:Name="txtCondicionFisica" Grid.Column="1" Grid.Row="0" Text="00" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                   FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="#FF23282D" TextAlignment="Center"/>
+                                    </Grid>
+                                </Border>
+                                
+                                <!-- Moral -->
+                                <Border Background="LightGray" Grid.Column="0" Grid.Row="1" Margin="5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="70"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Moral:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"
+                                                   FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <Image x:Name="imgMoral" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               Height="32" Width="32" Source="/Recursos/img/icons/derecha_icon.png" />
+                                    </Grid>
+                                </Border>
+                               
+                                <!-- Lesionado -->
+                                <Border Background="WhiteSmoke" Grid.Column="0" Grid.Row="2" Margin="5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="70"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Lesionado:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"
+                                                   FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <Image x:Name="imgLesionado" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               Height="32" Width="32" />
+                                    </Grid>
+                                </Border>
+                                
+                                <!-- Rol -->
+                                <Border Background="LightGray" Grid.Column="0" Grid.Row="3" Margin="5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="70"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Rol:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"
+                                                   FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <Image x:Name="imgStatus" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               Height="32" Width="32" />
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <!-- Atributos -->
+                        <Border Background="#1d6a7d" Grid.Column="4" Grid.Row="0" BorderBrush="#1d6a7d" BorderThickness="1">
+                            <TextBlock Text="ATRIBUTOS" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                        </Border>
+
+                        <Border Grid.Column="4" Grid.Row="1" BorderBrush="#1d6a7d" BorderThickness="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- Atributos Fila 1 -->
+                                <Border Background="WhiteSmoke" Grid.Column="0" Grid.Row="0" Margin="5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="80"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="80"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Velocidad" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"
+                                                   FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <TextBlock x:Name="txtVelocidad" Grid.Column="1" Grid.Row="0" Text="00" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                   FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <TextBlock Grid.Column="2" Grid.Row="0" Text="Portero" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"
+                                                   FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <TextBlock x:Name="txtPortero" Grid.Column="3" Grid.Row="0" Text="00" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                   FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="#FF23282D" TextAlignment="Center"/>
+                                    </Grid>
+                                </Border>
+
+                                <!-- Atributos Fila 2 -->
+                                <Border Background="LightGray" Grid.Column="0" Grid.Row="1" Margin="5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="80"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="80"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Column="0" Grid.Row="1" Text="Resistencia" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"
+                                                   FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <TextBlock x:Name="txtResistencia" Grid.Column="1" Grid.Row="1" Text="00" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                   FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <TextBlock Grid.Column="2" Grid.Row="1" Text="Pase" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"
+                                                   FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <TextBlock x:Name="txtPase" Grid.Column="3" Grid.Row="1" Text="00" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                   FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="#FF23282D" TextAlignment="Center"/>
+                                    </Grid>
+                                </Border>
+
+                                <!-- Atributos Fila 3 -->
+                                <Border Background="WhiteSmoke" Grid.Column="0" Grid.Row="2" Margin="5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="80"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="80"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Column="0" Grid.Row="2" Text="Agresividad" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"
+                                                   FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <TextBlock x:Name="txtAgresividad" Grid.Column="1" Grid.Row="2" Text="00" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                   FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <TextBlock Grid.Column="2" Grid.Row="2" Text="Regate" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"
+                                                   FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <TextBlock x:Name="txtRegate" Grid.Column="3" Grid.Row="2" Text="00" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                   FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="#FF23282D" TextAlignment="Center"/>
+                                    </Grid>
+                                </Border>
+
+                                <!-- Atributos Fila 4 -->
+                                <Border Background="LightGray" Grid.Column="0" Grid.Row="3" Margin="5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="80"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="80"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Column="0" Grid.Row="3" Text="Calidad" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"
+                                                   FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <TextBlock x:Name="txtCalidad" Grid.Column="1" Grid.Row="3" Text="00" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                   FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <TextBlock Grid.Column="2" Grid.Row="3" Text="Remate" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"
+                                                   FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <TextBlock x:Name="txtRemate" Grid.Column="3" Grid.Row="3" Text="00" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                   FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="#FF23282D" TextAlignment="Center"/>
+                                    </Grid>
+                                </Border>
+
+                                <!-- Atributos Fila 5 -->
+                                <Border Background="WhiteSmoke" Grid.Column="0" Grid.Row="4" Margin="5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="80"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="80"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Column="0" Grid.Row="4" Text="Potencial" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"
+                                                   FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <TextBlock x:Name="txtPotencial" Grid.Column="1" Grid.Row="4" Text="00" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                   FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <TextBlock Grid.Column="2" Grid.Row="4" Text="Entradas" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"
+                                                   FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <TextBlock x:Name="txtEntradas" Grid.Column="3" Grid.Row="4" Text="00" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                   FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="#FF23282D" TextAlignment="Center"/>
+                                    </Grid>
+                                </Border>
+
+                                <!-- Atributos Fila 4 -->
+                                <Border Background="LightGray" Grid.Column="0" Grid.Row="5" Margin="5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="80"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="80"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Grid.Column="2" Grid.Row="5" Text="Tiro" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"
+                                                   FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <TextBlock x:Name="txtTiro" Grid.Column="3" Grid.Row="5" Text="00" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                   FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="#FF23282D" TextAlignment="Center"/>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+
+        <Border Background="#FF23282D" Grid.Column="0" Grid.Row="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Button x:Name="btnVolverPlantilla" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"
+                        Height="50" Width="250" FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnVolverPlantilla_Click" Margin="0,0,10,0">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <!-- Configuración inicial -->
+                            <Setter Property="Background" Value="#1d6a7d"/>
+                            <Setter Property="Foreground" Value="WhiteSmoke"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <!-- Imagen de la flecha -->
+                                                <Image Source="/Recursos/img/icons/volver_icon.png" Height="32" Width="32" VerticalAlignment="Center" Stretch="Uniform"/>
+                                                <!-- Texto del botón -->
+                                                <TextBlock Text="Volver" 
+                                                           Foreground="{TemplateBinding Foreground}" 
+                                                           VerticalAlignment="Center" 
+                                                           Margin="20,0,5,0" FontSize="22"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+
+                            <!-- Configuración al pasar el ratón -->
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

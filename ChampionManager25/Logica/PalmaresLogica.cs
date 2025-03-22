@@ -20,9 +20,9 @@ namespace ChampionManager25.Logica
         }
 
         // Llamada al método para Mostrar el Palmarés del Manager
-        /*public List<PalmaresManager> MostrarPalmaresManager(int equipo, int manager)
+        public List<PalmaresManager> MostrarPalmaresManager(int equipo, int manager)
         {
             return _datos.MostrarPalmaresManager(equipo, manager);
-        }*/
+        }
     }
 }

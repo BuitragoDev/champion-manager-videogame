@@ -139,57 +139,6 @@ namespace ChampionManager25.Datos
             return stats; // Devuelve el objeto con valores por defecto si no hay datos
         }
 
-        // ------------------------------------------------------------------- Método que devuelve el jugador con más Goles + Asistencias
-        public Estadistica MostrarJugadorConMasGolesAsistencias(int equipo)
-        {
-            Estadistica stats = new Estadistica
-            {
-                IdJugador = 0,
-                Goles = 0,
-                Asistencias = 0,
-                PartidosJugados = 0
-            };
-
-            try
-            {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
-                {
-                    conn.Open();
-
-                    string query = @"SELECT 
-                                        ej.id_jugador, ej.goles, ej.asistencias, ej.partidosJugados
-                                     FROM estadisticas_jugadores ej
-                                     JOIN jugadores j ON ej.id_jugador = j.id_jugador
-                                     JOIN equipos e ON j.id_equipo = e.id_equipo
-                                     WHERE e.id_equipo = @IdEquipo
-                                     ORDER BY (ej.goles + ej.asistencias) DESC
-                                     LIMIT 1;";
-
-                    using (var cmd = new SQLiteCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@IdEquipo", equipo);
-
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read()) // Si se encuentra un registro
-                            {
-                                stats.IdJugador = reader.GetInt32(reader.GetOrdinal("id_jugador"));
-                                stats.Goles = reader.GetInt32(reader.GetOrdinal("goles"));
-                                stats.Asistencias = reader.GetInt32(reader.GetOrdinal("asistencias"));
-                                stats.PartidosJugados = reader.GetInt32(reader.GetOrdinal("partidosJugados"));
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
-            }
-
-            return stats; // Devuelve el objeto con valores por defecto si no hay datos
-        }
-
         // ------------------------------------------------------------------- Método que devuelve el jugador con más MVP
         public Estadistica MostrarJugadorConMasMvp(int equipo)
         {
@@ -337,55 +286,6 @@ namespace ChampionManager25.Datos
             return stats; // Devuelve el objeto con valores por defecto si no hay datos
         }
 
-        // ------------------------------------------------------------------- Método que devuelve el jugador con más Hattrick
-        public Estadistica MostrarJugadorConMasHattrick(int equipo)
-        {
-            Estadistica stats = new Estadistica
-            {
-                IdJugador = 0,
-                Hattrick = 0,
-                PartidosJugados = 0
-            };
-
-            try
-            {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
-                {
-                    conn.Open();
-
-                    string query = @"SELECT 
-                                        ej.id_jugador, ej.hattrick, ej.partidosJugados
-                                     FROM estadisticas_jugadores ej
-                                     JOIN jugadores j ON ej.id_jugador = j.id_jugador
-                                     JOIN equipos e ON j.id_equipo = e.id_equipo
-                                     WHERE e.id_equipo = @IdEquipo
-                                     ORDER BY ej.hattrick DESC
-                                     LIMIT 1;";
-
-                    using (var cmd = new SQLiteCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@IdEquipo", equipo);
-
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read()) // Si se encuentra un registro
-                            {
-                                stats.IdJugador = reader.GetInt32(reader.GetOrdinal("id_jugador"));
-                                stats.Hattrick = reader.GetInt32(reader.GetOrdinal("hattrick"));
-                                stats.PartidosJugados = reader.GetInt32(reader.GetOrdinal("partidosJugados"));
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
-            }
-
-            return stats; // Devuelve el objeto con valores por defecto si no hay datos
-        }
-
         // ------------------------------------------------------------------- Método que devuelve la ESTADÍSTICA HISTÓRICA DE UN EQUIPO
         public EstadisticaHistorica MostrarEstadisticaHistoricaEquipo(int equipo, string categoria)
         {
@@ -494,16 +394,14 @@ namespace ChampionManager25.Datos
                                         j.nombre,
                                         j.apellido,
                                         j.dorsal,
-                                        j.nacionalidad1,
+                                        j.nacionalidad,
                                         j.rol_id,
                                         e.partidosJugados,
                                         e.goles,
                                         e.asistencias,
                                         e.tarjetasAmarillas,
                                         e.tarjetasRojas,
-                                        e.minutosJugados,
-                                        e.mvp,
-                                        e.hattrick
+                                        e.mvp
                                     FROM jugadores j
                                     LEFT JOIN estadisticas_jugadores e ON j.id_jugador = e.id_jugador
                                     WHERE j.id_equipo = @idEquipo AND e.id_manager = @idManager";
@@ -526,16 +424,14 @@ namespace ChampionManager25.Datos
                                     Nombre = reader.GetString(1),
                                     Apellido = reader.GetString(2),
                                     Dorsal = reader.IsDBNull(3) ? 0 : reader.GetInt32(3),
-                                    Nacionalidad1 = reader.GetString(4),
+                                    Nacionalidad = reader.GetString(4),
                                     RolId = reader.IsDBNull(5) ? 0 : reader.GetInt32(5),
                                     PartidosJugados = reader.IsDBNull(6) ? 0 : reader.GetInt32(6),
                                     Goles = reader.IsDBNull(7) ? 0 : reader.GetInt32(7),
                                     Asistencias = reader.IsDBNull(8) ? 0 : reader.GetInt32(8),
                                     TarjetasAmarillas = reader.IsDBNull(9) ? 0 : reader.GetInt32(9),
                                     TarjetasRojas = reader.IsDBNull(10) ? 0 : reader.GetInt32(10),
-                                    MinutosJugados = reader.IsDBNull(11) ? 0 : reader.GetInt32(11),
-                                    MVP = reader.IsDBNull(12) ? 0 : reader.GetInt32(12),
-                                    Hattrick = reader.IsDBNull(13) ? 0 : reader.GetInt32(13)
+                                    MVP = reader.IsDBNull(12) ? 0 : reader.GetInt32(12)
                                 });
                             }
                         }

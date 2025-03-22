@@ -132,7 +132,7 @@ namespace ChampionManager25.UserControls
         {
             // Crear el calendario de las Ligas
             int temporadaActual = Metodos.temporadaActual;
-            //_datosPartido.GenerarCalendario(temporadaActual, _manager.IdManager, 1);
+            _datosPartido.GenerarCalendario(temporadaActual, _manager.IdManager, 1);
 
             // Generar las clasificaciones
             _logicaClasificacion.RellenarClasificacion(1, _manager.IdManager);

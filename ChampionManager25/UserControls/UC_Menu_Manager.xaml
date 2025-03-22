@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="ChampionManager25.UserControls.UC_Menu_Manager"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ChampionManager25.UserControls"
+             mc:Ignorable="d" d:DesignHeight="50" d:DesignWidth="1845">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="lblManager" Grid.Column="0" HorizontalAlignment="Center" Text="MÁNAGER" VerticalAlignment="Center" 
+                   FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" FontWeight="Bold" Width="200" 
+                   TextAlignment="Center"/>
+
+        <TextBlock x:Name="lblFicha" Grid.Column="1" HorizontalAlignment="Center" Text="Ficha" VerticalAlignment="Center" 
+                   FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" FontWeight="Bold" Width="200" 
+                   TextAlignment="Center" Cursor="Hand" MouseLeftButtonDown="lblFicha_MouseLeftButtonDown"/>
+
+        <TextBlock x:Name="lblPalmares" Grid.Column="2" HorizontalAlignment="Center" Text="Palmarés" VerticalAlignment="Center" 
+                   FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" FontWeight="Bold" Width="200" 
+                   TextAlignment="Center" Cursor="Hand" MouseLeftButtonDown="lblPalmares_MouseLeftButtonDown"/>
+    </Grid>
+</UserControl>

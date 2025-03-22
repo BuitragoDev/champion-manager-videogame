@@ -31,12 +31,6 @@ namespace ChampionManager25.Logica
             return _datos.MostrarJugadorConMasAsistencias(equipo);
         }
 
-        // Llamada al método que devuelve el jugador con más Goles + Asistencias
-        public Estadistica MostrarJugadorConMasGolesAsistencias(int equipo)
-        {
-            return _datos.MostrarJugadorConMasGolesAsistencias(equipo);
-        }
-
         // Llamada al método que devuelve el jugador con más MVP
         public Estadistica MostrarJugadorConMasMvp(int equipo)
         {
@@ -53,12 +47,6 @@ namespace ChampionManager25.Logica
         public Estadistica MostrarJugadorConMasTarjetasRojas(int equipo)
         {
             return _datos.MostrarJugadorConMasTarjetasRojas(equipo);
-        }
-
-        // Llamada al método que devuelve el jugador con más Hattrick
-        public Estadistica MostrarJugadorConMasHattrick(int equipo)
-        {
-            return _datos.MostrarJugadorConMasHattrick(equipo);
         }
 
         // Llamada al método que devuelve la ESTADÍSTICA HISTÓRICA DE UN EQUIPO

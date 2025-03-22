@@ -151,7 +151,7 @@
                 </Image>
                 
                 <Image x:Name="imgCompeticiones" Grid.Row="2" Grid.Column="0" Height="48" Width="48"
-                       HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Source="/Recursos/img/icons/competiciones_icon.png">
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Source="/Recursos/img/icons/competiciones_icon.png" MouseLeftButtonDown="imgCompeticiones_MouseLeftButtonDown">
                     <Image.ToolTip>
                         <ToolTip Content="Competiciones" />
                     </Image.ToolTip>
