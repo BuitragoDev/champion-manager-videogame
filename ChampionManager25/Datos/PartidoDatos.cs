@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ChampionManager25.MisMetodos;
 using ChampionManager25.Entidades;
+using System.Configuration;
 
 namespace ChampionManager25.Datos
 {
@@ -505,6 +506,53 @@ namespace ChampionManager25.Datos
             }
 
             return partido;
+        }
+
+        // Metodo que carga los partidos de una jornada
+        public List<Partido> CargarJornada(int jornada, int manager)
+        {
+            List<Partido> oPartido = new List<Partido>();
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+
+                    string query = @"SELECT fecha, id_equipo_local, id_equipo_visitante, goles_local, goles_visitante, estado, id_competicion
+                                     FROM partidos
+                                     WHERE jornada = @jornada AND id_manager = @IdManager";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@jornada", jornada);
+                        cmd.Parameters.AddWithValue("@IdManager", manager);
+
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                oPartido.Add(new Partido()
+                                {
+                                    FechaPartido = DateTime.Parse(reader["fecha"]?.ToString() ?? "2000-01-01"),
+                                    IdEquipoLocal = Convert.ToInt32(reader["id_equipo_local"]),
+                                    IdEquipoVisitante = Convert.ToInt32(reader["id_equipo_visitante"]),
+                                    Estado = reader.GetString(reader.GetOrdinal("estado")),
+                                    GolesLocal = reader["goles_local"] != DBNull.Value ? Convert.ToInt32(reader["goles_local"]) : 0,
+                                    GolesVisitante = reader["goles_visitante"] != DBNull.Value ? Convert.ToInt32(reader["goles_visitante"]) : 0,
+                                    IdCompeticion = reader["id_competicion"] != DBNull.Value ? Convert.ToInt32(reader["id_competicion"]) : 0
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return oPartido;
         }
     }
 }

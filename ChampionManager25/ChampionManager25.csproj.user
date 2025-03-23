@@ -35,6 +35,18 @@
     <Compile Update="UserControls\UC_Menu_Club_Plantilla.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\UC_Menu_Competicion.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Competicion_Clasificacion.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Competicion_Estadisticas.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Competicion_Resultados.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\UC_Menu_Correo.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

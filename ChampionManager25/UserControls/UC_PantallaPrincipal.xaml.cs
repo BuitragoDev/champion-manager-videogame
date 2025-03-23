@@ -147,7 +147,7 @@ namespace ChampionManager25.UserControls
             menuClub.MostrarInformacion += CargarClubInformacion;
             menuClub.MostrarPlantilla += CargarClubPlantilla;
 
-            // Cambiar el color del texto "Ingresos" a naranja
+            // Cambiar el color del texto
             menuClub.lblInformacion.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
 
             // Cargar Panel Principal
@@ -170,6 +170,24 @@ namespace ChampionManager25.UserControls
         {
             Metodos.ReproducirSonidoClick();
 
+            // Cargar Submenú
+            DockPanel_Submenu.Children.Clear();
+            UC_Menu_Competicion menuCompeticion = new UC_Menu_Competicion();
+            DockPanel_Submenu.Children.Add(menuCompeticion);
+
+            // Suscribirse a los eventos
+            menuCompeticion.MostrarClasificacion += CargarCompeticionClasificacion;
+            menuCompeticion.MostrarResultados += CargarCompeticionResultados;
+            menuCompeticion.MostrarEstadisticas += CargarCompeticionEstadisticas;
+            menuCompeticion.MostrarPalmares += CargarCompeticionPalmares;
+
+            // Cambiar el color del texto
+            menuCompeticion.lblClasificacion.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+
+            // Cargar Panel Principal
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Competicion_Clasificacion clasificacionPrincipal = new UC_Menu_Competicion_Clasificacion(_manager, _equipo);
+            DockPanel_Central.Children.Add(clasificacionPrincipal);
         }
         // ------------------------------------------------------------------------------------------------------------
 
@@ -323,6 +341,40 @@ namespace ChampionManager25.UserControls
             DockPanel_Central.Children.Clear();
             UC_Menu_Club_Plantilla clubPlantilla = new UC_Menu_Club_Plantilla(_manager, _equipo);
             DockPanel_Central.Children.Add(clubPlantilla);
+        }
+
+        // Método para cargar UC_Menu_Competicion_Clasificacion
+        private void CargarCompeticionClasificacion()
+        {
+            // Cargar UC_Menu_Competicion_Clasificacion
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Competicion_Clasificacion competicionClasificacion = new UC_Menu_Competicion_Clasificacion(_manager, _equipo);
+            DockPanel_Central.Children.Add(competicionClasificacion);
+        }
+
+        // Método para cargar UC_Menu_Competicion_Resultados
+        private void CargarCompeticionResultados()
+        {
+            // Cargar UC_Menu_Competicion_Resultados
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Competicion_Resultados competicionResultados = new UC_Menu_Competicion_Resultados(_manager, _equipo);
+            DockPanel_Central.Children.Add(competicionResultados);
+        }
+
+        // Método para cargar UC_Menu_Competicion_Estadisticas
+        private void CargarCompeticionEstadisticas()
+        {
+            // Cargar UC_Menu_Competicion_Estadisticas
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Competicion_Estadisticas competicionEstadisticas = new UC_Menu_Competicion_Estadisticas(_manager, _equipo);
+            DockPanel_Central.Children.Add(competicionEstadisticas);
+        }
+
+        // Método para cargar UC_Menu_Competicion_Palmares
+        private void CargarCompeticionPalmares()
+        {
+            // Cargar UC_Menu_Competicion_Palmares
+
         }
 
         // Método para cargar UC_Menu_Manager_Ficha

@@ -53,5 +53,11 @@ namespace ChampionManager25.Logica
         {
             return _datos.MostrarProximoPartidoLocal(equipo, idManager, fecha);
         }
+
+        // Metodo que carga los partidos de una jornada
+        public List<Partido> CargarJornada(int jornada, int manager)
+        {
+            return _datos.CargarJornada(jornada, manager);
+        }
     }
 }

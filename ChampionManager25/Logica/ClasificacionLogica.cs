@@ -30,5 +30,35 @@ namespace ChampionManager25.Logica
         {
             return _datos.MostrarClasificacionPorEquipo(equipo, manager);
         }
+
+        // Llamada al método para Mostrar el equipo con MAS GOLES A FAVOR
+        public Clasificacion MostrarMejorAtaque(int manager)
+        {
+            return _datos.MostrarMejorAtaque(manager);
+        }
+
+        // Llamada al método para Mostrar el equipo con MENOS GOLES EN CONTRA
+        public Clasificacion MostrarMejorDefensa(int manager)
+        {
+            return _datos.MostrarMejorDefensa(manager);
+        }
+
+        // Llamada al método para Mostrar el equipo con MEJOR RACHA
+        public Clasificacion MostrarMejorRacha(int manager)
+        {
+            return _datos.MostrarMejorRacha(manager);
+        }
+
+        // Llamada al método para Mostrar el equipo con MAS VICTORIAS COMO LOCAL
+        public Clasificacion MostrarMejorEquipoLocal(int manager)
+        {
+            return _datos.MostrarMejorEquipoLocal(manager);
+        }
+
+        // Llamada al método para Mostrar el equipo con MAS VICTORIAS COMO VISITANTE
+        public Clasificacion MostrarMejorEquipoVisitante(int manager)
+        {
+            return _datos.MostrarMejorEquipoVisitante(manager);
+        }
     }
 }

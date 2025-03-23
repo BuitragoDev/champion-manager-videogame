@@ -26,6 +26,7 @@ namespace ChampionManager25.Entidades
         public string? Nacionalidad { get; set; }
         public int? Dorsal { get; set; }
         public int? RolId { get; set; }
+        public int? IdEquipo { get; set; }
 
 
         // Constructor vacío

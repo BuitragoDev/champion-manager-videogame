@@ -446,5 +446,89 @@ namespace ChampionManager25.Datos
 
             return lista;
         }
+
+        // ======================================================= Método para mostrar las estadísticas de toda la competicion
+        public List<Estadistica> MostrarEstadisticasTotales(int manager, int filtro)
+        {
+            List<Estadistica> lista = new List<Estadistica>();
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+
+                    
+                    string filtroCadena = "";
+                    if (filtro == 1)
+                    {
+                        filtroCadena = "e.goles"; 
+                    }
+                    else if (filtro == 2)
+                    {
+                        filtroCadena = "e.asistencias";
+                    }
+                    else if (filtro == 3)
+                    {
+                        filtroCadena = "e.tarjetasAmarillas";
+                    }
+                    else if (filtro == 4)
+                    {
+                        filtroCadena = "e.tarjetasRojas";
+                    }
+                    else if (filtro == 5)
+                    {
+                        filtroCadena = "e.mvp";
+                    }
+
+                    // Consulta
+                    string query = @"SELECT j.id_jugador, j.nombre, j.apellido, j.dorsal, j.nacionalidad, j.rol_id, e.partidosJugados, e.goles,
+                                            e.asistencias, e.tarjetasAmarillas, e.tarjetasRojas, e.mvp, j.id_equipo
+                                     FROM jugadores j
+                                     LEFT JOIN estadisticas_jugadores e ON j.id_jugador = e.id_jugador
+                                     WHERE e.id_manager = @idManager
+                                     ORDER BY " + filtroCadena + " DESC " +
+                                     "LIMIT 25";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        // Asignar el valor del parámetro de la consulta
+                        cmd.Parameters.AddWithValue("@idManager", manager);
+
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            lista.Clear();  // Asegura que la lista esté vacía antes de llenarla
+
+                            while (reader.Read())
+                            {
+                                lista.Add(new Estadistica
+                                {
+                                    IdJugador = reader.GetInt32(0),
+                                    Nombre = reader.GetString(1),
+                                    Apellido = reader.GetString(2),
+                                    Dorsal = reader.IsDBNull(3) ? 0 : reader.GetInt32(3),
+                                    Nacionalidad = reader.GetString(4),
+                                    RolId = reader.IsDBNull(5) ? 0 : reader.GetInt32(5),
+                                    PartidosJugados = reader.IsDBNull(6) ? 0 : reader.GetInt32(6),
+                                    Goles = reader.IsDBNull(7) ? 0 : reader.GetInt32(7),
+                                    Asistencias = reader.IsDBNull(8) ? 0 : reader.GetInt32(8),
+                                    TarjetasAmarillas = reader.IsDBNull(9) ? 0 : reader.GetInt32(9),
+                                    TarjetasRojas = reader.IsDBNull(10) ? 0 : reader.GetInt32(10),
+                                    MVP = reader.IsDBNull(12) ? 0 : reader.GetInt32(11),
+                                    IdEquipo = reader.GetInt32(12)
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                // En caso de error, mostrar el mensaje con la excepción
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return lista;
+        }
     }
 }

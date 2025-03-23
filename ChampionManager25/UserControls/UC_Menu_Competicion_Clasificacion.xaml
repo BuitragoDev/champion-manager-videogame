@@ -1,0 +1,266 @@
+﻿<UserControl x:Name="clasificacion" x:Class="ChampionManager25.UserControls.UC_Menu_Competicion_Clasificacion"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ChampionManager25.UserControls"
+             mc:Ignorable="d" d:DesignHeight="935" d:DesignWidth="1845" Loaded="clasificacion_Loaded">
+    <Grid Background="WhiteSmoke">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1845"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Column="0" Grid.Row="0" BorderBrush="#1d6a7d" BorderThickness="1" Margin="10">
+            <Grid Background="WhiteSmoke">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Background="#1d6a7d" Grid.Column="0" Grid.Row="0">
+                    <TextBlock Text="CLASIFICACIÓN" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                           FontFamily="Cascadia Code SemiBold" FontSize="22" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- DataGrid de la Clasificacion-->
+                        <WrapPanel Grid.Column="0" Grid.Row="0" Margin="10" >
+                            <DataGrid x:Name="dgClasificacion" IsReadOnly="True" AutoGenerateColumns="False"
+                                      GridLinesVisibility="None" FontFamily="Cascadia Code Light" FontSize="16" DockPanel.Dock="Top" Height="843" Cursor="Hand" Width="892" />
+                        </WrapPanel>
+
+                        <Border Grid.Column="1" Grid.Row="0" Margin="10" BorderBrush="#1d6a7d" BorderThickness="1" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Border Background="#1d6a7d" Grid.Column="0" Grid.Row="0">
+                                    <TextBlock Text="MEJORES EQUIPOS DE LA TEMPORADA" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                               FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                </Border>
+
+                                <!-- Mejor Ataque -->
+                                <Border Background="WhiteSmoke" Grid.Column="0" Grid.Row="1">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="40"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Image x:Name="imgMejorAtaque" Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" Height="120" Width="120" Stretch="Uniform"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" />
+
+                                        <Border Background="#FF23282D" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="2">
+                                            <TextBlock Text="MEJOR ATAQUE" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                        </Border>
+
+                                        <Border Background="WhiteSmoke" Grid.Column="1" Grid.Row="1" Margin="2">
+                                            <TextBlock x:Name="lblMejorAtaqueEquipo" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        </Border>
+
+                                        <Border Background="#1d6a7d" Grid.Column="1" Grid.Row="2" Margin="2">
+                                            <TextBlock Text="Goles Marcados" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                        </Border>
+
+                                        <Border Background="WhiteSmoke" Grid.Column="1" Grid.Row="3" Margin="2">
+                                            <TextBlock x:Name="lblMejorAtaqueGoles" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                       FontFamily="Cascadia Code SemiBold" FontSize="32" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+
+                                <!-- Mejor Defensa -->
+                                <Border Background="LightGray" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="40"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Image x:Name="imgMejorDefensa" Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" Height="120" Width="120" Stretch="Uniform"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" />
+
+                                        <Border Background="#FF23282D" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="2">
+                                            <TextBlock Text="MEJOR DEFENSA" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                        </Border>
+
+                                        <Border Background="WhiteSmoke" Grid.Column="1" Grid.Row="1" Margin="2">
+                                            <TextBlock x:Name="lblMejorDefensaEquipo" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        </Border>
+
+                                        <Border Background="#1d6a7d" Grid.Column="1" Grid.Row="2" Margin="2">
+                                            <TextBlock Text="Goles Encajados" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                        </Border>
+
+                                        <Border Background="WhiteSmoke" Grid.Column="1" Grid.Row="3" Margin="2">
+                                            <TextBlock x:Name="lblMejorDefensaGoles" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                       FontFamily="Cascadia Code SemiBold" FontSize="32" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+
+                                <!-- Mejor Racha -->
+                                <Border Background="WhiteSmoke" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="40"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Image x:Name="imgMejorRacha" Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" Height="120" Width="120" Stretch="Uniform"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" />
+
+                                        <Border Background="#FF23282D" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="2">
+                                            <TextBlock Text="MEJOR RACHA" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                        FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                        </Border>
+
+                                        <Border Background="WhiteSmoke" Grid.Column="1" Grid.Row="1" Margin="2">
+                                            <TextBlock x:Name="lblMejorRachaEquipo" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                        FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        </Border>
+
+                                        <Border Background="#1d6a7d" Grid.Column="1" Grid.Row="2" Margin="2">
+                                            <TextBlock Text="Racha Partidos Ganados" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                        FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                        </Border>
+
+                                        <Border Background="WhiteSmoke" Grid.Column="1" Grid.Row="3" Margin="2">
+                                            <TextBlock x:Name="lblMejorRachaPartidos" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                        FontFamily="Cascadia Code SemiBold" FontSize="32" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+
+                                <!-- Mejor Equipo Local -->
+                                <Border Background="LightGray" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="40"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Image x:Name="imgMejorEquipoLocal" Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" Height="120" Width="120" Stretch="Uniform"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" />
+
+                                        <Border Background="#FF23282D" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="2">
+                                            <TextBlock Text="MEJOR EQUIPO LOCAL" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                        </Border>
+
+                                        <Border Background="WhiteSmoke" Grid.Column="1" Grid.Row="1" Margin="2">
+                                            <TextBlock x:Name="lblMejorLocalEquipo" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        </Border>
+
+                                        <Border Background="#1d6a7d" Grid.Column="1" Grid.Row="2" Margin="2">
+                                            <TextBlock Text="Partidos Ganados como Local" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                        FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                        </Border>
+
+                                        <Border Background="WhiteSmoke" Grid.Column="1" Grid.Row="3" Margin="2">
+                                            <TextBlock x:Name="lblMejorLocalGanados" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                        FontFamily="Cascadia Code SemiBold" FontSize="32" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+
+                                <!-- Mejor Equipo Visitante -->
+                                <Border Background="WhiteSmoke" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="40"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Image x:Name="imgMejorEquipoVisitante" Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" Height="120" Width="120" Stretch="Uniform"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" />
+
+                                        <Border Background="#FF23282D" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="2">
+                                            <TextBlock Text="MEJOR EQUIPO VISITANTE" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                        FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                        </Border>
+
+                                        <Border Background="WhiteSmoke" Grid.Column="1" Grid.Row="1" Margin="2">
+                                            <TextBlock x:Name="lblMejorVisitanteEquipo" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                        FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        </Border>
+
+                                        <Border Background="#1d6a7d" Grid.Column="1" Grid.Row="2" Margin="2">
+                                            <TextBlock Text="Partidos Ganados como Visitante" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                        FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                        </Border>
+
+                                        <Border Background="WhiteSmoke" Grid.Column="1" Grid.Row="3" Margin="2">
+                                            <TextBlock x:Name="lblMejorVisitanteGanados" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                        FontFamily="Cascadia Code SemiBold" FontSize="32" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

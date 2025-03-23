@@ -197,5 +197,344 @@ namespace ChampionManager25.Datos
             return clasificacionEquipo;
         }
 
+        // ===================================================================== Método para Mostrar el equipo con MAS GOLES A FAVOR
+        public Clasificacion MostrarMejorAtaque(int manager)
+        {
+            Clasificacion clasificacionEquipo = null; // Cambiado a null para detectar si no se encuentra
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+                    string query = @"SELECT c.id_equipo AS IdEquipo,
+                                        c.jugados AS Jugados,
+                                        c.ganados AS Ganados,
+                                        c.empatados AS Empatados,
+                                        c.perdidos AS Perdidos,
+                                        c.puntos AS Puntos,
+                                        c.local_victorias AS LocalVictorias,
+                                        c.local_derrotas AS LocalDerrotas,
+                                        c.visitante_victorias AS VisitanteVictorias,
+                                        c.visitante_derrotas AS VisitanteDerrotas,
+                                        c.goles_favor AS PuntosFavor,
+                                        c.goles_contra AS PuntosContra,
+                                        c.racha AS Racha,
+                                        e.nombre AS NombreEquipo
+                                     FROM clasificacion c
+                                     INNER JOIN equipos e ON c.id_equipo = e.id_equipo
+                                     WHERE c.id_manager = @manager
+                                     ORDER BY c.goles_favor DESC
+                                     LIMIT 1";
+
+                    // Ejecutar la consulta
+                    using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@manager", manager);
+
+                        using (SQLiteDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read()) // Si encuentra un registro
+                            {
+                                clasificacionEquipo = new Clasificacion
+                                {
+                                    IdEquipo = reader.GetInt32(0),
+                                    Jugados = reader.GetInt32(1),
+                                    Ganados = reader.GetInt32(2),
+                                    Empatados = reader.GetInt32(3),
+                                    Perdidos = reader.GetInt32(4),
+                                    Puntos = reader.GetInt32(5),
+                                    LocalVictorias = reader.GetInt32(6),
+                                    LocalDerrotas = reader.GetInt32(7),
+                                    VisitanteVictorias = reader.GetInt32(8),
+                                    VisitanteDerrotas = reader.GetInt32(9),
+                                    GolesFavor = reader.GetInt32(10),
+                                    GolesContra = reader.GetInt32(11),
+                                    Racha = reader.GetInt32(12),
+                                    NombreEquipo = reader.GetString(13)
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                // En caso de error, mostrar el mensaje con la excepción
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+            return clasificacionEquipo;
+        }
+
+        // ===================================================================== Método para Mostrar el equipo con MAS MENOS GOLES EN CONTRA
+        public Clasificacion MostrarMejorDefensa(int manager)
+        {
+            Clasificacion clasificacionEquipo = null; // Cambiado a null para detectar si no se encuentra
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+                    string query = @"SELECT c.id_equipo AS IdEquipo,
+                                        c.jugados AS Jugados,
+                                        c.ganados AS Ganados,
+                                        c.empatados AS Empatados,
+                                        c.perdidos AS Perdidos,
+                                        c.puntos AS Puntos,
+                                        c.local_victorias AS LocalVictorias,
+                                        c.local_derrotas AS LocalDerrotas,
+                                        c.visitante_victorias AS VisitanteVictorias,
+                                        c.visitante_derrotas AS VisitanteDerrotas,
+                                        c.goles_favor AS PuntosFavor,
+                                        c.goles_contra AS PuntosContra,
+                                        c.racha AS Racha,
+                                        e.nombre AS NombreEquipo
+                                     FROM clasificacion c
+                                     INNER JOIN equipos e ON c.id_equipo = e.id_equipo
+                                     WHERE c.id_manager = @manager
+                                     ORDER BY c.goles_contra ASC
+                                     LIMIT 1";
+
+                    // Ejecutar la consulta
+                    using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@manager", manager);
+
+                        using (SQLiteDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read()) // Si encuentra un registro
+                            {
+                                clasificacionEquipo = new Clasificacion
+                                {
+                                    IdEquipo = reader.GetInt32(0),
+                                    Jugados = reader.GetInt32(1),
+                                    Ganados = reader.GetInt32(2),
+                                    Empatados = reader.GetInt32(3),
+                                    Perdidos = reader.GetInt32(4),
+                                    Puntos = reader.GetInt32(5),
+                                    LocalVictorias = reader.GetInt32(6),
+                                    LocalDerrotas = reader.GetInt32(7),
+                                    VisitanteVictorias = reader.GetInt32(8),
+                                    VisitanteDerrotas = reader.GetInt32(9),
+                                    GolesFavor = reader.GetInt32(10),
+                                    GolesContra = reader.GetInt32(11),
+                                    Racha = reader.GetInt32(12),
+                                    NombreEquipo = reader.GetString(13)
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                // En caso de error, mostrar el mensaje con la excepción
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+            return clasificacionEquipo;
+        }
+
+        // ===================================================================== Método para Mostrar el equipo con la MEJOR RACHA
+        public Clasificacion MostrarMejorRacha(int manager)
+        {
+            Clasificacion clasificacionEquipo = null; // Cambiado a null para detectar si no se encuentra
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+                    string query = @"SELECT c.id_equipo AS IdEquipo,
+                                        c.jugados AS Jugados,
+                                        c.ganados AS Ganados,
+                                        c.empatados AS Empatados,
+                                        c.perdidos AS Perdidos,
+                                        c.puntos AS Puntos,
+                                        c.local_victorias AS LocalVictorias,
+                                        c.local_derrotas AS LocalDerrotas,
+                                        c.visitante_victorias AS VisitanteVictorias,
+                                        c.visitante_derrotas AS VisitanteDerrotas,
+                                        c.goles_favor AS PuntosFavor,
+                                        c.goles_contra AS PuntosContra,
+                                        c.racha AS Racha,
+                                        e.nombre AS NombreEquipo
+                                     FROM clasificacion c
+                                     INNER JOIN equipos e ON c.id_equipo = e.id_equipo
+                                     WHERE c.id_manager = @manager
+                                     ORDER BY c.racha DESC
+                                     LIMIT 1";
+
+                    // Ejecutar la consulta
+                    using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@manager", manager);
+
+                        using (SQLiteDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read()) // Si encuentra un registro
+                            {
+                                clasificacionEquipo = new Clasificacion
+                                {
+                                    IdEquipo = reader.GetInt32(0),
+                                    Jugados = reader.GetInt32(1),
+                                    Ganados = reader.GetInt32(2),
+                                    Empatados = reader.GetInt32(3),
+                                    Perdidos = reader.GetInt32(4),
+                                    Puntos = reader.GetInt32(5),
+                                    LocalVictorias = reader.GetInt32(6),
+                                    LocalDerrotas = reader.GetInt32(7),
+                                    VisitanteVictorias = reader.GetInt32(8),
+                                    VisitanteDerrotas = reader.GetInt32(9),
+                                    GolesFavor = reader.GetInt32(10),
+                                    GolesContra = reader.GetInt32(11),
+                                    Racha = reader.GetInt32(12),
+                                    NombreEquipo = reader.GetString(13)
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                // En caso de error, mostrar el mensaje con la excepción
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+            return clasificacionEquipo;
+        }
+
+        // ===================================================================== Método para Mostrar el equipo con MAS VICTORIAS COMO LOCAL
+        public Clasificacion MostrarMejorEquipoLocal(int manager)
+        {
+            Clasificacion clasificacionEquipo = null; // Cambiado a null para detectar si no se encuentra
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+                    string query = @"SELECT c.id_equipo AS IdEquipo,
+                                        c.jugados AS Jugados,
+                                        c.ganados AS Ganados,
+                                        c.empatados AS Empatados,
+                                        c.perdidos AS Perdidos,
+                                        c.puntos AS Puntos,
+                                        c.local_victorias AS LocalVictorias,
+                                        c.local_derrotas AS LocalDerrotas,
+                                        c.visitante_victorias AS VisitanteVictorias,
+                                        c.visitante_derrotas AS VisitanteDerrotas,
+                                        c.goles_favor AS PuntosFavor,
+                                        c.goles_contra AS PuntosContra,
+                                        c.racha AS Racha,
+                                        e.nombre AS NombreEquipo
+                                     FROM clasificacion c
+                                     INNER JOIN equipos e ON c.id_equipo = e.id_equipo
+                                     WHERE c.id_manager = @manager
+                                     ORDER BY c.local_victorias DESC
+                                     LIMIT 1";
+
+                    // Ejecutar la consulta
+                    using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@manager", manager);
+
+                        using (SQLiteDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read()) // Si encuentra un registro
+                            {
+                                clasificacionEquipo = new Clasificacion
+                                {
+                                    IdEquipo = reader.GetInt32(0),
+                                    Jugados = reader.GetInt32(1),
+                                    Ganados = reader.GetInt32(2),
+                                    Empatados = reader.GetInt32(3),
+                                    Perdidos = reader.GetInt32(4),
+                                    Puntos = reader.GetInt32(5),
+                                    LocalVictorias = reader.GetInt32(6),
+                                    LocalDerrotas = reader.GetInt32(7),
+                                    VisitanteVictorias = reader.GetInt32(8),
+                                    VisitanteDerrotas = reader.GetInt32(9),
+                                    GolesFavor = reader.GetInt32(10),
+                                    GolesContra = reader.GetInt32(11),
+                                    Racha = reader.GetInt32(12),
+                                    NombreEquipo = reader.GetString(13)
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                // En caso de error, mostrar el mensaje con la excepción
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+            return clasificacionEquipo;
+        }
+
+        // ===================================================================== Método para Mostrar el equipo con MAS VICTORIAS COMO LOCAL
+        public Clasificacion MostrarMejorEquipoVisitante(int manager)
+        {
+            Clasificacion clasificacionEquipo = null; // Cambiado a null para detectar si no se encuentra
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+                    string query = @"SELECT c.id_equipo AS IdEquipo,
+                                        c.jugados AS Jugados,
+                                        c.ganados AS Ganados,
+                                        c.empatados AS Empatados,
+                                        c.perdidos AS Perdidos,
+                                        c.puntos AS Puntos,
+                                        c.local_victorias AS LocalVictorias,
+                                        c.local_derrotas AS LocalDerrotas,
+                                        c.visitante_victorias AS VisitanteVictorias,
+                                        c.visitante_derrotas AS VisitanteDerrotas,
+                                        c.goles_favor AS PuntosFavor,
+                                        c.goles_contra AS PuntosContra,
+                                        c.racha AS Racha,
+                                        e.nombre AS NombreEquipo
+                                     FROM clasificacion c
+                                     INNER JOIN equipos e ON c.id_equipo = e.id_equipo
+                                     WHERE c.id_manager = @manager
+                                     ORDER BY c.visitante_victorias DESC
+                                     LIMIT 1";
+
+                    // Ejecutar la consulta
+                    using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@manager", manager);
+
+                        using (SQLiteDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read()) // Si encuentra un registro
+                            {
+                                clasificacionEquipo = new Clasificacion
+                                {
+                                    IdEquipo = reader.GetInt32(0),
+                                    Jugados = reader.GetInt32(1),
+                                    Ganados = reader.GetInt32(2),
+                                    Empatados = reader.GetInt32(3),
+                                    Perdidos = reader.GetInt32(4),
+                                    Puntos = reader.GetInt32(5),
+                                    LocalVictorias = reader.GetInt32(6),
+                                    LocalDerrotas = reader.GetInt32(7),
+                                    VisitanteVictorias = reader.GetInt32(8),
+                                    VisitanteDerrotas = reader.GetInt32(9),
+                                    GolesFavor = reader.GetInt32(10),
+                                    GolesContra = reader.GetInt32(11),
+                                    Racha = reader.GetInt32(12),
+                                    NombreEquipo = reader.GetString(13)
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                // En caso de error, mostrar el mensaje con la excepción
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+            return clasificacionEquipo;
+        }
     }
 }
