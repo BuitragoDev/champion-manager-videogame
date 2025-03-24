@@ -52,6 +52,13 @@ namespace ChampionManager25.UserControls
             btnTA.IsEnabled = true;
             btnTR.IsEnabled = true;
             btnMVP.IsEnabled = true;
+
+            btnGoles.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
+            btnAsistencias.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+            btnTA.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+            btnTR.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+            btnMVP.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+
             ConfigurarDataGridEstadisticas(1);
         }
 
@@ -63,6 +70,13 @@ namespace ChampionManager25.UserControls
             btnTA.IsEnabled = true;
             btnTR.IsEnabled = true;
             btnMVP.IsEnabled = true;
+
+            btnGoles.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+            btnAsistencias.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
+            btnTA.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+            btnTR.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+            btnMVP.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+
             ConfigurarDataGridEstadisticas(2);
         }
 
@@ -74,6 +88,13 @@ namespace ChampionManager25.UserControls
             btnTA.IsEnabled = false;
             btnTR.IsEnabled = true;
             btnMVP.IsEnabled = true;
+
+            btnGoles.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+            btnAsistencias.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+            btnTA.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
+            btnTR.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+            btnMVP.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+
             ConfigurarDataGridEstadisticas(3);
         }
 
@@ -85,6 +106,13 @@ namespace ChampionManager25.UserControls
             btnTA.IsEnabled = true;
             btnTR.IsEnabled = false;
             btnMVP.IsEnabled = true;
+
+            btnGoles.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+            btnAsistencias.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+            btnTA.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+            btnTR.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
+            btnMVP.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+
             ConfigurarDataGridEstadisticas(4);
         }
 
@@ -96,6 +124,13 @@ namespace ChampionManager25.UserControls
             btnTA.IsEnabled = true;
             btnTR.IsEnabled = true;
             btnMVP.IsEnabled = false;
+
+            btnGoles.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+            btnAsistencias.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+            btnTA.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+            btnTR.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+            btnMVP.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
+
             ConfigurarDataGridEstadisticas(5);
         }
 
@@ -247,7 +282,7 @@ namespace ChampionManager25.UserControls
             dgEstadisticas.Columns.Add(new DataGridTextColumn
             {
                 Binding = new System.Windows.Data.Binding("TarjetasAmarillas"),
-                Header = "T. AMARILLAS",
+                Header = "AMARILLAS",
                 Width = new DataGridLength(120, DataGridLengthUnitType.Pixel),
                 ElementStyle = new Style(typeof(TextBlock))
                 {
@@ -263,7 +298,7 @@ namespace ChampionManager25.UserControls
             dgEstadisticas.Columns.Add(new DataGridTextColumn
             {
                 Binding = new System.Windows.Data.Binding("TarjetasRojas"),
-                Header = "T. ROJAS",
+                Header = "ROJAS",
                 Width = new DataGridLength(120, DataGridLengthUnitType.Pixel),
                 ElementStyle = new Style(typeof(TextBlock))
                 {
@@ -279,7 +314,7 @@ namespace ChampionManager25.UserControls
             dgEstadisticas.Columns.Add(new DataGridTextColumn
             {
                 Binding = new System.Windows.Data.Binding("MVP"),
-                Header = "MVP",
+                Header = "MVP's",
                 Width = new DataGridLength(120, DataGridLengthUnitType.Pixel),
                 ElementStyle = new Style(typeof(TextBlock))
                 {

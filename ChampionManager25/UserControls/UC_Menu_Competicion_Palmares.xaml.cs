@@ -1,0 +1,348 @@
+﻿using ChampionManager25.Entidades;
+using ChampionManager25.Logica;
+using ChampionManager25.MisMetodos;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace ChampionManager25.UserControls
+{
+    public partial class UC_Menu_Competicion_Palmares : UserControl
+    {
+        #region "Variables"
+        private Manager _manager;
+        private int _equipo;
+        #endregion
+
+        // Instancias de la LOGICA
+        PalmaresLogica _logicaPalmares = new PalmaresLogica();
+        EquipoLogica _logicaEquipos = new EquipoLogica();
+
+        public UC_Menu_Competicion_Palmares(Manager manager, int equipo)
+        {
+            InitializeComponent();
+            _manager = manager;
+            _equipo = equipo;
+            Metodos metodos = new Metodos();
+        }
+
+        private void palmares_Loaded(object sender, RoutedEventArgs e)
+        {
+            ConfigurarDataGridPalmares();
+            ConfigurarDataGridHistorial();
+        }
+
+        #region "Metodos"
+        private void ConfigurarDataGridPalmares()
+        {
+            dgPalmares.AlternationCount = 2;  // Asegurarse de que haya alternancia entre filas
+            dgPalmares.AutoGenerateColumns = false; // Deshabilitar generación automática de columnas
+            dgPalmares.Columns.Clear(); // Limpiar cualquier columna previa
+
+            List<Palmares> palmares = _logicaPalmares.MostrarPalmaresCompleto();
+            dgPalmares.ItemsSource = palmares;
+
+            // Crear la columna de tipo DataGridTemplateColumn para el ESCUDO
+            DataGridTemplateColumn escudoColumna = new DataGridTemplateColumn
+            {
+                Header = "", // Título de la columna
+                Width = new DataGridLength(100, DataGridLengthUnitType.Pixel)
+            };
+
+            // Crear un DataTemplate para la celda de la columna
+            DataTemplate templateEscudo = new DataTemplate(typeof(Image));
+
+            // Crear un FrameworkElementFactory para la imagen
+            FrameworkElementFactory imageFactoryEscudo = new FrameworkElementFactory(typeof(Image));
+            imageFactoryEscudo.SetBinding(Image.SourceProperty, new Binding("IdEquipo")
+            {
+                Converter = new IdEquipoToEscudoConverter()
+            });
+
+            imageFactoryEscudo.SetValue(Image.WidthProperty, 32.0);
+            imageFactoryEscudo.SetValue(Image.HeightProperty, 32.0);
+            imageFactoryEscudo.SetValue(Image.StretchProperty, Stretch.Uniform);
+
+            // Asignar el 'FrameworkElementFactory' al DataTemplate
+            templateEscudo.VisualTree = imageFactoryEscudo;
+
+            // Asignar el DataTemplate a la columna
+            escudoColumna.CellTemplate = templateEscudo;
+
+            // Finalmente, agregar la columna al DataGrid
+            dgPalmares.Columns.Add(escudoColumna);
+
+            dgPalmares.Columns.Add(new DataGridTextColumn
+            {
+                Binding = new System.Windows.Data.Binding("NombreEquipo"),
+                Header = "EQUIPO",
+                Width = new DataGridLength(430, DataGridLengthUnitType.Pixel),
+                HeaderStyle = new Style(typeof(DataGridColumnHeader))
+                {
+                    Setters =
+                    {
+                        new Setter(HorizontalContentAlignmentProperty, HorizontalAlignment.Left), // Alineación a la izquierda
+                        new Setter(BackgroundProperty, new SolidColorBrush((Color)ColorConverter.ConvertFromString("#9b8b5a"))), // Fondo
+                        new Setter(ForegroundProperty, Brushes.Black), // Color de texto
+                        new Setter(FontFamilyProperty, new FontFamily("Arial Rounded MT Bold")) // Fuente
+                    }
+                },
+                ElementStyle = new Style(typeof(TextBlock))
+                {
+                    Setters =
+                    {
+                        new Setter(TextBlock.TextAlignmentProperty, TextAlignment.Left),
+                        new Setter(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center)
+                    }
+                }
+            });
+
+            dgPalmares.Columns.Add(new DataGridTextColumn
+            {
+                Binding = new System.Windows.Data.Binding("Titulos"),
+                Header = "TITULOS",
+                Width = new DataGridLength(100, DataGridLengthUnitType.Pixel),
+                ElementStyle = new Style(typeof(TextBlock))
+                {
+                    Setters =
+                    {
+                        new Setter(TextBlock.TextAlignmentProperty, TextAlignment.Center),
+                        new Setter(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center)
+                    }
+                }
+            });
+
+            // Configurar altura de filas y estilos generales
+            dgPalmares.RowHeight = 35;
+            dgPalmares.RowBackground = new SolidColorBrush(Colors.LightGray);
+            dgPalmares.AlternatingRowBackground = new SolidColorBrush(Colors.WhiteSmoke);
+            dgPalmares.BorderBrush = new SolidColorBrush(Colors.Transparent);
+            dgPalmares.BorderThickness = new Thickness(0);
+            dgPalmares.CanUserAddRows = false;
+            dgPalmares.CanUserResizeColumns = false;
+            dgPalmares.CanUserResizeRows = false;
+            dgPalmares.SelectionMode = DataGridSelectionMode.Single;
+            dgPalmares.SelectionUnit = DataGridSelectionUnit.FullRow;
+            dgPalmares.HeadersVisibility = DataGridHeadersVisibility.Column; // Mostrar cabeceras
+            dgPalmares.HorizontalGridLinesBrush = new SolidColorBrush(Colors.Transparent);
+
+            Style columnHeaderStyle = new Style(typeof(DataGridColumnHeader));
+            columnHeaderStyle.Setters.Add(new Setter(Control.BackgroundProperty, new SolidColorBrush((Color)ColorConverter.ConvertFromString("#9b8b5a"))));
+            columnHeaderStyle.Setters.Add(new Setter(Control.ForegroundProperty, Brushes.Black));
+            columnHeaderStyle.Setters.Add(new Setter(Control.FontFamilyProperty, new FontFamily("Cascadia Code SemiBold")));
+            columnHeaderStyle.Setters.Add(new Setter(Control.FontSizeProperty, 16.0));
+            columnHeaderStyle.Setters.Add(new Setter(Control.HorizontalContentAlignmentProperty, HorizontalAlignment.Center));
+            columnHeaderStyle.Setters.Add(new Setter(Control.VerticalContentAlignmentProperty, VerticalAlignment.Center));
+            columnHeaderStyle.Setters.Add(new Setter(Control.PaddingProperty, new Thickness(5)));
+            columnHeaderStyle.Setters.Add(new Setter(Control.BorderBrushProperty, Brushes.Transparent));
+            columnHeaderStyle.Setters.Add(new Setter(Control.BorderThicknessProperty, new Thickness(0)));
+
+            dgPalmares.ColumnHeaderStyle = columnHeaderStyle;
+
+            // Estilo de celdas
+            dgPalmares.CellStyle = new Style(typeof(DataGridCell))
+            {
+                Setters =
+                {
+                    new Setter(Control.BackgroundProperty, new SolidColorBrush(Colors.Transparent)),
+                    new Setter(Control.ForegroundProperty, new SolidColorBrush(Color.FromRgb(35, 40, 45))),
+                    new Setter(Control.FontFamilyProperty, new FontFamily("Cascadia Code SemiBold")),
+                    new Setter(Control.FontSizeProperty, 16.0),
+                    new Setter(Control.PaddingProperty, new Thickness(5)),
+                    new Setter(DataGridCell.BorderBrushProperty, Brushes.Transparent),
+                    new Setter(DataGridCell.BorderThicknessProperty, new Thickness(0))
+                }
+            };
+        }
+
+        private void ConfigurarDataGridHistorial()
+        {
+            dgHistorialFinales.AlternationCount = 2;  // Asegurarse de que haya alternancia entre filas
+            dgHistorialFinales.AutoGenerateColumns = false; // Deshabilitar generación automática de columnas
+            dgHistorialFinales.Columns.Clear(); // Limpiar cualquier columna previa
+
+            List<HistorialFinales> historial = _logicaPalmares.MostrarHistorialFinales();
+            dgHistorialFinales.ItemsSource = historial;
+
+            dgHistorialFinales.Columns.Add(new DataGridTextColumn
+            {
+                Binding = new System.Windows.Data.Binding("Temporada"),
+                Header = "TEMPORADA",
+                Width = new DataGridLength(150, DataGridLengthUnitType.Pixel),
+                ElementStyle = new Style(typeof(TextBlock))
+                {
+                    Setters =
+                    {
+                        new Setter(TextBlock.TextAlignmentProperty, TextAlignment.Center),
+                        new Setter(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center)
+                    }
+                }
+            });
+
+            // Crear la columna de tipo DataGridTemplateColumn para el ESCUDO
+            DataGridTemplateColumn escudoColumna = new DataGridTemplateColumn
+            {
+                Header = "", // Título de la columna
+                Width = new DataGridLength(50, DataGridLengthUnitType.Pixel)
+            };
+
+            // Crear un DataTemplate para la celda de la columna
+            DataTemplate templateEscudo = new DataTemplate(typeof(Image));
+
+            // Crear un FrameworkElementFactory para la imagen
+            FrameworkElementFactory imageFactoryEscudo = new FrameworkElementFactory(typeof(Image));
+            imageFactoryEscudo.SetBinding(Image.SourceProperty, new Binding("IdEquipoCampeon")
+            {
+                Converter = new IdEquipoToEscudoConverter()
+            });
+
+            imageFactoryEscudo.SetValue(Image.WidthProperty, 32.0);
+            imageFactoryEscudo.SetValue(Image.HeightProperty, 32.0);
+            imageFactoryEscudo.SetValue(Image.StretchProperty, Stretch.Uniform);
+
+            // Asignar el 'FrameworkElementFactory' al DataTemplate
+            templateEscudo.VisualTree = imageFactoryEscudo;
+
+            // Asignar el DataTemplate a la columna
+            escudoColumna.CellTemplate = templateEscudo;
+
+            // Finalmente, agregar la columna al DataGrid
+            dgHistorialFinales.Columns.Add(escudoColumna);
+
+            dgHistorialFinales.Columns.Add(new DataGridTextColumn
+            {
+                Binding = new System.Windows.Data.Binding("NombreEquipoCampeon"),
+                Header = "CAMPEÓN",
+                Width = new DataGridLength(250, DataGridLengthUnitType.Pixel),
+                HeaderStyle = new Style(typeof(DataGridColumnHeader))
+                {
+                    Setters =
+                    {
+                        new Setter(HorizontalContentAlignmentProperty, HorizontalAlignment.Left), // Alineación a la izquierda
+                        new Setter(BackgroundProperty, new SolidColorBrush((Color)ColorConverter.ConvertFromString("#9b8b5a"))), // Fondo
+                        new Setter(ForegroundProperty, Brushes.Black), // Color de texto
+                        new Setter(FontFamilyProperty, new FontFamily("Cascadia Code SemiBold")) // Fuente
+                    }
+                },
+                ElementStyle = new Style(typeof(TextBlock))
+                {
+                    Setters =
+                    {
+                        new Setter(TextBlock.TextAlignmentProperty, TextAlignment.Left),
+                        new Setter(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center)
+                    }
+                }
+            });
+
+            // Crear la columna de tipo DataGridTemplateColumn para el ESCUDO
+            DataGridTemplateColumn escudoFinalistaColumna = new DataGridTemplateColumn
+            {
+                Header = "", // Título de la columna
+                Width = new DataGridLength(50, DataGridLengthUnitType.Pixel)
+            };
+
+            // Crear un DataTemplate para la celda de la columna
+            DataTemplate templateEscudoFinalista = new DataTemplate(typeof(Image));
+
+            // Crear un FrameworkElementFactory para la imagen
+            FrameworkElementFactory imageFactoryEscudoFinalista = new FrameworkElementFactory(typeof(Image));
+            imageFactoryEscudoFinalista.SetBinding(Image.SourceProperty, new Binding("IdEquipoFinalista")
+            {
+                Converter = new IdEquipoToEscudoConverter()
+            });
+
+            imageFactoryEscudoFinalista.SetValue(Image.WidthProperty, 32.0);
+            imageFactoryEscudoFinalista.SetValue(Image.HeightProperty, 32.0);
+            imageFactoryEscudoFinalista.SetValue(Image.StretchProperty, Stretch.Uniform);
+
+            // Asignar el 'FrameworkElementFactory' al DataTemplate
+            templateEscudoFinalista.VisualTree = imageFactoryEscudoFinalista;
+
+            // Asignar el DataTemplate a la columna
+            escudoFinalistaColumna.CellTemplate = templateEscudoFinalista;
+
+            // Finalmente, agregar la columna al DataGrid
+            dgHistorialFinales.Columns.Add(escudoFinalistaColumna);
+
+            dgHistorialFinales.Columns.Add(new DataGridTextColumn
+            {
+                Binding = new System.Windows.Data.Binding("NombreEquipoFinalista"),
+                Header = "FINALISTA",
+                Width = new DataGridLength(250, DataGridLengthUnitType.Pixel),
+                HeaderStyle = new Style(typeof(DataGridColumnHeader))
+                {
+                    Setters =
+                    {
+                        new Setter(HorizontalContentAlignmentProperty, HorizontalAlignment.Left), // Alineación a la izquierda
+                        new Setter(BackgroundProperty, new SolidColorBrush((Color)ColorConverter.ConvertFromString("#9b8b5a"))), // Fondo
+                        new Setter(ForegroundProperty, Brushes.Black), // Color de texto
+                        new Setter(FontFamilyProperty, new FontFamily("Cascadia Code SemiBold")) // Fuente
+                    }
+                },
+                ElementStyle = new Style(typeof(TextBlock))
+                {
+                    Setters =
+                    {
+                        new Setter(TextBlock.TextAlignmentProperty, TextAlignment.Left),
+                        new Setter(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center)
+                    }
+                }
+            });
+
+            // Configurar altura de filas y estilos generales
+            dgHistorialFinales.RowHeight = 35;
+            dgHistorialFinales.RowBackground = new SolidColorBrush(Colors.LightGray);
+            dgHistorialFinales.AlternatingRowBackground = new SolidColorBrush(Colors.WhiteSmoke);
+            dgHistorialFinales.BorderBrush = new SolidColorBrush(Colors.Transparent);
+            dgHistorialFinales.BorderThickness = new Thickness(0);
+            dgHistorialFinales.CanUserAddRows = false;
+            dgHistorialFinales.CanUserResizeColumns = false;
+            dgHistorialFinales.CanUserResizeRows = false;
+            dgHistorialFinales.SelectionMode = DataGridSelectionMode.Single;
+            dgHistorialFinales.SelectionUnit = DataGridSelectionUnit.FullRow;
+            dgHistorialFinales.HeadersVisibility = DataGridHeadersVisibility.Column; // Mostrar cabeceras
+            dgHistorialFinales.HorizontalGridLinesBrush = new SolidColorBrush(Colors.Transparent);
+
+            Style columnHeaderStyle = new Style(typeof(DataGridColumnHeader));
+            columnHeaderStyle.Setters.Add(new Setter(Control.BackgroundProperty, new SolidColorBrush((Color)ColorConverter.ConvertFromString("#9b8b5a"))));
+            columnHeaderStyle.Setters.Add(new Setter(Control.ForegroundProperty, Brushes.Black));
+            columnHeaderStyle.Setters.Add(new Setter(Control.FontFamilyProperty, new FontFamily("Cascadia Code SemiBold")));
+            columnHeaderStyle.Setters.Add(new Setter(Control.FontSizeProperty, 16.0));
+            columnHeaderStyle.Setters.Add(new Setter(Control.HorizontalContentAlignmentProperty, HorizontalAlignment.Center));
+            columnHeaderStyle.Setters.Add(new Setter(Control.VerticalContentAlignmentProperty, VerticalAlignment.Center));
+            columnHeaderStyle.Setters.Add(new Setter(Control.PaddingProperty, new Thickness(5)));
+            columnHeaderStyle.Setters.Add(new Setter(Control.BorderBrushProperty, Brushes.Transparent));
+            columnHeaderStyle.Setters.Add(new Setter(Control.BorderThicknessProperty, new Thickness(0)));
+
+            dgHistorialFinales.ColumnHeaderStyle = columnHeaderStyle;
+
+            // Estilo de celdas
+            dgHistorialFinales.CellStyle = new Style(typeof(DataGridCell))
+            {
+                Setters =
+                {
+                    new Setter(Control.BackgroundProperty, new SolidColorBrush(Colors.Transparent)),
+                    new Setter(Control.ForegroundProperty, new SolidColorBrush(Color.FromRgb(35, 40, 45))),
+                    new Setter(Control.FontFamilyProperty, new FontFamily("Cascadia Code SemiBold")),
+                    new Setter(Control.FontSizeProperty, 16.0),
+                    new Setter(Control.PaddingProperty, new Thickness(5)),
+                    new Setter(DataGridCell.BorderBrushProperty, Brushes.Transparent),
+                    new Setter(DataGridCell.BorderThicknessProperty, new Thickness(0))
+                }
+            };
+        }
+        #endregion
+    }
+}

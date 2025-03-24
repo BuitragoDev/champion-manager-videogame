@@ -56,7 +56,7 @@
                                     <Button.Style>
                                         <Style TargetType="Button">
                                             <!-- Configuración inicial -->
-                                            <Setter Property="Background" Value="#1d6a7d"/>
+                                            <Setter Property="Background" Value="#FF23282D"/>
                                             <Setter Property="Foreground" Value="WhiteSmoke"/>
                                             <Setter Property="BorderBrush" Value="Transparent"/>
                                             <Setter Property="BorderThickness" Value="0"/>

@@ -374,7 +374,9 @@ namespace ChampionManager25.UserControls
         private void CargarCompeticionPalmares()
         {
             // Cargar UC_Menu_Competicion_Palmares
-
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Competicion_Palmares competicionPalmares = new UC_Menu_Competicion_Palmares(_manager, _equipo);
+            DockPanel_Central.Children.Add(competicionPalmares);
         }
 
         // Método para cargar UC_Menu_Manager_Ficha

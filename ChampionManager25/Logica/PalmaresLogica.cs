@@ -24,5 +24,17 @@ namespace ChampionManager25.Logica
         {
             return _datos.MostrarPalmaresManager(equipo, manager);
         }
+
+        // Llamada al método para Mostrar el Palmarés del Manager
+        public List<Palmares> MostrarPalmaresCompleto()
+        {
+            return _datos.MostrarPalmaresCompleto();
+        }
+
+        // Llamada al método para Mostrar el Historial de las Finales
+        public List<HistorialFinales> MostrarHistorialFinales()
+        {
+            return _datos.MostrarHistorialFinales();
+        }
     }
 }
