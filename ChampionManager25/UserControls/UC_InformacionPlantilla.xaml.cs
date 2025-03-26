@@ -105,7 +105,7 @@ namespace ChampionManager25.UserControls
                         new Setter(HorizontalContentAlignmentProperty, HorizontalAlignment.Left), // Alineación a la izquierda
                         new Setter(BackgroundProperty, new SolidColorBrush((Color)ColorConverter.ConvertFromString("#9b8b5a"))), // Fondo
                         new Setter(ForegroundProperty, Brushes.Black), // Color de texto
-                        new Setter(FontFamilyProperty, new FontFamily("Arial Rounded MT Bold")) // Fuente
+                        new Setter(FontFamilyProperty, new FontFamily("Cascadia Code SemiBold")) // Fuente
                     }
                 },
                 ElementStyle = new Style(typeof(TextBlock))

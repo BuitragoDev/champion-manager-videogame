@@ -323,145 +323,97 @@ namespace ChampionManager25.UserControls
                             {
                                 Binding = new System.Windows.Data.Binding("Posicion"),
                                 Value = 1,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkBlue) }
+                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
                             },
                             new DataTrigger
                             {
                                 Binding = new System.Windows.Data.Binding("Posicion"),
                                 Value = 2,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkBlue) }
+                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
                             },
                             new DataTrigger
                             {
                                 Binding = new System.Windows.Data.Binding("Posicion"),
                                 Value = 3,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkBlue) }
+                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
                             },
                             new DataTrigger
                             {
                                 Binding = new System.Windows.Data.Binding("Posicion"),
                                 Value = 4,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkBlue) }
+                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
                             },
                             new DataTrigger
                             {
                                 Binding = new System.Windows.Data.Binding("Posicion"),
                                 Value = 5,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkBlue) }
+                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
                             },
                             new DataTrigger
                             {
                                 Binding = new System.Windows.Data.Binding("Posicion"),
                                 Value = 6,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkBlue) }
+                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
                             },
                             new DataTrigger
                             {
                                 Binding = new System.Windows.Data.Binding("Posicion"),
                                 Value = 7,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkBlue) }
+                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
                             },
                                 new DataTrigger
                             {
                                 Binding = new System.Windows.Data.Binding("Posicion"),
                                 Value = 8,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkBlue) }
+                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
                             },
                                 new DataTrigger
                             {
                                 Binding = new System.Windows.Data.Binding("Posicion"),
                                 Value = 9,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.Orange) }
+                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
                             },
                                 new DataTrigger
                             {
                                 Binding = new System.Windows.Data.Binding("Posicion"),
                                 Value = 10,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.Orange) }
+                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
                             },
                                 new DataTrigger
                             {
                                 Binding = new System.Windows.Data.Binding("Posicion"),
                                 Value = 11,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.Orange) }
+                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
                             },
                                 new DataTrigger
                             {
                                 Binding = new System.Windows.Data.Binding("Posicion"),
                                 Value = 12,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.Orange) }
+                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
                             },
                                 new DataTrigger
                             {
                                 Binding = new System.Windows.Data.Binding("Posicion"),
                                 Value = 13,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.Orange) }
+                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
                             },
                                 new DataTrigger
                             {
                                 Binding = new System.Windows.Data.Binding("Posicion"),
                                 Value = 14,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.Orange) }
+                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
                             },
                                 new DataTrigger
                             {
                                 Binding = new System.Windows.Data.Binding("Posicion"),
                                 Value = 15,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.Orange) }
+                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
                             },
                                 new DataTrigger
                             {
                                 Binding = new System.Windows.Data.Binding("Posicion"),
                                 Value = 16,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.Orange) }
-                            },
-                                new DataTrigger
-                            {
-                                Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 17,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.Orange) }
-                            },
-                                new DataTrigger
-                            {
-                                Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 18,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.Orange) }
-                            },
-                                new DataTrigger
-                            {
-                                Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 19,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.Orange) }
-                            },
-                                new DataTrigger
-                            {
-                                Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 20,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.Orange) }
-                            },
-                                new DataTrigger
-                            {
-                                Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 21,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.Orange) }
-                            },
-                                new DataTrigger
-                            {
-                                Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 22,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.Orange) }
-                            },
-                                new DataTrigger
-                            {
-                                Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 23,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.Orange) }
-                            },
-                                new DataTrigger
-                            {
-                                Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 24,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.Orange) }
+                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
                             }
                         }
                     }

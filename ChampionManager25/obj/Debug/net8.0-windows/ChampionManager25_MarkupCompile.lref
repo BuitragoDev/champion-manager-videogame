@@ -14,9 +14,13 @@ FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Club_Plantilla.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_Clasificacion.xaml;;
+FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_Estadisticas.xaml;;
+FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_Palmares.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_Resultados.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Correo.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Correo_Principal.xaml;;
+FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Entrenador.xaml;;
+FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Entrenador_Alineacion.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Estadio.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Estadio_Informacion.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Home.xaml;;
@@ -32,6 +36,4 @@ FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_RuedaPrensaPresentacion.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_SeleccionEquipo.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmVerDetallesEquipo.xaml;;
-FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_Estadisticas.xaml;;
-FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_Palmares.xaml;;
 

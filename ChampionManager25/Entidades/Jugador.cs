@@ -41,6 +41,7 @@ namespace ChampionManager25.Entidades
 
         // Atributos extra
         public string? NombreEquipo { get; set; }
+        public int PosicionAlineacion { get; set; }
 
         // Propiedad calculada para obtener la EDAD
         public int Edad

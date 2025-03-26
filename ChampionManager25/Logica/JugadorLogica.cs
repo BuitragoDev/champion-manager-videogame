@@ -57,5 +57,23 @@ namespace ChampionManager25.Logica
         {
             _datos.CambiarDeEquipo(jugador, equipo);
         }
+
+        // Llamada al método para mostrar los titulares del equipo
+        public void CrearAlineacion(string tactica, int equipo)
+        {
+            _datos.CrearAlineacion(tactica, equipo);
+        }
+
+        // Llamada al método para mostrar la lista de Jugadores Detallada por equipo
+        public List<Jugador> MostrarAlineacion(int inicio, int final)
+        {
+            return _datos.MostrarAlineacion(inicio, final);
+        }
+
+        // Llamada al método que cambia las posiciones entre 2 jugadores
+        public void IntercambioPosicion(int jugador1, int jugador2, int posicion1, int posicion2)
+        {
+            _datos.IntercambioPosicion(jugador1, jugador2, posicion1, posicion2);
+        }
     }
 }
