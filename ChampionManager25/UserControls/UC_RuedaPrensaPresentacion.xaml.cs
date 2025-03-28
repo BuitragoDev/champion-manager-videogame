@@ -147,6 +147,9 @@ namespace ChampionManager25.UserControls
             // Generar la alineacion del equipo
             _logicaJugador.CrearAlineacion("5-4-1", _equipo);
 
+            // Crear los 3 capitanes mas mayores
+            _logicaJugador.CrearCapitanes(_equipo);
+
             // Crear los mensaje de inicio de partida
             Mensaje mensajeInicio1 = new Mensaje
             {

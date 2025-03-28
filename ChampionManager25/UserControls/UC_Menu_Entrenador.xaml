@@ -11,7 +11,6 @@
             <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="250"/>
-            <ColumnDefinition Width="250"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -25,15 +24,11 @@
                    FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" FontWeight="Bold" Width="200" 
                    TextAlignment="Center" Cursor="Hand" MouseLeftButtonDown="lblAlineacion_MouseLeftButtonDown" />
 
-        <TextBlock x:Name="lblTacticas" Grid.Column="2" HorizontalAlignment="Center" Text="Tácticas" VerticalAlignment="Center" 
-                   FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" FontWeight="Bold" Width="200" 
-                   TextAlignment="Center" Cursor="Hand" MouseLeftButtonDown="lblTacticas_MouseLeftButtonDown" />
-
-        <TextBlock x:Name="lblEntrenamiento" Grid.Column="3" HorizontalAlignment="Center" Text="Entrenamiento" VerticalAlignment="Center" 
+        <TextBlock x:Name="lblEntrenamiento" Grid.Column="2" HorizontalAlignment="Center" Text="Entrenamiento" VerticalAlignment="Center" 
                    FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" FontWeight="Bold" Width="200" 
                    TextAlignment="Center" Cursor="Hand" MouseLeftButtonDown="lblEntrenamiento_MouseLeftButtonDown" />
 
-        <TextBlock x:Name="lblVerRival" Grid.Column="4" HorizontalAlignment="Center" Text="Ver Rival" VerticalAlignment="Center" 
+        <TextBlock x:Name="lblVerRival" Grid.Column="3" HorizontalAlignment="Center" Text="Ver Rival" VerticalAlignment="Center" 
                    FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" FontWeight="Bold" Width="200" 
                    TextAlignment="Center" Cursor="Hand" MouseLeftButtonDown="lblCerRival_MouseLeftButtonDown" />
     </Grid>

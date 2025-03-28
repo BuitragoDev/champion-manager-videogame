@@ -62,6 +62,9 @@
     <Compile Update="UserControls\UC_Menu_Entrenador_Alineacion.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\UC_Menu_Entrenador_Entrenamiento.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\UC_Menu_Estadio.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

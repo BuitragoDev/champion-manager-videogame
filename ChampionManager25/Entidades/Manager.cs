@@ -24,6 +24,7 @@ namespace ChampionManager25.Entidades
         public int PartidosEmpatados { get; set; }
         public int PartidosPerdidos { get; set; }
         public int Puntos { get; set; }
+        public string Tactica { get; set; }
 
         // Constructor por defecto
         public Manager() { }
@@ -31,7 +32,7 @@ namespace ChampionManager25.Entidades
         // Constructor con parámetros
         public Manager(int idManager, string nombre, string apellido, string nacionalidad, DateTime fechaNacimiento, int? idEquipo,
             int cDirectiva, int cFans, int cJugadores, int reputacion, int partidosJugados, int partidosGanados, int partidosEmpatados,
-            int partidosPerdidos, int puntos)
+            int partidosPerdidos, int puntos, string tactica)
         {
             IdManager = idManager;
             Nombre = nombre;
@@ -48,12 +49,13 @@ namespace ChampionManager25.Entidades
             PartidosEmpatados = partidosEmpatados;
             PartidosPerdidos = partidosPerdidos;
             Puntos = puntos;
+            Tactica = tactica;
         }
 
         // Constructor con parámetros sin ID_MANAGER
         public Manager(string nombre, string apellido, string nacionalidad, DateTime fechaNacimiento, int? idEquipo, int cDirectiva,
             int cFans, int cJugadores, int reputacion, int partidosJugados, int partidosGanados, int partidosEmpatados,
-            int partidosPerdidos, int puntos)
+            int partidosPerdidos, int puntos, string tactica)
         {
             Nombre = nombre;
             Apellido = apellido;
@@ -69,6 +71,7 @@ namespace ChampionManager25.Entidades
             PartidosEmpatados = partidosEmpatados;
             PartidosPerdidos = partidosPerdidos;
             Puntos = puntos;
+            Tactica = tactica;
         }
 
         // Método ToString
@@ -86,6 +89,7 @@ namespace ChampionManager25.Entidades
                    $"Partidos Ganados: {PartidosGanados}\n" +
                    $"Partidos Empatados: {PartidosEmpatados}\n" +
                    $"Partidos Perdidos: {PartidosPerdidos}\n" +
+                   $"Tactica: {Tactica}\n" +
                    $"Puntos: {Puntos}";
         }
     }

@@ -168,6 +168,7 @@ namespace ChampionManager25.UserControls
             DockPanel_Submenu.Children.Add(menuEntrenador);
 
             menuEntrenador.MostrarAlineacion += CargarEntrenadorAlineacion;
+            menuEntrenador.MostrarEntrenamiento += CargarEntrenadorEntrenamiento;
 
             // Cambiar el color del texto
             menuEntrenador.lblAlineacion.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
@@ -364,6 +365,15 @@ namespace ChampionManager25.UserControls
             DockPanel_Central.Children.Clear();
             UC_Menu_Entrenador_Alineacion entrenadorAlineacion = new UC_Menu_Entrenador_Alineacion(_manager, _equipo);
             DockPanel_Central.Children.Add(entrenadorAlineacion);
+        }
+
+        // Método para cargar UC_Menu_Entrenador_Entrenamiento
+        private void CargarEntrenadorEntrenamiento()
+        {
+            // Cargar UC_Menu_Entrenador_Tactica
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Entrenador_Entrenamiento entrenadorEntrenamiento = new UC_Menu_Entrenador_Entrenamiento(_manager, _equipo);
+            DockPanel_Central.Children.Add(entrenadorEntrenamiento);
         }
 
         // Método para cargar UC_Menu_Competicion_Clasificacion

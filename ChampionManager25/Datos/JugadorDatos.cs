@@ -587,5 +587,103 @@ namespace ChampionManager25.Datos
             }
         }
 
+        // ===================================================================== Método que crea los 3 capitanes de mas edad
+        public void CrearCapitanes(int equipo)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+
+                    // Consulta SQL para obtener los 3 jugadores más veteranos del equipo
+                    string query = @"SELECT id_jugador 
+                                     FROM jugadores 
+                                     WHERE id_equipo = @equipo 
+                                     ORDER BY fecha_nacimiento ASC 
+                                     LIMIT 3";
+
+                    List<int> capitanes = new List<int>();
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@equipo", equipo);
+
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                capitanes.Add(reader.GetInt32(0));
+                            }
+                        }
+                    }
+
+                    // Si hay al menos un jugador en la lista, insertar en la tabla capitanes
+                    if (capitanes.Count > 0)
+                    {
+                        int cap1 = capitanes.ElementAtOrDefault(0);
+                        int cap2 = capitanes.ElementAtOrDefault(1);
+                        int cap3 = capitanes.ElementAtOrDefault(2);
+
+                        string insertQuery = @"INSERT INTO capitanes (capitan1, capitan2, capitan3) VALUES (@cap1, @cap2, @cap3)";
+
+                        using (SQLiteCommand insertCmd = new SQLiteCommand(insertQuery, conn))
+                        {
+                            insertCmd.Parameters.AddWithValue("@cap1", cap1 > 0 ? cap1 : (object)DBNull.Value);
+                            insertCmd.Parameters.AddWithValue("@cap2", cap2 > 0 ? cap2 : (object)DBNull.Value);
+                            insertCmd.Parameters.AddWithValue("@cap3", cap3 > 0 ? cap3 : (object)DBNull.Value);
+
+                            insertCmd.ExecuteNonQuery();
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // ===================================================================== Método que crea una lista con los 3 capitanes
+        public Capitan MostrarCapitanes()
+        {
+            Capitan capitanes = null;
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+
+                    string query = @"SELECT id_capitan, capitan1, capitan2, capitan3 
+                                     FROM capitanes 
+                                     WHERE id_capitan = 1 
+                                     LIMIT 1";  // Obtiene el último registro de capitanes
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                capitanes = new Capitan(
+                                    reader.GetInt32(0),  // id_capitan
+                                    reader.IsDBNull(1) ? 0 : reader.GetInt32(1),  // capitan1
+                                    reader.IsDBNull(2) ? 0 : reader.GetInt32(2),  // capitan2
+                                    reader.IsDBNull(3) ? 0 : reader.GetInt32(3)   // capitan3
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return capitanes ?? new Capitan();  // Devuelve un objeto vacío si no encuentra datos
+        }
+
     }
 }

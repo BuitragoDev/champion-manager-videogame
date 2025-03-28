@@ -25,17 +25,23 @@ namespace ChampionManager25.UserControls
         #region "Variables"
         private Manager _manager;
         private int _equipo;
+        string tactica;
 
         private int jugadorMarcado = 0;
         private int idJugadorUno = 0;
         private int idJugadorDos = 0;
         private int posicionUno = 0;
         private int posicionDos = 0;
+
+        private bool primerJugadorSeleccionado = false; // Controla si ya se ha marcado un primer jugador
         #endregion
 
         // Instancias de la LOGICA
         EquipoLogica _logicaEquipo = new EquipoLogica();
         JugadorLogica _logicaJugador = new JugadorLogica();
+        ManagerLogica _logicaManager = new ManagerLogica();
+
+        
 
         public UC_Menu_Entrenador_Alineacion(Manager manager, int equipo)
         {
@@ -43,12 +49,49 @@ namespace ChampionManager25.UserControls
             _manager = manager;
             _equipo = equipo;
             Metodos metodos = new Metodos();
+            tactica = _logicaManager.MostrarManager(_manager.IdManager).Tactica;
         }
 
         private void alineacion_Loaded(object sender, RoutedEventArgs e)
         {
             ConfigurarDataGridTitulares();
             ConfigurarDataGridReservas();
+        }
+        
+        // --------------------------------------------------------------------------------- Evento CLICK del boton 5-4-1
+        private void btn541_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        // --------------------------------------------------------------------------------- Evento CLICK del boton 5-3-2
+        private void btn532_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        // --------------------------------------------------------------------------------- Evento CLICK del boton 4-5-1
+        private void btn451_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        // --------------------------------------------------------------------------------- Evento CLICK del boton 4-2-2
+        private void btn422_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        // --------------------------------------------------------------------------------- Evento CLICK del boton 4-3-3
+        private void btn433_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        // --------------------------------------------------------------------------------- Evento CLICK del boton 3-5-2
+        private void btn352_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         #region "Métodos"
@@ -547,59 +590,160 @@ namespace ChampionManager25.UserControls
 
         private void dgTitulares_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Metodos.ReproducirSonidoClick();
-
-            if (dgTitulares.SelectedItem is Jugador jugadorSeleccionado)
-            {
-                if (jugadorMarcado == 0)
-                {
-                    idJugadorUno = jugadorSeleccionado.IdJugador;
-                    posicionUno = jugadorSeleccionado.PosicionAlineacion;
-                    jugadorMarcado = 1;
-                }
-                else
-                {
-                    idJugadorDos = jugadorSeleccionado.IdJugador;
-                    posicionDos = jugadorSeleccionado.PosicionAlineacion;
-                    jugadorMarcado = 0;
-
-                    // Actualizamos posiciones en la Base de Datos
-                    _logicaJugador.IntercambioPosicion(idJugadorUno, idJugadorDos, posicionUno, posicionDos);
-
-                    // Recargar los DataGrid
-                    ConfigurarDataGridTitulares();
-                    ConfigurarDataGridReservas();
-                }
-            }
-            
+            SeleccionarJugador(dgTitulares.SelectedItem as Jugador);
         }
 
         private void dgReservas_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            SeleccionarJugador(dgReservas.SelectedItem as Jugador);
+        }
+
+        private void SeleccionarJugador(Jugador jugadorSeleccionado)
+        {
+            if (jugadorSeleccionado == null) return;
+
             Metodos.ReproducirSonidoClick();
 
-            if (dgReservas.SelectedItem is Jugador jugadorSeleccionado)
+            if (!primerJugadorSeleccionado)
             {
-                if (jugadorMarcado == 0)
+                // Primer jugador seleccionado
+                idJugadorUno = jugadorSeleccionado.IdJugador;
+                posicionUno = jugadorSeleccionado.PosicionAlineacion;
+                jugadorMarcado = 1;
+                primerJugadorSeleccionado = true;
+            }
+            else
+            {
+                // Segundo jugador seleccionado
+                idJugadorDos = jugadorSeleccionado.IdJugador;
+                posicionDos = jugadorSeleccionado.PosicionAlineacion;
+                jugadorMarcado = 0;
+                primerJugadorSeleccionado = false; // Se resetea para futuras selecciones
+
+                // Intercambiar posiciones en la base de datos
+                _logicaJugador.IntercambioPosicion(idJugadorUno, idJugadorDos, posicionUno, posicionDos);
+
+                // Recargar los DataGrid
+                ConfigurarDataGridTitulares();
+                ConfigurarDataGridReservas();
+
+                // Vaciar imágenes y textos
+                LimpiarSeleccion();
+            }
+        }
+
+        private void dg_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            e.Row.MouseEnter += Row_MouseEnter;
+            e.Row.MouseLeave += Row_MouseLeave;
+        }
+
+        private void Row_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (sender is DataGridRow row && row.Item is Jugador jugador)
+            {
+                if (!primerJugadorSeleccionado)
                 {
-                    idJugadorUno = jugadorSeleccionado.IdJugador;
-                    posicionUno = jugadorSeleccionado.PosicionAlineacion;
-                    jugadorMarcado = 1;
+                    // Antes de seleccionar el primer jugador, mostrar en imgCambio1
+                    MostrarDatosCambio1(jugador);
                 }
                 else
                 {
-                    idJugadorDos = jugadorSeleccionado.IdJugador;
-                    posicionDos = jugadorSeleccionado.PosicionAlineacion;
-                    jugadorMarcado = 0;
-
-                    // Actualizamos posiciones en la Base de Datos
-                    _logicaJugador.IntercambioPosicion(idJugadorUno, idJugadorDos, posicionUno, posicionDos);
-
-                    // Recargar los DataGrid
-                    ConfigurarDataGridTitulares();
-                    ConfigurarDataGridReservas();
+                    // Después de seleccionar el primer jugador, mostrar en imgCambio2
+                    MostrarDatosCambio2(jugador);
                 }
             }
+        }
+
+        private void Row_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (!primerJugadorSeleccionado)
+            {
+                // Antes de seleccionar el primer jugador, limpiar imgCambio1
+                LimpiarCambio1();
+            }
+            else
+            {
+                // Después de seleccionar el primer jugador, limpiar imgCambio2
+                LimpiarCambio2();
+            }
+        }
+
+        private void MostrarDatosCambio1(Jugador jugador)
+        {
+            bordeCambio1.Background = Brushes.LightGreen;
+            imgFotoCambio1.Source = new BitmapImage(new Uri($"pack://application:,,,/Recursos/img/jugadores/{jugador.IdJugador}.png"));
+            txtCambio1.Text = jugador.NombreCompleto;
+
+            imgFotoJugador.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/jugadores/" + jugador.IdJugador + ".png"));
+            txtNombreJugador.Text = jugador.NombreCompleto;
+            txtDemarcacionJugador.Text = jugador.Rol;
+            txtPortero.Text = jugador.Portero.ToString();
+            txtPase.Text = jugador.Pase.ToString();
+            txtRegate.Text = jugador.Regate.ToString();
+            txtRemate.Text = jugador.Remate.ToString();
+            txtEntradas.Text = jugador.Entradas.ToString();
+            txtTiro.Text = jugador.Tiro.ToString();
+            imgDemarcacionIdeal.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/demarcaciones/" + jugador.RolId + ".png"));
+
+            // Diccionario que mapea cada táctica con sus respectivas posiciones
+            var posicionesPorTactica = new Dictionary<string, Dictionary<int, int>>
+            {
+                ["5-4-1"] = new Dictionary<int, int> { { 1, 1 }, { 2, 4 }, { 3, 4 }, { 4, 4 }, { 5, 2 }, { 6, 3 }, { 7, 6 }, { 8, 6 }, { 9, 11 }, { 10, 12 }, { 11, 10 } },
+                ["5-3-2"] = new Dictionary<int, int> { { 1, 1 }, { 2, 4 }, { 3, 4 }, { 4, 4 }, { 5, 2 }, { 6, 3 }, { 7, 5 }, { 8, 6 }, { 9, 6 }, { 10, 10 }, { 11, 10 } },
+                ["4-5-1"] = new Dictionary<int, int> { { 1, 1 }, { 2, 4 }, { 3, 4 }, { 4, 2 }, { 5, 3 }, { 6, 5 }, { 7, 6 }, { 8, 6 }, { 9, 11 }, { 10, 12 }, { 11, 10 } },
+                ["4-4-2"] = new Dictionary<int, int> { { 1, 1 }, { 2, 4 }, { 3, 4 }, { 4, 2 }, { 5, 3 }, { 6, 5 }, { 7, 6 }, { 8, 6 }, { 9, 7 }, { 10, 10 }, { 11, 10 } },
+                ["4-4-3"] = new Dictionary<int, int> { { 1, 1 }, { 2, 4 }, { 3, 4 }, { 4, 2 }, { 5, 3 }, { 6, 5 }, { 7, 6 }, { 8, 6 }, { 9, 8 }, { 10, 9 }, { 11, 10 } },
+                ["3-5-2"] = new Dictionary<int, int> { { 1, 1 }, { 2, 4 }, { 3, 4 }, { 4, 4 }, { 5, 5 }, { 6, 6 }, { 7, 6 }, { 8, 11 }, { 9, 12 }, { 10, 10 }, { 11, 10 } }
+            };
+
+            // Obtener la posición según la táctica y la alineación del jugador
+            int posicion = posicionesPorTactica.TryGetValue(tactica, out var posiciones) && posiciones.TryGetValue(jugador.PosicionAlineacion, out var pos)
+                ? pos
+                : 0;
+
+            // Asignar la imagen de la demarcación
+            imgDemarcacionActual.Source = new BitmapImage(new Uri($"pack://application:,,,/Recursos/img/demarcaciones/p{posicion}.png"));
+
+        }
+
+        private void MostrarDatosCambio2(Jugador jugador)
+        {
+            bordeCambio2.Background = Brushes.IndianRed;
+            imgFotoCambio2.Source = new BitmapImage(new Uri($"pack://application:,,,/Recursos/img/jugadores/{jugador.IdJugador}.png"));
+            txtCambio2.Text = jugador.NombreCompleto;
+        }
+
+        private void LimpiarCambio1()
+        {
+            bordeCambio1.Background = Brushes.LightGray;
+            imgFotoCambio1.Source = null;
+            txtCambio1.Text = string.Empty;
+
+            imgFotoJugador.Source = null;
+            txtNombreJugador.Text = "";
+            txtDemarcacionJugador.Text = "";
+            txtPortero.Text = "";
+            txtPase.Text = "";
+            txtRegate.Text = "";
+            txtRemate.Text = "";
+            txtEntradas.Text = "";
+            txtTiro.Text = "";
+            imgDemarcacionIdeal.Source = null;
+            imgDemarcacionActual.Source = null;
+        }
+
+        private void LimpiarCambio2()
+        {
+            bordeCambio2.Background = Brushes.LightGray;
+            imgFotoCambio2.Source = null;
+            txtCambio2.Text = string.Empty;
+        }
+
+        private void LimpiarSeleccion()
+        {
+            LimpiarCambio1();
+            LimpiarCambio2();
         }
         #endregion
     }

@@ -75,5 +75,17 @@ namespace ChampionManager25.Logica
         {
             _datos.IntercambioPosicion(jugador1, jugador2, posicion1, posicion2);
         }
+
+        // Llamada al método que crea los 3 capitanes de mas edad
+        public void CrearCapitanes(int equipo)
+        {
+            _datos.CrearCapitanes(equipo);
+        }
+
+        // ===================================================================== Método que crea una lista con los 3 capitanes
+        public Capitan MostrarCapitanes()
+        {
+            return _datos.MostrarCapitanes();
+        }
     }
 }

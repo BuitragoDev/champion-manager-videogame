@@ -20,14 +20,15 @@ namespace ChampionManager25.Datos
                 {
                     conn.Open();
                     string query = @"INSERT INTO managers (nombre, apellido, nacionalidad, fechaNacimiento, 
-                                     cDirectiva, cFans, cJugadores, partidosJugados, partidosGanados, partidosEmpatados, partidosPerdidos, reputacion, puntos) 
-                                     VALUES (@Nombre, @Apellido, @Nacionalidad, @FechaNacimiento, 50, 50, 50, 0, 0, 0, 0, 0, 0)";
+                                     cDirectiva, cFans, cJugadores, partidosJugados, partidosGanados, partidosEmpatados, partidosPerdidos, reputacion, puntos, tactica) 
+                                     VALUES (@Nombre, @Apellido, @Nacionalidad, @FechaNacimiento, 50, 50, 50, 0, 0, 0, 0, 0, 0, @Tactica)";
                     using (var cmd = new SQLiteCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@Nombre", manager.Nombre);
                         cmd.Parameters.AddWithValue("@Apellido", manager.Apellido);
                         cmd.Parameters.AddWithValue("@Nacionalidad", manager.Nacionalidad);
                         cmd.Parameters.AddWithValue("@FechaNacimiento", manager.FechaNacimiento.ToString("yyyy-MM-dd"));
+                        cmd.Parameters.AddWithValue("@Tactica", "4-4-2");
                         int result = cmd.ExecuteNonQuery(); // Ejecuta la consulta de inserción
 
                         if (result > 0) // Verifica si se afectó alguna fila
@@ -162,7 +163,8 @@ namespace ChampionManager25.Datos
                                     PartidosJugados = reader.IsDBNull(reader.GetOrdinal("partidosJugados")) ? 0 : reader.GetInt32(reader.GetOrdinal("partidosJugados")),
                                     PartidosGanados = reader.IsDBNull(reader.GetOrdinal("partidosGanados")) ? 0 : reader.GetInt32(reader.GetOrdinal("partidosGanados")),
                                     PartidosPerdidos = reader.IsDBNull(reader.GetOrdinal("partidosPerdidos")) ? 0 : reader.GetInt32(reader.GetOrdinal("partidosPerdidos")),
-                                    Puntos = reader.IsDBNull(reader.GetOrdinal("puntos")) ? 0 : reader.GetInt32(reader.GetOrdinal("puntos"))
+                                    Puntos = reader.IsDBNull(reader.GetOrdinal("puntos")) ? 0 : reader.GetInt32(reader.GetOrdinal("puntos")),
+                                    Tactica = reader.GetString(reader.GetOrdinal("tactica")),
                                 };
                             }
                         }
