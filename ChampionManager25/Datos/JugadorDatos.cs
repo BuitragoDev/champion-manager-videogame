@@ -685,5 +685,61 @@ namespace ChampionManager25.Datos
             return capitanes ?? new Capitan();  // Devuelve un objeto vacío si no encuentra datos
         }
 
+        // ===================================================================== Método para mostrar el entrenamiento de un jugador
+        public int EntrenamientoJugador(int jugador)
+        {
+            int num = 0;
+
+            using (SQLiteConnection conn = new SQLiteConnection(cadena))
+            {
+                conn.Open();
+
+                string query = @"SELECT entrenamiento FROM jugadores WHERE id_jugador = @IdJugador";
+
+                using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@IdJugador", jugador);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            num = reader.GetInt32(0);
+                        }
+                    }
+                }
+            }
+
+            return num;
+        }
+
+        // ===================================================================== Método que selecciona un entrenamiento para un jugador
+        public void EntrenarJugador(int jugador, int tipo)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+
+                    // Consulta SQL para obtener las finanzas del equipo
+                    string query = @"UPDATE jugadores SET entrenamiento = @Entrenamiento
+                                     WHERE id_jugador = @IdJugador";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        // Agregar parámetro para evitar inyección SQL
+                        cmd.Parameters.AddWithValue("@IdJugador", jugador);
+                        cmd.Parameters.AddWithValue("@Entrenamiento", tipo);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
     }
 }

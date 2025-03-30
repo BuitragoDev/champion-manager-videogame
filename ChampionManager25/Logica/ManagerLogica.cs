@@ -48,5 +48,11 @@ namespace ChampionManager25.Logica
         {
             return _datos.MostrarManager(idManager);
         }
+
+        // Llamada al método que cambia la tactica del manager
+        public void CambiarTactica(int idManager, string tactica)
+        {
+            _datos.CambiarTactica(idManager, tactica);
+        }
     }
 }

@@ -18,5 +18,11 @@ namespace ChampionManager25.Logica
         {
             return _datos.obtenerRankingEntrenadores(miManager);
         }
+
+        // Llamada al método para mostrar un entrenador
+        public Entrenador MostrarEntrenador(int id)
+        {
+            return _datos.MostrarEntrenador(id);
+        }
     }
 }

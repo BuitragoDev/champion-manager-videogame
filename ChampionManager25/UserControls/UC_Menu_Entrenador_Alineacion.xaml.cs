@@ -61,37 +61,139 @@ namespace ChampionManager25.UserControls
         // --------------------------------------------------------------------------------- Evento CLICK del boton 5-4-1
         private void btn541_Click(object sender, RoutedEventArgs e)
         {
+            Metodos.ReproducirSonidoClick();
 
+            btn541.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
+            btn532.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn451.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn442.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn433.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn352.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+
+            btn541.IsEnabled = false;
+            btn532.IsEnabled = true;
+            btn451.IsEnabled = true;
+            btn442.IsEnabled = true;
+            btn433.IsEnabled = true;
+            btn352.IsEnabled = true;
+
+            _logicaManager.CambiarTactica(_manager.IdManager, "5-4-1");
+            tactica = _logicaManager.MostrarManager(_manager.IdManager).Tactica;
         }
 
         // --------------------------------------------------------------------------------- Evento CLICK del boton 5-3-2
         private void btn532_Click(object sender, RoutedEventArgs e)
         {
+            Metodos.ReproducirSonidoClick();
 
+            btn541.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn532.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
+            btn451.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn442.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn433.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn352.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+
+            btn541.IsEnabled = true;
+            btn532.IsEnabled = false;
+            btn451.IsEnabled = true;
+            btn442.IsEnabled = true;
+            btn433.IsEnabled = true;
+            btn352.IsEnabled = true;
+
+            _logicaManager.CambiarTactica(_manager.IdManager, "5-3-2");
+            tactica = _logicaManager.MostrarManager(_manager.IdManager).Tactica;
         }
 
         // --------------------------------------------------------------------------------- Evento CLICK del boton 4-5-1
         private void btn451_Click(object sender, RoutedEventArgs e)
         {
+            Metodos.ReproducirSonidoClick();
 
+            btn541.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn532.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn451.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
+            btn442.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn433.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn352.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+
+            btn541.IsEnabled = true;
+            btn532.IsEnabled = true;
+            btn451.IsEnabled = false;
+            btn442.IsEnabled = true;
+            btn433.IsEnabled = true;
+            btn352.IsEnabled = true;
+
+            _logicaManager.CambiarTactica(_manager.IdManager, "4-5-1");
+            tactica = _logicaManager.MostrarManager(_manager.IdManager).Tactica;
         }
 
         // --------------------------------------------------------------------------------- Evento CLICK del boton 4-2-2
-        private void btn422_Click(object sender, RoutedEventArgs e)
+        private void btn442_Click(object sender, RoutedEventArgs e)
         {
+            Metodos.ReproducirSonidoClick();
 
+            btn541.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn532.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn451.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn442.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
+            btn433.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn352.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+
+            btn541.IsEnabled = true;
+            btn532.IsEnabled = true;
+            btn451.IsEnabled = true;
+            btn442.IsEnabled = false;
+            btn433.IsEnabled = true;
+            btn352.IsEnabled = true;
+
+            _logicaManager.CambiarTactica(_manager.IdManager, "4-4-2");
+            tactica = _logicaManager.MostrarManager(_manager.IdManager).Tactica;
         }
 
         // --------------------------------------------------------------------------------- Evento CLICK del boton 4-3-3
         private void btn433_Click(object sender, RoutedEventArgs e)
         {
+            Metodos.ReproducirSonidoClick();
 
+            btn541.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn532.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn451.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn442.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn433.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
+            btn352.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+
+            btn541.IsEnabled = true;
+            btn532.IsEnabled = true;
+            btn451.IsEnabled = true;
+            btn442.IsEnabled = true;
+            btn433.IsEnabled = false;
+            btn352.IsEnabled = true;
+
+            _logicaManager.CambiarTactica(_manager.IdManager, "4-4-3");
+            tactica = _logicaManager.MostrarManager(_manager.IdManager).Tactica;
         }
 
         // --------------------------------------------------------------------------------- Evento CLICK del boton 3-5-2
         private void btn352_Click(object sender, RoutedEventArgs e)
         {
+            Metodos.ReproducirSonidoClick();
 
+            btn541.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn532.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn451.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn442.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn433.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn352.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
+
+            btn541.IsEnabled = true;
+            btn532.IsEnabled = true;
+            btn451.IsEnabled = true;
+            btn442.IsEnabled = true;
+            btn433.IsEnabled = true;
+            btn352.IsEnabled = false;
+
+            _logicaManager.CambiarTactica(_manager.IdManager, "3-5-2");
+            tactica = _logicaManager.MostrarManager(_manager.IdManager).Tactica;
         }
 
         #region "Métodos"

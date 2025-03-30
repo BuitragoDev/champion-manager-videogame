@@ -115,11 +115,11 @@
 
                                         <!-- Boton btn541 -->
                                         <Button x:Name="btn541" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                Height="35" Width="80" FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" IsEnabled="False" Click="btn541_Click">
+                                                Height="35" Width="80" FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btn541_Click">
                                             <Button.Style>
                                                 <Style TargetType="Button">
                                                     <!-- Configuración inicial -->
-                                                    <Setter Property="Background" Value="#FF23282D"/>
+                                                    <Setter Property="Background" Value="#1d6a7d"/>
                                                     <Setter Property="Foreground" Value="WhiteSmoke"/>
                                                     <Setter Property="BorderBrush" Value="Transparent"/>
                                                     <Setter Property="BorderThickness" Value="0"/>
@@ -231,12 +231,12 @@
                                         </Button>
 
                                         <!-- Boton btn422 -->
-                                        <Button x:Name="btn422" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                Height="35" Width="80" FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btn422_Click">
+                                        <Button x:Name="btn442" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                Height="35" Width="80" FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" IsEnabled="false" Click="btn442_Click">
                                             <Button.Style>
                                                 <Style TargetType="Button">
                                                     <!-- Configuración inicial -->
-                                                    <Setter Property="Background" Value="#1d6a7d"/>
+                                                    <Setter Property="Background" Value="#FF23282D"/>
                                                     <Setter Property="Foreground" Value="WhiteSmoke"/>
                                                     <Setter Property="BorderBrush" Value="Transparent"/>
                                                     <Setter Property="BorderThickness" Value="0"/>

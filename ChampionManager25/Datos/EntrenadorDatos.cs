@@ -5,6 +5,7 @@ using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ChampionManager25.Datos
 {
@@ -70,6 +71,58 @@ namespace ChampionManager25.Datos
             }
 
             return rankingEntrenadores;
+        }
+
+        // ===================================================================== Método para mostrar un entrenador
+        public Entrenador MostrarEntrenador(int id)
+        {
+            Entrenador oEntrenador = null; // Inicializamos la variable de tipo Jugador como null
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+
+                    // Consulta para obtener todos los jugadores del equipo con el id_equipo proporcionado
+                    string query = @"SELECT id_entrenador, nombre, apellido, tactica_favorita, puntos, reputacion, id_equipo,
+                                     nombre || ' ' || apellido AS nombre_completo 
+                                     FROM entrenadores
+                                     WHERE id_equipo = @idEquipo";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        // Asignar el valor del parámetro de la consulta
+                        cmd.Parameters.AddWithValue("@idEquipo", id);
+
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                // Crear un nuevo objeto Jugador con los datos del jugador con mayor media
+                                oEntrenador = new Entrenador
+                                {
+                                    IdEntrenador = reader.GetInt32(reader.GetOrdinal("id_entrenador")),
+                                    Nombre = reader.GetString(reader.GetOrdinal("nombre")),
+                                    Apellido = reader.GetString(reader.GetOrdinal("apellido")),
+                                    NombreCompleto = reader.GetString(reader.GetOrdinal("nombre_completo")),
+                                    TacticaFavorita = reader.GetString(reader.GetOrdinal("tactica_favorita")),
+                                    Puntos = reader.GetInt32(reader.GetOrdinal("puntos")),
+                                    Reputacion = reader.GetInt32(reader.GetOrdinal("reputacion")),
+                                    IdEquipo = reader.GetInt32(reader.GetOrdinal("id_equipo"))
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                // En caso de error, mostrar el mensaje con la excepción
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+           
+            return oEntrenador;
         }
     }
 }

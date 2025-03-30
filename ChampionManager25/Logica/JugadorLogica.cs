@@ -82,10 +82,22 @@ namespace ChampionManager25.Logica
             _datos.CrearCapitanes(equipo);
         }
 
-        // ===================================================================== Método que crea una lista con los 3 capitanes
+        // Llamada al método que crea una lista con los 3 capitanes
         public Capitan MostrarCapitanes()
         {
             return _datos.MostrarCapitanes();
+        }
+
+        // Llamada al método para mostrar el entrenamiento de un jugador
+        public int EntrenamientoJugador(int jugador)
+        {
+            return _datos.EntrenamientoJugador(jugador);
+        }
+
+        // Llamada al método que selecciona un entrenamiento para un jugador
+        public void EntrenarJugador(int jugador, int tipo)
+        {
+            _datos.EntrenarJugador(jugador, tipo);
         }
     }
 }

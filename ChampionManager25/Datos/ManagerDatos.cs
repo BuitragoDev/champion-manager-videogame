@@ -178,5 +178,28 @@ namespace ChampionManager25.Datos
 
             return coach; // Devuelve el objeto Manager o null si no se encontró
         }
+
+        // Método que cambia la tactica del manager
+        public void CambiarTactica(int idManager, string tactica)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+                    string query = "UPDATE managers SET tactica = @Tactica WHERE id_manager = @IdManager";
+                    using (var cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Tactica", tactica); // Parámetro para el cDirectiva
+                        cmd.Parameters.AddWithValue("@IdManager", idManager); // Parámetro para el idManager
+                        cmd.ExecuteNonQuery(); // Ejecuta la consulta
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al actualizar el Manager: " + ex.Message);
+            }
+        }
     }
 }
