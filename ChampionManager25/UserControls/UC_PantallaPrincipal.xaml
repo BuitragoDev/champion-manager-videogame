@@ -53,15 +53,15 @@
                 <TextBlock x:Name="txtFechaActual" Grid.Column="4" HorizontalAlignment="Center" Text="Fecha de hoy" VerticalAlignment="Top" FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" Margin="0,24,0,0" FontWeight="Bold" Width="180" TextAlignment="Center"/>
                 <TextBlock x:Name="txtDiaSemana" Grid.Column="4" HorizontalAlignment="Center" Text="Dia semana" VerticalAlignment="Top" FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" FontWeight="Bold" Width="180" TextAlignment="Center" Margin="0,55,0,0"/>
 
-                <!-- BOTON CONTINUAR -->
+                <!-- BOTON AVANZAR -->
                 <Button x:Name="btnAvanzar" Grid.Column="5" VerticalAlignment="Center" HorizontalAlignment="Left"
                         Height="50" Width="345" Margin="35,0,0,0"
-                        FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand">
+                        FontFamily="Cascadia Code SemiBold" FontSize="22" Cursor="Hand"
+                        Content="AVANZAR">
                     <Button.Style>
                         <Style TargetType="Button">
-                            <!-- Configuración inicial -->
-                            <Setter Property="Background" Value="WhiteSmoke"/>
-                            <Setter Property="Foreground" Value="#FF23282D"/>
+                            <Setter Property="Background" Value="#1d6a7d"/>
+                            <Setter Property="Foreground" Value="WhiteSmoke"/>
                             <Setter Property="BorderBrush" Value="#FF23282D"/>
                             <Setter Property="BorderThickness" Value="1"/>
                             <Setter Property="Template">
@@ -71,24 +71,23 @@
                                                 BorderBrush="{TemplateBinding BorderBrush}"
                                                 BorderThickness="{TemplateBinding BorderThickness}">
                                             <Border.Effect>
-                                                <DropShadowEffect Color="Black" Opacity="0.8" BlurRadius="10" ShadowDepth="5"/>
+                                                <DropShadowEffect Color="#FF23282D" Opacity="0.8" BlurRadius="10" ShadowDepth="5"/>
                                             </Border.Effect>
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <!-- Texto del botón -->
-                                                <TextBlock Text="CONTINUAR" 
+                                                <!-- Contenido dinámico -->
+                                                <TextBlock Text="{TemplateBinding Content}"
                                                            Foreground="{TemplateBinding Foreground}" 
-                                                           VerticalAlignment="Center" 
+                                                           VerticalAlignment="Center"
                                                            Margin="0,0,5,0"/>
                                                 <!-- Imagen de la flecha -->
-                                                <Image Source="/Recursos/img/icons/flechaDerechaNegra64px_icon.png" Height="18" Width="18" VerticalAlignment="Center" Stretch="Uniform" Margin="10,0,0,0"/>
-                                                <Image Source="/Recursos/img/icons/flechaDerechaNegra64px_icon.png" Height="18" Width="18" VerticalAlignment="Center" Stretch="Uniform"/>
+                                                <Image Source="/Recursos/img/icons/flechaDerechaBlanca64px_icon.png" Height="18" Width="18" VerticalAlignment="Center" Stretch="Uniform" Margin="10,0,0,0"/>
+                                                <Image Source="/Recursos/img/icons/flechaDerechaBlanca64px_icon.png" Height="18" Width="18" VerticalAlignment="Center" Stretch="Uniform"/>
                                             </StackPanel>
                                         </Border>
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
 
-                            <!-- Configuración al pasar el ratón -->
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="BorderBrush" Value="WhiteSmoke"/>
@@ -98,6 +97,7 @@
                         </Style>
                     </Button.Style>
                 </Button>
+
             </Grid>
         </DockPanel>
         <!-- DOCK PANEL MENU SUPERIOR -->

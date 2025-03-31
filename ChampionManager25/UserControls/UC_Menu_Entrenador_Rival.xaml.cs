@@ -3,6 +3,7 @@ using ChampionManager25.Logica;
 using ChampionManager25.MisMetodos;
 using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
@@ -32,6 +34,7 @@ namespace ChampionManager25.UserControls
         JugadorLogica _logicaJugador = new JugadorLogica();
         PartidoLogica _logicaPartidos = new PartidoLogica();
         EntrenadorLogica _logicaEntrenador = new EntrenadorLogica();
+        EstadisticasLogica _logicaEstadistica = new EstadisticasLogica();
 
         public UC_Menu_Entrenador_Rival(Manager manager, int equipo)
         {
@@ -65,6 +68,116 @@ namespace ChampionManager25.UserControls
             txtNombreEntrenador.Text = coach.NombreCompleto;
             MostrarEstrellas(coach.Reputacion);
             txtTactica.Text = coach.TacticaFavorita;
+
+            // --------------------------------------------------------------------------------------------------- ULTIMOS PARTIDOS
+            // Referencia al Grid dentro del Border
+            Grid gridPartidos = bordeUltimosPartidos.Child as Grid;
+            if (gridPartidos == null) return;
+
+            // Limpiar filas anteriores si existen
+            gridPartidos.Children.Clear();
+
+            // Obtener los últimos 5 partidos
+            List<Partido> listaPartidos = _logicaPartidos.UltimosCincoPartidos(rival, _manager.IdManager);
+
+            int fila = 0;
+            foreach (var partido in listaPartidos)
+            {
+                // Escudo Local
+                Image escudoLocal = new Image
+                {
+                    Source = new BitmapImage(new Uri($"pack://application:,,,/Recursos/img/escudos_equipos/32x32/{partido.IdEquipoLocal}.png")),
+                    Width = 32,
+                    Height = 32
+                };
+                Grid.SetColumn(escudoLocal, 0);
+                Grid.SetRow(escudoLocal, fila);
+                gridPartidos.Children.Add(escudoLocal);
+
+                // Nombre Equipo Local
+                TextBlock nombreLocal = new TextBlock
+                {
+                    Text = _logicaEquipo.ListarDetallesEquipo(partido.IdEquipoLocal).Nombre, // Método para obtener el nombre
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontFamily = new FontFamily("Cascadia Code SemiBold"),
+                    FontSize = 16,
+                    FontWeight = FontWeights.SemiBold
+                };
+                Grid.SetColumn(nombreLocal, 1);
+                Grid.SetRow(nombreLocal, fila);
+                gridPartidos.Children.Add(nombreLocal);
+
+                // Goles Local
+                TextBlock golesLocal = new TextBlock
+                {
+                    Text = partido.GolesLocal.ToString(),
+                    FontWeight = FontWeights.Bold,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontFamily = new FontFamily("Cascadia Code SemiBold"),
+                    FontSize = 32
+                };
+                Grid.SetColumn(golesLocal, 2);
+                Grid.SetRow(golesLocal, fila);
+                gridPartidos.Children.Add(golesLocal);
+
+                // Goles Local
+                TextBlock separador = new TextBlock
+                {
+                    Text = "-",
+                    FontWeight = FontWeights.Bold,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontFamily = new FontFamily("Cascadia Code SemiBold"),
+                    FontSize = 32
+                };
+                Grid.SetColumn(separador, 3);
+                Grid.SetRow(separador, fila);
+                gridPartidos.Children.Add(separador);
+
+                // Goles Visitante
+                TextBlock golesVisitante = new TextBlock
+                {
+                    Text = partido.GolesVisitante.ToString(),
+                    FontWeight = FontWeights.Bold,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontFamily = new FontFamily("Cascadia Code SemiBold"),
+                    FontSize = 32
+                };
+                Grid.SetColumn(golesVisitante, 4);
+                Grid.SetRow(golesVisitante, fila);
+                gridPartidos.Children.Add(golesVisitante);
+
+                // Nombre Equipo Visitante
+                TextBlock nombreVisitante = new TextBlock
+                {
+                    Text = _logicaEquipo.ListarDetallesEquipo(partido.IdEquipoVisitante).Nombre,
+                    HorizontalAlignment = HorizontalAlignment.Right,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontFamily = new FontFamily("Cascadia Code SemiBold"),
+                    FontSize = 16,
+                    FontWeight = FontWeights.SemiBold
+                };
+                Grid.SetColumn(nombreVisitante, 5);
+                Grid.SetRow(nombreVisitante, fila);
+                gridPartidos.Children.Add(nombreVisitante);
+
+                // Escudo Visitante
+                Image escudoVisitante = new Image
+                {
+                    Source = new BitmapImage(new Uri($"pack://application:,,,/Recursos/img/escudos_equipos/32x32/{partido.IdEquipoVisitante}.png")),
+                    Width = 32,
+                    Height = 32
+                };
+                Grid.SetColumn(escudoVisitante, 6);
+                Grid.SetRow(escudoVisitante, fila);
+                gridPartidos.Children.Add(escudoVisitante);
+
+                fila++;
+            }
+
         }
 
         #region "Metodos"
@@ -109,6 +222,9 @@ namespace ChampionManager25.UserControls
                         Tag = new { jugador.IdJugador, jugador.NombreCompleto }
                     };
                 }
+
+                // Agregar evento de clic
+                border.MouseLeftButtonDown += Border_MouseLeftButtonDown;
 
                 // Crear el Grid
                 Grid grid = new Grid();
@@ -193,6 +309,26 @@ namespace ChampionManager25.UserControls
                 wrapJugadores.Children.Add(border);
 
                 contador++;
+            }
+        }
+
+        // Evento que maneja el clic en el Border
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is Border border && border.Tag is { } tag)
+            {
+                // Acceder a las propiedades usando reflexión
+                var idJugador = (int)tag.GetType().GetProperty("IdJugador").GetValue(tag);
+                var nombreCompleto = (string)tag.GetType().GetProperty("NombreCompleto").GetValue(tag);
+
+                imgFotoJugador.Source = new BitmapImage(new Uri($"pack://application:,,,/Recursos/img/jugadores/{idJugador}.png"));
+                txtNombreJugador.Text = nombreCompleto;
+
+                // Estadisticas del Jugador
+                Estadistica stats = _logicaEstadistica.MostrarEstadisticasJugador(idJugador, _manager.IdManager);
+                txtGoles.Text = stats.Goles.ToString();
+                txtAsistencias.Text = stats.Asistencias.ToString();
+                txtMVP.Text = stats.MVP.ToString();
             }
         }
 

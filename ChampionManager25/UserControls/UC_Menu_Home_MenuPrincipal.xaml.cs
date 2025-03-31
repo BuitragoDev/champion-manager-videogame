@@ -64,7 +64,7 @@ namespace ChampionManager25.UserControls
                 txtUltimoPartido.Text += NombreCompeticion(ultimoPartido.IdCompeticion);
 
                 imgEscudoLocal.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/80x80/" + ultimoPartido.IdEquipoLocal + ".png"));
-                imgEscudoVisitante.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/logos/80x80/" + ultimoPartido.IdEquipoVisitante + ".png"));
+                imgEscudoVisitante.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/80x80/" + ultimoPartido.IdEquipoVisitante + ".png"));
 
                 txtUltimoPartidoLocal.Text = _logicaEquipos.ListarDetallesEquipo(ultimoPartido?.IdEquipoLocal ?? 0)?.Nombre?.ToUpper() ?? "";
                 txtUltimoPartidoVisitante.Text = _logicaEquipos.ListarDetallesEquipo(ultimoPartido?.IdEquipoVisitante ?? 0)?.Nombre?.ToUpper() ?? "";

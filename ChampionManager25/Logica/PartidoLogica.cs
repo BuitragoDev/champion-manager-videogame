@@ -59,5 +59,11 @@ namespace ChampionManager25.Logica
         {
             return _datos.CargarJornada(jornada, manager);
         }
+
+        // --------------------------------------------------------- Método que devuelve los ultimos 5 partidos de un equipo
+        public List<Partido> UltimosCincoPartidos(int equipo, int idManager)
+        {
+            return _datos.UltimosCincoPartidos(equipo, idManager);
+        }
     }
 }

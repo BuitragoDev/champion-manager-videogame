@@ -554,5 +554,66 @@ namespace ChampionManager25.Datos
 
             return oPartido;
         }
+
+        // --------------------------------------------------------- Método que devuelve los ultimos 5 partidos de un equipo
+        public List<Partido> UltimosCincoPartidos(int equipo, int idManager)
+        {
+            List<Partido> oPartido = new List<Partido>();
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+
+                    string query = @"SELECT 
+                                        p.fecha, 
+                                        el.nombre AS nombreEquipoLocal, 
+                                        ev.nombre AS nombreEquipoVisitante, 
+                                        p.id_equipo_local, 
+                                        p.id_equipo_visitante,
+                                        p.goles_local,
+                                        p.goles_visitante,
+                                        p.id_competicion
+                                     FROM partidos p
+                                     JOIN equipos el ON p.id_equipo_local = el.id_equipo
+                                     JOIN equipos ev ON p.id_equipo_visitante = ev.id_equipo
+                                     WHERE p.fecha < @Hoy
+                                     AND (p.id_equipo_local = @IdEquipo OR p.id_equipo_visitante = @IdEquipo)
+                                     AND p.id_manager = @IdManager
+                                     ORDER BY p.fecha DESC, id_partido DESC
+                                     LIMIT 5";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@IdEquipo", equipo);
+                        cmd.Parameters.AddWithValue("@IdManager", idManager);
+                        cmd.Parameters.AddWithValue("@Hoy", Metodos.hoy);
+
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                oPartido.Add(new Partido()
+                                {
+                                    FechaPartido = DateTime.Parse(reader["fecha"]?.ToString() ?? "2000-01-01"),
+                                    IdEquipoLocal = Convert.ToInt32(reader["id_equipo_local"]),
+                                    IdEquipoVisitante = Convert.ToInt32(reader["id_equipo_visitante"]),
+                                    GolesLocal = reader["goles_local"] != DBNull.Value ? Convert.ToInt32(reader["goles_local"]) : 0,
+                                    GolesVisitante = reader["goles_visitante"] != DBNull.Value ? Convert.ToInt32(reader["goles_visitante"]) : 0,
+                                    IdCompeticion = reader["id_competicion"] != DBNull.Value ? Convert.ToInt32(reader["id_competicion"]) : 0
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return oPartido;
+        }
     }
 }

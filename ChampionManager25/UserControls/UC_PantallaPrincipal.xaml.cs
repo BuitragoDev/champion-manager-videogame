@@ -31,6 +31,7 @@ namespace ChampionManager25.UserControls
         // Instancias de la LOGICA
         EquipoLogica _logicaEquipo = new EquipoLogica();
         MensajeLogica _logicaMensajes = new MensajeLogica();
+        PartidoLogica _logicaPartidos = new PartidoLogica();
 
         NacionalidadToFlagConverter convertidorBandera = new NacionalidadToFlagConverter();
 
@@ -81,6 +82,20 @@ namespace ChampionManager25.UserControls
 
             // Mostrar el día de la semana en el TextBlock
             txtDiaSemana.Text = diaSemana;
+
+            // Comprobar si es DIA DE PARTIDO y cambiar el boton
+            Partido proximoPartido = _logicaPartidos.ObtenerProximoPartido(_equipo, _manager.IdManager, hoy);
+            if (proximoPartido.FechaPartido == hoy)
+            {
+                btnAvanzar.Content = "PARTIDO";
+
+                // Ir a la pantalla de partido
+
+            } else
+            {
+                // Comprobar si hay partidos este dia y simularlos
+
+            }
 
             // CARGAR EL CONTENIDO DEL PANEL PRINCIPAL
             if (DockPanel_Central.Children.Count > 0)

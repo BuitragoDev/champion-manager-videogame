@@ -72,5 +72,11 @@ namespace ChampionManager25.Logica
         {
             return _datos.MostrarEstadisticasTotales(manager, filtro);
         }
+
+        // Llamada al método para mostrar las estadísticas de un Jugador
+        public Estadistica MostrarEstadisticasJugador(int id, int manager)
+        {
+            return _datos.MostrarEstadisticasJugador(id, manager);
+        }
     }
 }

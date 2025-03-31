@@ -530,5 +530,62 @@ namespace ChampionManager25.Datos
 
             return lista;
         }
+
+        // ======================================================= Método para mostrar las estadísticas de un Jugador
+        public Estadistica MostrarEstadisticasJugador(int id, int manager)
+        {
+            Estadistica stats = new Estadistica();
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+
+                    // Consulta para obtener todos los jugadores del equipo con el id_equipo proporcionado
+                    string query = @"SELECT 
+                                        id_jugador,
+                                        partidosJugados,
+                                        goles,
+                                        asistencias,
+                                        tarjetasAmarillas,
+                                        tarjetasRojas,
+                                        mvp
+                                    FROM estadisticas_jugadores
+                                    WHERE id_jugador = @idJugador AND id_manager = @idManager";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        // Asignar el valor del parámetro de la consulta
+                        cmd.Parameters.AddWithValue("@idJugador", id);
+                        cmd.Parameters.AddWithValue("@idManager", manager);
+
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                stats = new Estadistica
+                                {
+                                    IdJugador = reader.GetInt32(0),
+                                    PartidosJugados = reader.IsDBNull(1) ? 0 : reader.GetInt32(1),
+                                    Goles = reader.IsDBNull(2) ? 0 : reader.GetInt32(2),
+                                    Asistencias = reader.IsDBNull(3) ? 0 : reader.GetInt32(3),
+                                    TarjetasAmarillas = reader.IsDBNull(4) ? 0 : reader.GetInt32(4),
+                                    TarjetasRojas = reader.IsDBNull(5) ? 0 : reader.GetInt32(5),
+                                    MVP = reader.IsDBNull(6) ? 0 : reader.GetInt32(6)
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                // En caso de error, mostrar el mensaje con la excepción
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return stats;
+        }
     }
 }
