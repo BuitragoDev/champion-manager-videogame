@@ -741,5 +741,77 @@ namespace ChampionManager25.Datos
                 Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
             }
         }
+
+        // ======================================================= Método para mostrar la lista de Jugadores de un equipo SIN PORTEROS
+        public List<Jugador> PlantillaSinPorteros(int id)
+        {
+            List<Jugador> lista = new List<Jugador>();
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+
+                    // Consulta para obtener todos los jugadores del equipo con el id_equipo proporcionado
+                    string query = @"SELECT *
+                                    FROM jugadores
+                                    WHERE id_equipo = @idEquipo AND rol_id <> 1 AND lesion = 0";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        // Asignar el valor del parámetro de la consulta
+                        cmd.Parameters.AddWithValue("@idEquipo", id);
+
+                        using (SQLiteDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                // Crear un objeto Jugador y asignar los valores de la base de datos
+                                Jugador jugador = new Jugador
+                                {
+                                    IdJugador = dr.GetInt32(dr.GetOrdinal("id_jugador")),
+                                    Nombre = dr.GetString(dr.GetOrdinal("nombre")),
+                                    Apellido = dr.GetString(dr.GetOrdinal("apellido")),
+                                    IdEquipo = dr.GetInt32(dr.GetOrdinal("id_equipo")),
+                                    Dorsal = dr.GetInt32(dr.GetOrdinal("dorsal")),
+                                    Rol = dr.GetString(dr.GetOrdinal("rol")),
+                                    RolId = dr.GetInt32(dr.GetOrdinal("rol_id")),
+                                    Velocidad = dr.GetInt32(dr.GetOrdinal("velocidad")),
+                                    Resistencia = dr.GetInt32(dr.GetOrdinal("resistencia")),
+                                    Agresividad = dr.GetInt32(dr.GetOrdinal("agresividad")),
+                                    Calidad = dr.GetInt32(dr.GetOrdinal("calidad")),
+                                    EstadoForma = dr.GetInt32(dr.GetOrdinal("estado_forma")),
+                                    Moral = dr.GetInt32(dr.GetOrdinal("moral")),
+                                    Potencial = dr.GetInt32(dr.GetOrdinal("potencial")),
+                                    Portero = dr.GetInt32(dr.GetOrdinal("portero")),
+                                    Pase = dr.GetInt32(dr.GetOrdinal("pase")),
+                                    Regate = dr.GetInt32(dr.GetOrdinal("regate")),
+                                    Remate = dr.GetInt32(dr.GetOrdinal("remate")),
+                                    Entradas = dr.GetInt32(dr.GetOrdinal("entradas")),
+                                    Tiro = dr.GetInt32(dr.GetOrdinal("tiro")),
+                                    FechaNacimiento = DateTime.Parse(dr.GetString(dr.GetOrdinal("fecha_nacimiento"))),
+                                    Peso = dr.GetInt32(dr.GetOrdinal("peso")),
+                                    Altura = dr.GetInt32(dr.GetOrdinal("altura")),
+                                    Lesion = dr.GetInt32(dr.GetOrdinal("lesion")),
+                                    Nacionalidad = dr.GetString(dr.GetOrdinal("nacionalidad")),
+                                    Status = dr.GetInt32(dr.GetOrdinal("status"))
+                                };
+
+                                // Agregar el jugador a la lista
+                                lista.Add(jugador);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                // En caso de error, mostrar el mensaje con la excepción
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return lista;
+        }
     }
 }

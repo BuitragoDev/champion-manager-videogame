@@ -57,7 +57,7 @@
                 <Button x:Name="btnAvanzar" Grid.Column="5" VerticalAlignment="Center" HorizontalAlignment="Left"
                         Height="50" Width="345" Margin="35,0,0,0"
                         FontFamily="Cascadia Code SemiBold" FontSize="22" Cursor="Hand"
-                        Content="AVANZAR">
+                        Content="AVANZAR" Click="btnAvanzar_Click">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Background" Value="#1d6a7d"/>

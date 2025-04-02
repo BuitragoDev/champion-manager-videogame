@@ -11,7 +11,7 @@ namespace ChampionManager25.Datos
 {
     public class FechaDatos : Conexion
     {
-        // Método que devuelve la fecha de hoy
+        // ----------------------------------------------------------------------- Método que devuelve la fecha de hoy
         public Fecha? ObtenerFechaHoy()
         {
             Fecha? fecha = null;
@@ -48,5 +48,29 @@ namespace ChampionManager25.Datos
 
             return fecha;
         }
+
+        // ----------------------------------------------------------------------- Método que suma 1 dia a la fecha
+        public void AvanzarUnDia()
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+
+                    string query = "UPDATE fechas SET hoy = DATE(hoy, '+1 day') WHERE id_fecha = 1";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
     }
 }

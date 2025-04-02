@@ -1,6 +1,8 @@
-﻿using ChampionManager25.Entidades;
+﻿using ChampionManager25.Datos;
+using ChampionManager25.Entidades;
 using ChampionManager25.Logica;
 using ChampionManager25.MisMetodos;
+using ChampionManager25.Vistas;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -17,6 +19,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ChampionManager25.UserControls
 {
@@ -32,6 +35,7 @@ namespace ChampionManager25.UserControls
         EquipoLogica _logicaEquipo = new EquipoLogica();
         MensajeLogica _logicaMensajes = new MensajeLogica();
         PartidoLogica _logicaPartidos = new PartidoLogica();
+        FechaDatos _datosFecha = new FechaDatos();
 
         NacionalidadToFlagConverter convertidorBandera = new NacionalidadToFlagConverter();
 
@@ -61,41 +65,17 @@ namespace ChampionManager25.UserControls
             txtManager.Text = _manager.Nombre + " " + _manager.Apellido;
             MostrarEstrellas(_manager.Reputacion);
 
-            DateTime hoy = Metodos.hoy;
-            // Formatear la fecha en español
-            CultureInfo culturaEspañol = new CultureInfo("es-ES");
-            string dia = hoy.ToString("dd", culturaEspañol); // Día
-            string mes = hoy.ToString("MMM", culturaEspañol).ToUpper(); // Mes abreviado en español y en mayúsculas
-            string año = hoy.ToString("yyyy", culturaEspañol); // Año
+            CargarFecha();
 
-            // Combinar el formato
-            string fechaFormateada = $"{dia} {mes} {año}";
-
-            // Mostrar la fecha en el TextBlock
-            txtFechaActual.Text = fechaFormateada;
-
-            // Obtener el día de la semana en español
-            string diaSemana = hoy.ToString("dddd", culturaEspañol);
-
-            // Capitalizar la primera letra (opcional, si el formato por defecto no es suficiente)
-            diaSemana = char.ToUpper(diaSemana[0]) + diaSemana.Substring(1);
-
-            // Mostrar el día de la semana en el TextBlock
-            txtDiaSemana.Text = diaSemana;
+            Fecha fechaObjeto = _datosFecha.ObtenerFechaHoy();
+            DateTime hoy = DateTime.Parse(fechaObjeto.Hoy);
 
             // Comprobar si es DIA DE PARTIDO y cambiar el boton
             Partido proximoPartido = _logicaPartidos.ObtenerProximoPartido(_equipo, _manager.IdManager, hoy);
             if (proximoPartido.FechaPartido == hoy)
             {
                 btnAvanzar.Content = "PARTIDO";
-
-                // Ir a la pantalla de partido
-
-            } else
-            {
-                // Comprobar si hay partidos este dia y simularlos
-
-            }
+            } 
 
             // CARGAR EL CONTENIDO DEL PANEL PRINCIPAL
             if (DockPanel_Central.Children.Count > 0)
@@ -109,6 +89,69 @@ namespace ChampionManager25.UserControls
         private void pantallaPrincipal_Unloaded(object sender, RoutedEventArgs e)
         {
             Metodos.DetenerMusica(); // Detener la música al descargar el control
+        }
+
+        // ----------------------------------------------------------------------------- Evento CLICK del botón AVANZAR
+        private async void btnAvanzar_Click(object sender, RoutedEventArgs e)
+        {
+            // Reproducir el sonido
+            Metodos.ReproducirSonidoTransicion();
+
+            // Comprobar si mi equipo tiene partido.
+            Partido miPartido = _logicaPartidos.ObtenerProximoPartido(_equipo, _manager.IdManager, Metodos.hoy);
+
+            if (miPartido.FechaPartido == Metodos.hoy)
+            {
+                // Cargar Pantalla de Simulacion de MI PARTIDO
+            }
+            else
+            {
+                // Comprobar si hay partidos este dia y simularlos
+                List<Partido> listaPartidos = _logicaPartidos.PartidosHoy(_equipo, _manager.IdManager);
+                
+                if (listaPartidos != null && listaPartidos.Count > 0)
+                {
+                    // Cargar Ventana de Simulacion de partidos
+                    frmSimulandoPartidos ventanaSimulacion = new frmSimulandoPartidos(_manager, _equipo, listaPartidos);
+                    ventanaSimulacion.ShowDialog();
+
+                    // Avanzamos un dia en el calendario
+                    _datosFecha.AvanzarUnDia();
+
+                    // Esperamos un momento para asegurarnos de que la base de datos ya procesó el cambio
+                    await Task.Delay(50);
+
+                    // Recargamos la fecha
+                    CargarFecha();
+
+                    // CARGAR EL CONTENIDO DEL PANEL PRINCIPAL
+                    if (DockPanel_Central.Children.Count > 0)
+                    {
+                        DockPanel_Central.Children.Clear();
+                    }
+                    UC_Menu_Home_MenuPrincipal homeMenuPrincipal = new UC_Menu_Home_MenuPrincipal(_manager, _equipo);
+                    DockPanel_Central.Children.Add(homeMenuPrincipal);
+                }
+                else
+                {
+                    // Avanzamos un dia en el calendario
+                    _datosFecha.AvanzarUnDia();
+
+                    // Esperamos un momento para asegurarnos de que la base de datos ya procesó el cambio
+                    await Task.Delay(50);
+
+                    // Recargamos la fecha
+                    CargarFecha();
+
+                    // CARGAR EL CONTENIDO DEL PANEL PRINCIPAL
+                    if (DockPanel_Central.Children.Count > 0)
+                    {
+                        DockPanel_Central.Children.Clear();
+                    }
+                    UC_Menu_Home_MenuPrincipal homeMenuPrincipal = new UC_Menu_Home_MenuPrincipal(_manager, _equipo);
+                    DockPanel_Central.Children.Add(homeMenuPrincipal);
+                }
+            }
         }
 
         // ----------------------------------------------------------------------------- Evento CLICK del botón AJUSTES
@@ -460,6 +503,32 @@ namespace ChampionManager25.UserControls
             DockPanel_Central.Children.Clear();
             UC_Menu_Estadio_Informacion pabellonInformacion = new UC_Menu_Estadio_Informacion(_manager, _equipo);
             DockPanel_Central.Children.Add(pabellonInformacion);
+        }
+
+        private void CargarFecha()
+        {
+            Fecha fechaObjeto = _datosFecha.ObtenerFechaHoy();
+            DateTime hoy = DateTime.Parse(fechaObjeto.Hoy);
+            // Formatear la fecha en español
+            CultureInfo culturaEspañol = new CultureInfo("es-ES");
+            string dia = hoy.ToString("dd", culturaEspañol); // Día
+            string mes = hoy.ToString("MMM", culturaEspañol).ToUpper(); // Mes abreviado en español y en mayúsculas
+            string año = hoy.ToString("yyyy", culturaEspañol); // Año
+
+            // Combinar el formato
+            string fechaFormateada = $"{dia} {mes} {año}";
+
+            // Mostrar la fecha en el TextBlock
+            txtFechaActual.Text = fechaFormateada;
+
+            // Obtener el día de la semana en español
+            string diaSemana = hoy.ToString("dddd", culturaEspañol);
+
+            // Capitalizar la primera letra (opcional, si el formato por defecto no es suficiente)
+            diaSemana = char.ToUpper(diaSemana[0]) + diaSemana.Substring(1);
+
+            // Mostrar el día de la semana en el TextBlock
+            txtDiaSemana.Text = diaSemana;
         }
         #endregion
     }

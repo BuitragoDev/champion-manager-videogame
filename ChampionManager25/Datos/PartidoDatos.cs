@@ -615,5 +615,97 @@ namespace ChampionManager25.Datos
 
             return oPartido;
         }
+
+        // --------------------------------------------------------- Método que devuelve los partidos de hoy que NO juega mi equipo
+        public List<Partido> PartidosHoy(int miEquipo, int idManager)
+        {
+            List<Partido> oPartido = new List<Partido>();
+            
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+
+                    string query = @"SELECT 
+                                        p.id_partido,
+                                        p.fecha, 
+                                        el.nombre AS nombreEquipoLocal, 
+                                        ev.nombre AS nombreEquipoVisitante, 
+                                        p.id_equipo_local, 
+                                        p.id_equipo_visitante,
+                                        p.goles_local,
+                                        p.goles_visitante,
+                                        p.id_competicion
+                                     FROM partidos p
+                                     JOIN equipos el ON p.id_equipo_local = el.id_equipo
+                                     JOIN equipos ev ON p.id_equipo_visitante = ev.id_equipo
+                                     WHERE p.fecha == @Hoy
+                                     AND (p.id_equipo_local <> @IdEquipo AND p.id_equipo_visitante <> @IdEquipo)
+                                     AND p.id_manager = @IdManager
+                                     ORDER BY p.fecha DESC, id_partido ASC";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@IdEquipo", miEquipo);
+                        cmd.Parameters.AddWithValue("@IdManager", idManager);
+                        cmd.Parameters.AddWithValue("@Hoy", Metodos.hoy.ToString("yyyy-MM-dd"));
+
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                oPartido.Add(new Partido()
+                                {
+                                    IdPartido = Convert.ToInt32(reader["id_partido"]),
+                                    FechaPartido = DateTime.Parse(reader["fecha"]?.ToString() ?? "2000-01-01"),
+                                    IdEquipoLocal = Convert.ToInt32(reader["id_equipo_local"]),
+                                    IdEquipoVisitante = Convert.ToInt32(reader["id_equipo_visitante"]),
+                                    GolesLocal = reader["goles_local"] != DBNull.Value ? Convert.ToInt32(reader["goles_local"]) : 0,
+                                    GolesVisitante = reader["goles_visitante"] != DBNull.Value ? Convert.ToInt32(reader["goles_visitante"]) : 0,
+                                    IdCompeticion = reader["id_competicion"] != DBNull.Value ? Convert.ToInt32(reader["id_competicion"]) : 0,
+                                    NombreEquipoLocal = reader.GetString(reader.GetOrdinal("nombreEquipoLocal")),
+                                    NombreEquipoVisitante = reader.GetString(reader.GetOrdinal("nombreEquipoVisitante"))
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+           
+            return oPartido;
+        }
+
+        // -------------------------------------------------------------------------- Método que actualiza con el resultado de un partido
+        public void ActualizarPartido(Partido partido)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+                    string query = @"UPDATE partidos 
+                                     SET goles_local = @GolesLocal, goles_visitante = @GolesVisitante, asistencia = @Asistencia, estado = @Estado
+                                     WHERE id_partido = @IdPartido";
+                    using (var cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@GolesLocal", partido.GolesLocal); 
+                        cmd.Parameters.AddWithValue("@GolesVisitante", partido.GolesVisitante);
+                        cmd.Parameters.AddWithValue("@Asistencia", partido.Asistencia);
+                        cmd.Parameters.AddWithValue("@Estado", "Finalizado");
+                        cmd.Parameters.AddWithValue("@IdPartido", partido.IdPartido);
+                        cmd.ExecuteNonQuery(); // Ejecuta la consulta
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al añadir el equipo al Manager: " + ex.Message);
+            }
+        }
     }
 }

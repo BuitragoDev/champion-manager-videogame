@@ -1741,3 +1741,6 @@ C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0
 C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\Recursos\img\jugadores\924.png
 C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\Recursos\img\jugadores\925.png
 C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\Recursos\img\jugadores\926.png
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\Vistas\frmSimulandoPartidos.g.cs
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\Vistas\frmSimulandoPartidos.baml
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\Recursos\img\icons\simulando_icon.png

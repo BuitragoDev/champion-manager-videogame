@@ -30,5 +30,11 @@ namespace ChampionManager25.Logica
         {
             return _datos.ListarEquipos(competicion);
         }
+
+        // Llamada al método que devuelve la asistencia a un partido
+        public int CalcularAsistencia(int idEquipoLocal)
+        {
+            return _datos.CalcularAsistencia(idEquipoLocal);
+        }
     }
 }

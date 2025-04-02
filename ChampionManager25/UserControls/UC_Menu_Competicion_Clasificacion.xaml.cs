@@ -59,25 +59,25 @@ namespace ChampionManager25.UserControls
             Clasificacion mejorDefensa = _logicaClasificacion.MostrarMejorDefensa(_manager.IdManager);
             imgMejorDefensa.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/120x120/" + mejorDefensa.IdEquipo + ".png"));
             lblMejorDefensaEquipo.Text = mejorDefensa.NombreEquipo;
-            lblMejorDefensaGoles.Text = mejorDefensa.GolesFavor.ToString();
+            lblMejorDefensaGoles.Text = mejorDefensa.GolesContra.ToString();
 
             // Mostrar Mejor Racha
             Clasificacion mejorRacha = _logicaClasificacion.MostrarMejorRacha(_manager.IdManager);
             imgMejorRacha.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/120x120/" + mejorRacha.IdEquipo + ".png"));
             lblMejorRachaEquipo.Text = mejorRacha.NombreEquipo;
-            lblMejorRachaPartidos.Text = mejorRacha.GolesFavor.ToString();
+            lblMejorRachaPartidos.Text = mejorRacha.Racha.ToString();
 
             // Mejor Equipo Local
             Clasificacion mejorLocal = _logicaClasificacion.MostrarMejorEquipoLocal(_manager.IdManager);
             imgMejorEquipoLocal.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/120x120/" + mejorLocal.IdEquipo + ".png"));
             lblMejorLocalEquipo.Text = mejorLocal.NombreEquipo;
-            lblMejorLocalGanados.Text = mejorLocal.GolesFavor.ToString();
+            lblMejorLocalGanados.Text = mejorLocal.LocalVictorias.ToString();
 
             // Mejor Equipo Visitante
             Clasificacion mejorVisitante = _logicaClasificacion.MostrarMejorEquipoVisitante(_manager.IdManager);
             imgMejorEquipoVisitante.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/120x120/" + mejorVisitante.IdEquipo + ".png"));
             lblMejorVisitanteEquipo.Text = mejorVisitante.NombreEquipo;
-            lblMejorVisitanteGanados.Text = mejorVisitante.GolesFavor.ToString();
+            lblMejorVisitanteGanados.Text = mejorVisitante.VisitanteVictorias.ToString();
         }
 
         #region "Métodos"

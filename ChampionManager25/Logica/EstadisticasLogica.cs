@@ -78,5 +78,11 @@ namespace ChampionManager25.Logica
         {
             return _datos.MostrarEstadisticasJugador(id, manager);
         }
+
+        // ===================================================================== Método para actualizar las estadisticas de los jugadores
+        public void ActualizarEstadisticas(Estadistica estadistica)
+        {
+            _datos.ActualizarEstadisticas(estadistica);
+        }
     }
 }

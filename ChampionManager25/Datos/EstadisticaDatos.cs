@@ -1,5 +1,6 @@
 ﻿using ChampionManager25.Entidades;
 using System;
+using System.Windows;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
@@ -586,6 +587,41 @@ namespace ChampionManager25.Datos
             }
 
             return stats;
+        }
+
+        // ===================================================================== Método para actualizar las estadisticas de los jugadores
+        public void ActualizarEstadisticas(Estadistica estadistica)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+                    string query = @"UPDATE estadisticas_jugadores 
+                                     SET partidosJugados = partidosJugados + @PartidosJugados,
+                                         goles = goles + @Goles,
+                                         asistencias = asistencias + @Asistencias,
+                                         tarjetasAmarillas = tarjetasAmarillas + @TarjetasAmarillas,
+                                         tarjetasRojas = tarjetasRojas + @TarjetasRojas,
+                                         mvp = mvp + @MVPs
+                                     WHERE id_jugador = @IdJugador";
+                    using (var cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@IdJugador", estadistica.IdJugador);
+                        cmd.Parameters.AddWithValue("@Goles", estadistica.Goles);
+                        cmd.Parameters.AddWithValue("@Asistencias", estadistica.Asistencias);
+                        cmd.Parameters.AddWithValue("@TarjetasAmarillas", estadistica.TarjetasAmarillas);
+                        cmd.Parameters.AddWithValue("@TarjetasRojas", estadistica.TarjetasRojas);
+                        cmd.Parameters.AddWithValue("@MVPs", estadistica.MVP);
+                        cmd.Parameters.AddWithValue("@PartidosJugados", estadistica.PartidosJugados);
+                        cmd.ExecuteNonQuery(); // Ejecuta la consulta
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al añadir el equipo al Manager: " + ex.Message);
+            }
         }
     }
 }

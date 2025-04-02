@@ -1,10 +1,12 @@
 ﻿using ChampionManager25.Entidades;
+using Microsoft.Windows.Themes;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ChampionManager25.Datos
 {
@@ -55,7 +57,6 @@ namespace ChampionManager25.Datos
                 Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
             }
         }
-
 
         // ===================================================================== Método para Mostrar la Clasificacion
         public List<Clasificacion> MostrarClasificacion(int competicion, int manager)
@@ -535,6 +536,53 @@ namespace ChampionManager25.Datos
                 Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
             }
             return clasificacionEquipo;
+        }
+
+        // ===================================================================== Método para actualizar la Clasificacion
+        public void ActualizarClasificacion(Clasificacion clasificacion)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+                    string query = @"UPDATE clasificacion 
+                                     SET jugados = jugados + @Jugados,
+                                         ganados = ganados + @Ganados,
+                                         empatados = empatados + @Empatados,
+                                         perdidos = perdidos + @Perdidos,
+                                         puntos = puntos + @Puntos,
+                                         local_victorias = local_victorias + @LocalVictorias,
+                                         local_derrotas = local_derrotas + @LocalDerrotas,
+                                         visitante_victorias = visitante_victorias + @VisitanteVictorias,
+                                         visitante_derrotas = visitante_derrotas + @VisitanteDerrotas,
+                                         goles_favor = goles_favor + @GolesFavor,
+                                         goles_contra = goles_contra + @GolesContra,
+                                         racha = racha + @Racha
+                                     WHERE id_equipo = @IdEquipo";
+                    using (var cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Jugados", clasificacion.Jugados);
+                        cmd.Parameters.AddWithValue("@Ganados", clasificacion.Ganados);
+                        cmd.Parameters.AddWithValue("@Empatados", clasificacion.Empatados);
+                        cmd.Parameters.AddWithValue("@Perdidos", clasificacion.Perdidos);
+                        cmd.Parameters.AddWithValue("@Puntos", clasificacion.Puntos);
+                        cmd.Parameters.AddWithValue("@LocalVictorias", clasificacion.LocalVictorias);
+                        cmd.Parameters.AddWithValue("@LocalDerrotas", clasificacion.LocalDerrotas);
+                        cmd.Parameters.AddWithValue("@VisitanteVictorias", clasificacion.VisitanteVictorias);
+                        cmd.Parameters.AddWithValue("@VisitanteDerrotas", clasificacion.VisitanteDerrotas);
+                        cmd.Parameters.AddWithValue("@GolesFavor", clasificacion.GolesFavor);
+                        cmd.Parameters.AddWithValue("@GolesContra", clasificacion.GolesContra);
+                        cmd.Parameters.AddWithValue("@Racha", clasificacion.Racha);
+                        cmd.Parameters.AddWithValue("@IdEquipo", clasificacion.IdEquipo);
+                        cmd.ExecuteNonQuery(); // Ejecuta la consulta
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al añadir el equipo al Manager: " + ex.Message);
+            }
         }
     }
 }

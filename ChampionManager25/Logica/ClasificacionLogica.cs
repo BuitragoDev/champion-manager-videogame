@@ -60,5 +60,11 @@ namespace ChampionManager25.Logica
         {
             return _datos.MostrarMejorEquipoVisitante(manager);
         }
+
+        // Llamada al método para actualizar la Clasificacion
+        public void ActualizarClasificacion(Clasificacion clasificacion)
+        {
+            _datos.ActualizarClasificacion(clasificacion);
+        }
     }
 }

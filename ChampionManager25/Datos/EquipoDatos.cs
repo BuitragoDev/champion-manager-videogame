@@ -190,5 +190,41 @@ namespace ChampionManager25.Datos
 
             return oEquipo;
         }
+
+        // ===================================================================== Método que devuelve la asistencia a un partido
+        public int CalcularAsistencia(int idEquipoLocal)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+
+                    // Consulta
+                    string query = "SELECT aforo, reputacion FROM equipos WHERE id_equipo = @idEquipo";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@idEquipo", idEquipoLocal);
+
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                int aforo = Convert.ToInt32(reader["aforo"]);
+                                int reputacion = Convert.ToInt32(reader["reputacion"]);
+                                return (int)(aforo * (reputacion / 100.0));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return 0;
+        }
     }
 }

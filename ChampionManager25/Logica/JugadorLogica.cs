@@ -99,5 +99,11 @@ namespace ChampionManager25.Logica
         {
             _datos.EntrenarJugador(jugador, tipo);
         }
+
+        // ======================================================= Método para mostrar la lista de Jugadores de un equipo SIN PORTEROS
+        public List<Jugador> PlantillaSinPorteros(int id)
+        {
+            return _datos.PlantillaSinPorteros(id);
+        }
     }
 }

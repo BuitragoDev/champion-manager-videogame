@@ -618,6 +618,7 @@
     <None Remove="Recursos\img\icons\rol3_icon.png" />
     <None Remove="Recursos\img\icons\rol4_icon.png" />
     <None Remove="Recursos\img\icons\salir_icon.png" />
+    <None Remove="Recursos\img\icons\simulando_icon.png" />
     <None Remove="Recursos\img\icons\tarjetaAmarilla_img.png" />
     <None Remove="Recursos\img\icons\tarjetaRoja_img.png" />
     <None Remove="Recursos\img\icons\verificado_icon.png" />
@@ -3473,6 +3474,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\salir_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\simulando_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\tarjetaAmarilla_img.png">

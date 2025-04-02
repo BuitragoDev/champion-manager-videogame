@@ -60,8 +60,8 @@ namespace ChampionManager25.Entidades
         public override string ToString()
         {
             return $"Equipo: {IdEquipo}, Jugados: {Jugados}, Ganados: {Ganados}, Empatados: {Empatados}, Perdidos: {Perdidos}, " +
-                   $"Local: {LocalVictorias}-{LocalDerrotas}, Visitante: {VisitanteVictorias}-{VisitanteDerrotas}, " +
-                   $"Goles: {GolesFavor}-{GolesContra}, Racha: {Racha}, Puntos: {Puntos}";
+                   $"Local Victorias: {LocalVictorias}, Local Derrotas: {LocalDerrotas}, VisitanteVictorias: {VisitanteVictorias}, VisitanteDerrotas: {VisitanteDerrotas}," +
+                   $"GolesFavor: {GolesFavor}, GolesContra: {GolesContra}, Racha: {Racha}, Puntos: {Puntos}";
         }
     }
 }

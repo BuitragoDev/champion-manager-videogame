@@ -618,6 +618,7 @@
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("recursos/img/icons/rol3_icon.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("recursos/img/icons/rol4_icon.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("recursos/img/icons/salir_icon.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("recursos/img/icons/simulando_icon.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("recursos/img/icons/tarjetaamarilla_img.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("recursos/img/icons/tarjetaroja_img.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("recursos/img/icons/verificado_icon.png")]

@@ -54,16 +54,28 @@ namespace ChampionManager25.Logica
             return _datos.MostrarProximoPartidoLocal(equipo, idManager, fecha);
         }
 
-        // Metodo que carga los partidos de una jornada
+        // Llamada al metodo que carga los partidos de una jornada
         public List<Partido> CargarJornada(int jornada, int manager)
         {
             return _datos.CargarJornada(jornada, manager);
         }
 
-        // --------------------------------------------------------- Método que devuelve los ultimos 5 partidos de un equipo
+        // Llamada al método que devuelve los ultimos 5 partidos de un equipo
         public List<Partido> UltimosCincoPartidos(int equipo, int idManager)
         {
             return _datos.UltimosCincoPartidos(equipo, idManager);
+        }
+
+        // Llamada al método que devuelve los partidos de hoy que NO juega mi equipo
+        public List<Partido> PartidosHoy(int miEquipo, int idManager)
+        {
+            return _datos.PartidosHoy(miEquipo, idManager);
+        }
+
+        // Llamada al método que actualiza con el resultado de un partido
+        public void ActualizarPartido(Partido partido)
+        {
+            _datos.ActualizarPartido(partido);
         }
     }
 }
