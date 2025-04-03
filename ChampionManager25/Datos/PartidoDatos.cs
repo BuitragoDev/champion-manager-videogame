@@ -224,25 +224,24 @@ namespace ChampionManager25.Datos
                 {
                     conn.Open();
 
-                    string query = @"
-                    SELECT 
-                        p.fecha, 
-                        el.nombre AS nombreEquipoLocal, 
-                        ev.nombre AS nombreEquipoVisitante, 
-                        p.id_equipo_local, 
-                        p.id_equipo_visitante,
-                        p.goles_local,
-                        p.goles_visitante,
-                        p.id_competicion
-                    FROM partidos p
-                    JOIN equipos el ON p.id_equipo_local = el.id_equipo
-                    JOIN equipos ev ON p.id_equipo_visitante = ev.id_equipo
-                    WHERE 
-                        (p.id_equipo_local = @IdEquipo OR p.id_equipo_visitante = @IdEquipo)
-                        AND p.id_manager = @IdManager
-                        AND DATE(p.fecha) >= DATE(@Hoy)
-                    ORDER BY p.fecha ASC 
-                    LIMIT 1";
+                    string query = @"SELECT p.id_partido,
+                                        p.fecha, 
+                                        el.nombre AS nombreEquipoLocal, 
+                                        ev.nombre AS nombreEquipoVisitante, 
+                                        p.id_equipo_local, 
+                                        p.id_equipo_visitante,
+                                        p.goles_local,
+                                        p.goles_visitante,
+                                        p.id_competicion
+                                    FROM partidos p
+                                    JOIN equipos el ON p.id_equipo_local = el.id_equipo
+                                    JOIN equipos ev ON p.id_equipo_visitante = ev.id_equipo
+                                    WHERE 
+                                        (p.id_equipo_local = @IdEquipo OR p.id_equipo_visitante = @IdEquipo)
+                                        AND p.id_manager = @IdManager
+                                        AND DATE(p.fecha) >= DATE(@Hoy)
+                                    ORDER BY p.fecha ASC 
+                                    LIMIT 1";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                     {
@@ -256,6 +255,7 @@ namespace ChampionManager25.Datos
                             {
                                 partido = new Partido
                                 {
+                                    IdPartido = Convert.ToInt32(reader["id_partido"]),
                                     FechaPartido = DateTime.Parse(reader["fecha"]?.ToString() ?? "2000-01-01"),
                                     IdEquipoLocal = Convert.ToInt32(reader["id_equipo_local"]),
                                     IdEquipoVisitante = Convert.ToInt32(reader["id_equipo_visitante"]),

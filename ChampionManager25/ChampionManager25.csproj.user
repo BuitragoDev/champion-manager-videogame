@@ -110,6 +110,9 @@
     <Compile Update="UserControls\UC_SeleccionEquipo.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Vistas\frmResumenPartido.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Vistas\frmSimulandoPartidos.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

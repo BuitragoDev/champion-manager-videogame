@@ -70,42 +70,50 @@ namespace ChampionManager25.UserControls
         }
 
         // ---------------------------------------------------------------------------------------------- EVENTO CLICK DEL BOTON AVANZAR
-        private void btnAvanzar_Click(object sender, RoutedEventArgs e)
+        private async void btnAvanzar_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                // Crear el calendario de las Ligas
-                int temporadaActual = Metodos.temporadaActual;
-                _datosPartido.GenerarCalendario(temporadaActual, _manager.IdManager, 1);
+                btnAvanzar.IsEnabled = false;
+                progressBar.Visibility = Visibility.Visible;
 
-                // Generar las clasificaciones
-                _logicaClasificacion.RellenarClasificacion(1, _manager.IdManager);
-
-                // Generar registros de la tabla ESTADÍSTICAS_JUGADORES
-                int numJugadores = _logicaJugador.NumeroJugadoresTotales();
-                _logicaEstadistica.InsertarEstadisticasJugadores(numJugadores, _manager.IdManager);
-
-                // Generar el primer registro del historial
-                _logicaHistorial.CrearLineaHistorial(_manager.IdManager, _equipo, "2024/2025");
-
-                // Generar la alineacion del equipo
-                _logicaJugador.CrearAlineacion("5-4-1", _equipo);
-
-                // Crear los mensaje de inicio de partida
-                Mensaje mensajeInicio1 = new Mensaje
+                await Task.Run(() =>
                 {
-                    Fecha = new DateTime(2024, 7, 15),
-                    Remitente = _logicaEquipo.ListarDetallesEquipo(_equipo).Presidente,
-                    Asunto = "Bienvenido al Club",
-                    Contenido = "Desde la Directiva del " + _logicaEquipo.ListarDetallesEquipo(_equipo).Nombre + " te damos la bienvenida. Tenemos muchas esperanzas puestas en tí, y estamos seguros de que contigo empieza una nueva etapa en nuestro club, y que nos esperan grandes éxitos.\n\nLa junta directiva y los empleados te irán informando a través de correos electrónicos de las cosas que sucedan en el club.",
-                    TipoMensaje = "Notificación",
-                    IdEquipo = _equipo,
-                    IdManager = _manager.IdManager,
-                    Leido = false,
-                    Icono = 0 // 0 es icono de equipo
-                };
+                    // Crear el calendario de las Ligas
+                    int temporadaActual = Metodos.temporadaActual;
+                    _datosPartido.GenerarCalendario(temporadaActual, _manager.IdManager, 1);
 
-                _logicaMensajes.crearMensaje(mensajeInicio1);
+                    // Generar las clasificaciones
+                    _logicaClasificacion.RellenarClasificacion(1, _manager.IdManager);
+
+                    // Generar registros de la tabla ESTADÍSTICAS_JUGADORES
+                    int numJugadores = _logicaJugador.NumeroJugadoresTotales();
+                    _logicaEstadistica.InsertarEstadisticasJugadores(numJugadores, _manager.IdManager);
+
+                    // Generar el primer registro del historial
+                    _logicaHistorial.CrearLineaHistorial(_manager.IdManager, _equipo, "2024/2025");
+
+                    // Generar la alineacion del equipo
+                    _logicaJugador.CrearAlineacion("5-4-1", _equipo);
+
+                    // Crear los mensaje de inicio de partida
+                    Mensaje mensajeInicio1 = new Mensaje
+                    {
+                        Fecha = new DateTime(2024, 7, 15),
+                        Remitente = _logicaEquipo.ListarDetallesEquipo(_equipo).Presidente,
+                        Asunto = "Bienvenido al Club",
+                        Contenido = "Desde la Directiva del " + _logicaEquipo.ListarDetallesEquipo(_equipo).Nombre + " te damos la bienvenida. Tenemos muchas esperanzas puestas en tí, y estamos seguros de que contigo empieza una nueva etapa en nuestro club, y que nos esperan grandes éxitos.\n\nLa junta directiva y los empleados te irán informando a través de correos electrónicos de las cosas que sucedan en el club.",
+                        TipoMensaje = "Notificación",
+                        IdEquipo = _equipo,
+                        IdManager = _manager.IdManager,
+                        Leido = false,
+                        Icono = 0 // 0 es icono de equipo
+                    };
+
+                    _logicaMensajes.crearMensaje(mensajeInicio1);
+                });
+
+                progressBar.Visibility = Visibility.Collapsed;
 
                 // Cargar la pantalla principal con los nuevos datos
                 Metodos.ReproducirSonidoTransicion();
@@ -119,9 +127,6 @@ namespace ChampionManager25.UserControls
                                 "Error",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Error);
-
-                // Opcional: Registrar el error en un log
-                // File.AppendAllText("log_errores.txt", $"{DateTime.Now}: {ex.Message}\n{ex.StackTrace}\n\n");
             }
         }
         // --------------------------------------------------------------------------------------------------------------------------

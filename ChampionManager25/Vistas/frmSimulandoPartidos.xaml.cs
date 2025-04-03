@@ -47,12 +47,20 @@ namespace ChampionManager25.Vistas
             this.listaPartidos = listaPartidos;
         }
 
-        private void simulacionPartidos_Loaded(object sender, RoutedEventArgs e)
+        private async void simulacionPartidos_Loaded(object sender, RoutedEventArgs e)
         {
-            foreach (Partido partido in listaPartidos)
+            progressBar.Visibility = Visibility.Visible;
+
+            await Task.Run(() =>
             {
-                SimularPartido(partido);
-            }
+                foreach (Partido partido in listaPartidos)
+                {
+                    SimularPartido(partido);
+                }
+            });
+
+            progressBar.Visibility = Visibility.Collapsed;
+            areaPartidos.Visibility = Visibility.Visible;
             MostrarPartidos(_logicaPartidos.PartidosHoy(_equipo, _manager.IdManager));
         }
 

@@ -558,6 +558,8 @@
     <None Remove="Recursos\img\icons\ajustesBlanco.png" />
     <None Remove="Recursos\img\icons\ajustesNegro.png" />
     <None Remove="Recursos\img\icons\amarilla_icon.png" />
+    <None Remove="Recursos\img\icons\amonestacionAmarilla.png" />
+    <None Remove="Recursos\img\icons\amonestacionRoja.png" />
     <None Remove="Recursos\img\icons\ampliar_icon.png" />
     <None Remove="Recursos\img\icons\arriba_icon.png" />
     <None Remove="Recursos\img\icons\asistenciaGol_img.png" />
@@ -594,6 +596,7 @@
     <None Remove="Recursos\img\icons\flechaIzquierdaBlanca32px.png" />
     <None Remove="Recursos\img\icons\flechaIzquierdaBlanca64px_icon.png" />
     <None Remove="Recursos\img\icons\flechaIzquierdaNegra64px_icon.png" />
+    <None Remove="Recursos\img\icons\goleador.png" />
     <None Remove="Recursos\img\icons\goleador_icon.png" />
     <None Remove="Recursos\img\icons\gol_img.png" />
     <None Remove="Recursos\img\icons\hattrick_img.png" />
@@ -3296,6 +3299,12 @@
     <Content Include="Recursos\img\icons\amarilla_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\icons\amonestacionAmarilla.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\amonestacionRoja.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\icons\ampliar_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -3402,6 +3411,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\flechaIzquierdaNegra64px_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\goleador.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\goleador_icon.png">

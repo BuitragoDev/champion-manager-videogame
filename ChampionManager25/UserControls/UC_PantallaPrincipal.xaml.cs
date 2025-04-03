@@ -103,6 +103,50 @@ namespace ChampionManager25.UserControls
             if (miPartido.FechaPartido == Metodos.hoy)
             {
                 // Cargar Pantalla de Simulacion de MI PARTIDO
+                frmResumenPartido ventanaResumenPartido = new frmResumenPartido(_manager, _equipo, miPartido);
+                ventanaResumenPartido.ShowDialog();
+
+                // Comprobamos si hay otros partidos hoy
+                List<Partido> listaPartidos = _logicaPartidos.PartidosHoy(_equipo, _manager.IdManager);
+                if (listaPartidos != null && listaPartidos.Count > 0)
+                {
+                    // Cargar Ventana de Simulacion de partidos
+                    frmSimulandoPartidos ventanaSimulacion = new frmSimulandoPartidos(_manager, _equipo, listaPartidos);
+                    ventanaSimulacion.ShowDialog();
+
+                    // Avanzamos un dia en el calendario
+                    _datosFecha.AvanzarUnDia();
+
+                    // Esperamos un momento para asegurarnos de que la base de datos ya procesó el cambio
+                    await Task.Delay(50);
+
+                    // Recargamos la fecha
+                    CargarFecha();
+
+                    // CARGAR EL CONTENIDO DEL PANEL PRINCIPAL
+                    if (DockPanel_Central.Children.Count > 0)
+                    {
+                        DockPanel_Central.Children.Clear();
+                    }
+                    UC_Menu_Home_MenuPrincipal homeMenuPrincipal = new UC_Menu_Home_MenuPrincipal(_manager, _equipo);
+                    DockPanel_Central.Children.Add(homeMenuPrincipal);
+                }
+                else
+                {
+                    // Avanzamos un dia en el calendario
+                    _datosFecha.AvanzarUnDia();
+
+                    // Recargamos la fecha
+                    CargarFecha();
+
+                    // CARGAR EL CONTENIDO DEL PANEL PRINCIPAL
+                    if (DockPanel_Central.Children.Count > 0)
+                    {
+                        DockPanel_Central.Children.Clear();
+                    }
+                    UC_Menu_Home_MenuPrincipal homeMenuPrincipal = new UC_Menu_Home_MenuPrincipal(_manager, _equipo);
+                    DockPanel_Central.Children.Add(homeMenuPrincipal);
+                }
             }
             else
             {
@@ -529,6 +573,16 @@ namespace ChampionManager25.UserControls
 
             // Mostrar el día de la semana en el TextBlock
             txtDiaSemana.Text = diaSemana;
+
+            // Comprobar si mi equipo juega hoy y cambiar el nombre al boton AVANZAR a PARTIDO
+            Partido proximopartido = _logicaPartidos.ObtenerProximoPartido(_equipo, _manager.IdManager, Metodos.hoy);
+            if (proximopartido.FechaPartido == hoy)
+            {
+                btnAvanzar.Content = "PARTIDO";
+            } else
+            {
+                btnAvanzar.Content = "AVANZAR";
+            }
         }
         #endregion
     }
