@@ -5,6 +5,7 @@ using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ChampionManager25.Datos
 {
@@ -21,7 +22,7 @@ namespace ChampionManager25.Datos
                 {
                     conn.Open();
                     string query = @"SELECT h.id_historial, h.id_equipo, h.id_manager, h.temporada, h.posicionLiga, h.partidosJugados, 
-                                            h.partidosGanados, h.partidosEmpatados, h.partidosPerdidos, h.golesMarcados, h.golesRecibidos, h.titulosNacionales, h.titulosInternacionales,
+                                            h.partidosGanados, h.partidosEmpatados, h.partidosPerdidos, h.golesMarcados, h.golesRecibidos, h.titulosInternacionales,
                                             e.nombre AS nombre_equipo, h.cDirectiva, h.cFans, h.cJugadores
                                      FROM historial_manager h
                                      JOIN equipos e 
@@ -51,11 +52,10 @@ namespace ChampionManager25.Datos
                                     PartidosPerdidos = dr.IsDBNull(8) ? 0 : dr.GetInt32(8),
                                     GolesMarcados = dr.IsDBNull(9) ? 0 : dr.GetInt32(9),
                                     GolesRecibidos = dr.IsDBNull(10) ? 0 : dr.GetInt32(10),
-                                    TitulosNacionales = dr.IsDBNull(11) ? 0 : dr.GetInt32(11),
-                                    TitulosInternacionales = dr.IsDBNull(12) ? 0 : dr.GetInt32(12),
-                                    CDirectiva = dr.IsDBNull(14) ? 0 : dr.GetInt32(14),
-                                    CFans = dr.IsDBNull(15) ? 0 : dr.GetInt32(15),
-                                    CJugadores = dr.IsDBNull(16) ? 0 : dr.GetInt32(16),
+                                    TitulosInternacionales = dr.IsDBNull(11) ? 0 : dr.GetInt32(11),
+                                    CDirectiva = dr.IsDBNull(13) ? 0 : dr.GetInt32(13),
+                                    CFans = dr.IsDBNull(14) ? 0 : dr.GetInt32(14),
+                                    CJugadores = dr.IsDBNull(15) ? 0 : dr.GetInt32(15),
                                     NombreEquipo = dr.IsDBNull(dr.GetOrdinal("nombre_equipo")) ? string.Empty : dr.GetString(dr.GetOrdinal("nombre_equipo"))
                                 });
 
@@ -66,7 +66,7 @@ namespace ChampionManager25.Datos
             }
             catch (SQLiteException ex)
             {
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
 
             return listadoHistorial;
@@ -100,7 +100,153 @@ namespace ChampionManager25.Datos
             catch (SQLiteException ex)
             {
                 // Manejo de errores
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // ===================================================================== Método para copiar los partidos y goles del historial temporal
+        public void CopiarPartidosHistorialManager(int temporada)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+
+                    // Construir la cadena para la temporada
+                    string temporadaStr = $"{temporada}/{temporada + 1}";
+
+                    // Comando para insertar los datos de historial_manager_temp en historial_manager
+                    string queryInsert = @"UPDATE historial_manager 
+                                           SET 
+                                                partidosJugados = hmt.partidosJugados,
+                                                partidosGanados = hmt.partidosGanados,
+                                                partidosEmpatados = hmt.partidosEmpatados,
+                                                partidosPerdidos = hmt.partidosPerdidos,
+                                                golesMarcados = hmt.golesMarcados,
+                                                golesRecibidos = hmt.golesRecibidos
+                                           FROM historial_manager_temp hmt
+                                           WHERE historial_manager.temporada = @temporada";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(queryInsert, conn))
+                    {
+                        // Agregar el parámetro temporada
+                        cmd.Parameters.AddWithValue("@temporada", temporadaStr); 
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                // Manejo de errores
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // ===================================================================== Método para copiar los datos de las confianzas
+        public void CopiarConfianzasManager(int temporada)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+
+                    // Construir la cadena para la temporada
+                    string temporadaStr = $"{temporada}/{temporada + 1}";
+
+                    // Comando para insertar los datos de managers en historial_manager
+                    string queryInsert = @"UPDATE historial_manager 
+                                           SET cDirectiva = m.cDirectiva,
+                                               cFans = m.cFans,
+                                               cJugadores = m.cJugadores
+                                           FROM managers m
+                                           WHERE historial_manager.temporada = @temporada";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(queryInsert, conn))
+                    {
+                        // Agregar el parámetro temporada
+                        cmd.Parameters.AddWithValue("@temporada", temporadaStr);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                // Manejo de errores
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // ===================================================================== Método para actualizar la posicion final en la Liga
+        public void CopiarPosicionLigaManager(int temporada, int posicion)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+
+                    // Construir la cadena para la temporada
+                    string temporadaStr = $"{temporada}/{temporada + 1}";
+
+                    // Comando para insertar los datos de managers en historial_manager
+                    string queryInsert = @"UPDATE historial_manager 
+                                           SET posicionLiga = @Posicion
+                                           WHERE temporada = @temporada";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(queryInsert, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Posicion", posicion);
+                        cmd.Parameters.AddWithValue("@temporada", temporadaStr);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                // Manejo de errores
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // ===================================================================== Método para resetear el historial temporal
+        public void ResetearHistorialTemporal()
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+
+                    // Comando para insertar los datos de managers en historial_manager
+                    string queryInsert = @"UPDATE historial_manager_temp
+                                           SET posicionLiga = 0,
+                                               partidosJugados = 0,
+                                               partidosGanados = 0,
+                                               partidosEmpatados = 0,
+                                               partidosPerdidos = 0,
+                                               golesMarcados = 0,
+                                               golesRecibidos = 0,
+                                               titulosInternacionales = 0,
+                                               cDirectiva = 0,
+                                               cFans = 0,
+                                               cJugadores = 0
+                                           WHERE id_historial = 1";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(queryInsert, conn))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                // Manejo de errores
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
         }
     }

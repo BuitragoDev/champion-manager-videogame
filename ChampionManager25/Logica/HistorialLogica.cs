@@ -24,5 +24,29 @@ namespace ChampionManager25.Logica
         {
             _datos.CrearLineaHistorial(manager, equipo, temporada);
         }
+
+        // Llamada al método para copiar datos del historial temporal
+        public void CopiarPartidosHistorialManager(int temporada)
+        {
+            _datos.CopiarPartidosHistorialManager(temporada);
+        }
+
+        // Llamada al método para copiar los datos de las confianzas
+        public void CopiarConfianzasManager(int temporada)
+        {
+            _datos.CopiarConfianzasManager(temporada);
+        }
+
+        // Llamada al método para actualizar la posicion final en la Liga
+        public void CopiarPosicionLigaManager(int temporada, int posicion)
+        {
+            _datos.CopiarPosicionLigaManager(temporada, posicion);
+        }
+
+        // Llamada al método para resetear el historial temporal
+        public void ResetearHistorialTemporal()
+        {
+            _datos.ResetearHistorialTemporal();
+        }
     }
 }

@@ -24,5 +24,11 @@ namespace ChampionManager25.Logica
         {
             return _datos.MostrarEntrenador(id);
         }
+
+        // Llamada al método que actualiza los puntos de los entrenadores
+        public void ActualizarResultadoManager(int entrenador, int puntos)
+        {
+            _datos.ActualizarResultadoManager(entrenador, puntos);
+        }
     }
 }

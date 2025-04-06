@@ -189,14 +189,14 @@ namespace ChampionManager25.Datos
 
         private void GuardarCalendario(List<List<Tuple<int, int>>> calendario, int temporada, int idManager, int idCompeticion)
         {
-            DateTime fechaInicio = new DateTime(temporada, 8, 18); // Empieza en agosto
+            DateTime fechaInicio = ObtenerTercerSabadoDeAgosto(temporada);
             int jornadaNum = 1;
 
             foreach (var jornada in calendario)
             {
                 // Calcula las dos fechas para los partidos de la jornada
-                DateTime fechaPrimerDia = fechaInicio.AddDays((jornadaNum - 1) * 7); // Día 1 de la jornada
-                DateTime fechaSegundoDia = fechaPrimerDia.AddDays(-1); // Día 2 de la jornada (un día antes)
+                DateTime fechaPrimerDia = fechaInicio.AddDays((jornadaNum - 1) * 7); // Día 1 de la jornada (Sabado)
+                DateTime fechaSegundoDia = fechaPrimerDia.AddDays(1); // Día 2 de la jornada (Domingo)
 
                 // Dividir los partidos de la jornada en dos grupos
                 for (int i = 0; i < jornada.Count; i++)
@@ -211,6 +211,28 @@ namespace ChampionManager25.Datos
 
                 jornadaNum++;
             }
+        }
+
+        public static DateTime ObtenerTercerSabadoDeAgosto(int anio)
+        {
+            DateTime fecha = new DateTime(anio, 8, 1);
+            int sabadosEncontrados = 0;
+
+            while (fecha.Month == 8)
+            {
+                if (fecha.DayOfWeek == DayOfWeek.Saturday)
+                {
+                    sabadosEncontrados++;
+                    if (sabadosEncontrados == 3)
+                    {
+                        return fecha;
+                    }
+                }
+
+                fecha = fecha.AddDays(1);
+            }
+
+            throw new Exception("No se encontró el tercer sábado de agosto.");
         }
 
         // Método que devuelve el próximo partido de mi equipo.
@@ -698,6 +720,61 @@ namespace ChampionManager25.Datos
                         cmd.Parameters.AddWithValue("@Asistencia", partido.Asistencia);
                         cmd.Parameters.AddWithValue("@Estado", "Finalizado");
                         cmd.Parameters.AddWithValue("@IdPartido", partido.IdPartido);
+                        cmd.ExecuteNonQuery(); // Ejecuta la consulta
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al añadir el equipo al Manager: " + ex.Message);
+            }
+        }
+
+        // ===================================================================== Método para obtener la fecha del ultimo partido
+        public string ultimoPartidoCalendario()
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+
+                    string query = @"SELECT fecha FROM partidos ORDER BY fecha DESC LIMIT 1";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        object resultado = cmd.ExecuteScalar();
+
+                        if (resultado != null && resultado != DBNull.Value)
+                        {
+                            string fecha = resultado.ToString();
+                            return fecha;
+                        }
+                        else
+                        {
+                            return ""; // No hay partidos en la tabla
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                return "";
+            }
+        }
+
+        // -------------------------------------------------------------------------- Método que resetea la tabla partidos
+        public void ResetearPartidos()
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+                    string query = @"DELETE FROM partidos";
+                    using (var cmd = new SQLiteCommand(query, conn))
+                    {
                         cmd.ExecuteNonQuery(); // Ejecuta la consulta
                     }
                 }

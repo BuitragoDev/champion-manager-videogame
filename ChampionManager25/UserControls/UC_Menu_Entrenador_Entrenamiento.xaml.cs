@@ -51,6 +51,7 @@ namespace ChampionManager25.UserControls
         // ------------------------------------------------------------------------- Evento CLICK del boton entrenamiento PORTERO
         private void btnPortero_Click(object sender, RoutedEventArgs e)
         {
+            Metodos.ReproducirSonidoClick();
             // Actualizar Entrenamiento
             _logicaJugador.EntrenarJugador(idJugadorSeleccionado, 1);
             CargarEntrenamiento(idJugadorSeleccionado);
@@ -59,6 +60,7 @@ namespace ChampionManager25.UserControls
         // ------------------------------------------------------------------------- Evento CLICK del boton entrenamiento ENTRADAS 
         private void btnEntradas_Click(object sender, RoutedEventArgs e)
         {
+            Metodos.ReproducirSonidoClick();
             // Actualizar Entrenamiento
             _logicaJugador.EntrenarJugador(idJugadorSeleccionado, 2);
             CargarEntrenamiento(idJugadorSeleccionado);
@@ -67,6 +69,7 @@ namespace ChampionManager25.UserControls
         // ------------------------------------------------------------------------- Evento CLICK del boton entrenamiento REMATE
         private void btnRemate_Click(object sender, RoutedEventArgs e)
         {
+            Metodos.ReproducirSonidoClick();
             // Actualizar Entrenamiento
             _logicaJugador.EntrenarJugador(idJugadorSeleccionado, 3);
             CargarEntrenamiento(idJugadorSeleccionado);
@@ -75,6 +78,7 @@ namespace ChampionManager25.UserControls
         // ------------------------------------------------------------------------- Evento CLICK del boton entrenamiento PASE
         private void btnPase_Click(object sender, RoutedEventArgs e)
         {
+            Metodos.ReproducirSonidoClick();
             // Actualizar Entrenamiento
             _logicaJugador.EntrenarJugador(idJugadorSeleccionado, 4);
             CargarEntrenamiento(idJugadorSeleccionado);
@@ -83,6 +87,7 @@ namespace ChampionManager25.UserControls
         // ------------------------------------------------------------------------- Evento CLICK del boton entrenamiento REGATE
         private void btnRegate_Click(object sender, RoutedEventArgs e)
         {
+            Metodos.ReproducirSonidoClick();
             // Actualizar Entrenamiento
             _logicaJugador.EntrenarJugador(idJugadorSeleccionado, 5);
             CargarEntrenamiento(idJugadorSeleccionado);
@@ -91,6 +96,7 @@ namespace ChampionManager25.UserControls
         // ------------------------------------------------------------------------- Evento CLICK del boton entrenamiento TIRO
         private void btnTiro_Click(object sender, RoutedEventArgs e)
         {
+            Metodos.ReproducirSonidoClick();
             // Actualizar Entrenamiento
             _logicaJugador.EntrenarJugador(idJugadorSeleccionado, 6);
             CargarEntrenamiento(idJugadorSeleccionado);
@@ -99,6 +105,7 @@ namespace ChampionManager25.UserControls
         // ------------------------------------------------------------------------- Evento CLICK del boton entrenamiento SIN ENTRENAMIENTO
         private void btnNoEntrenar_Click(object sender, RoutedEventArgs e)
         {
+            Metodos.ReproducirSonidoClick();
             // Actualizar Entrenamiento
             _logicaJugador.EntrenarJugador(idJugadorSeleccionado, 0);
             CargarEntrenamiento(idJugadorSeleccionado);
@@ -239,6 +246,7 @@ namespace ChampionManager25.UserControls
         // Evento que maneja el clic en el Border
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            Metodos.ReproducirSonidoClick();
             if (sender is Border border && border.Tag is { } tag)
             {
                 // Acceder a las propiedades usando reflexión

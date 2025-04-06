@@ -172,7 +172,7 @@ namespace ChampionManager25.UserControls
             {
                 Binding = new System.Windows.Data.Binding("NombreEquipo"),
                 Header = "EQUIPO",
-                Width = new DataGridLength(350, DataGridLengthUnitType.Pixel),
+                Width = new DataGridLength(450, DataGridLengthUnitType.Pixel),
                 ElementStyle = new Style(typeof(TextBlock))
                 {
                     Setters =
@@ -290,24 +290,9 @@ namespace ChampionManager25.UserControls
 
             dgHistorial.Columns.Add(new DataGridTextColumn
             {
-                Binding = new System.Windows.Data.Binding("TitulosNacionales"),
-                Header = "T. NAC",
-                Width = new DataGridLength(140, DataGridLengthUnitType.Pixel),
-                ElementStyle = new Style(typeof(TextBlock))
-                {
-                    Setters =
-                    {
-                        new Setter(TextBlock.TextAlignmentProperty, TextAlignment.Center),
-                        new Setter(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center)
-                    }
-                }
-            });
-
-            dgHistorial.Columns.Add(new DataGridTextColumn
-            {
                 Binding = new System.Windows.Data.Binding("TitulosInternacionales"),
-                Header = "T. INT",
-                Width = new DataGridLength(140, DataGridLengthUnitType.Pixel),
+                Header = "TITULOS",
+                Width = new DataGridLength(180, DataGridLengthUnitType.Pixel),
                 ElementStyle = new Style(typeof(TextBlock))
                 {
                     Setters =
@@ -428,7 +413,6 @@ namespace ChampionManager25.UserControls
                 pp += valor.PartidosPerdidos;
                 gf += valor.GolesMarcados;
                 gc += valor.GolesRecibidos;
-                tn += valor.TitulosNacionales;
                 ti += valor.TitulosInternacionales;
             }
 
@@ -438,7 +422,6 @@ namespace ChampionManager25.UserControls
             txtPPtotales.Text = pp.ToString("N0");
             txtGFtotales.Text = gf.ToString("N0");
             txtGCtotales.Text = gc.ToString("N0");
-            txtNacionalesTotales.Text = tn.ToString("N0");
             txtInternacionalesTotales.Text = ti.ToString("N0");
         }
         #endregion

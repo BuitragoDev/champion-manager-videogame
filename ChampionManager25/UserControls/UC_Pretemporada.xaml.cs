@@ -35,9 +35,13 @@ namespace ChampionManager25.UserControls
 
         // Las fechas a asignar
         private List<string> fechas = new List<string>
-                {
-                    "20/07/2024", "24/07/2024", "31/07/2024", "03/08/2024", "06/08/2024"
-                };
+        {
+            new DateTime(Metodos.temporadaActual, 7, 29).ToString("dd/MM/yyyy"),
+            new DateTime(Metodos.temporadaActual, 7, 31).ToString("dd/MM/yyyy"),
+            new DateTime(Metodos.temporadaActual, 8, 2).ToString("dd/MM/yyyy"),
+            new DateTime(Metodos.temporadaActual, 8, 4).ToString("dd/MM/yyyy"),
+            new DateTime(Metodos.temporadaActual, 8, 6).ToString("dd/MM/yyyy")
+        };
 
         // Lista con los equipos seleccionados.
         List<int> rivales = new List<int> { 0, 0, 0, 0, 0 };

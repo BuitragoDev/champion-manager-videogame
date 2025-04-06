@@ -36,6 +36,11 @@ namespace ChampionManager25.UserControls
         MensajeLogica _logicaMensajes = new MensajeLogica();
         PartidoLogica _logicaPartidos = new PartidoLogica();
         FechaDatos _datosFecha = new FechaDatos();
+        HistorialLogica _logicaHistorial = new HistorialLogica();
+        ClasificacionLogica _logicaClasificacion = new ClasificacionLogica();
+        EstadisticasLogica _logicaEstadisticas = new EstadisticasLogica();
+        PalmaresLogica _logicaPalmares = new PalmaresLogica();
+        JugadorLogica _logicaJugador = new JugadorLogica();
 
         NacionalidadToFlagConverter convertidorBandera = new NacionalidadToFlagConverter();
 
@@ -100,7 +105,7 @@ namespace ChampionManager25.UserControls
             // Comprobar si mi equipo tiene partido.
             Partido miPartido = _logicaPartidos.ObtenerProximoPartido(_equipo, _manager.IdManager, Metodos.hoy);
 
-            if (miPartido.FechaPartido == Metodos.hoy)
+            if (miPartido != null && miPartido.FechaPartido == Metodos.hoy)
             {
                 // Cargar Pantalla de Simulacion de MI PARTIDO
                 frmResumenPartido ventanaResumenPartido = new frmResumenPartido(_manager, _equipo, miPartido);
@@ -194,6 +199,117 @@ namespace ChampionManager25.UserControls
                     }
                     UC_Menu_Home_MenuPrincipal homeMenuPrincipal = new UC_Menu_Home_MenuPrincipal(_manager, _equipo);
                     DockPanel_Central.Children.Add(homeMenuPrincipal);
+                }
+            }
+
+            // Comprobamos si la fecha de hoy es mayor que el ultimo partido del calendario
+            if (DateTime.TryParse(_logicaPartidos.ultimoPartidoCalendario(), out DateTime ultimoPartido))
+            {
+                DateTime hoy = Metodos.hoy;
+
+                if (hoy > ultimoPartido)
+                {
+                    btnAvanzar.Visibility = Visibility.Collapsed;
+                    progressBar.Visibility = Visibility.Visible;
+                    List<Clasificacion> clasificacion = _logicaClasificacion.MostrarClasificacion(1, _manager.IdManager);
+                    int miEquipoId = _equipo;
+                    int posicion = clasificacion.FirstOrDefault(c => c.IdEquipo == miEquipoId)?.Posicion ?? -1;
+
+                    // Cargar Pantalla de Final de Temporada
+                    frmResumenTemporada ventanaResumenTemporada = new frmResumenTemporada(_manager, _equipo, clasificacion, posicion);
+                    ventanaResumenTemporada.ShowDialog();
+
+                    await Task.Run(() =>
+                    {
+                        // Actualizar la tabla historial_manager
+                        _logicaHistorial.CopiarPartidosHistorialManager(Metodos.temporadaActual);
+                        _logicaHistorial.CopiarConfianzasManager(Metodos.temporadaActual);
+                        _logicaHistorial.CopiarPosicionLigaManager(Metodos.temporadaActual, posicion);
+
+                        // Actualizar las tablas palmares, palmares_manager e historial_finales
+                        // PALMARES
+                        foreach (var equipo in clasificacion)
+                        {
+                            if (equipo.Posicion == 1)
+                            {
+                                _logicaPalmares.AnadirTituloCampeon(equipo.IdEquipo);
+                            }
+                        }
+
+                        // PALMARES_MANAGER
+                        if (posicion == 1) // Si he ganado la liga...
+                        {
+                            _logicaPalmares.AnadirTituloManager(1, _equipo, _manager.IdManager, Metodos.temporadaActual);
+                        }
+
+                        // HISTORIAL FINALES
+                        int campeon = 0;
+                        int finalista = 0;
+                        foreach (var equipo in clasificacion)
+                        {
+                            if (equipo.Posicion == 1)
+                            {
+                                campeon = equipo.IdEquipo;
+                            }
+                            if (equipo.Posicion == 2)
+                            {
+                                finalista = equipo.IdEquipo;
+                            }
+                        }
+                        _logicaPalmares.AnadirCampeonFinalista(Metodos.temporadaActual, campeon, finalista);
+
+                        // Resetear tablas clasificacion, estadisticas_jugadores, historial_manager_temp
+                        _logicaClasificacion.ResetearClasificacion();
+                        _logicaEstadisticas.ResetearEstadisticas();
+                        _logicaHistorial.ResetearHistorialTemporal();
+                        _logicaPartidos.ResetearPartidos();
+
+                        // Resetear Moral y Estado de Forma a 50
+                        _logicaJugador.ResetearMoralEstadoForma();
+
+                        // Crear Nueva temporada
+                        _datosFecha.AvanzarUnAnio();
+                        Metodos.temporadaActual = _datosFecha.ObtenerFechaHoy().Anio;
+                        _datosFecha.AvanzarFecha(Metodos.temporadaActual);
+                        Metodos.hoy = DateTime.Parse(_datosFecha.ObtenerFechaHoy().Hoy);
+
+                        // Crear el calendario de las Ligas
+                        int temporadaActual = Metodos.temporadaActual;
+                        _logicaPartidos.GenerarCalendario(temporadaActual, _manager.IdManager, 1);
+
+                        // Generar el primer registro del historial
+                        string temporadaFormateada = $"{temporadaActual}/{temporadaActual + 1}";
+                        _logicaHistorial.CrearLineaHistorial(_manager.IdManager, _equipo, temporadaFormateada);
+
+                        // Crear los mensaje de inicio de partida
+                        Mensaje mensajeNuevaTemporada = new Mensaje
+                        {
+                            Fecha = new DateTime(temporadaActual, 7, 15),
+                            Remitente = _logicaEquipo.ListarDetallesEquipo(_equipo).Presidente,
+                            Asunto = "Nueva Temporada",
+                            Contenido = "Desde la Directiva del " + _logicaEquipo.ListarDetallesEquipo(_equipo).Nombre + " te damos la bienvenida a una nueva temporada.\n\nLa junta directiva y los empleados te irán informando a través de correos electrónicos de las cosas que sucedan en el club.",
+                            TipoMensaje = "Notificación",
+                            IdEquipo = _equipo,
+                            IdManager = _manager.IdManager,
+                            Leido = false,
+                            Icono = 0 // 0 es icono de equipo
+                        };
+
+                        _logicaMensajes.crearMensaje(mensajeNuevaTemporada);
+                    });
+
+                    CargarFecha();
+
+                    // CARGAR EL CONTENIDO DEL PANEL PRINCIPAL
+                    if (DockPanel_Central.Children.Count > 0)
+                    {
+                        DockPanel_Central.Children.Clear();
+                    }
+                    UC_Menu_Home_MenuPrincipal homeMenuPrincipal = new UC_Menu_Home_MenuPrincipal(_manager, _equipo);
+                    DockPanel_Central.Children.Add(homeMenuPrincipal);
+
+                    progressBar.Visibility = Visibility.Collapsed;
+                    btnAvanzar.Visibility = Visibility.Visible;
                 }
             }
         }
@@ -576,7 +692,7 @@ namespace ChampionManager25.UserControls
 
             // Comprobar si mi equipo juega hoy y cambiar el nombre al boton AVANZAR a PARTIDO
             Partido proximopartido = _logicaPartidos.ObtenerProximoPartido(_equipo, _manager.IdManager, Metodos.hoy);
-            if (proximopartido.FechaPartido == hoy)
+            if (proximopartido != null && proximopartido.FechaPartido == hoy)
             {
                 btnAvanzar.Content = "PARTIDO";
             } else

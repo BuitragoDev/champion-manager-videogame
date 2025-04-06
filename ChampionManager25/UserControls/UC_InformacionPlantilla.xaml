@@ -34,7 +34,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <DataGrid x:Name="dgPlantilla" Grid.Column="0" Grid.Row="0" IsReadOnly="True" AutoGenerateColumns="True"
-                              GridLinesVisibility="None" FontFamily="Arial Unicode MS" FontSize="16" DockPanel.Dock="Top" Cursor="Hand">
+                              GridLinesVisibility="None" FontFamily="Cascadia Code SemiBold" FontSize="16" DockPanel.Dock="Top" Cursor="Hand">
 
                         <DataGrid.Style>
                             <Style TargetType="DataGrid">

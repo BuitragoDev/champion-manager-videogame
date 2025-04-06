@@ -38,6 +38,7 @@ namespace ChampionManager25.Vistas
         FechaDatos _datosFecha = new FechaDatos();
         ClasificacionLogica _logicaClasificacion = new ClasificacionLogica();
         EstadisticasLogica _logicaEstadisticas = new EstadisticasLogica();
+        EntrenadorLogica _logicaEntrenador = new EntrenadorLogica();
 
         public frmSimulandoPartidos(Manager manager, int equipo, List<Partido> listaPartidos)
         {
@@ -55,10 +56,16 @@ namespace ChampionManager25.Vistas
             {
                 foreach (Partido partido in listaPartidos)
                 {
+                    List<Jugador> todosLosJugadores = _logicaJugador.ListadoJugadoresCompleto(partido.IdEquipoLocal)
+                                                      .Concat(_logicaJugador.ListadoJugadoresCompleto(partido.IdEquipoVisitante))
+                                                      .ToList();
+                    
+                    ActualizarSancionesYLesiones(todosLosJugadores);
                     SimularPartido(partido);
                 }
             });
 
+            imgBotonCerrar.IsEnabled = true;
             progressBar.Visibility = Visibility.Collapsed;
             areaPartidos.Visibility = Visibility.Visible;
             MostrarPartidos(_logicaPartidos.PartidosHoy(_equipo, _manager.IdManager));
@@ -74,8 +81,8 @@ namespace ChampionManager25.Vistas
         private void SimularPartido(Partido partido)
         {
             // Cargar jugadores de los equipos desde la BD sin porteros
-            List<Jugador> jugadoresLocal = _logicaJugador.PlantillaSinPorteros(partido.IdEquipoLocal);
-            List<Jugador> jugadoresVisitante = _logicaJugador.PlantillaSinPorteros(partido.IdEquipoVisitante);
+            List<Jugador> jugadoresLocal = _logicaJugador.JugadoresJueganPartido(partido.IdEquipoLocal);
+            List<Jugador> jugadoresVisitante = _logicaJugador.JugadoresJueganPartido(partido.IdEquipoVisitante);
 
             // Calcular goles con el equipo rival en cuenta
             int golesLocal = CalcularGoles(jugadoresLocal, jugadoresVisitante);
@@ -215,6 +222,45 @@ namespace ChampionManager25.Vistas
 
             // Actualizar estadísticas de cada jugador en la base de datos
             ActualizarEstadisticasPartido(jugadoresLocal, jugadoresVisitante, golesYAsistencias, tarjetas, mvp);
+
+            // Comprobar si ha habido algun lesionado y actualizarlo en la BD
+            List<int> lesionados = SimularLesiones(jugadoresLocal, jugadoresVisitante);
+            foreach (int jugador in lesionados)
+            {
+                int numeroAleatorio = random.Next(0, 9);
+                _logicaJugador.PonerJugadorLesionado(jugador, numeroAleatorio);
+            }
+
+            // Actualizar la BD de jugadores sancionados
+            foreach (var tarjeta in tarjetas)
+            {
+                Jugador jugador = tarjeta.Item1; 
+                string tipoTarjeta = tarjeta.Item2;
+
+                // Comprobar cuantas amarillas tiene y si es multiplo de 2 se le aplica 1 partido de sancion
+                Estadistica statJugador = _logicaEstadisticas.MostrarEstadisticasJugador(jugador.IdJugador, _manager.IdManager);
+
+                if (tipoTarjeta == "amarilla" || tipoTarjeta == "dobleamarilla")
+                {
+                    if (statJugador.TarjetasAmarillas % 2 == 0)
+                    {
+                        _logicaJugador.PonerJugadorSancionado(jugador.IdJugador, 1);
+                    }
+                } 
+                else if (tipoTarjeta == "roja")
+                {
+                    _logicaJugador.PonerJugadorSancionado(jugador.IdJugador, 2);
+                }  
+            }
+
+            // Actualizar los puntos de manager
+            int entrenadorLocal = _logicaEntrenador.MostrarEntrenador(partido.IdEquipoLocal).IdEntrenador;
+            int entrenadorVisitante = _logicaEntrenador.MostrarEntrenador(partido.IdEquipoVisitante).IdEntrenador;
+            ActualizarPuntosManager(partido, golesLocal, golesVisitante, entrenadorLocal, entrenadorVisitante);
+
+            // Actualizar atributos de los jugadores
+            ActualizacionAtributos(jugadoresLocal, jugadoresVisitante, partido.IdEquipoLocal,
+                                   partido.IdEquipoVisitante, golesLocal, golesVisitante, golesYAsistencias, mvp);
         }
 
         private int CalcularGoles(List<Jugador> jugadores, List<Jugador> jugadoresRival)
@@ -245,12 +291,15 @@ namespace ChampionManager25.Vistas
         {
             List<(Jugador, Jugador?)> lista = new List<(Jugador, Jugador?)>();
 
+            // Filtrar jugadores que no sean porteros
+            var jugadoresNoPorteros = jugadores.Where(j => j.RolId != 1).ToList();
+
             // Asignar pesos basados en atributos y posición
-            var pesosGoleadores = jugadores.Select(j =>
+            var pesosGoleadores = jugadoresNoPorteros.Select(j =>
                 (jugador: j, peso: (j.Remate * 1.5 + j.Tiro * 1.5 + j.Calidad) * (j.RolId >= 7 && j.RolId <= 10 ? 5 : 0.5)) // Aumentado a x5
             ).ToList();
 
-            var pesosAsistentes = jugadores.Select(j =>
+            var pesosAsistentes = jugadoresNoPorteros.Select(j =>
                 (jugador: j, peso: (j.Pase * 1.5 + j.Calidad) * (j.RolId >= 6 && j.RolId <= 10 ? 2 : 1))
             ).ToList();
 
@@ -318,19 +367,19 @@ namespace ChampionManager25.Vistas
 
                 double probabilidad = random.NextDouble();
 
-                if (probabilidad <= 0.75) // 75% de probabilidad de recibir una amarilla
+                if (probabilidad <= 0.50) // 50% de probabilidad de recibir una amarilla
                 {
                     // Si el jugador ya tiene amarilla, solo 10% de probabilidad de recibir otra
                     if (tarjetasRecibidas[jugador.IdJugador] == 1 && random.NextDouble() > 0.20)
                         continue;
 
-                    tarjetas.Add((jugador, "🟨"));
+                    tarjetas.Add((jugador, "amarilla"));
                     tarjetasRecibidas[jugador.IdJugador]++;
 
                     // Si el jugador tiene 2 amarillas, se convierte en roja
                     if (tarjetasRecibidas[jugador.IdJugador] == 2)
                     {
-                        tarjetas.Add((jugador, "🟨🟥")); // Segunda amarilla y roja
+                        tarjetas.Add((jugador, "dobleamarilla")); // Segunda amarilla y roja
                         tarjetasRecibidas[jugador.IdJugador] = 3; // Para evitar más tarjetas
                     }
                 }
@@ -338,12 +387,13 @@ namespace ChampionManager25.Vistas
                 {
                     if (tarjetasRecibidas[jugador.IdJugador] == 0) // No dar roja si ya tiene amarilla
                     {
-                        tarjetas.Add((jugador, "🟥"));
+                        tarjetas.Add((jugador, "roja"));
                         tarjetasRecibidas[jugador.IdJugador] = 3; // Para evitar más tarjetas
                     }
                 }
             }
         }
+
         private Jugador DeterminarMVP(List<(Jugador, Jugador?)> golesYAsistencias, List<Jugador> local, List<Jugador> visitante)
         {
             Dictionary<Jugador, int> puntuaciones = new Dictionary<Jugador, int>();
@@ -412,8 +462,8 @@ namespace ChampionManager25.Vistas
             // Sumar tarjetas
             foreach (var (jugador, tipoTarjeta) in tarjetas)
             {
-                if (tipoTarjeta.Contains("🟥")) estadisticas[jugador.IdJugador].TarjetasRojas++;
-                if (tipoTarjeta.Contains("🟨")) estadisticas[jugador.IdJugador].TarjetasAmarillas++;
+                if (tipoTarjeta.Contains("roja")) estadisticas[jugador.IdJugador].TarjetasRojas++;
+                if (tipoTarjeta.Contains("amarilla")) estadisticas[jugador.IdJugador].TarjetasAmarillas++;
             }
 
             // Sumar MVP
@@ -424,6 +474,120 @@ namespace ChampionManager25.Vistas
             {
                 _logicaEstadisticas.ActualizarEstadisticas(estadistica);
             }
+        }
+
+        public List<int> SimularLesiones(List<Jugador> jugadoresLocal, List<Jugador> jugadoresVisitante)
+        {
+            List<int> lesionados = new List<int>();
+
+            // Recorrer jugadores locales y visitantes
+            foreach (var jugador in jugadoresLocal)
+            {
+                if (random.Next(0, 51) == 13) // Generar número entre 0 y 50, si es 13 -> lesión
+                {
+                    lesionados.Add(jugador.IdJugador);
+                }
+            }
+
+            foreach (var jugador in jugadoresVisitante)
+            {
+                if (random.Next(0, 51) == 13)
+                {
+                    lesionados.Add(jugador.IdJugador);
+                }
+            }
+
+            return lesionados; // Devuelve la lista con los ID de jugadores lesionados
+        }
+
+        private void ActualizarSancionesYLesiones(List<Jugador> jugadores)
+        {
+            foreach (var jugador in jugadores)
+            {
+                // Reducir el número de partidos sancionados si es mayor que 0
+                if (jugador.Sancionado > 0)
+                {
+                    _logicaJugador.PonerJugadorSancionado(jugador.IdJugador, jugador.Sancionado - 1);
+                }
+
+                // Reducir el número de partidos lesionado si es mayor que 0
+                if (jugador.Lesion > 0)
+                {
+                    _logicaJugador.PonerJugadorLesionado(jugador.IdJugador, jugador.Lesion - 1);
+                }
+            }
+        }
+
+        private void ActualizarPuntosManager(Partido partido, int golesLocal, int golesVisitante, int entrenadorLocal, int entrenadorVisitante)
+        {
+            if (golesLocal > golesVisitante) // Victoria Local
+            {
+                _logicaEntrenador.ActualizarResultadoManager(entrenadorLocal, 5);    
+            }
+            else if (golesLocal < golesVisitante) // Victoria Visitante
+            {
+                _logicaEntrenador.ActualizarResultadoManager(entrenadorVisitante, 5);
+            }
+            else // Empate
+            {
+                _logicaEntrenador.ActualizarResultadoManager(entrenadorLocal, 2);
+                _logicaEntrenador.ActualizarResultadoManager(entrenadorVisitante, 2);
+            }
+        }
+
+        public void ActualizacionAtributos(List<Jugador> jugadoresLocal, List<Jugador> jugadoresVisitante, int idEquipolocal, int idEquipoVisitante,
+                                           int golesLocal, int golesVisitante, List<(Jugador, Jugador?)> golesYAsistencias, Jugador mvp)
+        {
+            if (golesLocal > golesVisitante)
+            {
+                // Subir la moral y el estado de forma 5 puntos de los jugadores del equipo que gana y bajarla 5 puntos del equipo que pierde
+                foreach (var jugador in jugadoresLocal)
+                {
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 5, 5);
+                }
+
+                foreach (var jugador in jugadoresVisitante)
+                {
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, -5, -5);
+                }
+            }
+            else if (golesLocal < golesVisitante)
+            {
+                // Subir la moral y el estado de forma 5 puntos de los jugadores del equipo que gana y bajarla 5 puntos del equipo que pierde
+                foreach (var jugador in jugadoresVisitante)
+                {
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 5, 5);
+                }
+
+                foreach (var jugador in jugadoresLocal)
+                {
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, -5, -5);
+                }
+            }
+            else
+            {
+                // Subir la moral y el estado de forma 2 puntos de los jugadores de los equipos cuando empatan
+                foreach (var jugador in jugadoresLocal)
+                {
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 2, 2);
+                }
+
+                foreach (var jugador in jugadoresVisitante)
+                {
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 2, 2);
+                }
+            }
+
+            // Subir la moral y el estado de forma de los jugadores que han marcado, asistido o han sido MVP
+            foreach (var (goleador, asistente) in golesYAsistencias)
+            {
+                _logicaJugador.ActualizarMoralEstadoForma(goleador.IdJugador, 3, 3);
+                if (asistente != null)
+                {
+                    _logicaJugador.ActualizarMoralEstadoForma(asistente.IdJugador, 1, 1);
+                }
+            }
+            _logicaJugador.ActualizarMoralEstadoForma(mvp.IdJugador, 3, 3);
         }
 
         private void MostrarPartidos(List<Partido> partidos)

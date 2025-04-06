@@ -54,5 +54,17 @@ namespace ChampionManager25.Logica
         {
             _datos.CambiarTactica(idManager, tactica);
         }
+
+        // Llamada al método que actualiza los partidos de un manager
+        public void ActualizarResultadoManager(int idManager, int jugados, int ganados, int empatados, int perdidos, int puntos)
+        {
+            _datos.ActualizarResultadoManager(idManager, jugados, ganados, empatados, perdidos, puntos);
+        }
+
+        // Llamada al método que actualiza la tabla historial_manager_temp
+        public void ActualizarManagerTemporal(Historial historial)
+        {
+            _datos.ActualizarManagerTemporal(historial);
+        }
     }
 }

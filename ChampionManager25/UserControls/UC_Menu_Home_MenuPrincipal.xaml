@@ -164,8 +164,31 @@
 
                                 <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Background="WhiteSmoke" BorderThickness="0" Margin="5">
                                     <DockPanel>
-                                        <DataGrid x:Name="dgClasificacion" IsReadOnly="True" HeadersVisibility="None" GridLinesVisibility="None" 
-                                                  FontFamily="Cascadia Code Light" FontSize="16" DockPanel.Dock="Top" Height="692" />
+                                        <DataGrid x:Name="dgClasificacion" IsReadOnly="True" AutoGenerateColumns="True" Cursor="Hand"
+                                                  GridLinesVisibility="None" FontFamily="Cascadia Code Light" FontSize="16" DockPanel.Dock="Top" Height="692" SelectionChanged="DgClasificacion_SelectionChanged">
+                                            <DataGrid.Style>
+                                                <Style TargetType="DataGrid">
+                                                    <Setter Property="RowBackground" Value="LightGray" />
+                                                    <!-- Color de fondo para filas impares -->
+                                                    <Setter Property="AlternatingRowBackground" Value="WhiteSmoke" />
+                                                    <!-- Color de fondo para filas pares -->
+                                                    <Setter Property="BorderBrush" Value="Transparent" />
+                                                    <!-- Sin borde en el DataGrid -->
+                                                    <Setter Property="BorderThickness" Value="0" />
+                                                    <!-- Sin borde en el DataGrid -->
+                                                    <Setter Property="CellStyle">
+                                                        <Setter.Value>
+                                                            <Style TargetType="DataGridCell">
+                                                                <Setter Property="BorderBrush" Value="Transparent" />
+                                                                <!-- Sin borde en las celdas -->
+                                                                <Setter Property="BorderThickness" Value="0" />
+                                                                <!-- Sin borde en las celdas -->
+                                                            </Style>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </DataGrid.Style>
+                                        </DataGrid>
                                     </DockPanel>
                                 </Border>
                             </Grid>

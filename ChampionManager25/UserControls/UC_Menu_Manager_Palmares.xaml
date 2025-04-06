@@ -69,7 +69,7 @@
                     <Grid Height="40" Width="1811" Background="#1d6a7d">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="350"/>
+                            <ColumnDefinition Width="450"/>
                             <ColumnDefinition Width="60"/>
                             <ColumnDefinition Width="80"/>
                             <ColumnDefinition Width="80"/>
@@ -77,8 +77,7 @@
                             <ColumnDefinition Width="80"/>
                             <ColumnDefinition Width="90"/>
                             <ColumnDefinition Width="90"/>
-                            <ColumnDefinition Width="140"/>
-                            <ColumnDefinition Width="140"/>
+                            <ColumnDefinition Width="180"/>
                             <ColumnDefinition Width="110"/>
                             <ColumnDefinition Width="110"/>
                             <ColumnDefinition Width="110"/>
@@ -109,19 +108,16 @@
                         <TextBlock x:Name="txtGCtotales" Grid.Column="8" Grid.Row="0" FontSize="18" Text="000" VerticalAlignment="Center" 
                                    HorizontalAlignment="Center" FontFamily="Cascadia Code SemiBold" Foreground="WhiteSmoke" />
 
-                        <TextBlock x:Name="txtNacionalesTotales" Grid.Column="9" Grid.Row="0" FontSize="18" Text="000" VerticalAlignment="Center" 
+                        <TextBlock x:Name="txtInternacionalesTotales" Grid.Column="9" Grid.Row="0" FontSize="18" Text="000" VerticalAlignment="Center" 
                                    HorizontalAlignment="Center" FontFamily="Cascadia Code SemiBold" Foreground="WhiteSmoke" />
 
-                        <TextBlock x:Name="txtInternacionalesTotales" Grid.Column="10" Grid.Row="0" FontSize="18" Text="000" VerticalAlignment="Center" 
+                        <TextBlock x:Name="txtDirectiva" Grid.Column="10" Grid.Row="0" FontSize="18" Text="" VerticalAlignment="Center" 
                                    HorizontalAlignment="Center" FontFamily="Cascadia Code SemiBold" Foreground="WhiteSmoke" />
 
-                        <TextBlock x:Name="txtDirectiva" Grid.Column="11" Grid.Row="0" FontSize="18" Text="" VerticalAlignment="Center" 
+                        <TextBlock x:Name="txtFans" Grid.Column="11" Grid.Row="0" FontSize="18" Text="" VerticalAlignment="Center" 
                                    HorizontalAlignment="Center" FontFamily="Cascadia Code SemiBold" Foreground="WhiteSmoke" />
 
-                        <TextBlock x:Name="txtFans" Grid.Column="12" Grid.Row="0" FontSize="18" Text="" VerticalAlignment="Center" 
-                                   HorizontalAlignment="Center" FontFamily="Cascadia Code SemiBold" Foreground="WhiteSmoke" />
-
-                        <TextBlock x:Name="txtJugadores" Grid.Column="13" Grid.Row="0" FontSize="18" Text="" VerticalAlignment="Center" 
+                        <TextBlock x:Name="txtJugadores" Grid.Column="12" Grid.Row="0" FontSize="18" Text="" VerticalAlignment="Center" 
                                    HorizontalAlignment="Center" FontFamily="Cascadia Code SemiBold" Foreground="WhiteSmoke" />
                     </Grid>
                 </WrapPanel>

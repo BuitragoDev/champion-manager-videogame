@@ -101,7 +101,7 @@ namespace ChampionManager25.Datos
             }
         }
 
-        // Método que actualiza los puntos de Directiva, Fans y Jugadores.
+        // ---------------------------------------------------------------- Método que actualiza los puntos de Directiva, Fans y Jugadores.
         public void ActualizarConfianza(int idManager, int directiva, int fans, int jugadores)
         {
             try
@@ -192,6 +192,74 @@ namespace ChampionManager25.Datos
                     {
                         cmd.Parameters.AddWithValue("@Tactica", tactica); // Parámetro para el cDirectiva
                         cmd.Parameters.AddWithValue("@IdManager", idManager); // Parámetro para el idManager
+                        cmd.ExecuteNonQuery(); // Ejecuta la consulta
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al actualizar el Manager: " + ex.Message);
+            }
+        }
+
+        // ---------------------------------------------------------------- Método que actualiza los partidos de un manager
+        public void ActualizarResultadoManager(int idManager, int jugados, int ganados, int empatados, int perdidos, int puntos)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+                    string query = "UPDATE managers SET " +
+                                   "partidosJugados = partidosJugados + @PartidosJugados, " +
+                                   "partidosGanados = partidosGanados + @PartidosGanados, " +
+                                   "partidosEmpatados = partidosEmpatados + @PartidosEmpatados, " +
+                                   "partidosPerdidos = partidosPerdidos + @PartidosPerdidos, " +
+                                   "puntos = puntos + @Puntos " +
+                                   "WHERE id_manager = @IdManager;";
+                    using (var cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@PartidosJugados", jugados);
+                        cmd.Parameters.AddWithValue("@PartidosGanados", ganados); 
+                        cmd.Parameters.AddWithValue("@PartidosEmpatados", empatados);
+                        cmd.Parameters.AddWithValue("@PartidosPerdidos", perdidos);
+                        cmd.Parameters.AddWithValue("@Puntos", puntos);
+                        cmd.Parameters.AddWithValue("@IdManager", idManager); // Parámetro para el idManager
+                        cmd.ExecuteNonQuery(); // Ejecuta la consulta
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al actualizar el Manager: " + ex.Message);
+            }
+        }
+
+        // ---------------------------------------------------------------- Método que actualiza la tabla historial_manager_temp
+        public void ActualizarManagerTemporal(Historial historial)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+                    string query = "UPDATE historial_manager_temp SET " +
+                                   "partidosJugados = partidosJugados + @PartidosJugados, " +
+                                   "partidosGanados = partidosGanados + @PartidosGanados, " +
+                                   "partidosEmpatados = partidosEmpatados + @PartidosEmpatados, " +
+                                   "partidosPerdidos = partidosPerdidos + @PartidosPerdidos, " +
+                                   "golesMarcados = golesMarcados + @GolesMarcados, " +
+                                   "golesRecibidos = golesRecibidos + @GolesRecibidos " +
+                                   "WHERE id_historial = @IdHistorial;";
+                    using (var cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@IdHistorial", 1);
+                        cmd.Parameters.AddWithValue("@PartidosJugados", historial.PartidosJugados);
+                        cmd.Parameters.AddWithValue("@PartidosGanados", historial.PartidosGanados);
+                        cmd.Parameters.AddWithValue("@PartidosEmpatados", historial.PartidosEmpatados);
+                        cmd.Parameters.AddWithValue("@PartidosPerdidos", historial.PartidosPerdidos);
+                        cmd.Parameters.AddWithValue("@GolesMarcados", historial.GolesMarcados);
+                        cmd.Parameters.AddWithValue("@GolesRecibidos", historial.GolesRecibidos);
                         cmd.ExecuteNonQuery(); // Ejecuta la consulta
                     }
                 }

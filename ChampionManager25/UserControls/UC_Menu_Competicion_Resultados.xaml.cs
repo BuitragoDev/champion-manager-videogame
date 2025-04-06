@@ -53,6 +53,8 @@ namespace ChampionManager25.UserControls
 
         private void btnJornadaAnterior_Click(object sender, RoutedEventArgs e)
         {
+            Metodos.ReproducirSonidoClick();
+
             if (jornadaActual > jornadaMin)
             {
                 jornadaActual--;
@@ -64,6 +66,8 @@ namespace ChampionManager25.UserControls
 
         private void btnJornadaSiguiente_Click(object sender, RoutedEventArgs e)
         {
+            Metodos.ReproducirSonidoClick();
+
             if (jornadaActual < jornadaMax)
             {
                 jornadaActual++;

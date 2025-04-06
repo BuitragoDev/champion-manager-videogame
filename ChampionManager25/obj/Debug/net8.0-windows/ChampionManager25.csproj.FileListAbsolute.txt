@@ -19,7 +19,6 @@ C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0
 C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\ChampionManager25.pdb
 C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\ChampionManager25.genruntimeconfig.cache
 C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\ref\ChampionManager25.dll
-C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\championsManagerDB.db
 C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\NAudio.dll
 C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\NAudio.Asio.dll
 C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\NAudio.Core.dll
@@ -1749,3 +1748,10 @@ C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0
 C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\Recursos\img\icons\amonestacionAmarilla.png
 C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\Recursos\img\icons\amonestacionRoja.png
 C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\Recursos\img\icons\goleador.png
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\Recursos\img\icons\trofeo_campeon.png
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\Recursos\img\icons\trofeo_subcampeon.png
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\Vistas\frmResumenTemporada.g.cs
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\Vistas\frmResumenTemporada.baml
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\championsManagerDB.db
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\UserControls\UC_CargarPartida.g.cs
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\UserControls\UC_CargarPartida.baml

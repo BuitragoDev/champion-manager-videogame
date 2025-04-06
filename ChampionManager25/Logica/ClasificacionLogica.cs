@@ -66,5 +66,11 @@ namespace ChampionManager25.Logica
         {
             _datos.ActualizarClasificacion(clasificacion);
         }
+
+        // Llamada al método para RESETEAR la Clasificación
+        public void ResetearClasificacion()
+        {
+            _datos.ResetearClasificacion();
+        }
     }
 }

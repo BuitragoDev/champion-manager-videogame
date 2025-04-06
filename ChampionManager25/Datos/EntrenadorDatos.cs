@@ -124,5 +124,30 @@ namespace ChampionManager25.Datos
            
             return oEntrenador;
         }
+
+        // ---------------------------------------------------------------- Método que actualiza los puntos de los entrenadores
+        public void ActualizarResultadoManager(int entrenador, int puntos)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+                    string query = "UPDATE entrenadores SET " +
+                                   "puntos = puntos + @Puntos " +
+                                   "WHERE id_entrenador = @Entrenador;";
+                    using (var cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Puntos", puntos);
+                        cmd.Parameters.AddWithValue("@Entrenador", entrenador); // Parámetro para el idManager
+                        cmd.ExecuteNonQuery(); // Ejecuta la consulta
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al actualizar el Manager: " + ex.Message);
+            }
+        }
     }
 }

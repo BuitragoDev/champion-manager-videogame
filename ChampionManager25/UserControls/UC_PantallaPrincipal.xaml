@@ -54,6 +54,8 @@
                 <TextBlock x:Name="txtDiaSemana" Grid.Column="4" HorizontalAlignment="Center" Text="Dia semana" VerticalAlignment="Top" FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" FontWeight="Bold" Width="180" TextAlignment="Center" Margin="0,55,0,0"/>
 
                 <!-- BOTON AVANZAR -->
+                <ProgressBar x:Name="progressBar" Visibility="Collapsed" Grid.Column="5" IsIndeterminate="True" BorderBrush="#1d6a7d" 
+                             BorderThickness="1" Height="20" Width="250" VerticalAlignment="Center" Foreground="#1d6a7d" Background="LightGray"/>
                 <Button x:Name="btnAvanzar" Grid.Column="5" VerticalAlignment="Center" HorizontalAlignment="Left"
                         Height="50" Width="345" Margin="35,0,0,0"
                         FontFamily="Cascadia Code SemiBold" FontSize="22" Cursor="Hand"

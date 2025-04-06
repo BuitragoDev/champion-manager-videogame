@@ -13,6 +13,7 @@ using ChampionManager25.UserControls;
 using ChampionManager25.MisMetodos;
 using System.Windows.Threading;
 using ChampionManager25.Entidades;
+using ChampionManager25.Datos;
 
 namespace ChampionManager25;
 
@@ -55,6 +56,34 @@ public partial class MainWindow : Window
         // ----------------------------------------------------------------------------------
     }
 
+    private void Window_Loaded(object sender, RoutedEventArgs e)
+    {
+        // Crear copia de la BD
+        try
+        {
+            // Genera un número aleatorio de 10 cifras
+            Random random = new Random();
+            long numeroAleatorio = (long)(random.NextDouble() * 9_999_999_999L) + 1_000_000_000L;
+            string numeroComoCadena = numeroAleatorio.ToString();
+
+            // Obtener el ID del manager
+            long managerId = numeroAleatorio;
+
+            // Crear la base de datos del manager
+            SQLiteDatabaseManager.CreateManagerDatabase(numeroComoCadena);
+
+            // Continuar con la carga de la aplicación...
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"No se pudo iniciar la aplicación: {ex.Message}",
+                          "Error Crítico",
+                          MessageBoxButton.OK,
+                          MessageBoxImage.Error);
+            Application.Current.Shutdown();
+        }
+    }
+
     // ------------------------------------------------ LIBERAR RECURSOS AL CERRAR LA VENTANA
     protected override void OnClosed(EventArgs e)
     {
@@ -74,6 +103,13 @@ public partial class MainWindow : Window
     public void CargarCrearManager()
     {
         MainContent.Content = new UC_CrearManager();
+    }
+    // --------------------------------------------------------------------------------------\
+
+    // ------------------------------------ METODO PARA CARGAR EL USERCONTROL UC_CargarPartida
+    public void CargarPartida()
+    {
+        MainContent.Content = new UC_CargarPartida();
     }
     // --------------------------------------------------------------------------------------
 

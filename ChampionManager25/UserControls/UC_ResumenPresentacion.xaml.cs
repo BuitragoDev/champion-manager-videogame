@@ -94,7 +94,7 @@ namespace ChampionManager25.UserControls
                     _logicaHistorial.CrearLineaHistorial(_manager.IdManager, _equipo, "2024/2025");
 
                     // Generar la alineacion del equipo
-                    _logicaJugador.CrearAlineacion("5-4-1", _equipo);
+                    _logicaJugador.CrearAlineacion("5-3-2", _equipo);
 
                     // Crear los mensaje de inicio de partida
                     Mensaje mensajeInicio1 = new Mensaje

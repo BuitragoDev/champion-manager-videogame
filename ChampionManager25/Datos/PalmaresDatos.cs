@@ -91,7 +91,7 @@ namespace ChampionManager25.Datos
             return listadoPalmares;
         }
 
-        // ===================================================================== Método para Mostrar el Palmarés del Manager
+        // ===================================================================== Método para Mostrar el Palmarés Completo
         public List<Palmares> MostrarPalmaresCompleto()
         {
             List<Palmares> listadoPalmares = new List<Palmares>();
@@ -178,6 +178,88 @@ namespace ChampionManager25.Datos
             }
 
             return listadoHistorial;
+        }
+
+        // -------------------------------------------------------------------- Metodo que suma un titulo al manager si gana la Liga
+        public void AnadirTituloManager(int competicion, int equipo, int manager, int temporada)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+                    string temporadaFormateada = $"{temporada}/{(temporada + 1) % 100:D2}";
+                    string query = @"INSERT INTO palmares_manager (id_competicion, id_equipo, id_manager, temporada)
+                                     VALUES (@IdCompeticion, @IdEquipo, @IdManager, @Temporada)";
+
+                    using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@IdCompeticion", competicion);
+                        command.Parameters.AddWithValue("@IdEquipo", equipo);
+                        command.Parameters.AddWithValue("@IdManager", manager);
+                        command.Parameters.AddWithValue("@Temporada", temporadaFormateada);
+                        command.ExecuteNonQuery(); // Ejecutar la consulta de inserción
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                // En caso de error, mostrar el mensaje con la excepción
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // -------------------------------------------------------------------- Metodo que suma un titulo al campeon de Liga
+        public void AnadirTituloCampeon(int equipo)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+  
+                    string query = @"UPDATE palmares SET titulos = titulos + 1 WHERE id_equipo = @IdEquipo";
+
+                    using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@IdEquipo", equipo);
+                        command.ExecuteNonQuery(); // Ejecutar la consulta
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                // En caso de error, mostrar el mensaje con la excepción
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // -------------------------------------------------------------------- Metodo que agrega el campeon y subcampeon de una temporada
+        public void AnadirCampeonFinalista(int temporada, int campeon, int finalista)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+                    string temporadaFormateada = $"{temporada}-{(temporada + 1) % 100:D2}";
+                    string query = @"INSERT INTO historial_finales (temporada, id_equipo_campeon, id_equipo_finalista)
+                                     VALUES (@Temporada, @Campeon, @Finalista)";
+
+                    using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@Temporada", temporadaFormateada);
+                        command.Parameters.AddWithValue("@Campeon", campeon);
+                        command.Parameters.AddWithValue("@Finalista", finalista);
+                        command.ExecuteNonQuery(); // Ejecutar la consulta de inserción
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                // En caso de error, mostrar el mensaje con la excepción
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
         }
     }
 }

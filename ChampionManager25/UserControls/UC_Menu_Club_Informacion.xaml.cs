@@ -124,7 +124,7 @@ namespace ChampionManager25.UserControls
             txtAsistenciasNombre.Text = _logicaJugador.MostrarDatosJugador(_logicaEstadistica.MostrarJugadorConMasAsistencias(_equipo).IdJugador).Nombre + " " +
                                               _logicaJugador.MostrarDatosJugador(_logicaEstadistica.MostrarJugadorConMasAsistencias(_equipo).IdJugador).Apellido;
             txtAsistenciasDemarcacion.Text = _logicaJugador.MostrarDatosJugador(_logicaEstadistica.MostrarJugadorConMasAsistencias(_equipo).IdJugador).Rol;
-            int asistencias = _logicaEstadistica.MostrarJugadorConMasAsistencias(_equipo).Goles;
+            int asistencias = _logicaEstadistica.MostrarJugadorConMasAsistencias(_equipo).Asistencias;
             txtAsistenciasValor.Text = asistencias.ToString();
 
             // MVP
@@ -133,7 +133,7 @@ namespace ChampionManager25.UserControls
             txtMVPNombre.Text = _logicaJugador.MostrarDatosJugador(_logicaEstadistica.MostrarJugadorConMasMvp(_equipo).IdJugador).Nombre + " " +
                                               _logicaJugador.MostrarDatosJugador(_logicaEstadistica.MostrarJugadorConMasMvp(_equipo).IdJugador).Apellido;
             txtMVPDemarcacion.Text = _logicaJugador.MostrarDatosJugador(_logicaEstadistica.MostrarJugadorConMasMvp(_equipo).IdJugador).Rol;
-            int mvp = _logicaEstadistica.MostrarJugadorConMasMvp(_equipo).Goles;
+            int mvp = _logicaEstadistica.MostrarJugadorConMasMvp(_equipo).MVP;
             txtMVPValor.Text = mvp.ToString();
         }
 

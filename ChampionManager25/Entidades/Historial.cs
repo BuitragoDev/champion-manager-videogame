@@ -19,7 +19,6 @@ namespace ChampionManager25.Entidades
         public int PartidosPerdidos { get; set; }
         public int GolesMarcados { get; set; }
         public int GolesRecibidos { get; set; }
-        public int TitulosNacionales { get; set; }
         public int TitulosInternacionales { get; set; }
         public int CDirectiva { get; set; }
         public int CFans { get; set; }
@@ -34,7 +33,7 @@ namespace ChampionManager25.Entidades
         // Constructor con parámetros
         public Historial(int idHistorial, int idEquipo, int idManager, string temporada, int posicionLiga,
                             int partidosJugados, int partidosGanados, int partidosEmpatados, int partidosPerdidos,
-                            int golesMarcados, int golesRecibidos, int titulosNacionales, int titulosInternacionales,
+                            int golesMarcados, int golesRecibidos, int titulosInternacionales,
                             int cDirectiva, int cFans, int cJugadores)
         {
             IdHistorial = idHistorial;
@@ -48,7 +47,6 @@ namespace ChampionManager25.Entidades
             PartidosPerdidos = partidosPerdidos;
             GolesMarcados = golesMarcados;
             GolesRecibidos = golesRecibidos;
-            TitulosNacionales = titulosNacionales;
             TitulosInternacionales = titulosInternacionales;
             CDirectiva = cDirectiva;
             CFans = cFans;
@@ -58,7 +56,7 @@ namespace ChampionManager25.Entidades
         // Constructor con parámetros SIN ID
         public Historial(int idEquipo, int idManager, string temporada, int posicionLiga,
                             int partidosJugados, int partidosGanados, int partidosEmpatados, int partidosPerdidos,
-                            int golesMarcados, int golesRecibidos, int titulosNacionales, int titulosInternacionales,
+                            int golesMarcados, int golesRecibidos, int titulosInternacionales,
                             int cDirectiva, int cFans, int cJugadores)
         {
             IdEquipo = idEquipo;
@@ -71,7 +69,6 @@ namespace ChampionManager25.Entidades
             PartidosPerdidos = partidosPerdidos;
             GolesMarcados = golesMarcados;
             GolesRecibidos = golesRecibidos;
-            TitulosNacionales = titulosNacionales;
             TitulosInternacionales = titulosInternacionales;
             CDirectiva = cDirectiva;
             CFans = cFans;
@@ -84,7 +81,7 @@ namespace ChampionManager25.Entidades
             return $"ID: {IdHistorial}, Temporada: {Temporada}, Equipo: {IdEquipo}, Manager: {IdManager}, " +
                     $"Posición: {PosicionLiga}, PJ: {PartidosJugados}, PG: {PartidosGanados}, PE: {PartidosEmpatados}, " +
                     $"PP: {PartidosPerdidos}, GF: {GolesMarcados}, GC: {GolesRecibidos}, " +
-                    $"Titulos Nacionales: {TitulosNacionales}, Titulos Internacionales: {TitulosInternacionales}";
+                    $"Titulos Internacionales: {TitulosInternacionales}";
         }
     }
 }

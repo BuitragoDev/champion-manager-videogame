@@ -1,6 +1,8 @@
-﻿using ChampionManager25.Entidades;
+﻿using ChampionManager25.Datos;
+using ChampionManager25.Entidades;
 using ChampionManager25.Logica;
 using ChampionManager25.MisMetodos;
+using ChampionManager25.Vistas;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -25,7 +27,7 @@ namespace ChampionManager25.UserControls
         #region "Variables"
         private Manager _manager;
         private int _equipo;
-        private DateTime hoy = Metodos.hoy;
+        private DateTime hoy;
         #endregion
 
         // Instancias de la LOGICA
@@ -36,12 +38,15 @@ namespace ChampionManager25.UserControls
         EstadisticasLogica _logicaEstadistica = new EstadisticasLogica();
         ClasificacionLogica _logicaClasificacion = new ClasificacionLogica();
         CompeticionLogica _logicaCompeticion = new CompeticionLogica();
+        FechaDatos _datosFecha = new FechaDatos();
 
         public UC_Menu_Home_MenuPrincipal(Manager manager, int equipo)
         {
             InitializeComponent();
             _manager = manager;
             _equipo = equipo;
+            Fecha fechaObjeto = _datosFecha.ObtenerFechaHoy();
+            hoy = DateTime.Parse(fechaObjeto.Hoy);
         }
 
         private void homeMenuPrincipal_Loaded(object sender, RoutedEventArgs e)
@@ -133,7 +138,7 @@ namespace ChampionManager25.UserControls
             }
 
             string objetivo = _logicaEquipos.ListarDetallesEquipo(_equipo).Objetivo;
-            if (objetivo.Equals("Título"))
+            if (objetivo.Equals("Campeón"))
             {
                 if (posicion <= 3)
                 {
@@ -144,31 +149,9 @@ namespace ChampionManager25.UserControls
                     imgObjetivoResultado.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/icons/rechazado_icon.png"));
                 }
             }
-            else if (objetivo.Equals("Competiciones Europeas"))
-            {
-                if (posicion <= 8)
-                {
-                    imgObjetivoResultado.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/icons/verificado_icon.png"));
-                }
-                else
-                {
-                    imgObjetivoResultado.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/icons/rechazado_icon.png"));
-                }
-            }
             else if (objetivo.Equals("Zona Tranquila"))
             {
-                if (posicion <= 14)
-                {
-                    imgObjetivoResultado.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/icons/verificado_icon.png"));
-                }
-                else
-                {
-                    imgObjetivoResultado.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/icons/rechazado_icon.png"));
-                }
-            }
-            else if (objetivo.Equals("Ascenso"))
-            {
-                if (posicion <= 8)
+                if (posicion <= 20)
                 {
                     imgObjetivoResultado.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/icons/verificado_icon.png"));
                 }
@@ -179,7 +162,7 @@ namespace ChampionManager25.UserControls
             }
             else if (objetivo.Equals("Descenso"))
             {
-                if (posicion <= 15)
+                if (posicion <= 30)
                 {
                     imgObjetivoResultado.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/icons/verificado_icon.png"));
                 }
@@ -289,7 +272,10 @@ namespace ChampionManager25.UserControls
 
         private void ConfigurarDataGridClasificacion()
         {
+            dgClasificacion.SelectionChanged -= DgClasificacion_SelectionChanged;
+
             // Configuración del DataGrid
+            dgClasificacion.SelectedItem = null;
             dgClasificacion.AlternationCount = 2;  // Asegurarse de que haya alternancia entre filas
             dgClasificacion.AutoGenerateColumns = false; // Deshabilitar generación automática de columnas
             dgClasificacion.Columns.Clear(); // Limpiar cualquier columna previa
@@ -322,98 +308,26 @@ namespace ChampionManager25.UserControls
                             new DataTrigger
                             {
                                 Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 1,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
+                                Value = 33,
+                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkRed) }
                             },
                             new DataTrigger
                             {
                                 Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 2,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
+                                Value = 34,
+                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkRed) }
                             },
                             new DataTrigger
                             {
                                 Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 3,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
+                                Value = 35,
+                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkRed) }
                             },
                             new DataTrigger
                             {
                                 Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 4,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
-                            },
-                            new DataTrigger
-                            {
-                                Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 5,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
-                            },
-                            new DataTrigger
-                            {
-                                Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 6,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
-                            },
-                            new DataTrigger
-                            {
-                                Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 7,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
-                            },
-                                new DataTrigger
-                            {
-                                Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 8,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
-                            },
-                                new DataTrigger
-                            {
-                                Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 9,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
-                            },
-                                new DataTrigger
-                            {
-                                Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 10,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
-                            },
-                                new DataTrigger
-                            {
-                                Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 11,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
-                            },
-                                new DataTrigger
-                            {
-                                Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 12,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
-                            },
-                                new DataTrigger
-                            {
-                                Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 13,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
-                            },
-                                new DataTrigger
-                            {
-                                Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 14,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
-                            },
-                                new DataTrigger
-                            {
-                                Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 15,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
-                            },
-                                new DataTrigger
-                            {
-                                Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 16,
-                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
+                                Value = 36,
+                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkRed) }
                             }
                         }
                     }
@@ -498,6 +412,7 @@ namespace ChampionManager25.UserControls
                 }
             });
 
+            dgClasificacion.SelectionChanged += DgClasificacion_SelectionChanged;
 
             // Configurar altura de filas y estilos generales
             dgClasificacion.RowHeight = 37;
@@ -562,6 +477,25 @@ namespace ChampionManager25.UserControls
                 return new SolidColorBrush(Color.FromArgb(0xFF, 0xC6, 0x76, 0x17));
             else
                 return new SolidColorBrush(Colors.Red);
+        }
+
+        private void DgClasificacion_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Metodos.ReproducirSonidoClick();
+            if (dgClasificacion.SelectedItem == null)
+                return; // Evita errores si no hay selección
+
+            // Asegúrate de que el elemento seleccionado es un objeto de tipo 'Clasificacion' o el tipo que uses
+            if (dgClasificacion.SelectedItem is Clasificacion clasificacionSeleccionada)
+            {
+                // Aquí ya puedes acceder al idEquipo del equipo seleccionado
+                int idEquipoSeleccionado = clasificacionSeleccionada.IdEquipo;
+
+                frmVerDetallesEquipo detallesEquipoWindow = new frmVerDetallesEquipo(idEquipoSeleccionado);
+                detallesEquipoWindow.ShowDialog();
+
+                ConfigurarDataGridClasificacion();
+            }
         }
         #endregion
     }

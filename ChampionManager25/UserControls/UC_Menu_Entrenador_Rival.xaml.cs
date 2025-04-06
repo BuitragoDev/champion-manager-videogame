@@ -315,6 +315,7 @@ namespace ChampionManager25.UserControls
         // Evento que maneja el clic en el Border
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            Metodos.ReproducirSonidoClick();
             if (sender is Border border && border.Tag is { } tag)
             {
                 // Acceder a las propiedades usando reflexión

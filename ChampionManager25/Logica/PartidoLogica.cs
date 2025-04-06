@@ -77,5 +77,23 @@ namespace ChampionManager25.Logica
         {
             _datos.ActualizarPartido(partido);
         }
+
+        // Llamada al método para obtener la fecha del ultimo partido
+        public string ultimoPartidoCalendario()
+        {
+            return _datos.ultimoPartidoCalendario();
+        }
+
+        // Llamada al método para crear el calendario
+        public void GenerarCalendario(int temporadaActual, int idManager, int idCompeticion)
+        {
+            _datos.GenerarCalendario(temporadaActual, idManager, idCompeticion);
+        }
+
+        // Llamada al método que resetea la tabla partidos
+        public void ResetearPartidos()
+        {
+            _datos.ResetearPartidos();
+        }
     }
 }

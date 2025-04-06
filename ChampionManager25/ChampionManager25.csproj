@@ -624,6 +624,8 @@
     <None Remove="Recursos\img\icons\simulando_icon.png" />
     <None Remove="Recursos\img\icons\tarjetaAmarilla_img.png" />
     <None Remove="Recursos\img\icons\tarjetaRoja_img.png" />
+    <None Remove="Recursos\img\icons\trofeo_campeon.png" />
+    <None Remove="Recursos\img\icons\trofeo_subcampeon.png" />
     <None Remove="Recursos\img\icons\verificado_icon.png" />
     <None Remove="Recursos\img\icons\volver_icon.png" />
     <None Remove="Recursos\img\jugadores\1.png" />
@@ -1650,7 +1652,7 @@
 
   <ItemGroup>
     <Content Include="championsManagerDB.db">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\audio\backgroundMatchSounds.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -3495,6 +3497,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\tarjetaRoja_img.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\trofeo_campeon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\trofeo_subcampeon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\verificado_icon.png">

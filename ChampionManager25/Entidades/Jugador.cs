@@ -38,6 +38,7 @@ namespace ChampionManager25.Entidades
         public string? Nacionalidad { get; set; }
         public int Status { get; set; } // 1. Clave, 2. Importante, 3. Rotación, 4. Ocasional
         public int Entrenamiento { get; set; } // 1 Portero, 2 Entradas, 3 Remate, 4 Pase, 5 Regate, 6 Tiro
+        public int Sancionado { get; set; }
 
         // Atributos extra
         public string? NombreEquipo { get; set; }
@@ -72,7 +73,7 @@ namespace ChampionManager25.Entidades
                        int velocidad, int resistencia, int agresividad, int calidad, int estadoForma, int moral,
                        int potencial, int portero, int pase, int regate, int remate, int entradas, int tiro,
                        DateTime fechaNacimiento, int peso, int altura, int lesion, string nacionalidad, int status,
-                       int entrenamiento)
+                       int entrenamiento, int sancionado)
         {
             IdJugador = idJugador;
             Nombre = nombre;
@@ -101,6 +102,7 @@ namespace ChampionManager25.Entidades
             Nacionalidad = nacionalidad;
             Status = status;
             Entrenamiento = entrenamiento;
+            Sancionado = sancionado;
         }
 
         // Constructor con parámetros SIN ID
@@ -108,7 +110,7 @@ namespace ChampionManager25.Entidades
                        int velocidad, int resistencia, int agresividad, int calidad, int estadoForma, int moral,
                        int potencial, int portero, int pase, int regate, int remate, int entradas, int tiro,
                        DateTime fechaNacimiento, int peso, int altura, int lesion, string nacionalidad, int status,
-                       int entrenamiento)
+                       int entrenamiento, int sancionado)
         {
             Nombre = nombre;
             Apellido = apellido;
@@ -136,6 +138,7 @@ namespace ChampionManager25.Entidades
             Nacionalidad = nacionalidad;
             Status = status;
             Entrenamiento = entrenamiento;
+            Sancionado = sancionado;
         }
 
         // Método ToString

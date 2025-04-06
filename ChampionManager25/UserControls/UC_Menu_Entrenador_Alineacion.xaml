@@ -56,7 +56,7 @@
                                 </Border>
 
                                 <DockPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Top">
-                                    <DataGrid x:Name="dgTitulares" IsReadOnly="True" AutoGenerateColumns="False"
+                                    <DataGrid x:Name="dgTitulares" IsReadOnly="True" AutoGenerateColumns="False" CanUserSortColumns="False"
                                               GridLinesVisibility="None" FontFamily="Cascadia Code Light" FontSize="16" DockPanel.Dock="Top" 
                                               Cursor="Hand" Height="420" Width="1192" SelectionChanged="dgTitulares_SelectionChanged" 
                                               LoadingRow="dg_LoadingRow"/>

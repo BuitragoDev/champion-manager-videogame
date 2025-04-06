@@ -36,5 +36,23 @@ namespace ChampionManager25.Logica
         {
             return _datos.MostrarHistorialFinales();
         }
+
+        // Llamada al metodo que suma un titulo al manager si gana la Liga
+        public void AnadirTituloManager(int competicion, int equipo, int manager, int temporada)
+        {
+            _datos.AnadirTituloManager(competicion, equipo, manager, temporada);
+        }
+
+        // Llamada al metodo que suma un titulo al campeon de Liga
+        public void AnadirTituloCampeon(int equipo)
+        {
+            _datos.AnadirTituloCampeon(equipo);
+        }
+
+        // -------------------------------------------------------------------- Metodo que agrega el campeon y subcampeon de una temporada
+        public void AnadirCampeonFinalista(int temporada, int campeon, int finalista)
+        {
+            _datos.AnadirCampeonFinalista(temporada, campeon, finalista);
+        }
     }
 }

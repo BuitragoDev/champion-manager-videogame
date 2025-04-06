@@ -72,5 +72,51 @@ namespace ChampionManager25.Datos
             }
         }
 
+        // ----------------------------------------------------------------------- Método que suma 1 año al campo anio
+        public void AvanzarUnAnio()
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+
+                    string query = "UPDATE fechas SET anio = anio + 1 WHERE id_fecha = 1";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // ----------------------------------------------------------------------- Método que adelanta la fecha al 15 de julio
+        public void AvanzarFecha(int temporada)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+                    string nuevaFecha = $"{temporada}-07-15";
+                    string query = "UPDATE fechas SET hoy = @Fecha WHERE id_fecha = 1";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Fecha", nuevaFecha);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
     }
 }

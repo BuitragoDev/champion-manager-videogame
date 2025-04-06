@@ -623,5 +623,34 @@ namespace ChampionManager25.Datos
                 MessageBox.Show("Error al añadir el equipo al Manager: " + ex.Message);
             }
         }
+
+        // -------------------------------------------------------------------- Metodo que resetea las estadisticas de los jugadores
+        public void ResetearEstadisticas()
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+                    string query = @"UPDATE estadisticas_jugadores
+                                     SET partidosJugados = 0,
+                                         goles = 0,
+                                         asistencias = 0,
+                                         tarjetasAmarillas = 0,
+                                         tarjetasRojas = 0,
+                                         mvp = 0";
+
+                    using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                    {
+                        command.ExecuteNonQuery(); // Ejecutar la consulta de inserción
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                // En caso de error, mostrar el mensaje con la excepción
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
     }
 }

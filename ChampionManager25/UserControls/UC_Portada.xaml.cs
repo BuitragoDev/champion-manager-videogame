@@ -50,6 +50,10 @@ namespace ChampionManager25.UserControls
         private void imgCargarPartida_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Metodos.ReproducirSonidoTransicion();
+
+            // Notificar a MainWindow para cargar el nuevo UserControl
+            var mainWindow = (MainWindow)Application.Current.MainWindow;
+            mainWindow.CargarPartida();
         }
 
         private void imgCargarPartida_MouseEnter(object sender, MouseEventArgs e)

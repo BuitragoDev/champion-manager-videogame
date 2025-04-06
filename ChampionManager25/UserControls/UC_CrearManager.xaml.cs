@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,10 +12,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ChampionManager25.MisMetodos;
 using ChampionManager25.Entidades;
 using ChampionManager25.Logica;
+using System.Configuration;
+using ChampionManager25.Datos;
 
 namespace ChampionManager25.UserControls
 {
@@ -318,6 +320,47 @@ namespace ChampionManager25.UserControls
                 "Turkmenistán", "Turquía", "Tuvalu", "Ucrania", "Uganda", "Uruguay", "Uzbekistán", "Vanuatu",
                 "Vaticano", "Venezuela", "Vietnam", "Yemen", "Yibuti", "Zambia", "Zimbabue"
             };
+        }
+
+        public void CrearBaseDeDatosManager(string idManager)
+        {
+            // Ruta al directorio de salida (Debug o Release)
+            string rutaProyecto = Directory.GetCurrentDirectory();  // Esto apunta al directorio de salida (Debug/Release)
+
+            // Ruta de la base de datos original que está en el proyecto
+            string rutaBaseDatosOriginal = Path.Combine(Directory.GetParent(rutaProyecto).FullName, "championsManagerDB.db");
+
+            // Ruta donde se guardará la copia en el directorio de salida
+            string rutaNuevaBaseDatos = Path.Combine(rutaProyecto, $"manager{idManager}DB.db");
+
+            // Imprimir la ruta para depuración
+            Console.WriteLine($"Buscando base de datos original en: {rutaBaseDatosOriginal}");
+
+            // Verifica si la base de datos nueva ya existe, si no, crea una copia
+            if (!File.Exists(rutaNuevaBaseDatos))
+            {
+                try
+                {
+                    // Asegúrate de que el archivo original existe antes de copiar
+                    if (File.Exists(rutaBaseDatosOriginal))
+                    {
+                        File.Copy(rutaBaseDatosOriginal, rutaNuevaBaseDatos);
+                        Console.WriteLine($"Base de datos copiada a {rutaNuevaBaseDatos}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("El archivo de base de datos original no se encuentra.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error al copiar la base de datos: {ex.Message}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("La base de datos con el nombre especificado ya existe.");
+            }
         }
         #endregion 
     }

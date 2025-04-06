@@ -7,6 +7,7 @@ using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media.Media3D;
 
 namespace ChampionManager25.Logica
@@ -76,18 +77,6 @@ namespace ChampionManager25.Logica
             _datos.IntercambioPosicion(jugador1, jugador2, posicion1, posicion2);
         }
 
-        // Llamada al método que crea los 3 capitanes de mas edad
-        public void CrearCapitanes(int equipo)
-        {
-            _datos.CrearCapitanes(equipo);
-        }
-
-        // Llamada al método que crea una lista con los 3 capitanes
-        public Capitan MostrarCapitanes()
-        {
-            return _datos.MostrarCapitanes();
-        }
-
         // Llamada al método para mostrar el entrenamiento de un jugador
         public int EntrenamientoJugador(int jugador)
         {
@@ -100,10 +89,57 @@ namespace ChampionManager25.Logica
             _datos.EntrenarJugador(jugador, tipo);
         }
 
-        // ======================================================= Método para mostrar la lista de Jugadores de un equipo SIN PORTEROS
+        // Llamada al método para mostrar la lista de Jugadores de un equipo SIN PORTEROS
         public List<Jugador> PlantillaSinPorteros(int id)
         {
             return _datos.PlantillaSinPorteros(id);
+        }
+
+        // Llamada al método para crear los 16 jugadores que jugaran el partido
+        public List<Jugador> JugadoresJueganPartido(int id)
+        {
+            return _datos.JugadoresJueganPartido(id);
+        }
+
+        // Llamada al método que pone a un jugador como lesionado
+        public void PonerJugadorLesionado(int jugador, int duracion)
+        {
+            _datos.PonerJugadorLesionado(jugador, duracion);
+        }
+
+        // Llamada al método que pone a un jugador como sancionado
+        public void PonerJugadorSancionado(int jugador, int duracion)
+        {
+            _datos.PonerJugadorSancionado(jugador, duracion);
+        }
+
+        // Llamada al método para decir si un jugador pertenece a mi equipo
+        public bool EsDeMiEquipo(int jugador, int equipo)
+        {
+            return _datos.EsDeMiEquipo(jugador, equipo);
+        }
+
+        // Llamada al método que incrementa/decrementa la moral y el estado de forma
+        public void ActualizarMoralEstadoForma(int jugador, int moral, int estadoForma)
+        {
+            _datos.ActualizarMoralEstadoForma(jugador, moral, estadoForma);
+        }
+
+        // Llamada al método que actualiza los atributos por entrenamiento
+        public void ActualizarAtributosEntrenamiento(int jugador, int portero, int pase, int regate, int remate, int entradas, int tiro)
+        {
+            _datos.ActualizarAtributosEntrenamiento(jugador, portero, pase, regate, remate, entradas, tiro);
+        }
+
+        public void ActualizarOtrosAtributosEntrenamiento(int jugador, int velocidad, int resistencia, int agresividad, int calidad)
+        {
+            _datos.ActualizarOtrosAtributosEntrenamiento(jugador, velocidad, resistencia, agresividad, calidad);
+        }
+
+        // ===================================================================== Método que resetea la moral y el estado de forma
+        public void ResetearMoralEstadoForma()
+        {
+            _datos.ResetearMoralEstadoForma();
         }
     }
 }

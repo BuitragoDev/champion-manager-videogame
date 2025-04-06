@@ -624,6 +624,8 @@
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("recursos/img/icons/simulando_icon.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("recursos/img/icons/tarjetaamarilla_img.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("recursos/img/icons/tarjetaroja_img.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("recursos/img/icons/trofeo_campeon.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("recursos/img/icons/trofeo_subcampeon.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("recursos/img/icons/verificado_icon.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("recursos/img/icons/volver_icon.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("recursos/img/jugadores/1.png")]

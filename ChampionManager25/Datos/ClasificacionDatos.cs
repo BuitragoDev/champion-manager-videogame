@@ -67,7 +67,7 @@ namespace ChampionManager25.Datos
                 using (SQLiteConnection conn = new SQLiteConnection(cadena))
                 {
                     conn.Open();
-                    string query = @"SELECT ROW_NUMBER() OVER (ORDER BY c.puntos DESC) AS Posicion,
+                    string query = @"SELECT ROW_NUMBER() OVER (ORDER BY c.puntos DESC, (c.goles_favor - c.goles_contra) DESC) AS Posicion,
                                 c.id_equipo AS IdEquipo,
                                 c.jugados AS Jugados,
                                 c.ganados AS Ganados,
@@ -85,7 +85,7 @@ namespace ChampionManager25.Datos
                              FROM clasificacion c
                              INNER JOIN equipos e ON c.id_equipo = e.id_equipo
                              WHERE e.id_competicion = @competicion AND c.id_manager = @manager
-                             ORDER BY c.puntos DESC";
+                             ORDER BY c.puntos DESC, (c.goles_favor - c.goles_contra) DESC";
 
                     using (SQLiteCommand command = new SQLiteCommand(query, conn))
                     {
@@ -126,7 +126,6 @@ namespace ChampionManager25.Datos
 
             return clasificaciones;
         }
-
 
         // ===================================================================== Método para Crear el Objeto de la Clasificacion de un equipo
         public Clasificacion? MostrarClasificacionPorEquipo(int equipo, int manager)
@@ -547,19 +546,23 @@ namespace ChampionManager25.Datos
                 {
                     conn.Open();
                     string query = @"UPDATE clasificacion 
-                                     SET jugados = jugados + @Jugados,
-                                         ganados = ganados + @Ganados,
-                                         empatados = empatados + @Empatados,
-                                         perdidos = perdidos + @Perdidos,
-                                         puntos = puntos + @Puntos,
-                                         local_victorias = local_victorias + @LocalVictorias,
-                                         local_derrotas = local_derrotas + @LocalDerrotas,
-                                         visitante_victorias = visitante_victorias + @VisitanteVictorias,
-                                         visitante_derrotas = visitante_derrotas + @VisitanteDerrotas,
-                                         goles_favor = goles_favor + @GolesFavor,
-                                         goles_contra = goles_contra + @GolesContra,
-                                         racha = racha + @Racha
-                                     WHERE id_equipo = @IdEquipo";
+                                        SET jugados = jugados + @Jugados,
+                                            ganados = ganados + @Ganados,
+                                            empatados = empatados + @Empatados,
+                                            perdidos = perdidos + @Perdidos,
+                                            puntos = puntos + @Puntos,
+                                            local_victorias = local_victorias + @LocalVictorias,
+                                            local_derrotas = local_derrotas + @LocalDerrotas,
+                                            visitante_victorias = visitante_victorias + @VisitanteVictorias,
+                                            visitante_derrotas = visitante_derrotas + @VisitanteDerrotas,
+                                            goles_favor = goles_favor + @GolesFavor,
+                                            goles_contra = goles_contra + @GolesContra,
+                                            racha = CASE
+                                                        WHEN @Racha = 0 THEN 0
+                                                        WHEN (racha > 0 AND @Racha > 0) OR (racha < 0 AND @Racha < 0) THEN racha + @Racha
+                                                        ELSE @Racha
+                                                    END
+                                    WHERE id_equipo = @IdEquipo";
                     using (var cmd = new SQLiteCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@Jugados", clasificacion.Jugados);
@@ -582,6 +585,39 @@ namespace ChampionManager25.Datos
             catch (Exception ex)
             {
                 MessageBox.Show("Error al añadir el equipo al Manager: " + ex.Message);
+            }
+        }
+
+        // ===================================================================== Método para RESETEAR la Clasificación
+        public void ResetearClasificacion()
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                {
+                    conn.Open();
+                    string query = @"UPDATE clasificacion 
+                                        SET jugados = 0,
+                                            ganados = 0,
+                                            empatados = 0,
+                                            perdidos = 0,
+                                            puntos = 0,
+                                            local_victorias = 0,
+                                            local_derrotas = 0,
+                                            visitante_victorias = 0,
+                                            visitante_derrotas = 0,
+                                            goles_favor = 0,
+                                            goles_contra = 0,
+                                            racha = 0";
+                    using (var cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.ExecuteNonQuery(); // Ejecuta la consulta
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
             }
         }
     }

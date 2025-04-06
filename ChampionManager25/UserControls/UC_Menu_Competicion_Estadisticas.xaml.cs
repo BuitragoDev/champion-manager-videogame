@@ -47,6 +47,8 @@ namespace ChampionManager25.UserControls
         // ------------------------------------------------------------------------------- Evento CLICK del boton GOLES
         private void btnGoles_Click(object sender, RoutedEventArgs e)
         {
+            Metodos.ReproducirSonidoClick();
+
             btnGoles.IsEnabled = false;
             btnAsistencias.IsEnabled = true;
             btnTA.IsEnabled = true;
@@ -65,6 +67,8 @@ namespace ChampionManager25.UserControls
         // ------------------------------------------------------------------------------- Evento CLICK del boton ASISTENCIAS
         private void btnAsistencias_Click(object sender, RoutedEventArgs e)
         {
+            Metodos.ReproducirSonidoClick();
+
             btnGoles.IsEnabled = true;
             btnAsistencias.IsEnabled = false;
             btnTA.IsEnabled = true;
@@ -83,6 +87,8 @@ namespace ChampionManager25.UserControls
         // ------------------------------------------------------------------------------- Evento CLICK del boton TARJETAS AMARILLAS
         private void btnTA_Click(object sender, RoutedEventArgs e)
         {
+            Metodos.ReproducirSonidoClick();
+
             btnGoles.IsEnabled = true;
             btnAsistencias.IsEnabled = true;
             btnTA.IsEnabled = false;
@@ -101,6 +107,8 @@ namespace ChampionManager25.UserControls
         // ------------------------------------------------------------------------------- Evento CLICK del boton TARJETAS ROJAS
         private void btnTR_Click(object sender, RoutedEventArgs e)
         {
+            Metodos.ReproducirSonidoClick();
+
             btnGoles.IsEnabled = true;
             btnAsistencias.IsEnabled = true;
             btnTA.IsEnabled = true;
@@ -119,6 +127,8 @@ namespace ChampionManager25.UserControls
         // ------------------------------------------------------------------------------- Evento CLICK del boton MVPS
         private void btnMVP_Click(object sender, RoutedEventArgs e)
         {
+            Metodos.ReproducirSonidoClick();
+
             btnGoles.IsEnabled = true;
             btnAsistencias.IsEnabled = true;
             btnTA.IsEnabled = true;
