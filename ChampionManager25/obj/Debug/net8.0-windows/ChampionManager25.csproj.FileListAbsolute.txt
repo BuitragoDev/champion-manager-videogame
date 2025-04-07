@@ -1755,3 +1755,4 @@ C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0
 C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\championsManagerDB.db
 C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\UserControls\UC_CargarPartida.g.cs
 C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\UserControls\UC_CargarPartida.baml
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\Recursos\img\icons\papelera_icon.png

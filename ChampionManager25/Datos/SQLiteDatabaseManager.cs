@@ -12,11 +12,13 @@ namespace ChampionManager25.Datos
 {
     public static class SQLiteDatabaseManager
     {
-        public static void CreateManagerDatabase(string managerId)
+        public static string CreateManagerDatabase(string managerId)
         {
             string originalDbPath = GetOriginalDbPath();
-            string newDbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"manager{managerId}.db");
-
+            string savesFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PartidasGuardadas");
+            Directory.CreateDirectory(savesFolder); // crea si no existe
+            string newDbPath = Path.Combine(savesFolder, $"manager{managerId}.db");
+            
             try
             {
                 // 1. Verificar existencia de la base de datos original
@@ -48,8 +50,7 @@ namespace ChampionManager25.Datos
                     throw new Exception("La copia de la base de datos no es válida");
                 }
 
-                // 5. Actualizar configuración
-                UpdateConnectionString(newDbPath);
+                return newDbPath; // ✅ Devolver la ruta
             }
             catch (Exception ex)
             {
@@ -99,7 +100,7 @@ namespace ChampionManager25.Datos
             }
         }
 
-        private static void UpdateConnectionString(string dbPath)
+        public static void UpdateConnectionString(string dbPath)
         {
             try
             {
@@ -126,6 +127,26 @@ namespace ChampionManager25.Datos
 
             // Opcional: Loggear el error en un archivo
             File.AppendAllText("database_errors.log", $"{DateTime.Now}: {errorDetails}\n\n");
+        }
+
+        public static T EjecutarConConexionTemporal<T>(string nuevaCadena, Func<T> accion)
+        {
+            // Guardar la cadena original
+            string cadenaOriginal = ConfigurationManager.ConnectionStrings["cadena"].ConnectionString;
+
+            try
+            {
+                // Cambiar a la cadena temporal
+                UpdateConnectionString(nuevaCadena);
+
+                // Ejecutar la acción y devolver su resultado
+                return accion();
+            }
+            finally
+            {
+                // Restaurar la cadena original
+                UpdateConnectionString(cadenaOriginal);
+            }
         }
     }
 }

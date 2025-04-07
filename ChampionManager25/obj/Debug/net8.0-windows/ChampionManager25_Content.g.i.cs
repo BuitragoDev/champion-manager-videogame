@@ -610,6 +610,7 @@
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("recursos/img/icons/mvp_icon.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("recursos/img/icons/mvp_img.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("recursos/img/icons/pabellon_icon.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("recursos/img/icons/papelera_icon.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("recursos/img/icons/plantilla_datos.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("recursos/img/icons/plantilla_estadisticas.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("recursos/img/icons/plantilla_puntuacion.png")]

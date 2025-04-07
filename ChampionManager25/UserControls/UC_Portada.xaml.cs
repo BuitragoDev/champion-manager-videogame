@@ -1,5 +1,7 @@
-﻿using ChampionManager25.MisMetodos;
+﻿using ChampionManager25.Datos;
+using ChampionManager25.MisMetodos;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Drawing.Design;
 using System.Linq;
@@ -13,12 +15,13 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ChampionManager25.UserControls
 {
     public partial class UC_Portada : UserControl
     {
+        private static string rutaBaseDeDatosCreada = string.Empty;
+
         public UC_Portada()
         {
             InitializeComponent();

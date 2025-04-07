@@ -1,10 +1,10 @@
-﻿<UserControl x:Class="ChampionManager25.UserControls.UC_CargarPartida"
+﻿<UserControl x:Name="cargarPartida" x:Class="ChampionManager25.UserControls.UC_CargarPartida"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ChampionManager25.UserControls"
-                      mc:Ignorable="d" d:DesignHeight="1080" d:DesignWidth="1920">
+             mc:Ignorable="d" d:DesignHeight="1080" d:DesignWidth="1920" Loaded="cargarPartida_Loaded">
     <Grid>
         <!-- Imagen de Fondo del UserControl-->
         <Grid.Background>
@@ -19,6 +19,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
 
         <!-- BARRA SUPERIOR -->
@@ -45,60 +47,124 @@
 
                         <Border Grid.Column="0" Grid.Row="0" Background="WhiteSmoke">
                             <Image x:Name="imgBotonAtras" Width="32" Height="32" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" 
-                               Source="/Recursos/img/icons/flechaIzquierdaNegra64px_icon.png" Cursor="Hand" />
+                               Source="/Recursos/img/icons/flechaIzquierdaNegra64px_icon.png" Cursor="Hand" MouseLeftButtonDown="imgBotonAtras_MouseLeftButtonDown" />
                         </Border>
                     </Grid>
                 </Border>
                 <TextBlock Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Cargar Partida"
                        Foreground="WhiteSmoke" FontSize="28" FontFamily="Cascadia Code SemiBold" />
+            </Grid>
+        </Border>
 
-                <Button x:Name="btnAvanzar" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"
-                    Height="50" Width="280" Margin="0,0,20,0"
-                    FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" IsEnabled="False">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <!-- Configuración inicial -->
-                            <Setter Property="Background" Value="#1d6a7d"/>
-                            <Setter Property="Foreground" Value="WhiteSmoke"/>
-                            <Setter Property="BorderBrush" Value="Transparent"/>
-                            <Setter Property="BorderThickness" Value="0"/>
-                            <Setter Property="Cursor" Value="Hand"/>
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border Background="{TemplateBinding Background}"
-                                            BorderBrush="{TemplateBinding BorderBrush}"
-                                            BorderThickness="{TemplateBinding BorderThickness}">
-                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <!-- Texto del botón -->
-                                                <TextBlock Text="SELECCIÓN DE EQUIPO" 
-                                                       Foreground="{TemplateBinding Foreground}" 
-                                                       VerticalAlignment="Center" 
-                                                       Margin="0,0,5,0"/>
-                                                <!-- Imagen de la flecha -->
-                                                <Image Source="/Recursos/img/icons/flechaDerechaBlanca64px_icon.png" Height="18" Width="18" VerticalAlignment="Center" Stretch="Uniform"/>
-                                            </StackPanel>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
+        <!-- ZONA DE PARTIDAS CARGADAS-->
+        <Border Grid.Column="1" Grid.Row="1" Margin="20" BorderBrush="#1d6a7d" BorderThickness="1">
+            <Grid Background="White" Cursor="">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-                            <!-- Configuración al pasar el ratón -->
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                                    <Setter Property="BorderThickness" Value="1"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
+                <Border Grid.Column="0" Grid.Row="0" Margin="20" BorderBrush="#1d6a7d" BorderThickness="1">
+                    <Grid Background="White">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
 
+                        <Border Grid.Column="0" Grid.Row="0" Background="#1d6a7d" BorderThickness="0" BorderBrush="#1d6a7d">
+                            <TextBlock FontSize="16" Text="LISTA DE PARTIDAS CARGADAS" VerticalAlignment="Center" 
+                                       HorizontalAlignment="Center" FontFamily="Cascadia Code SemiBold" Foreground="WhiteSmoke" />
+                        </Border>
+
+                        <Border Grid.Column="0" Grid.Row="1" Background="#1d6a7d" BorderThickness="0" BorderBrush="#1d6a7d">
+                            <Grid Background="White">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Border Grid.Column="0" Grid.Row="0" Background="#1d6a7d" BorderThickness="0" BorderBrush="#1d6a7d"
+                                        Width="1020" Margin="10,10,10,0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="600"/>
+                                            <ColumnDefinition Width="220"/>
+                                            <ColumnDefinition Width="100"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Grid.Column="1" Grid.Row="0" FontSize="16" Text="Nombre de la Partida" VerticalAlignment="Center" 
+                                                   HorizontalAlignment="Left" FontFamily="Cascadia Code SemiBold" Foreground="WhiteSmoke" />
+                                        <TextBlock Grid.Column="2" Grid.Row="0" FontSize="16" Text="Fecha de Creación" VerticalAlignment="Center" 
+                                                   HorizontalAlignment="Left" FontFamily="Cascadia Code SemiBold" Foreground="WhiteSmoke" />
+                                    </Grid>
+                                </Border>
+
+                                <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Height="656" Margin="19,0,19,0">
+                                    <WrapPanel x:Name="wrapPartidasCargadas" VerticalAlignment="Top" />
+                                </ScrollViewer>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Border>
 
             </Grid>
         </Border>
 
-        <!-- ZONA DE  -->
-        
+        <!-- ÁREA BOTON -->
+        <Border Grid.Column="1" Grid.Row="2">
+            <Button x:Name="btnCargarPartida" Grid.Column="5" VerticalAlignment="Center" HorizontalAlignment="Center"
+            Height="50" Width="490" FontFamily="Cascadia Code SemiBold" FontSize="22" Cursor="Hand" Content="CARGAR PARTIDA" Click="btnCargarPartida_Click">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#FF23282D"/>
+                        <Setter Property="Foreground" Value="WhiteSmoke"/>
+                        <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                        <Border.Effect>
+                                            <DropShadowEffect Color="#FF23282D" Opacity="0.8" BlurRadius="10" ShadowDepth="5"/>
+                                        </Border.Effect>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <!-- Contenido dinámico -->
+                                            <TextBlock Text="{TemplateBinding Content}"
+                                               Foreground="{TemplateBinding Foreground}" 
+                                               VerticalAlignment="Center"
+                                               Margin="0,0,5,0"/>
+                                            <!-- Imagen de la flecha -->
+                                            <Image Source="/Recursos/img/icons/flechaDerechaBlanca64px_icon.png" Height="18" Width="18" VerticalAlignment="Center" Stretch="Uniform" Margin="10,0,0,0"/>
+                                            <Image Source="/Recursos/img/icons/flechaDerechaBlanca64px_icon.png" Height="18" Width="18" VerticalAlignment="Center" Stretch="Uniform"/>
+                                        </StackPanel>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Border>
     </Grid>
 </UserControl>

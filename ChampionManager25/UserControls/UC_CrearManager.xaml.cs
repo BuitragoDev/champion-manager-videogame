@@ -17,6 +17,7 @@ using ChampionManager25.Entidades;
 using ChampionManager25.Logica;
 using System.Configuration;
 using ChampionManager25.Datos;
+using System.Data.SQLite;
 
 namespace ChampionManager25.UserControls
 {
@@ -28,19 +29,62 @@ namespace ChampionManager25.UserControls
         public UC_CrearManager()
         {
             InitializeComponent();
-            Loaded += crearManager_Loaded;
+           // Loaded += crearManager_Loaded;
         }
         private void crearManager_Loaded(object sender, RoutedEventArgs e)
         {
             txtNombre.Focus();
             Keyboard.Focus(txtNombre);
             CargarNacionalidades();
+
+            // Crear copia de la BD
+            try
+            {
+                if (SessionData.Interruptor == false) { 
+                    // Genera un número aleatorio de 10 cifras
+                    Random random = new Random();
+                    long numeroAleatorio = (long)(random.NextDouble() * 9_999_999_999L) + 1_000_000_000L;
+                    string numeroComoCadena = numeroAleatorio.ToString();
+
+                    // Obtener el ID del manager
+                    long managerId = numeroAleatorio;
+
+                    // Crear la base de datos del manager
+                    SQLiteDatabaseManager.CreateManagerDatabase(numeroComoCadena);
+                    SessionData.Interruptor = true;
+
+                    string ruta = SQLiteDatabaseManager.CreateManagerDatabase(numeroComoCadena);
+                    Conexion.cadena = $"Data Source={ruta};Version=3;";
+
+                    // Guardar la ruta de la base de datos creada
+                    SessionData.RutaBaseDeDatosCreada = ruta;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"No se pudo iniciar la aplicación: {ex.Message}",
+                              "Error Crítico",
+                              MessageBoxButton.OK,
+                              MessageBoxImage.Error);
+                Application.Current.Shutdown();
+            }
         }
 
         // -------------------------------------------------------------------------------------------------- EVENTO CLICK DEL BOTON VOLVER
         private void imgBotonAtras_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Metodos.ReproducirSonidoTransicion();
+            SessionData.Interruptor = false;
+
+            if (File.Exists(SessionData.RutaBaseDeDatosCreada))
+            {
+                // Eliminar la base de datos creada
+                File.Delete(SessionData.RutaBaseDeDatosCreada);
+            }
+
+            // Restaurar la conexión a la BD base
+            string bdBase = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "championsManagerDB.db");
+            SQLiteDatabaseManager.UpdateConnectionString(bdBase);
 
             var mainWindow = (MainWindow)Application.Current.MainWindow;
             mainWindow.CargarPortada();

@@ -610,6 +610,7 @@
     <None Remove="Recursos\img\icons\mvp_icon.png" />
     <None Remove="Recursos\img\icons\mvp_img.png" />
     <None Remove="Recursos\img\icons\pabellon_icon.png" />
+    <None Remove="Recursos\img\icons\papelera_icon.png" />
     <None Remove="Recursos\img\icons\plantilla_datos.png" />
     <None Remove="Recursos\img\icons\plantilla_estadisticas.png" />
     <None Remove="Recursos\img\icons\plantilla_puntuacion.png" />
@@ -3455,6 +3456,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\pabellon_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\papelera_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\plantilla_datos.png">
