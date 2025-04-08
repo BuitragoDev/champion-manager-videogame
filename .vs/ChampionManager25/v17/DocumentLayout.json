@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\usercontrols\\uc_crearmanager.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
-      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\usercontrols\\uc_crearmanager.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
+      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\usercontrols\\uc_pantallaprincipal.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\usercontrols\\uc_pantallaprincipal.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\usercontrols\\uc_portada.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
-      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\usercontrols\\uc_portada.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
+      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\usercontrols\\uc_seleccionequipo.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
+      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\usercontrols\\uc_seleccionequipo.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\usercontrols\\uc_crearmanager.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
+      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\usercontrols\\uc_crearmanager.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\usercontrols\\uc_cargarpartida.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
@@ -31,25 +35,25 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "UC_CrearManager.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_CrearManager.xaml.cs",
-              "RelativeDocumentMoniker": "ChampionManager25\\UserControls\\UC_CrearManager.xaml.cs",
-              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_CrearManager.xaml.cs",
-              "RelativeToolTip": "ChampionManager25\\UserControls\\UC_CrearManager.xaml.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAuwCYAAAAAAAAAAAAAAA==",
+              "Title": "UC_PantallaPrincipal.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_PantallaPrincipal.xaml.cs",
+              "RelativeDocumentMoniker": "ChampionManager25\\UserControls\\UC_PantallaPrincipal.xaml.cs",
+              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_PantallaPrincipal.xaml.cs",
+              "RelativeToolTip": "ChampionManager25\\UserControls\\UC_PantallaPrincipal.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC0AAABbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T18:52:56.06Z",
+              "WhenOpened": "2025-04-08T14:11:12.296Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "UC_CargarPartida.xaml.cs",
               "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_CargarPartida.xaml.cs",
               "RelativeDocumentMoniker": "ChampionManager25\\UserControls\\UC_CargarPartida.xaml.cs",
               "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_CargarPartida.xaml.cs",
               "RelativeToolTip": "ChampionManager25\\UserControls\\UC_CargarPartida.xaml.cs",
-              "ViewState": "AgIAAAoBAAAAAAAAAAAuwCkBAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAACAAAAAAAAAAAADwv0IAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-07T18:09:41.286Z",
               "EditorCaption": ""
@@ -57,19 +61,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "UC_Portada.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Portada.xaml.cs",
-              "RelativeDocumentMoniker": "ChampionManager25\\UserControls\\UC_Portada.xaml.cs",
-              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Portada.xaml.cs",
-              "RelativeToolTip": "ChampionManager25\\UserControls\\UC_Portada.xaml.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAACEAAAAAAAAAAAAAAA==",
+              "Title": "UC_SeleccionEquipo.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_SeleccionEquipo.xaml.cs",
+              "RelativeDocumentMoniker": "ChampionManager25\\UserControls\\UC_SeleccionEquipo.xaml.cs",
+              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_SeleccionEquipo.xaml.cs",
+              "RelativeToolTip": "ChampionManager25\\UserControls\\UC_SeleccionEquipo.xaml.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAowD4AAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-06T21:39:23.216Z",
+              "WhenOpened": "2025-04-08T11:37:19.893Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
+              "Title": "UC_CrearManager.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_CrearManager.xaml.cs",
+              "RelativeDocumentMoniker": "ChampionManager25\\UserControls\\UC_CrearManager.xaml.cs",
+              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_CrearManager.xaml.cs",
+              "RelativeToolTip": "ChampionManager25\\UserControls\\UC_CrearManager.xaml.cs",
+              "ViewState": "AgIAADEAAAAAAAAAAAAYwEIAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T18:52:56.06Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "ChampionManager25\\MainWindow.xaml.cs",
@@ -77,8 +94,7 @@
               "RelativeToolTip": "ChampionManager25\\MainWindow.xaml.cs",
               "ViewState": "AgIAAEIAAAAAAAAAAAAowH8AAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-06T21:38:27.471Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-06T21:38:27.471Z"
             }
           ]
         }

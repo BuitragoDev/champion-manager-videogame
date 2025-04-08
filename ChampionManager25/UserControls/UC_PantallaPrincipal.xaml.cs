@@ -5,6 +5,7 @@ using ChampionManager25.MisMetodos;
 using ChampionManager25.Vistas;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;

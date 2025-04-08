@@ -12,11 +12,13 @@ namespace ChampionManager25.Entidades
         public string NombreArchivo { get; set; }
         public string RutaCompleta { get; set; }
         public DateTime FechaCreacion { get; set; }
+        public string Nacionalidad { get; set; }
+        public string FechaNacimiento { get; set; }
 
 
         // Opcionales si los extraes desde la base de datos
         public string NombreManager { get; set; }
-        public string NombreVisible { get; set; } // <-- Esto es lo que se muestra en el DataGrid
+        public string NombreVisible { get; set; } 
         public string Archivo => Path.GetFileName(RutaCompleta);
         public string Equipo { get; set; } // <-- Nombre del equipo que se mostrará
         public int IdEquipo { get; set; }
