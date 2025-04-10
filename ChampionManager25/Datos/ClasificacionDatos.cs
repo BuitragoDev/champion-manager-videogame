@@ -17,7 +17,7 @@ namespace ChampionManager25.Datos
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
@@ -64,7 +64,7 @@ namespace ChampionManager25.Datos
             List<Clasificacion> clasificaciones = new List<Clasificacion>();
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
                     string query = @"SELECT ROW_NUMBER() OVER (ORDER BY c.puntos DESC, (c.goles_favor - c.goles_contra) DESC) AS Posicion,
@@ -133,7 +133,7 @@ namespace ChampionManager25.Datos
             Clasificacion? clasificacionEquipo = null; // Cambiado a null para detectar si no se encuentra
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
                     string query = @"SELECT ROW_NUMBER() OVER (ORDER BY c.puntos DESC) AS Posicion,
@@ -203,7 +203,7 @@ namespace ChampionManager25.Datos
             Clasificacion clasificacionEquipo = null; // Cambiado a null para detectar si no se encuentra
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
                     string query = @"SELECT c.id_equipo AS IdEquipo,
@@ -271,7 +271,7 @@ namespace ChampionManager25.Datos
             Clasificacion clasificacionEquipo = null; // Cambiado a null para detectar si no se encuentra
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
                     string query = @"SELECT c.id_equipo AS IdEquipo,
@@ -339,7 +339,7 @@ namespace ChampionManager25.Datos
             Clasificacion clasificacionEquipo = null; // Cambiado a null para detectar si no se encuentra
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
                     string query = @"SELECT c.id_equipo AS IdEquipo,
@@ -407,7 +407,7 @@ namespace ChampionManager25.Datos
             Clasificacion clasificacionEquipo = null; // Cambiado a null para detectar si no se encuentra
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
                     string query = @"SELECT c.id_equipo AS IdEquipo,
@@ -475,7 +475,7 @@ namespace ChampionManager25.Datos
             Clasificacion clasificacionEquipo = null; // Cambiado a null para detectar si no se encuentra
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
                     string query = @"SELECT c.id_equipo AS IdEquipo,
@@ -542,7 +542,7 @@ namespace ChampionManager25.Datos
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
                     string query = @"UPDATE clasificacion 
@@ -593,7 +593,7 @@ namespace ChampionManager25.Datos
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
                     string query = @"UPDATE clasificacion 

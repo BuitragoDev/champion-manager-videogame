@@ -119,14 +119,8 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <!-- <Image x:Name="imgLiga1" Grid.Column="0" Grid.Row="0" Width="150" Height="150" Stretch="Uniform" VerticalAlignment="Center" 
-                       HorizontalAlignment="Center" Margin="10" Source="/Recursos/img/logos_competiciones/1.png" Cursor="Hand" MouseLeftButtonDown="imgLiga1_MouseLeftButtonDown" /> -->
-
                 <Image x:Name="imgLiga1" Grid.Column="1" Grid.Row="0" Width="150" Height="150" Stretch="Uniform" VerticalAlignment="Center" 
-                       HorizontalAlignment="Center" Margin="10" Source="/Recursos/img/logos_competiciones/1.png" Cursor="Hand" MouseLeftButtonDown="imgLiga1_MouseLeftButtonDown" />
-
-                <!-- <Image x:Name="imgLiga3" Grid.Column="2" Grid.Row="0" Width="150" Height="150" Stretch="Uniform" VerticalAlignment="Center" 
-                       HorizontalAlignment="Center" Margin="10" Source="/Recursos/img/logos_competiciones/3.png" Cursor="Hand" MouseLeftButtonDown="imgLiga3_MouseLeftButtonDown" /> -->
+                       HorizontalAlignment="Center" Margin="10" Cursor="Hand" MouseLeftButtonDown="imgLiga1_MouseLeftButtonDown" />
 
             </Grid>
         </Border>

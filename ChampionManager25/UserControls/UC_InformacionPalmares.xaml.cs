@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ChampionManager25.Datos;
 using ChampionManager25.Entidades;
 using ChampionManager25.Logica;
 
@@ -25,6 +26,7 @@ namespace ChampionManager25.UserControls
 
         // Instancias de la LOGICA
         PalmaresLogica _logicaPalmares = new PalmaresLogica();
+        CompeticionLogica _logicaCompeticion = new CompeticionLogica();
 
         public UC_InformacionPalmares(Equipo eqp)
         {
@@ -34,6 +36,8 @@ namespace ChampionManager25.UserControls
 
         private void informacionPalmares_Loaded(object sender, RoutedEventArgs e)
         {
+            string ruta_logo = _logicaCompeticion.ObtenerCompeticion(1).RutaImagen;
+            imgLiga1.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo));
             lblChampionsLeague.Text = _logicaPalmares.numTitulosEquipoCompeticion(equipo.IdEquipo, 1).ToString();
         }
     }

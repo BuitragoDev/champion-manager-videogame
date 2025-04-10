@@ -18,7 +18,7 @@ namespace ChampionManager25.Datos
 
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
@@ -54,7 +54,7 @@ namespace ChampionManager25.Datos
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
@@ -77,7 +77,7 @@ namespace ChampionManager25.Datos
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
@@ -100,7 +100,7 @@ namespace ChampionManager25.Datos
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
                     string nuevaFecha = $"{temporada}-07-15";

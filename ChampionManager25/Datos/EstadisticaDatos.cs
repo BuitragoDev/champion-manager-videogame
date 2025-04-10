@@ -16,7 +16,7 @@ namespace ChampionManager25.Datos
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
                     string query = @"INSERT INTO estadisticas_jugadores (id_jugador, id_manager)
@@ -54,7 +54,7 @@ namespace ChampionManager25.Datos
 
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
@@ -103,7 +103,7 @@ namespace ChampionManager25.Datos
 
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
@@ -152,7 +152,7 @@ namespace ChampionManager25.Datos
 
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
@@ -201,7 +201,7 @@ namespace ChampionManager25.Datos
 
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
@@ -250,7 +250,7 @@ namespace ChampionManager25.Datos
 
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
@@ -293,7 +293,7 @@ namespace ChampionManager25.Datos
             EstadisticaHistorica estadisticaHistorica = new EstadisticaHistorica();
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
@@ -339,7 +339,7 @@ namespace ChampionManager25.Datos
             EstadisticaHistorica estadisticaHistorica = new EstadisticaHistorica();
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
@@ -385,7 +385,7 @@ namespace ChampionManager25.Datos
 
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
@@ -455,31 +455,31 @@ namespace ChampionManager25.Datos
 
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
                     
-                    string filtroCadena = "";
+                    string filtrocadena = "";
                     if (filtro == 1)
                     {
-                        filtroCadena = "e.goles"; 
+                        filtrocadena = "e.goles"; 
                     }
                     else if (filtro == 2)
                     {
-                        filtroCadena = "e.asistencias";
+                        filtrocadena = "e.asistencias";
                     }
                     else if (filtro == 3)
                     {
-                        filtroCadena = "e.tarjetasAmarillas";
+                        filtrocadena = "e.tarjetasAmarillas";
                     }
                     else if (filtro == 4)
                     {
-                        filtroCadena = "e.tarjetasRojas";
+                        filtrocadena = "e.tarjetasRojas";
                     }
                     else if (filtro == 5)
                     {
-                        filtroCadena = "e.mvp";
+                        filtrocadena = "e.mvp";
                     }
 
                     // Consulta
@@ -488,7 +488,7 @@ namespace ChampionManager25.Datos
                                      FROM jugadores j
                                      LEFT JOIN estadisticas_jugadores e ON j.id_jugador = e.id_jugador
                                      WHERE e.id_manager = @idManager
-                                     ORDER BY " + filtroCadena + " DESC " +
+                                     ORDER BY " + filtrocadena + " DESC " +
                                      "LIMIT 25";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
@@ -539,7 +539,7 @@ namespace ChampionManager25.Datos
 
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
@@ -594,7 +594,7 @@ namespace ChampionManager25.Datos
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
                     string query = @"UPDATE estadisticas_jugadores 
@@ -629,7 +629,7 @@ namespace ChampionManager25.Datos
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
                     string query = @"UPDATE estadisticas_jugadores

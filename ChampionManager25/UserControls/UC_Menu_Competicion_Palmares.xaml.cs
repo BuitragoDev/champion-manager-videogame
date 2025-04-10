@@ -24,6 +24,7 @@ namespace ChampionManager25.UserControls
         #region "Variables"
         private Manager _manager;
         private int _equipo;
+        List<Equipo> equipos = new List<Equipo>();
         #endregion
 
         // Instancias de la LOGICA
@@ -35,11 +36,16 @@ namespace ChampionManager25.UserControls
             InitializeComponent();
             _manager = manager;
             _equipo = equipo;
+            equipos = _logicaEquipos.ListarEquipos(0)
+                        .Concat(_logicaEquipos.ListarEquipos(1))
+                        .Concat(_logicaEquipos.ListarEquipos(2))
+                        .ToList();
             Metodos metodos = new Metodos();
         }
 
         private void palmares_Loaded(object sender, RoutedEventArgs e)
         {
+            ImagePathConverterPalmares.Equipos = equipos;
             ConfigurarDataGridPalmares();
             ConfigurarDataGridHistorial();
         }
@@ -55,34 +61,12 @@ namespace ChampionManager25.UserControls
             dgPalmares.ItemsSource = palmares;
 
             // Crear la columna de tipo DataGridTemplateColumn para el ESCUDO
-            DataGridTemplateColumn escudoColumna = new DataGridTemplateColumn
+            dgPalmares.Columns.Add(new DataGridTemplateColumn
             {
-                Header = "", // Título de la columna
-                Width = new DataGridLength(100, DataGridLengthUnitType.Pixel)
-            };
-
-            // Crear un DataTemplate para la celda de la columna
-            DataTemplate templateEscudo = new DataTemplate(typeof(Image));
-
-            // Crear un FrameworkElementFactory para la imagen
-            FrameworkElementFactory imageFactoryEscudo = new FrameworkElementFactory(typeof(Image));
-            imageFactoryEscudo.SetBinding(Image.SourceProperty, new Binding("IdEquipo")
-            {
-                Converter = new IdEquipoToEscudoConverter()
+                Header = "",
+                Width = new DataGridLength(100, DataGridLengthUnitType.Pixel),
+                CellTemplate = CrearPlantillaLogo()  // Pasamos los equipos
             });
-
-            imageFactoryEscudo.SetValue(Image.WidthProperty, 32.0);
-            imageFactoryEscudo.SetValue(Image.HeightProperty, 32.0);
-            imageFactoryEscudo.SetValue(Image.StretchProperty, Stretch.Uniform);
-
-            // Asignar el 'FrameworkElementFactory' al DataTemplate
-            templateEscudo.VisualTree = imageFactoryEscudo;
-
-            // Asignar el DataTemplate a la columna
-            escudoColumna.CellTemplate = templateEscudo;
-
-            // Finalmente, agregar la columna al DataGrid
-            dgPalmares.Columns.Add(escudoColumna);
 
             dgPalmares.Columns.Add(new DataGridTextColumn
             {
@@ -96,7 +80,7 @@ namespace ChampionManager25.UserControls
                         new Setter(HorizontalContentAlignmentProperty, HorizontalAlignment.Left), // Alineación a la izquierda
                         new Setter(BackgroundProperty, new SolidColorBrush((Color)ColorConverter.ConvertFromString("#9b8b5a"))), // Fondo
                         new Setter(ForegroundProperty, Brushes.Black), // Color de texto
-                        new Setter(FontFamilyProperty, new FontFamily("Arial Rounded MT Bold")) // Fuente
+                        new Setter(FontFamilyProperty, new FontFamily("Cascadia Code SemiBold")) // Fuente
                     }
                 },
                 ElementStyle = new Style(typeof(TextBlock))
@@ -192,34 +176,12 @@ namespace ChampionManager25.UserControls
             });
 
             // Crear la columna de tipo DataGridTemplateColumn para el ESCUDO
-            DataGridTemplateColumn escudoColumna = new DataGridTemplateColumn
+            dgHistorialFinales.Columns.Add(new DataGridTemplateColumn
             {
-                Header = "", // Título de la columna
-                Width = new DataGridLength(50, DataGridLengthUnitType.Pixel)
-            };
-
-            // Crear un DataTemplate para la celda de la columna
-            DataTemplate templateEscudo = new DataTemplate(typeof(Image));
-
-            // Crear un FrameworkElementFactory para la imagen
-            FrameworkElementFactory imageFactoryEscudo = new FrameworkElementFactory(typeof(Image));
-            imageFactoryEscudo.SetBinding(Image.SourceProperty, new Binding("IdEquipoCampeon")
-            {
-                Converter = new IdEquipoToEscudoConverter()
+                Header = "",
+                Width = new DataGridLength(50, DataGridLengthUnitType.Pixel),
+                CellTemplate = CrearPlantillaLogoCampeon() 
             });
-
-            imageFactoryEscudo.SetValue(Image.WidthProperty, 32.0);
-            imageFactoryEscudo.SetValue(Image.HeightProperty, 32.0);
-            imageFactoryEscudo.SetValue(Image.StretchProperty, Stretch.Uniform);
-
-            // Asignar el 'FrameworkElementFactory' al DataTemplate
-            templateEscudo.VisualTree = imageFactoryEscudo;
-
-            // Asignar el DataTemplate a la columna
-            escudoColumna.CellTemplate = templateEscudo;
-
-            // Finalmente, agregar la columna al DataGrid
-            dgHistorialFinales.Columns.Add(escudoColumna);
 
             dgHistorialFinales.Columns.Add(new DataGridTextColumn
             {
@@ -247,34 +209,12 @@ namespace ChampionManager25.UserControls
             });
 
             // Crear la columna de tipo DataGridTemplateColumn para el ESCUDO
-            DataGridTemplateColumn escudoFinalistaColumna = new DataGridTemplateColumn
+            dgHistorialFinales.Columns.Add(new DataGridTemplateColumn
             {
-                Header = "", // Título de la columna
-                Width = new DataGridLength(50, DataGridLengthUnitType.Pixel)
-            };
-
-            // Crear un DataTemplate para la celda de la columna
-            DataTemplate templateEscudoFinalista = new DataTemplate(typeof(Image));
-
-            // Crear un FrameworkElementFactory para la imagen
-            FrameworkElementFactory imageFactoryEscudoFinalista = new FrameworkElementFactory(typeof(Image));
-            imageFactoryEscudoFinalista.SetBinding(Image.SourceProperty, new Binding("IdEquipoFinalista")
-            {
-                Converter = new IdEquipoToEscudoConverter()
+                Header = "",
+                Width = new DataGridLength(50, DataGridLengthUnitType.Pixel),
+                CellTemplate = CrearPlantillaLogoFinalista()  // Pasamos los equipos
             });
-
-            imageFactoryEscudoFinalista.SetValue(Image.WidthProperty, 32.0);
-            imageFactoryEscudoFinalista.SetValue(Image.HeightProperty, 32.0);
-            imageFactoryEscudoFinalista.SetValue(Image.StretchProperty, Stretch.Uniform);
-
-            // Asignar el 'FrameworkElementFactory' al DataTemplate
-            templateEscudoFinalista.VisualTree = imageFactoryEscudoFinalista;
-
-            // Asignar el DataTemplate a la columna
-            escudoFinalistaColumna.CellTemplate = templateEscudoFinalista;
-
-            // Finalmente, agregar la columna al DataGrid
-            dgHistorialFinales.Columns.Add(escudoFinalistaColumna);
 
             dgHistorialFinales.Columns.Add(new DataGridTextColumn
             {
@@ -342,6 +282,63 @@ namespace ChampionManager25.UserControls
                     new Setter(DataGridCell.BorderThicknessProperty, new Thickness(0))
                 }
             };
+        }
+
+        private DataTemplate CrearPlantillaLogo()
+        {
+            // Crear la fábrica de elementos
+            FrameworkElementFactory imageFactory = new FrameworkElementFactory(typeof(Image));
+            imageFactory.SetValue(Image.WidthProperty, 32.0);
+            imageFactory.SetValue(Image.HeightProperty, 32.0);
+
+            // Usamos el convertidor sin parámetros
+            imageFactory.SetBinding(Image.SourceProperty, new System.Windows.Data.Binding("IdEquipo")
+            {
+                Converter = new ImagePathConverterPalmares()  // No necesitamos pasar la lista aquí
+            });
+
+            // Crear y devolver la plantilla
+            DataTemplate template = new DataTemplate();
+            template.VisualTree = imageFactory;
+            return template;
+        }
+
+        private DataTemplate CrearPlantillaLogoCampeon()
+        {
+            // Crear la fábrica de elementos
+            FrameworkElementFactory imageFactory = new FrameworkElementFactory(typeof(Image));
+            imageFactory.SetValue(Image.WidthProperty, 32.0);
+            imageFactory.SetValue(Image.HeightProperty, 32.0);
+
+            // Usamos el convertidor sin parámetros
+            imageFactory.SetBinding(Image.SourceProperty, new System.Windows.Data.Binding("IdEquipoCampeon")
+            {
+                Converter = new ImagePathConverterPalmares()  // No necesitamos pasar la lista aquí
+            });
+
+            // Crear y devolver la plantilla
+            DataTemplate template = new DataTemplate();
+            template.VisualTree = imageFactory;
+            return template;
+        }
+
+        private DataTemplate CrearPlantillaLogoFinalista()
+        {
+            // Crear la fábrica de elementos
+            FrameworkElementFactory imageFactory = new FrameworkElementFactory(typeof(Image));
+            imageFactory.SetValue(Image.WidthProperty, 32.0);
+            imageFactory.SetValue(Image.HeightProperty, 32.0);
+
+            // Usamos el convertidor sin parámetros
+            imageFactory.SetBinding(Image.SourceProperty, new System.Windows.Data.Binding("IdEquipoFinalista")
+            {
+                Converter = new ImagePathConverterPalmares()  // No necesitamos pasar la lista aquí
+            });
+
+            // Crear y devolver la plantilla
+            DataTemplate template = new DataTemplate();
+            template.VisualTree = imageFactory;
+            return template;
         }
         #endregion
     }

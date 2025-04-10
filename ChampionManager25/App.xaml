@@ -4,6 +4,42 @@
              xmlns:local="clr-namespace:ChampionManager25"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <!-- Estilo para los headers del DataGrid -->
+        <Style x:Key="DataGridColumnHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="Background" Value="#1d6a7d"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Cascadia Code SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="10,5"/>
+        </Style>
+
+        <!-- Estilo base para botones -->
+        <Style x:Key="EstiloBotonBase" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#1d6a7d"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Cascadia Code SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#0d4a5a"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Estilo para botón de eliminar (rojo) -->
+        <Style x:Key="EstiloBotonEliminar" TargetType="{x:Type Button}" BasedOn="{StaticResource EstiloBotonBase}">
+            <Setter Property="Background" Value="#d9534f"/>
+            <Setter Property="BorderBrush" Value="#a94442"/>
+        </Style>
     </Application.Resources>
 </Application>

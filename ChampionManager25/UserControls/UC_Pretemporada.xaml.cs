@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ChampionManager25.Datos;
 using ChampionManager25.Entidades;
 using ChampionManager25.Logica;
 using ChampionManager25.MisMetodos;
@@ -24,6 +25,7 @@ namespace ChampionManager25.UserControls
         private Manager _manager;
         private int _equipo;
         private List<int> _idsPartidos;
+        private readonly string _rutaPartida;
 
         private int numeroPartido = 1;
         #endregion
@@ -31,6 +33,7 @@ namespace ChampionManager25.UserControls
         // Instancias de la LOGICA
         EquipoLogica _logicaEquipo = new EquipoLogica();
         PartidoLogica _logicaPartido = new PartidoLogica();
+        CompeticionLogica _logicaCompeticion = new CompeticionLogica();
         Equipo miEquipo = null;
 
         // Las fechas a asignar
@@ -59,11 +62,12 @@ namespace ChampionManager25.UserControls
         // Lista con los ids de los partidos creados.
         private List<int> idsPartidos = new List<int>();
 
-        public UC_Pretemporada(Manager manager, int equipo)
+        public UC_Pretemporada(Manager manager, int equipo, string rutaPartida)
         {
             InitializeComponent();
             _manager = manager;
             _equipo = equipo;
+            _rutaPartida = rutaPartida;
 
             miEquipo = _logicaEquipo.ListarDetallesEquipo(_equipo);
         }
@@ -80,9 +84,11 @@ namespace ChampionManager25.UserControls
 
         private void pretemporada_Loaded(object sender, RoutedEventArgs e)
         {
+            string ruta_logo = _logicaCompeticion.ObtenerCompeticion(1).RutaImagen;
+            imgLiga1.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo));
+
             lblNombreMiEquipo.Text = "Rivales de pretemporada del " + miEquipo.Nombre.ToUpper();
-            string rutaImagenMiLogo = $"/Recursos/img/escudos_equipos/64x64/{miEquipo.IdEquipo}.png";
-            imgLogoMiEquipo.Source = new BitmapImage(new Uri(rutaImagenMiLogo, UriKind.Relative));
+            imgLogoMiEquipo.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + miEquipo.RutaImagen64));
 
             CargarEscudos(1, 1);
         }
@@ -402,9 +408,6 @@ namespace ChampionManager25.UserControls
             // Limpiar el WrapPanel antes de agregar elementos (opcional)
             wrapPanelEquipos.Children.Clear();
 
-            // Ruta base de las imágenes
-            string rutaBase = "/Recursos/img/escudos_equipos/64x64/";
-
             foreach (var equipo in oEquipos)
             {
                 if (equipo.IdEquipo != _equipo)
@@ -426,8 +429,7 @@ namespace ChampionManager25.UserControls
                     };
 
                     // Establecer el Source de la imagen
-                    string rutaImagen = $"{rutaBase}{equipo.IdEquipo}.png";
-                    imgEquipo.Source = new BitmapImage(new Uri(rutaImagen, UriKind.Relative));
+                    imgEquipo.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaImagen64));
 
                     // Asignar el ToolTip con el nombre del equipo
                     imgEquipo.ToolTip = equipo.Nombre; // Aquí asignas el nombre del equipo al ToolTip
@@ -468,8 +470,7 @@ namespace ChampionManager25.UserControls
                     txtTipo1.Text = "Amistoso";
 
                     //Logo
-                    string imagePath = $"/Recursos/img/escudos_equipos/64x64/{equipo.IdEquipo}.png";
-                    imgLogo1.Source = new BitmapImage(new Uri(imagePath, UriKind.Relative));
+                    imgLogo1.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaImagen64));
 
                     txtRival1.Text = equipo.Nombre; // Nombre del equipo rival
                     txtCancha1.Text = equipo.Estadio; // Información de la cancha
@@ -487,8 +488,7 @@ namespace ChampionManager25.UserControls
                     txtTipo2.Text = "Amistoso";
 
                     //Logo
-                    string imagePath = $"/Recursos/img/escudos_equipos/64x64/{equipo.IdEquipo}.png";
-                    imgLogo2.Source = new BitmapImage(new Uri(imagePath, UriKind.Relative));
+                    imgLogo2.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaImagen64));
 
                     txtRival2.Text = equipo.Nombre; // Nombre del equipo rival
                     txtCancha2.Text = equipo.Estadio; // Información de la cancha
@@ -506,8 +506,7 @@ namespace ChampionManager25.UserControls
                     txtTipo3.Text = "Amistoso";
 
                     //Logo
-                    string imagePath = $"/Recursos/img/escudos_equipos/64x64/{equipo.IdEquipo}.png";
-                    imgLogo3.Source = new BitmapImage(new Uri(imagePath, UriKind.Relative));
+                    imgLogo3.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaImagen64));
 
                     txtRival3.Text = equipo.Nombre; // Nombre del equipo rival
                     txtCancha3.Text = equipo.Estadio; // Información de la cancha
@@ -525,8 +524,7 @@ namespace ChampionManager25.UserControls
                     txtTipo4.Text = "Amistoso";
 
                     //Logo
-                    string imagePath = $"/Recursos/img/escudos_equipos/64x64/{equipo.IdEquipo}.png";
-                    imgLogo4.Source = new BitmapImage(new Uri(imagePath, UriKind.Relative));
+                    imgLogo4.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaImagen64));
 
                     txtRival4.Text = equipo.Nombre; // Nombre del equipo rival
                     txtCancha4.Text = equipo.Estadio; // Información de la cancha
@@ -544,8 +542,7 @@ namespace ChampionManager25.UserControls
                     txtTipo5.Text = "Presentación";
 
                     //Logo
-                    string imagePath = $"/Recursos/img/escudos_equipos/64x64/{equipo.IdEquipo}.png";
-                    imgLogo5.Source = new BitmapImage(new Uri(imagePath, UriKind.Relative));
+                    imgLogo5.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaImagen64));
 
                     txtRival5.Text = equipo.Nombre; // Nombre del equipo rival
                     txtCancha5.Text = miEquipo.Estadio; // Información de la cancha

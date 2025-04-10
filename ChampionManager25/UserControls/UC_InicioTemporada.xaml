@@ -129,7 +129,7 @@
                         </Grid.RowDefinitions>
 
                         <Image x:Name="imgLiga1" Grid.Column="0" Grid.Row="0" Width="80" Height="80" Stretch="Uniform" VerticalAlignment="Center" 
-                               HorizontalAlignment="Center" Margin="10" Source="/Recursos/img/logos_competiciones/80x80/1.png" />
+                               HorizontalAlignment="Center" Margin="10" />
                     </Grid>
                 </Border>
             </Grid>

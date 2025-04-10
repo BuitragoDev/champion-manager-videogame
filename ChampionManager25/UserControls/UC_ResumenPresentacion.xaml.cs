@@ -27,6 +27,7 @@ namespace ChampionManager25.UserControls
         private int _puntosDirectiva;
         private int _puntosFans;
         private int _puntosJugadores;
+        private readonly string _rutaPartida;
         #endregion
 
         // Instancias de la LOGICA
@@ -39,7 +40,7 @@ namespace ChampionManager25.UserControls
         EstadisticasLogica _logicaEstadistica = new EstadisticasLogica();
         HistorialLogica _logicaHistorial = new HistorialLogica();
 
-        public UC_ResumenPresentacion(Manager manager, int equipo, int directiva, int fans, int jugadores)
+        public UC_ResumenPresentacion(Manager manager, int equipo, int directiva, int fans, int jugadores, string rutaPartida)
         {
             InitializeComponent();
             _manager = manager;
@@ -47,6 +48,7 @@ namespace ChampionManager25.UserControls
             _puntosDirectiva = directiva;
             _puntosFans = fans;
             _puntosJugadores = jugadores;
+            _rutaPartida = rutaPartida;
         }
 
         private void resumenRuedaPrensa_Loaded(object sender, RoutedEventArgs e)

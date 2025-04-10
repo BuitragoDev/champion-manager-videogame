@@ -26,12 +26,12 @@ namespace ChampionManager25.Datos
 
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
                     // Consulta para obtener todos los jugadores del equipo con el id_equipo proporcionado
-                    string query = @"SELECT id_jugador, nombre, apellido, rol_id, velocidad, resistencia, agresividad, calidad, estado_forma, moral
+                    string query = @"SELECT id_jugador, nombre, apellido, rol_id, velocidad, resistencia, agresividad, calidad, estado_forma, moral, ruta_imagen
                                      FROM jugadores
                                      WHERE id_equipo = @idEquipo";
 
@@ -65,6 +65,7 @@ namespace ChampionManager25.Datos
                                     idJugadorMaximo = reader.GetInt32(reader.GetOrdinal("id_jugador"));
                                     string nombre = reader.GetString(reader.GetOrdinal("nombre"));
                                     string apellido = reader.GetString(reader.GetOrdinal("apellido"));
+                                    string rutaImagen = reader.GetString(reader.GetOrdinal("ruta_imagen"));
 
                                     // Crear un nuevo objeto Jugador con los datos del jugador con mayor media
                                     oJugador = new Jugador
@@ -78,6 +79,7 @@ namespace ChampionManager25.Datos
                                         Calidad = calidad,
                                         EstadoForma = estado_forma,
                                         Moral = moral,
+                                        RutaImagen = rutaImagen
                                     };
                                 }
                             }
@@ -101,7 +103,7 @@ namespace ChampionManager25.Datos
 
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
@@ -149,7 +151,8 @@ namespace ChampionManager25.Datos
                                     Nacionalidad = dr.GetString(dr.GetOrdinal("nacionalidad")),
                                     Status = dr.GetInt32(dr.GetOrdinal("status")),
                                     Sancionado = dr.GetInt32(dr.GetOrdinal("sancionado")),
-                                    Entrenamiento = dr.GetInt32(dr.GetOrdinal("entrenamiento"))
+                                    Entrenamiento = dr.GetInt32(dr.GetOrdinal("entrenamiento")),
+                                    RutaImagen = dr.GetString(dr.GetOrdinal("ruta_imagen"))
                                 };
 
                                 // Agregar el jugador a la lista
@@ -173,7 +176,7 @@ namespace ChampionManager25.Datos
         {
             double media = 0;
 
-            using (SQLiteConnection conn = new SQLiteConnection(cadena))
+            using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
             {
                 conn.Open();
 
@@ -219,7 +222,7 @@ namespace ChampionManager25.Datos
         {
             int num = 0;
 
-            using (SQLiteConnection conn = new SQLiteConnection(cadena))
+            using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
             {
                 conn.Open();
 
@@ -247,7 +250,7 @@ namespace ChampionManager25.Datos
 
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
@@ -293,7 +296,8 @@ namespace ChampionManager25.Datos
                                     Tiro = dr.GetInt32(dr.GetOrdinal("tiro")),
                                     Lesion = dr.GetInt32(dr.GetOrdinal("lesion")),
                                     IdEquipo = dr.GetInt32(dr.GetOrdinal("id_equipo")),
-                                    Status = dr.GetInt32(dr.GetOrdinal("status"))
+                                    Status = dr.GetInt32(dr.GetOrdinal("status")),
+                                    RutaImagen = dr.GetString(dr.GetOrdinal("ruta_imagen"))
                                 };
                             }
                         }
@@ -309,12 +313,82 @@ namespace ChampionManager25.Datos
             return jugador;
         }
 
+        // ======================================================= Método para mostrar todos los jugadores de la base de datos
+        public List<Jugador> MostrarListaTotalJugadores()
+        {
+            List<Jugador> lista = new List<Jugador>();
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Consulta para obtener todos los jugadores del equipo con el id_equipo proporcionado
+                    string query = @"SELECT * FROM jugadores";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        using (SQLiteDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                // Crear un objeto Jugador y asignar los valores de la base de datos
+                                Jugador jugador = new Jugador
+                                {
+                                    IdJugador = dr.GetInt32(dr.GetOrdinal("id_jugador")),
+                                    Nombre = dr.GetString(dr.GetOrdinal("nombre")),
+                                    Apellido = dr.GetString(dr.GetOrdinal("apellido")),
+                                    IdEquipo = dr.GetInt32(dr.GetOrdinal("id_equipo")),
+                                    Dorsal = dr.GetInt32(dr.GetOrdinal("dorsal")),
+                                    Rol = dr.GetString(dr.GetOrdinal("rol")),
+                                    RolId = dr.GetInt32(dr.GetOrdinal("rol_id")),
+                                    Velocidad = dr.GetInt32(dr.GetOrdinal("velocidad")),
+                                    Resistencia = dr.GetInt32(dr.GetOrdinal("resistencia")),
+                                    Agresividad = dr.GetInt32(dr.GetOrdinal("agresividad")),
+                                    Calidad = dr.GetInt32(dr.GetOrdinal("calidad")),
+                                    EstadoForma = dr.GetInt32(dr.GetOrdinal("estado_forma")),
+                                    Moral = dr.GetInt32(dr.GetOrdinal("moral")),
+                                    Potencial = dr.GetInt32(dr.GetOrdinal("potencial")),
+                                    Portero = dr.GetInt32(dr.GetOrdinal("portero")),
+                                    Pase = dr.GetInt32(dr.GetOrdinal("pase")),
+                                    Regate = dr.GetInt32(dr.GetOrdinal("regate")),
+                                    Remate = dr.GetInt32(dr.GetOrdinal("remate")),
+                                    Entradas = dr.GetInt32(dr.GetOrdinal("entradas")),
+                                    Tiro = dr.GetInt32(dr.GetOrdinal("tiro")),
+                                    FechaNacimiento = DateTime.Parse(dr.GetString(dr.GetOrdinal("fecha_nacimiento"))),
+                                    Peso = dr.GetInt32(dr.GetOrdinal("peso")),
+                                    Altura = dr.GetInt32(dr.GetOrdinal("altura")),
+                                    Lesion = dr.GetInt32(dr.GetOrdinal("lesion")),
+                                    Nacionalidad = dr.GetString(dr.GetOrdinal("nacionalidad")),
+                                    Status = dr.GetInt32(dr.GetOrdinal("status")),
+                                    Sancionado = dr.GetInt32(dr.GetOrdinal("sancionado")),
+                                    Entrenamiento = dr.GetInt32(dr.GetOrdinal("entrenamiento")),
+                                    RutaImagen = dr.GetString(dr.GetOrdinal("ruta_imagen"))
+                                };
+
+                                // Agregar el jugador a la lista
+                                lista.Add(jugador);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                // En caso de error, mostrar el mensaje con la excepción
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return lista;
+        }
+
         // ===================================================================== Método que renueva el status de un jugador
         public void RenovarStatusJugador(int jugador, int rol)
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
@@ -343,7 +417,7 @@ namespace ChampionManager25.Datos
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
@@ -372,7 +446,7 @@ namespace ChampionManager25.Datos
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
                     string query = "";
@@ -860,7 +934,7 @@ namespace ChampionManager25.Datos
 
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
@@ -909,7 +983,8 @@ namespace ChampionManager25.Datos
                                     Lesion = dr.GetInt32(dr.GetOrdinal("lesion")),
                                     Nacionalidad = dr.GetString(dr.GetOrdinal("nacionalidad")),
                                     Status = dr.GetInt32(dr.GetOrdinal("status")),
-                                    PosicionAlineacion = dr.GetInt32(dr.GetOrdinal("posicion"))
+                                    PosicionAlineacion = dr.GetInt32(dr.GetOrdinal("posicion")),
+                                    RutaImagen = dr.GetString(dr.GetOrdinal("ruta_imagen"))
                                 };
 
                                 // Agregar el jugador a la lista
@@ -933,7 +1008,7 @@ namespace ChampionManager25.Datos
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
                     using (SQLiteTransaction transaction = conn.BeginTransaction())
@@ -985,7 +1060,7 @@ namespace ChampionManager25.Datos
         {
             int num = 0;
 
-            using (SQLiteConnection conn = new SQLiteConnection(cadena))
+            using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
             {
                 conn.Open();
 
@@ -1013,7 +1088,7 @@ namespace ChampionManager25.Datos
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
@@ -1044,7 +1119,7 @@ namespace ChampionManager25.Datos
 
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
@@ -1090,7 +1165,8 @@ namespace ChampionManager25.Datos
                                     Altura = dr.GetInt32(dr.GetOrdinal("altura")),
                                     Lesion = dr.GetInt32(dr.GetOrdinal("lesion")),
                                     Nacionalidad = dr.GetString(dr.GetOrdinal("nacionalidad")),
-                                    Status = dr.GetInt32(dr.GetOrdinal("status"))
+                                    Status = dr.GetInt32(dr.GetOrdinal("status")),
+                                    RutaImagen = dr.GetString(dr.GetOrdinal("ruta_imagen"))
                                 };
 
                                 // Agregar el jugador a la lista
@@ -1116,7 +1192,7 @@ namespace ChampionManager25.Datos
 
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
@@ -1174,7 +1250,8 @@ namespace ChampionManager25.Datos
                                     Peso = dr.GetInt32(dr.GetOrdinal("peso")),
                                     Altura = dr.GetInt32(dr.GetOrdinal("altura")),
                                     Nacionalidad = dr.GetString(dr.GetOrdinal("nacionalidad")),
-                                    Status = dr.GetInt32(dr.GetOrdinal("status"))
+                                    Status = dr.GetInt32(dr.GetOrdinal("status")),
+                                    RutaImagen = dr.GetString(dr.GetOrdinal("ruta_imagen"))
                                 };
 
                                 lista.Add(jugador);
@@ -1202,7 +1279,7 @@ namespace ChampionManager25.Datos
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
@@ -1231,7 +1308,7 @@ namespace ChampionManager25.Datos
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
@@ -1258,7 +1335,7 @@ namespace ChampionManager25.Datos
         // ===================================================================== Método para decir si un jugador pertenece a mi equipo
         public bool EsDeMiEquipo(int jugador, int equipo)
         {
-            using (SQLiteConnection conn = new SQLiteConnection(cadena))
+            using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
             {
                 conn.Open();
 
@@ -1280,7 +1357,7 @@ namespace ChampionManager25.Datos
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
@@ -1312,7 +1389,7 @@ namespace ChampionManager25.Datos
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
@@ -1351,7 +1428,7 @@ namespace ChampionManager25.Datos
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
@@ -1387,7 +1464,7 @@ namespace ChampionManager25.Datos
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ChampionManager25.Datos;
 using ChampionManager25.Entidades;
 using ChampionManager25.Logica;
 
@@ -25,6 +26,7 @@ namespace ChampionManager25.UserControls
 
         // Instancias de la LOGICA
         JugadorLogica _logicaJugador = new JugadorLogica();
+        EquipoLogica _logicaEquipo = new EquipoLogica();
 
         public UC_InformacionEquipo(Equipo eqp)
         {
@@ -35,22 +37,15 @@ namespace ChampionManager25.UserControls
         private void informacionEquipo_Loaded(object sender, RoutedEventArgs e)
         {
             // Imagen del Escudo
-            string escudoPath = $"/Recursos/img/escudos_equipos/{equipo.IdEquipo}.png";
-            BitmapImage bitmapEscudo = new BitmapImage(new Uri(escudoPath, UriKind.Relative));
-            imgEscudo.Source = bitmapEscudo;
+            imgEscudo.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaImagen));
 
             // Imágenes de los Equipos Rivales
-            string rival1Path = $"/Recursos/img/escudos_equipos/120x120/{equipo.Rival}.png";
-            BitmapImage bitmapImage1 = new BitmapImage(new Uri(rival1Path, UriKind.Relative));
-            imgRival.Source = bitmapImage1;
+            string rutaEscudoRival = _logicaEquipo.ListarDetallesEquipo(equipo.Rival).RutaImagen120; // Obtener ruta escudo equipo rival
+            imgRival.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + rutaEscudoRival));
 
             // Detalles de la Estrella del equipo
             Jugador estrella = _logicaJugador.MejorJugador(equipo.IdEquipo);
-
-            string caraPath = $"/Recursos/img/jugadores/{estrella.IdJugador}.png";
-            BitmapImage bitmapImageJugador = new BitmapImage(new Uri(caraPath, UriKind.Relative));
-            imgCaraJugador.Source = bitmapImageJugador;
-
+            imgCaraJugador.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + estrella.RutaImagen));
             lblMejorJugador.Text = estrella.Nombre + " " + estrella.Apellido;
 
             // Calcular la media si el jugador no es null
@@ -70,9 +65,7 @@ namespace ChampionManager25.UserControls
             // Datos del Club (Estadio)
             lblEstadio.Text = equipo.Estadio;
             lblAforo.Text = equipo.Aforo.ToString("N0") + " asientos";
-            string estadioPath = $"/Recursos/img/estadios/{equipo.IdEquipo}exterior.png";
-            BitmapImage bitmapEstadio = new BitmapImage(new Uri(estadioPath, UriKind.Relative));
-            imgEstadio.Source = bitmapEstadio;
+            imgEstadio.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaEstadioExterior));
 
             // Datos del Club (Club)
             lblNombreClub.Text = equipo.Nombre;
@@ -84,12 +77,8 @@ namespace ChampionManager25.UserControls
             MostrarEstrellas(reputacion);
 
             // Imágenes de las equipaciones
-            string camiseta1Path = $"/Recursos/img/kits/{equipo.IdEquipo}local.png";
-            string camiseta2Path = $"/Recursos/img/kits/{equipo.IdEquipo}visitante.png";
-            BitmapImage bitmapCamiseta1 = new BitmapImage(new Uri(camiseta1Path, UriKind.Relative));
-            BitmapImage bitmapCamiseta2 = new BitmapImage(new Uri(camiseta2Path, UriKind.Relative));
-            imgCamisetaLocal.Source = bitmapCamiseta1;
-            imgCamisetaVisitante.Source = bitmapCamiseta2;
+            imgCamisetaLocal.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaKitLocal));
+            imgCamisetaVisitante.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaKitVisitante));
         }
 
         #region "Métodos"

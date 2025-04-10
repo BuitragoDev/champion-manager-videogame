@@ -242,6 +242,12 @@
     <None Remove="Recursos\img\demarcaciones\p9.png" />
     <None Remove="Recursos\img\editorJuego.png" />
     <None Remove="Recursos\img\editorJuegoHover.png" />
+    <None Remove="Recursos\img\editor_competicion.png" />
+    <None Remove="Recursos\img\editor_competicion_hover.png" />
+    <None Remove="Recursos\img\editor_equipos.png" />
+    <None Remove="Recursos\img\editor_equipos_hover.png" />
+    <None Remove="Recursos\img\editor_jugadores.png" />
+    <None Remove="Recursos\img\editor_jugadores_hover.png" />
     <None Remove="Recursos\img\entradas.png" />
     <None Remove="Recursos\img\entrenadores\1.png" />
     <None Remove="Recursos\img\entrenadores\10.png" />
@@ -281,11 +287,27 @@
     <None Remove="Recursos\img\entrenadores\9.png" />
     <None Remove="Recursos\img\escudos_equipos\1.png" />
     <None Remove="Recursos\img\escudos_equipos\10.png" />
+    <None Remove="Recursos\img\escudos_equipos\103.png" />
+    <None Remove="Recursos\img\escudos_equipos\104.png" />
+    <None Remove="Recursos\img\escudos_equipos\105.png" />
+    <None Remove="Recursos\img\escudos_equipos\106.png" />
+    <None Remove="Recursos\img\escudos_equipos\108.png" />
+    <None Remove="Recursos\img\escudos_equipos\109.png" />
     <None Remove="Recursos\img\escudos_equipos\11.png" />
+    <None Remove="Recursos\img\escudos_equipos\114.png" />
+    <None Remove="Recursos\img\escudos_equipos\119.png" />
     <None Remove="Recursos\img\escudos_equipos\12.png" />
     <None Remove="Recursos\img\escudos_equipos\120x120\1.png" />
     <None Remove="Recursos\img\escudos_equipos\120x120\10.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\103.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\104.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\105.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\106.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\108.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\109.png" />
     <None Remove="Recursos\img\escudos_equipos\120x120\11.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\114.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\119.png" />
     <None Remove="Recursos\img\escudos_equipos\120x120\12.png" />
     <None Remove="Recursos\img\escudos_equipos\120x120\13.png" />
     <None Remove="Recursos\img\escudos_equipos\120x120\14.png" />
@@ -313,6 +335,8 @@
     <None Remove="Recursos\img\escudos_equipos\120x120\34.png" />
     <None Remove="Recursos\img\escudos_equipos\120x120\35.png" />
     <None Remove="Recursos\img\escudos_equipos\120x120\36.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\37.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\38.png" />
     <None Remove="Recursos\img\escudos_equipos\120x120\4.png" />
     <None Remove="Recursos\img\escudos_equipos\120x120\5.png" />
     <None Remove="Recursos\img\escudos_equipos\120x120\6.png" />
@@ -392,6 +416,8 @@
     <None Remove="Recursos\img\escudos_equipos\32x32\34.png" />
     <None Remove="Recursos\img\escudos_equipos\32x32\35.png" />
     <None Remove="Recursos\img\escudos_equipos\32x32\36.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\37.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\38.png" />
     <None Remove="Recursos\img\escudos_equipos\32x32\4.png" />
     <None Remove="Recursos\img\escudos_equipos\32x32\5.png" />
     <None Remove="Recursos\img\escudos_equipos\32x32\6.png" />
@@ -402,12 +428,22 @@
     <None Remove="Recursos\img\escudos_equipos\34.png" />
     <None Remove="Recursos\img\escudos_equipos\35.png" />
     <None Remove="Recursos\img\escudos_equipos\36.png" />
+    <None Remove="Recursos\img\escudos_equipos\37.png" />
+    <None Remove="Recursos\img\escudos_equipos\38.png" />
     <None Remove="Recursos\img\escudos_equipos\4.png" />
     <None Remove="Recursos\img\escudos_equipos\5.png" />
     <None Remove="Recursos\img\escudos_equipos\6.png" />
     <None Remove="Recursos\img\escudos_equipos\64x64\1.png" />
     <None Remove="Recursos\img\escudos_equipos\64x64\10.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\103.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\104.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\105.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\106.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\108.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\109.png" />
     <None Remove="Recursos\img\escudos_equipos\64x64\11.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\114.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\119.png" />
     <None Remove="Recursos\img\escudos_equipos\64x64\12.png" />
     <None Remove="Recursos\img\escudos_equipos\64x64\13.png" />
     <None Remove="Recursos\img\escudos_equipos\64x64\14.png" />
@@ -435,6 +471,8 @@
     <None Remove="Recursos\img\escudos_equipos\64x64\34.png" />
     <None Remove="Recursos\img\escudos_equipos\64x64\35.png" />
     <None Remove="Recursos\img\escudos_equipos\64x64\36.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\37.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\38.png" />
     <None Remove="Recursos\img\escudos_equipos\64x64\4.png" />
     <None Remove="Recursos\img\escudos_equipos\64x64\5.png" />
     <None Remove="Recursos\img\escudos_equipos\64x64\6.png" />
@@ -445,7 +483,15 @@
     <None Remove="Recursos\img\escudos_equipos\8.png" />
     <None Remove="Recursos\img\escudos_equipos\80x80\1.png" />
     <None Remove="Recursos\img\escudos_equipos\80x80\10.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\103.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\104.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\105.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\106.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\108.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\109.png" />
     <None Remove="Recursos\img\escudos_equipos\80x80\11.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\114.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\119.png" />
     <None Remove="Recursos\img\escudos_equipos\80x80\12.png" />
     <None Remove="Recursos\img\escudos_equipos\80x80\13.png" />
     <None Remove="Recursos\img\escudos_equipos\80x80\14.png" />
@@ -473,6 +519,8 @@
     <None Remove="Recursos\img\escudos_equipos\80x80\34.png" />
     <None Remove="Recursos\img\escudos_equipos\80x80\35.png" />
     <None Remove="Recursos\img\escudos_equipos\80x80\36.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\37.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\38.png" />
     <None Remove="Recursos\img\escudos_equipos\80x80\4.png" />
     <None Remove="Recursos\img\escudos_equipos\80x80\5.png" />
     <None Remove="Recursos\img\escudos_equipos\80x80\6.png" />
@@ -2354,6 +2402,24 @@
     <Content Include="Recursos\img\editorJuegoHover.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\editor_competicion.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\editor_competicion_hover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\editor_equipos.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\editor_equipos_hover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\editor_jugadores.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\editor_jugadores_hover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\entradas.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -2471,7 +2537,31 @@
     <Content Include="Recursos\img\escudos_equipos\10.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\escudos_equipos\103.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\104.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\105.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\106.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\108.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\109.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\escudos_equipos\11.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\114.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\119.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\escudos_equipos\12.png">
@@ -2483,7 +2573,31 @@
     <Content Include="Recursos\img\escudos_equipos\120x120\10.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\103.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\104.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\105.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\106.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\108.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\109.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\escudos_equipos\120x120\11.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\114.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\119.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\escudos_equipos\120x120\12.png">
@@ -2565,6 +2679,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\escudos_equipos\120x120\36.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\37.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\38.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\escudos_equipos\120x120\4.png">
@@ -2804,6 +2924,12 @@
     <Content Include="Recursos\img\escudos_equipos\32x32\36.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\37.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\38.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\escudos_equipos\32x32\4.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -2834,6 +2960,12 @@
     <Content Include="Recursos\img\escudos_equipos\36.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\escudos_equipos\37.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\38.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\escudos_equipos\4.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -2849,7 +2981,31 @@
     <Content Include="Recursos\img\escudos_equipos\64x64\10.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\103.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\104.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\105.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\106.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\108.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\109.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\escudos_equipos\64x64\11.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\114.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\119.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\escudos_equipos\64x64\12.png">
@@ -2933,6 +3089,12 @@
     <Content Include="Recursos\img\escudos_equipos\64x64\36.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\37.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\38.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\escudos_equipos\64x64\4.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -2963,7 +3125,31 @@
     <Content Include="Recursos\img\escudos_equipos\80x80\10.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\103.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\104.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\105.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\106.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\108.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\109.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\escudos_equipos\80x80\11.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\114.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\119.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\escudos_equipos\80x80\12.png">
@@ -3045,6 +3231,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\escudos_equipos\80x80\36.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\37.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\38.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\escudos_equipos\80x80\4.png">

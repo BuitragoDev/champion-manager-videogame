@@ -25,6 +25,8 @@ namespace ChampionManager25.UserControls
         public UC_Portada()
         {
             InitializeComponent();
+            // Copiar recursos en Mis Documentos/ChampionsManager
+            GestorPartidas.CopiarRecursosSiNoExiste();
         }
 
         // ---------------------------------------------------------------------------- EVENTOS DEL BOTON JUGAR CAMPEONATO
@@ -75,6 +77,10 @@ namespace ChampionManager25.UserControls
         private void imgEditorJuego_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Metodos.ReproducirSonidoTransicion();
+
+            // Notificar a MainWindow para cargar el nuevo UserControl
+            var mainWindow = (MainWindow)Application.Current.MainWindow;
+            mainWindow.CargarEditorHome();
         }
 
         private void imgEditorJuego_MouseEnter(object sender, MouseEventArgs e)

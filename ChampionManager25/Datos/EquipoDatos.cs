@@ -20,7 +20,7 @@ namespace ChampionManager25.Datos
 
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
                     string query = @"SELECT 
@@ -35,7 +35,10 @@ namespace ChampionManager25.Datos
                     e.reputacion,
                     e.rival,
                     t.nombre || ' ' || t.apellido AS entrenador,
-                    t.reputacion AS reputacion_entrenador
+                    t.reputacion AS reputacion_entrenador,
+                    e.ruta_imagen, e.ruta_imagen120, e.ruta_imagen80, e.ruta_imagen64, e.ruta_imagen32, 
+                    e.ruta_estadio_interior, e.ruta_estadio_exterior, 
+                    e.ruta_kit_local, e.ruta_kit_visitante
                 FROM 
                     equipos e
                 LEFT JOIN 
@@ -67,7 +70,16 @@ namespace ChampionManager25.Datos
                                     Objetivo = dr["objetivo"]?.ToString() ?? string.Empty,
                                     Rival = int.TryParse(dr["rival"]?.ToString(), out int rival) ? rival : 0,
                                     Entrenador = dr["entrenador"] as string ?? "Sin asignar",
-                                    ReputacionEntrenador = dr["reputacion_entrenador"] != DBNull.Value ? Convert.ToInt32(dr["reputacion_entrenador"]) : 0
+                                    ReputacionEntrenador = dr["reputacion_entrenador"] != DBNull.Value ? Convert.ToInt32(dr["reputacion_entrenador"]) : 0,
+                                    RutaImagen = dr["ruta_imagen"]?.ToString() ?? string.Empty,
+                                    RutaImagen120 = dr["ruta_imagen120"]?.ToString() ?? string.Empty,
+                                    RutaImagen80 = dr["ruta_imagen80"]?.ToString() ?? string.Empty,
+                                    RutaImagen64 = dr["ruta_imagen64"]?.ToString() ?? string.Empty,
+                                    RutaImagen32 = dr["ruta_imagen32"]?.ToString() ?? string.Empty,
+                                    RutaEstadioInterior = dr["ruta_estadio_interior"]?.ToString() ?? string.Empty,
+                                    RutaEstadioExterior = dr["ruta_estadio_exterior"]?.ToString() ?? string.Empty,
+                                    RutaKitLocal = dr["ruta_kit_local"]?.ToString() ?? string.Empty,
+                                    RutaKitVisitante = dr["ruta_kit_visitante"]?.ToString() ?? string.Empty
                                 });
                             }
                         }
@@ -89,11 +101,13 @@ namespace ChampionManager25.Datos
 
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
-                    string query = @"SELECT id_equipo, nombre, nombre_corto, presidente, ciudad, estadio, aforo, reputacion, objetivo, rival, id_competicion
-                                 FROM equipos WHERE id_equipo = @idEquipo";
+                    string query = @"SELECT id_equipo, nombre, nombre_corto, presidente, ciudad, estadio, aforo, reputacion, objetivo, rival, id_competicion,
+                                            ruta_imagen, ruta_imagen120, ruta_imagen80, ruta_imagen64, ruta_imagen32, 
+                                            ruta_estadio_interior, ruta_estadio_exterior, ruta_kit_local, ruta_kit_visitante
+                                     FROM equipos WHERE id_equipo = @idEquipo";
 
                     SQLiteCommand cmd = new SQLiteCommand(query, conn);
                     cmd.Parameters.AddWithValue("@idEquipo", id);
@@ -115,7 +129,16 @@ namespace ChampionManager25.Datos
                                 Reputacion = int.TryParse(dr["reputacion"]?.ToString(), out int reputacion) ? reputacion : 0,
                                 Objetivo = dr["objetivo"]?.ToString() ?? string.Empty,
                                 Rival = int.TryParse(dr["rival"]?.ToString(), out int rival) ? rival : 0,
-                                IdCompeticion = dr["id_competicion"] != DBNull.Value ? Convert.ToInt32(dr["id_competicion"]) : 0
+                                IdCompeticion = dr["id_competicion"] != DBNull.Value ? Convert.ToInt32(dr["id_competicion"]) : 0,
+                                RutaImagen = dr["ruta_imagen"]?.ToString() ?? string.Empty,
+                                RutaImagen120 = dr["ruta_imagen120"]?.ToString() ?? string.Empty,
+                                RutaImagen80 = dr["ruta_imagen80"]?.ToString() ?? string.Empty,
+                                RutaImagen64 = dr["ruta_imagen64"]?.ToString() ?? string.Empty,
+                                RutaImagen32 = dr["ruta_imagen32"]?.ToString() ?? string.Empty,
+                                RutaEstadioInterior = dr["ruta_estadio_interior"]?.ToString() ?? string.Empty,
+                                RutaEstadioExterior = dr["ruta_estadio_exterior"]?.ToString() ?? string.Empty,
+                                RutaKitLocal = dr["ruta_kit_local"]?.ToString() ?? string.Empty,
+                                RutaKitVisitante = dr["ruta_kit_visitante"]?.ToString() ?? string.Empty
                             };
                         }
                     }
@@ -135,27 +158,18 @@ namespace ChampionManager25.Datos
 
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
                     // Consulta con JOIN para obtener datos de entrenadores
-                    string query = @"
-                SELECT 
-                    id_equipo,
-                    nombre,
-                    nombre_corto,
-                    presidente,
-                    ciudad,
-                    estadio,
-                    objetivo,
-                    aforo,
-                    reputacion,
-                    rival,
-                FROM 
-                    equipos
-                WHERE 
-                    id_competicion = @IdCompeticion";
+                    string query = @"SELECT id_equipo, nombre, nombre_corto, presidente, ciudad, estadio, objetivo,
+                                            aforo, reputacion, rival, ruta_imagen, ruta_imagen120, ruta_imagen80, ruta_imagen64, 
+                                            ruta_imagen32, ruta_estadio_interior, ruta_estadio_exterior, ruta_kit_local, ruta_kit_visitante
+                                     FROM 
+                                        equipos
+                                     WHERE 
+                                        id_competicion = @IdCompeticion";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                     {
@@ -172,14 +186,24 @@ namespace ChampionManager25.Datos
                                     NombreCorto = dr["nombre_corto"] as string ?? string.Empty,
                                     Presidente = dr["presidente"] as string ?? string.Empty,
                                     Ciudad = dr["ciudad"] as string ?? string.Empty,
-                                    Estadio = dr["pabellon"] as string ?? string.Empty,
+                                    Estadio = dr["estadio"] as string ?? string.Empty,
                                     Objetivo = dr["objetivo"] as string ?? string.Empty,
-                                    Aforo = dr["capacidad"] != DBNull.Value ? Convert.ToInt32(dr["capacidad"]) : 0,
+                                    Aforo = dr["aforo"] != DBNull.Value ? Convert.ToInt32(dr["aforo"]) : 0,
                                     Reputacion = dr["reputacion"] != DBNull.Value ? Convert.ToInt32(dr["reputacion"]) : 0,
                                     Rival = dr["rival"] != DBNull.Value ? Convert.ToInt32(dr["rival"]) : 0,
+                                    RutaImagen = dr["ruta_imagen"]?.ToString() ?? string.Empty,
+                                    RutaImagen120 = dr["ruta_imagen120"]?.ToString() ?? string.Empty,
+                                    RutaImagen80 = dr["ruta_imagen80"]?.ToString() ?? string.Empty,
+                                    RutaImagen64 = dr["ruta_imagen64"]?.ToString() ?? string.Empty,
+                                    RutaImagen32 = dr["ruta_imagen32"]?.ToString() ?? string.Empty,
+                                    RutaEstadioInterior = dr["ruta_estadio_interior"]?.ToString() ?? string.Empty,
+                                    RutaEstadioExterior = dr["ruta_estadio_exterior"]?.ToString() ?? string.Empty,
+                                    RutaKitLocal = dr["ruta_kit_local"]?.ToString() ?? string.Empty,
+                                    RutaKitVisitante = dr["ruta_kit_visitante"]?.ToString() ?? string.Empty
                                 });
                             }
                         }
+
                     }
                 }
             }
@@ -196,7 +220,7 @@ namespace ChampionManager25.Datos
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 

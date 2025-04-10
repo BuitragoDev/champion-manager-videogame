@@ -1,4 +1,5 @@
-﻿using ChampionManager25.Entidades;
+﻿using ChampionManager25.Datos;
+using ChampionManager25.Entidades;
 using ChampionManager25.Logica;
 using ChampionManager25.MisMetodos;
 using System;
@@ -25,6 +26,7 @@ namespace ChampionManager25.UserControls
         #region "Variables"
         private Manager _manager;
         private int _equipo;
+        Equipo equipo;
 
         private int jornadaActual = 1;
         private const int jornadaMin = 1;
@@ -116,9 +118,10 @@ namespace ChampionManager25.UserControls
                 partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50) });  // Goles visitante
 
                 // Escudo equipo local
+                equipo = _logicaEquipo.ListarDetallesEquipo(partido.IdEquipoLocal);
                 Image imgLocal = new Image
                 {
-                    Source = new BitmapImage(new Uri($"/Recursos/img/escudos_equipos/32x32/{partido.IdEquipoLocal}.png", UriKind.Relative)),
+                    Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaImagen32)),
                     Width = 32,
                     Height = 32,
                     VerticalAlignment = VerticalAlignment.Center,
@@ -155,9 +158,10 @@ namespace ChampionManager25.UserControls
                 partidoGrid.Children.Add(txtGolesLocal);
 
                 // Escudo equipo visitante
+                equipo = _logicaEquipo.ListarDetallesEquipo(partido.IdEquipoVisitante);
                 Image imgVisitante = new Image
                 {
-                    Source = new BitmapImage(new Uri($"/Recursos/img/escudos_equipos/32x32/{partido.IdEquipoVisitante}.png", UriKind.Relative)),
+                    Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaImagen32)),
                     Width = 32,
                     Height = 32,
                     VerticalAlignment = VerticalAlignment.Center,

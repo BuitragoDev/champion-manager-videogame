@@ -18,20 +18,25 @@ using ChampionManager25.Logica;
 using System.Configuration;
 using ChampionManager25.Datos;
 using System.Data.SQLite;
+using Microsoft.Win32;
 
 namespace ChampionManager25.UserControls
 {
     public partial class UC_CrearManager : UserControl
     {
+        #region "Variables"
+        #endregion
+
         // Instancias de la LOGICA
         ManagerLogica logica = new ManagerLogica();
 
         public UC_CrearManager()
         {
             InitializeComponent();
-           // Loaded += crearManager_Loaded;
+            this.Loaded += CrearManager_Loaded;
         }
-        private void crearManager_Loaded(object sender, RoutedEventArgs e)
+
+        private void CrearManager_Loaded(object sender, RoutedEventArgs e)
         {
             txtNombre.Focus();
             Keyboard.Focus(txtNombre);
@@ -53,40 +58,30 @@ namespace ChampionManager25.UserControls
         {
             Metodos.ReproducirSonidoTransicion();
 
-            // Obtener los valores de los campos de texto
-            string nombre = txtNombre.Text;
-            string apellido = txtApellido.Text;
-            string nacionalidad = cbNacionalidad.SelectedItem?.ToString() ?? "Desconocida";
-
-            // Obtener la fecha de nacimiento
-            int dia = int.Parse(txtDia.Text);
-            int mes = int.Parse(txtMes.Text);
-            int anio = int.Parse(txtAnio.Text);
-            DateTime fechaNacimiento = new DateTime(anio, mes, dia);
-
-            // Crear el objeto Manager sin el IdManager
+            // Validación y creación del manager...
             Manager nuevoManager = new Manager
             {
-                Nombre = nombre,
-                Apellido = apellido,
-                Nacionalidad = nacionalidad,
-                FechaNacimiento = fechaNacimiento
+                Nombre = txtNombre.Text,
+                Apellido = txtApellido.Text,
+                Nacionalidad = cbNacionalidad.SelectedItem?.ToString() ?? "Desconocida",
+                FechaNacimiento = new DateTime(
+                    int.Parse(txtAnio.Text),
+                    int.Parse(txtMes.Text),
+                    int.Parse(txtDia.Text))
             };
 
-            // Añadimos el mánager en la base de datos y obtenemos el IdManager generado
             int idManager = logica.CrearNuevoManager(nuevoManager);
 
             if (idManager > 0)
             {
                 nuevoManager.IdManager = idManager;
 
-                // Notificar a MainWindow para cargar el nuevo UserControl
                 var mainWindow = (MainWindow)Application.Current.MainWindow;
                 mainWindow.CargarSeleccionEquipo(nuevoManager);
             }
             else
             {
-                MessageBox.Show("Error al crear el Manager. Por favor, inténtelo de nuevo.");
+                MessageBox.Show("Error al crear el Manager");
             }
         }
         // --------------------------------------------------------------------------------------------------------------------------------

@@ -95,23 +95,22 @@
                                         Width="1020" Margin="10,10,10,0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="100"/>
-                                            <ColumnDefinition Width="600"/>
-                                            <ColumnDefinition Width="220"/>
-                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="105"/>
+                                            <ColumnDefinition Width="685"/>
+                                            <ColumnDefinition Width="215"/>
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
 
-                                        <TextBlock Grid.Column="1" Grid.Row="0" FontSize="16" Text="Nombre de la Partida" VerticalAlignment="Center" 
+                                        <TextBlock Grid.Column="1" Grid.Row="0" FontSize="16" Text="Nombre del mánager (Equipo)" VerticalAlignment="Center" 
                                                    HorizontalAlignment="Left" FontFamily="Cascadia Code SemiBold" Foreground="WhiteSmoke" />
                                         <TextBlock Grid.Column="2" Grid.Row="0" FontSize="16" Text="Fecha de Creación" VerticalAlignment="Center" 
                                                    HorizontalAlignment="Left" FontFamily="Cascadia Code SemiBold" Foreground="WhiteSmoke" />
                                     </Grid>
                                 </Border>
 
-                                <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Height="656" Margin="19,0,19,0">
+                                <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Height="646" Margin="24,0,24,0">
                                     <WrapPanel x:Name="wrapPartidasCargadas" VerticalAlignment="Top" />
                                 </ScrollViewer>
                             </Grid>
@@ -122,49 +121,88 @@
             </Grid>
         </Border>
 
-        <!-- ÁREA BOTON -->
+        <!-- ÁREA BOTONES -->
         <Border Grid.Column="1" Grid.Row="2">
-            <Button x:Name="btnCargarPartida" Grid.Column="5" VerticalAlignment="Center" HorizontalAlignment="Center"
-            Height="50" Width="490" FontFamily="Cascadia Code SemiBold" FontSize="22" Cursor="Hand" Content="CARGAR PARTIDA" Click="btnCargarPartida_Click">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Background" Value="#FF23282D"/>
-                        <Setter Property="Foreground" Value="WhiteSmoke"/>
-                        <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                        <Setter Property="BorderThickness" Value="1"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Background="{TemplateBinding Background}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}">
-                                        <Border.Effect>
-                                            <DropShadowEffect Color="#FF23282D" Opacity="0.8" BlurRadius="10" ShadowDepth="5"/>
-                                        </Border.Effect>
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <!-- Contenido dinámico -->
-                                            <TextBlock Text="{TemplateBinding Content}"
-                                               Foreground="{TemplateBinding Foreground}" 
-                                               VerticalAlignment="Center"
-                                               Margin="0,0,5,0"/>
-                                            <!-- Imagen de la flecha -->
-                                            <Image Source="/Recursos/img/icons/flechaDerechaBlanca64px_icon.png" Height="18" Width="18" VerticalAlignment="Center" Stretch="Uniform" Margin="10,0,0,0"/>
-                                            <Image Source="/Recursos/img/icons/flechaDerechaBlanca64px_icon.png" Height="18" Width="18" VerticalAlignment="Center" Stretch="Uniform"/>
-                                        </StackPanel>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
+            <!-- Botones -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="btnCargarPartida" Grid.Column="5" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,20,0"
+                        Height="50" Width="400" FontFamily="Cascadia Code SemiBold" FontSize="22" Cursor="Hand" Content="CARGAR PARTIDA" Click="btnCargarPartida_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="DarkGreen"/>
+                            <Setter Property="Foreground" Value="WhiteSmoke"/>
+                            <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                            <Border.Effect>
+                                                <DropShadowEffect Color="#FF23282D" Opacity="0.8" BlurRadius="10" ShadowDepth="5"/>
+                                            </Border.Effect>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <!-- Contenido dinámico -->
+                                                <TextBlock Text="{TemplateBinding Content}"
+                                                           Foreground="{TemplateBinding Foreground}" 
+                                                           VerticalAlignment="Center"
+                                                           Margin="0,0,5,0"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
 
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                                <Setter Property="BorderThickness" Value="1"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
+                <Button x:Name="btnEliminarPartida" Grid.Column="5" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0,0,0"
+                        Height="50" Width="400" FontFamily="Cascadia Code SemiBold" FontSize="22" Cursor="Hand" Content="ELIMINAR PARTIDA" Click="btnEliminarPartida_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="DarkRed"/>
+                            <Setter Property="Foreground" Value="WhiteSmoke"/>
+                            <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                            <Border.Effect>
+                                                <DropShadowEffect Color="#FF23282D" Opacity="0.8" BlurRadius="10" ShadowDepth="5"/>
+                                            </Border.Effect>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <!-- Contenido dinámico -->
+                                                <TextBlock Text="{TemplateBinding Content}"
+                                                           Foreground="{TemplateBinding Foreground}" 
+                                                           VerticalAlignment="Center"
+                                                           Margin="0,0,5,0"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </StackPanel>
         </Border>
     </Grid>
 </UserControl>

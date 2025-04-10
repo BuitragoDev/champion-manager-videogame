@@ -4,6 +4,7 @@ using ChampionManager25.Logica;
 using ChampionManager25.MisMetodos;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,6 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ChampionManager25.UserControls
 {
@@ -26,6 +26,7 @@ namespace ChampionManager25.UserControls
         private Manager _manager;
         private int _equipo;
         private List<int> _idsPartidos;
+        private readonly string _rutaPartida;
         #endregion
 
         // Instancias de la LOGICA
@@ -40,12 +41,13 @@ namespace ChampionManager25.UserControls
 
         private Cuestionario _cuestionario = new Cuestionario();
 
-        public UC_RuedaPrensaPresentacion(Manager manager, int equipo, List<int> ids)
+        public UC_RuedaPrensaPresentacion(Manager manager, int equipo, List<int> ids, string rutaPartida)
         {
             InitializeComponent();
             _manager = manager;
             _equipo = equipo;
             _idsPartidos = ids;
+            _rutaPartida = rutaPartida;
         }
 
         private void ruedaPrensa_Loaded(object sender, RoutedEventArgs e)
@@ -74,9 +76,10 @@ namespace ChampionManager25.UserControls
             storyboard.Children.Add(animation);
             storyboard.Begin();
             // -------------------------- Rellenado de componentes
-            imgLogo1.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/64x64/" + _equipo + ".png"));
-            imgLogo2.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/64x64/" + _equipo + ".png"));
-            imgLogo3.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/64x64/" + _equipo + ".png"));
+            Equipo miEquipo = _logicaEquipo.ListarDetallesEquipo(_equipo);
+            imgLogo1.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + miEquipo.RutaImagen64));
+            imgLogo2.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + miEquipo.RutaImagen64));
+            imgLogo3.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + miEquipo.RutaImagen64));
 
             lblTitulo1.Content = (_manager?.Nombre?.ToUpper() ?? "NOMBRE NO DISPONIBLE") + " " +
                                  (_manager?.Apellido?.ToUpper() ?? "APELLIDO NO DISPONIBLE");
@@ -86,7 +89,7 @@ namespace ChampionManager25.UserControls
                                  (_logicaEquipo.ListarDetallesEquipo(_equipo)?.Ciudad?.ToUpper() ?? "CIUDAD NO DISPONIBLE");
 
 
-            imgLogo4.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/" + _equipo + ".png"));
+            imgLogo4.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + miEquipo.RutaImagen));
             lblPresidente.Text = _logicaEquipo.ListarDetallesEquipo(_equipo).Presidente;
             lblEquipo.Text = _logicaEquipo.ListarDetallesEquipo(_equipo).Nombre;
 
@@ -177,10 +180,16 @@ namespace ChampionManager25.UserControls
 
             progressBar.Visibility = Visibility.Collapsed;
 
-            // Cargar la pantalla principal con los nuevos datos
-            Metodos.ReproducirSonidoTransicion();
+            // Aquí ya puedes confirmar la partida, porque ya no se va a usar más la base de datos temporal
+            string rutaFinal = GestorPartidas.ConfirmarPartida(_rutaPartida);
+            Conexion.EstablecerConexionPartida(rutaFinal);
 
+            // Actualizar ruta en MainWindow por si quieres guardarla allí
             var mainWindow = (MainWindow)Application.Current.MainWindow;
+            mainWindow.RutaPartidaActual = rutaFinal;
+
+            Metodos.ReproducirSonidoTransicion();
+            mainWindow.CargarPantallaPrincipal(_manager, _equipo);
             mainWindow.CargarPantallaPrincipal(_manager, _equipo);
         }
         // ---------------------------------------------------------------------------------------------------------------------------------

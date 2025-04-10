@@ -1,4 +1,5 @@
-﻿using ChampionManager25.Entidades;
+﻿using ChampionManager25.Datos;
+using ChampionManager25.Entidades;
 using ChampionManager25.Logica;
 using ChampionManager25.MisMetodos;
 using System;
@@ -32,6 +33,7 @@ namespace ChampionManager25.UserControls
         // Instancias de la LOGICA
         private PartidoLogica _logicaPartido = new PartidoLogica();
         private EquipoLogica _logicaEquipo = new EquipoLogica();
+        CompeticionLogica _logicaCompeticion = new CompeticionLogica();
 
         public UC_Menu_Calendario_Principal(Manager manager, int equipo)
         {
@@ -203,7 +205,8 @@ namespace ChampionManager25.UserControls
                 int idEquipoRival = (_equipo == partido.IdEquipoLocal) ? partido.IdEquipoVisitante : partido.IdEquipoLocal;
 
                 // Mostrar el escudo del equipo rival
-                escudoRival.Source = new BitmapImage(new Uri($"pack://application:,,,/Recursos/img/escudos_equipos/80x80/{idEquipoRival}.png"));
+                Equipo equipoRival = _logicaEquipo.ListarDetallesEquipo(idEquipoRival);
+                escudoRival.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoRival.RutaImagen));
             }
 
             // Agregar el Border con el día del mes (naranja) a la fila 0
@@ -242,14 +245,8 @@ namespace ChampionManager25.UserControls
             if (partido != null)
             {
                 // Logo Competicion
-                if (partido.IdCompeticion == 1)
-                {
-                    imgLogoCompeticion.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/logos_competiciones/1.png"));
-                }
-                else if (partido.IdCompeticion == 10)
-                {
-                    imgLogoCompeticion.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/logos_competiciones/10.png"));
-                }
+                string ruta_logo = _logicaCompeticion.ObtenerCompeticion(partido.IdCompeticion).RutaImagen;
+                imgLogoCompeticion.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo));
 
                 // Local/Visitante
                 if (partido.IdEquipoLocal == _equipo)
@@ -265,9 +262,12 @@ namespace ChampionManager25.UserControls
                 txtCancha.Text = _logicaEquipo.ListarDetallesEquipo(partido.IdEquipoLocal).Estadio;
 
                 // Logo y Nombre de Equipos
-                imgLogoLocal.Source = new BitmapImage(new Uri($"pack://application:,,,/Recursos/img/escudos_equipos/80x80/{partido.IdEquipoLocal}.png"));
+                Equipo local = _logicaEquipo.ListarDetallesEquipo(partido.IdEquipoLocal);
+                Equipo visitante = _logicaEquipo.ListarDetallesEquipo(partido.IdEquipoVisitante);
+                imgLogoLocal.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + local.RutaImagen80));
+                imgLogoVisitante.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + visitante.RutaImagen80));
+
                 txtEquipoLocal.Text = _logicaEquipo.ListarDetallesEquipo(partido.IdEquipoLocal).Nombre;
-                imgLogoVisitante.Source = new BitmapImage(new Uri($"pack://application:,,,/Recursos/img/escudos_equipos/80x80/{partido.IdEquipoVisitante}.png"));
                 txtEquipoVisitante.Text = _logicaEquipo.ListarDetallesEquipo(partido.IdEquipoVisitante).Nombre;
             }
             else

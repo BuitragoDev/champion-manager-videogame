@@ -1,4 +1,5 @@
 ﻿using ChampionManager25.Datos;
+using ChampionManager25.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,18 @@ namespace ChampionManager25.Logica
         public string MostrarNombreCompeticion(int competicion)
         {
             return _datos.MostrarNombreCompeticion(competicion);
+        }
+
+        // Llamada al método para Mostrar los datos de la competicion
+        public Competicion ObtenerCompeticion(int idCompeticion)
+        {
+            return _datos.ObtenerCompeticion(idCompeticion);
+        }
+
+        // Llamada al método que cambia el nombre de la competicion
+        public void CambiarNombreCompeticion(int idCompeticion, string nombre)
+        {
+            _datos.CambiarNombreCompeticion(idCompeticion, nombre);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using ChampionManager25.Entidades;
+﻿using ChampionManager25.Datos;
+using ChampionManager25.Entidades;
 using ChampionManager25.Logica;
 using ChampionManager25.MisMetodos;
 using System;
@@ -38,8 +39,10 @@ namespace ChampionManager25.UserControls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            imgLogo.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/" + _equipo + ".png"));
-            imgPabellon.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/estadios/" + _equipo + "interior.png"));
+            Equipo miEquipo = _logicaEquipo.ListarDetallesEquipo(_equipo);
+            imgLogo.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + miEquipo.RutaImagen));
+            imgPabellon.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + miEquipo.RutaEstadioInterior));
+
             txtNombrePabellon.Text = _logicaEquipo.ListarDetallesEquipo(_equipo).Estadio;
             txtCapacidad.Text = _logicaEquipo.ListarDetallesEquipo(_equipo).Aforo.ToString("N0") + " asientos";
         }

@@ -1,4 +1,5 @@
-﻿using ChampionManager25.Entidades;
+﻿using ChampionManager25.Datos;
+using ChampionManager25.Entidades;
 using ChampionManager25.Logica;
 using ChampionManager25.MisMetodos;
 using System;
@@ -29,6 +30,8 @@ namespace ChampionManager25.UserControls
 
         // Instancias de la LOGICA
         MensajeLogica _logicaMensaje = new MensajeLogica();
+        EquipoLogica _logicaEquipos = new EquipoLogica();
+        JugadorLogica _logicaJugador = new JugadorLogica();
 
         public UC_Menu_Correo_Principal(Manager manager, int equipo)
         {
@@ -119,11 +122,14 @@ namespace ChampionManager25.UserControls
                 {
                     if (mensaje.Icono == 0)
                     {
-                        imgEquipo.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/80x80/" + mensaje.IdEquipo + ".png"));
+                        int idEquipo = mensaje.IdEquipo ?? 0;  
+                        Equipo equipo = _logicaEquipos.ListarDetallesEquipo(idEquipo);
+                        imgEquipo.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaImagen80));
                     }
                     else if (mensaje.Icono > 0)
                     {
-                        imgEquipo.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/jugadores/" + mensaje.Icono + ".png"));
+                        Jugador jugador = _logicaJugador.MostrarDatosJugador(mensaje.Icono);
+                        imgEquipo.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + jugador.RutaImagen));
                     }
                 }
                 catch
@@ -188,11 +194,14 @@ namespace ChampionManager25.UserControls
                     {
                         if (mensaje.Icono == 0)
                         {
-                            imgLogoMensaje.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/120x120/" + mensaje.IdEquipo + ".png"));
+                            int idEquipo = mensaje.IdEquipo ?? 0;
+                            Equipo equipo = _logicaEquipos.ListarDetallesEquipo(idEquipo);
+                            imgEquipo.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaImagen80));
                         }
                         else if (mensaje.Icono > 0)
                         {
-                            imgLogoMensaje.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/jugadores/" + mensaje.Icono + ".png"));
+                            Jugador jugador = _logicaJugador.MostrarDatosJugador(mensaje.Icono);
+                            imgEquipo.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + jugador.RutaImagen));
                         }
 
                         txtFechaMensaje.Text = mensaje.Fecha.ToString("dd/MM/yyyy");

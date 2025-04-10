@@ -20,6 +20,15 @@ namespace ChampionManager25.Entidades
         public string Objetivo { get; set; }
         public int Rival { get; set; }
         public int IdCompeticion { get; set; }
+        public string RutaImagen { get; set; }
+        public string RutaImagen120 { get; set; }
+        public string RutaImagen80 { get; set; }
+        public string RutaImagen64 { get; set; }
+        public string RutaImagen32 { get; set; }
+        public string RutaEstadioInterior { get; set; }
+        public string RutaEstadioExterior { get; set; }
+        public string RutaKitLocal { get; set; }
+        public string RutaKitVisitante { get; set; }
 
         // Nuevas propiedades para el entrenador.
         public string? Entrenador { get; set; } // Nombre completo del entrenador
@@ -30,7 +39,9 @@ namespace ChampionManager25.Entidades
 
         // Constructor con parámetros
         public Equipo(int idEquipo, string nombre, string nombreCorto, string presidente, string ciudad,
-                      string estadio, int aforo, int reputacion, string objetivo, int rival, int idCompeticion)
+                      string estadio, int aforo, int reputacion, string objetivo, int rival, int idCompeticion, string rutaImagen,
+                      string rutaImagen120, string rutaImagen80, string rutaImagen64, string rutaImagen32, string rutaEstadioInterior,
+                      string rutaEstadioExterior, string rutaKitLocal, string rutaKitVisitante)
         {
             IdEquipo = idEquipo;
             Nombre = nombre;
@@ -43,6 +54,15 @@ namespace ChampionManager25.Entidades
             Objetivo = objetivo;
             Rival = rival;
             IdCompeticion = idCompeticion;
+            RutaImagen = rutaImagen;
+            RutaImagen120 = rutaImagen120;
+            RutaImagen80 = rutaImagen80;
+            RutaImagen64 = rutaImagen64;
+            RutaImagen32 = rutaImagen32;
+            RutaEstadioInterior = rutaEstadioInterior;
+            RutaEstadioExterior = rutaEstadioExterior;
+            RutaKitLocal = rutaKitLocal;
+            RutaKitVisitante = rutaKitVisitante;
         }
 
         // Método ToString para representar el objeto en formato de texto

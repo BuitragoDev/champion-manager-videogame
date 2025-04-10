@@ -47,8 +47,8 @@
                                        FontFamily="Cascadia Code SemiBold" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         </Border>
 
-                        <Image Grid.Column="0" Grid.Row="1" Width="200" Height="200" VerticalAlignment="Center" 
-                               HorizontalAlignment="Center" Source="/Recursos/img/logos_competiciones/1.png" />
+                        <Image x:Name="imgLiga1" Grid.Column="0" Grid.Row="1" Width="200" Height="200" VerticalAlignment="Center" 
+                               HorizontalAlignment="Center" />
 
                         <TextBlock x:Name="lblChampionsLeague" Grid.Column="0" Grid.Row="2" Text="00" FontFamily="Cascadia Code SemiBold" FontSize="96" VerticalAlignment="Center" 
                                    Foreground="#23282d" HorizontalAlignment="Center" />

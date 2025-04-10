@@ -28,6 +28,13 @@ namespace ChampionManager25.UserControls
         private Manager _manager;
         private int _equipo;
         private DateTime hoy;
+        Equipo miEquipo;
+        Equipo equipoLocal;
+        Equipo equipoVisitante;
+        Estadistica estadistica;
+        Jugador jugador;
+        List<Equipo> equipos;
+        private int numeroEquipo;
         #endregion
 
         // Instancias de la LOGICA
@@ -40,11 +47,17 @@ namespace ChampionManager25.UserControls
         CompeticionLogica _logicaCompeticion = new CompeticionLogica();
         FechaDatos _datosFecha = new FechaDatos();
 
+        
+
         public UC_Menu_Home_MenuPrincipal(Manager manager, int equipo)
         {
             InitializeComponent();
             _manager = manager;
             _equipo = equipo;
+            miEquipo = _logicaEquipos.ListarDetallesEquipo(_equipo);
+            equipos = _logicaEquipos.ListarEquipos(1);
+            numeroEquipo = equipos.Count;
+
             Fecha fechaObjeto = _datosFecha.ObtenerFechaHoy();
             hoy = DateTime.Parse(fechaObjeto.Hoy);
         }
@@ -53,23 +66,26 @@ namespace ChampionManager25.UserControls
         {
             // ÚLTIMO PARTIDO
             Partido ultimoPartido = _logicaPartidos.ObtenerUltimoPartido(_equipo, _manager.IdManager, hoy);
-
+            
             if (ultimoPartido != null)
             {
+                equipoLocal = _logicaEquipos.ListarDetallesEquipo(ultimoPartido.IdEquipoLocal);
+                equipoVisitante = _logicaEquipos.ListarDetallesEquipo(ultimoPartido.IdEquipoVisitante);
+
                 // Cargar componentes del próximo partido.
                 if (ultimoPartido.IdEquipoLocal == _equipo)
-                {
+                {  
                     imgLocalVisitanteUltimoPartido.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/icons/casa_icon.png"));
                 }
                 else if (ultimoPartido.IdEquipoVisitante == _equipo)
-                {
+                {     
                     imgLocalVisitanteUltimoPartido.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/icons/avion_icon.png"));
                 }
 
                 txtUltimoPartido.Text += NombreCompeticion(ultimoPartido.IdCompeticion);
 
-                imgEscudoLocal.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/80x80/" + ultimoPartido.IdEquipoLocal + ".png"));
-                imgEscudoVisitante.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/80x80/" + ultimoPartido.IdEquipoVisitante + ".png"));
+                imgEscudoLocal.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoLocal.RutaImagen80));
+                imgEscudoVisitante.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoVisitante.RutaImagen80));
 
                 txtUltimoPartidoLocal.Text = _logicaEquipos.ListarDetallesEquipo(ultimoPartido?.IdEquipoLocal ?? 0)?.Nombre?.ToUpper() ?? "";
                 txtUltimoPartidoVisitante.Text = _logicaEquipos.ListarDetallesEquipo(ultimoPartido?.IdEquipoVisitante ?? 0)?.Nombre?.ToUpper() ?? "";
@@ -79,6 +95,8 @@ namespace ChampionManager25.UserControls
 
             // PRÓXIMO PARTIDO
             Partido proximoPartido = _logicaPartidos.ObtenerProximoPartido(_equipo, _manager.IdManager, hoy);
+            equipoLocal = _logicaEquipos.ListarDetallesEquipo(proximoPartido.IdEquipoLocal);
+            equipoVisitante = _logicaEquipos.ListarDetallesEquipo(proximoPartido.IdEquipoVisitante);
 
             if (proximoPartido != null)
             {
@@ -94,8 +112,8 @@ namespace ChampionManager25.UserControls
 
                 txtProximoPartido.Text += NombreCompeticion(proximoPartido.IdCompeticion);
 
-                imgLogoLocal.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/80x80/" + proximoPartido.IdEquipoLocal + ".png"));
-                imgLogoVisitante.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/80x80/" + proximoPartido.IdEquipoVisitante + ".png"));
+                imgLogoLocal.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoLocal.RutaImagen80));
+                imgLogoVisitante.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoVisitante.RutaImagen80));
 
                 txtNombreEquipos.Text = (_logicaEquipos.ListarDetallesEquipo(proximoPartido?.IdEquipoLocal ?? 0)?.Nombre?.ToUpper() ?? "SIN EQUIPO") + " - " +
                                         (_logicaEquipos.ListarDetallesEquipo(proximoPartido?.IdEquipoVisitante ?? 0)?.Nombre?.ToUpper() ?? "SIN EQUIPO");
@@ -112,16 +130,23 @@ namespace ChampionManager25.UserControls
 
             // CARGAR DATAGRID CLASIFICACION
             ConfigurarDataGridClasificacion();
+            
+            // Asignamos la lista de equipos al convertidor
+            ImagePathConverter.Equipos = equipos;
+
             CargarDatosClasificacion(_logicaEquipos.ListarDetallesEquipo(_equipo).IdCompeticion);
 
             // ESTADÍSTICAS DEL EQUIPO
-            imgEscudoEquipo.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/80x80/" + _equipo + ".png"));
+            imgEscudoEquipo.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + miEquipo.RutaImagen80));
             txtNombreCancha.Text = _logicaEquipos.ListarDetallesEquipo(_equipo).Estadio;
             txtCapacidadCancha.Text = _logicaEquipos.ListarDetallesEquipo(_equipo).Aforo.ToString("N0") + " espectadores";
             txtObjetivoContenido.Text = _logicaEquipos.ListarDetallesEquipo(_equipo).Objetivo;
             //Racha
             txtNombreLiga.Text = _logicaCompeticion.MostrarNombreCompeticion(_logicaEquipos.ListarDetallesEquipo(_equipo).IdCompeticion);
-            imgLogoLiga.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/logos_competiciones/" + _logicaEquipos.ListarDetallesEquipo(_equipo).IdCompeticion + ".png"));
+
+            int miCompeticion = miEquipo.IdCompeticion;
+            string ruta_logo = _logicaCompeticion.ObtenerCompeticion(miCompeticion).RutaImagen80;
+            imgLogoLiga.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo));
             int racha = _logicaClasificacion.MostrarClasificacionPorEquipo(_equipo, _manager.IdManager).Racha;
             txtRachaNumero.Text = racha.ToString();
             //Objetivo
@@ -207,8 +232,9 @@ namespace ChampionManager25.UserControls
 
             // ESTADISTICAS JUGADORES.
             // Goles
-            imgFotoGoles.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/jugadores/" +
-                                                               _logicaEstadistica.MostrarJugadorConMasGoles(_equipo).IdJugador + ".png"));
+            estadistica = _logicaEstadistica.MostrarJugadorConMasGoles(_equipo);
+            jugador = _logicaJugador.MostrarDatosJugador(estadistica.IdJugador);
+            imgFotoGoles.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + jugador.RutaImagen));
             txtNombreJugadorGoles.Text = _logicaJugador.MostrarDatosJugador(_logicaEstadistica.MostrarJugadorConMasGoles(_equipo).IdJugador).Nombre + " " +
                                               _logicaJugador.MostrarDatosJugador(_logicaEstadistica.MostrarJugadorConMasGoles(_equipo).IdJugador).Apellido;
             txtGolesPJ.Text = "Partidos jugados: " + _logicaEstadistica.MostrarJugadorConMasGoles(_equipo).PartidosJugados.ToString();
@@ -217,8 +243,9 @@ namespace ChampionManager25.UserControls
             txtGolesValor.Text = goles.ToString();
 
             // Asistencias
-            imgFotoAsistencias.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/jugadores/" +
-                                                               _logicaEstadistica.MostrarJugadorConMasAsistencias(_equipo).IdJugador + ".png"));
+            estadistica = _logicaEstadistica.MostrarJugadorConMasAsistencias(_equipo);
+            jugador = _logicaJugador.MostrarDatosJugador(estadistica.IdJugador);
+            imgFotoAsistencias.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + jugador.RutaImagen));
             txtNombreJugadorAsistencias.Text = _logicaJugador.MostrarDatosJugador(_logicaEstadistica.MostrarJugadorConMasAsistencias(_equipo).IdJugador).Nombre + " " +
                                               _logicaJugador.MostrarDatosJugador(_logicaEstadistica.MostrarJugadorConMasAsistencias(_equipo).IdJugador).Apellido;
             txtAsistenciasPJ.Text = "Partidos jugados: " + _logicaEstadistica.MostrarJugadorConMasAsistencias(_equipo).PartidosJugados.ToString();
@@ -227,8 +254,9 @@ namespace ChampionManager25.UserControls
             txtAsistenciasValor.Text = asistencias.ToString();
 
             // MVP
-            imgFotoMvp.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/jugadores/" +
-                                                               _logicaEstadistica.MostrarJugadorConMasMvp(_equipo).IdJugador + ".png"));
+            estadistica = _logicaEstadistica.MostrarJugadorConMasMvp(_equipo);
+            jugador = _logicaJugador.MostrarDatosJugador(estadistica.IdJugador);
+            imgFotoMvp.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + jugador.RutaImagen));
             txtNombreJugadorMvp.Text = _logicaJugador.MostrarDatosJugador(_logicaEstadistica.MostrarJugadorConMasMvp(_equipo).IdJugador).Nombre + " " +
                                               _logicaJugador.MostrarDatosJugador(_logicaEstadistica.MostrarJugadorConMasMvp(_equipo).IdJugador).Apellido;
             txtMvpPJ.Text = "Partidos jugados: " + _logicaEstadistica.MostrarJugadorConMasMvp(_equipo).PartidosJugados.ToString();
@@ -237,8 +265,9 @@ namespace ChampionManager25.UserControls
             txtMvpValor.Text = mvp.ToString();
 
             // Tarjetas Amarillas
-            imgFotoTarjetasAmarillas.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/jugadores/" +
-                                                               _logicaEstadistica.MostrarJugadorConMasTarjetasAmarillas(_equipo).IdJugador + ".png"));
+            estadistica = _logicaEstadistica.MostrarJugadorConMasTarjetasAmarillas(_equipo);
+            jugador = _logicaJugador.MostrarDatosJugador(estadistica.IdJugador);
+            imgFotoTarjetasAmarillas.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + jugador.RutaImagen));
             txtNombreJugadorTarjetasAmarillas.Text = _logicaJugador.MostrarDatosJugador(_logicaEstadistica.MostrarJugadorConMasTarjetasAmarillas(_equipo).IdJugador).Nombre + " " +
                                               _logicaJugador.MostrarDatosJugador(_logicaEstadistica.MostrarJugadorConMasTarjetasAmarillas(_equipo).IdJugador).Apellido;
             txtTarjetasAmarillasPJ.Text = "Partidos jugados: " + _logicaEstadistica.MostrarJugadorConMasTarjetasAmarillas(_equipo).PartidosJugados.ToString();
@@ -247,8 +276,9 @@ namespace ChampionManager25.UserControls
             txtTarjetasAmarillasValor.Text = tAmarillas.ToString();
 
             // Tarjetas Rojas
-            imgFotoTarjetasRojas.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/jugadores/" +
-                                                               _logicaEstadistica.MostrarJugadorConMasTarjetasRojas(_equipo).IdJugador + ".png"));
+            estadistica = _logicaEstadistica.MostrarJugadorConMasTarjetasRojas(_equipo);
+            jugador = _logicaJugador.MostrarDatosJugador(estadistica.IdJugador);
+            imgFotoTarjetasRojas.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + jugador.RutaImagen));
             txtNombreJugadorTarjetasRojas.Text = _logicaJugador.MostrarDatosJugador(_logicaEstadistica.MostrarJugadorConMasTarjetasRojas(_equipo).IdJugador).Nombre + " " +
                                               _logicaJugador.MostrarDatosJugador(_logicaEstadistica.MostrarJugadorConMasTarjetasRojas(_equipo).IdJugador).Apellido;
             txtTarjetasRojasPJ.Text = "Partidos jugados: " + _logicaEstadistica.MostrarJugadorConMasTarjetasRojas(_equipo).PartidosJugados.ToString();
@@ -308,25 +338,25 @@ namespace ChampionManager25.UserControls
                             new DataTrigger
                             {
                                 Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 33,
+                                Value = numeroEquipo - 3,
                                 Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkRed) }
                             },
                             new DataTrigger
                             {
                                 Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 34,
+                                Value = numeroEquipo - 2,
                                 Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkRed) }
                             },
                             new DataTrigger
                             {
                                 Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 35,
+                                Value = numeroEquipo - 1,
                                 Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkRed) }
                             },
                             new DataTrigger
                             {
                                 Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 36,
+                                Value = numeroEquipo,
                                 Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkRed) }
                             }
                         }
@@ -355,7 +385,7 @@ namespace ChampionManager25.UserControls
             {
                 Header = "",
                 Width = new DataGridLength(70, DataGridLengthUnitType.Pixel),
-                CellTemplate = CrearPlantillaLogo()
+                CellTemplate = CrearPlantillaLogo()  // Pasamos los equipos
             });
 
             // Crear los convertidores pasando _equipo
@@ -455,12 +485,13 @@ namespace ChampionManager25.UserControls
         {
             // Crear la fábrica de elementos
             FrameworkElementFactory imageFactory = new FrameworkElementFactory(typeof(Image));
-            imageFactory.SetValue(Image.WidthProperty, 40.0);
-            imageFactory.SetValue(Image.HeightProperty, 40.0);
+            imageFactory.SetValue(Image.WidthProperty, 32.0);
+            imageFactory.SetValue(Image.HeightProperty, 32.0);
+
+            // Usamos el convertidor sin parámetros
             imageFactory.SetBinding(Image.SourceProperty, new System.Windows.Data.Binding("IdEquipo")
             {
-                Converter = new ImagePathConverter(),
-                ConverterParameter = "/Recursos/img/escudos_equipos/80x80/"
+                Converter = new ImagePathConverter()  // No necesitamos pasar la lista aquí
             });
 
             // Crear y devolver la plantilla

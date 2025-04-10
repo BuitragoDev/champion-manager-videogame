@@ -16,6 +16,7 @@ using ChampionManager25.Entidades;
 using ChampionManager25.Logica;
 using ChampionManager25.MisMetodos;
 using ChampionManager25.Vistas;
+using ChampionManager25.Datos;
 
 namespace ChampionManager25.UserControls
 {
@@ -23,7 +24,8 @@ namespace ChampionManager25.UserControls
     {
 
         #region "Variables"
-        private Manager _manager;
+        private readonly Manager _manager;
+        private readonly string _rutaPartida;
 
         int equipoSeleccionado = 0; // Variable que recoge el id del equipo seleccionado.
         #endregion
@@ -31,15 +33,19 @@ namespace ChampionManager25.UserControls
         // Instancias de la LOGICA
         EquipoLogica _logicaEquipo = new EquipoLogica();
         ManagerLogica _logicaManager = new ManagerLogica();
+        CompeticionLogica _logicaCompeticion = new CompeticionLogica();
 
-        public UC_SeleccionEquipo(Manager manager)
+        public UC_SeleccionEquipo(Manager manager, string rutaPartida)
         {
             InitializeComponent();
             _manager = manager;
+            _rutaPartida = rutaPartida;
         }
 
         private void seleccionEquipo_Loaded(object sender, RoutedEventArgs e)
         {
+            string ruta_logo = _logicaCompeticion.ObtenerCompeticion(1).RutaImagen;
+            imgLiga1.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo));
             CargarEscudos(1);
         }
 
@@ -103,12 +109,12 @@ namespace ChampionManager25.UserControls
             foreach (var equipo in oEquipos)
             {
                 // Ruta de la imagen usando el id_imagen
-                string imagePath = $"/Recursos/img/escudos_equipos/120x120/{equipo.IdEquipo}.png";
-
+                string imagePath = $"{GestorPartidas.RutaMisDocumentos}/{equipo.RutaImagen120}";
+  
                 // Crear la imagen
                 Image img = new Image
                 {
-                    Source = new BitmapImage(new Uri(imagePath, UriKind.Relative)),
+                    Source = new BitmapImage(new Uri(imagePath, UriKind.Absolute)),
                     Width = 120,
                     Height = 120,
                     Cursor = Cursors.Hand // Cursor de mano

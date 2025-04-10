@@ -266,7 +266,7 @@ namespace ChampionManager25.Vistas
                         Mensaje mensajeInicio = new Mensaje
                         {
                             Fecha = Metodos.hoy,
-                            Remitente = _logicaEquipo.ListarDetallesEquipo(_equipo).Presidente,
+                            Remitente = _logicaJugador.MostrarDatosJugador(jugador).NombreCompleto,
                             Asunto = "Jugador Lesionado",
                             Contenido = "Desde el equipo médico del " + _logicaEquipo.ListarDetallesEquipo(_equipo).Nombre + " te informamos de que " + _logicaJugador.MostrarDatosJugador(jugador).NombreCompleto + " se ha lesionado, y permanecerá de baja durante " + numeroAleatorio + " partidos.",
                             TipoMensaje = "Notificación",

@@ -8,6 +8,12 @@
     <Compile Update="UserControls\UC_CrearManager.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\UC_EditorCompeticion.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_EditorHome.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\UC_FichaJugador.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -113,6 +119,9 @@
     <Compile Update="UserControls\UC_SeleccionEquipo.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Vistas\frmMenuOpciones.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Vistas\frmResumenPartido.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -120,6 +129,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Vistas\frmSimulandoPartidos.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Vistas\frmVentanaEmergenteDosBotones.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Vistas\frmVerDetallesEquipo.xaml.cs">

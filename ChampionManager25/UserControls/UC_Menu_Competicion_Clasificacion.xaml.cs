@@ -1,4 +1,5 @@
-﻿using ChampionManager25.Entidades;
+﻿using ChampionManager25.Datos;
+using ChampionManager25.Entidades;
 using ChampionManager25.Logica;
 using ChampionManager25.MisMetodos;
 using ChampionManager25.Vistas;
@@ -25,6 +26,9 @@ namespace ChampionManager25.UserControls
         #region "Variables"
         private Manager _manager;
         private int _equipo;
+        Equipo equipo;
+        List<Equipo> equipos;
+        private int numeroEquipo;
         #endregion
 
         // Instancias de la LOGICA
@@ -42,6 +46,8 @@ namespace ChampionManager25.UserControls
             _manager = manager;
             _equipo = equipo;
             Metodos metodos = new Metodos();
+            equipos = _logicaEquipos.ListarEquipos(1);
+            numeroEquipo = equipos.Count;
         }
 
         private void clasificacion_Loaded(object sender, RoutedEventArgs e)
@@ -51,31 +57,36 @@ namespace ChampionManager25.UserControls
 
             // Mostrar Mejor Ataque
             Clasificacion mejorAtaque = _logicaClasificacion.MostrarMejorAtaque(_manager.IdManager);
-            imgMejorAtaque.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/120x120/" + mejorAtaque.IdEquipo + ".png"));
+            equipo = _logicaEquipos.ListarDetallesEquipo(mejorAtaque.IdEquipo);
+            imgMejorAtaque.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaImagen120));
             lblMejorAtaqueEquipo.Text = mejorAtaque.NombreEquipo;
             lblMejorAtaqueGoles.Text = mejorAtaque.GolesFavor.ToString();
 
             // Mostrar Mejor Defensa
             Clasificacion mejorDefensa = _logicaClasificacion.MostrarMejorDefensa(_manager.IdManager);
-            imgMejorDefensa.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/120x120/" + mejorDefensa.IdEquipo + ".png"));
+            equipo = _logicaEquipos.ListarDetallesEquipo(mejorDefensa.IdEquipo);
+            imgMejorDefensa.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaImagen120));
             lblMejorDefensaEquipo.Text = mejorDefensa.NombreEquipo;
             lblMejorDefensaGoles.Text = mejorDefensa.GolesContra.ToString();
 
             // Mostrar Mejor Racha
             Clasificacion mejorRacha = _logicaClasificacion.MostrarMejorRacha(_manager.IdManager);
-            imgMejorRacha.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/120x120/" + mejorRacha.IdEquipo + ".png"));
+            equipo = _logicaEquipos.ListarDetallesEquipo(mejorRacha.IdEquipo);
+            imgMejorRacha.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaImagen120));
             lblMejorRachaEquipo.Text = mejorRacha.NombreEquipo;
             lblMejorRachaPartidos.Text = mejorRacha.Racha.ToString();
 
             // Mejor Equipo Local
             Clasificacion mejorLocal = _logicaClasificacion.MostrarMejorEquipoLocal(_manager.IdManager);
-            imgMejorEquipoLocal.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/120x120/" + mejorLocal.IdEquipo + ".png"));
+            equipo = _logicaEquipos.ListarDetallesEquipo(mejorLocal.IdEquipo);
+            imgMejorEquipoLocal.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaImagen120));
             lblMejorLocalEquipo.Text = mejorLocal.NombreEquipo;
             lblMejorLocalGanados.Text = mejorLocal.LocalVictorias.ToString();
 
             // Mejor Equipo Visitante
             Clasificacion mejorVisitante = _logicaClasificacion.MostrarMejorEquipoVisitante(_manager.IdManager);
-            imgMejorEquipoVisitante.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/120x120/" + mejorVisitante.IdEquipo + ".png"));
+            equipo = _logicaEquipos.ListarDetallesEquipo(mejorVisitante.IdEquipo);
+            imgMejorEquipoVisitante.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaImagen120));
             lblMejorVisitanteEquipo.Text = mejorVisitante.NombreEquipo;
             lblMejorVisitanteGanados.Text = mejorVisitante.VisitanteVictorias.ToString();
         }
@@ -103,6 +114,7 @@ namespace ChampionManager25.UserControls
             dgClasificacion.Columns.Clear(); // Limpiar cualquier columna previa
 
             List<Clasificacion> clasificaciones = _logicaClasificacion.MostrarClasificacion(1, _manager.IdManager);
+            ImagePathConverter.Equipos = equipos;
 
             // Asignar los datos al DataGrid
             dgClasificacion.ItemsSource = clasificaciones;
@@ -135,25 +147,25 @@ namespace ChampionManager25.UserControls
                             new DataTrigger
                             {
                                 Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 33,
+                                Value = numeroEquipo - 3,
                                 Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkRed) }
                             },
                             new DataTrigger
                             {
                                 Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 34,
+                                Value = numeroEquipo - 2,
                                 Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkRed) }
                             },
                             new DataTrigger
                             {
                                 Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 35,
+                                Value = numeroEquipo - 1,
                                 Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkRed) }
                             },
                             new DataTrigger
                             {
                                 Binding = new System.Windows.Data.Binding("Posicion"),
-                                Value = 36,
+                                Value = numeroEquipo,
                                 Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkRed) }
                             }
                         }
@@ -182,7 +194,7 @@ namespace ChampionManager25.UserControls
             {
                 Header = "",
                 Width = new DataGridLength(70, DataGridLengthUnitType.Pixel),
-                CellTemplate = CrearPlantillaLogo()
+                CellTemplate = CrearPlantillaLogo()  // Pasamos los equipos
             });
 
             // Crear los convertidores pasando _equipo
@@ -445,12 +457,13 @@ namespace ChampionManager25.UserControls
         {
             // Crear la fábrica de elementos
             FrameworkElementFactory imageFactory = new FrameworkElementFactory(typeof(Image));
-            imageFactory.SetValue(Image.WidthProperty, 40.0);
-            imageFactory.SetValue(Image.HeightProperty, 40.0);
+            imageFactory.SetValue(Image.WidthProperty, 32.0);
+            imageFactory.SetValue(Image.HeightProperty, 32.0);
+
+            // Usamos el convertidor sin parámetros
             imageFactory.SetBinding(Image.SourceProperty, new System.Windows.Data.Binding("IdEquipo")
             {
-                Converter = new ImagePathConverter(),
-                ConverterParameter = "/Recursos/img/escudos_equipos/80x80/"
+                Converter = new ImagePathConverter()  // No necesitamos pasar la lista aquí
             });
 
             // Crear y devolver la plantilla

@@ -47,6 +47,12 @@ namespace ChampionManager25.Logica
             return _datos.MostrarDatosJugador(id);
         }
 
+        // Llamada al método para mostrar todos los jugadores de la base de datos
+        public List<Jugador> MostrarListaTotalJugadores()
+        {
+            return _datos.MostrarListaTotalJugadores();
+        }
+
         // Llamada al método que renueva el status de un jugador
         public void RenovarStatusJugador(int jugador, int rol)
         {

@@ -1,6 +1,7 @@
 ﻿using ChampionManager25.Entidades;
 using ChampionManager25.Logica;
 using ChampionManager25.MisMetodos;
+using ChampionManager25.Datos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,25 +26,32 @@ namespace ChampionManager25.UserControls
         private Manager _manager;
         private int _equipo;
         private List<int> _idsPartidos;
+        private readonly string _rutaPartida;
         #endregion
 
         // Instancias de la LOGICA
         EquipoLogica _logicaEquipo = new EquipoLogica();
         PartidoLogica _logicaPartido = new PartidoLogica();
+        CompeticionLogica _logicaCompeticion = new CompeticionLogica();
 
-        public UC_InicioTemporada(Manager manager, int equipo, List<int> ids)
+        public UC_InicioTemporada(Manager manager, int equipo, List<int> ids, string rutaPartida)
         {
             InitializeComponent();
             _manager = manager;
             _equipo = equipo;
             _idsPartidos = ids;
+            _rutaPartida = rutaPartida;
         }
 
         private void inicioTemporada_Loaded(object sender, RoutedEventArgs e)
         {
+            string ruta_logo = _logicaCompeticion.ObtenerCompeticion(1).RutaImagen;
+            imgLiga1.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo));
+
             ConfigurarDataGridObjetivos(1);
 
-            imgLogoEquipo.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/" + _equipo + ".png"));
+            Equipo miEquipo = _logicaEquipo.ListarDetallesEquipo(_equipo);
+            imgLogoEquipo.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + miEquipo.RutaImagen));
             lblNombreEquipo.Text = _logicaEquipo.ListarDetallesEquipo(_equipo).Nombre.ToUpper();
             lblObjetivoEquipo.Text = _logicaEquipo.ListarDetallesEquipo(_equipo).Objetivo;
             lblNombreManager.Text = _manager.Nombre + " " + _manager.Apellido;

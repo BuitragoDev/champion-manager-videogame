@@ -20,7 +20,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ChampionManager25.UserControls
 {
@@ -30,6 +29,7 @@ namespace ChampionManager25.UserControls
         private Manager _manager;
         private int _equipo;
         private static MediaPlayer mediaPlayer = new MediaPlayer(); // Inicialización al declarar
+        Equipo miEquipo;
         #endregion
 
         // Instancias de la LOGICA
@@ -42,6 +42,7 @@ namespace ChampionManager25.UserControls
         EstadisticasLogica _logicaEstadisticas = new EstadisticasLogica();
         PalmaresLogica _logicaPalmares = new PalmaresLogica();
         JugadorLogica _logicaJugador = new JugadorLogica();
+        CompeticionLogica _logicaCompeticion = new CompeticionLogica();
 
         NacionalidadToFlagConverter convertidorBandera = new NacionalidadToFlagConverter();
 
@@ -50,6 +51,7 @@ namespace ChampionManager25.UserControls
             InitializeComponent();
             _manager = manager;
             _equipo = equipo;
+            miEquipo = _logicaEquipo.ListarDetallesEquipo(_equipo);
 
             // Código que inicializa el sonido de fondo de la pantalla principal
             try
@@ -58,14 +60,14 @@ namespace ChampionManager25.UserControls
             }
             catch (FileNotFoundException ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Console.WriteLine(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void pantallaPrincipal_Loaded(object sender, RoutedEventArgs e)
         {
             // Cargar datos de la cabecera
-            imgLogoEquipo.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/80x80/" + _equipo + ".png"));
+            imgLogoEquipo.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + miEquipo.RutaImagen80));
 
             txtEquipo.Text = _logicaEquipo.ListarDetallesEquipo(_equipo).Nombre;
             txtManager.Text = _manager.Nombre + " " + _manager.Apellido;
@@ -94,7 +96,7 @@ namespace ChampionManager25.UserControls
 
         private void pantallaPrincipal_Unloaded(object sender, RoutedEventArgs e)
         {
-            Metodos.DetenerMusica(); // Detener la música al descargar el control
+            //Metodos.DetenerMusica(); // Detener la música al descargar el control
         }
 
         // ----------------------------------------------------------------------------- Evento CLICK del botón AVANZAR
@@ -321,17 +323,8 @@ namespace ChampionManager25.UserControls
             // Reproducir el sonido de clic
             Metodos.ReproducirSonidoClick();
 
-            // Confirmación antes de salir
-            MessageBoxResult resultado = MessageBox.Show(
-                "¿Estás seguro de que quieres salir del juego?",
-                "Confirmar salida",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Question);
-
-            if (resultado == MessageBoxResult.Yes)
-            {
-                Application.Current.Shutdown();
-            }
+            frmMenuOpciones ventanaEmergente = new frmMenuOpciones();
+            ventanaEmergente.ShowDialog();
         }
         // ------------------------------------------------------------------------------------------------------------
 

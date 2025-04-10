@@ -24,6 +24,7 @@ namespace ChampionManager25.UserControls
         #region "Variables"
         private Manager _manager;
         private int _equipo;
+        List<Jugador> jugadores;
         #endregion
 
         // Instancias de la LOGICA
@@ -37,6 +38,7 @@ namespace ChampionManager25.UserControls
             _manager = manager;
             _equipo = equipo;
             Metodos metodos = new Metodos();
+            jugadores = _logicaJugador.MostrarListaTotalJugadores();
         }
 
         private void estadisticas_Loaded(object sender, RoutedEventArgs e)
@@ -153,37 +155,19 @@ namespace ChampionManager25.UserControls
             dgEstadisticas.Columns.Clear(); // Limpiar cualquier columna previa
 
             List<Estadistica> jugador = _logicaEstadistica.MostrarEstadisticasTotales(_manager.IdManager, filtro);
+
+            // Asignamos la lista de jugadores al convertidor
+            ImagePathConverterFoto.Jugadores = jugadores;
+
             dgEstadisticas.ItemsSource = jugador;
 
             // Crear la columna de tipo DataGridTemplateColumn para la foto del Futbolista
-            DataGridTemplateColumn fotoColumna = new DataGridTemplateColumn
+            dgEstadisticas.Columns.Add(new DataGridTemplateColumn
             {
-                Header = "", // Título de la columna
-                Width = new DataGridLength(100, DataGridLengthUnitType.Pixel)
-            };
-
-            // Crear un DataTemplate para la celda de la columna
-            DataTemplate template = new DataTemplate(typeof(Image));
-
-            // Crear un FrameworkElementFactory para la imagen
-            FrameworkElementFactory imageFactory = new FrameworkElementFactory(typeof(Image));
-            imageFactory.SetBinding(Image.SourceProperty, new Binding("IdJugador")
-            {
-                Converter = new IdjugadorToFotoConverter()
+                Header = "",
+                Width = new DataGridLength(100, DataGridLengthUnitType.Pixel),
+                CellTemplate = CrearPlantillaFoto()
             });
-
-            imageFactory.SetValue(Image.WidthProperty, 64.0);
-            imageFactory.SetValue(Image.HeightProperty, 64.0);
-            imageFactory.SetValue(Image.StretchProperty, Stretch.Uniform);
-
-            // Asignar el 'FrameworkElementFactory' al DataTemplate
-            template.VisualTree = imageFactory;
-
-            // Asignar el DataTemplate a la columna
-            fotoColumna.CellTemplate = template;
-
-            // Finalmente, agregar la columna al DataGrid
-            dgEstadisticas.Columns.Add(fotoColumna);
 
             dgEstadisticas.Columns.Add(new DataGridTextColumn
             {
@@ -212,34 +196,12 @@ namespace ChampionManager25.UserControls
             });
 
             // Crear la columna de tipo DataGridTemplateColumn para el ESCUDO
-            DataGridTemplateColumn escudoColumna = new DataGridTemplateColumn
+            dgEstadisticas.Columns.Add(new DataGridTemplateColumn
             {
-                Header = "", // Título de la columna
-                Width = new DataGridLength(100, DataGridLengthUnitType.Pixel)
-            };
-
-            // Crear un DataTemplate para la celda de la columna
-            DataTemplate templateEscudo = new DataTemplate(typeof(Image));
-
-            // Crear un FrameworkElementFactory para la imagen
-            FrameworkElementFactory imageFactoryEscudo = new FrameworkElementFactory(typeof(Image));
-            imageFactoryEscudo.SetBinding(Image.SourceProperty, new Binding("IdEquipo")
-            {
-                Converter = new IdEquipoToEscudoConverter()
+                Header = "",
+                Width = new DataGridLength(100, DataGridLengthUnitType.Pixel),
+                CellTemplate = CrearPlantillaLogo() 
             });
-
-            imageFactoryEscudo.SetValue(Image.WidthProperty, 32.0);
-            imageFactoryEscudo.SetValue(Image.HeightProperty, 32.0);
-            imageFactoryEscudo.SetValue(Image.StretchProperty, Stretch.Uniform);
-
-            // Asignar el 'FrameworkElementFactory' al DataTemplate
-            templateEscudo.VisualTree = imageFactoryEscudo;
-
-            // Asignar el DataTemplate a la columna
-            escudoColumna.CellTemplate = templateEscudo;
-
-            // Finalmente, agregar la columna al DataGrid
-            dgEstadisticas.Columns.Add(escudoColumna);
 
             dgEstadisticas.Columns.Add(new DataGridTextColumn
             {
@@ -378,6 +340,44 @@ namespace ChampionManager25.UserControls
                     new Setter(DataGridCell.BorderThicknessProperty, new Thickness(0))
                 }
             };
+        }
+
+        private DataTemplate CrearPlantillaLogo()
+        {
+            // Crear la fábrica de elementos
+            FrameworkElementFactory imageFactory = new FrameworkElementFactory(typeof(Image));
+            imageFactory.SetValue(Image.WidthProperty, 32.0);
+            imageFactory.SetValue(Image.HeightProperty, 32.0);
+
+            // Usamos el convertidor sin parámetros
+            imageFactory.SetBinding(Image.SourceProperty, new System.Windows.Data.Binding("IdEquipo")
+            {
+                Converter = new ImagePathConverter()  // No necesitamos pasar la lista aquí
+            });
+
+            // Crear y devolver la plantilla
+            DataTemplate template = new DataTemplate();
+            template.VisualTree = imageFactory;
+            return template;
+        }
+
+        private DataTemplate CrearPlantillaFoto()
+        {
+            // Crear la fábrica de elementos
+            FrameworkElementFactory imageFactory = new FrameworkElementFactory(typeof(Image));
+            imageFactory.SetValue(Image.WidthProperty, 64.0);
+            imageFactory.SetValue(Image.HeightProperty, 64.0);
+
+            // Usamos el convertidor sin parámetros
+            imageFactory.SetBinding(Image.SourceProperty, new System.Windows.Data.Binding("IdJugador")
+            {
+                Converter = new ImagePathConverterFoto()  // No necesitamos pasar la lista aquí
+            });
+
+            // Crear y devolver la plantilla
+            DataTemplate template = new DataTemplate();
+            template.VisualTree = imageFactory;
+            return template;
         }
         #endregion
     }

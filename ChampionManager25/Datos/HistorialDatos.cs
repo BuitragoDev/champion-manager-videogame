@@ -18,7 +18,7 @@ namespace ChampionManager25.Datos
 
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
                     string query = @"SELECT h.id_historial, h.id_equipo, h.id_manager, h.temporada, h.posicionLiga, h.partidosJugados, 
@@ -77,7 +77,7 @@ namespace ChampionManager25.Datos
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
@@ -109,11 +109,11 @@ namespace ChampionManager25.Datos
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
-                    // Construir la cadena para la temporada
+                    // Construir la Conexion.Cadena para la temporada
                     string temporadaStr = $"{temporada}/{temporada + 1}";
 
                     // Comando para insertar los datos de historial_manager_temp en historial_manager
@@ -149,11 +149,11 @@ namespace ChampionManager25.Datos
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
-                    // Construir la cadena para la temporada
+                    // Construir la Conexion.Cadena para la temporada
                     string temporadaStr = $"{temporada}/{temporada + 1}";
 
                     // Comando para insertar los datos de managers en historial_manager
@@ -185,11 +185,11 @@ namespace ChampionManager25.Datos
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
-                    // Construir la cadena para la temporada
+                    // Construir la Conexion.Cadena para la temporada
                     string temporadaStr = $"{temporada}/{temporada + 1}";
 
                     // Comando para insertar los datos de managers en historial_manager
@@ -218,7 +218,7 @@ namespace ChampionManager25.Datos
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cadena))
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
 
