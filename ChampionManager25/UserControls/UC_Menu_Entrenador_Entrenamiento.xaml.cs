@@ -1,4 +1,5 @@
-﻿using ChampionManager25.Entidades;
+﻿using ChampionManager25.Datos;
+using ChampionManager25.Entidades;
 using ChampionManager25.Logica;
 using ChampionManager25.MisMetodos;
 using NAudio.Gui;
@@ -253,7 +254,8 @@ namespace ChampionManager25.UserControls
                 var idJugador = (int)tag.GetType().GetProperty("IdJugador").GetValue(tag);
                 var nombreCompleto = (string)tag.GetType().GetProperty("NombreCompleto").GetValue(tag);
 
-                imgFotoJugador.Source = new BitmapImage(new Uri($"pack://application:,,,/Recursos/img/jugadores/{idJugador}.png"));
+                Jugador jugador = _logicaJugador.MostrarDatosJugador(idJugador);
+                imgFotoJugador.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + jugador.RutaImagen));
                 txtNombreJugador.Text = nombreCompleto;
 
                 idJugadorSeleccionado = idJugador;

@@ -31,6 +31,7 @@ namespace ChampionManager25.Vistas
         MensajeLogica _logicaMensajes = new MensajeLogica();
         ClasificacionLogica _logicaClasificacion = new ClasificacionLogica();
         ManagerLogica _logicaManager = new ManagerLogica();
+        CompeticionLogica _logicaCompeticion = new CompeticionLogica();
 
         public frmResumenTemporada(Manager manager, int equipo, List<Clasificacion> clasificacion, int posicion)
         {
@@ -56,10 +57,17 @@ namespace ChampionManager25.Vistas
                     subcampeon = equipo.IdEquipo;
                 }
             }
-            imgCampeon.Source = new BitmapImage(new Uri($"pack://application:,,,/Recursos/img/escudos_equipos/{campeon}.png"));
-            imgSubcampeon.Source = new BitmapImage(new Uri($"pack://application:,,,/Recursos/img/escudos_equipos/{subcampeon}.png"));
 
-            imgMiEquipo.Source = new BitmapImage(new Uri($"pack://application:,,,/Recursos/img/escudos_equipos/120x120/{_equipo}.png"));
+            string ruta_logo = _logicaCompeticion.ObtenerCompeticion(1).RutaImagen80;
+            imgLogoCompeticion.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo));
+
+            Equipo equipoCampeon = _logicaEquipo.ListarDetallesEquipo(campeon);
+            Equipo equipoSubcampeon = _logicaEquipo.ListarDetallesEquipo(subcampeon);
+            imgCampeon.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoCampeon.RutaImagen));
+            imgSubcampeon.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoSubcampeon.RutaImagen));
+
+            Equipo miEquipo = _logicaEquipo.ListarDetallesEquipo(_equipo);
+            imgMiEquipo.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + miEquipo.RutaImagen120));
             txtNombreMiEquipo.Text += " " + _logicaEquipo.ListarDetallesEquipo(_equipo).Nombre.ToUpper();
             txtPosicion.Text = _posicion + "º";
 

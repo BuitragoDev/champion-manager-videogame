@@ -26,9 +26,15 @@ namespace ChampionManager25.Logica
         }
 
         // Llamada al método que cambia el nombre de la competicion
-        public void CambiarNombreCompeticion(int idCompeticion, string nombre)
+        public void EditarCompeticion(Competicion competicion)
         {
-            _datos.CambiarNombreCompeticion(idCompeticion, nombre);
+            _datos.EditarCompeticion(competicion);
+        }
+
+        // Llamada al método que muestra las 2 competiciones
+        public List<Competicion> MostrarCompeticiones()
+        {
+            return _datos.MostrarCompeticiones();
         }
     }
 }

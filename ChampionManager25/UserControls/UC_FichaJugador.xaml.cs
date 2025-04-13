@@ -1,4 +1,5 @@
-﻿using ChampionManager25.Entidades;
+﻿using ChampionManager25.Datos;
+using ChampionManager25.Entidades;
 using ChampionManager25.Logica;
 using ChampionManager25.MisMetodos;
 using System;
@@ -90,12 +91,13 @@ namespace ChampionManager25.UserControls
         private void CargarFichaJugador()
         {
             Jugador jugador = _logicaJugador.MostrarDatosJugador(_jugador);
+            Equipo miEquipo = _logicaEquipo.ListarDetallesEquipo(jugador.IdEquipo);
 
             // Cargar Datos del Jugador
             txtDorsal.Text = jugador.Dorsal.ToString();
             txtNombreJugador.Text = jugador.NombreCompleto;
-            imgFotoJugador.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/jugadores/" + jugador.IdJugador + ".png"));
-            imgEscudoEquipo.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/120x120/" + jugador.IdEquipo + ".png"));
+            imgFotoJugador.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + jugador.RutaImagen));
+            imgEscudoEquipo.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + miEquipo.RutaImagen120));
             lblAverage.Text = jugador.Media.ToString();
             elipseMedia.Stroke = DeterminarColorElipse(jugador.Media);
 

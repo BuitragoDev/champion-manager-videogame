@@ -90,7 +90,7 @@ namespace ChampionManager25.Datos
             catch (SQLiteException ex)
             {
                 // En caso de error, mostrar el mensaje con la excepción
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
 
             return oJugador;
@@ -165,7 +165,7 @@ namespace ChampionManager25.Datos
             catch (SQLiteException ex)
             {
                 // En caso de error, mostrar el mensaje con la excepción
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
 
             return lista;
@@ -307,7 +307,7 @@ namespace ChampionManager25.Datos
             catch (SQLiteException ex)
             {
                 // En caso de error, mostrar el mensaje con la excepción
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
 
             return jugador;
@@ -377,7 +377,7 @@ namespace ChampionManager25.Datos
             catch (SQLiteException ex)
             {
                 // En caso de error, mostrar el mensaje con la excepción
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
 
             return lista;
@@ -407,7 +407,7 @@ namespace ChampionManager25.Datos
             }
             catch (SQLiteException ex)
             {
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
         }
 
@@ -437,7 +437,7 @@ namespace ChampionManager25.Datos
             }
             catch (SQLiteException ex)
             {
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
         }
 
@@ -923,10 +923,10 @@ namespace ChampionManager25.Datos
             }
             catch (SQLiteException ex)
             {
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
         }
-
+        
         // ======================================================= Método para mostrar la lista de Jugadores Detallada por equipo
         public List<Jugador> MostrarAlineacion(int inicio, int final)
         {
@@ -997,7 +997,7 @@ namespace ChampionManager25.Datos
             catch (SQLiteException ex)
             {
                 // En caso de error, mostrar el mensaje con la excepción
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
 
             return lista;
@@ -1044,14 +1044,14 @@ namespace ChampionManager25.Datos
                         {
                             // Revertir cambios si hay error
                             transaction.Rollback();
-                            Console.WriteLine($"Error en la transacción: {ex.Message}");
+                            MessageBox.Show($"Error en la transacción: {ex.Message}");
                         }
                     }
                 }
             }
             catch (SQLiteException ex)
             {
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
         }
 
@@ -1108,7 +1108,7 @@ namespace ChampionManager25.Datos
             }
             catch (SQLiteException ex)
             {
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
         }
 
@@ -1179,7 +1179,7 @@ namespace ChampionManager25.Datos
             catch (SQLiteException ex)
             {
                 // En caso de error, mostrar el mensaje con la excepción
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
 
             return lista;
@@ -1262,7 +1262,7 @@ namespace ChampionManager25.Datos
             }
             catch (SQLiteException ex)
             {
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
             string jugadoresLocalInfo = "Jugadores del equipo local:\n";
             foreach (var jugador in lista)
@@ -1299,7 +1299,7 @@ namespace ChampionManager25.Datos
             }
             catch (SQLiteException ex)
             {
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
         }
 
@@ -1328,7 +1328,7 @@ namespace ChampionManager25.Datos
             }
             catch (SQLiteException ex)
             {
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
         }
 
@@ -1380,7 +1380,7 @@ namespace ChampionManager25.Datos
             }
             catch (SQLiteException ex)
             {
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
         }
 
@@ -1420,7 +1420,7 @@ namespace ChampionManager25.Datos
             }
             catch (SQLiteException ex)
             {
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
         }
 
@@ -1455,7 +1455,7 @@ namespace ChampionManager25.Datos
             }
             catch (SQLiteException ex)
             {
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
         }
 
@@ -1480,8 +1480,99 @@ namespace ChampionManager25.Datos
             }
             catch (SQLiteException ex)
             {
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
         }
+
+        // ===================================================================== Método que actualiza un jugador
+        public void ActualizarJugador(Jugador ojugadorEditar)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Construir consulta base
+                    string query = @"UPDATE jugadores 
+                                     SET nombre = @nombre,
+                                        apellido = @apellido,
+                                        id_equipo = @id_equipo,
+                                        dorsal = @dorsal,
+                                        status = @status,
+                                        rol = @rol,
+                                        rol_id = @rol_id,
+                                        velocidad = @velocidad,
+                                        resistencia = @resistencia,
+                                        agresividad = @agresividad,
+                                        calidad = @calidad,
+                                        estado_forma = @estado_forma,
+                                        moral = @moral,
+                                        potencial = @potencial,
+                                        portero = @portero,
+                                        pase = @pase,
+                                        regate = @regate,
+                                        remate = @remate,
+                                        entradas = @entradas,
+                                        tiro = @tiro,
+                                        fecha_nacimiento = @fecha_nacimiento,
+                                        peso = @peso,
+                                        altura = @altura,
+                                        nacionalidad = @nacionalidad";
+
+                    // Si hay ruta de imagen, añadirla a la consulta
+                    if (ojugadorEditar.RutaImagen != "Recursos/img/jugadores/")
+                    {
+                        query += ", ruta_imagen = @ruta_imagen";
+                    }
+
+                    // Cerrar la consulta con WHERE
+                    query += " WHERE id_jugador = @id_jugador";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        // Parámetros obligatorios
+                        cmd.Parameters.AddWithValue("@nombre", ojugadorEditar.Nombre);
+                        cmd.Parameters.AddWithValue("@apellido", ojugadorEditar.Apellido);
+                        cmd.Parameters.AddWithValue("@id_equipo", ojugadorEditar.IdEquipo);
+                        cmd.Parameters.AddWithValue("@dorsal", ojugadorEditar.Dorsal);
+                        cmd.Parameters.AddWithValue("@status", ojugadorEditar.Status);
+                        cmd.Parameters.AddWithValue("@rol", ojugadorEditar.Rol);
+                        cmd.Parameters.AddWithValue("@rol_id", ojugadorEditar.RolId);
+                        cmd.Parameters.AddWithValue("@velocidad", ojugadorEditar.Velocidad);
+                        cmd.Parameters.AddWithValue("@resistencia", ojugadorEditar.Resistencia);
+                        cmd.Parameters.AddWithValue("@agresividad", ojugadorEditar.Agresividad);
+                        cmd.Parameters.AddWithValue("@calidad", ojugadorEditar.Calidad);
+                        cmd.Parameters.AddWithValue("@estado_forma", ojugadorEditar.EstadoForma);
+                        cmd.Parameters.AddWithValue("@moral", ojugadorEditar.Moral);
+                        cmd.Parameters.AddWithValue("@potencial", ojugadorEditar.Potencial);
+                        cmd.Parameters.AddWithValue("@portero", ojugadorEditar.Portero);
+                        cmd.Parameters.AddWithValue("@pase", ojugadorEditar.Pase);
+                        cmd.Parameters.AddWithValue("@regate", ojugadorEditar.Regate);
+                        cmd.Parameters.AddWithValue("@remate", ojugadorEditar.Remate);
+                        cmd.Parameters.AddWithValue("@entradas", ojugadorEditar.Entradas);
+                        cmd.Parameters.AddWithValue("@tiro", ojugadorEditar.Tiro);
+                        cmd.Parameters.AddWithValue("@fecha_nacimiento", ojugadorEditar.FechaNacimiento.ToString("yyyy-MM-dd"));
+                        cmd.Parameters.AddWithValue("@peso", ojugadorEditar.Peso);
+                        cmd.Parameters.AddWithValue("@altura", ojugadorEditar.Altura);
+                        cmd.Parameters.AddWithValue("@nacionalidad", ojugadorEditar.Nacionalidad ?? "Desconocida");
+                        cmd.Parameters.AddWithValue("@id_jugador", ojugadorEditar.IdJugador);
+
+                        // Parámetro opcional
+                        if (!string.IsNullOrEmpty(ojugadorEditar.RutaImagen))
+                        {
+                            cmd.Parameters.AddWithValue("@ruta_imagen", ojugadorEditar.RutaImagen);
+                        }
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
     }
 }

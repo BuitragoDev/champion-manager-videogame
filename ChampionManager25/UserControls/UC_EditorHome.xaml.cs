@@ -35,6 +35,9 @@ namespace ChampionManager25.UserControls
         private void imgEditarJugadores_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Metodos.ReproducirSonidoTransicion();
+
+            var mainWindow = (MainWindow)Application.Current.MainWindow;
+            mainWindow.CargarEditorJugadores(1);
         }
 
         private void imgEditarJugadores_MouseEnter(object sender, MouseEventArgs e)
@@ -52,6 +55,9 @@ namespace ChampionManager25.UserControls
         private void imgEditarEquipos_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Metodos.ReproducirSonidoTransicion();
+
+            var mainWindow = (MainWindow)Application.Current.MainWindow;
+            mainWindow.CargarEditorEquipos();
         }
 
         private void imgEditarEquipos_MouseEnter(object sender, MouseEventArgs e)
@@ -83,6 +89,12 @@ namespace ChampionManager25.UserControls
         private void imgEditarCompeticion_MouseLeave(object sender, MouseEventArgs e)
         {
             imgEditarCompeticion.Source = new BitmapImage(new Uri("/Recursos/img/editor_competicion.png", UriKind.Relative));
+        }
+
+        // ------------------------------------------------------------------------------- Eventos del boton IMPORTAR BASE DE DATOS
+        private void btnImportar_Click(object sender, RoutedEventArgs e)
+        {
+            Metodos.ReproducirSonidoClick();
         }
     }
 }

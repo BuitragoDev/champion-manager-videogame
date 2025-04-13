@@ -1,4 +1,5 @@
-﻿using ChampionManager25.Entidades;
+﻿using ChampionManager25.Datos;
+using ChampionManager25.Entidades;
 using ChampionManager25.Logica;
 using ChampionManager25.MisMetodos;
 using System;
@@ -23,6 +24,8 @@ namespace ChampionManager25.UserControls
         #region "Variables"
         private Manager _manager;
         private int _equipo;
+        Jugador jugador;
+        Estadistica estadistica;
         #endregion
 
         // Instancias de la LOGICA
@@ -30,6 +33,7 @@ namespace ChampionManager25.UserControls
         JugadorLogica _logicaJugador = new JugadorLogica();
         ManagerLogica _logicaManager = new ManagerLogica();
         EstadisticasLogica _logicaEstadistica = new EstadisticasLogica();
+        CompeticionLogica _logicaCompeticion = new CompeticionLogica();
 
         public UC_Menu_Club_Informacion(Manager manager, int equipo)
         {
@@ -42,9 +46,8 @@ namespace ChampionManager25.UserControls
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             // Imagen del Escudo
-            string escudoPath = $"/Recursos/img/escudos_equipos/{_equipo}.png";
-            BitmapImage bitmapEscudo = new BitmapImage(new Uri(escudoPath, UriKind.Relative));
-            imgEscudo.Source = bitmapEscudo;
+            Equipo miEquipo = _logicaEquipo.ListarDetallesEquipo(_equipo);
+            imgEscudo.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + miEquipo.RutaImagen));
 
             // Nombre del equipo y reputación
             txtNombreEquipo.Text = _logicaEquipo.ListarDetallesEquipo(_equipo).Nombre;
@@ -74,12 +77,8 @@ namespace ChampionManager25.UserControls
             }
 
             // Liga Nacional
-            int miLiga = _logicaEquipo.ListarDetallesEquipo(_equipo).IdCompeticion;
-            string nacionalPath = $"/Recursos/img/logos_competiciones/80x80/{miLiga}.png";
-            BitmapImage bitmapNacional = new BitmapImage(new Uri(nacionalPath, UriKind.Relative));
-            imgLigaNacional.Source = bitmapNacional;
-
-            // Liga Internacional
+            string ruta_logo = _logicaCompeticion.ObtenerCompeticion(miEquipo.IdCompeticion).RutaImagen;
+            imgLigaNacional.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo));
 
             // Datos Entrenador
             txtNombreEntrenador.Text = _logicaManager.MostrarManager(_manager.IdManager).Nombre.ToString() + " " +
@@ -91,27 +90,22 @@ namespace ChampionManager25.UserControls
             txtCapacidadEstadio.Text = "( " + _logicaEquipo.ListarDetallesEquipo(_equipo).Aforo.ToString("N0") + " asientos )";
 
             // Equipaciones
-            string kitLocalPath = $"/Recursos/img/kits/{_equipo}local.png";
-            BitmapImage bitmapKitLocal = new BitmapImage(new Uri(kitLocalPath, UriKind.Relative));
-            imgKitLocal.Source = bitmapKitLocal;
-
-            string kitVisitantePath = $"/Recursos/img/kits/{_equipo}visitante.png";
-            BitmapImage bitmapKitVisitante = new BitmapImage(new Uri(kitVisitantePath, UriKind.Relative));
-            imgKitVisitante.Source = bitmapKitVisitante;
+            imgKitLocal.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + miEquipo.RutaKitLocal));
+            imgKitVisitante.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + miEquipo.RutaKitVisitante));
 
             // Rivalidades
             int? rival = _logicaEquipo.ListarDetallesEquipo(_equipo).Rival;
             if (rival.HasValue)
             {
-                string rival1Path = $"/Recursos/img/escudos_equipos/120x120/{rival}.png";
-                BitmapImage bitmapRival1 = new BitmapImage(new Uri(rival1Path, UriKind.Relative));
-                imgRival1.Source = bitmapRival1;
+                Equipo equipoRival = _logicaEquipo.ListarDetallesEquipo(_equipo);
+                imgRival1.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoRival.RutaImagen120));
             }
 
             // Mejores Jugadores
             // Goles
-            imgFotoMaximoGoleador.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/jugadores/" +
-                                                               _logicaEstadistica.MostrarJugadorConMasGoles(_equipo).IdJugador + ".png"));
+            estadistica = _logicaEstadistica.MostrarJugadorConMasGoles(miEquipo.IdEquipo);
+            jugador = _logicaJugador.MostrarDatosJugador(estadistica.IdJugador);
+            imgFotoMaximoGoleador.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + jugador.RutaImagen));
             txtGolesNombre.Text = _logicaJugador.MostrarDatosJugador(_logicaEstadistica.MostrarJugadorConMasGoles(_equipo).IdJugador).Nombre + " " +
                                               _logicaJugador.MostrarDatosJugador(_logicaEstadistica.MostrarJugadorConMasGoles(_equipo).IdJugador).Apellido;
             txtGolesDemarcacion.Text = _logicaJugador.MostrarDatosJugador(_logicaEstadistica.MostrarJugadorConMasGoles(_equipo).IdJugador).Rol;
@@ -119,8 +113,9 @@ namespace ChampionManager25.UserControls
             txtGolesValor.Text = goles.ToString();
 
             // Asistencias
-            imgFotoMaximoAsistente.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/jugadores/" +
-                                                               _logicaEstadistica.MostrarJugadorConMasAsistencias(_equipo).IdJugador + ".png"));
+            estadistica = _logicaEstadistica.MostrarJugadorConMasAsistencias(miEquipo.IdEquipo);
+            jugador = _logicaJugador.MostrarDatosJugador(estadistica.IdJugador);
+            imgFotoMaximoAsistente.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + jugador.RutaImagen));
             txtAsistenciasNombre.Text = _logicaJugador.MostrarDatosJugador(_logicaEstadistica.MostrarJugadorConMasAsistencias(_equipo).IdJugador).Nombre + " " +
                                               _logicaJugador.MostrarDatosJugador(_logicaEstadistica.MostrarJugadorConMasAsistencias(_equipo).IdJugador).Apellido;
             txtAsistenciasDemarcacion.Text = _logicaJugador.MostrarDatosJugador(_logicaEstadistica.MostrarJugadorConMasAsistencias(_equipo).IdJugador).Rol;
@@ -128,8 +123,9 @@ namespace ChampionManager25.UserControls
             txtAsistenciasValor.Text = asistencias.ToString();
 
             // MVP
-            imgFotoMaximoMVP.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/jugadores/" +
-                                                               _logicaEstadistica.MostrarJugadorConMasMvp(_equipo).IdJugador + ".png"));
+            estadistica = _logicaEstadistica.MostrarJugadorConMasMvp(miEquipo.IdEquipo);
+            jugador = _logicaJugador.MostrarDatosJugador(estadistica.IdJugador);
+            imgFotoMaximoMVP.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + jugador.RutaImagen));
             txtMVPNombre.Text = _logicaJugador.MostrarDatosJugador(_logicaEstadistica.MostrarJugadorConMasMvp(_equipo).IdJugador).Nombre + " " +
                                               _logicaJugador.MostrarDatosJugador(_logicaEstadistica.MostrarJugadorConMasMvp(_equipo).IdJugador).Apellido;
             txtMVPDemarcacion.Text = _logicaJugador.MostrarDatosJugador(_logicaEstadistica.MostrarJugadorConMasMvp(_equipo).IdJugador).Rol;

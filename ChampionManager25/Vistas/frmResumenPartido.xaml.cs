@@ -26,6 +26,8 @@ namespace ChampionManager25.Vistas
         private Manager _manager;
         private int _equipo;
         private Partido _partido;
+        Equipo equipoLocal;
+        Equipo equipoVisitante;
 
         private static Random random = new Random(); //Random global
         private static MediaPlayer mediaPlayer = new MediaPlayer();
@@ -61,13 +63,15 @@ namespace ChampionManager25.Vistas
 
         private void resumenPartido_Loaded(object sender, RoutedEventArgs e)
         {
+            equipoLocal = _logicaEquipo.ListarDetallesEquipo(_partido.IdEquipoLocal);
+            equipoVisitante = _logicaEquipo.ListarDetallesEquipo(_partido.IdEquipoVisitante);
             // Cargar datos basicos del partido
             txtEquipoLocal.Text = _logicaEquipo.ListarDetallesEquipo(_partido.IdEquipoLocal).Nombre;
             txtEquipoVisitante.Text = _logicaEquipo.ListarDetallesEquipo(_partido.IdEquipoVisitante).Nombre;
-            imgEscudoEquipoLocal.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/120x120/" + _partido.IdEquipoLocal + ".png"));
-            imgEscudoEquipoVisitante.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/120x120/" + _partido.IdEquipoVisitante + ".png"));
+            imgEscudoEquipoLocal.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoLocal.RutaImagen120));
+            imgEscudoEquipoVisitante.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoVisitante.RutaImagen120));
             txtEstadio.Text = _logicaEquipo.ListarDetallesEquipo(_partido.IdEquipoLocal).Estadio;
-            imgEstadio.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/estadios/" + _partido.IdEquipoLocal + "interior.png"));
+            imgEstadio.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoLocal.RutaEstadioInterior));
             txtAforo.Text = _logicaEquipo.ListarDetallesEquipo(_partido.IdEquipoLocal).Aforo.ToString("N0") + " espectadores";
 
             List<Jugador> todosLosJugadores = _logicaJugador.ListadoJugadoresCompleto(_partido.IdEquipoLocal)
@@ -126,7 +130,7 @@ namespace ChampionManager25.Vistas
             // Determinar MVP
             Jugador mvp = DeterminarMVP(golesYAsistencias, jugadoresLocal, jugadoresVisitante);
             txtNombreMvp.Text = _logicaJugador.MostrarDatosJugador(mvp.IdJugador).NombreCompleto;
-            imgMvp.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/jugadores/" + mvp.IdJugador + ".png"));
+            imgMvp.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + mvp.RutaImagen));
 
             // Calcular asistencia al estadio
             partido.Asistencia = _logicaEquipo.CalcularAsistencia(partido.IdEquipoLocal);

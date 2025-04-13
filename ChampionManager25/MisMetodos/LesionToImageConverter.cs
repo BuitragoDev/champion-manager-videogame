@@ -13,7 +13,7 @@ namespace ChampionManager25.MisMetodos
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is int lesion && lesion == 1)
+            if (value is int lesion && lesion > 0)
             {
                 return new BitmapImage(new Uri("pack://application:,,,/Recursos/img/icons/lesion.png"));
             }

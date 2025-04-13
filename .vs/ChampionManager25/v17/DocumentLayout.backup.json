@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\usercontrols\\uc_menu_competicion_palmares.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
-      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\usercontrols\\uc_menu_competicion_palmares.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
+      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\mismetodos\\sancionconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\mismetodos\\sancionconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\usercontrols\\uc_menu_competicion_clasificacion.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
-      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\usercontrols\\uc_menu_competicion_clasificacion.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
+      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\mismetodos\\lesionconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\mismetodos\\lesionconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\usercontrols\\uc_seleccionequipo.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
-      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\usercontrols\\uc_seleccionequipo.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
+      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\usercontrols\\uc_menu_club_plantilla.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
+      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\usercontrols\\uc_menu_club_plantilla.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\usercontrols\\uc_iniciotemporada.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
-      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\usercontrols\\uc_iniciotemporada.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
+      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\usercontrols\\uc_menu_club_plantilla.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\usercontrols\\uc_menu_club_plantilla.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -31,53 +31,52 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "UC_Menu_Competicion_Palmares.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Competicion_Palmares.xaml.cs",
-              "RelativeDocumentMoniker": "ChampionManager25\\UserControls\\UC_Menu_Competicion_Palmares.xaml.cs",
-              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Competicion_Palmares.xaml.cs*",
-              "RelativeToolTip": "ChampionManager25\\UserControls\\UC_Menu_Competicion_Palmares.xaml.cs*",
-              "ViewState": "AgIAAC8BAAAAAAAAAAAjwDsBAAA6AAAAAAAAAA==",
+              "Title": "SancionConverter.cs",
+              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\MisMetodos\\SancionConverter.cs",
+              "RelativeDocumentMoniker": "ChampionManager25\\MisMetodos\\SancionConverter.cs",
+              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\MisMetodos\\SancionConverter.cs*",
+              "RelativeToolTip": "ChampionManager25\\MisMetodos\\SancionConverter.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-10T18:15:42.407Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "UC_InicioTemporada.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_InicioTemporada.xaml.cs",
-              "RelativeDocumentMoniker": "ChampionManager25\\UserControls\\UC_InicioTemporada.xaml.cs",
-              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_InicioTemporada.xaml.cs",
-              "RelativeToolTip": "ChampionManager25\\UserControls\\UC_InicioTemporada.xaml.cs",
-              "ViewState": "AgIAACMAAAAAAAAAAAAQwDUAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-10T14:30:31.981Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UC_SeleccionEquipo.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_SeleccionEquipo.xaml.cs",
-              "RelativeDocumentMoniker": "ChampionManager25\\UserControls\\UC_SeleccionEquipo.xaml.cs",
-              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_SeleccionEquipo.xaml.cs",
-              "RelativeToolTip": "ChampionManager25\\UserControls\\UC_SeleccionEquipo.xaml.cs",
-              "ViewState": "AgIAAJAAAAAAAAAAAAAtwC8AAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-10T12:58:34.712Z",
+              "WhenOpened": "2025-04-13T18:00:44.529Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "UC_Menu_Competicion_Clasificacion.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Competicion_Clasificacion.xaml.cs",
-              "RelativeDocumentMoniker": "ChampionManager25\\UserControls\\UC_Menu_Competicion_Clasificacion.xaml.cs",
-              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Competicion_Clasificacion.xaml.cs",
-              "RelativeToolTip": "ChampionManager25\\UserControls\\UC_Menu_Competicion_Clasificacion.xaml.cs",
-              "ViewState": "AgIAALMBAAAAAAAAAAAjwMcBAAAIAAAAAAAAAA==",
+              "Title": "LesionConverter.cs",
+              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\MisMetodos\\LesionConverter.cs",
+              "RelativeDocumentMoniker": "ChampionManager25\\MisMetodos\\LesionConverter.cs",
+              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\MisMetodos\\LesionConverter.cs",
+              "RelativeToolTip": "ChampionManager25\\MisMetodos\\LesionConverter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-10T18:23:03.028Z",
+              "WhenOpened": "2025-04-13T17:53:03.714Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UC_Menu_Club_Plantilla.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Club_Plantilla.xaml.cs",
+              "RelativeDocumentMoniker": "ChampionManager25\\UserControls\\UC_Menu_Club_Plantilla.xaml.cs",
+              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Club_Plantilla.xaml.cs",
+              "RelativeToolTip": "ChampionManager25\\UserControls\\UC_Menu_Club_Plantilla.xaml.cs",
+              "ViewState": "AgIAACoBAAAAAAAAAAAkwDYBAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-13T17:44:02.278Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UC_Menu_Club_Plantilla.xaml",
+              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Club_Plantilla.xaml",
+              "RelativeDocumentMoniker": "ChampionManager25\\UserControls\\UC_Menu_Club_Plantilla.xaml",
+              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Club_Plantilla.xaml",
+              "RelativeToolTip": "ChampionManager25\\UserControls\\UC_Menu_Club_Plantilla.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-04-13T17:43:56.285Z",
               "EditorCaption": ""
             }
           ]

@@ -132,7 +132,7 @@ namespace ChampionManager25.UserControls
                 int anio = !string.IsNullOrWhiteSpace(txtAnio.Text) && int.TryParse(txtAnio.Text, out int parsedAnio) ? parsedAnio : DateTime.Now.Year;
 
                 if (mes < 1 || mes > 12) mes = 1;
-                if (anio < 1900) anio = 1900;
+                if (anio < 1950) anio = 1950;
                 if (anio > DateTime.Now.Year) anio = DateTime.Now.Year;
 
                 int maxDias = DateTime.DaysInMonth(anio, mes);
@@ -200,7 +200,7 @@ namespace ChampionManager25.UserControls
             if (txtAnio.Text.Length == 4 && !string.IsNullOrWhiteSpace(txtAnio.Text) && int.TryParse(txtAnio.Text, out int anio))
             {
                 int anioLimite = DateTime.Now.Year - 18;
-                if (anio < 1900) anio = 1900;
+                if (anio < 1950) anio = 1950;
                 if (anio > anioLimite) anio = anioLimite;
 
                 txtAnio.Text = anio.ToString();
@@ -246,7 +246,7 @@ namespace ChampionManager25.UserControls
                 if (mes < 1 || mes > 12) mes = 1;
 
                 // Asegurarse de que el año esté en el rango correcto (1900 - año actual)
-                if (anio < 1900) anio = 1900;
+                if (anio < 1950) anio = 1950;
                 if (anio > DateTime.Now.Year) anio = DateTime.Now.Year;
 
                 // Obtener el número máximo de días del mes

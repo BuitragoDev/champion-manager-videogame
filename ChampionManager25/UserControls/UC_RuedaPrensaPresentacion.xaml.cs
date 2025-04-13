@@ -190,7 +190,6 @@ namespace ChampionManager25.UserControls
 
             Metodos.ReproducirSonidoTransicion();
             mainWindow.CargarPantallaPrincipal(_manager, _equipo);
-            mainWindow.CargarPantallaPrincipal(_manager, _equipo);
         }
         // ---------------------------------------------------------------------------------------------------------------------------------
 

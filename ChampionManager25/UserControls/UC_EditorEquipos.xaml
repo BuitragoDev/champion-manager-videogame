@@ -1,0 +1,154 @@
+﻿<UserControl x:Class="ChampionManager25.UserControls.UC_EditorEquipos"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ChampionManager25.UserControls"
+             mc:Ignorable="d" Height="1080" Width="1920" Loaded="editorEquipos_Loaded">
+    <Grid>
+        <!-- Imagen de Fondo del UserControl-->
+        <Grid.Background>
+            <ImageBrush ImageSource="/Recursos/img/backgroundPrincipal1920x1080.png" Stretch="UniformToFill" TileMode="None"/>
+        </Grid.Background>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="220"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+        <!-- BARRA SUPERIOR -->
+        <Border x:Name="borderBarraSuperior" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="#23282d">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Column="0" Grid.Row="0" Background="#23282d">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0" Background="WhiteSmoke">
+                            <Image x:Name="imgBotonAtras" Width="32" Height="32" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" 
+                           Source="/Recursos/img/icons/flechaIzquierdaNegra64px_icon.png" Cursor="Hand" MouseLeftButtonDown="imgBotonAtras_MouseLeftButtonDown" />
+                        </Border>
+                    </Grid>
+                </Border>
+                <TextBlock x:Name="lblSeleccionEquipo" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="EDITAR EQUIPOS"
+                           Foreground="WhiteSmoke" FontSize="28" FontFamily="Cascadia Code SemiBold" />
+            </Grid>
+        </Border>
+
+        <!-- SELECCIÓN COMPETICIONES -->
+        <Border x:Name="borderCompeticiones" Grid.Column="1" Grid.Row="1" Background="WhiteSmoke" Margin="20" CornerRadius="10">
+            <Border.Effect>
+                <DropShadowEffect Color="Black" 
+                              BlurRadius="10" 
+                              ShadowDepth="5" 
+                              Direction="320" 
+                              Opacity="0.5"/>
+            </Border.Effect>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Image x:Name="imgCompeticion" Grid.Column="1" Grid.Row="0" Width="150" Height="150" Stretch="Uniform" VerticalAlignment="Center" 
+                   HorizontalAlignment="Center" Margin="10" Cursor="Hand" MouseLeftButtonDown="imgCompeticion_MouseLeftButtonDown" />
+                <Image x:Name="imgCompeticionReserva" Grid.Column="2" Grid.Row="0" Width="150" Height="150" Stretch="Uniform" VerticalAlignment="Center" 
+                   HorizontalAlignment="Center" Margin="10" Cursor="Hand" MouseLeftButtonDown="imgCompeticionReserva_MouseLeftButtonDown" />
+
+            </Grid>
+        </Border>
+
+        <!-- SELECCIÓN EQUIPO -->
+        <Border x:Name="borderEquipos" Grid.Column="1" Grid.Row="3" Background="WhiteSmoke" Margin="20" CornerRadius="10">
+            <Border.Effect>
+                <DropShadowEffect Color="Black" 
+                                  BlurRadius="10" 
+                                  ShadowDepth="5" 
+                                  Direction="320" 
+                                  Opacity="0.5"/>
+            </Border.Effect>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="70"/>
+                </Grid.RowDefinitions>
+
+                <WrapPanel Name="wrapPanelEquipos" Grid.Row="0" HorizontalAlignment="Center" Height="auto" ItemWidth="130" ItemHeight="130" Margin="10"/>
+
+                <DockPanel Grid.Column="0" Grid.Row="1" Height="50" Width="1300" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10">
+                    <Button x:Name="btnEditarEquipo" Content="EDITAR EQUIPO" Width="1250" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center"
+                            FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" IsEnabled="False" Click="btnEditarEquipo_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <!-- Configuración inicial -->
+                                <Setter Property="Background" Value="#1d6a7d"/>
+                                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            CornerRadius="5">
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <!-- Texto del botón -->
+                                                    <TextBlock Text="{TemplateBinding Content}" 
+                                                       Foreground="{TemplateBinding Foreground}" 
+                                                       VerticalAlignment="Center" 
+                                                       Margin="0,0,5,0"/>
+                                                </StackPanel>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+
+                                <!-- Configuración al pasar el ratón -->
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderBrush" Value="#1d6a7d"/>
+                                        <Setter Property="BorderThickness" Value="1"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </DockPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

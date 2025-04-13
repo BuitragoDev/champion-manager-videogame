@@ -44,8 +44,8 @@
                         </Grid.RowDefinitions>
 
                         <Border Grid.Column="0" Grid.Row="0" Background="WhiteSmoke">
-                            <Image x:Name="imgEscudoEquipo" Width="64" Height="64" Stretch="Uniform" VerticalAlignment="Center" 
-                               HorizontalAlignment="Center" Source="/Recursos/img/logos_competiciones/80x80/1.png" />
+                            <Image x:Name="imgLogoCompeticion" Width="64" Height="64" Stretch="Uniform" VerticalAlignment="Center" 
+                               HorizontalAlignment="Center" />
                         </Border>
                     </Grid>
                 </Border>

@@ -27,6 +27,7 @@ namespace ChampionManager25.UserControls
             InitializeComponent();
             // Copiar recursos en Mis Documentos/ChampionsManager
             GestorPartidas.CopiarRecursosSiNoExiste();
+            Conexion.EstablecerConexionPartida("./championsManagerDB.db");
         }
 
         // ---------------------------------------------------------------------------- EVENTOS DEL BOTON JUGAR CAMPEONATO

@@ -36,5 +36,23 @@ namespace ChampionManager25.Logica
         {
             return _datos.CalcularAsistencia(idEquipoLocal);
         }
+
+        // Llamada al método para Mostrar el Listado de todos los equipos excepto el elegido
+        public List<Equipo> ListarOtrosEquipos(int equipoElegido)
+        {
+            return _datos.ListarOtrosEquipos(equipoElegido);
+        }
+
+        // Llamada al método para Mostrar el Listado de todos los equipos
+        public List<Equipo> ListarTodosLosEquipos()
+        {
+            return _datos.ListarTodosLosEquipos();
+        }
+
+        // Llamada al método que actualiza los detalles de un equipo
+        public void EditarEquipo(Equipo equipo)
+        {
+            _datos.EditarEquipo(equipo);
+        }
     }
 }

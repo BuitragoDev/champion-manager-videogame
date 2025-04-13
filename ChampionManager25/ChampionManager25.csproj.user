@@ -8,10 +8,22 @@
     <Compile Update="UserControls\UC_CrearManager.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\UC_EditorClub.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\UC_EditorCompeticion.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\UC_EditorEquipos.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\UC_EditorHome.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_EditorJugador.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_EditorJugadores.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControls\UC_FichaJugador.xaml.cs">

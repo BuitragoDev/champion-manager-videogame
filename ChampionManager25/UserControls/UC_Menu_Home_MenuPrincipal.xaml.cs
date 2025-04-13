@@ -95,11 +95,12 @@ namespace ChampionManager25.UserControls
 
             // PRÓXIMO PARTIDO
             Partido proximoPartido = _logicaPartidos.ObtenerProximoPartido(_equipo, _manager.IdManager, hoy);
-            equipoLocal = _logicaEquipos.ListarDetallesEquipo(proximoPartido.IdEquipoLocal);
-            equipoVisitante = _logicaEquipos.ListarDetallesEquipo(proximoPartido.IdEquipoVisitante);
 
             if (proximoPartido != null)
             {
+                equipoLocal = _logicaEquipos.ListarDetallesEquipo(proximoPartido.IdEquipoLocal);
+                equipoVisitante = _logicaEquipos.ListarDetallesEquipo(proximoPartido.IdEquipoVisitante);
+
                 // Cargar componentes del próximo partido.
                 if (proximoPartido.IdEquipoLocal == _equipo)
                 {
@@ -202,7 +203,7 @@ namespace ChampionManager25.UserControls
             txtMediaNumero.Text = Math.Round(mediaEquipo).ToString();
             if (mediaEquipo > 85)
             {
-                txtMediaNumero.Foreground = new SolidColorBrush(Colors.LightGreen);
+                txtMediaNumero.Foreground = new SolidColorBrush(Colors.Green);
             }
             else if (mediaEquipo >= 75)
             {

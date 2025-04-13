@@ -30,5 +30,11 @@ namespace ChampionManager25.Logica
         {
             _datos.ActualizarResultadoManager(entrenador, puntos);
         }
+
+        // Llamada al método que actualiza los detalles de un equipo
+        public void EditarEntrenador(Entrenador entrenador)
+        {
+            _datos.EditarEntrenador(entrenador);
+        }
     }
 }

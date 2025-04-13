@@ -774,10 +774,10 @@ namespace ChampionManager25.UserControls
         private void MostrarDatosCambio1(Jugador jugador)
         {
             bordeCambio1.Background = Brushes.LightGreen;
-            imgFotoCambio1.Source = new BitmapImage(new Uri($"pack://application:,,,/Recursos/img/jugadores/{jugador.IdJugador}.png"));
+            imgFotoCambio1.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + jugador.RutaImagen));
             txtCambio1.Text = jugador.NombreCompleto;
 
-            imgFotoJugador.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/jugadores/" + jugador.IdJugador + ".png"));
+            imgFotoJugador.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + jugador.RutaImagen));
             txtNombreJugador.Text = jugador.NombreCompleto;
             txtDemarcacionJugador.Text = jugador.Rol;
             txtPortero.Text = jugador.Portero.ToString();
@@ -812,7 +812,7 @@ namespace ChampionManager25.UserControls
         private void MostrarDatosCambio2(Jugador jugador)
         {
             bordeCambio2.Background = Brushes.IndianRed;
-            imgFotoCambio2.Source = new BitmapImage(new Uri($"pack://application:,,,/Recursos/img/jugadores/{jugador.IdJugador}.png"));
+            imgFotoCambio2.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + jugador.RutaImagen));
             txtCambio2.Text = jugador.NombreCompleto;
         }
 

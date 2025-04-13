@@ -142,10 +142,16 @@ namespace ChampionManager25.Logica
             _datos.ActualizarOtrosAtributosEntrenamiento(jugador, velocidad, resistencia, agresividad, calidad);
         }
 
-        // ===================================================================== Método que resetea la moral y el estado de forma
+        // Llamada al método que resetea la moral y el estado de forma
         public void ResetearMoralEstadoForma()
         {
             _datos.ResetearMoralEstadoForma();
+        }
+
+        // Llamada al método que actualiza un jugador
+        public void ActualizarJugador(Jugador jugador)
+        {
+            _datos.ActualizarJugador(jugador);
         }
     }
 }

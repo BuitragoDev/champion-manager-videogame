@@ -117,10 +117,15 @@ namespace ChampionManager25.UserControls
 
                 progressBar.Visibility = Visibility.Collapsed;
 
-                // Cargar la pantalla principal con los nuevos datos
-                Metodos.ReproducirSonidoTransicion();
+                // Aquí ya puedes confirmar la partida, porque ya no se va a usar más la base de datos temporal
+                string rutaFinal = GestorPartidas.ConfirmarPartida(_rutaPartida);
+                Conexion.EstablecerConexionPartida(rutaFinal);
 
+                // Actualizar ruta en MainWindow por si quieres guardarla allí
                 var mainWindow = (MainWindow)Application.Current.MainWindow;
+                mainWindow.RutaPartidaActual = rutaFinal;
+
+                Metodos.ReproducirSonidoTransicion();
                 mainWindow.CargarPantallaPrincipal(_manager, _equipo);
             }
             catch (Exception ex)

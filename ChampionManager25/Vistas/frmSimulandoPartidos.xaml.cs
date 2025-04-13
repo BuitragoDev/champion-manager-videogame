@@ -27,6 +27,8 @@ namespace ChampionManager25.Vistas
         private Manager _manager;
         private int _equipo;
         List<Partido> listaPartidos;
+        Equipo equipoLocal;
+        Equipo equipoVisitante;
 
         private static Random random = new Random(); //Random global
         #endregion
@@ -598,6 +600,8 @@ namespace ChampionManager25.Vistas
             for (int i = 0; i < partidos.Count; i++)
             {
                 Partido partido = partidos[i];
+                equipoLocal = _logicaEquipo.ListarDetallesEquipo(partido.IdEquipoLocal);
+                equipoVisitante = _logicaEquipo.ListarDetallesEquipo(partido.IdEquipoVisitante);
 
                 // Determinar en qué fila y columna colocar el partido
                 int row = i % 13; 
@@ -630,7 +634,7 @@ namespace ChampionManager25.Vistas
                 // Escudo equipo local
                 Image imgLocal = new Image
                 {
-                    Source = new BitmapImage(new Uri($"/Recursos/img/escudos_equipos/32x32/{partido.IdEquipoLocal}.png", UriKind.Relative)),
+                    Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoLocal.RutaImagen32)),
                     Width = 32,
                     Height = 32,
                     VerticalAlignment = VerticalAlignment.Center,
@@ -669,7 +673,7 @@ namespace ChampionManager25.Vistas
                 // Escudo equipo visitante
                 Image imgVisitante = new Image
                 {
-                    Source = new BitmapImage(new Uri($"/Recursos/img/escudos_equipos/32x32/{partido.IdEquipoVisitante}.png", UriKind.Relative)),
+                    Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoVisitante.RutaImagen32)),
                     Width = 32,
                     Height = 32,
                     VerticalAlignment = VerticalAlignment.Center,

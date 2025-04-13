@@ -1,0 +1,600 @@
+﻿<UserControl x:Name="editorJugador" x:Class="ChampionManager25.UserControls.UC_EditorJugador"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ChampionManager25.UserControls"
+             mc:Ignorable="d" Height="1080" Width="1920" Loaded="editorJugador_Loaded">
+    <Grid>
+        <!-- Imagen de Fondo del UserControl-->
+        <Grid.Background>
+            <ImageBrush ImageSource="/Recursos/img/backgroundPrincipal1920x1080.png" Stretch="UniformToFill" TileMode="None"/>
+        </Grid.Background>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="80"/>
+        </Grid.RowDefinitions>
+
+        <!-- BARRA SUPERIOR -->
+        <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="#23282d">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Column="0" Grid.Row="0" Background="#23282d">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0" Background="WhiteSmoke">
+                            <Image x:Name="imgBotonAtras" Width="32" Height="32" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" 
+                                   Source="/Recursos/img/icons/flechaIzquierdaNegra64px_icon.png" Cursor="Hand" MouseLeftButtonDown="imgBotonAtras_MouseLeftButtonDown" />
+                        </Border>
+                    </Grid>
+                </Border>
+                <TextBlock Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="EDITAR JUGADOR"
+                           Foreground="WhiteSmoke" FontSize="28" FontFamily="Cascadia Code SemiBold" />
+            </Grid>
+        </Border>
+
+        <!-- ZONA CENTRAL -->
+        <Border Grid.Row="1" Background="WhiteSmoke" Margin="50" Grid.ColumnSpan="2" BorderBrush="#23282d" BorderThickness="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="250"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Background="#1d6a7d" Grid.Column="0" Grid.Row="0">
+                    <TextBlock Text="DETALLES DEL JUGADOR" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0" 
+                               FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                </Border>
+
+                <!-- Detalles del Jugador -->
+                <Border Grid.Column="0" Grid.Row="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Border Background="#FF23282D" Grid.Column="0" Grid.Row="0">
+                                    <TextBlock Text="FOTO DEL JUGADOR" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0" 
+                                               FontFamily="Cascadia Code SemiBold" FontSize="14" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                </Border>
+
+                                <Image x:Name="imgFotoJugador" Grid.Column="0" Grid.Row="1" Width="100" Height="100" Stretch="Uniform" 
+                                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" Cursor="Hand" MouseLeftButtonDown="imgFotoJugador_MouseLeftButtonDown" />
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Column="1" Grid.Row="0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- Detalles Fila 1 -->
+                                <Border Background="LightGray" Grid.Column="0" Grid.Row="0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="250"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="250"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Border Background="#FF23282D" Grid.Column="0" Grid.Row="0">
+                                            <TextBlock Text="NOMBRE" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" 
+                                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                        </Border>
+
+                                        <TextBox x:Name="txtNombre" Grid.Column="1" FontFamily="Cascadia Code SemiBold" FontSize="20"
+                                                 Width="500" Height="40" VerticalContentAlignment="Center" HorizontalAlignment="Center"
+                                                 MaxLength="35" VerticalAlignment="Center" TextAlignment="Left" Padding="20,0,0,0" PreviewTextInput="txtNombre_PreviewTextInput" />
+
+                                        <Border Background="#FF23282D" Grid.Column="2" Grid.Row="0">
+                                            <TextBlock Text="NACIONALIDAD" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" 
+                                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                        </Border>
+
+                                        <ComboBox x:Name="cbNacionalidad" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                  Width="350" Height="40" FontFamily="Cascadia Code SemiBold" FontSize="20" Margin="20,0,0,0"
+                                                  VerticalContentAlignment="Center" Cursor="Hand"/>
+                                    </Grid>
+                                </Border>
+
+                                <!-- Detalles Fila 2 -->
+                                <Border Background="WhiteSmoke" Grid.Column="0" Grid.Row="1">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="250"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="250"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Border Background="#FF23282D" Grid.Column="0" Grid.Row="0">
+                                            <TextBlock Text="APELLIDO" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" 
+                                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                        </Border>
+
+                                        <TextBox x:Name="txtApellido" Grid.Column="1" FontFamily="Cascadia Code SemiBold" FontSize="20"
+                                                 Width="500" Height="40" VerticalContentAlignment="Center" HorizontalAlignment="Center"
+                                                 MaxLength="35" VerticalAlignment="Center" TextAlignment="Left" Padding="20,0,0,0" PreviewTextInput="txtApellido_PreviewTextInput" />
+
+                                        <Border Background="#FF23282D" Grid.Column="2" Grid.Row="0">
+                                            <TextBlock Text="EQUIPO" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" 
+                                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                        </Border>
+
+                                        <ComboBox x:Name="cbEquipo" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                  Width="350" Height="40" FontFamily="Cascadia Code SemiBold" FontSize="20" Margin="20,0,0,0"
+                                                  VerticalContentAlignment="Center" Cursor="Hand"/>
+                                    </Grid>
+                                </Border>
+
+                                <!-- Detalles Fila 3 -->
+                                <Border Background="LightGray" Grid.Column="0" Grid.Row="2">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="250"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="250"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Border Background="#FF23282D" Grid.Column="0" Grid.Row="0">
+                                            <TextBlock Text="FECHA DE NACIMIENTO" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" 
+                                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                        </Border>
+
+                                        <WrapPanel Grid.Row="0" Grid.Column="1" >
+                                            <TextBox x:Name="txtDia" FontFamily="Cascadia Code SemiBold" FontSize="20" Margin="30,5,0,0"
+                                                     Width="100" Height="40" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                                     MaxLength="2" VerticalAlignment="Center" TextAlignment="Center" PreviewTextInput="txtDia_PreviewTextInput" PreviewKeyDown="txtDia_PreviewKeyDown" TextChanged="txtDia_TextChanged" />
+                                            <TextBox x:Name="txtMes" FontFamily="Cascadia Code SemiBold" FontSize="20" Margin="30,5,0,0"
+                                                     Width="100" Height="40" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                                     MaxLength="2" VerticalAlignment="Center" TextAlignment="Center" PreviewTextInput="txtMes_PreviewTextInput" PreviewKeyDown="txtMes_PreviewKeyDown" TextChanged="txtMes_TextChanged" />
+                                            <TextBox x:Name="txtAnio" FontFamily="Cascadia Code SemiBold" FontSize="20" Margin="30,5,0,0"
+                                                     Width="100" Height="40" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                                     MaxLength="4" VerticalAlignment="Center" TextAlignment="Center" PreviewTextInput="txtAnio_PreviewTextInput" PreviewKeyDown="txtAnio_PreviewKeyDown" TextChanged="txtAnio_TextChanged" />
+                                        </WrapPanel>
+                                        
+                                        <Border Background="#FF23282D" Grid.Column="2" Grid.Row="0">
+                                            <TextBlock Text="DEMARCACIÓN" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" 
+                                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                        </Border>
+
+                                        <ComboBox x:Name="cbDemarcacion" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                  Width="350" Height="40" FontFamily="Cascadia Code SemiBold" FontSize="20" Margin="20,0,0,0"
+                                                  VerticalContentAlignment="Center" Cursor="Hand" SelectedValuePath="Content">
+                                            <ComboBoxItem Content="Portero" />
+                                            <ComboBoxItem Content="Lateral Derecho" />
+                                            <ComboBoxItem Content="Lateral Izquierdo" />
+                                            <ComboBoxItem Content="Defensa Central" />
+                                            <ComboBoxItem Content="Mediocentro Defensivo" />
+                                            <ComboBoxItem Content="Mediocentro" />
+                                            <ComboBoxItem Content="Mediocentro Ofensivo" />
+                                            <ComboBoxItem Content="Extremo Derecho" />
+                                            <ComboBoxItem Content="Extremo Izquierdo" />
+                                            <ComboBoxItem Content="Delantero Centro" />
+                                        </ComboBox>
+                                    </Grid>
+                                </Border>
+
+                                <!-- Detalles Fila 4 -->
+                                <Border Background="WhiteSmoke" Grid.Column="0" Grid.Row="3">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="250"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="250"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Border Background="#FF23282D" Grid.Column="0" Grid.Row="0">
+                                            <TextBlock Text="ALTURA (cms)" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" 
+                                                        FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                        </Border>
+
+                                        <TextBox x:Name="txtAltura" Grid.Column="1" FontFamily="Cascadia Code SemiBold" FontSize="20" Margin="30,0,0,0"
+                                                 Width="150" Height="40" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                                 MaxLength="3" VerticalAlignment="Center" TextAlignment="Left" Padding="20,0,0,0" PreviewTextInput="txtAltura_PreviewTextInput" PreviewKeyDown="txtAltura_PreviewKeyDown" />
+
+                                        <Border Background="#FF23282D" Grid.Column="2" Grid.Row="0">
+                                            <TextBlock Text="ROL" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" 
+                                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                        </Border>
+
+                                        <ComboBox x:Name="cbStatus" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                  Width="350" Height="40" FontFamily="Cascadia Code SemiBold" FontSize="20" Margin="20,0,0,0"
+                                                  VerticalContentAlignment="Center" Cursor="Hand" SelectedValuePath="Content">
+                                            <ComboBoxItem Content="Clave" />
+                                            <ComboBoxItem Content="Importante" />
+                                            <ComboBoxItem Content="Rotación" />
+                                            <ComboBoxItem Content="Ocasional" Cursor="" />
+                                        </ComboBox>
+                                    </Grid>
+                                </Border>
+
+                                <!-- Detalles Fila 5 -->
+                                <Border Background="LightGray" Grid.Column="0" Grid.Row="4">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="250"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="250"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Border Background="#FF23282D" Grid.Column="0" Grid.Row="0">
+                                            <TextBlock Text="PESO (kgs)" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" 
+                                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                        </Border>
+
+                                        <TextBox x:Name="txtPeso" Grid.Column="1" FontFamily="Cascadia Code SemiBold" FontSize="20" Margin="30,0,0,0"
+                                                 Width="150" Height="40" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                                 MaxLength="3" VerticalAlignment="Center" TextAlignment="Left" Padding="20,0,0,0" PreviewTextInput="txtPeso_PreviewTextInput" PreviewKeyDown="txtPeso_PreviewKeyDown" />
+
+                                        <Border Background="#FF23282D" Grid.Column="2" Grid.Row="0">
+                                            <TextBlock Text="DORSAL" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" 
+                                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                        </Border>
+
+                                        <ComboBox x:Name="cbDorsal" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                  Width="100" Height="40" FontFamily="Cascadia Code SemiBold" FontSize="20" Margin="20,0,0,0"
+                                                  VerticalContentAlignment="Center" Cursor="Hand" SelectedValuePath="Content"/>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Background="#1d6a7d" Grid.Column="0" Grid.Row="2">
+                    <TextBlock Text="ATRIBUTOS DEL JUGADOR" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0" 
+                               FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                </Border>
+
+                <!-- Atributos del Jugador -->
+                <Border Grid.Column="0" Grid.Row="3">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        
+                        <!-- Atributos Fila 1 -->
+                        <Border Grid.Column="0" Grid.Row="0" Background="LightGray">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Border Background="#FF23282D" Grid.Column="0" Grid.Row="0">
+                                    <TextBlock Text="VELOCIDAD" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                </Border>
+
+                                <TextBox x:Name="txtVelocidad" Grid.Column="0" Grid.Row="1" FontFamily="Cascadia Code SemiBold" FontSize="32"
+                                         Width="150" Height="60" VerticalContentAlignment="Center" HorizontalAlignment="Center"
+                                         MaxLength="3" VerticalAlignment="Center" TextAlignment="Center" PreviewTextInput="txtVelocidad_PreviewTextInput" PreviewKeyDown="txtVelocidad_PreviewKeyDown" />
+
+                                <Border Background="#FF23282D" Grid.Column="1" Grid.Row="0">
+                                    <TextBlock Text="ESTADO DE FORMA" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                </Border>
+
+                                <TextBox x:Name="txtEstadoForma" Grid.Column="1" Grid.Row="1" FontFamily="Cascadia Code SemiBold" FontSize="32"
+                                         Width="150" Height="60" VerticalContentAlignment="Center" HorizontalAlignment="Center"
+                                         MaxLength="3" VerticalAlignment="Center" TextAlignment="Center" PreviewTextInput="txtEstadoForma_PreviewTextInput" PreviewKeyDown="txtEstadoForma_PreviewKeyDown" />
+
+                                <Border Background="#243161" Grid.Column="2" Grid.Row="0">
+                                    <TextBlock Text="PORTERO" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                </Border>
+
+                                <TextBox x:Name="txtPortero" Grid.Column="2" Grid.Row="1" FontFamily="Cascadia Code SemiBold" FontSize="32"
+                                         Width="150" Height="60" VerticalContentAlignment="Center" HorizontalAlignment="Center"
+                                         MaxLength="3" VerticalAlignment="Center" TextAlignment="Center" PreviewTextInput="txtPortero_PreviewTextInput" PreviewKeyDown="txtPortero_PreviewKeyDown" />
+
+                                <Border Background="#243161" Grid.Column="3" Grid.Row="0">
+                                    <TextBlock Text="REMATE" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                </Border>
+
+                                <TextBox x:Name="txtRemate" Grid.Column="3" Grid.Row="1" FontFamily="Cascadia Code SemiBold" FontSize="32"
+                                         Width="150" Height="60" VerticalContentAlignment="Center" HorizontalAlignment="Center"
+                                         MaxLength="3" VerticalAlignment="Center" TextAlignment="Center" PreviewTextInput="txtRemate_PreviewTextInput" PreviewKeyDown="txtRemate_PreviewKeyDown" />
+                            </Grid>
+                        </Border>
+
+                        <!-- Atributos Fila 2 -->
+                        <Border Grid.Column="0" Grid.Row="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Border Background="#FF23282D" Grid.Column="0" Grid.Row="0">
+                                    <TextBlock Text="RESISTENCIA" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                </Border>
+
+                                <TextBox x:Name="txtResistencia" Grid.Column="0" Grid.Row="1" FontFamily="Cascadia Code SemiBold" FontSize="32"
+                                         Width="150" Height="60" VerticalContentAlignment="Center" HorizontalAlignment="Center"
+                                         MaxLength="3" VerticalAlignment="Center" TextAlignment="Center" PreviewTextInput="txtResistencia_PreviewTextInput" PreviewKeyDown="txtResistencia_PreviewKeyDown" />
+
+                                <Border Background="#FF23282D" Grid.Column="1" Grid.Row="0">
+                                    <TextBlock Text="MORAL" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                </Border>
+
+                                <TextBox x:Name="txtMoral" Grid.Column="1" Grid.Row="1" FontFamily="Cascadia Code SemiBold" FontSize="32"
+                                         Width="150" Height="60" VerticalContentAlignment="Center" HorizontalAlignment="Center"
+                                         MaxLength="3" VerticalAlignment="Center" TextAlignment="Center" PreviewTextInput="txtMoral_PreviewTextInput" PreviewKeyDown="txtMoral_PreviewKeyDown" />
+
+                                <Border Background="#243161" Grid.Column="2" Grid.Row="0">
+                                    <TextBlock Text="PASE" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                </Border>
+
+                                <TextBox x:Name="txtPase" Grid.Column="2" Grid.Row="1" FontFamily="Cascadia Code SemiBold" FontSize="32"
+                                         Width="150" Height="60" VerticalContentAlignment="Center" HorizontalAlignment="Center"
+                                         MaxLength="3" VerticalAlignment="Center" TextAlignment="Center" PreviewTextInput="txtPase_PreviewTextInput" PreviewKeyDown="txtPase_PreviewKeyDown" />
+
+                                <Border Background="#243161" Grid.Column="3" Grid.Row="0">
+                                    <TextBlock Text="ENTRADAS" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                </Border>
+
+                                <TextBox x:Name="txtEntradas" Grid.Column="3" Grid.Row="1" FontFamily="Cascadia Code SemiBold" FontSize="32"
+                                         Width="150" Height="60" VerticalContentAlignment="Center" HorizontalAlignment="Center"
+                                         MaxLength="3" VerticalAlignment="Center" TextAlignment="Center" PreviewTextInput="txtEntradas_PreviewTextInput" PreviewKeyDown="txtEntradas_PreviewKeyDown" />
+                            </Grid>
+                        </Border>
+
+                        <!-- Atributos Fila 3 -->
+                        <Border Grid.Column="0" Grid.Row="2">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Border Background="#FF23282D" Grid.Column="0" Grid.Row="0">
+                                    <TextBlock Text="AGRESIVIDAD" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                </Border>
+
+                                <TextBox x:Name="txtAgresividad" Grid.Column="0" Grid.Row="1" FontFamily="Cascadia Code SemiBold" FontSize="32"
+                                         Width="150" Height="60" VerticalContentAlignment="Center" HorizontalAlignment="Center"
+                                         MaxLength="3" VerticalAlignment="Center" TextAlignment="Center" PreviewTextInput="txtAgresividad_PreviewTextInput" PreviewKeyDown="txtAgresividad_PreviewKeyDown" />
+
+                                <Border Background="#FF23282D" Grid.Column="1" Grid.Row="0">
+                                    <TextBlock Text="POTENCIAL" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                </Border>
+
+                                <TextBox x:Name="txtPotencial" Grid.Column="1" Grid.Row="1" FontFamily="Cascadia Code SemiBold" FontSize="32"
+                                         Width="150" Height="60" VerticalContentAlignment="Center" HorizontalAlignment="Center"
+                                         MaxLength="3" VerticalAlignment="Center" TextAlignment="Center" PreviewTextInput="txtPotencial_PreviewTextInput" PreviewKeyDown="txtPotencial_PreviewKeyDown" />
+
+                                <Border Background="#243161" Grid.Column="2" Grid.Row="0">
+                                    <TextBlock Text="REGATE" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                </Border>
+
+                                <TextBox x:Name="txtRegate" Grid.Column="2" Grid.Row="1" FontFamily="Cascadia Code SemiBold" FontSize="32"
+                                         Width="150" Height="60" VerticalContentAlignment="Center" HorizontalAlignment="Center"
+                                         MaxLength="3" VerticalAlignment="Center" TextAlignment="Center" PreviewTextInput="txtRegate_PreviewTextInput" PreviewKeyDown="txtRegate_PreviewKeyDown" />
+
+                                <Border Background="#243161" Grid.Column="3" Grid.Row="0">
+                                    <TextBlock Text="TIRO" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                </Border>
+
+                                <TextBox x:Name="txtTiro" Grid.Column="3" Grid.Row="1" FontFamily="Cascadia Code SemiBold" FontSize="32"
+                                             Width="150" Height="60" VerticalContentAlignment="Center" HorizontalAlignment="Center"
+                                             MaxLength="3" VerticalAlignment="Center" TextAlignment="Center" PreviewTextInput="txtTiro_PreviewTextInput" PreviewKeyDown="txtTiro_PreviewKeyDown" />
+                            </Grid>
+                        </Border>
+
+                        <!-- Atributos Fila 4 -->
+                        <Border Grid.Column="0" Grid.Row="3">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Border Background="#FF23282D" Grid.Column="0" Grid.Row="0">
+                                    <TextBlock Text="CALIDAD" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                </Border>
+
+                                <TextBox x:Name="txtCalidad" Grid.Column="0" Grid.Row="1" FontFamily="Cascadia Code SemiBold" FontSize="32"
+                                         Width="150" Height="60" VerticalContentAlignment="Center" HorizontalAlignment="Center"
+                                         MaxLength="3" VerticalAlignment="Center" TextAlignment="Center" PreviewTextInput="txtCalidad_PreviewTextInput" PreviewKeyDown="txtCalidad_PreviewKeyDown" />
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- BARRA INFERIOR -->
+        <Border Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Background="#23282d">
+            <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Right">
+                <Button x:Name="btnReestablecer" VerticalAlignment="Center" HorizontalAlignment="Right"
+                    Height="50" Width="280" Margin="0,0,20,0"
+                    FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnReestablecer_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <!-- Configuración inicial -->
+                            <Setter Property="Background" Value="LightGray"/>
+                            <Setter Property="Foreground" Value="#23282d"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <!-- Texto del botón -->
+                                                <TextBlock Text="REESTABLECER" 
+                                                       Foreground="{TemplateBinding Foreground}" 
+                                                       VerticalAlignment="Center" 
+                                                       Margin="0,0,5,0"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+
+                            <!-- Configuración al pasar el ratón -->
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
+                <Button x:Name="btnGuardar" VerticalAlignment="Center" HorizontalAlignment="Right"
+                    Height="50" Width="280" Margin="0,0,20,0"
+                    FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnGuardar_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <!-- Configuración inicial -->
+                            <Setter Property="Background" Value="#1d6a7d"/>
+                            <Setter Property="Foreground" Value="WhiteSmoke"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <!-- Texto del botón -->
+                                                <TextBlock Text="GUARDAR CAMBIOS" 
+                                                       Foreground="{TemplateBinding Foreground}" 
+                                                       VerticalAlignment="Center" 
+                                                       Margin="0,0,5,0"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+
+                            <!-- Configuración al pasar el ratón -->
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </WrapPanel>
+        </Border>
+    </Grid>
+</UserControl>

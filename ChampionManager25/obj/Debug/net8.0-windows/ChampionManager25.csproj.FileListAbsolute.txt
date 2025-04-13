@@ -1813,3 +1813,14 @@ C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0
 C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\Recursos\img\escudos_equipos\80x80\119.png
 C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\Recursos\img\escudos_equipos\80x80\37.png
 C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\Recursos\img\escudos_equipos\80x80\38.png
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\Recursos\img\logos_competiciones\2.png
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\Recursos\img\logos_competiciones\80x80\2.png
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\UserControls\UC_EditorEquipos.g.cs
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\UserControls\UC_EditorEquipos.baml
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\UserControls\UC_EditorClub.g.cs
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\UserControls\UC_EditorClub.baml
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\UserControls\UC_EditorJugadores.g.cs
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\UserControls\UC_EditorJugadores.baml
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\UserControls\UC_EditorJugador.g.cs
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\UserControls\UC_EditorJugador.baml
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs

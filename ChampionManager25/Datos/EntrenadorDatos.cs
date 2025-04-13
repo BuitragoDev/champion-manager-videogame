@@ -86,7 +86,7 @@ namespace ChampionManager25.Datos
 
                     // Consulta para obtener todos los jugadores del equipo con el id_equipo proporcionado
                     string query = @"SELECT id_entrenador, nombre, apellido, tactica_favorita, puntos, reputacion, id_equipo,
-                                     nombre || ' ' || apellido AS nombre_completo 
+                                     nombre || ' ' || apellido AS nombre_completo, ruta_imagen
                                      FROM entrenadores
                                      WHERE id_equipo = @idEquipo";
 
@@ -109,8 +109,9 @@ namespace ChampionManager25.Datos
                                     TacticaFavorita = reader.GetString(reader.GetOrdinal("tactica_favorita")),
                                     Puntos = reader.GetInt32(reader.GetOrdinal("puntos")),
                                     Reputacion = reader.GetInt32(reader.GetOrdinal("reputacion")),
-                                    IdEquipo = reader.GetInt32(reader.GetOrdinal("id_equipo"))
-                                };
+                                    IdEquipo = reader.GetInt32(reader.GetOrdinal("id_equipo")),
+                                    RutaImagen = reader.GetString(reader.GetOrdinal("ruta_imagen"))
+                                };    
                             }
                         }
                     }
@@ -149,5 +150,53 @@ namespace ChampionManager25.Datos
                 MessageBox.Show("Error al actualizar el Manager: " + ex.Message);
             }
         }
+
+        // ---------------------------------------------------------------- Método que actualiza los detalles de un equipo
+        public void EditarEntrenador(Entrenador entrenador)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    List<string> campos = new List<string>();
+                    var cmd = new SQLiteCommand();
+                    cmd.Connection = conn;
+
+                    campos.Add("nombre = @Nombre");
+                    cmd.Parameters.AddWithValue("@Nombre", entrenador.Nombre);
+
+                    campos.Add("apellido = @Apellido");
+                    cmd.Parameters.AddWithValue("@Apellido", entrenador.Apellido);
+
+                    campos.Add("tactica_favorita = @TacticaFavorita");
+                    cmd.Parameters.AddWithValue("@TacticaFavorita", entrenador.TacticaFavorita);
+
+                    campos.Add("reputacion = @Reputacion");
+                    cmd.Parameters.AddWithValue("@Reputacion", entrenador.Reputacion);
+
+                    campos.Add("puntos = @Puntos");
+                    cmd.Parameters.AddWithValue("@Puntos", entrenador.Puntos);
+
+                    if (entrenador.RutaImagen != "Recursos/img/entrenadores/")
+                    {
+                        campos.Add("ruta_imagen = @RutaImagen");
+                        cmd.Parameters.AddWithValue("@RutaImagen", entrenador.RutaImagen);
+                    }
+
+                    string query = $"UPDATE entrenadores SET {string.Join(", ", campos)} WHERE id_equipo = @IdEquipo";
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("@IdEquipo", entrenador.IdEquipo);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al actualizar el Manager: " + ex.Message);
+            }
+        }
+
     }
 }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ChampionManager25.Datos
 {
@@ -89,26 +90,93 @@ namespace ChampionManager25.Datos
         }
 
         // ---------------------------------------------------------------- Método que cambia el nombre de la competicion
-        public void CambiarNombreCompeticion(int idCompeticion, string nombre)
+        public void EditarCompeticion(Competicion competicion)
         {
             try
             {
                 using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
-                    string query = "UPDATE competiciones SET nombre = @Nombre WHERE id_competicion = @IdCompeticion";
-                    using (var cmd = new SQLiteCommand(query, conn))
+
+                    // Construcción dinámica del SET
+                    List<string> campos = new List<string>();
+                    var cmd = new SQLiteCommand();
+                    cmd.Connection = conn;
+
+                    if (!string.IsNullOrWhiteSpace(competicion.Nombre))
                     {
-                        cmd.Parameters.AddWithValue("@IdCompeticion", idCompeticion);
-                        cmd.Parameters.AddWithValue("@Nombre", nombre);
-                        cmd.ExecuteNonQuery(); // Ejecuta la consulta
+                        campos.Add("nombre = @Nombre");
+                        cmd.Parameters.AddWithValue("@Nombre", competicion.Nombre);
                     }
+
+                    if (competicion.RutaImagen != "Recursos/img/logos_competiciones/")
+                    {
+                        campos.Add("ruta_imagen = @RutaImagen");
+                        cmd.Parameters.AddWithValue("@RutaImagen", competicion.RutaImagen);
+                    }
+
+                    if (competicion.RutaImagen80 != "Recursos/img/logos_competiciones/80x80/")
+                    {
+                        campos.Add("ruta_imagen80 = @RutaImagen80");
+                        cmd.Parameters.AddWithValue("@RutaImagen80", competicion.RutaImagen80);
+                    }
+
+                    if (campos.Count == 0)
+                    {
+                        return;
+                    }
+
+                    string query = $"UPDATE competiciones SET {string.Join(", ", campos)} WHERE id_competicion = @IdCompeticion";
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("@IdCompeticion", competicion.IdCompeticion);
+
+                    cmd.ExecuteNonQuery();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al eliminar el Manager: " + ex.Message);
+                MessageBox.Show("Error al editar la competición: " + ex.Message);
             }
+        }
+
+
+        // ---------------------------------------------------------------- Método que muestra las 2 competiciones
+        public List<Competicion> MostrarCompeticiones()
+        {
+            List<Competicion> oCompeticion = new List<Competicion>();
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+                    string query = @"SELECT * FROM competiciones WHERE id_competicion BETWEEN 1 AND 2";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        using (SQLiteDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                oCompeticion.Add(new Competicion()
+                                {
+                                    // Usamos el operador de coalescencia nula para evitar la asignación de null
+                                    IdCompeticion = dr["id_competicion"] != DBNull.Value ? Convert.ToInt32(dr["id_competicion"]) : 0,
+                                    Nombre = dr["nombre"]?.ToString() ?? string.Empty,
+                                    RutaImagen = dr["ruta_imagen"]?.ToString() ?? string.Empty,
+                                    RutaImagen80 = dr["ruta_imagen80"]?.ToString() ?? string.Empty
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return oCompeticion;
         }
     }
 }

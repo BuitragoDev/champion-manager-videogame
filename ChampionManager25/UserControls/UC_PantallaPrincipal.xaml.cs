@@ -80,7 +80,7 @@ namespace ChampionManager25.UserControls
 
             // Comprobar si es DIA DE PARTIDO y cambiar el boton
             Partido proximoPartido = _logicaPartidos.ObtenerProximoPartido(_equipo, _manager.IdManager, hoy);
-            if (proximoPartido.FechaPartido == hoy)
+            if (proximoPartido != null && proximoPartido.FechaPartido == hoy)
             {
                 btnAvanzar.Content = "PARTIDO";
             } 

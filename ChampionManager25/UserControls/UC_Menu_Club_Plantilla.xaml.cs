@@ -202,7 +202,6 @@ namespace ChampionManager25.UserControls
                 }
             });
 
-
             dgPlantilla.Columns.Add(new DataGridTextColumn
             {
                 Binding = new System.Windows.Data.Binding("Edad"),
@@ -302,34 +301,43 @@ namespace ChampionManager25.UserControls
                 }
             });
 
-            DataGridTemplateColumn columnaLesion = new DataGridTemplateColumn
+            dgPlantilla.Columns.Add(new DataGridTextColumn
             {
+                Binding = new System.Windows.Data.Binding("Lesion")
+                {
+                    Converter = (IValueConverter)FindResource("LesionConverter")
+                },
                 Header = "LESIONADO",
-                Width = new DataGridLength(150, DataGridLengthUnitType.Pixel)
-            };
+                Width = new DataGridLength(180, DataGridLengthUnitType.Pixel),
+                ElementStyle = new Style(typeof(TextBlock))
+                {
+                    Setters =
+                            {
+                                new Setter(TextBlock.TextAlignmentProperty, TextAlignment.Center),
+                                new Setter(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center),
+                                new Setter(TextBlock.ForegroundProperty, Brushes.DarkRed)
+                            }
+                }
+            });
 
-            // Crear la plantilla de celda
-            DataTemplate template2 = new DataTemplate();
-            FrameworkElementFactory imageFactory2 = new FrameworkElementFactory(typeof(Image));
-
-            // Enlazar la propiedad Source de la imagen al convertidor
-            Binding binding = new Binding("Lesion")
+            dgPlantilla.Columns.Add(new DataGridTextColumn
             {
-                Converter = new LesionToImageConverter()
-            };
-
-            imageFactory2.SetBinding(Image.SourceProperty, binding);
-            imageFactory2.SetValue(Image.WidthProperty, 20.0);
-            imageFactory2.SetValue(Image.HeightProperty, 20.0);
-            imageFactory2.SetValue(Image.VerticalAlignmentProperty, VerticalAlignment.Center);
-            imageFactory2.SetValue(Image.HorizontalAlignmentProperty, HorizontalAlignment.Center);
-
-            // Asignar la visualización al template
-            template2.VisualTree = imageFactory2;
-            columnaLesion.CellTemplate = template2;
-
-            // Agregar la columna al DataGrid
-            dgPlantilla.Columns.Add(columnaLesion);
+                Binding = new System.Windows.Data.Binding("Sancionado")
+                {
+                    Converter = (IValueConverter)FindResource("SancionConverter")
+                },
+                Header = "SANCIONADO",
+                Width = new DataGridLength(180, DataGridLengthUnitType.Pixel),
+                ElementStyle = new Style(typeof(TextBlock))
+                {
+                    Setters =
+                            {
+                                new Setter(TextBlock.TextAlignmentProperty, TextAlignment.Center),
+                                new Setter(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center),
+                                new Setter(TextBlock.ForegroundProperty, Brushes.DarkRed)
+                            }
+                }
+            });
 
             dgPlantilla.SelectionChanged += DgPlantilla_SelectionChanged;
 

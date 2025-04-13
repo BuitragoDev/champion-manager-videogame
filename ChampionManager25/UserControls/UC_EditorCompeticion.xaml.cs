@@ -18,14 +18,16 @@ using Microsoft.Win32;
 using System.IO;
 using ChampionManager25.Datos;
 using System.Drawing;
+using ChampionManager25.Vistas;
+using System.Diagnostics;
 
 namespace ChampionManager25.UserControls
 {
     public partial class UC_EditorCompeticion : UserControl
     {
         #region "Variables"
-        private string rutaGrande = Path.Combine(GestorPartidas.RutaRecursosUsuario, "img", "logos_competiciones");
-        private string ruta80x80 = Path.Combine(GestorPartidas.RutaRecursosUsuario, "img", "logos_competiciones", "80x80");
+        private string rutaGrande = Path.Combine(GestorPartidas.RutaRecursosUsuario, "logos_competiciones");
+        private string ruta80x80 = Path.Combine(GestorPartidas.RutaRecursosUsuario, "logos_competiciones", "80x80");
 
         private Competicion competicion;
 
@@ -71,21 +73,72 @@ namespace ChampionManager25.UserControls
         // ------------------------------------------------------------------------------------- Evento CLICK del boton GUARDAR
         private void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
-            // Actualizar el nombre en la Base de Datos
-            string nombre = txtNombreCompeticion.Text.Trim();
-            _logicaCompeticion.CambiarNombreCompeticion(competicion.IdCompeticion, nombre);
+            Metodos.ReproducirSonidoClick();
 
-            // Guardar imágenes solo si fueron seleccionadas nuevas
-            if (!string.IsNullOrEmpty(imagenGrandeTemporal))
+            string nombreImagenGrande = "";
+            string nombreImagen80x80 = "";
+
+            try
             {
-                string destinoGrande = Path.Combine(rutaGrande, $"{competicion.IdCompeticion}.png");
-                GuardarImagen(imagenGrandeTemporal, destinoGrande);
+                if (!string.IsNullOrEmpty(imagenGrandeTemporal))
+                {
+                    string destinoGrande = Path.Combine(rutaGrande, $"{competicion.IdCompeticion}.png");
+                    nombreImagenGrande = GuardarImagen(imagenGrandeTemporal, destinoGrande);
+                }
+
+                if (!string.IsNullOrEmpty(imagen80x80Temporal))
+                {
+                    string destino80 = Path.Combine(ruta80x80, $"{competicion.IdCompeticion}.png");
+                    nombreImagen80x80 = GuardarImagen(imagen80x80Temporal, destino80);
+                }
+
+                // Actualizar el nombre y la ruta de las imagenes en la Base de Datos
+                Competicion oCompeticion = new Competicion
+                {
+                    IdCompeticion = 1,
+                    Nombre = txtNombreCompeticion.Text.Trim(),
+                    RutaImagen = $"Recursos/img/logos_competiciones/{nombreImagenGrande}",
+                    RutaImagen80 = $"Recursos/img/logos_competiciones/80x80/{nombreImagen80x80}"
+                };
+                _logicaCompeticion.EditarCompeticion(oCompeticion);
+
+                string titulo = "INFORMACIÓN";
+                string mensaje = "La competición ha sido actualizada correctamente";
+                frmVentanaEmergenteDosBotones ventanaEmergente = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
+                ventanaEmergente.ShowDialog();
             }
-
-            if (!string.IsNullOrEmpty(imagen80x80Temporal))
+            catch (Exception ex)
             {
-                string destino80 = Path.Combine(ruta80x80, $"{competicion.IdCompeticion}.png");
-                GuardarImagen(imagen80x80Temporal, destino80);
+                string titulo = "INFORMACIÓN";
+                string mensaje = "Ha ocurrido un error al guardar los datos";
+                frmVentanaEmergenteDosBotones ventanaEmergente = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
+                ventanaEmergente.ShowDialog();
+            }
+        }
+
+        // ------------------------------------------------------------------------------------- Evento CLICK del boton CARGAR IMAGEN 200x200
+        private void BtnCargarGrande_Click(object sender, RoutedEventArgs e)
+        {
+            Metodos.ReproducirSonidoClick();
+
+            string path = AbrirSelectorImagen();
+            if (path != null && ValidarImagen(path, 200, 200))
+            {
+                imgGrande.Source = CargarImagenSinBloqueo(path);
+                imagenGrandeTemporal = path;
+            }
+        }
+
+        // ------------------------------------------------------------------------------------- Evento CLICK del boton CARGAR IMAGEN 80x80
+        private void BtnCargar80x80_Click(object sender, RoutedEventArgs e)
+        {
+            Metodos.ReproducirSonidoClick();
+
+            string path = AbrirSelectorImagen();
+            if (path != null && ValidarImagen(path, 80, 80))
+            {
+                img80x80.Source = CargarImagenSinBloqueo(path);
+                imagen80x80Temporal = path;
             }
         }
 
@@ -102,25 +155,6 @@ namespace ChampionManager25.UserControls
                 img80x80.Source = CargarImagenSinBloqueo(path80x80);
         }
 
-        private void BtnCargarGrande_Click(object sender, RoutedEventArgs e)
-        {
-            string path = AbrirSelectorImagen();
-            if (path != null && ValidarImagen(path, 200, 200))
-            {
-                imgGrande.Source = CargarImagenSinBloqueo(path);
-                imagenGrandeTemporal = path;
-            }
-        }
-
-        private void BtnCargar80x80_Click(object sender, RoutedEventArgs e)
-        {
-            string path = AbrirSelectorImagen();
-            if (path != null && ValidarImagen(path, 80, 80))
-            {
-                img80x80.Source = CargarImagenSinBloqueo(path);
-                imagen80x80Temporal = path;
-            }
-        }
 
         private string AbrirSelectorImagen()
         {
@@ -133,17 +167,34 @@ namespace ChampionManager25.UserControls
             return null;
         }
 
-        private void GuardarImagen(string origen, string destino)
+        private string GuardarImagen(string origen, string destino)
         {
             try
             {
-                File.Copy(origen, destino, true); // true = sobreescribir
+                string directorio = Path.GetDirectoryName(destino);
+                string nombreArchivo = Path.GetFileNameWithoutExtension(destino);
+                string extension = Path.GetExtension(destino);
+
+                string destinoFinal = destino;
+                int version = 1;
+
+                // Si ya existe, buscar una versión libre
+                while (File.Exists(destinoFinal))
+                {
+                    destinoFinal = Path.Combine(directorio, $"{nombreArchivo}_v{version}{extension}");
+                    version++;
+                }
+
+                File.Copy(origen, destinoFinal);
+                return Path.GetFileName(destinoFinal);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error al guardar la imagen: " + ex.Message);
+                return null;
             }
         }
+
 
         private BitmapImage CargarImagenSinBloqueo(string ruta)
         {
@@ -167,13 +218,19 @@ namespace ChampionManager25.UserControls
                 {
                     if (Path.GetExtension(path).ToLower() != ".png")
                     {
-                        MessageBox.Show("Solo se permiten imágenes en formato PNG.", "Formato inválido", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        string titulo = "FORMATO INVÁLIDO";
+                        string mensaje = "Solo se permiten imágenes en formato PNG";
+                        frmVentanaEmergenteDosBotones ventanaEmergente = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
+                        ventanaEmergente.ShowDialog();
                         return false;
                     }
 
                     if (imagen.Width != anchoEsperado || imagen.Height != altoEsperado)
                     {
-                        MessageBox.Show($"La imagen debe tener un tamaño exacto de {anchoEsperado}x{altoEsperado}px.", "Tamaño inválido", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        string titulo = "FORMATO INVÁLIDO";
+                        string mensaje = $"La imagen debe tener un tamaño exacto de {anchoEsperado}x{altoEsperado}px";
+                        frmVentanaEmergenteDosBotones ventanaEmergente = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
+                        ventanaEmergente.ShowDialog();
                         return false;
                     }
 
@@ -182,7 +239,10 @@ namespace ChampionManager25.UserControls
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al validar la imagen: " + ex.Message);
+                string titulo = "INFORMACIÓN";
+                string mensaje = "Error al validar la imagen";
+                frmVentanaEmergenteDosBotones ventanaEmergente = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
+                ventanaEmergente.ShowDialog();
                 return false;
             }
         }

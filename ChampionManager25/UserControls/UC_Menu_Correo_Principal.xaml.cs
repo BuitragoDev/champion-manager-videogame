@@ -196,12 +196,12 @@ namespace ChampionManager25.UserControls
                         {
                             int idEquipo = mensaje.IdEquipo ?? 0;
                             Equipo equipo = _logicaEquipos.ListarDetallesEquipo(idEquipo);
-                            imgEquipo.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaImagen80));
+                            imgLogoMensaje.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaImagen80));
                         }
                         else if (mensaje.Icono > 0)
                         {
                             Jugador jugador = _logicaJugador.MostrarDatosJugador(mensaje.Icono);
-                            imgEquipo.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + jugador.RutaImagen));
+                            imgLogoMensaje.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + jugador.RutaImagen));
                         }
 
                         txtFechaMensaje.Text = mensaje.Fecha.ToString("dd/MM/yyyy");

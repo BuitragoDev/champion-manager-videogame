@@ -4,7 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ChampionManager25.UserControls"
+             xmlns:misMetodos="clr-namespace:ChampionManager25.MisMetodos"
              mc:Ignorable="d" d:DesignHeight="935" d:DesignWidth="1845" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <misMetodos:LesionConverter x:Key="LesionConverter"/>
+        <misMetodos:SancionConverter x:Key="SancionConverter"/>
+    </UserControl.Resources>
+
     <Grid Background="WhiteSmoke">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1845"/>

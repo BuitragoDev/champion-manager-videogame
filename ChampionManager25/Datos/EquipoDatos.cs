@@ -250,5 +250,206 @@ namespace ChampionManager25.Datos
 
             return 0;
         }
+
+        // ==================================================== Método para Mostrar el Listado de todos los equipos excepto el elegido
+        public List<Equipo> ListarOtrosEquipos(int equipoElegido)
+        {
+            List<Equipo> oEquipo = new List<Equipo>();
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Consulta con JOIN para obtener datos de entrenadores
+                    string query = @"SELECT id_equipo, nombre, nombre_corto, presidente, ciudad, estadio, objetivo,
+                                            aforo, reputacion, rival, ruta_imagen, ruta_imagen120, ruta_imagen80, ruta_imagen64, 
+                                            ruta_imagen32, ruta_estadio_interior, ruta_estadio_exterior, ruta_kit_local, ruta_kit_visitante
+                                     FROM 
+                                        equipos
+                                     WHERE 
+                                        id_equipo <> @EquipoElegido AND id_competicion BETWEEN 1 AND 2";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@EquipoElegido", equipoElegido);
+
+                        using (SQLiteDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                oEquipo.Add(new Equipo()
+                                {
+                                    IdEquipo = dr["id_equipo"] != DBNull.Value ? Convert.ToInt32(dr["id_equipo"]) : 0,
+                                    Nombre = dr["nombre"] as string ?? string.Empty,
+                                    NombreCorto = dr["nombre_corto"] as string ?? string.Empty,
+                                    Presidente = dr["presidente"] as string ?? string.Empty,
+                                    Ciudad = dr["ciudad"] as string ?? string.Empty,
+                                    Estadio = dr["estadio"] as string ?? string.Empty,
+                                    Objetivo = dr["objetivo"] as string ?? string.Empty,
+                                    Aforo = dr["aforo"] != DBNull.Value ? Convert.ToInt32(dr["aforo"]) : 0,
+                                    Reputacion = dr["reputacion"] != DBNull.Value ? Convert.ToInt32(dr["reputacion"]) : 0,
+                                    Rival = dr["rival"] != DBNull.Value ? Convert.ToInt32(dr["rival"]) : 0,
+                                    RutaImagen = dr["ruta_imagen"]?.ToString() ?? string.Empty,
+                                    RutaImagen120 = dr["ruta_imagen120"]?.ToString() ?? string.Empty,
+                                    RutaImagen80 = dr["ruta_imagen80"]?.ToString() ?? string.Empty,
+                                    RutaImagen64 = dr["ruta_imagen64"]?.ToString() ?? string.Empty,
+                                    RutaImagen32 = dr["ruta_imagen32"]?.ToString() ?? string.Empty,
+                                    RutaEstadioInterior = dr["ruta_estadio_interior"]?.ToString() ?? string.Empty,
+                                    RutaEstadioExterior = dr["ruta_estadio_exterior"]?.ToString() ?? string.Empty,
+                                    RutaKitLocal = dr["ruta_kit_local"]?.ToString() ?? string.Empty,
+                                    RutaKitVisitante = dr["ruta_kit_visitante"]?.ToString() ?? string.Empty
+                                });
+                            }
+                        }
+
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return oEquipo;
+        }
+
+        // ==================================================== Método para Mostrar el Listado de todos los equipos
+        public List<Equipo> ListarTodosLosEquipos()
+        {
+            List<Equipo> oEquipo = new List<Equipo>();
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Consulta con JOIN para obtener datos de entrenadores
+                    string query = @"SELECT id_equipo, nombre, nombre_corto, presidente, ciudad, estadio, objetivo,
+                                            aforo, reputacion, rival, ruta_imagen, ruta_imagen120, ruta_imagen80, ruta_imagen64, 
+                                            ruta_imagen32, ruta_estadio_interior, ruta_estadio_exterior, ruta_kit_local, ruta_kit_visitante
+                                     FROM 
+                                        equipos
+                                     WHERE 
+                                        id_competicion BETWEEN 1 AND 2";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        using (SQLiteDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                oEquipo.Add(new Equipo()
+                                {
+                                    IdEquipo = dr["id_equipo"] != DBNull.Value ? Convert.ToInt32(dr["id_equipo"]) : 0,
+                                    Nombre = dr["nombre"] as string ?? string.Empty,
+                                    NombreCorto = dr["nombre_corto"] as string ?? string.Empty,
+                                    Presidente = dr["presidente"] as string ?? string.Empty,
+                                    Ciudad = dr["ciudad"] as string ?? string.Empty,
+                                    Estadio = dr["estadio"] as string ?? string.Empty,
+                                    Objetivo = dr["objetivo"] as string ?? string.Empty,
+                                    Aforo = dr["aforo"] != DBNull.Value ? Convert.ToInt32(dr["aforo"]) : 0,
+                                    Reputacion = dr["reputacion"] != DBNull.Value ? Convert.ToInt32(dr["reputacion"]) : 0,
+                                    Rival = dr["rival"] != DBNull.Value ? Convert.ToInt32(dr["rival"]) : 0,
+                                    RutaImagen = dr["ruta_imagen"]?.ToString() ?? string.Empty,
+                                    RutaImagen120 = dr["ruta_imagen120"]?.ToString() ?? string.Empty,
+                                    RutaImagen80 = dr["ruta_imagen80"]?.ToString() ?? string.Empty,
+                                    RutaImagen64 = dr["ruta_imagen64"]?.ToString() ?? string.Empty,
+                                    RutaImagen32 = dr["ruta_imagen32"]?.ToString() ?? string.Empty,
+                                    RutaEstadioInterior = dr["ruta_estadio_interior"]?.ToString() ?? string.Empty,
+                                    RutaEstadioExterior = dr["ruta_estadio_exterior"]?.ToString() ?? string.Empty,
+                                    RutaKitLocal = dr["ruta_kit_local"]?.ToString() ?? string.Empty,
+                                    RutaKitVisitante = dr["ruta_kit_visitante"]?.ToString() ?? string.Empty
+                                });
+                            }
+                        }
+
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return oEquipo;
+        }
+
+        // ---------------------------------------------------------------- Método que actualiza los detalles de un equipo
+        public void EditarEquipo(Equipo equipo)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Campos obligatorios
+                    string query = @"UPDATE equipos SET nombre = @Nombre, nombre_corto = @NombreCorto,
+                                               presidente = @Presidente, ciudad = @Ciudad,
+                                               estadio = @Estadio, aforo = @Aforo,
+                                               reputacion = @Reputacion, objetivo = @Objetivo,
+                                               rival = @Rival, id_competicion = @IdCompeticion";
+
+                    // Lista de parámetros dinámicos para campos de rutas
+                    List<string> camposOpcionales = new List<string>();
+                    if (equipo.RutaImagen != "Recursos/img/escudos_equipos/") camposOpcionales.Add("ruta_imagen = @RutaImagen");
+                    if (equipo.RutaImagen120 != "Recursos/img/escudos_equipos/120x120/") camposOpcionales.Add("ruta_imagen120 = @RutaImagen120");
+                    if (equipo.RutaImagen80 != "Recursos/img/escudos_equipos/80x80/") camposOpcionales.Add("ruta_imagen80 = @RutaImagen80");
+                    if (equipo.RutaImagen64 != "Recursos/img/escudos_equipos/64x64/") camposOpcionales.Add("ruta_imagen64 = @RutaImagen64");
+                    if (equipo.RutaImagen32 != "Recursos/img/escudos_equipos/32x32/") camposOpcionales.Add("ruta_imagen32 = @RutaImagen32");
+                    if (equipo.RutaEstadioExterior != "Recursos/img/estadios/") camposOpcionales.Add("ruta_estadio_exterior = @RutaEstadioExterior");
+                    if (equipo.RutaEstadioInterior != "Recursos/img/estadios/") camposOpcionales.Add("ruta_estadio_interior = @RutaEstadioInterior");
+                    if (equipo.RutaKitLocal != "Recursos/img/kits/") camposOpcionales.Add("ruta_kit_local = @RutaKitLocal");
+                    if (equipo.RutaKitVisitante != "Recursos/img/kits/") camposOpcionales.Add("ruta_kit_visitante = @RutaKitVisitante");
+
+                    // Agrega los campos opcionales al query si existen
+                    if (camposOpcionales.Count > 0)
+                    {
+                        query += ", " + string.Join(", ", camposOpcionales);
+                    }
+
+                    query += " WHERE id_equipo = @IdEquipo";
+                 
+                    using (var cmd = new SQLiteCommand(query, conn))
+                    {
+                        // Parámetros
+                        cmd.Parameters.AddWithValue("@Nombre", equipo.Nombre);
+                        cmd.Parameters.AddWithValue("@NombreCorto", equipo.NombreCorto);
+                        cmd.Parameters.AddWithValue("@Presidente", equipo.Presidente);
+                        cmd.Parameters.AddWithValue("@Ciudad", equipo.Ciudad);
+                        cmd.Parameters.AddWithValue("@Estadio", equipo.Estadio);
+                        cmd.Parameters.AddWithValue("@Aforo", equipo.Aforo);
+                        cmd.Parameters.AddWithValue("@Reputacion", equipo.Reputacion);
+                        cmd.Parameters.AddWithValue("@Objetivo", equipo.Objetivo);
+                        cmd.Parameters.AddWithValue("@Rival", equipo.Rival);
+                        cmd.Parameters.AddWithValue("@IdCompeticion", equipo.IdCompeticion);
+
+                        cmd.Parameters.AddWithValue("@RutaImagen", equipo.RutaImagen);
+                        cmd.Parameters.AddWithValue("@RutaImagen120", equipo.RutaImagen120);
+                        cmd.Parameters.AddWithValue("@RutaImagen80", equipo.RutaImagen80);
+                        cmd.Parameters.AddWithValue("@RutaImagen64", equipo.RutaImagen64);
+                        cmd.Parameters.AddWithValue("@RutaImagen32", equipo.RutaImagen32);
+
+                        cmd.Parameters.AddWithValue("@RutaEstadioExterior", equipo.RutaEstadioExterior);
+                        cmd.Parameters.AddWithValue("@RutaEstadioInterior", equipo.RutaEstadioInterior);
+
+                        cmd.Parameters.AddWithValue("@RutaKitLocal", equipo.RutaKitLocal);
+                        cmd.Parameters.AddWithValue("@RutaKitVisitante", equipo.RutaKitVisitante);
+
+                        cmd.Parameters.AddWithValue("@IdEquipo", equipo.IdEquipo);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al actualizar el equipo: " + ex.Message);
+            }
+        }
+
     }
 }

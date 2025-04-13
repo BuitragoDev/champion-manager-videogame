@@ -1683,7 +1683,9 @@
     <None Remove="Recursos\img\logoBuitragoStudios.png" />
     <None Remove="Recursos\img\logos_competiciones\1.png" />
     <None Remove="Recursos\img\logos_competiciones\10.png" />
+    <None Remove="Recursos\img\logos_competiciones\2.png" />
     <None Remove="Recursos\img\logos_competiciones\80x80\1.png" />
+    <None Remove="Recursos\img\logos_competiciones\80x80\2.png" />
     <None Remove="Recursos\img\logos_competiciones\competicionTicket10.png" />
     <None Remove="Recursos\img\logos_competiciones\competicionTicket7.png" />
     <None Remove="Recursos\img\microfonos_ruedaPrensa.png" />
@@ -6725,7 +6727,13 @@
     <Content Include="Recursos\img\logos_competiciones\10.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\logos_competiciones\2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\logos_competiciones\80x80\1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\logos_competiciones\80x80\2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\microfonos_ruedaPrensa.png">

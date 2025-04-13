@@ -1,4 +1,5 @@
-﻿using ChampionManager25.Entidades;
+﻿using ChampionManager25.Datos;
+using ChampionManager25.Entidades;
 using ChampionManager25.Logica;
 using ChampionManager25.MisMetodos;
 using System;
@@ -27,6 +28,7 @@ namespace ChampionManager25.UserControls
         private Manager _manager;
         private int _equipo;
         private DateTime hoy = Metodos.hoy;
+        Equipo equipo;
         #endregion
 
         // Instancias de la LOGICA
@@ -63,8 +65,7 @@ namespace ChampionManager25.UserControls
 
             // --------------------------------------------------------------------------------------------------- ENTRENADOR
             Entrenador coach = _logicaEntrenador.MostrarEntrenador(rival);
-
-            imgFotoEntrenador.Source = new BitmapImage(new Uri($"pack://application:,,,/Recursos/img/entrenadores/{coach.IdEntrenador}.png"));
+            imgFotoEntrenador.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + coach.RutaImagen));
             txtNombreEntrenador.Text = coach.NombreCompleto;
             MostrarEstrellas(coach.Reputacion);
             txtTactica.Text = coach.TacticaFavorita;
@@ -83,10 +84,11 @@ namespace ChampionManager25.UserControls
             int fila = 0;
             foreach (var partido in listaPartidos)
             {
+                equipo = _logicaEquipo.ListarDetallesEquipo(partido.IdEquipoLocal);
                 // Escudo Local
                 Image escudoLocal = new Image
                 {
-                    Source = new BitmapImage(new Uri($"pack://application:,,,/Recursos/img/escudos_equipos/32x32/{partido.IdEquipoLocal}.png")),
+                    Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaImagen32)),
                     Width = 32,
                     Height = 32
                 };
@@ -165,9 +167,10 @@ namespace ChampionManager25.UserControls
                 gridPartidos.Children.Add(nombreVisitante);
 
                 // Escudo Visitante
+                equipo = _logicaEquipo.ListarDetallesEquipo(partido.IdEquipoVisitante);
                 Image escudoVisitante = new Image
                 {
-                    Source = new BitmapImage(new Uri($"pack://application:,,,/Recursos/img/escudos_equipos/32x32/{partido.IdEquipoVisitante}.png")),
+                    Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaImagen32)),
                     Width = 32,
                     Height = 32
                 };
@@ -322,7 +325,8 @@ namespace ChampionManager25.UserControls
                 var idJugador = (int)tag.GetType().GetProperty("IdJugador").GetValue(tag);
                 var nombreCompleto = (string)tag.GetType().GetProperty("NombreCompleto").GetValue(tag);
 
-                imgFotoJugador.Source = new BitmapImage(new Uri($"pack://application:,,,/Recursos/img/jugadores/{idJugador}.png"));
+                Jugador jugador = _logicaJugador.MostrarDatosJugador(idJugador);
+                imgFotoJugador.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + jugador.RutaImagen));
                 txtNombreJugador.Text = nombreCompleto;
 
                 // Estadisticas del Jugador

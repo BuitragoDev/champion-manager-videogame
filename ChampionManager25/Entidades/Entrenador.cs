@@ -16,6 +16,7 @@ namespace ChampionManager25.Entidades
         public int Puntos { get; set; }
         public int? IdEquipo { get; set; }
         public string TacticaFavorita { get; set; }
+        public string RutaImagen { get; set; }
 
         // Atributos extras
         public int Posicion { get; set; }
@@ -26,7 +27,7 @@ namespace ChampionManager25.Entidades
         public Entrenador() { }
 
         // Constructor con todos los parámetros
-        public Entrenador(int idEntrenador, string nombre, string apellido, int reputacion, int puntos, string tacticaFavorita, int? idEquipo)
+        public Entrenador(int idEntrenador, string nombre, string apellido, int reputacion, int puntos, string tacticaFavorita, int? idEquipo, string rutaImagen)
         {
             IdEntrenador = idEntrenador;
             Nombre = nombre;
@@ -35,10 +36,11 @@ namespace ChampionManager25.Entidades
             Puntos = puntos;
             TacticaFavorita = tacticaFavorita;
             IdEquipo = idEquipo;
+            RutaImagen = rutaImagen;
         }
 
         // Constructor con todos los parámetros sin el ID_JUGADOR
-        public Entrenador(string nombre, string apellido, int reputacion, int puntos, string tacticaFavorita, int? idEquipo)
+        public Entrenador(string nombre, string apellido, int reputacion, int puntos, string tacticaFavorita, int? idEquipo, string rutaImagen)
         {
             Nombre = nombre;
             Apellido = apellido;
@@ -46,6 +48,7 @@ namespace ChampionManager25.Entidades
             Puntos = puntos;
             TacticaFavorita = tacticaFavorita;
             IdEquipo = idEquipo;
+            RutaImagen = rutaImagen;
         }
 
         // ToString para representar el objeto como cadena de texto

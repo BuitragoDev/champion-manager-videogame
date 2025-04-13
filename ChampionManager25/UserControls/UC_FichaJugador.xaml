@@ -67,7 +67,7 @@
                                         <TextBlock Grid.Column="1" Grid.Row="0" x:Name="txtNombreJugador" Text="NombreJugador" HorizontalAlignment="Left" VerticalAlignment="Center" 
                                                    FontFamily="Cascadia Code SemiBold" FontSize="32" Foreground="WhiteSmoke" TextAlignment="Center"/>
                                         <Image x:Name="imgFotoJugador" Grid.Column="2" Grid.Row="0" Width="100" Height="100" VerticalAlignment="Center" 
-                                               HorizontalAlignment="Center" Source="/Recursos/img/jugadores/1.png" />
+                                               HorizontalAlignment="Center" />
                                     </Grid>
                                 </Border>
 
@@ -90,7 +90,7 @@
 
                                         <!-- Escudo Equipo y Media -->
                                         <Image x:Name="imgEscudoEquipo" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Width="120" Height="120" VerticalAlignment="Center" 
-                                               HorizontalAlignment="Center" Source="/Recursos/img/escudos_equipos/80x80/1.png" />
+                                               HorizontalAlignment="Center" />
 
                                         <Ellipse x:Name="elipseMedia" Grid.Column="0" Grid.Row="3" Grid.RowSpan="3" HorizontalAlignment="Center" Height="120" Stroke="Green" 
                                                  VerticalAlignment="Center" Width="120" StrokeThickness="20"/>

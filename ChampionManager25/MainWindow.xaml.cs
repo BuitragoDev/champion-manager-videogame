@@ -244,4 +244,32 @@ public partial class MainWindow : Window
         MainContent.Content = new UC_EditorCompeticion();
     }
     // ---------------------------------------------------------------------------------------
+
+    // -------------------------------- METODO PARA CARGAR EL USERCONTROL UC_EditorEquipos
+    public void CargarEditorEquipos()
+    {
+        MainContent.Content = new UC_EditorEquipos();
+    }
+    // ---------------------------------------------------------------------------------------
+
+    // -------------------------------- METODO PARA CARGAR EL USERCONTROL UC_EditorClub
+    public void CargarEditorClub(int equipoSeleccionado)
+    {
+        MainContent.Content = new UC_EditorClub(equipoSeleccionado);
+    }
+    // ---------------------------------------------------------------------------------------
+
+    // -------------------------------- METODO PARA CARGAR EL USERCONTROL UC_EditorJugadores
+    public void CargarEditorJugadores(int equipo)
+    {
+        MainContent.Content = new UC_EditorJugadores(equipo);
+    }
+    // ---------------------------------------------------------------------------------------
+
+    // -------------------------------- METODO PARA CARGAR EL USERCONTROL UC_EditorJugador
+    public void CargarEditorJugador(int idJugador, int idEquipo)
+    {
+        MainContent.Content = new UC_EditorJugador(idJugador, idEquipo);
+    }
+    // ---------------------------------------------------------------------------------------
 }
