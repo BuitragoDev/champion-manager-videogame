@@ -19,12 +19,16 @@ using System.Configuration;
 using ChampionManager25.Datos;
 using System.Data.SQLite;
 using Microsoft.Win32;
+using ChampionManager25.Vistas;
+using System.Drawing;
 
 namespace ChampionManager25.UserControls
 {
     public partial class UC_CrearManager : UserControl
     {
         #region "Variables"
+        private string rutaGrande = Path.Combine(GestorPartidas.RutaRecursosUsuario, "managers");
+        private string imagenGrandeTemporal = null;
         #endregion
 
         // Instancias de la LOGICA
@@ -41,6 +45,8 @@ namespace ChampionManager25.UserControls
             txtNombre.Focus();
             Keyboard.Focus(txtNombre);
             CargarNacionalidades();
+
+            imgAvatar.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/Recursos/img/managers/avatar.png"));
         }
 
         // -------------------------------------------------------------------------------------------------- EVENTO CLICK DEL BOTON VOLVER
@@ -58,6 +64,14 @@ namespace ChampionManager25.UserControls
         {
             Metodos.ReproducirSonidoTransicion();
 
+            string nombreImagenGrande = "";
+
+            if (!string.IsNullOrEmpty(imagenGrandeTemporal))
+            {
+                string destinoGrande = Path.Combine(rutaGrande, "1.png");
+                nombreImagenGrande = GuardarImagen(imagenGrandeTemporal, destinoGrande);
+            }
+
             // Validación y creación del manager...
             Manager nuevoManager = new Manager
             {
@@ -67,7 +81,8 @@ namespace ChampionManager25.UserControls
                 FechaNacimiento = new DateTime(
                     int.Parse(txtAnio.Text),
                     int.Parse(txtMes.Text),
-                    int.Parse(txtDia.Text))
+                    int.Parse(txtDia.Text)),
+                RutaImagen = $"Recursos/img/managers/{nombreImagenGrande}"
             };
 
             int idManager = logica.CrearNuevoManager(nuevoManager);
@@ -85,6 +100,19 @@ namespace ChampionManager25.UserControls
             }
         }
         // --------------------------------------------------------------------------------------------------------------------------------
+
+        // ------------------------------------------------------------------------------------------ EVENTO CLICK DE LA IMAGEN DEL MANAGER
+        private void imgAvatar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Metodos.ReproducirSonidoClick();
+
+            string path = AbrirSelectorImagen();
+            if (path != null && ValidarImagen(path, 256, 256))
+            {
+                imgAvatar.Source = CargarImagenSinBloqueo(path);
+                imagenGrandeTemporal = path;
+            }
+        }
 
         // ------------------------------------------------- EVENTOS DE LAS CAJAS DE TEXTO ------------------------------------------------
         // --------------- NOMBRE
@@ -358,6 +386,97 @@ namespace ChampionManager25.UserControls
                 Console.WriteLine("La base de datos con el nombre especificado ya existe.");
             }
         }
-        #endregion 
+
+        private string AbrirSelectorImagen()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Archivos de imagen (*.png)|*.png";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                return openFileDialog.FileName;
+            }
+            return null;
+        }
+
+        private string GuardarImagen(string origen, string destino)
+        {
+            try
+            {
+                string directorio = Path.GetDirectoryName(destino);
+                string nombreArchivo = Path.GetFileNameWithoutExtension(destino);
+                string extension = Path.GetExtension(destino);
+
+                string destinoFinal = destino;
+                int version = 1;
+
+                // Si ya existe, buscar una versión libre
+                while (File.Exists(destinoFinal))
+                {
+                    destinoFinal = Path.Combine(directorio, $"{nombreArchivo}_v{version}{extension}");
+                    version++;
+                }
+
+                File.Copy(origen, destinoFinal);
+                return Path.GetFileName(destinoFinal);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al guardar la imagen: " + ex.Message);
+                return null;
+            }
+        }
+
+
+        private BitmapImage CargarImagenSinBloqueo(string ruta)
+        {
+            using (FileStream stream = new FileStream(ruta, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            {
+                BitmapImage imagen = new BitmapImage();
+                imagen.BeginInit();
+                imagen.CacheOption = BitmapCacheOption.OnLoad; // Cargar toda la imagen en memoria
+                imagen.StreamSource = stream;
+                imagen.EndInit();
+                imagen.Freeze(); // Opcional: permite usarla en múltiples hilos
+                return imagen;
+            }
+        }
+
+        private bool ValidarImagen(string path, int anchoEsperado, int altoEsperado)
+        {
+            try
+            {
+                using (var imagen = new Bitmap(path))
+                {
+                    if (Path.GetExtension(path).ToLower() != ".png")
+                    {
+                        string titulo = "FORMATO INVÁLIDO";
+                        string mensaje = "Solo se permiten imágenes en formato PNG";
+                        frmVentanaEmergenteDosBotones ventanaEmergente = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
+                        ventanaEmergente.ShowDialog();
+                        return false;
+                    }
+
+                    if (imagen.Width != anchoEsperado || imagen.Height != altoEsperado)
+                    {
+                        string titulo = "FORMATO INVÁLIDO";
+                        string mensaje = $"La imagen debe tener un tamaño exacto de {anchoEsperado}x{altoEsperado}px";
+                        frmVentanaEmergenteDosBotones ventanaEmergente = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
+                        ventanaEmergente.ShowDialog();
+                        return false;
+                    }
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                string titulo = "INFORMACIÓN";
+                string mensaje = "Error al validar la imagen";
+                frmVentanaEmergenteDosBotones ventanaEmergente = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
+                ventanaEmergente.ShowDialog();
+                return false;
+            }
+        }
+        #endregion
     }
 }

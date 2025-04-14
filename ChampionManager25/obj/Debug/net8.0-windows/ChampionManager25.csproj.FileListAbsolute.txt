@@ -1824,3 +1824,13 @@ C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0
 C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\UserControls\UC_EditorJugador.g.cs
 C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\UserControls\UC_EditorJugador.baml
 C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\Vistas\frmVentanaDespido.g.cs
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\Vistas\frmVentanaDespido.baml
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\Recursos\img\icons\prohibido_icon.png
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\Recursos\img\managers\avatar.png
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\Recursos\img\managers\default.png
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\Recursos\img\entrenadores\103.png
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\Recursos\img\entrenadores\104.png
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\Recursos\img\entrenadores\105.png
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\Recursos\img\entrenadores\37.png
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\Recursos\img\entrenadores\38.png

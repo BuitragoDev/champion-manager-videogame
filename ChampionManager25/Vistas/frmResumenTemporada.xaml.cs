@@ -1,6 +1,7 @@
 ﻿using ChampionManager25.Datos;
 using ChampionManager25.Entidades;
 using ChampionManager25.Logica;
+using ChampionManager25.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,8 +64,8 @@ namespace ChampionManager25.Vistas
 
             Equipo equipoCampeon = _logicaEquipo.ListarDetallesEquipo(campeon);
             Equipo equipoSubcampeon = _logicaEquipo.ListarDetallesEquipo(subcampeon);
-            imgCampeon.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoCampeon.RutaImagen));
-            imgSubcampeon.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoSubcampeon.RutaImagen));
+            imgCampeon.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoCampeon.RutaImagen120));
+            imgSubcampeon.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoSubcampeon.RutaImagen120));
 
             Equipo miEquipo = _logicaEquipo.ListarDetallesEquipo(_equipo);
             imgMiEquipo.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + miEquipo.RutaImagen120));
@@ -78,6 +79,35 @@ namespace ChampionManager25.Vistas
             elipseDirectiva.Stroke = DeterminarColorElipse(manager.CDirectiva);
             elipseFans.Stroke = DeterminarColorElipse(manager.CFans);
             elipseJugadores.Stroke = DeterminarColorElipse(manager.CJugadores);
+
+            List<Clasificacion> clasificacion = _logicaClasificacion.MostrarClasificacion(1, _manager.IdManager);
+            int posicion = 0;
+            for (int i = 0; i < clasificacion.Count; i++)
+            {
+                if (clasificacion[i].IdEquipo == _equipo)
+                {
+                    posicion = i + 1; // +1 si quieres que la posición empiece en 1
+                    break; 
+                }
+            }
+
+            // Mostrar Puntos de Reputacion
+            if (posicion == 1)
+            {
+                txtPuntosReputacion.Text = "+ 25";
+            }
+            else if (posicion <= 4)
+            {
+                txtPuntosReputacion.Text = "+ 10";
+            }
+            else if (posicion >= 33)
+            {
+                txtPuntosReputacion.Text = "- 10";
+            }
+            else
+            {
+                txtPuntosReputacion.Text = "+ 5";
+            }
         }
 
         // ------------------------------------------------------------------------------------ Evento CLICK del boton TERMINAR TEMPORADA

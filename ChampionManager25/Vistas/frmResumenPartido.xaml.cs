@@ -104,9 +104,21 @@ namespace ChampionManager25.Vistas
         #region "Metodos"
         private void SimularPartido(Partido partido)
         {
-            // Cargar jugadores de los equipos desde la BD sin porteros
-            List<Jugador> jugadoresLocal = _logicaJugador.JugadoresJueganPartido(partido.IdEquipoLocal);
-            List<Jugador> jugadoresVisitante = _logicaJugador.JugadoresJueganPartido(partido.IdEquipoVisitante);
+            List<Jugador> jugadoresLocal = null;
+            List<Jugador> jugadoresVisitante = null;
+
+            // Cargar jugadores de los equipos desde la BD
+            // Comprobar si soy el local o el visitante
+            if (partido.IdEquipoLocal == _equipo)
+            {
+                jugadoresLocal = _logicaJugador.JugadoresMiEquipoJueganPartido(partido.IdEquipoLocal);
+                jugadoresVisitante = _logicaJugador.JugadoresJueganPartido(partido.IdEquipoVisitante);
+            }
+            else
+            {
+                jugadoresLocal = _logicaJugador.JugadoresJueganPartido(partido.IdEquipoLocal);
+                jugadoresVisitante = _logicaJugador.JugadoresMiEquipoJueganPartido(partido.IdEquipoVisitante);
+            }
 
             // Calcular goles con el equipo rival en cuenta
             int golesLocal = CalcularGoles(jugadoresLocal, jugadoresVisitante);

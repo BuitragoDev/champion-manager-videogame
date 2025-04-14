@@ -1,0 +1,90 @@
+﻿<Window x:Name="ventanaDespido" x:Class="ChampionManager25.Vistas.frmVentanaDespido"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChampionManager25.Vistas"
+        mc:Ignorable="d" Title="frmVentanaDespido" Height="400" Width="800"
+        ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" Loaded="ventanaDespido_Loaded" >
+    <Grid Background="#FF23282D">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="WhiteSmoke" Grid.Column="0" Grid.Row="0" Margin="5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="80"/>
+                </Grid.RowDefinitions>
+
+                <Border Background="DarkRed" Grid.Column="0" Grid.Row="0">
+                    <TextBlock x:Name="txtTituloVentana" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                           FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="1">
+                    <TextBlock x:Name="txtMensaje" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="738" TextWrapping="Wrap"
+                           FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Left" Height="200"/>
+                </Border>
+
+                <Border Background="#FF23282D" Grid.Column="0" Grid.Row="2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Button x:Name="btnSalir" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"
+                            Height="40" Width="250" FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnSalir_Click">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <!-- Configuración inicial -->
+                                    <Setter Property="Background" Value="DarkRed"/>
+                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Cursor" Value="Hand"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                        <!-- Texto del botón -->
+                                                        <TextBlock Text="SALIR" 
+                                                               Foreground="{TemplateBinding Foreground}" 
+                                                               VerticalAlignment="Center" 
+                                                               Margin="20,0,5,0" FontSize="22"/>
+                                                    </StackPanel>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+
+                                    <!-- Configuración al pasar el ratón -->
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+                                            <Setter Property="BorderThickness" Value="1"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

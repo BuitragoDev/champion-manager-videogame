@@ -71,7 +71,7 @@
                                     <DataGrid x:Name="dgReservas" IsReadOnly="True" AutoGenerateColumns="False"
                                               GridLinesVisibility="None" FontFamily="Cascadia Code Light" FontSize="16" DockPanel.Dock="Top" 
                                               Cursor="Hand" Height="350" Width="1193" SelectionChanged="dgReservas_SelectionChanged" 
-                                              LoadingRow="dg_LoadingRow"/>
+                                              LoadingRow="dg_LoadingRowReservas"/>
                                 </WrapPanel>
                             </Grid>
                         </Border>

@@ -43,6 +43,12 @@ namespace ChampionManager25.Logica
             _datos.ActualizarConfianza(idManager, directiva, fans, jugadores);
         }
 
+        // Llamada al método que actualiza la reputacion del Manager
+        public void ActualizarReputacion(int idManager, int valor)
+        {
+            _datos.ActualizarReputacion(idManager, valor);
+        }
+
         // Llamada al método que muestra un Mánager.
         public Manager MostrarManager(int idManager)
         {
@@ -65,6 +71,12 @@ namespace ChampionManager25.Logica
         public void ActualizarManagerTemporal(Historial historial)
         {
             _datos.ActualizarManagerTemporal(historial);
+        }
+
+        // Llamada al método que despide un manager
+        public void DespedirManager(int idManager)
+        {
+            _datos.DespedirManager(idManager);
         }
     }
 }

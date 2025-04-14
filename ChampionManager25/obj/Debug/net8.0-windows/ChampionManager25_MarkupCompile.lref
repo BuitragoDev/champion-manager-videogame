@@ -7,6 +7,8 @@ FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_EditorCompeticion.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_EditorEquipos.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_EditorHome.xaml;;
+FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_EditorJugador.xaml;;
+FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_EditorJugadores.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_FichaJugador.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_InformacionEquipo.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_InformacionPalmares.xaml;;
@@ -46,8 +48,7 @@ FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmMenuO
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmResumenPartido.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmResumenTemporada.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmSimulandoPartidos.xaml;;
+FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmVentanaDespido.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmVentanaEmergenteDosBotones.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmVerDetallesEquipo.xaml;;
-FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_EditorJugadores.xaml;;
-FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_EditorJugador.xaml;;
 

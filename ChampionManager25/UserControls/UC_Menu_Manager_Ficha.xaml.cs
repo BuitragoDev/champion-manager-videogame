@@ -1,4 +1,5 @@
-﻿using ChampionManager25.Entidades;
+﻿using ChampionManager25.Datos;
+using ChampionManager25.Entidades;
 using ChampionManager25.Logica;
 using ChampionManager25.MisMetodos;
 using System;
@@ -41,6 +42,16 @@ namespace ChampionManager25.UserControls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            Manager mana = _logicaManager.MostrarManager(_manager.IdManager);
+            if (mana.RutaImagen != "")
+            {
+                imgAvatar.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + _manager.RutaImagen));
+            }
+            else
+            {
+                imgAvatar.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/Recursos/img/managers/default.png"));
+            }  
+
             // Nombre del Mánager
             txtNombreManager.Text = _logicaManager.MostrarManager(_manager.IdManager).Nombre + " " + _logicaManager.MostrarManager(_manager.IdManager).Apellido;
 
@@ -75,7 +86,8 @@ namespace ChampionManager25.UserControls
 
 
             // Obtener Reputación
-            MostrarEstrellas(_manager.Reputacion);
+            int repu = _logicaManager.MostrarManager(_manager.IdManager).Reputacion;
+            MostrarEstrellas(repu);
 
             // Obtener Ranking.
             string miNombre = _logicaManager.MostrarManager(_manager.IdManager).Nombre + " " + _logicaManager.MostrarManager(_manager.IdManager).Apellido;
@@ -188,23 +200,23 @@ namespace ChampionManager25.UserControls
             // Determinar el número de estrellas según la reputación
             int numeroEstrellas = 0;
 
-            if (reputacion == 5)
+            if (reputacion == 100)
             {
                 numeroEstrellas = 5;
             }
-            else if (reputacion == 4)
+            else if (reputacion >= 90)
             {
                 numeroEstrellas = 4;
             }
-            else if (reputacion == 3)
+            else if (reputacion >= 70)
             {
                 numeroEstrellas = 3;
             }
-            else if (reputacion == 2)
+            else if (reputacion >= 50)
             {
                 numeroEstrellas = 2;
             }
-            else if (reputacion == 1)
+            else if (reputacion >= 25)
             {
                 numeroEstrellas = 1;
             }

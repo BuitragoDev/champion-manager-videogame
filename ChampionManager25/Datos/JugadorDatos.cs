@@ -981,6 +981,7 @@ namespace ChampionManager25.Datos
                                     Peso = dr.GetInt32(dr.GetOrdinal("peso")),
                                     Altura = dr.GetInt32(dr.GetOrdinal("altura")),
                                     Lesion = dr.GetInt32(dr.GetOrdinal("lesion")),
+                                    Sancionado = dr.GetInt32(dr.GetOrdinal("sancionado")),
                                     Nacionalidad = dr.GetString(dr.GetOrdinal("nacionalidad")),
                                     Status = dr.GetInt32(dr.GetOrdinal("status")),
                                     PosicionAlineacion = dr.GetInt32(dr.GetOrdinal("posicion")),
@@ -1212,7 +1213,7 @@ namespace ChampionManager25.Datos
                                         FROM jugadores 
                                         WHERE id_equipo = @equipo AND lesion = 0 AND sancionado = 0 AND rol_id BETWEEN 2 AND 10
                                         ORDER BY media DESC 
-                                        LIMIT 15
+                                        LIMIT 16
                                      )";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
@@ -1271,6 +1272,88 @@ namespace ChampionManager25.Datos
                 
             }
           
+            return lista;
+        }
+
+        // ======================================================= Método para crear los 16 jugadores que jugaran el partido DE MI EQUIPO
+        public List<Jugador> JugadoresMiEquipoJueganPartido(int id)
+        {
+            List<Jugador> lista = new List<Jugador>();
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Consulta SQL para obtener un portero y los 15 mejores jugadores de campo sin estar lesionados ni sancionados
+                    string query = @"SELECT j.*, 
+                                            (j.velocidad + j.resistencia + j.agresividad + j.calidad + j.estado_forma + j.moral) / 6.0 AS media,
+                                            a.posicion
+                                     FROM alineacion a
+                                     JOIN jugadores j ON a.id_jugador = j.id_jugador
+                                     WHERE j.id_equipo = @equipo
+                                        AND j.lesion = 0
+                                        AND j.sancionado = 0
+                                     ORDER BY a.posicion
+                                     LIMIT 16";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@equipo", id);
+
+                        using (SQLiteDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                Jugador jugador = new Jugador
+                                {
+                                    IdJugador = dr.GetInt32(dr.GetOrdinal("id_jugador")),
+                                    Nombre = dr.GetString(dr.GetOrdinal("nombre")),
+                                    Apellido = dr.GetString(dr.GetOrdinal("apellido")),
+                                    IdEquipo = dr.GetInt32(dr.GetOrdinal("id_equipo")),
+                                    Rol = dr.GetString(dr.GetOrdinal("rol")),
+                                    RolId = dr.GetInt32(dr.GetOrdinal("rol_id")),
+                                    Velocidad = dr.GetInt32(dr.GetOrdinal("velocidad")),
+                                    Resistencia = dr.GetInt32(dr.GetOrdinal("resistencia")),
+                                    Agresividad = dr.GetInt32(dr.GetOrdinal("agresividad")),
+                                    Calidad = dr.GetInt32(dr.GetOrdinal("calidad")),
+                                    EstadoForma = dr.GetInt32(dr.GetOrdinal("estado_forma")),
+                                    Moral = dr.GetInt32(dr.GetOrdinal("moral")),
+                                    Potencial = dr.GetInt32(dr.GetOrdinal("potencial")),
+                                    Portero = dr.GetInt32(dr.GetOrdinal("portero")),
+                                    Pase = dr.GetInt32(dr.GetOrdinal("pase")),
+                                    Regate = dr.GetInt32(dr.GetOrdinal("regate")),
+                                    Remate = dr.GetInt32(dr.GetOrdinal("remate")),
+                                    Entradas = dr.GetInt32(dr.GetOrdinal("entradas")),
+                                    Tiro = dr.GetInt32(dr.GetOrdinal("tiro")),
+                                    Lesion = dr.GetInt32(dr.GetOrdinal("lesion")),
+                                    Sancionado = dr.GetInt32(dr.GetOrdinal("sancionado")),
+                                    FechaNacimiento = DateTime.Parse(dr.GetString(dr.GetOrdinal("fecha_nacimiento"))),
+                                    Peso = dr.GetInt32(dr.GetOrdinal("peso")),
+                                    Altura = dr.GetInt32(dr.GetOrdinal("altura")),
+                                    Nacionalidad = dr.GetString(dr.GetOrdinal("nacionalidad")),
+                                    Status = dr.GetInt32(dr.GetOrdinal("status")),
+                                    RutaImagen = dr.GetString(dr.GetOrdinal("ruta_imagen"))
+                                };
+
+                                lista.Add(jugador);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+            string jugadoresLocalInfo = "Jugadores del equipo local:\n";
+            foreach (var jugador in lista)
+            {
+                jugadoresLocalInfo += $"ID: {jugador.IdJugador}, Nombre: {jugador.Nombre} {jugador.Apellido}, Rol: {jugador.Rol}\n";
+
+            }
+
             return lista;
         }
 

@@ -19,9 +19,24 @@ namespace ChampionManager25.Datos
                 using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
-                    string query = @"INSERT INTO managers (nombre, apellido, nacionalidad, fechaNacimiento, 
-                                     cDirectiva, cFans, cJugadores, partidosJugados, partidosGanados, partidosEmpatados, partidosPerdidos, reputacion, puntos, tactica) 
-                                     VALUES (@Nombre, @Apellido, @Nacionalidad, @FechaNacimiento, 50, 50, 50, 0, 0, 0, 0, 0, 0, @Tactica)";
+
+                    bool tieneImagen = manager.RutaImagen != "Recursos/img/managers/";
+
+                    string columnas = @"nombre, apellido, nacionalidad, fechaNacimiento, 
+                                cDirectiva, cFans, cJugadores, partidosJugados, partidosGanados, 
+                                partidosEmpatados, partidosPerdidos, reputacion, puntos, tactica, despedido";
+
+                    string valores = @"@Nombre, @Apellido, @Nacionalidad, @FechaNacimiento, 
+                               50, 50, 50, 0, 0, 0, 0, 0, 0, @Tactica, 0";
+
+                    if (tieneImagen)
+                    {
+                        columnas += ", ruta_imagen";
+                        valores += ", @RutaImagen";
+                    }
+
+                    string query = $"INSERT INTO managers ({columnas}) VALUES ({valores})";
+
                     using (var cmd = new SQLiteCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@Nombre", manager.Nombre);
@@ -29,32 +44,33 @@ namespace ChampionManager25.Datos
                         cmd.Parameters.AddWithValue("@Nacionalidad", manager.Nacionalidad);
                         cmd.Parameters.AddWithValue("@FechaNacimiento", manager.FechaNacimiento.ToString("yyyy-MM-dd"));
                         cmd.Parameters.AddWithValue("@Tactica", "4-4-2");
-                        int result = cmd.ExecuteNonQuery(); // Ejecuta la consulta de inserción
 
-                        if (result > 0) // Verifica si se afectó alguna fila
+                        if (tieneImagen)
+                            cmd.Parameters.AddWithValue("@RutaImagen", manager.RutaImagen);
+
+                        int result = cmd.ExecuteNonQuery();
+
+                        if (result > 0)
                         {
-                            // Recuperar el último ID generado
                             string idQuery = "SELECT last_insert_rowid()";
                             using (var idCmd = new SQLiteCommand(idQuery, conn))
                             {
                                 object idObj = idCmd.ExecuteScalar();
-                                int idManager = idObj != null ? Convert.ToInt32(idObj) : 0;
-                                return idManager;
+                                return idObj != null ? Convert.ToInt32(idObj) : 0;
                             }
                         }
-                        else
-                        {
-                            return 0; // Indica fallo
-                        }
+
+                        return 0;
                     }
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error al crear el Manager: " + ex.Message);
-                return -1; // Devuelve -1 para errores
+                return -1;
             }
         }
+
 
         // Método que elimina al manager con el ID recibido por parámetro.
         public void eliminarManager(int idManager)
@@ -128,6 +144,32 @@ namespace ChampionManager25.Datos
             }
         }
 
+        // ---------------------------------------------------------------- Método que actualiza la reputacion del Manager
+        public void ActualizarReputacion(int idManager, int valor)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+                    string query = "UPDATE managers SET " +
+                                   "reputacion = MAX(reputacion + @Reputacion, 0) " +
+                                   "WHERE id_manager = @IdManager;";
+
+                    using (var cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Reputacion", valor); 
+                        cmd.Parameters.AddWithValue("@IdManager", idManager);
+                        cmd.ExecuteNonQuery(); // Ejecuta la consulta
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al actualizar el Manager: " + ex.Message);
+            }
+        }
+
         // Método que muestra los datos de un Manager
         public Manager MostrarManager(int idManager)
         {
@@ -165,6 +207,8 @@ namespace ChampionManager25.Datos
                                     PartidosPerdidos = reader.IsDBNull(reader.GetOrdinal("partidosPerdidos")) ? 0 : reader.GetInt32(reader.GetOrdinal("partidosPerdidos")),
                                     Puntos = reader.IsDBNull(reader.GetOrdinal("puntos")) ? 0 : reader.GetInt32(reader.GetOrdinal("puntos")),
                                     Tactica = reader.GetString(reader.GetOrdinal("tactica")),
+                                    Despedido = reader.GetInt32(reader.GetOrdinal("despedido")),
+                                    RutaImagen = reader["ruta_imagen"]?.ToString() ?? string.Empty
                                 };
                             }
                         }
@@ -260,6 +304,28 @@ namespace ChampionManager25.Datos
                         cmd.Parameters.AddWithValue("@PartidosPerdidos", historial.PartidosPerdidos);
                         cmd.Parameters.AddWithValue("@GolesMarcados", historial.GolesMarcados);
                         cmd.Parameters.AddWithValue("@GolesRecibidos", historial.GolesRecibidos);
+                        cmd.ExecuteNonQuery(); // Ejecuta la consulta
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al actualizar el Manager: " + ex.Message);
+            }
+        }
+
+        // ---------------------------------------------------------------- Método que despide un manager
+        public void DespedirManager(int idManager)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+                    string query = "UPDATE managers SET despedido = 1 WHERE id_manager = @IdManager";
+                    using (var cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@IdManager", idManager);
                         cmd.ExecuteNonQuery(); // Ejecuta la consulta
                     }
                 }

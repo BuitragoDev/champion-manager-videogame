@@ -251,6 +251,9 @@
     <None Remove="Recursos\img\entradas.png" />
     <None Remove="Recursos\img\entrenadores\1.png" />
     <None Remove="Recursos\img\entrenadores\10.png" />
+    <None Remove="Recursos\img\entrenadores\103.png" />
+    <None Remove="Recursos\img\entrenadores\104.png" />
+    <None Remove="Recursos\img\entrenadores\105.png" />
     <None Remove="Recursos\img\entrenadores\11.png" />
     <None Remove="Recursos\img\entrenadores\12.png" />
     <None Remove="Recursos\img\entrenadores\13.png" />
@@ -279,6 +282,8 @@
     <None Remove="Recursos\img\entrenadores\34.png" />
     <None Remove="Recursos\img\entrenadores\35.png" />
     <None Remove="Recursos\img\entrenadores\36.png" />
+    <None Remove="Recursos\img\entrenadores\37.png" />
+    <None Remove="Recursos\img\entrenadores\38.png" />
     <None Remove="Recursos\img\entrenadores\4.png" />
     <None Remove="Recursos\img\entrenadores\5.png" />
     <None Remove="Recursos\img\entrenadores\6.png" />
@@ -662,6 +667,7 @@
     <None Remove="Recursos\img\icons\plantilla_datos.png" />
     <None Remove="Recursos\img\icons\plantilla_estadisticas.png" />
     <None Remove="Recursos\img\icons\plantilla_puntuacion.png" />
+    <None Remove="Recursos\img\icons\prohibido_icon.png" />
     <None Remove="Recursos\img\icons\rechazado_icon.png" />
     <None Remove="Recursos\img\icons\renovar_icon.png" />
     <None Remove="Recursos\img\icons\roja_icon.png" />
@@ -1688,6 +1694,8 @@
     <None Remove="Recursos\img\logos_competiciones\80x80\2.png" />
     <None Remove="Recursos\img\logos_competiciones\competicionTicket10.png" />
     <None Remove="Recursos\img\logos_competiciones\competicionTicket7.png" />
+    <None Remove="Recursos\img\managers\avatar.png" />
+    <None Remove="Recursos\img\managers\default.png" />
     <None Remove="Recursos\img\microfonos_ruedaPrensa.png" />
     <None Remove="Recursos\img\pase.png" />
     <None Remove="Recursos\img\portero.png" />
@@ -2431,6 +2439,15 @@
     <Content Include="Recursos\img\entrenadores\10.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\entrenadores\103.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\entrenadores\104.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\entrenadores\105.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\entrenadores\11.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -2513,6 +2530,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\entrenadores\36.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\entrenadores\37.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\entrenadores\38.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\entrenadores\4.png">
@@ -3662,6 +3685,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\plantilla_puntuacion.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\prohibido_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\rechazado_icon.png">
@@ -6734,6 +6760,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\logos_competiciones\80x80\2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\managers\avatar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\managers\default.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\microfonos_ruedaPrensa.png">

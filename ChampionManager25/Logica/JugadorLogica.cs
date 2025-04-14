@@ -107,6 +107,12 @@ namespace ChampionManager25.Logica
             return _datos.JugadoresJueganPartido(id);
         }
 
+        // Llamada al método para crear los 16 jugadores que jugaran el partido DE MI EQUIPO
+        public List<Jugador> JugadoresMiEquipoJueganPartido(int id)
+        {
+            return _datos.JugadoresMiEquipoJueganPartido(id);
+        }
+
         // Llamada al método que pone a un jugador como lesionado
         public void PonerJugadorLesionado(int jugador, int duracion)
         {

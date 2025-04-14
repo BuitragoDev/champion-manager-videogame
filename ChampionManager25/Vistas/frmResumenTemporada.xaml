@@ -59,7 +59,7 @@
         <!-- ÁREA PRINCIPAL -->
         <Border Grid.Column="1" Grid.Row="1" Height="738" VerticalAlignment="Center" HorizontalAlignment="Center" Background="WhiteSmoke" Width="1000">
             <Border.Effect>
-                <DropShadowEffect Color="Black" 
+                <DropShadowEffect Color="#FF23282D" 
               BlurRadius="10" 
               ShadowDepth="5" 
               Direction="320" 
@@ -74,6 +74,7 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="90"/>
                     </Grid.RowDefinitions>
 
                     <!-- FILA 1 -->
@@ -110,7 +111,7 @@
                                     <Image Grid.Column="0" Grid.Row="0" Height="64" Width="64" HorizontalAlignment="Center" VerticalAlignment="Center"
                                            Source="/Recursos/img/icons/trofeo_campeon.png" />
 
-                                    <Image x:Name="imgCampeon" Height="200" Width="200" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    <Image x:Name="imgCampeon" Height="120" Width="120" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
                             </Border>
                             <!-- SubCampeon -->
@@ -127,7 +128,7 @@
                                     <Image Grid.Column="0" Grid.Row="0" Height="64" Width="64" HorizontalAlignment="Center" VerticalAlignment="Center"
                                            Source="/Recursos/img/icons/trofeo_subcampeon.png" />
 
-                                    <Image x:Name="imgSubcampeon" Height="200" Width="200" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    <Image x:Name="imgSubcampeon" Height="120" Width="120" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
                             </Border>
                         </Grid>
@@ -250,6 +251,28 @@
                                     </Border>
                                 </Grid>
                             </Border>
+                        </Grid>
+                    </Border>
+
+                    <!-- FILA 4 -->
+                    <Border Grid.Column="0" Grid.Row="3">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Background="#1d6a7d" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+                                <TextBlock Text="PUNTOS DE REPUTACIÓN" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                           FontFamily="Cascadia Code SemiBold" FontSize="22" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                            </Border>
+
+                            <TextBlock x:Name="txtPuntosReputacion" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                       FontFamily="Cascadia Code SemiBold" FontSize="22" Foreground="#FF23282D" TextAlignment="Center"/>
                         </Grid>
                     </Border>
                 </Grid>

@@ -132,7 +132,7 @@
                 </Border>
 
                 <Image x:Name="imgAvatar" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Width="256" Height="256" VerticalAlignment="Center" 
-                       HorizontalAlignment="Center" Source="/Recursos/img/icons/avatar.png" Cursor="Hand" />
+                       HorizontalAlignment="Center" Cursor="Hand" MouseLeftButtonDown="imgAvatar_MouseLeftButtonDown" />
 
                 <!-- Nombre -->
                 <Border Grid.Column="0" Grid.Row="2" Background="#23282d">

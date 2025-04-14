@@ -31,7 +31,7 @@
                 </Border>
 
                 <Border Grid.Column="0" Grid.Row="1">
-                    <TextBlock x:Name="txtMensaje" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600" TextWrapping="Wrap"
+                    <TextBlock x:Name="txtMensaje" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="737" TextWrapping="Wrap"
                                FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
                 </Border>
 

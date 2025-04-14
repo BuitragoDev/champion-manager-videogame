@@ -69,19 +69,32 @@ namespace ChampionManager25.UserControls
 
                     var logicaManager = new ManagerLogica();
                     var manager = logicaManager.MostrarManager(partidaSeleccionada.IdManager);
-                    var idEquipo = manager.IdEquipo ?? 0;
 
-                    if (idEquipo == 0)
+                    if (manager.Despedido == 1)
                     {
-                        MessageBox.Show("Esta partida no tiene equipo asignado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
+                        // Mostrar ventana de manager despedido
+                        string titulo = "INFORMACIÓN";
+                        string mensaje = "El manager que intentas seleccionar fue despedido por la directiva debido al bajo rendimiento o por decisión interna del club.\nNo es posible continuar con esta partida.\n\nSi quieres continuar jugando, por favor, comienza una partida nueva o intenta cargar otra partida guardada.";
+                        frmVentanaDespido ventanaDespido = new frmVentanaDespido(titulo, mensaje);
+                        ventanaDespido.ShowDialog();
                     }
+                    else
+                    {
+                        var idEquipo = manager.IdEquipo ?? 0;
 
-                    var mainWindow = (MainWindow)Application.Current.MainWindow;
-                    mainWindow.PartidaEnProgreso = true;
-                    mainWindow.RutaPartidaActual = partidaSeleccionada.Ruta;
+                        if (idEquipo == 0)
+                        {
+                            MessageBox.Show("Esta partida no tiene equipo asignado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
 
-                    mainWindow.CargarPantallaPrincipal(manager, idEquipo);
+                        var mainWindow = (MainWindow)Application.Current.MainWindow;
+                        mainWindow.PartidaEnProgreso = true;
+                        mainWindow.RutaPartidaActual = partidaSeleccionada.Ruta;
+
+                        mainWindow.CargarPantallaPrincipal(manager, idEquipo);
+                    }
+                        
                 }
                 catch (Exception ex)
                 {

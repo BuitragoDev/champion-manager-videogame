@@ -271,7 +271,7 @@ namespace ChampionManager25.UserControls
             {
                 Binding = new System.Windows.Data.Binding("NombreCompleto"),
                 Header = "JUGADOR",
-                Width = new DataGridLength(375, DataGridLengthUnitType.Pixel),
+                Width = new DataGridLength(325, DataGridLengthUnitType.Pixel),
                 HeaderStyle = new Style(typeof(DataGridColumnHeader))
                 {
                     Setters =
@@ -299,7 +299,7 @@ namespace ChampionManager25.UserControls
             {
                 Binding = new System.Windows.Data.Binding("Rol"),
                 Header = "DEMARCACIÓN",
-                Width = new DataGridLength(300, DataGridLengthUnitType.Pixel),
+                Width = new DataGridLength(250, DataGridLengthUnitType.Pixel),
                 HeaderStyle = new Style(typeof(DataGridColumnHeader))
                 {
                     Setters =
@@ -403,6 +403,49 @@ namespace ChampionManager25.UserControls
                     }
                 }
             });
+
+            // Lesion
+            var templateColumn = new DataGridTemplateColumn
+            {
+                Header = "LES",
+                Width = new DataGridLength(50, DataGridLengthUnitType.Pixel)
+            };
+
+            var factory = new FrameworkElementFactory(typeof(Image));
+            factory.SetValue(Image.WidthProperty, 16.0);
+            factory.SetValue(Image.HeightProperty, 16.0);
+            factory.SetBinding(Image.SourceProperty, new Binding("Lesion")
+            {
+                Converter = new LesionToImageConverter()
+            });
+            factory.SetValue(Image.VerticalAlignmentProperty, VerticalAlignment.Center);
+            factory.SetValue(Image.HorizontalAlignmentProperty, HorizontalAlignment.Center);
+
+            templateColumn.CellTemplate = new DataTemplate { VisualTree = factory };
+
+            dgTitulares.Columns.Add(templateColumn);
+
+            // Sancion
+            var templateColumnSancion = new DataGridTemplateColumn
+            {
+                Header = "SAN",
+                Width = new DataGridLength(50, DataGridLengthUnitType.Pixel)
+            };
+
+            var factorySancion = new FrameworkElementFactory(typeof(Image));
+            factorySancion.SetValue(Image.WidthProperty, 16.0);
+            factorySancion.SetValue(Image.HeightProperty, 16.0);
+            factorySancion.SetBinding(Image.SourceProperty, new Binding("Sancionado")
+            {
+                Converter = new SancionToImageConverter()
+            });
+            factorySancion.SetValue(Image.VerticalAlignmentProperty, VerticalAlignment.Center);
+            factorySancion.SetValue(Image.HorizontalAlignmentProperty, HorizontalAlignment.Center);
+
+            templateColumnSancion.CellTemplate = new DataTemplate { VisualTree = factorySancion };
+
+            dgTitulares.Columns.Add(templateColumnSancion);
+
 
             dgTitulares.SelectionChanged += dgTitulares_SelectionChanged;
 
@@ -522,7 +565,7 @@ namespace ChampionManager25.UserControls
             {
                 Binding = new System.Windows.Data.Binding("NombreCompleto"),
                 Header = "JUGADOR",
-                Width = new DataGridLength(375, DataGridLengthUnitType.Pixel),
+                Width = new DataGridLength(325, DataGridLengthUnitType.Pixel),
                 HeaderStyle = new Style(typeof(DataGridColumnHeader))
                 {
                     Setters =
@@ -550,7 +593,7 @@ namespace ChampionManager25.UserControls
             {
                 Binding = new System.Windows.Data.Binding("Rol"),
                 Header = "DEMARCACIÓN",
-                Width = new DataGridLength(300, DataGridLengthUnitType.Pixel),
+                Width = new DataGridLength(250, DataGridLengthUnitType.Pixel),
                 ElementStyle = new Style(typeof(TextBlock))
                 {
                     Setters =
@@ -645,6 +688,49 @@ namespace ChampionManager25.UserControls
                 }
             });
 
+            // Lesion
+            var templateColumn = new DataGridTemplateColumn
+            {
+                Header = "LES",
+                Width = new DataGridLength(50, DataGridLengthUnitType.Pixel)
+            };
+
+            var factory = new FrameworkElementFactory(typeof(Image));
+            factory.SetValue(Image.WidthProperty, 16.0);
+            factory.SetValue(Image.HeightProperty, 16.0);
+            factory.SetBinding(Image.SourceProperty, new Binding("Lesion")
+            {
+                Converter = new LesionToImageConverter()
+            });
+            factory.SetValue(Image.VerticalAlignmentProperty, VerticalAlignment.Center);
+            factory.SetValue(Image.HorizontalAlignmentProperty, HorizontalAlignment.Center);
+
+            templateColumn.CellTemplate = new DataTemplate { VisualTree = factory };
+
+            dgReservas.Columns.Add(templateColumn);
+
+            // Sancion
+            var templateColumnSancion = new DataGridTemplateColumn
+            {
+                Header = "SAN",
+                Width = new DataGridLength(50, DataGridLengthUnitType.Pixel)
+            };
+
+            var factorySancion = new FrameworkElementFactory(typeof(Image));
+            factorySancion.SetValue(Image.WidthProperty, 16.0);
+            factorySancion.SetValue(Image.HeightProperty, 16.0);
+            factorySancion.SetBinding(Image.SourceProperty, new Binding("Sancionado")
+            {
+                Converter = new SancionToImageConverter()
+            });
+            factorySancion.SetValue(Image.VerticalAlignmentProperty, VerticalAlignment.Center);
+            factorySancion.SetValue(Image.HorizontalAlignmentProperty, HorizontalAlignment.Center);
+
+            templateColumnSancion.CellTemplate = new DataTemplate { VisualTree = factorySancion };
+
+            dgReservas.Columns.Add(templateColumnSancion);
+
+
             dgReservas.SelectionChanged += dgReservas_SelectionChanged;
 
             // Configurar altura de filas y estilos generales
@@ -736,9 +822,44 @@ namespace ChampionManager25.UserControls
 
         private void dg_LoadingRow(object sender, DataGridRowEventArgs e)
         {
+            // Eventos de hover
             e.Row.MouseEnter += Row_MouseEnter;
             e.Row.MouseLeave += Row_MouseLeave;
+
+            // Colorear las primeras 5 filas de amarillo
+            if (e.Row.GetIndex() % 2 == 0)
+                e.Row.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ceeecb"));
+
+            else
+                e.Row.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#bcd5ba"));
+
         }
+
+        private void dg_LoadingRowReservas(object sender, DataGridRowEventArgs e)
+        {
+            // Eventos de hover
+            e.Row.MouseEnter += Row_MouseEnter;
+            e.Row.MouseLeave += Row_MouseLeave;
+
+            // Colorear las primeras 5 filas de amarillo
+            if (e.Row.GetIndex() < 5)
+            {
+                // Alternar color para el resto de filas (opcional)
+                if (e.Row.GetIndex() % 2 == 0)
+                    e.Row.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ceeecb"));
+                else
+                    e.Row.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#bcd5ba"));
+            }
+            else
+            {
+                // Alternar color para el resto de filas (opcional)
+                if (e.Row.GetIndex() % 2 == 0)
+                    e.Row.Background = new SolidColorBrush(Colors.LightGray);
+                else
+                    e.Row.Background = new SolidColorBrush(Colors.WhiteSmoke);
+            }
+        }
+
 
         private void Row_MouseEnter(object sender, MouseEventArgs e)
         {

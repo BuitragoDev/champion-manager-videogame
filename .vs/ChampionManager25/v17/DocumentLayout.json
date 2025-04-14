@@ -1,12 +1,85 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\entidades\\clasificacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\entidades\\clasificacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\vistas\\frmresumentemporada.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
+      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\vistas\\frmresumentemporada.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\datos\\clasificaciondatos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\datos\\clasificaciondatos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\vistas\\frmresumentemporada.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\vistas\\frmresumentemporada.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Clasificacion.cs",
+              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\Entidades\\Clasificacion.cs",
+              "RelativeDocumentMoniker": "ChampionManager25\\Entidades\\Clasificacion.cs",
+              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\Entidades\\Clasificacion.cs",
+              "RelativeToolTip": "ChampionManager25\\Entidades\\Clasificacion.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-14T17:50:29.265Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ClasificacionDatos.cs",
+              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\Datos\\ClasificacionDatos.cs",
+              "RelativeDocumentMoniker": "ChampionManager25\\Datos\\ClasificacionDatos.cs",
+              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\Datos\\ClasificacionDatos.cs",
+              "RelativeToolTip": "ChampionManager25\\Datos\\ClasificacionDatos.cs",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAowHUAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-14T17:50:11.938Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "frmResumenTemporada.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\Vistas\\frmResumenTemporada.xaml.cs",
+              "RelativeDocumentMoniker": "ChampionManager25\\Vistas\\frmResumenTemporada.xaml.cs",
+              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\Vistas\\frmResumenTemporada.xaml.cs",
+              "RelativeToolTip": "ChampionManager25\\Vistas\\frmResumenTemporada.xaml.cs",
+              "ViewState": "AgIAAEkAAAAAAAAAAADwv2gAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-14T17:36:06.354Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "frmResumenTemporada.xaml",
+              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\Vistas\\frmResumenTemporada.xaml",
+              "RelativeDocumentMoniker": "ChampionManager25\\Vistas\\frmResumenTemporada.xaml",
+              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\Vistas\\frmResumenTemporada.xaml",
+              "RelativeToolTip": "ChampionManager25\\Vistas\\frmResumenTemporada.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-04-14T17:32:59.97Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

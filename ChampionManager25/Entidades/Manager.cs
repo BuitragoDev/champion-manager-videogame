@@ -25,6 +25,9 @@ namespace ChampionManager25.Entidades
         public int PartidosPerdidos { get; set; }
         public int Puntos { get; set; }
         public string Tactica { get; set; }
+        public int Despedido { get; set; }
+
+        public string RutaImagen { get; set; }
 
         // Constructor por defecto
         public Manager() { }
@@ -32,7 +35,7 @@ namespace ChampionManager25.Entidades
         // Constructor con parámetros
         public Manager(int idManager, string nombre, string apellido, string nacionalidad, DateTime fechaNacimiento, int? idEquipo,
             int cDirectiva, int cFans, int cJugadores, int reputacion, int partidosJugados, int partidosGanados, int partidosEmpatados,
-            int partidosPerdidos, int puntos, string tactica)
+            int partidosPerdidos, int puntos, string tactica, int despedido, string rutaImagen)
         {
             IdManager = idManager;
             Nombre = nombre;
@@ -50,12 +53,14 @@ namespace ChampionManager25.Entidades
             PartidosPerdidos = partidosPerdidos;
             Puntos = puntos;
             Tactica = tactica;
+            Despedido = despedido;
+            RutaImagen = rutaImagen;
         }
 
         // Constructor con parámetros sin ID_MANAGER
         public Manager(string nombre, string apellido, string nacionalidad, DateTime fechaNacimiento, int? idEquipo, int cDirectiva,
             int cFans, int cJugadores, int reputacion, int partidosJugados, int partidosGanados, int partidosEmpatados,
-            int partidosPerdidos, int puntos, string tactica)
+            int partidosPerdidos, int puntos, string tactica, int despedido, string rutaImagen)
         {
             Nombre = nombre;
             Apellido = apellido;
@@ -72,6 +77,8 @@ namespace ChampionManager25.Entidades
             PartidosPerdidos = partidosPerdidos;
             Puntos = puntos;
             Tactica = tactica;
+            Despedido = despedido;
+            RutaImagen = rutaImagen;
         }
 
         // Método ToString
@@ -90,7 +97,9 @@ namespace ChampionManager25.Entidades
                    $"Partidos Empatados: {PartidosEmpatados}\n" +
                    $"Partidos Perdidos: {PartidosPerdidos}\n" +
                    $"Tactica: {Tactica}\n" +
-                   $"Puntos: {Puntos}";
+                   $"Puntos: {Puntos}\n" +
+                   $"Despedido: {Despedido}\n" +
+                   $"Ruta: {RutaImagen}";
         }
     }
 }
