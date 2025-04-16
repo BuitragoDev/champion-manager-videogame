@@ -44,6 +44,8 @@ namespace ChampionManager25.Entidades
         // Atributos extra
         public string? NombreEquipo { get; set; }
         public int PosicionAlineacion { get; set; }
+        public int Valoracion { get; set; }
+        public string ValoracionTexto => $"{Valoracion} puntos";
 
         // Propiedad calculada para obtener la EDAD
         public int Edad

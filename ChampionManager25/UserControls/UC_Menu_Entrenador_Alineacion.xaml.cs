@@ -56,6 +56,30 @@ namespace ChampionManager25.UserControls
         {
             ConfigurarDataGridTitulares();
             ConfigurarDataGridReservas();
+
+            if (tactica == "5-4-1")
+            {
+                CargarTactica(btn541);
+            } else if (tactica == "5-3-2")
+            {
+                CargarTactica(btn532);
+            }
+            else if (tactica == "4-5-1")
+            {
+                CargarTactica(btn451);
+            }
+            else if (tactica == "4-4-2")
+            {
+                CargarTactica(btn442);
+            }
+            else if (tactica == "4-3-3")
+            {
+                CargarTactica(btn433);
+            }
+            else if (tactica == "3-5-2")
+            {
+                CargarTactica(btn352);
+            }
         }
         
         // --------------------------------------------------------------------------------- Evento CLICK del boton 5-4-1
@@ -968,6 +992,26 @@ namespace ChampionManager25.UserControls
             LimpiarCambio1();
             LimpiarCambio2();
         }
+
+        private void CargarTactica(Button boton)
+        {
+            btn541.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn532.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn451.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn442.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn433.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            btn352.Background = new SolidColorBrush(Color.FromRgb(0x1D, 0x6A, 0x7D));
+            boton.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
+
+            btn541.IsEnabled = true;
+            btn532.IsEnabled = true;
+            btn451.IsEnabled = true;
+            btn442.IsEnabled = true;
+            btn433.IsEnabled = true;
+            btn352.IsEnabled = true;
+            boton.IsEnabled = false;
+        }
+
         #endregion
     }
 }

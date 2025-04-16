@@ -432,7 +432,7 @@ namespace ChampionManager25.Datos
                                     Asistencias = reader.IsDBNull(8) ? 0 : reader.GetInt32(8),
                                     TarjetasAmarillas = reader.IsDBNull(9) ? 0 : reader.GetInt32(9),
                                     TarjetasRojas = reader.IsDBNull(10) ? 0 : reader.GetInt32(10),
-                                    MVP = reader.IsDBNull(12) ? 0 : reader.GetInt32(12)
+                                    MVP = reader.IsDBNull(11) ? 0 : reader.GetInt32(11)
                                 });
                             }
                         }
@@ -651,6 +651,145 @@ namespace ChampionManager25.Datos
                 // En caso de error, mostrar el mensaje con la excepción
                 Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
             }
+        }
+
+        // --------------------------------------------------------------------- Metodo que muestra los 3 mejores jugadores de la temporada
+        public List<Jugador> BalonDeOro()
+        {
+            List<Jugador> lista = new List<Jugador>();
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+                    string query = @"SELECT 
+                                        ej.id_jugador,
+                                        j.nombre,
+                                        j.apellido,
+                                        j.ruta_imagen,
+                                        j.id_equipo,
+                                        (ej.goles * 2) +
+                                        (ej.asistencias) +
+                                        (ej.partidosJugados) +
+                                        (ej.mvp * 3) -
+                                        (ej.tarjetasAmarillas) -
+                                        (ej.tarjetasRojas * 2) AS puntos
+                                     FROM estadisticas_jugadores ej
+                                     JOIN jugadores j ON ej.id_jugador = j.id_jugador
+                                     ORDER BY puntos DESC
+                                     LIMIT 3";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            lista.Clear();  // Asegura que la lista esté vacía antes de llenarla
+
+                            while (reader.Read())
+                            {
+                                lista.Add(new Jugador
+                                {
+                                    IdJugador = reader.GetInt32(reader.GetOrdinal("id_jugador")),
+                                    Nombre = reader.GetString(reader.GetOrdinal("nombre")),
+                                    Apellido = reader.GetString(reader.GetOrdinal("apellido")),
+                                    RutaImagen = reader.GetString(reader.GetOrdinal("ruta_imagen")),
+                                    Valoracion = reader.GetInt32(reader.GetOrdinal("puntos")),
+                                    IdEquipo = reader.GetInt32(reader.GetOrdinal("id_equipo"))
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                // En caso de error, mostrar el mensaje con la excepción
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return lista;
+        }
+
+        // --------------------------------------------------------------------- Metodo que muestra el mejor 11 de la temporada
+        public List<Jugador> MejorOnceTemporada()
+        {
+            List<Jugador> lista = new List<Jugador>();
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+                    string query = @"SELECT 
+                                        j.rol,
+                                        j.id_jugador,
+                                        j.nombre,
+                                        j.apellido,
+                                        j.ruta_imagen,
+                                        j.id_equipo,
+                                        e.nombre AS nombre_equipo,
+                                        (
+                                            ej.goles * 2 +
+                                            ej.asistencias +
+                                            ej.partidosJugados +
+                                            ej.mvp * 3 -
+                                            ej.tarjetasAmarillas -
+                                            ej.tarjetasRojas * 2
+                                        ) AS puntos
+                                     FROM estadisticas_jugadores ej
+                                     JOIN jugadores j ON ej.id_jugador = j.id_jugador
+                                     JOIN equipos e ON j.id_equipo = e.id_equipo
+                                     WHERE j.rol_id IS NOT NULL
+                                      AND j.id_jugador IN (
+                                        SELECT ej2.id_jugador
+                                        FROM estadisticas_jugadores ej2
+                                        JOIN jugadores j2 ON ej2.id_jugador = j2.id_jugador
+                                        WHERE j2.rol_id = j.rol_id
+                                        ORDER BY (
+                                            ej2.goles * 2 +
+                                            ej2.asistencias +
+                                            ej2.partidosJugados +
+                                            ej2.mvp * 3 -
+                                            ej2.tarjetasAmarillas -
+                                            ej2.tarjetasRojas * 2
+                                        ) DESC
+                                        LIMIT 1
+                                     )
+                                     GROUP BY j.rol_id
+                                     ORDER BY j.rol_id";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            lista.Clear();  // Asegura que la lista esté vacía antes de llenarla
+
+                            while (reader.Read())
+                            {
+                                lista.Add(new Jugador
+                                {
+                                    IdJugador = reader.GetInt32(reader.GetOrdinal("id_jugador")),
+                                    Nombre = reader.GetString(reader.GetOrdinal("nombre")),
+                                    Apellido = reader.GetString(reader.GetOrdinal("apellido")),
+                                    RutaImagen = reader.GetString(reader.GetOrdinal("ruta_imagen")),
+                                    Rol = reader.GetString(reader.GetOrdinal("rol")),
+                                    Valoracion = reader.GetInt32(reader.GetOrdinal("puntos")),
+                                    NombreEquipo = reader.GetString(reader.GetOrdinal("nombre_equipo")),
+                                    IdEquipo = reader.GetInt32(reader.GetOrdinal("id_equipo")),
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                // En caso de error, mostrar el mensaje con la excepción
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return lista;
         }
     }
 }

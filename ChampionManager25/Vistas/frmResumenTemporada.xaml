@@ -282,7 +282,7 @@
         <!-- ÁREA BOTON -->
         <Border Grid.Column="1" Grid.Row="2">
             <Button x:Name="btnAvanzar" Grid.Column="5" VerticalAlignment="Center" HorizontalAlignment="Center"
-                    Height="50" Width="1000" FontFamily="Cascadia Code SemiBold" FontSize="22" Cursor="Hand" Content="TERMINAR TEMPORADA" Click="btnAvanzar_Click">
+                    Height="50" Width="1000" FontFamily="Cascadia Code SemiBold" FontSize="22" Cursor="Hand" Content="VER PREMIOS DE JUGADORES" Click="btnAvanzar_Click">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Background" Value="#FF23282D"/>

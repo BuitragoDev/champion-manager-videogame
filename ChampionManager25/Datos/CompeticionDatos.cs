@@ -150,7 +150,7 @@ namespace ChampionManager25.Datos
                 using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
-                    string query = @"SELECT * FROM competiciones WHERE id_competicion BETWEEN 1 AND 2";
+                    string query = @"SELECT * FROM competiciones WHERE id_competicion BETWEEN 1 AND 3";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                     {

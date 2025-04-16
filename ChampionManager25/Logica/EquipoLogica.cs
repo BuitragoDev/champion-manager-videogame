@@ -54,5 +54,11 @@ namespace ChampionManager25.Logica
         {
             _datos.EditarEquipo(equipo);
         }
+
+        // Llamada al método que cambia un equipo de competicion
+        public void AscenderDescenderEquipo(int equipo, int competicion)
+        {
+            _datos.AscenderDescenderEquipo(equipo, competicion);
+        }
     }
 }

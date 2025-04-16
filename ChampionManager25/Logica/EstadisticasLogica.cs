@@ -90,5 +90,17 @@ namespace ChampionManager25.Logica
         {
             _datos.ResetearEstadisticas();
         }
+
+        // Llamada al metodo que muestra los 3 mejores jugadores de la temporada
+        public List<Jugador> BalonDeOro()
+        {
+            return _datos.BalonDeOro();
+        }
+
+        // Llamada al metodo que muestra el mejor 11 de la temporada
+        public List<Jugador> MejorOnceTemporada()
+        {
+            return _datos.MejorOnceTemporada();
+        }
     }
 }

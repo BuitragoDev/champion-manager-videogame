@@ -86,6 +86,8 @@ namespace ChampionManager25.UserControls
         {
             string ruta_logo = _logicaCompeticion.ObtenerCompeticion(1).RutaImagen;
             imgLiga1.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo));
+            string ruta_logo2 = _logicaCompeticion.ObtenerCompeticion(2).RutaImagen;
+            imgLiga2.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo2));
 
             lblNombreMiEquipo.Text = "Rivales de pretemporada del " + miEquipo.Nombre.ToUpper();
             imgLogoMiEquipo.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + miEquipo.RutaImagen64));
@@ -173,6 +175,20 @@ namespace ChampionManager25.UserControls
         {
             Metodos.ReproducirSonidoTransicion();
             CargarEscudos(1, 1);
+
+            imgLiga1.IsEnabled = false;
+            imgLiga2.IsEnabled = true;
+        }
+        // --------------------------------------------------------------------------------------------------------------------------------
+
+        // ----------------------------------------------------------------------------------------- Evento CLICK de la imagen de RESERVAS
+        private void imgLiga2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Metodos.ReproducirSonidoTransicion();
+            CargarEscudos(2, 2);
+
+            imgLiga1.IsEnabled = true;
+            imgLiga2.IsEnabled = false;
         }
         // --------------------------------------------------------------------------------------------------------------------------------
 
@@ -403,7 +419,7 @@ namespace ChampionManager25.UserControls
         private void CargarEscudos(int minimo, int maximo)
         {
             // Obtener la lista de equipos
-            List<Equipo> oEquipos = _logicaEquipo.ListarEquiposCompeticion(1);
+            List<Equipo> oEquipos = _logicaEquipo.ListarEquiposCompeticion(minimo);
 
             // Limpiar el WrapPanel antes de agregar elementos (opcional)
             wrapPanelEquipos.Children.Clear();

@@ -110,7 +110,7 @@ namespace ChampionManager25.Vistas
             }
         }
 
-        // ------------------------------------------------------------------------------------ Evento CLICK del boton TERMINAR TEMPORADA
+        // ------------------------------------------------------------------------------------ Evento CLICK del boton IR A PREMIOS JUGADORES
         private void btnAvanzar_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

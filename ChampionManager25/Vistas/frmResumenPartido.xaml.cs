@@ -392,7 +392,7 @@ namespace ChampionManager25.Vistas
             int goles = (int)Math.Round(golesEsperados + variacion);
 
             // Asegurar valores dentro de un rango realista
-            return Math.Clamp(goles, 0, 6);
+            return Math.Clamp(goles, 0, 7);
         }
         private List<(Jugador, Jugador?)> AsignarGolesYAsistencias(int goles, List<Jugador> jugadores, Random random)
         {

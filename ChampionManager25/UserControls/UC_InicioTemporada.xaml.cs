@@ -33,6 +33,7 @@ namespace ChampionManager25.UserControls
         EquipoLogica _logicaEquipo = new EquipoLogica();
         PartidoLogica _logicaPartido = new PartidoLogica();
         CompeticionLogica _logicaCompeticion = new CompeticionLogica();
+        ManagerLogica _logicaManager = new ManagerLogica();
 
         public UC_InicioTemporada(Manager manager, int equipo, List<int> ids, string rutaPartida)
         {
@@ -47,6 +48,16 @@ namespace ChampionManager25.UserControls
         {
             string ruta_logo = _logicaCompeticion.ObtenerCompeticion(1).RutaImagen;
             imgLiga1.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo));
+
+            Manager mana = _logicaManager.MostrarManager(_manager.IdManager);
+            if (mana.RutaImagen != "")
+            {
+                imgImagenEntrenador.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + _manager.RutaImagen));
+            }
+            else
+            {
+                imgImagenEntrenador.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/Recursos/img/managers/default.png"));
+            }
 
             ConfigurarDataGridObjetivos(1);
 

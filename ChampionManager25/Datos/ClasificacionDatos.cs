@@ -37,9 +37,16 @@ namespace ChampionManager25.Datos
                         }
                     }
 
+                    // Eliminar clasificación anterior del manager
+                    string queryDelete = @"DELETE FROM clasificacion WHERE id_manager = @idManager";
+                    using (SQLiteCommand deleteCommand = new SQLiteCommand(queryDelete, conn))
+                    {
+                        deleteCommand.Parameters.AddWithValue("@idManager", manager);
+                        deleteCommand.ExecuteNonQuery();
+                    }
+
                     // Insertar cada equipo en la tabla clasificacion
                     string queryInsert = @"INSERT INTO clasificacion (id_equipo, id_manager) VALUES (@idEquipo, @idManager)";
-
                     using (SQLiteCommand insertCommand = new SQLiteCommand(queryInsert, conn))
                     {
                         foreach (int idEquipo in equipos)
@@ -57,6 +64,7 @@ namespace ChampionManager25.Datos
                 Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
             }
         }
+
 
         // ===================================================================== Método para Mostrar la Clasificacion
         public List<Clasificacion> MostrarClasificacion(int competicion, int manager)
