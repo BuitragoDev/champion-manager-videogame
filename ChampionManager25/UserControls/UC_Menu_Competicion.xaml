@@ -12,6 +12,7 @@
             <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="250"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -33,8 +34,12 @@
                    FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" FontWeight="Bold" Width="200" 
                    TextAlignment="Center" Cursor="Hand" MouseLeftButtonDown="lblEstadisticas_MouseLeftButtonDown" />
 
-        <TextBlock x:Name="lblPalmares" Grid.Column="4" HorizontalAlignment="Center" Text="Palmarés" VerticalAlignment="Center" 
+        <TextBlock x:Name="lblPalmares" Grid.Column="4" HorizontalAlignment="Center" Text="Palmarés Equipos" VerticalAlignment="Center" 
                    FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" FontWeight="Bold" Width="200" 
                    TextAlignment="Center" Cursor="Hand" MouseLeftButtonDown="lblPalmares_MouseLeftButtonDown" />
+
+        <TextBlock x:Name="lblPalmaresJugadores" Grid.Column="5" HorizontalAlignment="Center" Text="Palmarés Jugadores" VerticalAlignment="Center" 
+                   FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" FontWeight="Bold" Width="200" 
+                   TextAlignment="Center" Cursor="Hand" MouseLeftButtonDown="lblPalmaresJugadores_MouseLeftButtonDown" />
     </Grid>
 </UserControl>

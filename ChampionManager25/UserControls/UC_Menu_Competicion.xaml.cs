@@ -23,6 +23,7 @@ namespace ChampionManager25.UserControls
         public event Action? MostrarResultados;
         public event Action? MostrarEstadisticas;
         public event Action? MostrarPalmares;
+        public event Action? MostrarPalmaresJugadores;
 
         public UC_Menu_Competicion()
         {
@@ -37,6 +38,7 @@ namespace ChampionManager25.UserControls
             lblResultados.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             lblEstadisticas.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             lblPalmares.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
+            lblPalmaresJugadores.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             MostrarClasificacion?.Invoke();
         }
 
@@ -48,6 +50,7 @@ namespace ChampionManager25.UserControls
             lblClasificacion.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             lblEstadisticas.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             lblPalmares.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
+            lblPalmaresJugadores.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             MostrarResultados?.Invoke();
         }
 
@@ -59,6 +62,7 @@ namespace ChampionManager25.UserControls
             lblResultados.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             lblClasificacion.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             lblPalmares.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
+            lblPalmaresJugadores.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             MostrarEstadisticas?.Invoke();
         }
 
@@ -70,7 +74,21 @@ namespace ChampionManager25.UserControls
             lblResultados.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             lblEstadisticas.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             lblClasificacion.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
+            lblPalmaresJugadores.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             MostrarPalmares?.Invoke();
+        }
+
+        private void lblPalmaresJugadores_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Metodos.ReproducirSonidoClick();
+
+            lblPalmaresJugadores.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+            lblResultados.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
+            lblEstadisticas.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
+            lblClasificacion.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
+            lblPalmares.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
+
+            MostrarPalmaresJugadores?.Invoke();
         }
     }
 }

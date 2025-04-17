@@ -84,9 +84,11 @@ namespace ChampionManager25.UserControls
                     // Crear el calendario de las Ligas
                     int temporadaActual = Metodos.temporadaActual;
                     _datosPartido.GenerarCalendario(temporadaActual, _manager.IdManager, 1);
+                    _datosPartido.GenerarCalendario(temporadaActual, _manager.IdManager, 2);
 
                     // Generar las clasificaciones
                     _logicaClasificacion.RellenarClasificacion(1, _manager.IdManager);
+                    _logicaClasificacion.RellenarClasificacion2(2, _manager.IdManager);
 
                     // Generar registros de la tabla ESTADÍSTICAS_JUGADORES
                     int numJugadores = _logicaJugador.NumeroJugadoresTotales();

@@ -29,6 +29,7 @@ namespace ChampionManager25.Vistas
         // Instancias de la LOGICA
         EquipoLogica _logicaEquipo = new EquipoLogica();
         CompeticionLogica _logicaCompeticion = new CompeticionLogica();
+        PalmaresLogica _logicaPalmares = new PalmaresLogica();
 
         public frmVentanaPremioJugadores(List<Jugador> listaBalonOro, List<Jugador> listaMejorOnce)
         {
@@ -58,11 +59,16 @@ namespace ChampionManager25.Vistas
             txtNombreBalonBronce.Text = $"{_listaBalonOro[2].Nombre} {_listaBalonOro[2].Apellido} - {_listaBalonOro[2].Valoracion}";
 
             ConfigurarDataGrid();
+
+            // Actualizar el palmares del premio del Balon de Oro
+            _logicaPalmares.AnadirTituloBalonOro(_listaBalonOro[0].IdJugador);
+            _logicaPalmares.AnadirPremiosMejorJugador(Metodos.temporadaActual, _listaBalonOro[0].IdJugador, _listaBalonOro[1].IdJugador, _listaBalonOro[2].IdJugador);
         }
 
         // ----------------------------------------------------------------------------- Evento CLICK del boton TERMINAR TEMPORADA
         private void btnAvanzar_Click(object sender, RoutedEventArgs e)
         {
+            Metodos.ReproducirSonidoTransicion();
             this.Close();
         }
 

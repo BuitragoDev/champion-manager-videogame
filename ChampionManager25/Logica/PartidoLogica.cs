@@ -55,9 +55,9 @@ namespace ChampionManager25.Logica
         }
 
         // Llamada al metodo que carga los partidos de una jornada
-        public List<Partido> CargarJornada(int jornada, int manager)
+        public List<Partido> CargarJornada(int jornada, int manager, int competicion)
         {
-            return _datos.CargarJornada(jornada, manager);
+            return _datos.CargarJornada(jornada, manager, competicion);
         }
 
         // Llamada al método que devuelve los ultimos 5 partidos de un equipo

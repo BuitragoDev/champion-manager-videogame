@@ -139,53 +139,50 @@ namespace ChampionManager25.Datos
                 numEquipos++;
             }
 
-            List<List<Tuple<int, int>>> jornadas = new List<List<Tuple<int, int>>>();
+            List<List<Tuple<int, int>>> jornadasIda = new List<List<Tuple<int, int>>>();
 
             // Crear una copia de los equipos sin el primero (que se fija)
             List<int> rotables = equipos.Skip(1).ToList();
-            int equipoFijo = equipos[0];  // Primer equipo fijo en la rotación
+            int equipoFijo = equipos[0];
 
-            // Generar la primera vuelta
+            // Generar la primera vuelta (ida)
             for (int i = 0; i < numEquipos - 1; i++)
             {
                 List<Tuple<int, int>> jornada = new List<Tuple<int, int>>();
 
-                // Emparejar el equipo fijo con un equipo de la lista rotables
                 if (i % 2 == 0)
-                {
-                    jornada.Add(new Tuple<int, int>(equipoFijo, rotables[0])); // Local - Visitante
-                }
+                    jornada.Add(new Tuple<int, int>(equipoFijo, rotables[0]));
                 else
-                {
-                    jornada.Add(new Tuple<int, int>(rotables[0], equipoFijo)); // Visitante - Local
-                }
+                    jornada.Add(new Tuple<int, int>(rotables[0], equipoFijo));
 
-                // Emparejar el resto de los equipos
                 for (int j = 1; j < numEquipos / 2; j++)
                 {
                     int local = rotables[j];
                     int visitante = rotables[numEquipos - 1 - j];
 
-                    // Alternar localía en las jornadas
                     if (i % 2 == 0)
-                    {
-                        jornada.Add(new Tuple<int, int>(local, visitante)); // Local - Visitante
-                    }
+                        jornada.Add(new Tuple<int, int>(local, visitante));
                     else
-                    {
-                        jornada.Add(new Tuple<int, int>(visitante, local)); // Visitante - Local
-                    }
+                        jornada.Add(new Tuple<int, int>(visitante, local));
                 }
 
-                jornadas.Add(jornada);
+                jornadasIda.Add(jornada);
 
-                // Rotar los equipos manteniendo el primero fijo
+                // Rotar
                 rotables.Insert(0, rotables[^1]);
                 rotables.RemoveAt(rotables.Count - 1);
             }
 
-            return jornadas;
+            // Generar la segunda vuelta (vuelta) invirtiendo local y visitante
+            List<List<Tuple<int, int>>> jornadasVuelta = jornadasIda
+                .Select(jornada => jornada
+                    .Select(partido => new Tuple<int, int>(partido.Item2, partido.Item1)).ToList())
+                .ToList();
+
+            // Unir ambas vueltas
+            return jornadasIda.Concat(jornadasVuelta).ToList();
         }
+
 
         private void GuardarCalendario(List<List<Tuple<int, int>>> calendario, int temporada, int idManager, int idCompeticion)
         {
@@ -531,7 +528,7 @@ namespace ChampionManager25.Datos
         }
 
         // Metodo que carga los partidos de una jornada
-        public List<Partido> CargarJornada(int jornada, int manager)
+        public List<Partido> CargarJornada(int jornada, int manager, int competicion)
         {
             List<Partido> oPartido = new List<Partido>();
 
@@ -543,12 +540,13 @@ namespace ChampionManager25.Datos
 
                     string query = @"SELECT fecha, id_equipo_local, id_equipo_visitante, goles_local, goles_visitante, estado, id_competicion
                                      FROM partidos
-                                     WHERE jornada = @jornada AND id_manager = @IdManager";
+                                     WHERE jornada = @jornada AND id_manager = @IdManager AND id_competicion = @IdCompeticion";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@jornada", jornada);
                         cmd.Parameters.AddWithValue("@IdManager", manager);
+                        cmd.Parameters.AddWithValue("@IdCompeticion", competicion);
 
                         using (SQLiteDataReader reader = cmd.ExecuteReader())
                         {

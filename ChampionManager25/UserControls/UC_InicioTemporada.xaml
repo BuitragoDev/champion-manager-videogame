@@ -120,16 +120,22 @@
                 </Border>
 
                 <Border Grid.Column="0" Grid.Row="1" Background="WhiteSmoke">
-                    <Grid>
+                    <Grid Cursor="">
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <Image x:Name="imgLiga1" Grid.Column="0" Grid.Row="0" Width="80" Height="80" Stretch="Uniform" VerticalAlignment="Center" 
-                               HorizontalAlignment="Center" Margin="10" />
+                        <Image x:Name="imgLiga1" Grid.Column="1" Grid.Row="0" Width="80" Height="80" Stretch="Uniform" VerticalAlignment="Center" 
+                               HorizontalAlignment="Center" Margin="10" IsEnabled="False" MouseLeftButtonDown="imgLiga1_MouseLeftButtonDown" Cursor="Hand" />
+
+                        <Image x:Name="imgLiga2" Grid.Column="2" Grid.Row="0" Width="80" Height="80" Stretch="Uniform" VerticalAlignment="Center" 
+                               HorizontalAlignment="Center" Margin="10" MouseLeftButtonDown="imgLiga2_MouseLeftButtonDown" Cursor="Hand" />
                     </Grid>
                 </Border>
             </Grid>

@@ -58,7 +58,7 @@
         </Border>
 
         <!-- Versión -->
-        <TextBlock Grid.Column="1" Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Center" Text="v. 1.0.0"
+        <TextBlock Grid.Column="1" Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Center" Text="v. 0.0.1"
                    Foreground="WhiteSmoke" FontSize="22" FontFamily="Cascadia Code SemiBold" Margin="65,0,0,0"/>
     </Grid>
 </UserControl>

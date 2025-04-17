@@ -248,7 +248,8 @@ namespace ChampionManager25.UserControls
                     
                     // Comprobar si se ha conseguido el Objetivo de Temporada
                     string objetivo = _logicaEquipo.ListarDetallesEquipo(_equipo).Objetivo;
-                    CalcularObjetivoTemporada(objetivo, posicion);
+                    int miCompeticion = _logicaEquipo.ListarDetallesEquipo(_equipo).IdCompeticion;
+                    CalcularObjetivoTemporada(objetivo, posicion, miCompeticion);
 
                     Manager yo = _logicaManager.MostrarManager(_manager.IdManager);
                     if (yo.CDirectiva == 0 || yo.CFans == 0 || yo.CJugadores == 0)
@@ -320,7 +321,7 @@ namespace ChampionManager25.UserControls
                             {
                                 _logicaManager.ActualizarReputacion(_manager.IdManager, 10);
                             }
-                            else if (posicion >= 33)
+                            else if (posicion >= 16)
                             {
                                 _logicaManager.ActualizarReputacion(_manager.IdManager, -10);
                             }
@@ -351,8 +352,13 @@ namespace ChampionManager25.UserControls
                             // Mejor 11 de la Temporada
                             mejorOnce = _logicaEstadisticas.MejorOnceTemporada();
 
+                            // Crear clasificaciones para descensos y ascensos
+                            List<Clasificacion> clasificacion1Final = _logicaClasificacion.MostrarClasificacion(1, _manager.IdManager);
+                            List<Clasificacion> clasificacion2Final = _logicaClasificacion.MostrarClasificacion2(2, _manager.IdManager);
+
                             // Resetear tablas clasificacion, estadisticas_jugadores, historial_manager_temp
-                            _logicaClasificacion.ResetearClasificacion();
+                            _logicaClasificacion.ResetearClasificacion(1);
+                            _logicaClasificacion.ResetearClasificacion(2);
                             _logicaEstadisticas.ResetearEstadisticas();
                             _logicaHistorial.ResetearHistorialTemporal();
                             _logicaPartidos.ResetearPartidos();
@@ -366,40 +372,33 @@ namespace ChampionManager25.UserControls
                             _datosFecha.AvanzarFecha(Metodos.temporadaActual);
                             Metodos.hoy = DateTime.Parse(_datosFecha.ObtenerFechaHoy().Hoy);
 
-                            // Crear descensos y ascensos
-                            List<Clasificacion> clasificacionFinal = _logicaClasificacion.MostrarClasificacion(1, _manager.IdManager);
-                            List<Equipo> reservas = _logicaEquipo.ListarEquipos(2);
-                            int totalEquipos = clasificacionFinal.Count();
-                            int pos = 1;
-                            foreach (var equipo in clasificacion)
+                            // Descender
+                            int totalEquipos = clasificacion1Final.Count();
+                            foreach (var equipo in clasificacion1Final)
                             {
-                                if (pos > (totalEquipos - 4) && pos <= totalEquipos)
+                                if (equipo.Posicion > (totalEquipos - 4) && equipo.Posicion <= totalEquipos)
                                 {
-                                    // Descender
                                     _logicaEquipo.AscenderDescenderEquipo(equipo.IdEquipo, 2);
                                 }
-                                pos++;
                             }
 
                             // Ascender
-                            Random rnd = new Random();
-                            List<int> idsEquipos = reservas
-                                .OrderBy(x => rnd.Next())
-                                .Select(c => c.IdEquipo)
-                                .Distinct()
-                                .Take(4)
-                                .ToList();
-                            foreach (var eq in idsEquipos)
+                            foreach (var equipo in clasificacion2Final)
                             {
-                                _logicaEquipo.AscenderDescenderEquipo(eq, 1);
+                                if (equipo.Posicion >= 1 && equipo.Posicion <= 4)
+                                {
+                                    _logicaEquipo.AscenderDescenderEquipo(equipo.IdEquipo, 1);
+                                }
                             }
 
                             // Crear el calendario de las Ligas
                             int temporadaActual = Metodos.temporadaActual;
                             _logicaPartidos.GenerarCalendario(temporadaActual, _manager.IdManager, 1);
+                            _logicaPartidos.GenerarCalendario(temporadaActual, _manager.IdManager, 2);
 
                             // Generar las clasificaciones
                             _logicaClasificacion.RellenarClasificacion(1, _manager.IdManager);
+                            _logicaClasificacion.RellenarClasificacion2(2, _manager.IdManager);
 
                             // Generar el primer registro del historial
                             string temporadaFormateada = $"{temporadaActual}/{temporadaActual + 1}";
@@ -534,6 +533,7 @@ namespace ChampionManager25.UserControls
             menuCompeticion.MostrarResultados += CargarCompeticionResultados;
             menuCompeticion.MostrarEstadisticas += CargarCompeticionEstadisticas;
             menuCompeticion.MostrarPalmares += CargarCompeticionPalmares;
+            menuCompeticion.MostrarPalmaresJugadores += CargarCompeticionPalmaresJugadores;
 
             // Cambiar el color del texto
             menuCompeticion.lblClasificacion.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
@@ -760,6 +760,15 @@ namespace ChampionManager25.UserControls
             DockPanel_Central.Children.Add(competicionPalmares);
         }
 
+        // Método para cargar UC_Menu_Competicion_Palmares_Jugadores
+        private void CargarCompeticionPalmaresJugadores()
+        {
+            // Cargar UC_Menu_Competicion_Palmares_Jugadores
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Competicion_Palmares_Jugadores competicionPalmaresJugadores = new UC_Menu_Competicion_Palmares_Jugadores(_manager, _equipo);
+            DockPanel_Central.Children.Add(competicionPalmaresJugadores);
+        }
+
         // Método para cargar UC_Menu_Manager_Ficha
         private void CargarManagerFicha()
         {
@@ -821,39 +830,78 @@ namespace ChampionManager25.UserControls
             }
         }
 
-        private void CalcularObjetivoTemporada(string objetivo, int posicion)
+        private void CalcularObjetivoTemporada(string objetivo, int posicion, int competicion)
         {
-            if (objetivo.Equals("Campeón"))
+            if (competicion == 1)
             {
-                if (posicion <= 3)
+                if (objetivo.Equals("Campeón"))
                 {
-                    _logicaManager.ActualizarConfianza(_manager.IdManager, 40, 0, 0);
+                    if (posicion <= 4)
+                    {
+                        _logicaManager.ActualizarConfianza(_manager.IdManager, 40, 0, 0);
+                    }
+                    else
+                    {
+                        _logicaManager.ActualizarConfianza(_manager.IdManager, -50, 0, 0);
+                    }
                 }
-                else
+                else if (objetivo.Equals("Zona Tranquila"))
                 {
-                    _logicaManager.ActualizarConfianza(_manager.IdManager, -50, 0, 0);
+                    if (posicion <= 14)
+                    {
+                        _logicaManager.ActualizarConfianza(_manager.IdManager, 30, 0, 0);
+                    }
+                    else
+                    {
+                        _logicaManager.ActualizarConfianza(_manager.IdManager, -50, 0, 0);
+                    }
+                }
+                else if (objetivo.Equals("Descenso"))
+                {
+                    if (posicion <= 15)
+                    {
+                        _logicaManager.ActualizarConfianza(_manager.IdManager, 25, 0, 0);
+                    }
+                    else
+                    {
+                        _logicaManager.ActualizarConfianza(_manager.IdManager, -50, 0, 0);
+                    }
                 }
             }
-            else if (objetivo.Equals("Zona Tranquila"))
+            else
             {
-                if (posicion <= 20)
+                if (objetivo.Equals("Ascenso"))
                 {
-                    _logicaManager.ActualizarConfianza(_manager.IdManager, 30, 0, 0);
+                    if (posicion <= 4)
+                    {
+                        _logicaManager.ActualizarConfianza(_manager.IdManager, 40, 0, 0);
+                    }
+                    else
+                    {
+                        _logicaManager.ActualizarConfianza(_manager.IdManager, -50, 0, 0);
+                    }
                 }
-                else
+                else if (objetivo.Equals("Zona Tranquila"))
                 {
-                    _logicaManager.ActualizarConfianza(_manager.IdManager, -50, 0, 0);
+                    if (posicion <= 14)
+                    {
+                        _logicaManager.ActualizarConfianza(_manager.IdManager, 30, 0, 0);
+                    }
+                    else
+                    {
+                        _logicaManager.ActualizarConfianza(_manager.IdManager, -50, 0, 0);
+                    }
                 }
-            }
-            else if (objetivo.Equals("Descenso"))
-            {
-                if (posicion <= 30)
+                else if (objetivo.Equals("Descenso"))
                 {
-                    _logicaManager.ActualizarConfianza(_manager.IdManager, 25, 0, 0);
-                }
-                else
-                {
-                    _logicaManager.ActualizarConfianza(_manager.IdManager, -50, 0, 0);
+                    if (posicion <= 15)
+                    {
+                        _logicaManager.ActualizarConfianza(_manager.IdManager, 25, 0, 0);
+                    }
+                    else
+                    {
+                        _logicaManager.ActualizarConfianza(_manager.IdManager, -50, 0, 0);
+                    }
                 }
             }
         }

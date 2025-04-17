@@ -68,9 +68,9 @@ namespace ChampionManager25.Logica
         }
 
         // Llamada al método para mostrar las estadísticas de toda la competicion
-        public List<Estadistica> MostrarEstadisticasTotales(int manager, int filtro)
+        public List<Estadistica> MostrarEstadisticasTotales(int manager, int filtro, int competicion)
         {
-            return _datos.MostrarEstadisticasTotales(manager, filtro);
+            return _datos.MostrarEstadisticasTotales(manager, filtro, competicion);
         }
 
         // Llamada al método para mostrar las estadísticas de un Jugador

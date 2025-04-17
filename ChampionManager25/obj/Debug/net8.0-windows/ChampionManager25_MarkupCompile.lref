@@ -23,6 +23,7 @@ FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_Clasificacion.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_Estadisticas.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_Palmares.xaml;;
+FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_Palmares_Jugadores.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_Resultados.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Correo.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Correo_Principal.xaml;;
@@ -50,6 +51,6 @@ FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmResum
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmSimulandoPartidos.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmVentanaDespido.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmVentanaEmergenteDosBotones.xaml;;
-FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmVerDetallesEquipo.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmVentanaPremioJugadores.xaml;;
+FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmVerDetallesEquipo.xaml;;
 

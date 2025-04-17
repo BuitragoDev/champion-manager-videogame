@@ -80,7 +80,17 @@ namespace ChampionManager25.Vistas
             elipseFans.Stroke = DeterminarColorElipse(manager.CFans);
             elipseJugadores.Stroke = DeterminarColorElipse(manager.CJugadores);
 
-            List<Clasificacion> clasificacion = _logicaClasificacion.MostrarClasificacion(1, _manager.IdManager);
+            int competicion = _logicaEquipo.ListarDetallesEquipo(_equipo).IdCompeticion;
+            List<Clasificacion> clasificacion;
+            if (competicion == 1)
+            {
+                clasificacion = _logicaClasificacion.MostrarClasificacion(1, _manager.IdManager);
+            } 
+            else
+            {
+                clasificacion = _logicaClasificacion.MostrarClasificacion2(2, _manager.IdManager);
+            }
+                
             int posicion = 0;
             for (int i = 0; i < clasificacion.Count; i++)
             {
@@ -100,7 +110,7 @@ namespace ChampionManager25.Vistas
             {
                 txtPuntosReputacion.Text = "+ 10";
             }
-            else if (posicion >= 33)
+            else if (posicion >= 16)
             {
                 txtPuntosReputacion.Text = "- 10";
             }

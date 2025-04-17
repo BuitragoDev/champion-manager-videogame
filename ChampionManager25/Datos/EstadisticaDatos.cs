@@ -449,7 +449,7 @@ namespace ChampionManager25.Datos
         }
 
         // ======================================================= Método para mostrar las estadísticas de toda la competicion
-        public List<Estadistica> MostrarEstadisticasTotales(int manager, int filtro)
+        public List<Estadistica> MostrarEstadisticasTotales(int manager, int filtro, int competicion)
         {
             List<Estadistica> lista = new List<Estadistica>();
 
@@ -486,8 +486,9 @@ namespace ChampionManager25.Datos
                     string query = @"SELECT j.id_jugador, j.nombre, j.apellido, j.dorsal, j.nacionalidad, j.rol_id, e.partidosJugados, e.goles,
                                             e.asistencias, e.tarjetasAmarillas, e.tarjetasRojas, e.mvp, j.id_equipo
                                      FROM jugadores j
+                                     LEFT JOIN equipos eq ON eq.id_equipo = j.id_equipo
                                      LEFT JOIN estadisticas_jugadores e ON j.id_jugador = e.id_jugador
-                                     WHERE e.id_manager = @idManager
+                                     WHERE e.id_manager = @idManager AND eq.id_competicion = @Competicion
                                      ORDER BY " + filtrocadena + " DESC " +
                                      "LIMIT 25";
 
@@ -495,6 +496,7 @@ namespace ChampionManager25.Datos
                     {
                         // Asignar el valor del parámetro de la consulta
                         cmd.Parameters.AddWithValue("@idManager", manager);
+                        cmd.Parameters.AddWithValue("@Competicion", competicion);
 
                         using (SQLiteDataReader reader = cmd.ExecuteReader())
                         {

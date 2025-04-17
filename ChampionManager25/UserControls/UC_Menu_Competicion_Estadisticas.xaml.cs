@@ -154,7 +154,10 @@ namespace ChampionManager25.UserControls
             dgEstadisticas.AutoGenerateColumns = false; // Deshabilitar generación automática de columnas
             dgEstadisticas.Columns.Clear(); // Limpiar cualquier columna previa
 
-            List<Estadistica> jugador = _logicaEstadistica.MostrarEstadisticasTotales(_manager.IdManager, filtro);
+            // Mi competicion
+            int competicion = _logicaEquipo.ListarDetallesEquipo(_equipo).IdCompeticion;
+
+            List<Estadistica> jugador = _logicaEstadistica.MostrarEstadisticasTotales(_manager.IdManager, filtro, competicion);
 
             // Asignamos la lista de jugadores al convertidor
             ImagePathConverterFoto.Jugadores = jugadores;

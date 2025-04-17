@@ -23,7 +23,7 @@
                 </Grid.RowDefinitions>
 
                 <Border Background="#1d6a7d" Grid.Column="0" Grid.Row="0">
-                    <TextBlock Text="PALMARÉS" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                    <TextBlock Text="PALMARÉS EQUIPOS" HorizontalAlignment="Center" VerticalAlignment="Center" 
                        FontFamily="Cascadia Code SemiBold" FontSize="22" Foreground="WhiteSmoke" TextAlignment="Center"/>
                 </Border>
 

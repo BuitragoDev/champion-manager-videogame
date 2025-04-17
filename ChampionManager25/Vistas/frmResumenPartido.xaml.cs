@@ -42,6 +42,7 @@ namespace ChampionManager25.Vistas
         EstadisticasLogica _logicaEstadisticas = new EstadisticasLogica();
         MensajeLogica _logicaMensajes = new MensajeLogica();
         ManagerLogica _logicaManager = new ManagerLogica();
+        CompeticionLogica _logicaCompeticion = new CompeticionLogica();
 
         public frmResumenPartido(Manager manager, int equipo, Partido partido)
         {
@@ -63,6 +64,9 @@ namespace ChampionManager25.Vistas
 
         private void resumenPartido_Loaded(object sender, RoutedEventArgs e)
         {
+            int miCompeticion = _logicaEquipo.ListarDetallesEquipo(_equipo).IdCompeticion;
+            string ruta_logo = _logicaCompeticion.ObtenerCompeticion(miCompeticion).RutaImagen80;
+            imgCompeticion.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo));
             equipoLocal = _logicaEquipo.ListarDetallesEquipo(_partido.IdEquipoLocal);
             equipoVisitante = _logicaEquipo.ListarDetallesEquipo(_partido.IdEquipoVisitante);
             // Cargar datos basicos del partido
@@ -152,7 +156,7 @@ namespace ChampionManager25.Vistas
             _logicaPartidos.ActualizarPartido(partido);
 
             // ACTUALIZAR DATOS SI ES UN PARTIDO DE LIGA
-            if (partido.IdCompeticion == 1)
+            if (partido.IdCompeticion >= 1 && partido.IdCompeticion <= 2)
             {
                 // Actualizar la clasificacion
                 Clasificacion cla_local;
@@ -262,8 +266,19 @@ namespace ChampionManager25.Vistas
                         Racha = 1
                     };
                 }
-                _logicaClasificacion.ActualizarClasificacion(cla_local);
-                _logicaClasificacion.ActualizarClasificacion(cla_visitante);
+
+                if (partido.IdCompeticion == 1)
+                {
+                    // Actualizar la Clasificacion de la Division de los equipos de mi equipo
+                    _logicaClasificacion.ActualizarClasificacion(cla_local);
+                    _logicaClasificacion.ActualizarClasificacion(cla_visitante);
+                }
+                else
+                {
+                    // Actualizar la Clasificacion de la Division de los equipos de mi equipo
+                    _logicaClasificacion.ActualizarClasificacion2(cla_local);
+                    _logicaClasificacion.ActualizarClasificacion2(cla_visitante);
+                }
 
                 // Actualizar estadísticas de cada jugador en la base de datos
                 ActualizarEstadisticasPartido(jugadoresLocal, jugadoresVisitante, golesYAsistencias, tarjetas, mvp);

@@ -46,6 +46,8 @@ namespace ChampionManager25.UserControls
         {
             string ruta_logo = _logicaCompeticion.ObtenerCompeticion(1).RutaImagen;
             imgLiga1.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo));
+            string ruta_logo2 = _logicaCompeticion.ObtenerCompeticion(2).RutaImagen;
+            imgLiga2.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo2));
             CargarEscudos(1);
         }
 
@@ -73,12 +75,25 @@ namespace ChampionManager25.UserControls
             mainWindow.CargarPretemporada(_manager, equipoSeleccionado);
         }
 
-        // ----------------------------------------------------------------------------------------------- EVENTO CLICK DEL BOTON CHAMPIONS
+        // ----------------------------------------------------------------------------------------------- EVENTO CLICK DEL BOTON LIGA 1
         private void imgLiga1_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Metodos.ReproducirSonidoClick();
 
+            imgLiga1.IsEnabled = false;
+            imgLiga2.IsEnabled = true;
             CargarEscudos(1);
+        }
+        // --------------------------------------------------------------------------------------------------------------------------------
+
+        // ----------------------------------------------------------------------------------------------- EVENTO CLICK DEL BOTON LIGA 2
+        private void imgLiga2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Metodos.ReproducirSonidoClick();
+
+            imgLiga1.IsEnabled = true;
+            imgLiga2.IsEnabled = false;
+            CargarEscudos(2);
         }
         // --------------------------------------------------------------------------------------------------------------------------------
 

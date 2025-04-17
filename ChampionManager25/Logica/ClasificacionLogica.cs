@@ -13,10 +13,16 @@ namespace ChampionManager25.Logica
         // Instanciar ManagerDatos dentro de la clase lógica
         private ClasificacionDatos _datos = new ClasificacionDatos();
 
-        // Llamada al método para Rellenar la Clasificación
+        // Llamada al método para Rellenar la Clasificación de Primera Division
         public void RellenarClasificacion(int competicion, int manager)
         {
             _datos.RellenarClasificacion(competicion, manager);
+        }
+
+        // Llamada al método para Rellenar la Clasificación de Segunda Division
+        public void RellenarClasificacion2(int competicion, int manager)
+        {
+            _datos.RellenarClasificacion2(competicion, manager);
         }
 
         // Llamada al método que muestra una lista de equipo para la clasificación
@@ -25,40 +31,45 @@ namespace ChampionManager25.Logica
             return _datos.MostrarClasificacion(competicion, manager);
         }
 
-        // Llamada al método que crea un objeto Clasificacion de un equipo
-        public Clasificacion MostrarClasificacionPorEquipo(int equipo, int manager)
+        public List<Clasificacion> MostrarClasificacion2(int competicion, int manager)
         {
-            return _datos.MostrarClasificacionPorEquipo(equipo, manager);
+            return _datos.MostrarClasificacion2(competicion, manager);
+        }
+
+        // Llamada al método que crea un objeto Clasificacion de un equipo
+        public Clasificacion MostrarClasificacionPorEquipo(int equipo, int manager, int competicion)
+        {
+            return _datos.MostrarClasificacionPorEquipo(equipo, manager, competicion);
         }
 
         // Llamada al método para Mostrar el equipo con MAS GOLES A FAVOR
-        public Clasificacion MostrarMejorAtaque(int manager)
+        public Clasificacion MostrarMejorAtaque(int manager, int competicion)
         {
-            return _datos.MostrarMejorAtaque(manager);
+            return _datos.MostrarMejorAtaque(manager, competicion);
         }
 
         // Llamada al método para Mostrar el equipo con MENOS GOLES EN CONTRA
-        public Clasificacion MostrarMejorDefensa(int manager)
+        public Clasificacion MostrarMejorDefensa(int manager, int competicion)
         {
-            return _datos.MostrarMejorDefensa(manager);
+            return _datos.MostrarMejorDefensa(manager, competicion);
         }
 
         // Llamada al método para Mostrar el equipo con MEJOR RACHA
-        public Clasificacion MostrarMejorRacha(int manager)
+        public Clasificacion MostrarMejorRacha(int manager, int competicion)
         {
-            return _datos.MostrarMejorRacha(manager);
+            return _datos.MostrarMejorRacha(manager, competicion);
         }
 
         // Llamada al método para Mostrar el equipo con MAS VICTORIAS COMO LOCAL
-        public Clasificacion MostrarMejorEquipoLocal(int manager)
+        public Clasificacion MostrarMejorEquipoLocal(int manager, int competicion)
         {
-            return _datos.MostrarMejorEquipoLocal(manager);
+            return _datos.MostrarMejorEquipoLocal(manager, competicion);
         }
 
         // Llamada al método para Mostrar el equipo con MAS VICTORIAS COMO VISITANTE
-        public Clasificacion MostrarMejorEquipoVisitante(int manager)
+        public Clasificacion MostrarMejorEquipoVisitante(int manager, int competicion)
         {
-            return _datos.MostrarMejorEquipoVisitante(manager);
+            return _datos.MostrarMejorEquipoVisitante(manager, competicion);
         }
 
         // Llamada al método para actualizar la Clasificacion
@@ -67,10 +78,15 @@ namespace ChampionManager25.Logica
             _datos.ActualizarClasificacion(clasificacion);
         }
 
-        // Llamada al método para RESETEAR la Clasificación
-        public void ResetearClasificacion()
+        public void ActualizarClasificacion2(Clasificacion clasificacion)
         {
-            _datos.ResetearClasificacion();
+            _datos.ActualizarClasificacion2(clasificacion);
+        }
+
+        // Llamada al método para RESETEAR la Clasificación
+        public void ResetearClasificacion(int competicion)
+        {
+            _datos.ResetearClasificacion(competicion);
         }
     }
 }

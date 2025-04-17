@@ -45,8 +45,8 @@
                         </Grid.RowDefinitions>
 
                         <Border Grid.Column="0" Grid.Row="0" Background="WhiteSmoke">
-                            <Image x:Name="imgEscudoEquipo" Width="64" Height="64" Stretch="Uniform" VerticalAlignment="Center" 
-                                   HorizontalAlignment="Center" Source="/Recursos/img/logos_competiciones/80x80/1.png" />
+                            <Image x:Name="imgCompeticion" Width="64" Height="64" Stretch="Uniform" VerticalAlignment="Center" 
+                                   HorizontalAlignment="Center" />
                         </Border>
                     </Grid>
                 </Border>
@@ -74,7 +74,7 @@
         </Border>
 
         <!-- ÁREA PRINCIPAL -->
-        <Border Grid.Column="1" Grid.Row="1" Height="738" VerticalAlignment="Center" HorizontalAlignment="Center" Background="WhiteSmoke" Width="670">
+        <Border Grid.Column="1" Grid.Row="1" Height="738" VerticalAlignment="Center" HorizontalAlignment="Center" Background="WhiteSmoke" Width="1250">
             <Border.Effect>
                 <DropShadowEffect Color="Black" 
                   BlurRadius="10" 
@@ -83,7 +83,7 @@
                   Opacity="0.5"/>
             </Border.Effect>
             <DockPanel x:Name="panelContenido">
-                <Border x:Name="progressBar" Visibility="Collapsed" Width="670" >
+                <Border x:Name="progressBar" Visibility="Collapsed" Width="1250" >
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -102,7 +102,7 @@
                 </Border>
                 
                 <!-- Área con los partidos -->
-                <Border x:Name="areaPartidos" Grid.Row="1" Width="650" Height="720" VerticalAlignment="Center" HorizontalAlignment="Center"
+                <Border x:Name="areaPartidos" Grid.Row="1" Width="1230" Height="720" VerticalAlignment="Center" HorizontalAlignment="Center"
                         BorderBrush="#1d6a7d" BorderThickness="1" Visibility="Visible">
                     <Grid x:Name="gridPartidos">
                         <!-- Dos columnas para repartir los partidos -->
@@ -111,10 +111,6 @@
                         </Grid.ColumnDefinitions>
                         <!-- Nueve filas -->
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>

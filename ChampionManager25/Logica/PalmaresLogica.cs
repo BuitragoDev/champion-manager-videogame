@@ -31,6 +31,12 @@ namespace ChampionManager25.Logica
             return _datos.MostrarPalmaresCompleto();
         }
 
+        // Llamada al método para Mostrar el Palmarés del Balon de Oro
+        public List<PalmaresJugador> MostrarPalmaresBalonOroTotal()
+        {
+            return _datos.MostrarPalmaresBalonOroTotal();
+        }
+
         // Llamada al método para Mostrar el Historial de las Finales
         public List<HistorialFinales> MostrarHistorialFinales()
         {
@@ -49,10 +55,28 @@ namespace ChampionManager25.Logica
             _datos.AnadirTituloCampeon(equipo);
         }
 
-        // -------------------------------------------------------------------- Metodo que agrega el campeon y subcampeon de una temporada
+        // Llamada al metodo que agrega el campeon y subcampeon de una temporada
         public void AnadirCampeonFinalista(int temporada, int campeon, int finalista)
         {
             _datos.AnadirCampeonFinalista(temporada, campeon, finalista);
+        }
+
+        // Llamada al método para Mostrar el Historial del Balon de Oro
+        public List<HistorialJugador> MostrarPalmaresBalonOro()
+        {
+            return _datos.MostrarPalmaresBalonOro();
+        }
+
+        // Llamada al metodo que suma un titulo al jugador para el Balon de Oro
+        public void AnadirTituloBalonOro(int jugador)
+        {
+            _datos.AnadirTituloBalonOro(jugador);
+        }
+
+        // Llamada al metodo que agrega los 3 premiados al balon de Oro, Plata y Bronce
+        public void AnadirPremiosMejorJugador(int temporada, int oro, int plata, int bronce)
+        {
+            _datos.AnadirPremiosMejorJugador(temporada, oro, plata, bronce);
         }
     }
 }

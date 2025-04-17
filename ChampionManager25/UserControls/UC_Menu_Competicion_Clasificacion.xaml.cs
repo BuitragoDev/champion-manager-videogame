@@ -29,6 +29,7 @@ namespace ChampionManager25.UserControls
         Equipo equipo;
         List<Equipo> equipos;
         private int numeroEquipo;
+        int miCompeticion;
         #endregion
 
         // Instancias de la LOGICA
@@ -46,45 +47,51 @@ namespace ChampionManager25.UserControls
             _manager = manager;
             _equipo = equipo;
             Metodos metodos = new Metodos();
-            equipos = _logicaEquipos.ListarEquipos(1);
+            miCompeticion = _logicaEquipos.ListarDetallesEquipo(_equipo).IdCompeticion;
+            equipos = _logicaEquipos.ListarEquipos(miCompeticion);
             numeroEquipo = equipos.Count;
         }
 
         private void clasificacion_Loaded(object sender, RoutedEventArgs e)
         {
+            Equipo miEquipo = _logicaEquipos.ListarDetallesEquipo(_equipo);
+
+            // Etiqueta Clasificacion - Nombre Competicion
+            lblClasificacion.Text += $" {_logicaCompeticion.MostrarNombreCompeticion(miCompeticion).ToUpper()}";
+
             // CARGAR DATAGRID CLASIFICACION
             ConfigurarDataGridClasificacion();
 
             // Mostrar Mejor Ataque
-            Clasificacion mejorAtaque = _logicaClasificacion.MostrarMejorAtaque(_manager.IdManager);
+            Clasificacion mejorAtaque = _logicaClasificacion.MostrarMejorAtaque(_manager.IdManager, miEquipo.IdCompeticion);
             equipo = _logicaEquipos.ListarDetallesEquipo(mejorAtaque.IdEquipo);
             imgMejorAtaque.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaImagen120));
             lblMejorAtaqueEquipo.Text = mejorAtaque.NombreEquipo;
             lblMejorAtaqueGoles.Text = mejorAtaque.GolesFavor.ToString();
 
             // Mostrar Mejor Defensa
-            Clasificacion mejorDefensa = _logicaClasificacion.MostrarMejorDefensa(_manager.IdManager);
+            Clasificacion mejorDefensa = _logicaClasificacion.MostrarMejorDefensa(_manager.IdManager, miEquipo.IdCompeticion);
             equipo = _logicaEquipos.ListarDetallesEquipo(mejorDefensa.IdEquipo);
             imgMejorDefensa.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaImagen120));
             lblMejorDefensaEquipo.Text = mejorDefensa.NombreEquipo;
             lblMejorDefensaGoles.Text = mejorDefensa.GolesContra.ToString();
 
             // Mostrar Mejor Racha
-            Clasificacion mejorRacha = _logicaClasificacion.MostrarMejorRacha(_manager.IdManager);
+            Clasificacion mejorRacha = _logicaClasificacion.MostrarMejorRacha(_manager.IdManager, miEquipo.IdCompeticion);
             equipo = _logicaEquipos.ListarDetallesEquipo(mejorRacha.IdEquipo);
             imgMejorRacha.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaImagen120));
             lblMejorRachaEquipo.Text = mejorRacha.NombreEquipo;
             lblMejorRachaPartidos.Text = mejorRacha.Racha.ToString();
 
             // Mejor Equipo Local
-            Clasificacion mejorLocal = _logicaClasificacion.MostrarMejorEquipoLocal(_manager.IdManager);
+            Clasificacion mejorLocal = _logicaClasificacion.MostrarMejorEquipoLocal(_manager.IdManager, miEquipo.IdCompeticion);
             equipo = _logicaEquipos.ListarDetallesEquipo(mejorLocal.IdEquipo);
             imgMejorEquipoLocal.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaImagen120));
             lblMejorLocalEquipo.Text = mejorLocal.NombreEquipo;
             lblMejorLocalGanados.Text = mejorLocal.LocalVictorias.ToString();
 
             // Mejor Equipo Visitante
-            Clasificacion mejorVisitante = _logicaClasificacion.MostrarMejorEquipoVisitante(_manager.IdManager);
+            Clasificacion mejorVisitante = _logicaClasificacion.MostrarMejorEquipoVisitante(_manager.IdManager, miEquipo.IdCompeticion);
             equipo = _logicaEquipos.ListarDetallesEquipo(mejorVisitante.IdEquipo);
             imgMejorEquipoVisitante.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaImagen120));
             lblMejorVisitanteEquipo.Text = mejorVisitante.NombreEquipo;
@@ -92,18 +99,6 @@ namespace ChampionManager25.UserControls
         }
 
         #region "Métodos"
-        private string NombreCompeticion(int id)
-        {
-            if (id == 1)
-            {
-                return " (Liga de Campeones)";
-            }
-            else
-            {
-                return " (Amistoso)";
-            }
-        }
-
         private void ConfigurarDataGridClasificacion()
         {
             dgClasificacion.SelectionChanged -= DgClasificacion_SelectionChanged;
@@ -113,14 +108,24 @@ namespace ChampionManager25.UserControls
             dgClasificacion.AutoGenerateColumns = false; // Deshabilitar generación automática de columnas
             dgClasificacion.Columns.Clear(); // Limpiar cualquier columna previa
 
-            List<Clasificacion> clasificaciones = _logicaClasificacion.MostrarClasificacion(1, _manager.IdManager);
+            List<Clasificacion> clasificaciones;
+
+            if (miCompeticion == 1)
+            {
+                clasificaciones = _logicaClasificacion.MostrarClasificacion(miCompeticion, _manager.IdManager);
+            }
+            else
+            {
+                clasificaciones = _logicaClasificacion.MostrarClasificacion2(miCompeticion, _manager.IdManager);
+            }
+                
             ImagePathConverter.Equipos = equipos;
 
             // Asignar los datos al DataGrid
             dgClasificacion.ItemsSource = clasificaciones;
 
             // Estilo para los colores competiciones europeas, ascenso y descenso.
-            if (_logicaEquipos.ListarDetallesEquipo(_equipo).IdCompeticion == 1)
+            if (miCompeticion == 1)
             {
                 // Columna VACÍA (Antes de la posición)
                 dgClasificacion.Columns.Add(new DataGridTextColumn
@@ -142,8 +147,84 @@ namespace ChampionManager25.UserControls
                         {
                             new Setter(DataGridCell.BackgroundProperty, Brushes.Transparent), // Fondo por defecto transparente
                         },
-                        Triggers =
+                            Triggers =
                         {
+                            new DataTrigger
+                            {
+                                Binding = new System.Windows.Data.Binding("Posicion"),
+                                Value = numeroEquipo - 3,
+                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkRed) }
+                            },
+                            new DataTrigger
+                            {
+                                Binding = new System.Windows.Data.Binding("Posicion"),
+                                Value = numeroEquipo - 2,
+                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkRed) }
+                            },
+                            new DataTrigger
+                            {
+                                Binding = new System.Windows.Data.Binding("Posicion"),
+                                Value = numeroEquipo - 1,
+                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkRed) }
+                            },
+                            new DataTrigger
+                            {
+                                Binding = new System.Windows.Data.Binding("Posicion"),
+                                Value = numeroEquipo,
+                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkRed) }
+                            }
+                        }
+                    }
+                });
+            }
+            else
+            {
+                // Columna VACÍA (Antes de la posición)
+                dgClasificacion.Columns.Add(new DataGridTextColumn
+                {
+                    Binding = new System.Windows.Data.Binding("ColumnaAuxiliar"),
+                    Header = "",
+                    Width = new DataGridLength(10, DataGridLengthUnitType.Pixel),
+                    ElementStyle = new Style(typeof(TextBlock))
+                    {
+                        Setters =
+                        {
+                            new Setter(TextBlock.TextAlignmentProperty, TextAlignment.Center),
+                            new Setter(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center)
+                        }
+                    },
+                    CellStyle = new Style(typeof(DataGridCell))
+                    {
+                        Setters =
+                        {
+                            new Setter(DataGridCell.BackgroundProperty, Brushes.Transparent), // Fondo por defecto transparente
+                        },
+                            Triggers =
+                        {
+                            new DataTrigger
+                            {
+                                Binding = new System.Windows.Data.Binding("Posicion"),
+                                Value = 1,
+                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
+                            },
+                            new DataTrigger
+                            {
+                                Binding = new System.Windows.Data.Binding("Posicion"),
+                                Value = 2,
+                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
+                            },
+                            new DataTrigger
+                            {
+                                Binding = new System.Windows.Data.Binding("Posicion"),
+                                Value = 3,
+                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
+                            },
+                            new DataTrigger
+                            {
+                                Binding = new System.Windows.Data.Binding("Posicion"),
+                                Value = 4,
+                                Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
+                            },
                             new DataTrigger
                             {
                                 Binding = new System.Windows.Data.Binding("Posicion"),
@@ -411,7 +492,7 @@ namespace ChampionManager25.UserControls
 
 
             // Configurar altura de filas y estilos generales
-            dgClasificacion.RowHeight = 37;
+            dgClasificacion.RowHeight = 40;
             dgClasificacion.RowBackground = new SolidColorBrush(Colors.LightGray);
             dgClasificacion.AlternatingRowBackground = new SolidColorBrush(Colors.WhiteSmoke);
             dgClasificacion.BorderBrush = new SolidColorBrush(Colors.Transparent);

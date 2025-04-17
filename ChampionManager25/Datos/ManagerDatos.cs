@@ -126,8 +126,10 @@ namespace ChampionManager25.Datos
                 {
                     conn.Open();
                     string query = "UPDATE managers SET " +
-                                   "cDirectiva = cDirectiva + @Directiva, cFans = cFans + @Fans, cJugadores = cJugadores + @Jugadores " +
-                                   "WHERE id_manager = @IdManager;";
+                                   "cDirectiva = MAX(cDirectiva + @Directiva, 0), " +
+                                   "cFans = MAX(cFans + @Fans, 0), " +
+                                   "cJugadores = MAX(cJugadores + @Jugadores, 0) " +
+                                   "WHERE id_manager = @IdManager";
                     using (var cmd = new SQLiteCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@Directiva", directiva); // Parámetro para el cDirectiva

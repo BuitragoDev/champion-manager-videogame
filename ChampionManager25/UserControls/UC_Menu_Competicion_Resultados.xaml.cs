@@ -31,6 +31,7 @@ namespace ChampionManager25.UserControls
         private int jornadaActual = 1;
         private const int jornadaMin = 1;
         private const int jornadaMax = 35;
+        int miCompeticion;
         #endregion
 
         // Instancias de la LOGICA
@@ -44,7 +45,8 @@ namespace ChampionManager25.UserControls
             _equipo = equipo;
             Metodos metodos = new Metodos();
 
-            List<Partido> partidosJornada = _logicaPartido.CargarJornada(jornadaActual, _manager.IdManager);
+            miCompeticion = _logicaEquipo.ListarDetallesEquipo(_equipo).IdCompeticion;
+            List<Partido> partidosJornada = _logicaPartido.CargarJornada(jornadaActual, _manager.IdManager, miCompeticion);
             MostrarPartidos(partidosJornada);
         }
 
@@ -60,7 +62,7 @@ namespace ChampionManager25.UserControls
             if (jornadaActual > jornadaMin)
             {
                 jornadaActual--;
-                List<Partido> partidosJornada = _logicaPartido.CargarJornada(jornadaActual, _manager.IdManager);
+                List<Partido> partidosJornada = _logicaPartido.CargarJornada(jornadaActual, _manager.IdManager, miCompeticion);
                 MostrarPartidos(partidosJornada);
                 txtJornadaActual.Text = $"Jornada {jornadaActual}";
             }
@@ -73,7 +75,7 @@ namespace ChampionManager25.UserControls
             if (jornadaActual < jornadaMax)
             {
                 jornadaActual++;
-                List<Partido> partidosJornada = _logicaPartido.CargarJornada(jornadaActual, _manager.IdManager);
+                List<Partido> partidosJornada = _logicaPartido.CargarJornada(jornadaActual, _manager.IdManager, miCompeticion);
                 MostrarPartidos(partidosJornada);
                 txtJornadaActual.Text = $"Jornada {jornadaActual}";
             }
@@ -90,8 +92,8 @@ namespace ChampionManager25.UserControls
                 Partido partido = partidos[i];
 
                 // Determinar en qué fila y columna colocar el partido
-                int row = i % 9; // Las filas se repiten cada 9 partidos
-                int column = i < 9 ? 0 : 1; // Los primeros 9 van en la columna 0, los siguientes en la columna 1
+                int row = i % 5; // Las filas se repiten cada 9 partidos
+                int column = i < 5 ? 0 : 1; // Los primeros 9 van en la columna 0, los siguientes en la columna 1
 
                 // Determinar el color de fondo de la fila (alternar entre WhiteSmoke y LightGray)
                 Brush backgroundColor = (row % 2 == 0) ? Brushes.Gainsboro : Brushes.LightGray;
