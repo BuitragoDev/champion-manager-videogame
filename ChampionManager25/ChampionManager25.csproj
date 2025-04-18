@@ -2040,8 +2040,12 @@
     <None Remove="Recursos\img\logos_competiciones\80x80\2off.png" />
     <None Remove="Recursos\img\logos_competiciones\80x80\3.png" />
     <None Remove="Recursos\img\logos_competiciones\80x80\3off.png" />
+    <None Remove="Recursos\img\logos_competiciones\80x80\copa80.png" />
+    <None Remove="Recursos\img\logos_competiciones\80x80\copa80off.png" />
     <None Remove="Recursos\img\logos_competiciones\competicionTicket10.png" />
     <None Remove="Recursos\img\logos_competiciones\competicionTicket7.png" />
+    <None Remove="Recursos\img\logos_competiciones\copa200.png" />
+    <None Remove="Recursos\img\logos_competiciones\copa200off.png" />
     <None Remove="Recursos\img\managers\avatar.png" />
     <None Remove="Recursos\img\managers\default.png" />
     <None Remove="Recursos\img\microfonos_ruedaPrensa.png" />
@@ -8134,6 +8138,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\logos_competiciones\80x80\3off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\logos_competiciones\80x80\copa80.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\logos_competiciones\80x80\copa80off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\logos_competiciones\copa200.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\logos_competiciones\copa200off.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\managers\avatar.png">
