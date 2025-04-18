@@ -327,7 +327,7 @@ namespace ChampionManager25.Datos
                     conn.Open();
 
                     // Consulta con JOIN para obtener datos de entrenadores
-                    string query = @"SELECT id_equipo, nombre, nombre_corto, presidente, ciudad, estadio, objetivo,
+                    string query = @"SELECT id_equipo, id_competicion, nombre, nombre_corto, presidente, ciudad, estadio, objetivo,
                                             aforo, reputacion, rival, ruta_imagen, ruta_imagen120, ruta_imagen80, ruta_imagen64, 
                                             ruta_imagen32, ruta_estadio_interior, ruta_estadio_exterior, ruta_kit_local, ruta_kit_visitante
                                      FROM 
@@ -344,6 +344,7 @@ namespace ChampionManager25.Datos
                                 oEquipo.Add(new Equipo()
                                 {
                                     IdEquipo = dr["id_equipo"] != DBNull.Value ? Convert.ToInt32(dr["id_equipo"]) : 0,
+                                    IdCompeticion = dr["id_competicion"] != DBNull.Value ? Convert.ToInt32(dr["id_competicion"]) : 0,
                                     Nombre = dr["nombre"] as string ?? string.Empty,
                                     NombreCorto = dr["nombre_corto"] as string ?? string.Empty,
                                     Presidente = dr["presidente"] as string ?? string.Empty,

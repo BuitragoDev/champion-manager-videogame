@@ -137,6 +137,9 @@
     <Compile Update="Vistas\frmMenuOpciones.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Vistas\frmResumenCopaNacional.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Vistas\frmResumenPartido.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

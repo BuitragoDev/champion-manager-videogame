@@ -12,10 +12,16 @@ namespace ChampionManager25.Logica
     {
         PartidoDatos _datos = new PartidoDatos();
 
-        // Llamada al método que crea un partido.
+        // Llamada al método que crea un partido de Liga.
         public int crearPartido(int local, int visitante, string fecha, int competicion, int jornada, int idManager)
         {
             return _datos.crearPartido(local, visitante, fecha, competicion, jornada, idManager);
+        }
+
+        // Llamada al método para insertar un nuevo partido de Copa
+        public int crearPartidoCopa(int local, int visitante, string fecha, int competicion, int ronda, int partidoVuelta, int idManager)
+        {
+            return _datos.crearPartidoCopa(local, visitante, fecha, competicion, ronda, partidoVuelta, idManager);
         }
 
         // Llamada al método que elimina un partido.
@@ -42,6 +48,13 @@ namespace ChampionManager25.Logica
         {
             return _datos.MostrarMisPartidos(equipo, idManager);
         }
+
+        // Método que devuelve todos los partidos de mi equipo en Copa
+        public List<Partido> MostrarMisPartidosCopaNacional(int equipo, int idManager)
+        {
+            return _datos.MostrarMisPartidosCopaNacional(equipo, idManager);
+        }
+
         // Llamada al método que devuelve un partido en base a una fecha
         public Partido MostrarDetallesPartido(int equipo, int idManager, DateTime fecha)
         {
@@ -78,6 +91,12 @@ namespace ChampionManager25.Logica
             _datos.ActualizarPartido(partido);
         }
 
+        // Llamada al método que actualiza con el resultado de un partido de Copa
+        public void ActualizarPartidoCopaNacional(Partido partido)
+        {
+            _datos.ActualizarPartidoCopaNacional(partido);
+        }
+
         // Llamada al método para obtener la fecha del ultimo partido
         public string ultimoPartidoCalendario()
         {
@@ -94,6 +113,18 @@ namespace ChampionManager25.Logica
         public void ResetearPartidos()
         {
             _datos.ResetearPartidos();
+        }
+
+        // Llamada al método para obtener el nombre de una ronda de Copa
+        public string ObtenerNombreRonda(int idRonda)
+        {
+            return _datos.ObtenerNombreRonda(idRonda);
+        }
+
+        // Llamada al método que devuelve una lista con los equipos clasificados de Copa
+        public List<Equipo> ObtenerEquiposClasificados(int idRonda, int idCompeticion, int idManager)
+        {
+            return _datos.ObtenerEquiposClasificados(idRonda, idCompeticion, idManager);
         }
     }
 }

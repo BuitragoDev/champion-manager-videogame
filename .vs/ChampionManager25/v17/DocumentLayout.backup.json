@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\usercontrols\\uc_menu_competicion_clasificacion.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
-      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\usercontrols\\uc_menu_competicion_clasificacion.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
+      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\vistas\\frmresumencopanacional.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
+      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\vistas\\frmresumencopanacional.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\usercontrols\\uc_menu_home_menuprincipal.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
-      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\usercontrols\\uc_menu_home_menuprincipal.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
+      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\vistas\\frmresumencopanacional.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\vistas\\frmresumencopanacional.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\usercontrols\\uc_menu_competicion_palmares.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
-      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\usercontrols\\uc_menu_competicion_palmares.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
+      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\usercontrols\\uc_pantallaprincipal.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
+      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\usercontrols\\uc_pantallaprincipal.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\vistas\\frmresumentemporada.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\vistas\\frmresumentemporada.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\vistas\\frmsimulandopartidos.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
+      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\vistas\\frmsimulandopartidos.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
     }
   ],
   "DocumentGroupContainers": [
@@ -31,50 +31,53 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "UC_Menu_Competicion_Clasificacion.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Competicion_Clasificacion.xaml.cs",
-              "RelativeDocumentMoniker": "ChampionManager25\\UserControls\\UC_Menu_Competicion_Clasificacion.xaml.cs",
-              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Competicion_Clasificacion.xaml.cs",
-              "RelativeToolTip": "ChampionManager25\\UserControls\\UC_Menu_Competicion_Clasificacion.xaml.cs",
-              "ViewState": "AgIAACABAAAAAAAAAADwvz8BAAAPAAAAAAAAAA==",
+              "Title": "frmResumenCopaNacional.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\Vistas\\frmResumenCopaNacional.xaml.cs",
+              "RelativeDocumentMoniker": "ChampionManager25\\Vistas\\frmResumenCopaNacional.xaml.cs",
+              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\Vistas\\frmResumenCopaNacional.xaml.cs",
+              "RelativeToolTip": "ChampionManager25\\Vistas\\frmResumenCopaNacional.xaml.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAnwB8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-18T14:44:48.794Z",
+              "WhenOpened": "2025-04-18T20:58:31.532Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "UC_Menu_Home_MenuPrincipal.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Home_MenuPrincipal.xaml.cs",
-              "RelativeDocumentMoniker": "ChampionManager25\\UserControls\\UC_Menu_Home_MenuPrincipal.xaml.cs",
-              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Home_MenuPrincipal.xaml.cs",
-              "RelativeToolTip": "ChampionManager25\\UserControls\\UC_Menu_Home_MenuPrincipal.xaml.cs",
-              "ViewState": "AgIAAPoBAAAAAAAAAAAIwB8CAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-18T14:37:14.179Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UC_Menu_Competicion_Palmares.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Competicion_Palmares.xaml.cs",
-              "RelativeDocumentMoniker": "ChampionManager25\\UserControls\\UC_Menu_Competicion_Palmares.xaml.cs",
-              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Competicion_Palmares.xaml.cs",
-              "RelativeToolTip": "ChampionManager25\\UserControls\\UC_Menu_Competicion_Palmares.xaml.cs",
-              "ViewState": "AgIAALoAAAAAAAAAAADwv9kAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-18T14:34:15.706Z"
+              "Title": "frmResumenCopaNacional.xaml",
+              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\Vistas\\frmResumenCopaNacional.xaml",
+              "RelativeDocumentMoniker": "ChampionManager25\\Vistas\\frmResumenCopaNacional.xaml",
+              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\Vistas\\frmResumenCopaNacional.xaml",
+              "RelativeToolTip": "ChampionManager25\\Vistas\\frmResumenCopaNacional.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-04-18T20:57:24.032Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "frmResumenTemporada.xaml",
-              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\Vistas\\frmResumenTemporada.xaml",
-              "RelativeDocumentMoniker": "ChampionManager25\\Vistas\\frmResumenTemporada.xaml",
-              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\Vistas\\frmResumenTemporada.xaml",
-              "RelativeToolTip": "ChampionManager25\\Vistas\\frmResumenTemporada.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-04-18T14:33:57.436Z"
+              "Title": "frmSimulandoPartidos.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\Vistas\\frmSimulandoPartidos.xaml.cs",
+              "RelativeDocumentMoniker": "ChampionManager25\\Vistas\\frmSimulandoPartidos.xaml.cs",
+              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\Vistas\\frmSimulandoPartidos.xaml.cs",
+              "RelativeToolTip": "ChampionManager25\\Vistas\\frmSimulandoPartidos.xaml.cs",
+              "ViewState": "AgIAAFIAAAAAAAAAAAAiwG8AAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-18T19:38:42.668Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UC_PantallaPrincipal.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_PantallaPrincipal.xaml.cs",
+              "RelativeDocumentMoniker": "ChampionManager25\\UserControls\\UC_PantallaPrincipal.xaml.cs",
+              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_PantallaPrincipal.xaml.cs",
+              "RelativeToolTip": "ChampionManager25\\UserControls\\UC_PantallaPrincipal.xaml.cs",
+              "ViewState": "AgIAAJIAAAAAAAAAAAAIwK8AAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-18T17:21:23.265Z",
+              "EditorCaption": ""
             }
           ]
         }

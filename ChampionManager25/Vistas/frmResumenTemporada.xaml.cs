@@ -1,6 +1,7 @@
 ﻿using ChampionManager25.Datos;
 using ChampionManager25.Entidades;
 using ChampionManager25.Logica;
+using ChampionManager25.MisMetodos;
 using ChampionManager25.UserControls;
 using System;
 using System.Collections.Generic;
@@ -124,6 +125,7 @@ namespace ChampionManager25.Vistas
         // ------------------------------------------------------------------------------------ Evento CLICK del boton IR A PREMIOS JUGADORES
         private void btnAvanzar_Click(object sender, RoutedEventArgs e)
         {
+            Metodos.ReproducirSonidoTransicion();
             this.Close();
         }
 

@@ -78,7 +78,10 @@ namespace ChampionManager25.UserControls
         private void CargarPartidosYActualizarCalendario()
         {
             // Obtiene los partidos del equipo
-            _partidos = _logicaPartido.MostrarMisPartidos(_equipo, _manager.IdManager);
+            List<Partido> _partidosLiga = _logicaPartido.MostrarMisPartidos(_equipo, _manager.IdManager);
+            List<Partido> _partidosCopa = _logicaPartido.MostrarMisPartidosCopaNacional(_equipo, _manager.IdManager);
+
+            _partidos = _partidosLiga.Concat(_partidosCopa).ToList();
 
             // Genera el calendario
             GenerarCalendario();
@@ -240,7 +243,6 @@ namespace ChampionManager25.UserControls
         private void cargarDetallesPartido(DateTime fecha)
         {
             Partido partido = _logicaPartido.MostrarDetallesPartido(_equipo, _manager.IdManager, fecha);
-
 
             if (partido != null)
             {

@@ -86,6 +86,10 @@ namespace ChampionManager25.UserControls
                     _datosPartido.GenerarCalendario(temporadaActual, _manager.IdManager, 1);
                     _datosPartido.GenerarCalendario(temporadaActual, _manager.IdManager, 2);
 
+                    // Generar el calendario de Copa nacional
+                    List<Equipo> listaEquipos = _logicaEquipo.ListarTodosLosEquipos();
+                    GeneralCalendarioCopa(listaEquipos);
+
                     // Generar las clasificaciones
                     _logicaClasificacion.RellenarClasificacion(1, _manager.IdManager);
                     _logicaClasificacion.RellenarClasificacion2(2, _manager.IdManager);
@@ -195,6 +199,77 @@ namespace ChampionManager25.UserControls
                 return "Los jugadores han recibido tus palabras de manera neutral. No han sentido un gran impacto, pero tampoco han percibido nada negativo.";
             else
                 return "Las declaraciones en la rueda de prensa han generado algo de malestar en la plantilla. Algunos jugadores creen que podrías haber mostrado más respaldo o confianza en el equipo.";
+        }
+
+        private void GeneralCalendarioCopa(List<Equipo> listaEquipos)
+        {
+            // 1. Obtener los 20 equipos de la competición 1
+            List<Equipo> equiposComp1 = listaEquipos
+                .Where(e => e.IdCompeticion == 1)
+                .Take(20)
+                .ToList(); // Asegúrate de que hay al menos 20
+
+            // 2. Obtener 12 equipos aleatorios de la competición 2
+            Random rnd = new Random();
+            List<Equipo> equiposComp2 = listaEquipos
+                .Where(e => e.IdCompeticion == 2)
+                .OrderBy(e => rnd.Next())
+                .Take(12)
+                .ToList(); // Asegúrate de que hay al menos 12
+
+            // 3. Unir los dos grupos
+            List<Equipo> equiposSeleccionados = equiposComp1.Concat(equiposComp2).ToList();
+
+            GenerarDieciseisavosCopa(equiposSeleccionados, Metodos.temporadaActual, _manager.IdManager, 4);
+        }
+
+        public void GenerarDieciseisavosCopa(List<Equipo> equiposCopa, int temporada, int idManager, int idCompeticionCopa)
+        {
+            if (equiposCopa.Count != 32)
+                throw new ArgumentException("Deben ser exactamente 32 equipos para los dieciseisavos de final.");
+
+            // Mezclar aleatoriamente
+            Random rnd = new Random();
+            var equiposMezclados = equiposCopa.OrderBy(e => rnd.Next()).ToList();
+
+            // Fechas de ida y vuelta
+            DateTime fechaIda = ObtenerPrimerMiercolesSeptiembre(temporada);
+            DateTime fechaVuelta = fechaIda.AddDays(14);
+
+            // Crear los emparejamientos
+            for (int i = 0; i < equiposMezclados.Count; i += 2)
+            {
+                int idLocal = equiposMezclados[i].IdEquipo;
+                int idVisitante = equiposMezclados[i + 1].IdEquipo;
+
+                // Partido de ida
+                _datosPartido.crearPartidoCopa(idLocal, idVisitante, fechaIda.ToString("yyyy-MM-dd"), idCompeticionCopa, 1, 0, idManager);
+
+                // Partido de vuelta (se invierte local/visitante)
+                _datosPartido.crearPartidoCopa(idVisitante, idLocal, fechaVuelta.ToString("yyyy-MM-dd"), idCompeticionCopa, 1, 1, idManager);
+            }
+        }
+
+        public static DateTime ObtenerPrimerMiercolesSeptiembre(int anio)
+        {
+            DateTime fecha = new DateTime(anio, 9, 1);
+            int miercolesEncontrados = 0;
+
+            while (fecha.Month == 9)
+            {
+                if (fecha.DayOfWeek == DayOfWeek.Wednesday)
+                {
+                    miercolesEncontrados++;
+                    if (miercolesEncontrados == 1)
+                    {
+                        return fecha;
+                    }
+                }
+
+                fecha = fecha.AddDays(1);
+            }
+
+            throw new Exception("No se encontró el tercer sábado de agosto.");
         }
         #endregion
     }

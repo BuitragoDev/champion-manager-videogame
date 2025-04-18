@@ -64,9 +64,26 @@ namespace ChampionManager25.Vistas
 
         private void resumenPartido_Loaded(object sender, RoutedEventArgs e)
         {
+            int comp = _partido.IdCompeticion; // IdCompeticion del primer partido
             int miCompeticion = _logicaEquipo.ListarDetallesEquipo(_equipo).IdCompeticion;
-            string ruta_logo = _logicaCompeticion.ObtenerCompeticion(miCompeticion).RutaImagen80;
-            imgCompeticion.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo));
+
+            if (comp == 4)
+            {
+                int ronda = _partido.Ronda ?? 0; // Ronda de Copa
+
+                string nombreRonda = _logicaPartidos.ObtenerNombreRonda(ronda);
+                string ruta_comp = _logicaCompeticion.ObtenerCompeticion(4).RutaImagen80;
+                imgCompeticion.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_comp));
+                lblTituloVentana.Text += $" ({nombreRonda})";
+            }
+            else if (comp >= 1 && comp <= 2)
+            {
+                int jornada = _partido.Jornada ?? 0; // Jornada de Liga
+                string ruta_comp = _logicaCompeticion.ObtenerCompeticion(miCompeticion).RutaImagen80;
+                imgCompeticion.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_comp));
+                lblTituloVentana.Text += $" (Jornada {jornada})";
+            }
+
             equipoLocal = _logicaEquipo.ListarDetallesEquipo(_partido.IdEquipoLocal);
             equipoVisitante = _logicaEquipo.ListarDetallesEquipo(_partido.IdEquipoVisitante);
             // Cargar datos basicos del partido
@@ -152,12 +169,17 @@ namespace ChampionManager25.Vistas
             partido.Asistencia = _logicaEquipo.CalcularAsistencia(partido.IdEquipoLocal);
             txtAsistencia.Text = (partido.Asistencia?.ToString("N0") ?? "0") + " espectadores";
 
-            // Mostrar guardar resultado del partido
-            _logicaPartidos.ActualizarPartido(partido);
+            // ACTUALIZAR RESULTADO SI ES UN AMISTOSO
+            if (partido.IdCompeticion == 10)
+            {
+                _logicaPartidos.ActualizarPartido(partido);
+            }
 
             // ACTUALIZAR DATOS SI ES UN PARTIDO DE LIGA
             if (partido.IdCompeticion >= 1 && partido.IdCompeticion <= 2)
             {
+                _logicaPartidos.ActualizarPartido(partido);
+
                 // Actualizar la clasificacion
                 Clasificacion cla_local;
                 Clasificacion cla_visitante;
@@ -379,6 +401,12 @@ namespace ChampionManager25.Vistas
                 // Actualizar atributos de los jugadores
                 ActualizacionAtributos(jugadoresLocal, jugadoresVisitante, partido.IdEquipoLocal, 
                                        partido.IdEquipoVisitante, golesLocal, golesVisitante, golesYAsistencias, mvp);
+            }
+
+            // ACTUALIZAR DATOS SI ES UN PARTIDO DE COPA
+            if (partido.IdCompeticion == 4)
+            {
+                _logicaPartidos.ActualizarPartidoCopaNacional(partido);
             }
 
             // Mostrar los goleadores y amonestados en la ventana.

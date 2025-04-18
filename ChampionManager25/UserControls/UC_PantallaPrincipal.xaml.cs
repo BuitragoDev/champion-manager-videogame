@@ -163,6 +163,13 @@ namespace ChampionManager25.UserControls
                         }
                         UC_Menu_Home_MenuPrincipal homeMenuPrincipal = new UC_Menu_Home_MenuPrincipal(_manager, _equipo);
                         DockPanel_Central.Children.Add(homeMenuPrincipal);
+
+                        if (ventanaSimulacion.copaFinalizada == 1)
+                        {
+                            // Cargar Pantalla de Final de Copa
+                            frmResumenCopaNacional ventanaResumenCopaNacional = new frmResumenCopaNacional(_manager, _equipo);
+                            ventanaResumenCopaNacional.ShowDialog();
+                        }
                     }
                     else
                     {

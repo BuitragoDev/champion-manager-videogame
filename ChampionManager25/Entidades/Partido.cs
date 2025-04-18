@@ -12,6 +12,8 @@ namespace ChampionManager25.Entidades
         public int IdPartido { get; set; }
         public int IdCompeticion { get; set; }
         public int? Jornada { get; set; }
+        public int? Ronda { get; set; }
+        public int? PartidoVuelta { get; set; }
         public int IdEquipoLocal { get; set; }
         public int IdEquipoVisitante { get; set; }
         public int? GolesLocal { get; set; }
@@ -31,12 +33,14 @@ namespace ChampionManager25.Entidades
         }
 
         // Constructor con parámetros
-        public Partido(int idPartido, int idCompeticion, int? jornada, int idEquipoLocal, int idEquipoVisitante,
+        public Partido(int idPartido, int idCompeticion, int? jornada, int? ronda, int? partidoVuelta, int idEquipoLocal, int idEquipoVisitante,
                        int? golesLocal, int? golesVisitante, DateTime fechaPartido, string estado, int? asistencia)
         {
             IdPartido = idPartido;
             IdCompeticion = idCompeticion;
             Jornada = jornada;
+            Ronda = ronda;
+            PartidoVuelta = partidoVuelta;
             IdEquipoLocal = idEquipoLocal;
             IdEquipoVisitante = idEquipoVisitante;
             GolesLocal = golesLocal;
@@ -47,11 +51,13 @@ namespace ChampionManager25.Entidades
         }
 
         // Constructor con parámetros sin ID
-        public Partido(int idCompeticion, int? jornada, int idEquipoLocal, int idEquipoVisitante,
+        public Partido(int idCompeticion, int? jornada, int? ronda, int? partidoVuelta, int idEquipoLocal, int idEquipoVisitante,
                        int? golesLocal, int? golesVisitante, DateTime fechaPartido, string estado, int? asistencia)
         {
             IdCompeticion = idCompeticion;
             Jornada = jornada;
+            Ronda = ronda;
+            PartidoVuelta = partidoVuelta;
             IdEquipoLocal = idEquipoLocal;
             IdEquipoVisitante = idEquipoVisitante;
             GolesLocal = golesLocal;
@@ -66,7 +72,7 @@ namespace ChampionManager25.Entidades
         {
             return $"Partido {IdPartido}: Equipo {IdEquipoLocal} vs Equipo {IdEquipoVisitante} | " +
                    $"Resultado: {GolesLocal}-{GolesVisitante} | Fecha: {FechaPartido.ToString("yyyy-MM-dd HH:mm")} | " +
-                   $"Estado: {Estado} | Asistencia: {Asistencia}";
+                   $"Estado: {Estado} | Asistencia: {Asistencia} | Jornada: {Jornada} | Ronda: {Ronda}";
         }
     }
 }
