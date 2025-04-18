@@ -479,9 +479,11 @@ namespace ChampionManager25.Vistas
             totalTarjetas = Math.Min(totalTarjetas, jugadores.Count);
 
             // Seleccionamos jugadores más agresivos para recibir tarjetas
-            List<Jugador> jugadoresAgresivos = jugadores.OrderByDescending(j => j.Agresividad)
-                .Take(totalTarjetas)  // Limita el número de jugadores según las tarjetas disponibles
-                .ToList();
+            List<Jugador> jugadoresAgresivos = jugadores
+                        .Where(j => j.Agresividad > 60)
+                        .OrderByDescending(j => j.Agresividad)
+                        .Take(totalTarjetas)
+                        .ToList();
 
             Dictionary<int, int> tarjetasRecibidas = new Dictionary<int, int>(); // Control de tarjetas por jugador
 
@@ -866,28 +868,28 @@ namespace ChampionManager25.Vistas
                 switch (jugador.Entrenamiento)
                 {
                     case 1: // Portero
-                        _logicaJugador.ActualizarAtributosEntrenamiento(jugador.IdJugador, 2, 0, 0, 0, 0, 0);
+                        _logicaJugador.ActualizarAtributosEntrenamiento(jugador.IdJugador, 1, 0, 0, 0, 0, 0);
                         break;
 
                     case 2: // Entradas
-                        _logicaJugador.ActualizarAtributosEntrenamiento(jugador.IdJugador, 0, 0, 0, 0, 2, 0);
-                        _logicaJugador.ActualizarOtrosAtributosEntrenamiento(jugador.IdJugador, 0, 0, -2, 0);
+                        _logicaJugador.ActualizarAtributosEntrenamiento(jugador.IdJugador, 0, 0, 0, 0, 1, 0);
+                        _logicaJugador.ActualizarOtrosAtributosEntrenamiento(jugador.IdJugador, 0, 0, -1, 0);
                         break;
 
                     case 3: // Remate
-                        _logicaJugador.ActualizarAtributosEntrenamiento(jugador.IdJugador, 0, 0, 0, 2, 0, 0);
+                        _logicaJugador.ActualizarAtributosEntrenamiento(jugador.IdJugador, 0, 0, 0, 1, 0, 0);
                         _logicaJugador.ActualizarOtrosAtributosEntrenamiento(jugador.IdJugador, 1, 0, 0, 0);
                         break;
                     case 4: // Pase
-                        _logicaJugador.ActualizarAtributosEntrenamiento(jugador.IdJugador, 0, 2, 0, 0, 0, 0);
+                        _logicaJugador.ActualizarAtributosEntrenamiento(jugador.IdJugador, 0, 1, 0, 0, 0, 0);
                         _logicaJugador.ActualizarOtrosAtributosEntrenamiento(jugador.IdJugador, 0, 0, 0, 1);
                         break;
                     case 5: // Regate
-                        _logicaJugador.ActualizarAtributosEntrenamiento(jugador.IdJugador, 0, 0, 2, 0, 0, 0);
+                        _logicaJugador.ActualizarAtributosEntrenamiento(jugador.IdJugador, 0, 0, 1, 0, 0, 0);
                         _logicaJugador.ActualizarOtrosAtributosEntrenamiento(jugador.IdJugador, 0, 0, 0, 1);
                         break;
                     case 6: // Tiro
-                        _logicaJugador.ActualizarAtributosEntrenamiento(jugador.IdJugador, 0, 0, 0, 0, 0, 2);
+                        _logicaJugador.ActualizarAtributosEntrenamiento(jugador.IdJugador, 0, 0, 0, 0, 0, 1);
                         _logicaJugador.ActualizarOtrosAtributosEntrenamiento(jugador.IdJugador, 1, 0, 0, 0);
                         break;
                     default:

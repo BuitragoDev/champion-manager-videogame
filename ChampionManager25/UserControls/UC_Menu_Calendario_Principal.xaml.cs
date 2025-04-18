@@ -206,7 +206,7 @@ namespace ChampionManager25.UserControls
 
                 // Mostrar el escudo del equipo rival
                 Equipo equipoRival = _logicaEquipo.ListarDetallesEquipo(idEquipoRival);
-                escudoRival.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoRival.RutaImagen));
+                escudoRival.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoRival.RutaImagen80));
             }
 
             // Agregar el Border con el día del mes (naranja) a la fila 0

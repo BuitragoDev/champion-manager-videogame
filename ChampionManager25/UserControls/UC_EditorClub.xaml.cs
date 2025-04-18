@@ -249,7 +249,6 @@ namespace ChampionManager25.UserControls
                     Reputacion = (int)cbReputacion.SelectedItem,
                     Objetivo = (cbObjetivo.SelectedItem as ComboBoxItem)?.Content.ToString(),
                     Rival = (int)cbRival.SelectedValue,
-                    IdCompeticion = (int)cbCompeticion.SelectedValue,
                     RutaEstadioExterior = "",
                     RutaEstadioInterior = "",
                     RutaImagen = "",
@@ -477,13 +476,6 @@ namespace ChampionManager25.UserControls
             cbRival.DisplayMemberPath = "Nombre";
             cbRival.SelectedValuePath = "IdEquipo";
             cbRival.SelectedValue = oEquipo.Rival;
-
-            // Cargar ComboBox Competicion
-            List<Competicion> listaCompeticiones = _logicaCompeticion.MostrarCompeticiones();
-            cbCompeticion.ItemsSource = listaCompeticiones;
-            cbCompeticion.DisplayMemberPath = "Nombre";
-            cbCompeticion.SelectedValuePath = "IdCompeticion";
-            cbCompeticion.SelectedValue = oEquipo.IdCompeticion;
 
             // Cargar Imagenes de los Escudos
             imgEscudo200.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaImagen));

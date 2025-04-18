@@ -52,18 +52,20 @@
 
         <!-- CONTENIDO -->
         <Border Grid.Column="1" Grid.Row="1" Margin="20">
-            <Grid Margin="0,0,0,212">
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="150"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="150"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <!-- Nombre de Competicion -->
-                <Border Grid.Column="0" Grid.Row="0" BorderBrush="#23282d" BorderThickness="1" Margin="0,0,0,199">
-                    <Grid Margin="0,0,0,9">
+                <!-- Nombre de Competicion 1 -->
+                <Border Grid.Column="0" Grid.Row="0" BorderBrush="#23282d" BorderThickness="1">
+                    <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
@@ -73,27 +75,74 @@
                         </Grid.RowDefinitions>
 
                         <Border Background="#1d6a7d" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
-                            <TextBlock Text="NOMBRE DE LA COMPETICIÓN" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                            <TextBlock Text="NOMBRE DE LA PRIMERA COMPETICIÓN" HorizontalAlignment="Center" VerticalAlignment="Center"
+                               FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
                         </Border>
 
                         <TextBox x:Name="txtNombreCompeticion" Grid.Row="1" FontFamily="Cascadia Code SemiBold" FontSize="32" 
-                                 Width="700" Height="44" VerticalContentAlignment="Center" TextAlignment="Center" 
-                                 MaxLength="25" VerticalAlignment="Top" HorizontalAlignment="Center" BorderBrush="#23282d" BorderThickness="1" Margin="0,18,0,0" />
+                         Width="700" Height="44" VerticalContentAlignment="Center" TextAlignment="Center" 
+                         MaxLength="25" VerticalAlignment="Center" HorizontalAlignment="Center" BorderBrush="#23282d" BorderThickness="1" />
                     </Grid>
                 </Border>
 
-                <!-- Logotipos -->
-                <Border Grid.Column="0" Margin="0,206,0,107" BorderBrush="#23282d" BorderThickness="1" Grid.RowSpan="2">
+                <!-- Logotipo Liga 1 -->
+                <Border Grid.Column="0" Grid.Row="1" BorderBrush="#23282d" BorderThickness="1" Margin="0,10,0,10">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Titulo -->
+                        <Border Background="#1d6a7d" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+                            <TextBlock Text="LOGOTIPO" HorizontalAlignment="Center" VerticalAlignment="Center"
+                               FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                        </Border>
+
+                        <!-- Imagen grande -->
+                        <Image x:Name="imgGrande" Grid.Column="0" Grid.Row="1" Width="200" Height="200" Stretch="Uniform" MouseLeftButtonDown="imgGrande_MouseLeftButtonDown" Cursor="Hand" />
+
+                        <!-- Imagen 80x80 -->
+                        <Image x:Name="img80x80" Grid.Column="1" Grid.Row="1" Width="80" Height="80" Stretch="Uniform" MouseLeftButtonDown="img80x80_MouseLeftButtonDown" Cursor="Hand" />
+                    </Grid>
+                </Border>
+
+                <!-- Nombre de Competicion 2 -->
+                <Border Grid.Column="0" Grid.Row="2" BorderBrush="#23282d" BorderThickness="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
                             <RowDefinition Height="50"/>
                             <RowDefinition Height="*"/>
-                            <RowDefinition Height="70"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Background="#1d6a7d" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+                            <TextBlock Text="NOMBRE DE LA SEGUNDA COMPETICIÓN" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                        </Border>
+
+                        <TextBox x:Name="txtNombreCompeticion2" Grid.Row="1" FontFamily="Cascadia Code SemiBold" FontSize="32" 
+                                 Width="700" Height="44" VerticalContentAlignment="Center" TextAlignment="Center" 
+                                 MaxLength="25" VerticalAlignment="Center" HorizontalAlignment="Center" BorderBrush="#23282d" BorderThickness="1" />
+                    </Grid>
+                </Border>
+
+                <!-- Logotipo Liga 2 -->
+                <Border Grid.Column="0" Grid.Row="3" BorderBrush="#23282d" BorderThickness="1" Margin="0,10,0,10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
                         <!-- Titulo -->
@@ -103,89 +152,10 @@
                         </Border>
 
                         <!-- Imagen grande -->
-                        <Image x:Name="imgGrande" Grid.Column="0" Grid.Row="1" Width="200" Height="200" Stretch="Uniform" />
-                        <Button x:Name="btnAvanzar" Grid.Column="0" Grid.Row="2" Content="Cargar imagen 200x200 (PNG)" 
-                                FontSize="18" Click="BtnCargarGrande_Click" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                Height="50" Width="450" FontFamily="Cascadia Code SemiBold" Cursor="Hand" Margin="0,10,0,10">
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Background" Value="#1d6a7d"/>
-                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
-                                    <Setter Property="BorderBrush" Value="#FF23282D"/>
-                                    <Setter Property="BorderThickness" Value="1"/>
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="Button">
-                                                <Border Background="{TemplateBinding Background}"
-                                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                                        BorderThickness="{TemplateBinding BorderThickness}">
-                                                    <Border.Effect>
-                                                        <DropShadowEffect Color="#FF23282D" Opacity="0.8" BlurRadius="10" ShadowDepth="5"/>
-                                                    </Border.Effect>
-                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                        <!-- Contenido dinámico -->
-                                                        <TextBlock Text="{TemplateBinding Content}"
-                                                                   Foreground="{TemplateBinding Foreground}" 
-                                                                   VerticalAlignment="Center"
-                                                                   Margin="0,0,5,0"/>
-                                                    </StackPanel>
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                                            <Setter Property="BorderThickness" Value="1"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                        </Button>
+                        <Image x:Name="imgGrandeLiga2" Grid.Column="0" Grid.Row="1" Width="200" Height="200" Stretch="Uniform" MouseLeftButtonDown="imgGrandeLiga2_MouseLeftButtonDown" Cursor="Hand" />
 
                         <!-- Imagen 80x80 -->
-                        <Image x:Name="img80x80" Grid.Column="1" Grid.Row="1" Width="80" Height="80" Stretch="Uniform" />
-
-                        <Button Grid.Column="1" Grid.Row="2" Content="Cargar imagen 80x80 (PNG)"
-                                VerticalAlignment="Center" HorizontalAlignment="Center" Height="50" Width="450" 
-                                FontFamily="Cascadia Code SemiBold" Cursor="Hand"  FontSize="18" Click="BtnCargar80x80_Click" Margin="30,0,30,0">
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Background" Value="#1d6a7d"/>
-                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
-                                    <Setter Property="BorderBrush" Value="#FF23282D"/>
-                                    <Setter Property="BorderThickness" Value="1"/>
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="Button">
-                                                <Border Background="{TemplateBinding Background}"
-                                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                                        BorderThickness="{TemplateBinding BorderThickness}">
-                                                    <Border.Effect>
-                                                        <DropShadowEffect Color="#FF23282D" Opacity="0.8" BlurRadius="10" ShadowDepth="5"/>
-                                                    </Border.Effect>
-                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                        <!-- Contenido dinámico -->
-                                                        <TextBlock Text="{TemplateBinding Content}"
-                                                                   Foreground="{TemplateBinding Foreground}" 
-                                                                   VerticalAlignment="Center"
-                                                                   Margin="0,0,5,0"/>
-                                                    </StackPanel>
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                                            <Setter Property="BorderThickness" Value="1"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                        </Button>
+                        <Image x:Name="img80x80Liga2" Grid.Column="1" Grid.Row="1" Width="80" Height="80" Stretch="Uniform" MouseLeftButtonDown="img80x80Liga2_MouseLeftButtonDown" Cursor="Hand" />
                     </Grid>
                 </Border>
             </Grid>

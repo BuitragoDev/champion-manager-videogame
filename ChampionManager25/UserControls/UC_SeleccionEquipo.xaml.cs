@@ -46,8 +46,16 @@ namespace ChampionManager25.UserControls
         {
             string ruta_logo = _logicaCompeticion.ObtenerCompeticion(1).RutaImagen;
             imgLiga1.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo));
+
             string ruta_logo2 = _logicaCompeticion.ObtenerCompeticion(2).RutaImagen;
-            imgLiga2.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo2));
+            BitmapImage colorImage = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo2));
+            FormatConvertedBitmap grayBitmap = new FormatConvertedBitmap();
+            grayBitmap.BeginInit();
+            grayBitmap.Source = colorImage;
+            grayBitmap.DestinationFormat = PixelFormats.Gray8;
+            grayBitmap.EndInit();
+            imgLiga2.Source = grayBitmap;
+
             CargarEscudos(1);
         }
 
@@ -79,9 +87,21 @@ namespace ChampionManager25.UserControls
         private void imgLiga1_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Metodos.ReproducirSonidoClick();
+            string ruta_logo1 = _logicaCompeticion.ObtenerCompeticion(1).RutaImagen;
+            string ruta_logo2 = _logicaCompeticion.ObtenerCompeticion(2).RutaImagen;
 
             imgLiga1.IsEnabled = false;
+            imgLiga1.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo1));
+
+            BitmapImage colorImage = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo2));
+            FormatConvertedBitmap grayBitmap = new FormatConvertedBitmap();
+            grayBitmap.BeginInit();
+            grayBitmap.Source = colorImage;
+            grayBitmap.DestinationFormat = PixelFormats.Gray8;
+            grayBitmap.EndInit();
+            imgLiga2.Source = grayBitmap;
             imgLiga2.IsEnabled = true;
+
             CargarEscudos(1);
         }
         // --------------------------------------------------------------------------------------------------------------------------------
@@ -90,9 +110,21 @@ namespace ChampionManager25.UserControls
         private void imgLiga2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Metodos.ReproducirSonidoClick();
+            string ruta_logo1 = _logicaCompeticion.ObtenerCompeticion(1).RutaImagen;
+            string ruta_logo2 = _logicaCompeticion.ObtenerCompeticion(2).RutaImagen;
 
-            imgLiga1.IsEnabled = true;
             imgLiga2.IsEnabled = false;
+            imgLiga2.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo2));
+
+            BitmapImage colorImage = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo1));
+            FormatConvertedBitmap grayBitmap = new FormatConvertedBitmap();
+            grayBitmap.BeginInit();
+            grayBitmap.Source = colorImage;
+            grayBitmap.DestinationFormat = PixelFormats.Gray8;
+            grayBitmap.EndInit();
+            imgLiga1.Source = grayBitmap;
+            imgLiga1.IsEnabled = true;
+
             CargarEscudos(2);
         }
         // --------------------------------------------------------------------------------------------------------------------------------

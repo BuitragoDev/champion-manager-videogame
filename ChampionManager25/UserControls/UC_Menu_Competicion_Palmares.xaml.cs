@@ -219,7 +219,7 @@ namespace ChampionManager25.UserControls
             dgHistorialFinales.Columns.Add(new DataGridTextColumn
             {
                 Binding = new System.Windows.Data.Binding("NombreEquipoFinalista"),
-                Header = "FINALISTA",
+                Header = "SUBCAMPEÓN",
                 Width = new DataGridLength(250, DataGridLengthUnitType.Pixel),
                 HeaderStyle = new Style(typeof(DataGridColumnHeader))
                 {

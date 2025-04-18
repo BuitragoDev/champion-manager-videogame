@@ -108,6 +108,19 @@ namespace ChampionManager25.UserControls
             dgClasificacion.AutoGenerateColumns = false; // Deshabilitar generación automática de columnas
             dgClasificacion.Columns.Clear(); // Limpiar cualquier columna previa
 
+            Style columnHeaderStyle = new Style(typeof(DataGridColumnHeader));
+            columnHeaderStyle.Setters.Add(new Setter(Control.BackgroundProperty, new SolidColorBrush((Color)ColorConverter.ConvertFromString("#9b8b5a"))));
+            columnHeaderStyle.Setters.Add(new Setter(Control.ForegroundProperty, Brushes.Black));
+            columnHeaderStyle.Setters.Add(new Setter(Control.FontFamilyProperty, new FontFamily("Cascadia Code SemiBold")));
+            columnHeaderStyle.Setters.Add(new Setter(Control.FontSizeProperty, 14.0));
+            columnHeaderStyle.Setters.Add(new Setter(Control.HorizontalContentAlignmentProperty, HorizontalAlignment.Center));
+            columnHeaderStyle.Setters.Add(new Setter(Control.VerticalContentAlignmentProperty, VerticalAlignment.Center));
+            columnHeaderStyle.Setters.Add(new Setter(Control.PaddingProperty, new Thickness(5)));
+            columnHeaderStyle.Setters.Add(new Setter(Control.BorderBrushProperty, Brushes.Transparent));
+            columnHeaderStyle.Setters.Add(new Setter(Control.BorderThicknessProperty, new Thickness(0)));
+
+            dgClasificacion.ColumnHeaderStyle = columnHeaderStyle;
+
             List<Clasificacion> clasificaciones;
 
             if (miCompeticion == 1)
@@ -284,6 +297,9 @@ namespace ChampionManager25.UserControls
             var fontFamilyConverter = new IdEquipoToFontFamilyConverter(_equipo);
 
             // Columna NOMBRE EQUIPO
+            Style headerStyleIzquierda = new Style(typeof(DataGridColumnHeader), columnHeaderStyle);
+            headerStyleIzquierda.Setters.Add(new Setter(Control.HorizontalContentAlignmentProperty, HorizontalAlignment.Left));
+
             dgClasificacion.Columns.Add(new DataGridTextColumn
             {
                 Binding = new System.Windows.Data.Binding("NombreEquipo"),
@@ -295,12 +311,12 @@ namespace ChampionManager25.UserControls
                     {
                         new Setter(TextBlock.TextAlignmentProperty, TextAlignment.Left),
                         new Setter(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center),
-                        // Estilo dinámico según IdEquipo
                         new Setter(TextBlock.ForegroundProperty, new Binding("IdEquipo") { Converter = foregroundConverter }),
                         new Setter(TextBlock.FontWeightProperty, new Binding("IdEquipo") { Converter = fontWeightConverter }),
                         new Setter(TextBlock.FontFamilyProperty, new Binding("IdEquipo") { Converter = fontFamilyConverter })
                     }
-                }
+                },
+                HeaderStyle = headerStyleIzquierda // ✅ Aquí aplicas el nuevo estilo solo para esta columna
             });
 
             // Crear instancia del convertidor
@@ -504,19 +520,6 @@ namespace ChampionManager25.UserControls
             dgClasificacion.SelectionUnit = DataGridSelectionUnit.FullRow;
             dgClasificacion.HeadersVisibility = DataGridHeadersVisibility.Column; // Mostrar cabeceras
             dgClasificacion.HorizontalGridLinesBrush = new SolidColorBrush(Colors.Transparent);
-
-            Style columnHeaderStyle = new Style(typeof(DataGridColumnHeader));
-            columnHeaderStyle.Setters.Add(new Setter(Control.BackgroundProperty, new SolidColorBrush((Color)ColorConverter.ConvertFromString("#9b8b5a"))));
-            columnHeaderStyle.Setters.Add(new Setter(Control.ForegroundProperty, Brushes.Black));
-            columnHeaderStyle.Setters.Add(new Setter(Control.FontFamilyProperty, new FontFamily("Cascadia Code SemiBold")));
-            columnHeaderStyle.Setters.Add(new Setter(Control.FontSizeProperty, 14.0));
-            columnHeaderStyle.Setters.Add(new Setter(Control.HorizontalContentAlignmentProperty, HorizontalAlignment.Center));
-            columnHeaderStyle.Setters.Add(new Setter(Control.VerticalContentAlignmentProperty, VerticalAlignment.Center));
-            columnHeaderStyle.Setters.Add(new Setter(Control.PaddingProperty, new Thickness(5)));
-            columnHeaderStyle.Setters.Add(new Setter(Control.BorderBrushProperty, Brushes.Transparent));
-            columnHeaderStyle.Setters.Add(new Setter(Control.BorderThicknessProperty, new Thickness(0)));
-
-            dgClasificacion.ColumnHeaderStyle = columnHeaderStyle;
 
             // Estilo de celdas
             dgClasificacion.CellStyle = new Style(typeof(DataGridCell))

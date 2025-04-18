@@ -86,10 +86,24 @@ namespace ChampionManager25.UserControls
         {
             string ruta_logo = _logicaCompeticion.ObtenerCompeticion(1).RutaImagen;
             imgLiga1.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo));
+
             string ruta_logo2 = _logicaCompeticion.ObtenerCompeticion(2).RutaImagen;
-            imgLiga2.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo2));
+            BitmapImage colorImage = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo2));
+            FormatConvertedBitmap grayBitmap = new FormatConvertedBitmap();
+            grayBitmap.BeginInit();
+            grayBitmap.Source = colorImage;
+            grayBitmap.DestinationFormat = PixelFormats.Gray8;
+            grayBitmap.EndInit();
+            imgLiga2.Source = grayBitmap;
+
             string ruta_logo3 = _logicaCompeticion.ObtenerCompeticion(3).RutaImagen;
-            imgLiga3.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo3));
+            BitmapImage colorImage3 = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo3));
+            FormatConvertedBitmap grayBitmap3 = new FormatConvertedBitmap();
+            grayBitmap3.BeginInit();
+            grayBitmap3.Source = colorImage3;
+            grayBitmap3.DestinationFormat = PixelFormats.Gray8;
+            grayBitmap3.EndInit();
+            imgLiga3.Source = grayBitmap3;
 
             lblNombreMiEquipo.Text = "Rivales de pretemporada del " + miEquipo.Nombre.ToUpper();
             imgLogoMiEquipo.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + miEquipo.RutaImagen64));
@@ -176,11 +190,34 @@ namespace ChampionManager25.UserControls
         private void imgChampions_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Metodos.ReproducirSonidoTransicion();
-            CargarEscudos(1, 1);
+            string ruta_logo1 = _logicaCompeticion.ObtenerCompeticion(1).RutaImagen;
+            string ruta_logo2 = _logicaCompeticion.ObtenerCompeticion(2).RutaImagen;
+            string ruta_logo3 = _logicaCompeticion.ObtenerCompeticion(3).RutaImagen;
+
+            imgLiga1.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo1));
+
+            BitmapImage colorImage2 = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo2));
+            FormatConvertedBitmap grayBitmap2 = new FormatConvertedBitmap();
+            grayBitmap2.BeginInit();
+            grayBitmap2.Source = colorImage2;
+            grayBitmap2.DestinationFormat = PixelFormats.Gray8;
+            grayBitmap2.EndInit();
+            imgLiga2.Source = grayBitmap2;
+
+            BitmapImage colorImage3 = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo3));
+            FormatConvertedBitmap grayBitmap3 = new FormatConvertedBitmap();
+            grayBitmap3.BeginInit();
+            grayBitmap3.Source = colorImage3;
+            grayBitmap3.DestinationFormat = PixelFormats.Gray8;
+            grayBitmap3.EndInit();
+            imgLiga3.Source = grayBitmap3;
+
 
             imgLiga1.IsEnabled = false;
             imgLiga2.IsEnabled = true;
             imgLiga3.IsEnabled = true;
+
+            CargarEscudos(1, 1);
         }
         // --------------------------------------------------------------------------------------------------------------------------------
 
@@ -188,11 +225,33 @@ namespace ChampionManager25.UserControls
         private void imgLiga2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Metodos.ReproducirSonidoTransicion();
-            CargarEscudos(2, 2);
+            string ruta_logo1 = _logicaCompeticion.ObtenerCompeticion(1).RutaImagen;
+            string ruta_logo2 = _logicaCompeticion.ObtenerCompeticion(2).RutaImagen;
+            string ruta_logo3 = _logicaCompeticion.ObtenerCompeticion(3).RutaImagen;
+
+            imgLiga2.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo2));
+
+            BitmapImage colorImage = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo1));
+            FormatConvertedBitmap grayBitmap = new FormatConvertedBitmap();
+            grayBitmap.BeginInit();
+            grayBitmap.Source = colorImage;
+            grayBitmap.DestinationFormat = PixelFormats.Gray8;
+            grayBitmap.EndInit();
+            imgLiga1.Source = grayBitmap;
+
+            BitmapImage colorImage3 = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo3));
+            FormatConvertedBitmap grayBitmap3 = new FormatConvertedBitmap();
+            grayBitmap3.BeginInit();
+            grayBitmap3.Source = colorImage3;
+            grayBitmap3.DestinationFormat = PixelFormats.Gray8;
+            grayBitmap3.EndInit();
+            imgLiga3.Source = grayBitmap3;
 
             imgLiga1.IsEnabled = true;
             imgLiga2.IsEnabled = false;
             imgLiga3.IsEnabled = true;
+
+            CargarEscudos(2, 2);
         }
         // --------------------------------------------------------------------------------------------------------------------------------
 
@@ -200,11 +259,33 @@ namespace ChampionManager25.UserControls
         private void imgLiga3_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Metodos.ReproducirSonidoTransicion();
-            CargarEscudos(3, 3);
+            string ruta_logo1 = _logicaCompeticion.ObtenerCompeticion(1).RutaImagen;
+            string ruta_logo2 = _logicaCompeticion.ObtenerCompeticion(2).RutaImagen;
+            string ruta_logo3 = _logicaCompeticion.ObtenerCompeticion(3).RutaImagen;
+
+            imgLiga3.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo3));
+
+            BitmapImage colorImage = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo1));
+            FormatConvertedBitmap grayBitmap = new FormatConvertedBitmap();
+            grayBitmap.BeginInit();
+            grayBitmap.Source = colorImage;
+            grayBitmap.DestinationFormat = PixelFormats.Gray8;
+            grayBitmap.EndInit();
+            imgLiga1.Source = grayBitmap;
+
+            BitmapImage colorImage2 = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo2));
+            FormatConvertedBitmap grayBitmap2 = new FormatConvertedBitmap();
+            grayBitmap2.BeginInit();
+            grayBitmap2.Source = colorImage2;
+            grayBitmap2.DestinationFormat = PixelFormats.Gray8;
+            grayBitmap2.EndInit();
+            imgLiga2.Source = grayBitmap2;
 
             imgLiga1.IsEnabled = true;
             imgLiga2.IsEnabled = true;
             imgLiga3.IsEnabled = false;
+
+            CargarEscudos(3, 3);
         }
         // --------------------------------------------------------------------------------------------------------------------------------
 

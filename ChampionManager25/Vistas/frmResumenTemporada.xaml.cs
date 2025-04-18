@@ -59,7 +59,8 @@ namespace ChampionManager25.Vistas
                 }
             }
 
-            string ruta_logo = _logicaCompeticion.ObtenerCompeticion(1).RutaImagen80;
+            int miCompeticion = _logicaEquipo.ListarDetallesEquipo(_equipo).IdCompeticion;
+            string ruta_logo = _logicaCompeticion.ObtenerCompeticion(miCompeticion).RutaImagen80;
             imgLogoCompeticion.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo));
 
             Equipo equipoCampeon = _logicaEquipo.ListarDetallesEquipo(campeon);

@@ -333,7 +333,7 @@ namespace ChampionManager25.Datos
                                      FROM 
                                         equipos
                                      WHERE 
-                                        id_competicion BETWEEN 1 AND 2";
+                                        id_competicion BETWEEN 1 AND 3";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                     {
@@ -391,7 +391,7 @@ namespace ChampionManager25.Datos
                                                presidente = @Presidente, ciudad = @Ciudad,
                                                estadio = @Estadio, aforo = @Aforo,
                                                reputacion = @Reputacion, objetivo = @Objetivo,
-                                               rival = @Rival, id_competicion = @IdCompeticion";
+                                               rival = @Rival";
 
                     // Lista de parámetros dinámicos para campos de rutas
                     List<string> camposOpcionales = new List<string>();
@@ -425,7 +425,6 @@ namespace ChampionManager25.Datos
                         cmd.Parameters.AddWithValue("@Reputacion", equipo.Reputacion);
                         cmd.Parameters.AddWithValue("@Objetivo", equipo.Objetivo);
                         cmd.Parameters.AddWithValue("@Rival", equipo.Rival);
-                        cmd.Parameters.AddWithValue("@IdCompeticion", equipo.IdCompeticion);
 
                         cmd.Parameters.AddWithValue("@RutaImagen", equipo.RutaImagen);
                         cmd.Parameters.AddWithValue("@RutaImagen120", equipo.RutaImagen120);

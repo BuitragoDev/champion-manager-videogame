@@ -248,10 +248,10 @@
                                                                         BorderBrush="{TemplateBinding BorderBrush}"
                                                                         BorderThickness="{TemplateBinding BorderThickness}">
                                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                                        <TextBlock Text="4-2-2" 
+                                                                        <TextBlock Text="4-4-2" 
                                                                                    Foreground="WhiteSmoke" 
                                                                                    VerticalAlignment="Center" 
-                                                                                   FontSize="18"/>
+                                                                                   FontSize="18" Cursor=""/>
                                                                     </StackPanel>
                                                                 </Border>
                                                             </ControlTemplate>

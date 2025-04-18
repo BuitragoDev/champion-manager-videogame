@@ -34,6 +34,7 @@ namespace ChampionManager25.UserControls
         // Instancias de la LOGICA
         EquipoLogica _logicaEquipo = new EquipoLogica();
         JugadorLogica _logicaJugador = new JugadorLogica();
+        ManagerLogica _logicaManager = new ManagerLogica();
 
         public UC_Menu_Entrenador_Entrenamiento(Manager manager, int equipo)
         {
