@@ -126,5 +126,17 @@ namespace ChampionManager25.Logica
         {
             return _datos.ObtenerEquiposClasificados(idRonda, idCompeticion, idManager);
         }
+
+        // Llamada al método que devuelve la final de Copa Nacional
+        public Partido ObtenerFinalCopa()
+        {
+            return _datos.ObtenerFinalCopa();
+        }
+
+        // Llamada al metodo que devuelve la ultima ronda de mi equipo en Copa nacional
+        public string ObtenerUltimaRondaEquipo(int equipo)
+        {
+            return _datos.ObtenerUltimaRondaEquipo(equipo);
+        }
     }
 }

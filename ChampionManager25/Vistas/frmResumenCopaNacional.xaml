@@ -60,10 +60,10 @@
         <Border Grid.Column="1" Grid.Row="1" Height="738" VerticalAlignment="Center" HorizontalAlignment="Center" Background="WhiteSmoke" Width="1000">
             <Border.Effect>
                 <DropShadowEffect Color="#FF23282D" 
-              BlurRadius="10" 
-              ShadowDepth="5" 
-              Direction="320" 
-              Opacity="0.5"/>
+                                  BlurRadius="10" 
+                                  ShadowDepth="5" 
+                                  Direction="320" 
+                                  Opacity="0.5"/>
             </Border.Effect>
             <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="6" BorderBrush="#1d6a7d" BorderThickness="1" Margin="20">
                 <Grid>
@@ -73,6 +73,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="160"/>
                     </Grid.RowDefinitions>
 
                     <!-- FILA 1 -->
@@ -80,60 +81,64 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="40"/>
                                 <RowDefinition Height="*"/>
+                                <RowDefinition Height="60"/>
                             </Grid.RowDefinitions>
 
                             <Border Background="#1d6a7d" Grid.Column="0" Grid.Row="0">
                                 <TextBlock Text="CAMPEÓN" HorizontalAlignment="Center" VerticalAlignment="Center" 
                                            FontFamily="Cascadia Code SemiBold" FontSize="22" Foreground="WhiteSmoke" TextAlignment="Center"/>
                             </Border>
-                            <Border Background="#1d6a7d" Grid.Column="1" Grid.Row="0">
-                                <TextBlock Text="SUBCAMPEÓN" HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                           FontFamily="Cascadia Code SemiBold" FontSize="22" Foreground="WhiteSmoke" TextAlignment="Center"/>
-                            </Border>
-                            <!-- Campeon -->
-                            <Border Grid.Column="0" Grid.Row="1">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
+                            
+                            <Image x:Name="imgCampeon" Grid.Column="0" Grid.Row="1" Height="120" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
-                                    <Image Grid.Column="0" Grid.Row="0" Height="64" Width="64" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                           Source="/Recursos/img/icons/trofeo_campeon.png" />
-
-                                    <Image x:Name="imgCampeon" Height="120" Width="120" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                </Grid>
-                            </Border>
-                            <!-- SubCampeon -->
-                            <Border Grid.Column="1" Grid.Row="1">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-
-                                    <Image Grid.Column="0" Grid.Row="0" Height="64" Width="64" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                           Source="/Recursos/img/icons/trofeo_subcampeon.png" />
-
-                                    <Image x:Name="imgSubcampeon" Height="120" Width="120" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                </Grid>
-                            </Border>
+                            <TextBlock x:Name="txtNombreCampeon" Grid.Column="0" Grid.Row="2" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                       FontFamily="Cascadia Code SemiBold" FontSize="22" Foreground="Black" TextAlignment="Center"/>
                         </Grid>
                     </Border>
 
                     <!-- FILA 2 -->
                     <Border Grid.Column="0" Grid.Row="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="40"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Background="#1d6a7d" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4">
+                                <TextBlock x:Name="txtNombreMiEquipo" Text="RESULTADO DE LA FINAL" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                           FontFamily="Cascadia Code SemiBold" FontSize="22" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                            </Border>
+
+                            <Image x:Name="imgEquipoLocal" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                           Height="120" Width="120" />
+                            
+                            <TextBlock x:Name="txtGolesLocal" Grid.Column="1" Grid.Row="1" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                       FontFamily="Cascadia Code SemiBold" FontSize="64" Foreground="Black" TextAlignment="Center"/>
+
+                            <TextBlock x:Name="txtGolesVisitante" Grid.Column="2" Grid.Row="1" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                       FontFamily="Cascadia Code SemiBold" FontSize="64" Foreground="Black" TextAlignment="Center"/>
+
+                            <Image x:Name="imgEquipoVisitante" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Height="120" Width="120" />
+
+                            <TextBlock x:Name="txtDesempate" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4" Text="Desempate" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="Black" TextAlignment="Center"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- FILA 3 -->
+                    <Border Grid.Column="0" Grid.Row="2">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -145,14 +150,27 @@
                             </Grid.RowDefinitions>
 
                             <Border Background="#1d6a7d" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
-                                <TextBlock x:Name="txtNombreMiEquipo" Text="RESULTADO DEL" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                <TextBlock Text="RESULTADO DE MI EQUIPO" HorizontalAlignment="Center" VerticalAlignment="Center" 
                                            FontFamily="Cascadia Code SemiBold" FontSize="22" Foreground="WhiteSmoke" TextAlignment="Center"/>
                             </Border>
 
-                            <Image x:Name="imgMiEquipo" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                           Height="120" Width="120" />
-                            <TextBlock x:Name="txtPosicion" Grid.Column="1" Grid.Row="1" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                       FontFamily="Cascadia Code SemiBold" FontSize="64" Foreground="Black" TextAlignment="Center"/>
+                            <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Image x:Name="imgMiEquipo" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                           Height="80" Width="80" />
+
+                                    <TextBlock x:Name="txtResultadoEquipo" Grid.Column="1" Grid.Row="0" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                               FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="Black" TextAlignment="Center"/>
+                                </Grid>
+                            </Border>
                         </Grid>
                     </Border>
                 </Grid>

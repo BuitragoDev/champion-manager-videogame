@@ -98,15 +98,15 @@ namespace ChampionManager25.Vistas
 
             if (comp == 4)
             {
+                int ronda = listaPartidos[0].Ronda ?? 0; // Ronda de Copa
                 if (partidoVuelta == 1)
                 {
-                    int ronda = listaPartidos[0].Ronda ?? 0; // Ronda de Copa
                     List<Equipo> clasificados = _logicaPartidos.ObtenerEquiposClasificados(ronda, 4, _manager.IdManager);
 
                     // Generar los partidos de la siguiente ronda
                     GeneralCalendarioCopa(clasificados, ronda);
                 }
-                else
+                if (ronda > 4)
                 {
                     copaFinalizada = 1;
                 }

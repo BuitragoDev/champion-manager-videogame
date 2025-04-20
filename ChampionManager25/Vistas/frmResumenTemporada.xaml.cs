@@ -103,6 +103,64 @@ namespace ChampionManager25.Vistas
                 }
             }
 
+            // Objetivo Temporada
+            txtObjetivoTemporada.Text = _logicaEquipo.ListarDetallesEquipo(_equipo).Objetivo;
+            string objetivo = _logicaEquipo.ListarDetallesEquipo(_equipo).Objetivo;
+            string objetivoResultado = "";
+
+            if (objetivo.Equals("Campeón"))
+            {
+                if (posicion == 1)
+                {
+                    txtObjetivoTemporadaResultado.Text = "CONSEGUIDO";
+                    txtObjetivoTemporada.Foreground = Brushes.DarkGreen;
+                }
+                else
+                {
+                    txtObjetivoTemporadaResultado.Text = "NO CONSEGUIDO";
+                    txtObjetivoTemporadaResultado.Foreground = Brushes.DarkRed;
+                }
+            }
+            else if (objetivo.Equals("Ascenso"))
+            {
+                if (posicion <= 4)
+                {
+                    txtObjetivoTemporadaResultado.Text = "CONSEGUIDO";
+                    txtObjetivoTemporada.Foreground = Brushes.DarkGreen;
+                }
+                else
+                {
+                    txtObjetivoTemporadaResultado.Text = "NO CONSEGUIDO";
+                    txtObjetivoTemporadaResultado.Foreground = Brushes.DarkRed;
+                }
+            }
+            else if (objetivo.Equals("Zona Tranquila"))
+            {
+                if (posicion <= 14)
+                {
+                    txtObjetivoTemporadaResultado.Text = "CONSEGUIDO";
+                    txtObjetivoTemporada.Foreground = Brushes.DarkGreen;
+                }
+                else
+                {
+                    txtObjetivoTemporadaResultado.Text = "NO CONSEGUIDO";
+                    txtObjetivoTemporadaResultado.Foreground = Brushes.DarkRed;
+                }
+            }
+            else if (objetivo.Equals("Descenso"))
+            {
+                if (posicion <= 16)
+                {
+                    txtObjetivoTemporadaResultado.Text = "CONSEGUIDO";
+                    txtObjetivoTemporada.Foreground = Brushes.DarkGreen;
+                }
+                else
+                {
+                    txtObjetivoTemporadaResultado.Text = "NO CONSEGUIDO";
+                    txtObjetivoTemporadaResultado.Foreground = Brushes.DarkRed;
+                }
+            }
+
             // Mostrar Puntos de Reputacion
             if (posicion == 1)
             {

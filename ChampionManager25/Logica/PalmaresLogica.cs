@@ -25,10 +25,16 @@ namespace ChampionManager25.Logica
             return _datos.MostrarPalmaresManager(equipo, manager);
         }
 
-        // Llamada al método para Mostrar el Palmarés del Manager
+        // Llamada al método para Mostrar el Palmarés Completo
         public List<Palmares> MostrarPalmaresCompleto()
         {
             return _datos.MostrarPalmaresCompleto();
+        }
+
+        // Llamada al método para Mostrar el Palmarés Completo de Copa Nacional
+        public List<Palmares> MostrarPalmaresCompletoCopa()
+        {
+            return _datos.MostrarPalmaresCompletoCopa();
         }
 
         // Llamada al método para Mostrar el Palmarés del Balon de Oro
@@ -41,6 +47,12 @@ namespace ChampionManager25.Logica
         public List<HistorialFinales> MostrarHistorialFinales()
         {
             return _datos.MostrarHistorialFinales();
+        }
+
+        // Llamada al método para Mostrar el Historial de las Finales de Copa Nacional
+        public List<HistorialFinales> MostrarHistorialFinalesCopa()
+        {
+            return _datos.MostrarHistorialFinalesCopa();
         }
 
         // Llamada al metodo que suma un titulo al manager si gana la Liga
@@ -77,6 +89,18 @@ namespace ChampionManager25.Logica
         public void AnadirPremiosMejorJugador(int temporada, int oro, int plata, int bronce)
         {
             _datos.AnadirPremiosMejorJugador(temporada, oro, plata, bronce);
+        }
+
+        // Llamada al metodo que suma un titulo al campeon de Copa Nacional
+        public void AnadirTituloCampeonCopa(int equipo)
+        {
+            _datos.AnadirTituloCampeonCopa(equipo);
+        }
+
+        // Llamada al metodo que agrega el campeon y subcampeon de Copa Nacional
+        public void AnadirCampeonFinalistaCopa(int temporada, int campeon, int finalista)
+        {
+            _datos.AnadirCampeonFinalistaCopa(temporada, campeon, finalista);
         }
     }
 }

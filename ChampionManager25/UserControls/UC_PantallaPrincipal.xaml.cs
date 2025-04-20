@@ -216,6 +216,13 @@ namespace ChampionManager25.UserControls
                     }
                     UC_Menu_Home_MenuPrincipal homeMenuPrincipal = new UC_Menu_Home_MenuPrincipal(_manager, _equipo);
                     DockPanel_Central.Children.Add(homeMenuPrincipal);
+
+                    if (ventanaSimulacion.copaFinalizada == 1)
+                    {
+                        // Cargar Pantalla de Final de Copa
+                        frmResumenCopaNacional ventanaResumenCopaNacional = new frmResumenCopaNacional(_manager, _equipo);
+                        ventanaResumenCopaNacional.ShowDialog();
+                    }
                 }
                 else
                 {
@@ -267,22 +274,6 @@ namespace ChampionManager25.UserControls
                         // Mostrar ventana de despido
                         string titulo = "INFORMACIÓN";
                         string mensaje = "El club ha decidido prescindir de los servicios de su entrenador.\n\nLos recientes resultados no han estado a la altura de las expectativas, y la directiva considera necesario un cambio de rumbo para reconducir el club.\n\nAgradecemos su dedicación y profesionalidad durante su etapa al frente del equipo, y le deseamos suerte en sus futuros proyectos.";
-                        frmVentanaDespido ventanaDespido = new frmVentanaDespido(titulo, mensaje);
-                        ventanaDespido.ShowDialog();
-
-                        Metodos.ReproducirSonidoTransicion();
-
-                        var mainWindow = (MainWindow)Application.Current.MainWindow;
-                        mainWindow.CargarPortada();
-                    }
-                    else if(posicion >= 33)
-                    {
-                        // Despedir al manager en la Base de Datos
-                        _logicaManager.DespedirManager(_manager.IdManager);
-
-                        // Mostrar ventana de despido
-                        string titulo = "INFORMACIÓN";
-                        string mensaje = "El club ha decidido prescindir de los servicios de su entrenador.\n\nEl descenso de categoría ha sido la gota que ha colmado el vaso, y la directiva considera necesario un cambio de rumbo para reconducir el club.\n\nAgradecemos su dedicación y profesionalidad durante su etapa al frente del equipo, y le deseamos suerte en sus futuros proyectos.";
                         frmVentanaDespido ventanaDespido = new frmVentanaDespido(titulo, mensaje);
                         ventanaDespido.ShowDialog();
 
@@ -362,6 +353,7 @@ namespace ChampionManager25.UserControls
                             // Crear clasificaciones para descensos y ascensos
                             List<Clasificacion> clasificacion1Final = _logicaClasificacion.MostrarClasificacion(1, _manager.IdManager);
                             List<Clasificacion> clasificacion2Final = _logicaClasificacion.MostrarClasificacion2(2, _manager.IdManager);
+                            List<Equipo> listaReservas = _logicaEquipo.ListarEquiposCompeticion(3);
 
                             // Resetear tablas clasificacion, estadisticas_jugadores, historial_manager_temp
                             _logicaClasificacion.ResetearClasificacion(1);
@@ -379,7 +371,7 @@ namespace ChampionManager25.UserControls
                             _datosFecha.AvanzarFecha(Metodos.temporadaActual);
                             Metodos.hoy = DateTime.Parse(_datosFecha.ObtenerFechaHoy().Hoy);
 
-                            // Descender
+                            // Descender a Division 2
                             int totalEquipos = clasificacion1Final.Count();
                             foreach (var equipo in clasificacion1Final)
                             {
@@ -389,13 +381,42 @@ namespace ChampionManager25.UserControls
                                 }
                             }
 
-                            // Ascender
+                            // Ascender a Division 1
                             foreach (var equipo in clasificacion2Final)
                             {
                                 if (equipo.Posicion >= 1 && equipo.Posicion <= 4)
                                 {
                                     _logicaEquipo.AscenderDescenderEquipo(equipo.IdEquipo, 1);
                                 }
+                            }
+
+                            // Descender a Reservas
+                            int totalEquipos2 = clasificacion2Final.Count();
+                            foreach (var equipo in clasificacion2Final)
+                            {
+                                if (equipo.Posicion > (totalEquipos - 4) && equipo.Posicion <= totalEquipos2)
+                                {
+                                    MessageBox.Show("equipo que desciende: " + equipo.IdEquipo);
+                                    _logicaEquipo.AscenderDescenderEquipo(equipo.IdEquipo, 3);
+                                }
+                            }
+
+                            // Ascender a Division 2
+                            Random random = new Random();
+                            
+                            List<Equipo> equiposSeleccionados = listaReservas // Seleccionar 4 equipos aleatorios sin repetir
+                                .OrderBy(e => random.Next())
+                                .Take(4)
+                                .ToList();
+
+                            List<int> idsSeleccionados = equiposSeleccionados // Obtener solo los IdEquipo
+                                .Select(e => e.IdEquipo)
+                                .ToList();
+                            
+                            foreach (var equipo in idsSeleccionados)
+                            {
+                                MessageBox.Show("equipo que asciende: " + equipo);
+                                _logicaEquipo.AscenderDescenderEquipo(equipo, 2);
                             }
 
                             // Crear el calendario de las Ligas
@@ -763,7 +784,7 @@ namespace ChampionManager25.UserControls
         {
             // Cargar UC_Menu_Competicion_Palmares
             DockPanel_Central.Children.Clear();
-            UC_Menu_Competicion_Palmares competicionPalmares = new UC_Menu_Competicion_Palmares(_manager, _equipo);
+            UC_Menu_Competicion_Palmares competicionPalmares = new UC_Menu_Competicion_Palmares(_manager, _equipo, DockPanel_Central);
             DockPanel_Central.Children.Add(competicionPalmares);
         }
 
@@ -845,11 +866,11 @@ namespace ChampionManager25.UserControls
                 {
                     if (posicion <= 4)
                     {
-                        _logicaManager.ActualizarConfianza(_manager.IdManager, 40, 0, 0);
+                        _logicaManager.ActualizarConfianza(_manager.IdManager, 30, 0, 0);
                     }
                     else
                     {
-                        _logicaManager.ActualizarConfianza(_manager.IdManager, -50, 0, 0);
+                        _logicaManager.ActualizarConfianza(_manager.IdManager, -30, 0, 0);
                     }
                 }
                 else if (objetivo.Equals("Zona Tranquila"))
@@ -860,7 +881,7 @@ namespace ChampionManager25.UserControls
                     }
                     else
                     {
-                        _logicaManager.ActualizarConfianza(_manager.IdManager, -50, 0, 0);
+                        _logicaManager.ActualizarConfianza(_manager.IdManager, -30, 0, 0);
                     }
                 }
                 else if (objetivo.Equals("Descenso"))
@@ -871,7 +892,7 @@ namespace ChampionManager25.UserControls
                     }
                     else
                     {
-                        _logicaManager.ActualizarConfianza(_manager.IdManager, -50, 0, 0);
+                        _logicaManager.ActualizarConfianza(_manager.IdManager, -30, 0, 0);
                     }
                 }
             }
@@ -881,11 +902,11 @@ namespace ChampionManager25.UserControls
                 {
                     if (posicion <= 4)
                     {
-                        _logicaManager.ActualizarConfianza(_manager.IdManager, 40, 0, 0);
+                        _logicaManager.ActualizarConfianza(_manager.IdManager, 30, 0, 0);
                     }
                     else
                     {
-                        _logicaManager.ActualizarConfianza(_manager.IdManager, -50, 0, 0);
+                        _logicaManager.ActualizarConfianza(_manager.IdManager, -30, 0, 0);
                     }
                 }
                 else if (objetivo.Equals("Zona Tranquila"))
@@ -896,7 +917,7 @@ namespace ChampionManager25.UserControls
                     }
                     else
                     {
-                        _logicaManager.ActualizarConfianza(_manager.IdManager, -50, 0, 0);
+                        _logicaManager.ActualizarConfianza(_manager.IdManager, -30, 0, 0);
                     }
                 }
                 else if (objetivo.Equals("Descenso"))
@@ -907,7 +928,7 @@ namespace ChampionManager25.UserControls
                     }
                     else
                     {
-                        _logicaManager.ActualizarConfianza(_manager.IdManager, -50, 0, 0);
+                        _logicaManager.ActualizarConfianza(_manager.IdManager, -30, 0, 0);
                     }
                 }
             }

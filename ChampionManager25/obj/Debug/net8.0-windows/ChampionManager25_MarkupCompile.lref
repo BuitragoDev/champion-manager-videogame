@@ -1,4 +1,4 @@
-﻿
+﻿C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\App.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\MainWindow.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_CargarPartida.xaml;;
@@ -23,6 +23,7 @@ FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_Clasificacion.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_Estadisticas.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_Palmares.xaml;;
+FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_PalmaresCopa.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_Palmares_Jugadores.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_Resultados.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Correo.xaml;;
@@ -46,6 +47,7 @@ FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_RuedaPrensaPresentacion.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_SeleccionEquipo.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmMenuOpciones.xaml;;
+FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmResumenCopaNacional.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmResumenPartido.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmResumenTemporada.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmSimulandoPartidos.xaml;;

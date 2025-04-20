@@ -1,4 +1,5 @@
-﻿using ChampionManager25.Entidades;
+﻿using ChampionManager25.Datos;
+using ChampionManager25.Entidades;
 using ChampionManager25.Logica;
 using ChampionManager25.MisMetodos;
 using System;
@@ -29,6 +30,7 @@ namespace ChampionManager25.Vistas
         MensajeLogica _logicaMensajes = new MensajeLogica();
         PartidoLogica _logicaPartido = new PartidoLogica();
         CompeticionLogica _logicaCompeticion = new CompeticionLogica();
+        PalmaresLogica _logicaPalmares = new PalmaresLogica();
 
         public frmResumenCopaNacional(Manager manager, int equipo)
         {
@@ -39,7 +41,60 @@ namespace ChampionManager25.Vistas
 
         private void resumenCopa_Loaded(object sender, RoutedEventArgs e)
         {
+            // Partido de la Final de Copa
+            Partido final = _logicaPartido.ObtenerFinalCopa();
+            int equipoLocal = final.IdEquipoLocal;
+            int equipoVisitante = final.IdEquipoVisitante;
+            int golesLocal = final.GolesLocal ?? 0;
+            int golesVisitante = final.GolesVisitante ?? 0;
+            int equipoGanador = 0;
+            int equipoPerdedor = 0;
+            string desempate = "";
 
+            if (golesLocal > golesVisitante)
+            {
+                equipoGanador = equipoLocal;
+                equipoPerdedor = equipoVisitante;
+            }
+            else if(golesLocal < golesVisitante)
+            {
+                equipoGanador = equipoVisitante;
+                equipoPerdedor = equipoLocal;
+            }
+            else
+            {
+                // Empate: elegir ganador aleatorio
+                Random rnd = new Random();
+                bool localGana = rnd.Next(0, 2) == 0;
+
+                equipoGanador = localGana ? equipoLocal : equipoVisitante;
+                equipoPerdedor = localGana ? equipoVisitante : equipoLocal;
+
+                desempate = $"{_logicaEquipo.ListarDetallesEquipo(equipoGanador).Nombre} ganador en el tiempo extra";
+            }
+
+            // Mostrar detalles del campeon
+            Equipo equipoCampeon = _logicaEquipo.ListarDetallesEquipo(equipoGanador);
+            imgCampeon.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoCampeon.RutaImagen120));
+
+            // Mostrar detalles de la final
+            Equipo oEquipoLocal = _logicaEquipo.ListarDetallesEquipo(equipoLocal);
+            Equipo oEquipoVisitante = _logicaEquipo.ListarDetallesEquipo(equipoVisitante);
+            imgEquipoLocal.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + oEquipoLocal.RutaImagen120));
+            imgEquipoVisitante.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + oEquipoVisitante.RutaImagen120));
+            txtGolesLocal.Text = golesLocal.ToString();
+            txtGolesVisitante.Text = golesVisitante.ToString();
+            txtDesempate.Text = desempate;
+
+            // Mostrar detalles de mi equipo
+            Equipo miEquipo = _logicaEquipo.ListarDetallesEquipo(_equipo);
+            string ultimaRonda = _logicaPartido.ObtenerUltimaRondaEquipo(_equipo);
+            imgMiEquipo.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + miEquipo.RutaImagen80));
+            txtResultadoEquipo.Text = ultimaRonda.ToString();
+
+            // Actualizar historial Copa Nacional en la Base de Datos
+            _logicaPalmares.AnadirCampeonFinalistaCopa(Metodos.temporadaActual, equipoGanador, equipoPerdedor);
+            _logicaPalmares.AnadirTituloCampeonCopa(equipoGanador);
         }
 
         private void btnAvanzar_Click(object sender, RoutedEventArgs e)

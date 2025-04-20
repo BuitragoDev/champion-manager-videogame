@@ -1093,7 +1093,6 @@ namespace ChampionManager25.Vistas
             // Agregar el Grid al Panel
             panel.Children.Add(grid);
         }
-
         #endregion
     }
 }

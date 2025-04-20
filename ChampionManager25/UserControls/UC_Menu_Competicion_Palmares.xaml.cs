@@ -1,4 +1,5 @@
-﻿using ChampionManager25.Entidades;
+﻿using ChampionManager25.Datos;
+using ChampionManager25.Entidades;
 using ChampionManager25.Logica;
 using ChampionManager25.MisMetodos;
 using System;
@@ -24,18 +25,21 @@ namespace ChampionManager25.UserControls
         #region "Variables"
         private Manager _manager;
         private int _equipo;
+        private DockPanel _panelCentral;
         List<Equipo> equipos = new List<Equipo>();
         #endregion
 
         // Instancias de la LOGICA
         PalmaresLogica _logicaPalmares = new PalmaresLogica();
         EquipoLogica _logicaEquipos = new EquipoLogica();
+        CompeticionLogica _logicaCompeticion = new CompeticionLogica();
 
-        public UC_Menu_Competicion_Palmares(Manager manager, int equipo)
+        public UC_Menu_Competicion_Palmares(Manager manager, int equipo, DockPanel panelCentral)
         {
             InitializeComponent();
             _manager = manager;
             _equipo = equipo;
+            _panelCentral = panelCentral;
             equipos = _logicaEquipos.ListarEquipos(0)
                         .Concat(_logicaEquipos.ListarEquipos(1))
                         .Concat(_logicaEquipos.ListarEquipos(2))
@@ -48,6 +52,34 @@ namespace ChampionManager25.UserControls
             ImagePathConverterPalmares.Equipos = equipos;
             ConfigurarDataGridPalmares();
             ConfigurarDataGridHistorial();
+
+            string ruta_liga = _logicaCompeticion.ObtenerCompeticion(1).RutaImagen80;
+            lblTitulo.Text += " (" + _logicaCompeticion.MostrarNombreCompeticion(1).ToUpper() + ")";
+            imgLogoLiga.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_liga));
+            string ruta_copa = _logicaCompeticion.ObtenerCompeticion(4).RutaImagen80;
+            imgLogoCopa.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_copa));
+        }
+
+        // ------------------------------------------------------------------------------- Evento CLICK del boton LIGA
+        private void imgLogoLiga_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            UC_Menu_Competicion_Palmares ucLiga = new UC_Menu_Competicion_Palmares(_manager, _equipo, _panelCentral);
+            _panelCentral.Children.Clear();
+            _panelCentral.Children.Add(ucLiga);
+
+            imgLogoLiga.IsEnabled = false;
+            imgLogoCopa.IsEnabled = true;
+        }
+
+        // ------------------------------------------------------------------------------- Evento CLICK del boton COPA
+        private void imgLogoCopa_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            UC_Menu_Competicion_PalmaresCopa ucCopa = new UC_Menu_Competicion_PalmaresCopa(_manager, _equipo, _panelCentral);
+            _panelCentral.Children.Clear();
+            _panelCentral.Children.Add(ucCopa);
+
+            imgLogoLiga.IsEnabled = true;
+            imgLogoCopa.IsEnabled = false;
         }
 
         #region "Metodos"

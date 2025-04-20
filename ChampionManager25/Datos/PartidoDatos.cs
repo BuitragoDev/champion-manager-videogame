@@ -282,7 +282,7 @@ namespace ChampionManager25.Datos
             throw new Exception("No se encontró el tercer sábado de agosto.");
         }
 
-        // Método que devuelve el próximo partido de mi equipo.
+        // ----------------------------------------------------------------------- Método que devuelve el próximo partido de mi equipo.
         public Partido ObtenerProximoPartido(int equipo, int idManager, DateTime hoy)
         {
             Partido partido = null;
@@ -1159,6 +1159,90 @@ namespace ChampionManager25.Datos
             }
 
             return clasificados;
+        }
+
+        // ----------------------------------------------------------------------- Método que devuelve la final de Copa Nacional
+        public Partido ObtenerFinalCopa()
+        {
+            Partido partido = null;
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    string query = @"SELECT id_partido,
+                                            fecha, 
+                                            id_ronda,
+                                            partido_vuelta,
+                                            id_equipo_local, 
+                                            id_equipo_visitante,
+                                            goles_local,
+                                            goles_visitante,
+                                            id_competicion
+                                     FROM partidos_copaNacional
+                                     WHERE id_ronda = 5";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                partido = new Partido
+                                {
+                                    IdPartido = Convert.ToInt32(reader["id_partido"]),
+                                    FechaPartido = reader["fecha"] != DBNull.Value && DateTime.TryParse(reader["fecha"].ToString(), out DateTime fecha)
+                                                   ? fecha
+                                                   : DateTime.Parse("2000-01-01"),
+                                    Ronda = reader["id_ronda"] != DBNull.Value ? Convert.ToInt32(reader["id_ronda"]) : 0,
+                                    PartidoVuelta = reader["partido_vuelta"] != DBNull.Value ? Convert.ToInt32(reader["partido_vuelta"]) : 0,
+                                    IdEquipoLocal = Convert.ToInt32(reader["id_equipo_local"]),
+                                    IdEquipoVisitante = Convert.ToInt32(reader["id_equipo_visitante"]),
+                                    GolesLocal = reader["goles_local"] != DBNull.Value ? Convert.ToInt32(reader["goles_local"]) : 0,
+                                    GolesVisitante = reader["goles_visitante"] != DBNull.Value ? Convert.ToInt32(reader["goles_visitante"]) : 0,
+                                    IdCompeticion = reader["id_competicion"] != DBNull.Value ? Convert.ToInt32(reader["id_competicion"]) : 0
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return partido;
+        }
+
+        // ----------------------------------------------------------------- Metodo que devuelve la ultima ronda de mi equipo en Copa nacional
+        public string ObtenerUltimaRondaEquipo(int equipo)
+        {
+            string nombre = "";
+            using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+            {
+                conn.Open();
+                string query = "SELECT r.nombre " +
+                               "FROM partidos_copaNacional p " +
+                               "JOIN rondas_copaNacional r ON r.id_ronda = p.id_ronda " +
+                               "WHERE id_equipo_local = @IdEquipo OR id_equipo_visitante = @IdEquipo " +
+                               "ORDER BY p.id_ronda DESC " +
+                               "LIMIT 1";
+                using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@IdEquipo", equipo);
+                    using (SQLiteDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            nombre = reader["nombre"].ToString();
+                        }
+                    }
+                }
+            }
+            return nombre;
         }
     }
 }

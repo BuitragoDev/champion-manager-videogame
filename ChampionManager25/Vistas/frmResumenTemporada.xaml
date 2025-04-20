@@ -19,7 +19,6 @@
             <RowDefinition Height="80"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="100"/>
-            <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
 
         <!-- BARRA SUPERIOR -->
@@ -57,7 +56,7 @@
         </Border>
 
         <!-- ÁREA PRINCIPAL -->
-        <Border Grid.Column="1" Grid.Row="1" Height="738" VerticalAlignment="Center" HorizontalAlignment="Center" Background="WhiteSmoke" Width="1000">
+        <Border Grid.Column="1" Grid.Row="1" Height="833" VerticalAlignment="Center" HorizontalAlignment="Center" Background="WhiteSmoke" Width="1000">
             <Border.Effect>
                 <DropShadowEffect Color="#FF23282D" 
               BlurRadius="10" 
@@ -71,9 +70,10 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="200"/>
+                        <RowDefinition Height="200"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="90"/>
                         <RowDefinition Height="90"/>
                     </Grid.RowDefinitions>
 
@@ -256,6 +256,31 @@
 
                     <!-- FILA 4 -->
                     <Border Grid.Column="0" Grid.Row="3">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Background="#1d6a7d" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+                                <TextBlock Text="OBJETIVO DE TEMPORADA" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                           FontFamily="Cascadia Code SemiBold" FontSize="22" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                            </Border>
+                            
+                            <TextBlock x:Name="txtObjetivoTemporada" Grid.Column="0" Grid.Row="2" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                       FontFamily="Cascadia Code SemiBold" FontSize="22" Foreground="#FF23282D" TextAlignment="Center"/>
+
+                            <TextBlock x:Name="txtObjetivoTemporadaResultado" Grid.Column="1" Grid.Row="2" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                       FontFamily="Cascadia Code SemiBold" FontSize="22" Foreground="#FF23282D" TextAlignment="Center"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- FILA 5 -->
+                    <Border Grid.Column="0" Grid.Row="4">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
