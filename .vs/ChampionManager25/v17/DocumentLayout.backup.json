@@ -3,12 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\mismetodos\\nacionalidadtoflagconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\mismetodos\\nacionalidadtoflagconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\usercontrols\\uc_menu_competicion_palmarescopa.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
-      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\usercontrols\\uc_menu_competicion_palmarescopa.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
+      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\usercontrols\\uc_menu_competicion_palmares.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
+      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\usercontrols\\uc_menu_competicion_palmares.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,27 +19,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "NacionalidadToFlagConverter.cs",
-              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\MisMetodos\\NacionalidadToFlagConverter.cs",
-              "RelativeDocumentMoniker": "ChampionManager25\\MisMetodos\\NacionalidadToFlagConverter.cs",
-              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\MisMetodos\\NacionalidadToFlagConverter.cs",
-              "RelativeToolTip": "ChampionManager25\\MisMetodos\\NacionalidadToFlagConverter.cs",
-              "ViewState": "AgIAAEoAAAAAAAAAAAAwwHAAAAARAAAAAAAAAA==",
+              "Title": "UC_Menu_Competicion_Palmares.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Competicion_Palmares.xaml.cs",
+              "RelativeDocumentMoniker": "ChampionManager25\\UserControls\\UC_Menu_Competicion_Palmares.xaml.cs",
+              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Competicion_Palmares.xaml.cs",
+              "RelativeToolTip": "ChampionManager25\\UserControls\\UC_Menu_Competicion_Palmares.xaml.cs",
+              "ViewState": "AgIAAEEBAAAAAAAAAAAlwD4BAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T16:58:50.805Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UC_Menu_Competicion_PalmaresCopa.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Competicion_PalmaresCopa.xaml.cs",
-              "RelativeDocumentMoniker": "ChampionManager25\\UserControls\\UC_Menu_Competicion_PalmaresCopa.xaml.cs",
-              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Competicion_PalmaresCopa.xaml.cs",
-              "RelativeToolTip": "ChampionManager25\\UserControls\\UC_Menu_Competicion_PalmaresCopa.xaml.cs",
-              "ViewState": "AgIAAN4AAAAAAAAAAADwv/MAAABFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-19T17:37:45.421Z",
+              "WhenOpened": "2025-04-21T15:00:03.415Z",
               "EditorCaption": ""
             }
           ]
