@@ -3,8 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\usercontrols\\uc_menu_competicion_palmares.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
-      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\usercontrols\\uc_menu_competicion_palmares.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
+      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\usercontrols\\uc_menu_competicion_resultados.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\usercontrols\\uc_menu_competicion_resultados.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\usercontrols\\uc_menu_competicion_resultadoscopa.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\usercontrols\\uc_menu_competicion_resultadoscopa.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\usercontrols\\uc_menu_competicion_resultadoscopa.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\usercontrols\\uc_menu_competicion_resultadoscopa.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\usercontrols\\uc_menu_competicion_resultados.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
+      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\usercontrols\\uc_menu_competicion_resultados.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,19 +26,56 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UC_Menu_Competicion_Palmares.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Competicion_Palmares.xaml.cs",
-              "RelativeDocumentMoniker": "ChampionManager25\\UserControls\\UC_Menu_Competicion_Palmares.xaml.cs",
-              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Competicion_Palmares.xaml.cs",
-              "RelativeToolTip": "ChampionManager25\\UserControls\\UC_Menu_Competicion_Palmares.xaml.cs",
-              "ViewState": "AgIAAEEBAAAAAAAAAAAlwD4BAAAdAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "UC_Menu_Competicion_ResultadosCopa.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Competicion_ResultadosCopa.xaml.cs",
+              "RelativeDocumentMoniker": "ChampionManager25\\UserControls\\UC_Menu_Competicion_ResultadosCopa.xaml.cs",
+              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Competicion_ResultadosCopa.xaml.cs",
+              "RelativeToolTip": "ChampionManager25\\UserControls\\UC_Menu_Competicion_ResultadosCopa.xaml.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAEwEYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-21T15:00:03.415Z",
+              "WhenOpened": "2025-04-21T17:47:31.905Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UC_Menu_Competicion_ResultadosCopa.xaml",
+              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Competicion_ResultadosCopa.xaml",
+              "RelativeDocumentMoniker": "ChampionManager25\\UserControls\\UC_Menu_Competicion_ResultadosCopa.xaml",
+              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Competicion_ResultadosCopa.xaml",
+              "RelativeToolTip": "ChampionManager25\\UserControls\\UC_Menu_Competicion_ResultadosCopa.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-04-21T17:46:42.4Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UC_Menu_Competicion_Resultados.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Competicion_Resultados.xaml.cs",
+              "RelativeDocumentMoniker": "ChampionManager25\\UserControls\\UC_Menu_Competicion_Resultados.xaml.cs",
+              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Competicion_Resultados.xaml.cs",
+              "RelativeToolTip": "ChampionManager25\\UserControls\\UC_Menu_Competicion_Resultados.xaml.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAMwEUAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-21T17:38:06.749Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UC_Menu_Competicion_Resultados.xaml",
+              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Competicion_Resultados.xaml",
+              "RelativeDocumentMoniker": "ChampionManager25\\UserControls\\UC_Menu_Competicion_Resultados.xaml",
+              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Competicion_Resultados.xaml",
+              "RelativeToolTip": "ChampionManager25\\UserControls\\UC_Menu_Competicion_Resultados.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-04-21T17:38:00.944Z",
               "EditorCaption": ""
             }
           ]

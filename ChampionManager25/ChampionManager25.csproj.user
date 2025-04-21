@@ -77,6 +77,9 @@
     <Compile Update="UserControls\UC_Menu_Competicion_Resultados.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\UC_Menu_Competicion_ResultadosCopa.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\UC_Menu_Correo.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

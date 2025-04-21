@@ -811,7 +811,7 @@ namespace ChampionManager25.Datos
                                                           AND (pc.id_equipo_local = @IdEquipo OR pc.id_equipo_visitante = @IdEquipo)
                                                           AND pc.id_manager = @IdManager
                                                     )
-                                                    ORDER BY fecha DESC, id_partido DESC
+                                                    ORDER BY fecha DESC
                                                     LIMIT 5";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))

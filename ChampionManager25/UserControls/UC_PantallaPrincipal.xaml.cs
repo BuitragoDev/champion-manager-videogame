@@ -766,7 +766,7 @@ namespace ChampionManager25.UserControls
         {
             // Cargar UC_Menu_Competicion_Resultados
             DockPanel_Central.Children.Clear();
-            UC_Menu_Competicion_Resultados competicionResultados = new UC_Menu_Competicion_Resultados(_manager, _equipo);
+            UC_Menu_Competicion_Resultados competicionResultados = new UC_Menu_Competicion_Resultados(_manager, _equipo, DockPanel_Central);
             DockPanel_Central.Children.Add(competicionResultados);
         }
 

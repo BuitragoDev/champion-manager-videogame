@@ -19,15 +19,36 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
+                    <RowDefinition Height="100"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <Border Background="#1d6a7d" Grid.Column="0" Grid.Row="0">
-                    <TextBlock Text="RESULTADOS" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                    <TextBlock x:Name="lblTitulo" Text="RESULTADOS" HorizontalAlignment="Center" VerticalAlignment="Center" 
                            FontFamily="Cascadia Code SemiBold" FontSize="22" Foreground="WhiteSmoke" TextAlignment="Center"/>
                 </Border>
 
                 <Border Grid.Column="0" Grid.Row="1">
+                    <Grid Background="WhiteSmoke">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Image x:Name="imgLogoLiga" Grid.Row="0" Grid.Column="1" Height="80" Width="80" Stretch="UniformToFill" IsEnabled="False"
+                               HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" />
+
+                        <Image x:Name="imgLogoCopa" Grid.Row="0" Grid.Column="2" Height="80" Width="80" Stretch="UniformToFill" 
+                               HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" MouseLeftButtonDown="imgLogoCopa_MouseLeftButtonDown" />
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="2">
                     <Grid Background="WhiteSmoke">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>

@@ -43,6 +43,7 @@ namespace ChampionManager25.UserControls
             equipos = _logicaEquipos.ListarEquipos(0)
                         .Concat(_logicaEquipos.ListarEquipos(1))
                         .Concat(_logicaEquipos.ListarEquipos(2))
+                        .Concat(_logicaEquipos.ListarEquipos(3))
                         .ToList();
             Metodos metodos = new Metodos();
         }

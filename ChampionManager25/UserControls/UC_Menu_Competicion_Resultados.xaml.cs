@@ -27,6 +27,7 @@ namespace ChampionManager25.UserControls
         private Manager _manager;
         private int _equipo;
         Equipo equipo;
+        private DockPanel _panelCentral;
 
         private int jornadaActual = 1;
         private const int jornadaMin = 1;
@@ -37,22 +38,38 @@ namespace ChampionManager25.UserControls
         // Instancias de la LOGICA
         private PartidoLogica _logicaPartido = new PartidoLogica();
         private EquipoLogica _logicaEquipo = new EquipoLogica();
+        CompeticionLogica _logicaCompeticion = new CompeticionLogica();
 
-        public UC_Menu_Competicion_Resultados(Manager manager, int equipo)
+        public UC_Menu_Competicion_Resultados(Manager manager, int equipo, DockPanel panelCentral)
         {
             InitializeComponent();
             _manager = manager;
             _equipo = equipo;
+            _panelCentral = panelCentral;
             Metodos metodos = new Metodos();
 
             miCompeticion = _logicaEquipo.ListarDetallesEquipo(_equipo).IdCompeticion;
             List<Partido> partidosJornada = _logicaPartido.CargarJornada(jornadaActual, _manager.IdManager, miCompeticion);
-            MostrarPartidos(partidosJornada);
+            MostrarPartidos(partidosJornada); 
         }
 
         private void resultados_Loaded(object sender, RoutedEventArgs e)
         {
             txtJornadaActual.Text = $"Jornada {jornadaActual}";
+
+            string ruta_liga = _logicaCompeticion.ObtenerCompeticion(1).RutaImagen80;
+            imgLogoLiga.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_liga));
+            lblTitulo.Text += " (" + _logicaCompeticion.MostrarNombreCompeticion(1).ToUpper() + ")";
+            string ruta_copa = _logicaCompeticion.ObtenerCompeticion(4).RutaImagen80;
+            imgLogoCopa.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_copa));
+        }
+
+        // ----------------------------------------------------------------------------- Evento CLICK del boton COPA
+        private void imgLogoCopa_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            UC_Menu_Competicion_ResultadosCopa ucCopa = new UC_Menu_Competicion_ResultadosCopa(_manager, _equipo, _panelCentral);
+            _panelCentral.Children.Clear();
+            _panelCentral.Children.Add(ucCopa);
         }
 
         private void btnJornadaAnterior_Click(object sender, RoutedEventArgs e)

@@ -1,4 +1,4 @@
-﻿C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
+﻿
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\App.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\MainWindow.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_CargarPartida.xaml;;
@@ -55,4 +55,5 @@ FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmVenta
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmVentanaEmergenteDosBotones.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmVentanaPremioJugadores.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmVerDetallesEquipo.xaml;;
+FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_ResultadosCopa.xaml;;
 
