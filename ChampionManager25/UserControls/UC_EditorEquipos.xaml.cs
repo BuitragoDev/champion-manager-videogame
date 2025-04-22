@@ -38,9 +38,11 @@ namespace ChampionManager25.UserControls
         {
             Conexion.EstablecerConexionPartida("./championsManagerDB.db");
             string ruta_competicion_principal = _logicaCompeticion.ObtenerCompeticion(1).RutaImagen;
-            string ruta_competicion_reserva = _logicaCompeticion.ObtenerCompeticion(2).RutaImagen;
+            string ruta_competicion_dos = _logicaCompeticion.ObtenerCompeticion(2).RutaImagen;
+            string ruta_competicion_reserva = _logicaCompeticion.ObtenerCompeticion(3).RutaImagen;
             imgCompeticion.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_competicion_principal));
-            imgCompeticionReserva.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_competicion_reserva));
+            imgCompeticion2.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_competicion_dos));
+            imgCompeticion3.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_competicion_reserva));
 
             CargarEscudos(1);
         }
@@ -62,21 +64,36 @@ namespace ChampionManager25.UserControls
             btnEditarEquipo.IsEnabled = false;
 
             imgCompeticion.IsEnabled = false;
-            imgCompeticionReserva.IsEnabled = true;
+            imgCompeticion2.IsEnabled = true;
+            imgCompeticion3.IsEnabled = true;
 
             CargarEscudos(1);
         }
 
-        // -------------------------------------------------------------------------- Evento CLICK del boton COMPETICION RESERVA
+        // -------------------------------------------------------------------------- Evento CLICK del boton COMPETICION 2
         private void imgCompeticionReserva_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Metodos.ReproducirSonidoTransicion();
             btnEditarEquipo.IsEnabled = false;
 
             imgCompeticion.IsEnabled = true;
-            imgCompeticionReserva.IsEnabled = false;
+            imgCompeticion2.IsEnabled = false;
+            imgCompeticion3.IsEnabled = true;
 
             CargarEscudos(2);
+        }
+
+        // -------------------------------------------------------------------------- Evento CLICK del boton COMPETICION RESERVA
+        private void imgCompeticion3_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Metodos.ReproducirSonidoTransicion();
+            btnEditarEquipo.IsEnabled = false;
+
+            imgCompeticion.IsEnabled = true;
+            imgCompeticion2.IsEnabled = true;
+            imgCompeticion3.IsEnabled = false;
+
+            CargarEscudos(3);
         }
 
         // -------------------------------------------------------------------------- Evento CLICK del boton EDITAR EQUIPO
@@ -159,5 +176,6 @@ namespace ChampionManager25.UserControls
             }
         }
         #endregion
+
     }
 }

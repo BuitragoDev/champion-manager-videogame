@@ -72,6 +72,7 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
+                                    <RowDefinition Height="90"/>
                                     <RowDefinition Height="30"/>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
@@ -80,13 +81,33 @@
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
 
-                                <Border Background="#1d6a7d" Grid.Column="0" Grid.Row="0">
+                                <Border Grid.Column="0" Grid.Row="0">
+                                    <Grid Background="WhiteSmoke">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Image x:Name="imgLogoLiga1" Grid.Row="0" Grid.Column="1" Height="80" Width="80" Stretch="UniformToFill"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" MouseLeftButtonDown="imgLogoLiga1_MouseLeftButtonDown" />
+
+                                        <Image x:Name="imgLogoLiga2" Grid.Row="0" Grid.Column="2" Height="80" Width="80" Stretch="UniformToFill" 
+                                               HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" MouseLeftButtonDown="imgLogoLiga2_MouseLeftButtonDown" />
+                                    </Grid>
+                                </Border>
+                                
+                                <Border Background="#1d6a7d" Grid.Column="0" Grid.Row="1">
                                     <TextBlock Text="MEJORES EQUIPOS DE LA TEMPORADA" HorizontalAlignment="Center" VerticalAlignment="Center" 
                                                FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
                                 </Border>
 
                                 <!-- Mejor Ataque -->
-                                <Border Background="WhiteSmoke" Grid.Column="0" Grid.Row="1">
+                                <Border Background="WhiteSmoke" Grid.Column="0" Grid.Row="2">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
@@ -99,7 +120,7 @@
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
 
-                                        <Image x:Name="imgMejorAtaque" Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" Height="120" Width="120" Stretch="Uniform"
+                                        <Image x:Name="imgMejorAtaque" Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" Height="80" Width="80" Stretch="Uniform"
                                                HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" />
 
                                         <Border Background="#FF23282D" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="2">
@@ -125,7 +146,7 @@
                                 </Border>
 
                                 <!-- Mejor Defensa -->
-                                <Border Background="LightGray" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+                                <Border Background="LightGray" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
@@ -138,7 +159,7 @@
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
 
-                                        <Image x:Name="imgMejorDefensa" Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" Height="120" Width="120" Stretch="Uniform"
+                                        <Image x:Name="imgMejorDefensa" Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" Height="80" Width="80" Stretch="Uniform"
                                                HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" />
 
                                         <Border Background="#FF23282D" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="2">
@@ -164,7 +185,7 @@
                                 </Border>
 
                                 <!-- Mejor Racha -->
-                                <Border Background="WhiteSmoke" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2">
+                                <Border Background="WhiteSmoke" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
@@ -177,7 +198,7 @@
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
 
-                                        <Image x:Name="imgMejorRacha" Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" Height="120" Width="120" Stretch="Uniform"
+                                        <Image x:Name="imgMejorRacha" Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" Height="80" Width="80" Stretch="Uniform"
                                                HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" />
 
                                         <Border Background="#FF23282D" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="2">
@@ -203,7 +224,7 @@
                                 </Border>
 
                                 <!-- Mejor Equipo Local -->
-                                <Border Background="LightGray" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2">
+                                <Border Background="LightGray" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
@@ -216,7 +237,7 @@
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
 
-                                        <Image x:Name="imgMejorEquipoLocal" Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" Height="120" Width="120" Stretch="Uniform"
+                                        <Image x:Name="imgMejorEquipoLocal" Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" Height="80" Width="80" Stretch="Uniform"
                                                HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" />
 
                                         <Border Background="#FF23282D" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="2">
@@ -242,7 +263,7 @@
                                 </Border>
 
                                 <!-- Mejor Equipo Visitante -->
-                                <Border Background="WhiteSmoke" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2">
+                                <Border Background="WhiteSmoke" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
@@ -255,7 +276,7 @@
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
 
-                                        <Image x:Name="imgMejorEquipoVisitante" Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" Height="120" Width="120" Stretch="Uniform"
+                                        <Image x:Name="imgMejorEquipoVisitante" Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" Height="80" Width="80" Stretch="Uniform"
                                                HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" />
 
                                         <Border Background="#FF23282D" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="2">

@@ -478,5 +478,33 @@ namespace ChampionManager25.Datos
                 MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
         }
+
+        // ---------------------------------------------------------------- Método que cambia un Objetivo de Temporada
+        public void CambiarObjetivoTemporada(int equipo, string objetivo)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Consulta SQL para obtener las finanzas del equipo
+                    string query = @"UPDATE equipos
+                                     SET objetivo = @Objetivo
+                                     WHERE id_equipo = @IdEquipo";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Objetivo", objetivo);
+                        cmd.Parameters.AddWithValue("@IdEquipo", equipo);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
     }
 }

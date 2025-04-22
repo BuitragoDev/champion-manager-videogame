@@ -89,6 +89,7 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
@@ -96,8 +97,10 @@
 
                                 <Image x:Name="imgCompeticion" Grid.Column="1" Grid.Row="0" Width="100" Height="100" Stretch="Uniform" VerticalAlignment="Center" 
                                        HorizontalAlignment="Center" Margin="10" Cursor="Hand" MouseLeftButtonDown="imgCompeticion_MouseLeftButtonDown" />
-                                <Image x:Name="imgCompeticionReserva" Grid.Column="2" Grid.Row="0" Width="100" Height="100" Stretch="Uniform" VerticalAlignment="Center" 
+                                <Image x:Name="imgCompeticion2" Grid.Column="2" Grid.Row="0" Width="100" Height="100" Stretch="Uniform" VerticalAlignment="Center" 
                                        HorizontalAlignment="Center" Margin="10" Cursor="Hand" MouseLeftButtonDown="imgCompeticionReserva_MouseLeftButtonDown" />
+                                <Image x:Name="imgCompeticion3" Grid.Column="3" Grid.Row="0" Width="100" Height="100" Stretch="Uniform" VerticalAlignment="Center" 
+                                       HorizontalAlignment="Center" Margin="10" Cursor="Hand" MouseLeftButtonDown="imgCompeticion3_MouseLeftButtonDown" />
                             </Grid>
                         </Border>
 

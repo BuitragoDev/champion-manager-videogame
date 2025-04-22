@@ -73,6 +73,12 @@ namespace ChampionManager25.Logica
             return _datos.CargarJornada(jornada, manager, competicion);
         }
 
+        // Llamada al metodo que carga los partidos de una Ronda de Copa Nacional
+        public List<Partido> CargarRondaCopa(int ronda, int vuelta, int manager, int competicion)
+        {
+            return _datos.CargarRondaCopa(ronda, vuelta, manager, competicion);
+        }
+
         // Llamada al método que devuelve los ultimos 5 partidos de un equipo
         public List<Partido> UltimosCincoPartidos(int equipo, int idManager)
         {

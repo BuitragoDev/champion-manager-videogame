@@ -679,6 +679,8 @@ namespace ChampionManager25.Datos
                                         (ej.tarjetasRojas * 2) AS puntos
                                      FROM estadisticas_jugadores ej
                                      JOIN jugadores j ON ej.id_jugador = j.id_jugador
+                                     JOIN equipos e ON j.id_equipo = e.id_equipo
+                                     WHERE e.id_competicion = 1
                                      ORDER BY puntos DESC
                                      LIMIT 3";
 
@@ -697,6 +699,61 @@ namespace ChampionManager25.Datos
                                     Apellido = reader.GetString(reader.GetOrdinal("apellido")),
                                     RutaImagen = reader.GetString(reader.GetOrdinal("ruta_imagen")),
                                     Valoracion = reader.GetInt32(reader.GetOrdinal("puntos")),
+                                    IdEquipo = reader.GetInt32(reader.GetOrdinal("id_equipo"))
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                // En caso de error, mostrar el mensaje con la excepción
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return lista;
+        }
+
+        // --------------------------------------------------------------------- Metodo que muestra los 3 mejores jugadores de la temporada
+        public List<Jugador> BotaDeOro()
+        {
+            List<Jugador> lista = new List<Jugador>();
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+                    string query = @"SELECT 
+                                        ej.id_jugador,
+                                        j.nombre,
+                                        j.apellido,
+                                        j.ruta_imagen,
+                                        j.id_equipo,
+                                        ej.goles
+                                     FROM estadisticas_jugadores ej
+                                     JOIN jugadores j ON ej.id_jugador = j.id_jugador
+                                     JOIN equipos e ON j.id_equipo = e.id_equipo
+                                     WHERE e.id_competicion = 1
+                                     ORDER BY ej.goles DESC
+                                     LIMIT 3";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            lista.Clear();  // Asegura que la lista esté vacía antes de llenarla
+
+                            while (reader.Read())
+                            {
+                                lista.Add(new Jugador
+                                {
+                                    IdJugador = reader.GetInt32(reader.GetOrdinal("id_jugador")),
+                                    Nombre = reader.GetString(reader.GetOrdinal("nombre")),
+                                    Apellido = reader.GetString(reader.GetOrdinal("apellido")),
+                                    RutaImagen = reader.GetString(reader.GetOrdinal("ruta_imagen")),
+                                    Valoracion = reader.GetInt32(reader.GetOrdinal("goles")),
                                     IdEquipo = reader.GetInt32(reader.GetOrdinal("id_equipo"))
                                 });
                             }
@@ -739,15 +796,18 @@ namespace ChampionManager25.Datos
                                             ej.tarjetasAmarillas -
                                             ej.tarjetasRojas * 2
                                         ) AS puntos
-                                     FROM estadisticas_jugadores ej
-                                     JOIN jugadores j ON ej.id_jugador = j.id_jugador
-                                     JOIN equipos e ON j.id_equipo = e.id_equipo
-                                     WHERE j.rol_id IS NOT NULL
+                                    FROM estadisticas_jugadores ej
+                                    JOIN jugadores j ON ej.id_jugador = j.id_jugador
+                                    JOIN equipos e ON j.id_equipo = e.id_equipo
+                                    WHERE j.rol_id IS NOT NULL
+                                      AND e.id_competicion = 1
                                       AND j.id_jugador IN (
                                         SELECT ej2.id_jugador
                                         FROM estadisticas_jugadores ej2
                                         JOIN jugadores j2 ON ej2.id_jugador = j2.id_jugador
+                                        JOIN equipos e2 ON j2.id_equipo = e2.id_equipo
                                         WHERE j2.rol_id = j.rol_id
+                                          AND e2.id_competicion = 1
                                         ORDER BY (
                                             ej2.goles * 2 +
                                             ej2.asistencias +
@@ -757,9 +817,9 @@ namespace ChampionManager25.Datos
                                             ej2.tarjetasRojas * 2
                                         ) DESC
                                         LIMIT 1
-                                     )
-                                     GROUP BY j.rol_id
-                                     ORDER BY j.rol_id";
+                                    )
+                                    GROUP BY j.rol_id
+                                    ORDER BY j.rol_id";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                     {

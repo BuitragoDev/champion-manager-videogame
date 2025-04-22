@@ -72,6 +72,7 @@ namespace ChampionManager25.UserControls
             _panelCentral.Children.Add(ucCopa);
         }
 
+        // ---------------------------------------------------------------------------- Evento CLICK del boton JORNADA ANTERIOR
         private void btnJornadaAnterior_Click(object sender, RoutedEventArgs e)
         {
             Metodos.ReproducirSonidoClick();
@@ -85,6 +86,7 @@ namespace ChampionManager25.UserControls
             }
         }
 
+        // ---------------------------------------------------------------------------- Evento CLICK del boton JORNADA SIGUIENTE
         private void btnJornadaSiguiente_Click(object sender, RoutedEventArgs e)
         {
             Metodos.ReproducirSonidoClick();

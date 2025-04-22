@@ -576,7 +576,7 @@ namespace ChampionManager25.UserControls
             dgClasificacion.SelectionChanged += DgClasificacion_SelectionChanged;
 
             // Configurar altura de filas y estilos generales
-            dgClasificacion.RowHeight = 37;
+            dgClasificacion.RowHeight = 33;
             dgClasificacion.RowBackground = new SolidColorBrush(Colors.LightGray);
             dgClasificacion.AlternatingRowBackground = new SolidColorBrush(Colors.WhiteSmoke);
             dgClasificacion.BorderBrush = new SolidColorBrush(Colors.Transparent);

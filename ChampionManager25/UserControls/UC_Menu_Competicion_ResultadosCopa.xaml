@@ -5,14 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ChampionManager25.UserControls"
              mc:Ignorable="d" d:DesignHeight="935" d:DesignWidth="1845" Loaded="resultadosCopa_Loaded">
-    <Grid Background="WhiteSmoke">
+    <Grid Background="LightGray">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1845"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Border Grid.Column="0" Grid.Row="0" BorderBrush="#1d6a7d" BorderThickness="1" Margin="10">
+        <Border Grid.Column="0" Grid.Row="0" BorderBrush="DarkRed" BorderThickness="1" Margin="10">
             <Grid Background="WhiteSmoke">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -23,7 +23,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Border Background="#1d6a7d" Grid.Column="0" Grid.Row="0">
+                <Border Background="DarkRed" Grid.Column="0" Grid.Row="0">
                     <TextBlock x:Name="lblTitulo" Text="RESULTADOS" HorizontalAlignment="Center" VerticalAlignment="Center" 
                            FontFamily="Cascadia Code SemiBold" FontSize="22" Foreground="WhiteSmoke" TextAlignment="Center"/>
                 </Border>
@@ -49,7 +49,10 @@
                 </Border>
 
                 <Border Grid.Column="0" Grid.Row="2">
-                    <Grid Background="WhiteSmoke">
+                    <Grid>
+                        <Grid.Background>
+                            <ImageBrush ImageSource="/Recursos/img/fondoResultados.png" Stretch="UniformToFill" TileMode="None"/>
+                        </Grid.Background>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
@@ -59,12 +62,12 @@
                         </Grid.RowDefinitions>
 
                         <!-- Área con el Navegador de Jornadas -->
-                        <Border Grid.Column="0" Grid.Row="0" Background="LightSteelBlue">
+                        <Border Grid.Column="0" Grid.Row="0" Background="DarkRed">
                             <DockPanel x:Name="panelNavegadorCalendario" VerticalAlignment="Center" HorizontalAlignment="Center">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="230"/>
+                                        <ColumnDefinition Width="550"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
@@ -72,19 +75,19 @@
                                     </Grid.RowDefinitions>
 
                                     <Button x:Name="btnJornadaAnterior" Grid.Column="0" Grid.Row="0" Content="◀" Width="50" 
-                                            Height="30" Margin="5" Cursor="Hand" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                                            Height="30" Margin="5" Cursor="Hand" VerticalAlignment="Center" HorizontalAlignment="Right" Click="btnJornadaAnterior_Click" />
                                     <TextBlock x:Name="txtJornadaActual" Grid.Column="1" FontSize="22" Text="Jornada 1" 
                                                VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" 
-                                               FontFamily="Cascadia Code SemiBold" Foreground="Black" Width="210" />
+                                               FontFamily="Cascadia Code SemiBold" Foreground="WhiteSmoke" Width="530" />
                                     <Button x:Name="btnJornadaSiguiente" Grid.Column="2" Grid.Row="0" Content="▶" 
-                                            Width="50" Height="30" Margin="5" Cursor="Hand" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                                            Width="50" Height="30" Margin="5" Cursor="Hand" VerticalAlignment="Center" HorizontalAlignment="Left" Click="btnJornadaSiguiente_Click" />
                                 </Grid>
                             </DockPanel>
                         </Border>
 
                         <!-- Área con los partidos -->
-                        <Border Grid.Row="1" Width="1300" Height="460" VerticalAlignment="Top" HorizontalAlignment="Center"
-                                BorderBrush="#1d6a7d" BorderThickness="1" Margin="0,50,0,0">
+                        <Border Grid.Row="1" Width="1300" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Center"
+                                BorderBrush="DarkRed" BorderThickness="1" Margin="0,20,0,0">
                             <Grid x:Name="gridPartidos" Margin="0,0,0,-1">
                                 <!-- Dos columnas para repartir los partidos -->
                                 <Grid.ColumnDefinitions>
@@ -95,6 +98,9 @@
                                 </Grid.ColumnDefinitions>
                                 <!-- Nueve filas -->
                                 <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>

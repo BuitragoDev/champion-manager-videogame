@@ -64,6 +64,8 @@ namespace ChampionManager25.UserControls
         // ------------------------------------------------------------------------------- Evento CLICK del boton LIGA
         private void imgLogoLiga_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            Metodos.ReproducirSonidoClick();
+
             UC_Menu_Competicion_Palmares ucLiga = new UC_Menu_Competicion_Palmares(_manager, _equipo, _panelCentral);
             _panelCentral.Children.Clear();
             _panelCentral.Children.Add(ucLiga);
@@ -75,6 +77,8 @@ namespace ChampionManager25.UserControls
         // ------------------------------------------------------------------------------- Evento CLICK del boton COPA
         private void imgLogoCopa_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            Metodos.ReproducirSonidoClick();
+
             UC_Menu_Competicion_PalmaresCopa ucCopa = new UC_Menu_Competicion_PalmaresCopa(_manager, _equipo, _panelCentral);
             _panelCentral.Children.Clear();
             _panelCentral.Children.Add(ucCopa);

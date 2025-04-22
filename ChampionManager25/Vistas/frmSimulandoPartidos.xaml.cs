@@ -5,6 +5,7 @@ using ChampionManager25.MisMetodos;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Common;
 using System.Data.SQLite;
 using System.Linq;
 using System.Numerics;
@@ -665,13 +666,13 @@ namespace ChampionManager25.Vistas
             {
                 Partido partido = partidos[i];
                 int miCompeticion = _logicaEquipo.ListarDetallesEquipo(_equipo).IdCompeticion;
+                int compPartido = _logicaEquipo.ListarDetallesEquipo(partido.IdPartido).IdCompeticion;
 
                 if (partidos[i].IdCompeticion == miCompeticion || partidos[i].IdCompeticion == 4)
                 {
                     equipoLocal = _logicaEquipo.ListarDetallesEquipo(partido.IdEquipoLocal);
                     equipoVisitante = _logicaEquipo.ListarDetallesEquipo(partido.IdEquipoVisitante);
 
-                    // Usamos indiceVisible, no i
                     int row = indiceVisible % 15;
                     int column = indiceVisible < 13 ? 0 : 1;
 
@@ -683,7 +684,8 @@ namespace ChampionManager25.Vistas
                     {
                         Background = backgroundColor,
                         BorderThickness = new Thickness(0),
-                        Margin = new Thickness(2)
+                        Margin = new Thickness(2),
+                        Height = 50
                     };
 
                     Grid.SetRow(rowBackground, row);

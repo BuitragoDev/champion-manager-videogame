@@ -16,6 +16,7 @@ using ChampionManager25.Entidades;
 using ChampionManager25.Datos;
 using ChampionManager25.MisMetodos;
 using System.Windows.Controls.Primitives;
+using ChampionManager25.UserControls;
 
 namespace ChampionManager25.Vistas
 {
@@ -23,6 +24,7 @@ namespace ChampionManager25.Vistas
     {
         #region "Variables"
         private List<Jugador> _listaBalonOro;
+        private List<Jugador> _listaBotaOro;
         private List<Jugador> _listaMejorOnce;
         #endregion
 
@@ -30,11 +32,13 @@ namespace ChampionManager25.Vistas
         EquipoLogica _logicaEquipo = new EquipoLogica();
         CompeticionLogica _logicaCompeticion = new CompeticionLogica();
         PalmaresLogica _logicaPalmares = new PalmaresLogica();
+        EstadisticasLogica _logicaEstadistica = new EstadisticasLogica();
 
-        public frmVentanaPremioJugadores(List<Jugador> listaBalonOro, List<Jugador> listaMejorOnce)
+        public frmVentanaPremioJugadores(List<Jugador> listaBalonOro, List<Jugador> listaBotaOro, List<Jugador> listaMejorOnce)
         {
             InitializeComponent();
             _listaBalonOro = listaBalonOro;
+            _listaBotaOro = listaBotaOro;
             _listaMejorOnce = listaMejorOnce;
         }
 
@@ -63,6 +67,10 @@ namespace ChampionManager25.Vistas
             // Actualizar el palmares del premio del Balon de Oro
             _logicaPalmares.AnadirTituloBalonOro(_listaBalonOro[0].IdJugador);
             _logicaPalmares.AnadirPremiosMejorJugador(Metodos.temporadaActual, _listaBalonOro[0].IdJugador, _listaBalonOro[1].IdJugador, _listaBalonOro[2].IdJugador);
+
+            // Actualizar el palmares del premio de la Bota de Oro
+            _logicaPalmares.AnadirTituloBotaOro(_listaBotaOro[0].IdJugador);
+            _logicaPalmares.AnadirPremiosMaximoGoleador(Metodos.temporadaActual, _listaBotaOro[0].IdJugador, _listaBotaOro[1].IdJugador, _listaBotaOro[2].IdJugador);
         }
 
         // ----------------------------------------------------------------------------- Evento CLICK del boton TERMINAR TEMPORADA

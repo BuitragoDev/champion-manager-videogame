@@ -65,7 +65,7 @@
                                   Direction="320" 
                                   Opacity="0.5"/>
             </Border.Effect>
-            <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="6" BorderBrush="#1d6a7d" BorderThickness="1" Margin="20">
+            <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="6" BorderBrush="DarkRed" BorderThickness="1" Margin="20">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -88,7 +88,7 @@
                                 <RowDefinition Height="60"/>
                             </Grid.RowDefinitions>
 
-                            <Border Background="#1d6a7d" Grid.Column="0" Grid.Row="0">
+                            <Border Background="DarkRed" Grid.Column="0" Grid.Row="0">
                                 <TextBlock Text="CAMPEÓN" HorizontalAlignment="Center" VerticalAlignment="Center" 
                                            FontFamily="Cascadia Code SemiBold" FontSize="22" Foreground="WhiteSmoke" TextAlignment="Center"/>
                             </Border>
@@ -115,7 +115,7 @@
                                 <RowDefinition Height="40"/>
                             </Grid.RowDefinitions>
 
-                            <Border Background="#1d6a7d" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4">
+                            <Border Background="DarkRed" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4">
                                 <TextBlock x:Name="txtNombreMiEquipo" Text="RESULTADO DE LA FINAL" HorizontalAlignment="Center" VerticalAlignment="Center" 
                                            FontFamily="Cascadia Code SemiBold" FontSize="22" Foreground="WhiteSmoke" TextAlignment="Center"/>
                             </Border>
@@ -149,7 +149,7 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
-                            <Border Background="#1d6a7d" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+                            <Border Background="DarkRed" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
                                 <TextBlock Text="RESULTADO DE MI EQUIPO" HorizontalAlignment="Center" VerticalAlignment="Center" 
                                            FontFamily="Cascadia Code SemiBold" FontSize="22" Foreground="WhiteSmoke" TextAlignment="Center"/>
                             </Border>

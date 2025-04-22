@@ -718,7 +718,7 @@ namespace ChampionManager25.Datos
             return partido;
         }
 
-        // Metodo que carga los partidos de una jornada
+        // ------------------------------------------------------------------ Metodo que carga los partidos de una jornada
         public List<Partido> CargarJornada(int jornada, int manager, int competicion)
         {
             List<Partido> oPartido = new List<Partido>();
@@ -752,6 +752,57 @@ namespace ChampionManager25.Datos
                                     GolesLocal = reader["goles_local"] != DBNull.Value ? Convert.ToInt32(reader["goles_local"]) : 0,
                                     GolesVisitante = reader["goles_visitante"] != DBNull.Value ? Convert.ToInt32(reader["goles_visitante"]) : 0,
                                     IdCompeticion = reader["id_competicion"] != DBNull.Value ? Convert.ToInt32(reader["id_competicion"]) : 0
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return oPartido;
+        }
+
+        // ------------------------------------------------------------------ Metodo que carga los partidos de una Ronda de Copa Nacional
+        public List<Partido> CargarRondaCopa(int ronda, int vuelta, int manager, int competicion)
+        {
+            List<Partido> oPartido = new List<Partido>();
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    string query = @"SELECT fecha, id_ronda, partido_vuelta, id_equipo_local, id_equipo_visitante, goles_local, goles_visitante, estado, id_competicion
+                                     FROM partidos_copaNacional
+                                     WHERE id_ronda = @Ronda AND partido_vuelta = @Vuelta AND id_manager = @IdManager AND id_competicion = @IdCompeticion";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Ronda", ronda);
+                        cmd.Parameters.AddWithValue("@Vuelta", vuelta);
+                        cmd.Parameters.AddWithValue("@IdManager", manager);
+                        cmd.Parameters.AddWithValue("@IdCompeticion", competicion);
+
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                oPartido.Add(new Partido()
+                                {
+                                    FechaPartido = DateTime.Parse(reader["fecha"]?.ToString() ?? "2000-01-01"),
+                                    IdEquipoLocal = Convert.ToInt32(reader["id_equipo_local"]),
+                                    IdEquipoVisitante = Convert.ToInt32(reader["id_equipo_visitante"]),
+                                    Estado = reader.GetString(reader.GetOrdinal("estado")),
+                                    GolesLocal = reader["goles_local"] != DBNull.Value ? Convert.ToInt32(reader["goles_local"]) : 0,
+                                    GolesVisitante = reader["goles_visitante"] != DBNull.Value ? Convert.ToInt32(reader["goles_visitante"]) : 0,
+                                    IdCompeticion = reader["id_competicion"] != DBNull.Value ? Convert.ToInt32(reader["id_competicion"]) : 0,
+                                    Ronda = Convert.ToInt32(reader["id_ronda"]),
+                                    PartidoVuelta = Convert.ToInt32(reader["partido_vuelta"])
                                 });
                             }
                         }

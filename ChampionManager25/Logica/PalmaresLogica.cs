@@ -43,6 +43,12 @@ namespace ChampionManager25.Logica
             return _datos.MostrarPalmaresBalonOroTotal();
         }
 
+        // Llamada al método para Mostrar el Palmarés de la Bota de Oro
+        public List<PalmaresJugador> MostrarPalmaresBotaOroTotal()
+        {
+            return _datos.MostrarPalmaresBotaOroTotal();
+        }
+
         // Llamada al método para Mostrar el Historial de las Finales
         public List<HistorialFinales> MostrarHistorialFinales()
         {
@@ -79,6 +85,12 @@ namespace ChampionManager25.Logica
             return _datos.MostrarPalmaresBalonOro();
         }
 
+        // Llamada al método para Mostrar el Historial de la Bota de Oro
+        public List<HistorialJugador> MostrarPalmaresBotaOro()
+        {
+            return _datos.MostrarPalmaresBotaOro();
+        }
+
         // Llamada al metodo que suma un titulo al jugador para el Balon de Oro
         public void AnadirTituloBalonOro(int jugador)
         {
@@ -89,6 +101,18 @@ namespace ChampionManager25.Logica
         public void AnadirPremiosMejorJugador(int temporada, int oro, int plata, int bronce)
         {
             _datos.AnadirPremiosMejorJugador(temporada, oro, plata, bronce);
+        }
+
+        // Llamada al metodo que suma un titulo al jugador para el Bota de Oro
+        public void AnadirTituloBotaOro(int jugador)
+        {
+            _datos.AnadirTituloBotaOro(jugador);
+        }
+
+        // Llamada al metodo que agrega los 3 premiados al Bota de Oro, Plata y Bronce
+        public void AnadirPremiosMaximoGoleador(int temporada, int oro, int plata, int bronce)
+        {
+            _datos.AnadirPremiosMaximoGoleador(temporada, oro, plata, bronce);
         }
 
         // Llamada al metodo que suma un titulo al campeon de Copa Nacional

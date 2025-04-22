@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ChampionManager25.UserControls"
              mc:Ignorable="d" d:DesignHeight="935" d:DesignWidth="1845" Loaded="resultados_Loaded">
-    <Grid Background="WhiteSmoke">
+    <Grid Background="LightGray">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1845"/>
         </Grid.ColumnDefinitions>
@@ -49,7 +49,10 @@
                 </Border>
 
                 <Border Grid.Column="0" Grid.Row="2">
-                    <Grid Background="WhiteSmoke">
+                    <Grid>
+                        <Grid.Background>
+                            <ImageBrush ImageSource="/Recursos/img/backgroundEstadio_img.png" Stretch="UniformToFill" TileMode="None"/>
+                        </Grid.Background>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
@@ -59,7 +62,7 @@
                         </Grid.RowDefinitions>
 
                         <!-- Área con el Navegador de Jornadas -->
-                        <Border Grid.Column="0" Grid.Row="0" Background="LightSteelBlue">
+                        <Border Grid.Column="0" Grid.Row="0" Background="#1d6a7d">
                             <DockPanel x:Name="panelNavegadorCalendario" VerticalAlignment="Center" HorizontalAlignment="Center">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -75,7 +78,7 @@
                                             Height="30" Margin="5" Cursor="Hand" VerticalAlignment="Center" HorizontalAlignment="Right" Click="btnJornadaAnterior_Click"/>
                                     <TextBlock x:Name="txtJornadaActual" Grid.Column="1" FontSize="22" Text="Jornada 1" 
                                                VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" 
-                                               FontFamily="Cascadia Code SemiBold" Foreground="Black" Width="210" />
+                                               FontFamily="Cascadia Code SemiBold" Foreground="WhiteSmoke" Width="210" />
                                     <Button x:Name="btnJornadaSiguiente" Grid.Column="2" Grid.Row="0" Content="▶" 
                                             Width="50" Height="30" Margin="5" Cursor="Hand" VerticalAlignment="Center" HorizontalAlignment="Left" Click="btnJornadaSiguiente_Click"/>
                                 </Grid>

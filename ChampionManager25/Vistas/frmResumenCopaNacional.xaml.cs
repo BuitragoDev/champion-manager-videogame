@@ -41,6 +41,9 @@ namespace ChampionManager25.Vistas
 
         private void resumenCopa_Loaded(object sender, RoutedEventArgs e)
         {
+            string ruta_logo = _logicaCompeticion.ObtenerCompeticion(4).RutaImagen80;
+            imgLogoCompeticion.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo));
+
             // Partido de la Final de Copa
             Partido final = _logicaPartido.ObtenerFinalCopa();
             int equipoLocal = final.IdEquipoLocal;
@@ -76,6 +79,7 @@ namespace ChampionManager25.Vistas
             // Mostrar detalles del campeon
             Equipo equipoCampeon = _logicaEquipo.ListarDetallesEquipo(equipoGanador);
             imgCampeon.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoCampeon.RutaImagen120));
+            txtNombreCampeon.Text = equipoCampeon.Nombre.ToUpper();
 
             // Mostrar detalles de la final
             Equipo oEquipoLocal = _logicaEquipo.ListarDetallesEquipo(equipoLocal);

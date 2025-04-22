@@ -60,5 +60,11 @@ namespace ChampionManager25.Logica
         {
             _datos.AscenderDescenderEquipo(equipo, competicion);
         }
+
+        // Llamada al método que cambia un Objetivo de Temporada
+        public void CambiarObjetivoTemporada(int equipo, string objetivo)
+        {
+            _datos.CambiarObjetivoTemporada(equipo, objetivo);
+        }
     }
 }

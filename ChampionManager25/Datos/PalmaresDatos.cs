@@ -216,6 +216,49 @@ namespace ChampionManager25.Datos
             return listadoPalmares;
         }
 
+        // ===================================================================== Método para Mostrar el Palmarés de la Bota de Oro
+        public List<PalmaresJugador> MostrarPalmaresBotaOroTotal()
+        {
+            List<PalmaresJugador> listadoPalmares = new List<PalmaresJugador>();
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+                    string query = @"SELECT p.id_jugador, 
+                                            p.titulos, 
+                                            j.nombre || ' ' || j.apellido AS nombreJugador
+                                     FROM palmaresGoleadores p
+                                     JOIN jugadores j ON j.id_jugador = p.id_jugador
+                                     ORDER BY titulos DESC";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        using (SQLiteDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                listadoPalmares.Add(new PalmaresJugador()
+                                {
+                                    // Usamos el operador de coalescencia nula para evitar la asignación de null
+                                    IdJugador = dr["id_jugador"] != DBNull.Value ? Convert.ToInt32(dr["id_jugador"]) : 0,
+                                    Titulos = dr["titulos"] != DBNull.Value ? Convert.ToInt32(dr["titulos"]) : 0,
+                                    NombreJugador = dr.GetString(dr.GetOrdinal("nombreJugador"))
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return listadoPalmares;
+        }
+
         // ===================================================================== Método para Mostrar el Historial de las Finales
         public List<HistorialFinales> MostrarHistorialFinales()
         {
@@ -452,6 +495,64 @@ namespace ChampionManager25.Datos
             return listadoHistorial;
         }
 
+        // ===================================================================== Método para Mostrar el Historial de la Bota de Oro
+        public List<HistorialJugador> MostrarPalmaresBotaOro()
+        {
+            List<HistorialJugador> listadoHistorial = new List<HistorialJugador>();
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+                    string query = @"SELECT 
+                                        h.temporada,
+                                        h.id_jugador_oro,
+                                        h.id_jugador_plata,
+                                        h.id_jugador_bronce,
+                                        oro.nombre || ' ' || oro.apellido AS jugador_oro,
+                                        plata.nombre || ' ' || plata.apellido AS jugador_plata,
+                                        bronce.nombre || ' ' || bronce.apellido AS jugador_bronce
+                                     FROM 
+                                        historial_maximoGoleador h
+                                     JOIN 
+                                        jugadores oro ON h.id_jugador_oro = oro.id_jugador
+                                     JOIN 
+                                        jugadores plata ON h.id_jugador_plata = plata.id_jugador
+                                     JOIN 
+                                        jugadores bronce ON h.id_jugador_bronce = bronce.id_jugador
+                                     ORDER BY 
+                                        h.temporada DESC";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        using (SQLiteDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                listadoHistorial.Add(new HistorialJugador()
+                                {
+                                    Temporada = dr["temporada"]?.ToString() ?? string.Empty,
+                                    IdJugadorOro = dr["id_jugador_oro"] != DBNull.Value ? Convert.ToInt32(dr["id_jugador_oro"]) : 0,
+                                    IdJugadorPlata = dr["id_jugador_plata"] != DBNull.Value ? Convert.ToInt32(dr["id_jugador_plata"]) : 0,
+                                    IdJugadorBronce = dr["id_jugador_bronce"] != DBNull.Value ? Convert.ToInt32(dr["id_jugador_bronce"]) : 0,
+                                    NombreJugadorOro = dr["jugador_oro"]?.ToString() ?? string.Empty,
+                                    NombreJugadorPlata = dr["jugador_plata"]?.ToString() ?? string.Empty,
+                                    NombreJugadorBronce = dr["jugador_bronce"]?.ToString() ?? string.Empty
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return listadoHistorial;
+        }
+
         // -------------------------------------------------------------------- Metodo que suma un titulo al jugador para el Balon de Oro
         public void AnadirTituloBalonOro(int jugador)
         {
@@ -493,6 +594,66 @@ namespace ChampionManager25.Datos
                 {
                     conn.Open();
                     string query = @"INSERT INTO historial_mejorJugador (temporada, id_jugador_oro, id_jugador_plata, id_jugador_bronce)
+                                     VALUES (@Temporada, @Oro, @Plata, @Bronce)";
+
+                    using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@Temporada", temporada);
+                        command.Parameters.AddWithValue("@Oro", oro);
+                        command.Parameters.AddWithValue("@Plata", plata);
+                        command.Parameters.AddWithValue("@Bronce", bronce);
+                        command.ExecuteNonQuery(); // Ejecutar la consulta de inserción
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                // En caso de error, mostrar el mensaje con la excepción
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // -------------------------------------------------------------------- Metodo que suma un titulo al jugador para la Bota de Oro
+        public void AnadirTituloBotaOro(int jugador)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Paso 1: Insertar si no existe
+                    string insertQuery = @"INSERT OR IGNORE INTO palmaresGoleadores (id_jugador, titulos) VALUES (@IdJugador, 0)";
+                    using (SQLiteCommand insertCmd = new SQLiteCommand(insertQuery, conn))
+                    {
+                        insertCmd.Parameters.AddWithValue("@IdJugador", jugador);
+                        insertCmd.ExecuteNonQuery();
+                    }
+
+                    // Paso 2: Sumar título
+                    string updateQuery = @"UPDATE palmaresGoleadores SET titulos = titulos + 1 WHERE id_jugador = @IdJugador";
+                    using (SQLiteCommand updateCmd = new SQLiteCommand(updateQuery, conn))
+                    {
+                        updateCmd.Parameters.AddWithValue("@IdJugador", jugador);
+                        updateCmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // -------------------------------------------------------------------- Metodo que agrega los 3 premiados al Bota de Oro, Plata y Bronce
+        public void AnadirPremiosMaximoGoleador(int temporada, int oro, int plata, int bronce)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+                    string query = @"INSERT INTO historial_maximoGoleador (temporada, id_jugador_oro, id_jugador_plata, id_jugador_bronce)
                                      VALUES (@Temporada, @Oro, @Plata, @Bronce)";
 
                     using (SQLiteCommand command = new SQLiteCommand(query, conn))

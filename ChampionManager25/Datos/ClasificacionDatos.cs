@@ -123,30 +123,41 @@ namespace ChampionManager25.Datos
         public List<Clasificacion> MostrarClasificacion(int competicion, int manager)
         {
             List<Clasificacion> clasificaciones = new List<Clasificacion>();
+
+            string tablaClasificacion;
+
+            // Determina la tabla según el valor de la competición
+            if (competicion == 1)
+                tablaClasificacion = "clasificacion";
+            else if (competicion == 2)
+                tablaClasificacion = "clasificacion2";
+            else
+                throw new ArgumentException("Competición no válida");
+
             try
             {
                 using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
-                    string query = @"SELECT ROW_NUMBER() OVER (ORDER BY c.puntos DESC, (c.goles_favor - c.goles_contra) DESC) AS Posicion,
-                                c.id_equipo AS IdEquipo,
-                                c.jugados AS Jugados,
-                                c.ganados AS Ganados,
-                                c.empatados AS Empatados,
-                                c.perdidos AS Perdidos,
-                                c.puntos AS Puntos,
-                                c.local_victorias AS LocalVictorias,
-                                c.local_derrotas AS LocalDerrotas,
-                                c.visitante_victorias AS VisitanteVictorias,
-                                c.visitante_derrotas AS VisitanteDerrotas,
-                                c.goles_favor AS GolesFavor,
-                                c.goles_contra AS GolesContra,
-                                c.racha AS Racha,
-                                e.nombre AS NombreEquipo
-                             FROM clasificacion c
-                             INNER JOIN equipos e ON c.id_equipo = e.id_equipo
-                             WHERE e.id_competicion = @competicion AND c.id_manager = @manager
-                             ORDER BY c.puntos DESC, (c.goles_favor - c.goles_contra) DESC";
+                    string query = $@"SELECT ROW_NUMBER() OVER (ORDER BY c.puntos DESC, (c.goles_favor - c.goles_contra) DESC) AS Posicion,
+                                               c.id_equipo AS IdEquipo,
+                                               c.jugados AS Jugados,
+                                               c.ganados AS Ganados,
+                                               c.empatados AS Empatados,
+                                               c.perdidos AS Perdidos,
+                                               c.puntos AS Puntos,
+                                               c.local_victorias AS LocalVictorias,
+                                               c.local_derrotas AS LocalDerrotas,
+                                               c.visitante_victorias AS VisitanteVictorias,
+                                               c.visitante_derrotas AS VisitanteDerrotas,
+                                               c.goles_favor AS GolesFavor,
+                                               c.goles_contra AS GolesContra,
+                                               c.racha AS Racha,
+                                               e.nombre AS NombreEquipo
+                                      FROM {tablaClasificacion} c
+                                      INNER JOIN equipos e ON c.id_equipo = e.id_equipo
+                                      WHERE e.id_competicion = @competicion AND c.id_manager = @manager
+                                      ORDER BY c.puntos DESC, (c.goles_favor - c.goles_contra) DESC";
 
                     using (SQLiteCommand command = new SQLiteCommand(query, conn))
                     {

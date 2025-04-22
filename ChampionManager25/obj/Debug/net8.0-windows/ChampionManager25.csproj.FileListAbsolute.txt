@@ -2203,3 +2203,7 @@ C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0
 C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\Recursos\img\entrenadores\52.png
 C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\UserControls\UC_Menu_Competicion_ResultadosCopa.g.cs
 C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\UserControls\UC_Menu_Competicion_ResultadosCopa.baml
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\Recursos\img\fondoResultados.png
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\Recursos\img\icons\maximoGoleador.png
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\Recursos\img\icons\mejorJugador.png
+C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\bin\Debug\net8.0-windows\Recursos\img\bannerBotaOro.png
