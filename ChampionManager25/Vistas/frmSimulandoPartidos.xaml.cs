@@ -107,7 +107,7 @@ namespace ChampionManager25.Vistas
                     // Generar los partidos de la siguiente ronda
                     GeneralCalendarioCopa(clasificados, ronda);
                 }
-                if (ronda > 4)
+                if (ronda > 5)
                 {
                     copaFinalizada = 1;
                 }
@@ -288,7 +288,7 @@ namespace ChampionManager25.Vistas
                     Jugador jugador = tarjeta.Item1;
                     string tipoTarjeta = tarjeta.Item2;
 
-                    // Comprobar cuantas amarillas tiene y si es multiplo de 2 se le aplica 1 partido de sancion
+                    // Comprobar cuantas amarillas tiene y si es multiplo de 5 se le aplica 1 partido de sancion
                     Estadistica statJugador = _logicaEstadisticas.MostrarEstadisticasJugador(jugador.IdJugador, _manager.IdManager);
 
                     if (tipoTarjeta == "amarilla" || tipoTarjeta == "dobleamarilla")
@@ -362,7 +362,7 @@ namespace ChampionManager25.Vistas
 
             // Asignar pesos basados en atributos y posición
             var pesosGoleadores = jugadoresNoPorteros.Select(j =>
-                (jugador: j, peso: (j.Remate * 1.5 + j.Tiro * 1.5 + j.Calidad) * (j.RolId >= 7 && j.RolId <= 10 ? 5 : 0.5)) // Aumentado a x5
+                (jugador: j, peso: (j.Remate * 1.5 + j.Tiro * 1.5 + j.Regate * 1.5 + j.Calidad) * (j.RolId >= 7 && j.RolId <= 10 ? 5 : 0.5)) // Aumentado a x5
             ).ToList();
 
             var pesosAsistentes = jugadoresNoPorteros.Select(j =>
@@ -549,7 +549,7 @@ namespace ChampionManager25.Vistas
             // Recorrer jugadores locales y visitantes
             foreach (var jugador in jugadoresLocal)
             {
-                if (random.Next(0, 51) == 13) // Generar número entre 0 y 50, si es 13 -> lesión
+                if (random.Next(0, 81) == 13) // Generar número entre 0 y 80, si es 13 -> lesión
                 {
                     lesionados.Add(jugador.IdJugador);
                 }
@@ -557,7 +557,7 @@ namespace ChampionManager25.Vistas
 
             foreach (var jugador in jugadoresVisitante)
             {
-                if (random.Next(0, 51) == 13)
+                if (random.Next(0, 81) == 13)
                 {
                     lesionados.Add(jugador.IdJugador);
                 }
@@ -606,48 +606,51 @@ namespace ChampionManager25.Vistas
         {
             if (golesLocal > golesVisitante)
             {
-                // Subir la moral y el estado de forma 5 puntos de los jugadores del equipo que gana y bajarla 5 puntos del equipo que pierde
+                // Subir la moral 1 punto del los jugadores que ganan y bajar 1 punto de los jugadores que pierden
+                // Bajar el estado de forma 1 punto de los jugadores que ganan y 2 puntos de los jugadores que pierden
                 foreach (var jugador in jugadoresLocal)
                 {
-                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 5, 5);
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 1, -1);
                 }
 
                 foreach (var jugador in jugadoresVisitante)
                 {
-                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, -5, -5);
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, -1, -2);
                 }
             }
             else if (golesLocal < golesVisitante)
             {
-                // Subir la moral y el estado de forma 5 puntos de los jugadores del equipo que gana y bajarla 5 puntos del equipo que pierde
+                // Subir la moral 1 punto del los jugadores que ganan y bajar 1 punto de los jugadores que pierden
+                // Bajar el estado de forma 1 punto de los jugadores que ganan y 2 puntos de los jugadores que pierden
                 foreach (var jugador in jugadoresVisitante)
                 {
-                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 5, 5);
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 1, -1);
                 }
 
                 foreach (var jugador in jugadoresLocal)
                 {
-                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, -5, -5);
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, -1, -2);
                 }
             }
             else
             {
-                // Subir la moral y el estado de forma 2 puntos de los jugadores de los equipos cuando empatan
+                // Subir la moral 1 punto del los jugadores que empatan
+                // Bajar el estado de forma 2 puntos de los jugadores que empatan
                 foreach (var jugador in jugadoresLocal)
                 {
-                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 2, 2);
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 1, -2);
                 }
 
                 foreach (var jugador in jugadoresVisitante)
                 {
-                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 2, 2);
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 1, -2);
                 }
             }
 
             // Subir la moral y el estado de forma de los jugadores que han marcado, asistido o han sido MVP
             foreach (var (goleador, asistente) in golesYAsistencias)
             {
-                _logicaJugador.ActualizarMoralEstadoForma(goleador.IdJugador, 3, 3);
+                _logicaJugador.ActualizarMoralEstadoForma(goleador.IdJugador, 2, 2);
                 if (asistente != null)
                 {
                     _logicaJugador.ActualizarMoralEstadoForma(asistente.IdJugador, 1, 1);
@@ -661,6 +664,17 @@ namespace ChampionManager25.Vistas
             // Limpiar la grid antes de cargar los nuevos partidos
             gridPartidos.Children.Clear();
 
+            // Limpiar las filas existentes
+            gridPartidos.RowDefinitions.Clear();
+
+            // Agregar x nuevas filas
+            for (int i = 0; i < partidos.Count; i++)
+            {
+                RowDefinition fila = new RowDefinition();
+                fila.Height = new GridLength(1, GridUnitType.Star); // Equivalente a Height="*"
+                gridPartidos.RowDefinitions.Add(fila);
+            }
+
             int indiceVisible = 0;
             for (int i = 0; i < partidos.Count; i++)
             {
@@ -673,8 +687,8 @@ namespace ChampionManager25.Vistas
                     equipoLocal = _logicaEquipo.ListarDetallesEquipo(partido.IdEquipoLocal);
                     equipoVisitante = _logicaEquipo.ListarDetallesEquipo(partido.IdEquipoVisitante);
 
-                    int row = indiceVisible % 15;
-                    int column = indiceVisible < 13 ? 0 : 1;
+                    int row = indiceVisible % 31;
+                    int column = indiceVisible < 29 ? 0 : 1;
 
                     // Determinar el color de fondo de la fila (alternar entre WhiteSmoke y LightGray)
                     Brush backgroundColor = (row % 2 == 0) ? Brushes.Gainsboro : Brushes.LightGray;
@@ -806,7 +820,7 @@ namespace ChampionManager25.Vistas
                 int idLocal = equiposMezclados[i].IdEquipo;
                 int idVisitante = equiposMezclados[i + 1].IdEquipo;
 
-                if (ronda < 4)
+                if (ronda < 5)
                 {
                     // Partido de ida
                     _logicaPartidos.crearPartidoCopa(idLocal, idVisitante, fechaIda.ToString("yyyy-MM-dd"), 4, ronda + 1, 0, _manager.IdManager);

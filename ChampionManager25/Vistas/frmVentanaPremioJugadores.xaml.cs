@@ -47,6 +47,7 @@ namespace ChampionManager25.Vistas
             string ruta_logo = _logicaCompeticion.ObtenerCompeticion(1).RutaImagen80;
             imgLogoCompeticion.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo));
 
+            // Balon de Oro
             imgFotoBalonOro.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + _listaBalonOro[0].RutaImagen));
             imgFotoBalonPlata.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + _listaBalonOro[1].RutaImagen));
             imgFotoBalonBronce.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + _listaBalonOro[2].RutaImagen));
@@ -58,9 +59,25 @@ namespace ChampionManager25.Vistas
             imgEquipoPlata.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + rutaEquipo2));
             imgEquipoBronce.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + rutaEquipo3));
 
-            txtNombreBalonOro.Text = $"{_listaBalonOro[0].Nombre} {_listaBalonOro[0].Apellido} - {_listaBalonOro[0].Valoracion}";
-            txtNombreBalonPlata.Text = $"{_listaBalonOro[1].Nombre} {_listaBalonOro[1].Apellido} - {_listaBalonOro[1].Valoracion}";
+            txtNombreBalonOro.Text = $"{_listaBalonOro[0].Nombre} {_listaBalonOro[0].Apellido} - {_listaBalonOro[0].Valoracion} puntos";
+            txtNombreBalonPlata.Text = $"{_listaBalonOro[1].Nombre} {_listaBalonOro[1].Apellido} - {_listaBalonOro[1].Valoracion} puntos puntos";
             txtNombreBalonBronce.Text = $"{_listaBalonOro[2].Nombre} {_listaBalonOro[2].Apellido} - {_listaBalonOro[2].Valoracion}";
+
+            // Bota de Oro
+            imgFotoBotaOro.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + _listaBotaOro[0].RutaImagen));
+            imgFotoBotaPlata.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + _listaBotaOro[1].RutaImagen));
+            imgFotoBotaBronce.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + _listaBotaOro[2].RutaImagen));
+
+            string rutaEquipoBota1 = _logicaEquipo.ListarDetallesEquipo(_listaBotaOro[0].IdEquipo).RutaImagen64;
+            string rutaEquipoBota2 = _logicaEquipo.ListarDetallesEquipo(_listaBotaOro[1].IdEquipo).RutaImagen64;
+            string rutaEquipoBota3 = _logicaEquipo.ListarDetallesEquipo(_listaBotaOro[2].IdEquipo).RutaImagen64;
+            imgEquipoBotaOro.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + rutaEquipoBota1));
+            imgEquipoBotaPlata.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + rutaEquipoBota2));
+            imgEquipoBotaBronce.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + rutaEquipoBota3));
+
+            txtNombreBotaOro.Text = $"{_listaBotaOro[0].Nombre} {_listaBotaOro[0].Apellido} - {_listaBotaOro[0].Valoracion} goles";
+            txtNombreBotaPlata.Text = $"{_listaBotaOro[1].Nombre} {_listaBotaOro[1].Apellido} - {_listaBotaOro[1].Valoracion} goles";
+            txtNombreBotaBronce.Text = $"{_listaBotaOro[2].Nombre} {_listaBotaOro[2].Apellido} - {_listaBotaOro[2].Valoracion} goles";
 
             ConfigurarDataGrid();
 

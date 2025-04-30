@@ -472,7 +472,7 @@ namespace ChampionManager25.UserControls
             dgPalmaresJugadores.Columns.Add(new DataGridTextColumn
             {
                 Binding = new System.Windows.Data.Binding("NombreJugadorOro"),
-                Header = "BALON DE ORO",
+                Header = "BOTA DE ORO",
                 Width = new DataGridLength(250, DataGridLengthUnitType.Pixel),
                 HeaderStyle = new Style(typeof(DataGridColumnHeader))
                 {
@@ -504,7 +504,7 @@ namespace ChampionManager25.UserControls
             dgPalmaresJugadores.Columns.Add(new DataGridTextColumn
             {
                 Binding = new System.Windows.Data.Binding("NombreJugadorPlata"),
-                Header = "BALON DE PLATA",
+                Header = "BOTA DE PLATA",
                 Width = new DataGridLength(250, DataGridLengthUnitType.Pixel),
                 HeaderStyle = new Style(typeof(DataGridColumnHeader))
                 {
@@ -536,7 +536,7 @@ namespace ChampionManager25.UserControls
             dgPalmaresJugadores.Columns.Add(new DataGridTextColumn
             {
                 Binding = new System.Windows.Data.Binding("NombreJugadorBronce"),
-                Header = "BALON DE BRONCE",
+                Header = "BOTA DE BRONCE",
                 Width = new DataGridLength(250, DataGridLengthUnitType.Pixel),
                 HeaderStyle = new Style(typeof(DataGridColumnHeader))
                 {

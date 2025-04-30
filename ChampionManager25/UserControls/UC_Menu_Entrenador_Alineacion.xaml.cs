@@ -151,7 +151,7 @@ namespace ChampionManager25.UserControls
             tactica = _logicaManager.MostrarManager(_manager.IdManager).Tactica;
         }
 
-        // --------------------------------------------------------------------------------- Evento CLICK del boton 4-2-2
+        // --------------------------------------------------------------------------------- Evento CLICK del boton 4-4-2
         private void btn442_Click(object sender, RoutedEventArgs e)
         {
             Metodos.ReproducirSonidoClick();
@@ -193,7 +193,7 @@ namespace ChampionManager25.UserControls
             btn433.IsEnabled = false;
             btn352.IsEnabled = true;
 
-            _logicaManager.CambiarTactica(_manager.IdManager, "4-4-3");
+            _logicaManager.CambiarTactica(_manager.IdManager, "4-3-3");
             tactica = _logicaManager.MostrarManager(_manager.IdManager).Tactica;
         }
 
@@ -940,7 +940,7 @@ namespace ChampionManager25.UserControls
                 ["5-3-2"] = new Dictionary<int, int> { { 1, 1 }, { 2, 4 }, { 3, 4 }, { 4, 4 }, { 5, 2 }, { 6, 3 }, { 7, 5 }, { 8, 6 }, { 9, 6 }, { 10, 10 }, { 11, 10 } },
                 ["4-5-1"] = new Dictionary<int, int> { { 1, 1 }, { 2, 4 }, { 3, 4 }, { 4, 2 }, { 5, 3 }, { 6, 5 }, { 7, 6 }, { 8, 6 }, { 9, 11 }, { 10, 12 }, { 11, 10 } },
                 ["4-4-2"] = new Dictionary<int, int> { { 1, 1 }, { 2, 4 }, { 3, 4 }, { 4, 2 }, { 5, 3 }, { 6, 5 }, { 7, 6 }, { 8, 6 }, { 9, 7 }, { 10, 10 }, { 11, 10 } },
-                ["4-4-3"] = new Dictionary<int, int> { { 1, 1 }, { 2, 4 }, { 3, 4 }, { 4, 2 }, { 5, 3 }, { 6, 5 }, { 7, 6 }, { 8, 6 }, { 9, 8 }, { 10, 9 }, { 11, 10 } },
+                ["4-3-3"] = new Dictionary<int, int> { { 1, 1 }, { 2, 4 }, { 3, 4 }, { 4, 2 }, { 5, 3 }, { 6, 5 }, { 7, 6 }, { 8, 6 }, { 9, 8 }, { 10, 9 }, { 11, 10 } },
                 ["3-5-2"] = new Dictionary<int, int> { { 1, 1 }, { 2, 4 }, { 3, 4 }, { 4, 4 }, { 5, 5 }, { 6, 6 }, { 7, 6 }, { 8, 11 }, { 9, 12 }, { 10, 10 }, { 11, 10 } }
             };
 

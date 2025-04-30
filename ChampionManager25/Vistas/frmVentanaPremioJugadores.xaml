@@ -19,7 +19,6 @@
             <RowDefinition Height="80"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="100"/>
-            <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
 
         <!-- BARRA SUPERIOR -->
@@ -57,7 +56,7 @@
         </Border>
 
         <!-- ÁREA PRINCIPAL -->
-        <Border Grid.Column="1" Grid.Row="1" Height="738" VerticalAlignment="Center" HorizontalAlignment="Center" Background="WhiteSmoke" Width="1358">
+        <Border Grid.Column="1" Grid.Row="1" Height="890" VerticalAlignment="Center" HorizontalAlignment="Center" Background="WhiteSmoke" Width="1358">
             <Border.Effect>
                 <DropShadowEffect Color="#FF23282D" 
                                   BlurRadius="10" 
@@ -65,19 +64,21 @@
                                   Direction="320" 
                                   Opacity="0.5"/>
             </Border.Effect>
-            <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="6" BorderBrush="#1d6a7d" BorderThickness="1" Margin="20">
+            <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="6" BorderBrush="#FF23282D" BorderThickness="1" Margin="20">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"/>
-                        <RowDefinition Height="200"/>
+                        <RowDefinition Height="180"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="180"/>
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     
-                    <Border Background="#1d6a7d" Grid.Column="0" Grid.Row="0">
+                    <Border Background="DarkGoldenrod" Grid.Column="0" Grid.Row="0">
                         <TextBlock Text="BALÓN DE ORO" HorizontalAlignment="Center" VerticalAlignment="Center" 
                                    FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
                     </Border>
@@ -101,7 +102,7 @@
                             </Grid.RowDefinitions>
 
                             <!-- Separador -->
-                            <Image Grid.Column="0" Grid.Row="0" Height="128" Width="128" HorizontalAlignment="Center" VerticalAlignment="Center"
+                            <Image Grid.Column="0" Grid.Row="0" Height="64" Width="64" HorizontalAlignment="Center" VerticalAlignment="Center"
                                    Source="/Recursos/img/icons/balon-de-oro.png" />
 
                             <Image x:Name="imgFotoBalonOro" Grid.Column="1" Grid.Row="0" Height="100" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -112,7 +113,7 @@
                                        FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
 
                             <!-- Separador -->
-                            <Image Grid.Column="3" Grid.Row="0" Height="128" Width="128" HorizontalAlignment="Center" VerticalAlignment="Center"
+                            <Image Grid.Column="3" Grid.Row="0" Height="64" Width="64" HorizontalAlignment="Center" VerticalAlignment="Center"
                                    Source="/Recursos/img/icons/balon-de-plata.png" />
 
                             <Image x:Name="imgFotoBalonPlata" Grid.Column="4" Grid.Row="0" Height="100" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -123,7 +124,7 @@
                                        FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
 
                             <!-- Separador -->
-                            <Image Grid.Column="6" Grid.Row="0" Height="128" Width="128" HorizontalAlignment="Center" VerticalAlignment="Center"
+                            <Image Grid.Column="6" Grid.Row="0" Height="64" Width="64" HorizontalAlignment="Center" VerticalAlignment="Center"
                                    Source="/Recursos/img/icons/balon-de-bronce.png" />
 
                             <Image x:Name="imgFotoBalonBronce" Grid.Column="7" Grid.Row="0" Height="100" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -135,12 +136,70 @@
                         </Grid>
                     </Border>
 
-                    <Border Background="#1d6a7d" Grid.Column="0" Grid.Row="2">
+                    <Border Background="DarkGoldenrod" Grid.Column="0" Grid.Row="2">
+                        <TextBlock Text="BOTA DE ORO" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                    </Border>
+
+                    <Border Grid.Column="0" Grid.Row="3" Margin="10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="70"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="30"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Separador -->
+                            <Image Grid.Column="0" Grid.Row="0" Height="64" Width="64" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Source="/Recursos/img/icons/bota-de-oro.png" />
+
+                            <Image x:Name="imgFotoBotaOro" Grid.Column="1" Grid.Row="0" Height="100" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+                            <Image x:Name="imgEquipoBotaOro" Grid.Column="2" Grid.Row="0" Height="64" Width="64" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+
+                            <TextBlock x:Name="txtNombreBotaOro" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+
+                            <!-- Separador -->
+                            <Image Grid.Column="3" Grid.Row="0" Height="64" Width="64" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Source="/Recursos/img/icons/bota-de-plata.png" />
+
+                            <Image x:Name="imgFotoBotaPlata" Grid.Column="4" Grid.Row="0" Height="100" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+                            <Image x:Name="imgEquipoBotaPlata" Grid.Column="5" Grid.Row="0" Height="64" Width="64" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+
+                            <TextBlock x:Name="txtNombreBotaPlata" Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="3" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+
+                            <!-- Separador -->
+                            <Image Grid.Column="6" Grid.Row="0" Height="64" Width="64" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Source="/Recursos/img/icons/bota-de-bronce.png" />
+
+                            <Image x:Name="imgFotoBotaBronce" Grid.Column="7" Grid.Row="0" Height="100" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+                            <Image x:Name="imgEquipoBotaBronce" Grid.Column="8" Grid.Row="0" Height="64" Width="64" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+
+                            <TextBlock x:Name="txtNombreBotaBronce" Grid.Column="6" Grid.Row="1" Grid.ColumnSpan="3" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                        </Grid>
+                    </Border>
+
+                    <Border Background="#1d6a7d" Grid.Column="0" Grid.Row="4">
                         <TextBlock Text="MEJOR 11 DE LA TEMPORADA" HorizontalAlignment="Center" VerticalAlignment="Center" 
                                    FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
                     </Border>
 
-                    <Border Grid.Column="0" Grid.Row="3" Margin="20">
+                    <Border Grid.Column="0" Grid.Row="5" Margin="20">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -151,7 +210,7 @@
                             <WrapPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <DataGrid x:Name="dgMejorOnce" IsReadOnly="True" AutoGenerateColumns="False"
                                           GridLinesVisibility="None" FontFamily="Cascadia Code Light" FontSize="16" DockPanel.Dock="Top" 
-                                          Height="385" Cursor="Hand" Width="1150" LoadingRow="dg_LoadingRow" />
+                                          Height="370" Cursor="Hand" Width="1150" LoadingRow="dg_LoadingRow" />
                             </WrapPanel>
                         </Grid>
                     </Border>

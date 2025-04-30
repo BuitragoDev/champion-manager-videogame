@@ -57,7 +57,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="100"/>
+                            <RowDefinition Height="60"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
@@ -86,18 +86,24 @@
                         </Border>
 
                         <!-- Área con los partidos -->
-                        <Border Grid.Row="1" Width="1300" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Center"
-                                BorderBrush="DarkRed" BorderThickness="1" Margin="0,20,0,0">
-                            <Grid x:Name="gridPartidos" Margin="0,0,0,-1">
+                        <Border Grid.Row="1" Width="1400" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Center"
+                                BorderBrush="DarkRed" BorderThickness="1" Margin="0,10,0,10">
+                            <Grid x:Name="gridPartidos" Margin="0,0,0,0">
                                 <!-- Dos columnas para repartir los partidos -->
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
-                                    <!-- Primera columna de partidos -->
                                     <ColumnDefinition Width="*"/>
-                                    <!-- Segunda columna de partidos -->
                                 </Grid.ColumnDefinitions>
                                 <!-- Nueve filas -->
                                 <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>

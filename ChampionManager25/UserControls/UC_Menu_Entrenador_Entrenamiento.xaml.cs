@@ -2,6 +2,7 @@
 using ChampionManager25.Entidades;
 using ChampionManager25.Logica;
 using ChampionManager25.MisMetodos;
+using ChampionManager25.Vistas;
 using NAudio.Gui;
 using System;
 using System.Collections.Generic;
@@ -54,60 +55,61 @@ namespace ChampionManager25.UserControls
         private void btnPortero_Click(object sender, RoutedEventArgs e)
         {
             Metodos.ReproducirSonidoClick();
+
             // Actualizar Entrenamiento
-            _logicaJugador.EntrenarJugador(idJugadorSeleccionado, 1);
-            CargarEntrenamiento(idJugadorSeleccionado);
+            ComprobarEntrenamientosMaximos(idJugadorSeleccionado, 1);  
         }
 
         // ------------------------------------------------------------------------- Evento CLICK del boton entrenamiento ENTRADAS 
         private void btnEntradas_Click(object sender, RoutedEventArgs e)
         {
             Metodos.ReproducirSonidoClick();
+
             // Actualizar Entrenamiento
-            _logicaJugador.EntrenarJugador(idJugadorSeleccionado, 2);
-            CargarEntrenamiento(idJugadorSeleccionado);
+            ComprobarEntrenamientosMaximos(idJugadorSeleccionado, 2);
         }
 
         // ------------------------------------------------------------------------- Evento CLICK del boton entrenamiento REMATE
         private void btnRemate_Click(object sender, RoutedEventArgs e)
         {
             Metodos.ReproducirSonidoClick();
+
             // Actualizar Entrenamiento
-            _logicaJugador.EntrenarJugador(idJugadorSeleccionado, 3);
-            CargarEntrenamiento(idJugadorSeleccionado);
+            ComprobarEntrenamientosMaximos(idJugadorSeleccionado, 3);
         }
 
         // ------------------------------------------------------------------------- Evento CLICK del boton entrenamiento PASE
         private void btnPase_Click(object sender, RoutedEventArgs e)
         {
             Metodos.ReproducirSonidoClick();
+
             // Actualizar Entrenamiento
-            _logicaJugador.EntrenarJugador(idJugadorSeleccionado, 4);
-            CargarEntrenamiento(idJugadorSeleccionado);
+            ComprobarEntrenamientosMaximos(idJugadorSeleccionado, 4);
         }
 
         // ------------------------------------------------------------------------- Evento CLICK del boton entrenamiento REGATE
         private void btnRegate_Click(object sender, RoutedEventArgs e)
         {
             Metodos.ReproducirSonidoClick();
+
             // Actualizar Entrenamiento
-            _logicaJugador.EntrenarJugador(idJugadorSeleccionado, 5);
-            CargarEntrenamiento(idJugadorSeleccionado);
+            ComprobarEntrenamientosMaximos(idJugadorSeleccionado, 5);
         }
 
         // ------------------------------------------------------------------------- Evento CLICK del boton entrenamiento TIRO
         private void btnTiro_Click(object sender, RoutedEventArgs e)
         {
             Metodos.ReproducirSonidoClick();
+
             // Actualizar Entrenamiento
-            _logicaJugador.EntrenarJugador(idJugadorSeleccionado, 6);
-            CargarEntrenamiento(idJugadorSeleccionado);
+            ComprobarEntrenamientosMaximos(idJugadorSeleccionado, 6);
         }
 
         // ------------------------------------------------------------------------- Evento CLICK del boton entrenamiento SIN ENTRENAMIENTO
         private void btnNoEntrenar_Click(object sender, RoutedEventArgs e)
         {
             Metodos.ReproducirSonidoClick();
+
             // Actualizar Entrenamiento
             _logicaJugador.EntrenarJugador(idJugadorSeleccionado, 0);
             CargarEntrenamiento(idJugadorSeleccionado);
@@ -322,6 +324,34 @@ namespace ChampionManager25.UserControls
                     txtTipoEntrenamiento.Text = "";
                     imgEntrenamiento.Source = new BitmapImage(new Uri($"pack://application:,,,/Recursos/img/sinEntrenamiento.png"));
                     break;
+            }
+        }
+
+        private void ComprobarEntrenamientosMaximos(int idJugadorSeleccionado, int tipo)
+        {
+            List<Jugador> jugadoresEquipo = _logicaJugador.ListadoJugadoresCompleto(_equipo);
+            int contador = 0;
+            foreach (var jugador in jugadoresEquipo)
+            {
+                if (jugador.Entrenamiento > 0 && jugador.IdJugador != idJugadorSeleccionado)
+                {
+                    contador++;
+                }
+            }
+
+            if (contador >= 5)
+            {
+                // Mostrar mensaje
+                string titulo = "INFORMACIÓN";
+                string mensaje = "Ya tienes el máximo de jugadores entrenando. Si quieres entrenar a este jugador debes quitarle el entrenamiento a otro jugador para dejar a su preparador físico libre.";
+                frmVentanaEmergenteDosBotones ventanaLimiteAlcanzado = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
+                ventanaLimiteAlcanzado.ShowDialog();
+            }
+            else
+            {
+                // Actualizar Entrenamiento
+                _logicaJugador.EntrenarJugador(idJugadorSeleccionado, tipo);
+                CargarEntrenamiento(idJugadorSeleccionado);
             }
         }
         #endregion

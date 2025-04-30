@@ -30,7 +30,7 @@ namespace ChampionManager25.UserControls
         private int rondaActual = 1;
         private int vueltaActual = 0;
         private const int rondaMin = 1;
-        private const int rondaMax = 5;
+        private const int rondaMax = 6;
         private const int vueltaMin = 0;
         private const int vueltaMax = 1;
         int miCompeticion;
@@ -122,8 +122,8 @@ namespace ChampionManager25.UserControls
         {
             Metodos.ReproducirSonidoClick();
 
-            // 🚫 Si ya estás en la Final (ronda 5) y en la ida (0), no avanzar más
-            if (rondaActual == 5 && vueltaActual == 0)
+            // 🚫 Si ya estás en la Final (ronda 6) y en la ida (0), no avanzar más
+            if (rondaActual == 6 && vueltaActual == 0)
                 return;
 
             // Primero intenta avanzar la vuelta
@@ -173,25 +173,30 @@ namespace ChampionManager25.UserControls
                 // Determinar en qué fila y columna colocar el partido
                 if (rondaActual == 1)
                 {
+                    row = i % 16;
+                    column = i < 16 ? 0 : 1;
+                }
+                else if (rondaActual == 2)
+                {
                     row = i % 8;
                     column = i < 8 ? 0 : 1;
                 }
-                else if (rondaActual == 2)
+                else if (rondaActual == 3)
                 {
                     row = i % 4;
                     column = i < 4 ? 0 : 1;
                 }
-                else if (rondaActual == 3)
+                else if (rondaActual == 4)
                 {
                     row = i % 2;
                     column = i < 2 ? 0 : 1;
                 }
-                else if (rondaActual == 4)
+                else if (rondaActual == 5)
                 {
                     row = i % 1;
                     column = i < 1 ? 0 : 1;
                 }
-                else if (rondaActual == 5)
+                else if (rondaActual == 6)
                 {
                     row = 0;
                     column = 0;
@@ -211,29 +216,17 @@ namespace ChampionManager25.UserControls
 
                 Grid.SetRow(rowBackground, row);
                 Grid.SetColumn(rowBackground, column);
-                if (rondaActual == 5) Grid.SetColumnSpan(rowBackground, 2); // aplicar span en final
+                if (rondaActual == 6) Grid.SetColumnSpan(rowBackground, 2); // aplicar span en final
                 gridPartidos.Children.Add(rowBackground);
 
                 // Crear un Grid para cada partido dentro de su celda
                 Grid partidoGrid = new Grid();
-                if (rondaActual == 5)
-                {
-                    partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(100) });  // Escudo local
-                    partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(440) }); // Nombre local
-                    partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(100) });  // Goles local
-                    partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(100) });  // Escudo visitante
-                    partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(440) }); // Nombre visitante
-                    partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(100) });  // Goles visitante
-                }
-                else
-                {
-                    partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50) });  // Escudo local
-                    partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(220) }); // Nombre local
-                    partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50) });  // Goles local
-                    partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50) });  // Escudo visitante
-                    partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(220) }); // Nombre visitante
-                    partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50) });  // Goles visitante
-                }
+                partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50) });  // Escudo local
+                partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(245) }); // Nombre local
+                partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50) });  // Goles local
+                partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50) });  // Escudo visitante
+                partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(245) }); // Nombre visitante
+                partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50) });  // Goles visitante
 
                 // Escudo equipo local
                 equipo = _logicaEquipo.ListarDetallesEquipo(partido.IdEquipoLocal);

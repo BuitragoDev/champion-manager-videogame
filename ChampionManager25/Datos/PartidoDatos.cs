@@ -1233,7 +1233,7 @@ namespace ChampionManager25.Datos
                                             goles_visitante,
                                             id_competicion
                                      FROM partidos_copaNacional
-                                     WHERE id_ronda = 5";
+                                     WHERE id_ronda = 6";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                     {

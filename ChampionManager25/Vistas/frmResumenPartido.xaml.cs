@@ -29,6 +29,8 @@ namespace ChampionManager25.Vistas
         Equipo equipoLocal;
         Equipo equipoVisitante;
 
+        public int copaFinalizada = 0;
+
         private static Random random = new Random(); //Random global
         private static MediaPlayer mediaPlayer = new MediaPlayer();
         #endregion
@@ -108,6 +110,16 @@ namespace ChampionManager25.Vistas
 
             // Simular partido
             SimularPartido(_partido);
+
+            // Comprobar si es la final de Copa
+            if (_partido.IdCompeticion == 4)
+            {
+                int ronda = _partido.Ronda ?? 0; // Ronda de Copa
+                if (ronda > 5)
+                {
+                    copaFinalizada = 1;
+                }
+            }
 
             imgBotonCerrar.IsEnabled = true;
         }
@@ -344,7 +356,7 @@ namespace ChampionManager25.Vistas
 
                     if (tipoTarjeta == "amarilla" || tipoTarjeta == "dobleamarilla")
                     {
-                        if (statJugador.TarjetasAmarillas % 2 == 0)
+                        if (statJugador.TarjetasAmarillas % 5 == 0)
                         {
                             _logicaJugador.PonerJugadorSancionado(jugador.IdJugador, 1);
 
@@ -446,7 +458,7 @@ namespace ChampionManager25.Vistas
 
             // Asignar pesos basados en atributos y posición
             var pesosGoleadores = jugadoresNoPorteros.Select(j =>
-                (jugador: j, peso: (j.Remate * 1.5 + j.Tiro * 1.5 + j.Calidad) * (j.RolId >= 7 && j.RolId <= 10 ? 5 : 0.5)) // Aumentado a x5
+                (jugador: j, peso: (j.Remate * 1.5 + j.Tiro * 1.5 + j.Regate * 1.5 + j.Calidad) * (j.RolId >= 7 && j.RolId <= 10 ? 5 : 0.5)) // Aumentado a x5
             ).ToList();
 
             var pesosAsistentes = jugadoresNoPorteros.Select(j =>
@@ -642,7 +654,7 @@ namespace ChampionManager25.Vistas
             // Recorrer jugadores locales y visitantes
             foreach (var jugador in jugadoresLocal)
             {
-                if (random.Next(0, 51) == 13) // Generar número entre 0 y 50, si es 13 -> lesión
+                if (random.Next(0, 81) == 13) // Generar número entre 0 y 80, si es 13 -> lesión
                 {
                     lesionados.Add(jugador.IdJugador);
                 }
@@ -650,7 +662,7 @@ namespace ChampionManager25.Vistas
 
             foreach (var jugador in jugadoresVisitante)
             {
-                if (random.Next(0, 51) == 13)
+                if (random.Next(0, 81) == 13)
                 {
                     lesionados.Add(jugador.IdJugador);
                 }
@@ -701,6 +713,9 @@ namespace ChampionManager25.Vistas
             int rankingMiEquipo = ObtenerPuestoEquipo(miEquipo, 1, _manager.IdManager);
             int rankingRival = ObtenerPuestoEquipo(rival, 1, _manager.IdManager);
 
+            // Obtener el rival historico de mi equipo
+            int rivalidad = _logicaEquipo.ListarDetallesEquipo(miEquipo).Rival;
+
             // Base de confianza (valores iniciales)
             int cambioDirectiva = 0;
             int cambioFans = 0;
@@ -724,6 +739,14 @@ namespace ChampionManager25.Vistas
                     cambioFans = 3;
                     cambioJugadores = 3;
                 }
+
+                if (rival == rivalidad) // Ganamos contra el rival historico
+                {
+                    cambioDirectiva += 20;
+                    cambioFans += 20;
+                    cambioJugadores += 20;
+                }
+
                 // Actualizar tabla managers
                 _logicaManager.ActualizarResultadoManager(_manager.IdManager, 1, 1, 0, 0, 5);
 
@@ -753,6 +776,14 @@ namespace ChampionManager25.Vistas
                     cambioFans = -5;
                     cambioJugadores = -4;
                 }
+
+                if (rival == rivalidad) // Perdemos contra el rival historico
+                {
+                    cambioDirectiva -= 10;
+                    cambioFans -= 10;
+                    cambioJugadores -= 5;
+                }
+
                 // Actualizar tabla managers
                 _logicaManager.ActualizarResultadoManager(_manager.IdManager, 1, 0, 0, 1, 0);
 
@@ -815,10 +846,13 @@ namespace ChampionManager25.Vistas
                 }
             }
 
-            // Limitar los cambios de confianza a un máximo de 5 por partido
-            cambioDirectiva = Math.Clamp(cambioDirectiva, -5, 5);
-            cambioFans = Math.Clamp(cambioFans, -5, 5);
-            cambioJugadores = Math.Clamp(cambioJugadores, -5, 5);
+            if (rival != rivalidad) 
+            {
+                // Limitar los cambios de confianza a un máximo de 5 por partido
+                cambioDirectiva = Math.Clamp(cambioDirectiva, -5, 5);
+                cambioFans = Math.Clamp(cambioFans, -5, 5);
+                cambioJugadores = Math.Clamp(cambioJugadores, -5, 5);
+            }
 
             // Actualizar la confianza en la base de datos
             _logicaManager.ActualizarConfianza(_manager.IdManager, cambioDirectiva, cambioFans, cambioJugadores);
@@ -839,48 +873,51 @@ namespace ChampionManager25.Vistas
         {
             if (golesLocal > golesVisitante)
             {
-                // Subir la moral y el estado de forma 5 puntos de los jugadores del equipo que gana y bajarla 5 puntos del equipo que pierde
+                // Subir la moral 1 punto del los jugadores que ganan y bajar 1 punto de los jugadores que pierden
+                // Bajar el estado de forma 1 punto de los jugadores que ganan y 2 puntos de los jugadores que pierden
                 foreach (var jugador in jugadoresLocal)
                 {
-                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 5, 5);
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 1, -1);
                 }
 
                 foreach (var jugador in jugadoresVisitante)
                 {
-                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, -5, -5);
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, -1, -2);
                 }
             } 
             else if (golesLocal < golesVisitante)
             {
-                // Subir la moral y el estado de forma 5 puntos de los jugadores del equipo que gana y bajarla 5 puntos del equipo que pierde
+                // Subir la moral 1 punto del los jugadores que ganan y bajar 1 punto de los jugadores que pierden
+                // Bajar el estado de forma 1 punto de los jugadores que ganan y 2 puntos de los jugadores que pierden
                 foreach (var jugador in jugadoresVisitante)
                 {
-                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 5, 5);
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 1, -1);
                 }
 
                 foreach (var jugador in jugadoresLocal)
                 {
-                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, -5, -5);
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, -1, -2);
                 }
             } 
             else
             {
-                // Subir la moral y el estado de forma 2 puntos de los jugadores de los equipos cuando empatan
+                // Subir la moral 1 punto del los jugadores que empatan
+                // Bajar el estado de forma 2 puntos de los jugadores que empatan
                 foreach (var jugador in jugadoresLocal)
                 {
-                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 2, 2);
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 1, -2);
                 }
 
                 foreach (var jugador in jugadoresVisitante)
                 {
-                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 2, 2);
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 1, -2);
                 }
             }
 
             // Subir la moral y el estado de forma de los jugadores que han marcado, asistido o han sido MVP
             foreach (var (goleador, asistente) in golesYAsistencias)
             {
-                _logicaJugador.ActualizarMoralEstadoForma(goleador.IdJugador, 3, 3);
+                _logicaJugador.ActualizarMoralEstadoForma(goleador.IdJugador, 2, 2);
                 if (asistente != null)
                 {
                     _logicaJugador.ActualizarMoralEstadoForma(asistente.IdJugador, 1, 1);

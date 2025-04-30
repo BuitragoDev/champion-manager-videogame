@@ -115,14 +115,17 @@ namespace ChampionManager25.UserControls
 
             if (miPartido != null && miPartido.FechaPartido == Metodos.hoy)
             {
-                // Comprobamos si hay jugadores lesionados o sancionados en la alineacion titular
-                List<Jugador> alineacion = _logicaJugador.MostrarAlineacion(1, 11);
                 int cont = 0;
-                foreach (var jugador in alineacion)
-                {
-                    if (jugador.Lesion > 0 || jugador.Sancionado > 0)
+                if (miPartido.IdCompeticion != 4){
+                    // Comprobamos si hay jugadores lesionados o sancionados en la alineacion titular en partidos de Liga
+                    List<Jugador> alineacion = _logicaJugador.MostrarAlineacion(1, 11);
+
+                    foreach (var jugador in alineacion)
                     {
-                        cont++;
+                        if (jugador.Lesion > 0 || jugador.Sancionado > 0)
+                        {
+                            cont++;
+                        }
                     }
                 }
 
@@ -139,6 +142,13 @@ namespace ChampionManager25.UserControls
                     // Cargar Pantalla de Simulacion de MI PARTIDO
                     frmResumenPartido ventanaResumenPartido = new frmResumenPartido(_manager, _equipo, miPartido);
                     ventanaResumenPartido.ShowDialog();
+
+                    if (ventanaResumenPartido.copaFinalizada == 1)
+                    {
+                        // Cargar Pantalla de Final de Copa
+                        frmResumenCopaNacional ventanaResumenCopaNacional = new frmResumenCopaNacional(_manager, _equipo);
+                        ventanaResumenCopaNacional.ShowDialog();
+                    }
 
                     // Comprobamos si hay otros partidos hoy
                     List<Partido> listaPartidos = _logicaPartidos.PartidosHoy(_equipo, _manager.IdManager);
@@ -446,6 +456,10 @@ namespace ChampionManager25.UserControls
                             _logicaPartidos.GenerarCalendario(temporadaActual, _manager.IdManager, 1);
                             _logicaPartidos.GenerarCalendario(temporadaActual, _manager.IdManager, 2);
 
+                            // Generar el calendario de Copa nacional
+                            List<Equipo> listaEquipos = _logicaEquipo.ListarTodosLosEquipos();
+                            GeneralCalendarioCopa(listaEquipos);
+
                             // Generar las clasificaciones
                             _logicaClasificacion.RellenarClasificacion(1, _manager.IdManager);
                             _logicaClasificacion.RellenarClasificacion2(2, _manager.IdManager);
@@ -542,7 +556,7 @@ namespace ChampionManager25.UserControls
             UC_Menu_Club_Informacion clubInformacion = new UC_Menu_Club_Informacion(_manager, _equipo);
             DockPanel_Central.Children.Add(clubInformacion);
         }
-        // ------------------------------------------------------------------------------------------------------------
+        // ---------------------------------------------------------------------------------------------------------------
 
         // ----------------------------------------------------------------------------- Evento CLICK del botón ENTRENADOR
         private void imgEntrenador_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -954,6 +968,60 @@ namespace ChampionManager25.UserControls
                     }
                 }
             }
+        }
+
+        private void GeneralCalendarioCopa(List<Equipo> listaEquipos)
+        {
+            GenerarTreintaidosavosCopa(listaEquipos, Metodos.temporadaActual, _manager.IdManager, 4);
+        }
+
+        public void GenerarTreintaidosavosCopa(List<Equipo> equiposCopa, int temporada, int idManager, int idCompeticionCopa)
+        {
+            if (equiposCopa.Count != 64)
+                throw new ArgumentException("Deben ser exactamente 64 equipos para los dieciseisavos de final.");
+
+            // Mezclar aleatoriamente
+            Random rnd = new Random();
+            var equiposMezclados = equiposCopa.OrderBy(e => rnd.Next()).ToList();
+
+            // Fechas de ida y vuelta
+            DateTime fechaIda = ObtenerPrimerMiercolesSeptiembre(temporada);
+            DateTime fechaVuelta = fechaIda.AddDays(14);
+
+            // Crear los emparejamientos
+            for (int i = 0; i < equiposMezclados.Count; i += 2)
+            {
+                int idLocal = equiposMezclados[i].IdEquipo;
+                int idVisitante = equiposMezclados[i + 1].IdEquipo;
+
+                // Partido de ida
+                _logicaPartidos.crearPartidoCopa(idLocal, idVisitante, fechaIda.ToString("yyyy-MM-dd"), idCompeticionCopa, 1, 0, idManager);
+
+                // Partido de vuelta (se invierte local/visitante)
+                _logicaPartidos.crearPartidoCopa(idVisitante, idLocal, fechaVuelta.ToString("yyyy-MM-dd"), idCompeticionCopa, 1, 1, idManager);
+            }
+        }
+
+        public static DateTime ObtenerPrimerMiercolesSeptiembre(int anio)
+        {
+            DateTime fecha = new DateTime(anio, 9, 1);
+            int miercolesEncontrados = 0;
+
+            while (fecha.Month == 9)
+            {
+                if (fecha.DayOfWeek == DayOfWeek.Wednesday)
+                {
+                    miercolesEncontrados++;
+                    if (miercolesEncontrados == 1)
+                    {
+                        return fecha;
+                    }
+                }
+
+                fecha = fecha.AddDays(1);
+            }
+
+            throw new Exception("No se encontró el tercer sábado de agosto.");
         }
         #endregion
     }

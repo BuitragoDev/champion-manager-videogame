@@ -86,9 +86,9 @@
                         </Border>
 
                         <!-- Área con los partidos -->
-                        <Border Grid.Row="1" Width="1300" Height="460" VerticalAlignment="Top" HorizontalAlignment="Center"
+                        <Border Grid.Row="1" Width="1400" Height="460" VerticalAlignment="Top" HorizontalAlignment="Center"
                                 BorderBrush="#1d6a7d" BorderThickness="1" Margin="0,50,0,0">
-                            <Grid x:Name="gridPartidos" Margin="0,0,0,-1">
+                            <Grid x:Name="gridPartidos" Margin="0,0,0,0">
                                 <!-- Dos columnas para repartir los partidos -->
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>

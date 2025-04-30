@@ -282,30 +282,13 @@ namespace ChampionManager25.UserControls
 
         private void GeneralCalendarioCopa(List<Equipo> listaEquipos)
         {
-            // 1. Obtener los 20 equipos de la competición 1
-            List<Equipo> equiposComp1 = listaEquipos
-                .Where(e => e.IdCompeticion == 1)
-                .Take(20)
-                .ToList(); // Asegúrate de que hay al menos 20
-
-            // 2. Obtener 12 equipos aleatorios de la competición 2
-            Random rnd = new Random();
-            List<Equipo> equiposComp2 = listaEquipos
-                .Where(e => e.IdCompeticion == 2)
-                .OrderBy(e => rnd.Next())
-                .Take(12)
-                .ToList(); // Asegúrate de que hay al menos 12
-
-            // 3. Unir los dos grupos
-            List<Equipo> equiposSeleccionados = equiposComp1.Concat(equiposComp2).ToList();
-
-            GenerarDieciseisavosCopa(equiposSeleccionados, Metodos.temporadaActual, _manager.IdManager, 4);
+            GenerarTreintaidosavosCopa(listaEquipos, Metodos.temporadaActual, _manager.IdManager, 4);
         }
 
-        public void GenerarDieciseisavosCopa(List<Equipo> equiposCopa, int temporada, int idManager, int idCompeticionCopa)
+        public void GenerarTreintaidosavosCopa(List<Equipo> equiposCopa, int temporada, int idManager, int idCompeticionCopa)
         {
-            if (equiposCopa.Count != 32)
-                throw new ArgumentException("Deben ser exactamente 32 equipos para los dieciseisavos de final.");
+            if (equiposCopa.Count != 64)
+                throw new ArgumentException("Deben ser exactamente 64 equipos para los dieciseisavos de final.");
 
             // Mezclar aleatoriamente
             Random rnd = new Random();

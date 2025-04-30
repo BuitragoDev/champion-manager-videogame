@@ -132,10 +132,10 @@ namespace ChampionManager25.UserControls
                 // Crear un Grid para cada partido dentro de su celda
                 Grid partidoGrid = new Grid();
                 partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50) });  // Escudo local
-                partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(220) }); // Nombre local
+                partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(245) }); // Nombre local
                 partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50) });  // Goles local
                 partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50) });  // Escudo visitante
-                partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(220) }); // Nombre visitante
+                partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(245) }); // Nombre visitante
                 partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50) });  // Goles visitante
 
                 // Escudo equipo local
