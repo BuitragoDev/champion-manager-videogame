@@ -104,7 +104,7 @@ namespace ChampionManager25.Datos
                 using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
-                    string query = @"SELECT id_equipo, nombre, nombre_corto, presidente, ciudad, estadio, aforo, reputacion, objetivo, rival, id_competicion,
+                    string query = @"SELECT id_equipo, nombre, nombre_corto, presidente, presupuesto, ciudad, estadio, aforo, reputacion, objetivo, rival, id_competicion,
                                             ruta_imagen, ruta_imagen120, ruta_imagen80, ruta_imagen64, ruta_imagen32, 
                                             ruta_estadio_interior, ruta_estadio_exterior, ruta_kit_local, ruta_kit_visitante
                                      FROM equipos WHERE id_equipo = @idEquipo";
@@ -123,6 +123,7 @@ namespace ChampionManager25.Datos
                                 Nombre = dr["nombre"]?.ToString() ?? string.Empty,
                                 NombreCorto = dr["nombre_corto"]?.ToString() ?? string.Empty,
                                 Presidente = dr["presidente"]?.ToString() ?? string.Empty,
+                                Presupuesto = int.TryParse(dr["presupuesto"]?.ToString(), out int presupuesto) ? presupuesto : 0,
                                 Ciudad = dr["ciudad"]?.ToString() ?? string.Empty,
                                 Estadio = dr["estadio"]?.ToString() ?? string.Empty,
                                 Aforo = int.TryParse(dr["aforo"]?.ToString(), out int capacidad) ? capacidad : 0,
@@ -504,6 +505,90 @@ namespace ChampionManager25.Datos
             catch (SQLiteException ex)
             {
                 MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // ---------------------------------------------------------------- Método que resta una cantidad al Presupuesto
+        public void RestarCantidadAPresupuesto(int equipo, int cantidad)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Consulta SQL para obtener las finanzas del equipo
+                    string query = @"UPDATE equipos SET presupuesto = presupuesto - @Cantidad WHERE id_equipo = @IdEquipo";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        // Agregar parámetro para evitar inyección SQL
+                        cmd.Parameters.AddWithValue("@IdEquipo", equipo);
+                        cmd.Parameters.AddWithValue("@Cantidad", cantidad);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // ---------------------------------------------------------------- Método que suma una cantidad al Presupuesto
+        public void SumarCantidadAPresupuesto(int equipo, int cantidad)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Consulta SQL para obtener las finanzas del equipo
+                    string query = @"UPDATE equipos SET presupuesto = presupuesto + @Cantidad WHERE id_equipo = @IdEquipo";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        // Agregar parámetro para evitar inyección SQL
+                        cmd.Parameters.AddWithValue("@IdEquipo", equipo);
+                        cmd.Parameters.AddWithValue("@Cantidad", cantidad);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // ---------------------------------------------------------------- Método que actualiza el aforo de un estadio
+        public void ActualizarAforo(int equipo, int aumento)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Campos obligatorios
+                    string query = @"UPDATE equipos SET aforo = aforo + @Cantidad WHERE id_equipo = @IdEquipo";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        // Agregar parámetro para evitar inyección SQL
+                        cmd.Parameters.AddWithValue("@IdEquipo", equipo);
+                        cmd.Parameters.AddWithValue("@Cantidad", aumento);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al actualizar el equipo: " + ex.Message);
             }
         }
     }

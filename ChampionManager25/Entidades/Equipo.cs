@@ -13,6 +13,7 @@ namespace ChampionManager25.Entidades
         public string Nombre { get; set; }
         public string NombreCorto { get; set; }
         public string Presidente { get; set; }
+        public int Presupuesto { get; set; }
         public string Ciudad { get; set; }
         public string Estadio { get; set; }
         public int Aforo { get; set; }
@@ -38,7 +39,7 @@ namespace ChampionManager25.Entidades
         public Equipo() { }
 
         // Constructor con parámetros
-        public Equipo(int idEquipo, string nombre, string nombreCorto, string presidente, string ciudad,
+        public Equipo(int idEquipo, string nombre, string nombreCorto, string presidente, int presupuesto, string ciudad,
                       string estadio, int aforo, int reputacion, string objetivo, int rival, int idCompeticion, string rutaImagen,
                       string rutaImagen120, string rutaImagen80, string rutaImagen64, string rutaImagen32, string rutaEstadioInterior,
                       string rutaEstadioExterior, string rutaKitLocal, string rutaKitVisitante)
@@ -47,6 +48,7 @@ namespace ChampionManager25.Entidades
             Nombre = nombre;
             NombreCorto = nombreCorto;
             Presidente = presidente;
+            Presupuesto = presupuesto;
             Ciudad = ciudad;
             Estadio = estadio;
             Aforo = aforo;
@@ -69,7 +71,7 @@ namespace ChampionManager25.Entidades
         public override string ToString()
         {
             return $"Equipo: {Nombre} ({NombreCorto}) - Ciudad: {Ciudad}, Estadio: {Estadio} (Aforo: {Aforo}) - " +
-                   $"Presidente: {Presidente}, Reputación: {Reputacion}, " +
+                   $"Presidente: {Presidente}, Presupuesto: {Presupuesto}, Reputación: {Reputacion}, " +
                    $"Objetivo: {Objetivo}, Rival1: {Rival.ToString() ?? "N/A"}, Competición: {IdCompeticion}";
         }
     }

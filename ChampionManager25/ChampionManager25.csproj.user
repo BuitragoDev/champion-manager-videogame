@@ -50,7 +50,13 @@
     <Compile Update="UserControls\UC_Menu_Club.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\UC_Menu_Club_Empleados.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\UC_Menu_Club_Informacion.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Club_Lesionados.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControls\UC_Menu_Club_Plantilla.xaml.cs">
@@ -101,7 +107,31 @@
     <Compile Update="UserControls\UC_Menu_Estadio.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\UC_Menu_Estadio_Ampliaciones.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Estadio_Entradas.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\UC_Menu_Estadio_Informacion.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Finanzas.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Finanzas_DerechosTV.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Finanzas_Gastos.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Finanzas_Ingresos.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Finanzas_Patrocinadores.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Finanzas_Prestamos.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControls\UC_Menu_Home.xaml.cs">
@@ -117,6 +147,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControls\UC_Menu_Manager_Palmares.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Transferencias.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Transferencias_Cartera.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Transferencias_Mercado.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControls\UC_PantallaCarga.xaml.cs">
@@ -140,7 +179,19 @@
     <Compile Update="UserControls\UC_SeleccionEquipo.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Vistas\frmListaDerechosTelevision.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Vistas\frmListaPatrocinadores.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Vistas\frmMenuOpciones.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Vistas\frmNegociacionesJugador.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Vistas\frmPonerEnMercado.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Vistas\frmResumenCopaNacional.xaml.cs">
@@ -158,10 +209,19 @@
     <Compile Update="Vistas\frmVentanaDespido.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Vistas\frmVentanaDespidoJugador.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Vistas\frmVentanaEmergenteDosBotones.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Vistas\frmVentanaEmergenteQuitarCartera.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Vistas\frmVentanaPremioJugadores.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Vistas\frmVentanaRenovarJugador.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Vistas\frmVerDetallesEquipo.xaml.cs">

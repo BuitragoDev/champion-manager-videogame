@@ -1,0 +1,157 @@
+﻿<UserControl x:Class="ChampionManager25.UserControls.UC_Menu_Club_Lesionados"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ChampionManager25.UserControls"
+             mc:Ignorable="d" d:DesignHeight="935" d:DesignWidth="1845" Loaded="UserControl_Loaded" >
+    <Grid Background="WhiteSmoke">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1845"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="935"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Column="0" Grid.Row="0" BorderBrush="DarkRed" BorderThickness="1" Margin="10">
+            <Grid Background="WhiteSmoke">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Column="0" Grid.Row="0" Background="DarkRed">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="300"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Background="DarkRed" Grid.Column="1" Grid.Row="0">
+                            <TextBlock Text="JEFE DE LOS SERVICIOS MÉDICOS" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="1" Margin="10">
+                    <Grid Background="WhiteSmoke">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="300"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="60"/>
+                        </Grid.RowDefinitions>
+
+                        <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Width="128" Height="128" VerticalAlignment="Center" 
+                               HorizontalAlignment="Center" Source="/Recursos/img/icons/enfermeria_icon.png" />
+
+                        <TextBlock x:Name="txtNombreMedico" Grid.Column="1" Grid.Row="0" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="Black" TextAlignment="Center"/>
+                        <DockPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="300">
+                            <Canvas x:Name="canvasEstrellas" Margin="65,0,0,0"/>
+                        </DockPanel>
+                        <TextBlock x:Name="txtNivelMedico" Grid.Column="1" Grid.Row="2" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" TextAlignment="Center"/>
+                    </Grid>
+                </Border>
+
+                <Border Background="DarkRed" Grid.Column="0" Grid.Row="2">
+                    <TextBlock Text="JUGADORES LESIONADOS" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                               FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="3">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="557"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Background="#FF23282D" Grid.Column="0" Grid.Row="0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="450"/>
+                                    <ColumnDefinition Width="700"/>
+                                    <ColumnDefinition Width="300"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Column="0" Grid.Row="0" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center" />
+                                <TextBlock Grid.Column="1" Grid.Row="0" Text="Jugador" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center" Margin="5,0,0,0"/>
+                                <TextBlock Grid.Column="2" Grid.Row="0" Text="Tipo de Lesión" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center" Margin="5,0,0,0"/>
+                                <TextBlock Grid.Column="3" Grid.Row="0" Text="Semanas" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                           FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center" Margin="5,0,0,0"/>
+                            </Grid>
+                        </Border>
+
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="0" Grid.Row="1" VerticalAlignment="Top" Height="516">
+                            <WrapPanel x:Name="wrapJugadores" VerticalAlignment="Top" />
+                        </ScrollViewer>
+
+                        <Button x:Name="btnTratarLesion" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                Height="50" Width="1804" FontFamily="Cascadia Code SemiBold" FontSize="24" Cursor="Hand" IsEnabled="False" Click="btnTratarLesion_Click">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <!-- Configuración inicial -->
+                                    <Setter Property="Background" Value="DarkRed"/>
+                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Cursor" Value="Hand"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}"
+                                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                        <!-- Imagen de la flecha -->
+                                                        <Image Source="/Recursos/img/icons/cruzblanca_icon.png" Height="32" Width="32" VerticalAlignment="Center" Stretch="Uniform" Margin="0,0,20,0"/>
+                                                        <TextBlock Text="TRATAR LESIÓN" 
+                                                                   Foreground="WhiteSmoke" 
+                                                                   VerticalAlignment="Center" 
+                                                                   FontSize="24"/>
+                                                    </StackPanel>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+
+                                    <!-- Configuración al pasar el ratón -->
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+                                            <Setter Property="BorderThickness" Value="1"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

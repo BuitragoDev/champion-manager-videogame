@@ -37,12 +37,12 @@
 
                 <!-- EQUIPO Y PRESUPUESTO -->
                 <TextBlock x:Name="lblEquipo" Grid.Column="1" HorizontalAlignment="Left" Text="Equipo" VerticalAlignment="Top" FontFamily="Cascadia Code Light" FontSize="16" Foreground="WhiteSmoke" Margin="57,21,0,0"/>
-                <TextBlock x:Name="lblManager1" Grid.Column="1" HorizontalAlignment="Left" Text="Mánager" VerticalAlignment="Top" FontFamily="Cascadia Code Light" FontSize="16" Foreground="WhiteSmoke" Margin="57,55,0,0"/>
+                <TextBlock x:Name="lblPresupuesto" Grid.Column="1" HorizontalAlignment="Left" Text="Presupuesto" VerticalAlignment="Top" FontFamily="Cascadia Code Light" FontSize="16" Foreground="WhiteSmoke" Margin="57,55,0,0"/>
                 <TextBlock x:Name="txtEquipo" Grid.Column="1" HorizontalAlignment="Left" Text="Equipo" VerticalAlignment="Top" FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" Margin="207,21,0,0" FontWeight="Bold"/>
-                <TextBlock x:Name="txtManager" Grid.Column="1" HorizontalAlignment="Left" Text="NombreManager" VerticalAlignment="Top" FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" Margin="207,54,0,0" FontWeight="Bold"/>
+                <TextBlock x:Name="txtPresupuesto" Grid.Column="1" HorizontalAlignment="Left" Text="Presupuesto" VerticalAlignment="Top" FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" Margin="207,54,0,0" FontWeight="Bold"/>
 
                 <!-- ENTRENADOR -->
-                <TextBlock x:Name="lblReputacion" Grid.Column="2" HorizontalAlignment="Left" Text="Reputación" VerticalAlignment="Top" FontFamily="Cascadia Code Light" FontSize="16" Foreground="WhiteSmoke" Margin="91,22,0,0" Width="202"/>
+                <TextBlock x:Name="txtManager" Grid.Column="2" HorizontalAlignment="Left" Text="" VerticalAlignment="Top" FontFamily="Cascadia Code Light" FontSize="16" Foreground="WhiteSmoke" Margin="91,22,0,0" Width="202"/>
                 <Canvas x:Name="canvasEstrellas" Grid.Column="2" Margin="91,46,90,14"/>
 
                 <!-- BOTON AJUSTES -->
@@ -135,6 +135,8 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <!-- ICONOS DEL MENU -->
@@ -166,21 +168,35 @@
                     </Image.ToolTip>
                 </Image>
 
-                <Image x:Name="imgPabellon" Grid.Row="4" Grid.Column="0" Height="48" Width="48"
+                <Image x:Name="imgTransferencias" Grid.Row="4" Grid.Column="0" Height="48" Width="48"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Source="/Recursos/img/icons/transferencias_icon.png" MouseLeftButtonDown="imgTransferencias_MouseLeftButtonDown">
+                    <Image.ToolTip>
+                        <ToolTip Content="Fichajes" />
+                    </Image.ToolTip>
+                </Image>
+
+                <Image x:Name="imgFinanzas" Grid.Row="5" Grid.Column="0" Height="48" Width="48"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Source="/Recursos/img/icons/finanzas_icon.png" MouseLeftButtonDown="imgFinanzas_MouseLeftButtonDown">
+                    <Image.ToolTip>
+                        <ToolTip Content="Finanzas" />
+                    </Image.ToolTip>
+                </Image>
+
+                <Image x:Name="imgPabellon" Grid.Row="6" Grid.Column="0" Height="48" Width="48"
                        HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Source="/Recursos/img/icons/estadioBlanco_icon.png" MouseLeftButtonDown="imgPabellon_MouseLeftButtonDown">
                     <Image.ToolTip>
                         <ToolTip Content="Estadio" />
                     </Image.ToolTip>
                 </Image>
                 
-                <Image x:Name="imgManager" Grid.Row="5" Grid.Column="0" Height="48" Width="48"
+                <Image x:Name="imgManager" Grid.Row="7" Grid.Column="0" Height="48" Width="48"
                        HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Source="/Recursos/img/icons/manager_icon.png" MouseLeftButtonDown="imgManager_MouseLeftButtonDown">
                     <Image.ToolTip>
                         <ToolTip Content="Mánager" />
                     </Image.ToolTip>
                 </Image>
                 
-                <Image x:Name="imgCorreo" Grid.Row="6" Grid.Column="0" Height="48" Width="48"
+                <Image x:Name="imgCorreo" Grid.Row="8" Grid.Column="0" Height="48" Width="48"
                        HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Source="/Recursos/img/icons/correo_icon.png" MouseLeftButtonDown="imgCorreo_MouseLeftButtonDown">
                     <Image.ToolTip>
                         <ToolTip Content="Mensajes" />

@@ -36,6 +36,7 @@ namespace ChampionManager25.UserControls
         EquipoLogica _logicaEquipo = new EquipoLogica();
         JugadorLogica _logicaJugador = new JugadorLogica();
         ManagerLogica _logicaManager = new ManagerLogica();
+        EmpleadoLogica _logicaEmpleado = new EmpleadoLogica();
 
         public UC_Menu_Entrenador_Entrenamiento(Manager manager, int equipo)
         {
@@ -56,8 +57,16 @@ namespace ChampionManager25.UserControls
         {
             Metodos.ReproducirSonidoClick();
 
-            // Actualizar Entrenamiento
-            ComprobarEntrenamientosMaximos(idJugadorSeleccionado, 1);  
+            Empleado? preparador = _logicaEmpleado.ObtenerEmpleadoPorPuesto("Preparador Físico");
+            if (preparador != null)
+            {
+                // Actualizar Entrenamiento
+                ComprobarEntrenamientosMaximos(idJugadorSeleccionado, 1);
+            }
+            else
+            {
+                MostrarMensajePreparador();
+            }
         }
 
         // ------------------------------------------------------------------------- Evento CLICK del boton entrenamiento ENTRADAS 
@@ -65,8 +74,16 @@ namespace ChampionManager25.UserControls
         {
             Metodos.ReproducirSonidoClick();
 
-            // Actualizar Entrenamiento
-            ComprobarEntrenamientosMaximos(idJugadorSeleccionado, 2);
+            Empleado? preparador = _logicaEmpleado.ObtenerEmpleadoPorPuesto("Preparador Físico");
+            if (preparador != null)
+            {
+                // Actualizar Entrenamiento
+                ComprobarEntrenamientosMaximos(idJugadorSeleccionado, 2);
+            }
+            else
+            {
+                MostrarMensajePreparador();
+            }
         }
 
         // ------------------------------------------------------------------------- Evento CLICK del boton entrenamiento REMATE
@@ -74,8 +91,16 @@ namespace ChampionManager25.UserControls
         {
             Metodos.ReproducirSonidoClick();
 
-            // Actualizar Entrenamiento
-            ComprobarEntrenamientosMaximos(idJugadorSeleccionado, 3);
+            Empleado? preparador = _logicaEmpleado.ObtenerEmpleadoPorPuesto("Preparador Físico");
+            if (preparador != null)
+            {
+                // Actualizar Entrenamiento
+                ComprobarEntrenamientosMaximos(idJugadorSeleccionado, 3);
+            }
+            else
+            {
+                MostrarMensajePreparador();
+            }
         }
 
         // ------------------------------------------------------------------------- Evento CLICK del boton entrenamiento PASE
@@ -83,8 +108,16 @@ namespace ChampionManager25.UserControls
         {
             Metodos.ReproducirSonidoClick();
 
-            // Actualizar Entrenamiento
-            ComprobarEntrenamientosMaximos(idJugadorSeleccionado, 4);
+            Empleado? preparador = _logicaEmpleado.ObtenerEmpleadoPorPuesto("Preparador Físico");
+            if (preparador != null)
+            {
+                // Actualizar Entrenamiento
+                ComprobarEntrenamientosMaximos(idJugadorSeleccionado, 4);
+            }
+            else
+            {
+                MostrarMensajePreparador();
+            }
         }
 
         // ------------------------------------------------------------------------- Evento CLICK del boton entrenamiento REGATE
@@ -92,8 +125,16 @@ namespace ChampionManager25.UserControls
         {
             Metodos.ReproducirSonidoClick();
 
-            // Actualizar Entrenamiento
-            ComprobarEntrenamientosMaximos(idJugadorSeleccionado, 5);
+            Empleado? preparador = _logicaEmpleado.ObtenerEmpleadoPorPuesto("Preparador Físico");
+            if (preparador != null)
+            {
+                // Actualizar Entrenamiento
+                ComprobarEntrenamientosMaximos(idJugadorSeleccionado, 5);
+            }
+            else
+            {
+                MostrarMensajePreparador();
+            }
         }
 
         // ------------------------------------------------------------------------- Evento CLICK del boton entrenamiento TIRO
@@ -101,8 +142,16 @@ namespace ChampionManager25.UserControls
         {
             Metodos.ReproducirSonidoClick();
 
-            // Actualizar Entrenamiento
-            ComprobarEntrenamientosMaximos(idJugadorSeleccionado, 6);
+            Empleado? preparador = _logicaEmpleado.ObtenerEmpleadoPorPuesto("Preparador Físico");
+            if (preparador != null)
+            {
+                // Actualizar Entrenamiento
+                ComprobarEntrenamientosMaximos(idJugadorSeleccionado, 6);
+            }
+            else
+            {
+                MostrarMensajePreparador();
+            }
         }
 
         // ------------------------------------------------------------------------- Evento CLICK del boton entrenamiento SIN ENTRENAMIENTO
@@ -330,6 +379,32 @@ namespace ChampionManager25.UserControls
         private void ComprobarEntrenamientosMaximos(int idJugadorSeleccionado, int tipo)
         {
             List<Jugador> jugadoresEquipo = _logicaJugador.ListadoJugadoresCompleto(_equipo);
+            Empleado? preparador = _logicaEmpleado.ObtenerEmpleadoPorPuesto("Preparador Físico");
+            int maximo = 0;
+            if (preparador != null)
+            {
+                if (preparador.Categoria == 5)
+                {
+                    maximo = 10;
+                } 
+                else if (preparador.Categoria == 4)
+                {
+                    maximo = 8;
+                }
+                else if (preparador.Categoria == 3)
+                {
+                    maximo = 6;
+                }
+                else if (preparador.Categoria == 2)
+                {
+                    maximo = 4;
+                }
+                else if (preparador.Categoria == 1)
+                {
+                    maximo = 2;
+                }
+            }
+
             int contador = 0;
             foreach (var jugador in jugadoresEquipo)
             {
@@ -339,7 +414,7 @@ namespace ChampionManager25.UserControls
                 }
             }
 
-            if (contador >= 5)
+            if (contador >= maximo)
             {
                 // Mostrar mensaje
                 string titulo = "INFORMACIÓN";
@@ -353,6 +428,15 @@ namespace ChampionManager25.UserControls
                 _logicaJugador.EntrenarJugador(idJugadorSeleccionado, tipo);
                 CargarEntrenamiento(idJugadorSeleccionado);
             }
+        }
+
+        private void MostrarMensajePreparador()
+        {
+            // Mostrar ventana emergente
+            string titulo = "INFORMACIÓN";
+            string mensaje = "Para poder desarrollar sesiones específicas para cada jugador, es imprescindible contar con un preparador físico en el cuerpo técnico. Te recomiendo revisar la disponibilidad de profesionales en la sección EMPLEADOS.";
+            frmVentanaEmergenteDosBotones ventanaEmergente = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
+            bool? resultado = ventanaEmergente.ShowDialog();
         }
         #endregion
     }

@@ -196,7 +196,7 @@ namespace ChampionManager25.UserControls
                         {
                             int idEquipo = mensaje.IdEquipo ?? 0;
                             Equipo equipo = _logicaEquipos.ListarDetallesEquipo(idEquipo);
-                            imgLogoMensaje.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaImagen80));
+                            imgLogoMensaje.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipo.RutaImagen120));
                         }
                         else if (mensaje.Icono > 0)
                         {

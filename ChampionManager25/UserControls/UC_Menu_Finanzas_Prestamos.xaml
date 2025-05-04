@@ -1,0 +1,656 @@
+﻿<UserControl x:Class="ChampionManager25.UserControls.UC_Menu_Finanzas_Prestamos"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ChampionManager25.UserControls"
+             mc:Ignorable="d" d:DesignHeight="935" d:DesignWidth="1845" Loaded="UserControl_Loaded">
+    <Grid Background="LightGray">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="920"/>
+            <ColumnDefinition Width="920"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Fila 1 -->
+        <Border x:Name="bordeFila1" Background="WhiteSmoke" BorderThickness="1" BorderBrush="#23282d" Margin="15"
+            Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+            <Grid>
+                <Grid.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/Recursos/img/background_banner_prestamo.png" Stretch="UniformToFill" TileMode="None"/>
+                </Grid.Background>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Background="#1d6a7d">
+                    <TextBlock Text="SOLICITAR PRÉSTAMO" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                </Border>
+
+            </Grid>
+        </Border>
+
+        <!-- Fila 2 izquierda -->
+        <Border x:Name="bordeFila2iz" Background="LightGray" BorderThickness="1" BorderBrush="#23282d" Margin="15"
+                Grid.Column="0" Grid.Row="1">
+            <Grid Background="WhiteSmoke">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Column="0" Grid.Row="0" Background="#1d6a7d">
+                    <TextBlock Text="FINANCIERO" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                               FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="1">
+                    <Grid Background="WhiteSmoke">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock x:Name="txtNombreFinanciero" Grid.Column="0" Grid.Row="0" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="Black" TextAlignment="Center"/>
+                        <DockPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="360,0,0,0" >
+                            <Canvas x:Name="canvasEstrellas" Grid.Column="0" Grid.Row="1" />
+                        </DockPanel>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="2" Background="LightGray" Margin="15">
+                    <TextBlock x:Name="txtInteresFinanciero" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                               FontFamily="Cascadia Code Light" FontSize="16" Foreground="Black" TextAlignment="Center" Width="684" TextWrapping="Wrap"/>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- Fila 2 derecha -->
+        <Border x:Name="bordeFila2dr" Background="LightGray" BorderThickness="1" BorderBrush="#23282d" Margin="15"
+                Grid.Column="1" Grid.Row="1" >
+            <Grid Background="WhiteSmoke">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Column="0" Grid.Row="0" Background="#1d6a7d">
+                    <TextBlock Text="TÉRMINOS" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                               FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="1">
+                    <Grid Background="WhiteSmoke">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0" Background="LightGray">
+                            <TextBlock Text="Capital (€)" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                       FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" TextAlignment="Center" />
+                        </Border>
+
+                        <Border Grid.Column="1" Grid.Row="0" Background="LightGray">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Button x:Name="btnCapitalRestar" Grid.Column="0" Grid.Row="0" Height="30" Width="50" Content="◀"
+                                        HorizontalAlignment="Right" VerticalAlignment="Center" Background="#23282d" Foreground="WhiteSmoke"
+                                        FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnCapitalRestar_Click"  >
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <!-- Configuración inicial -->
+                                            <Setter Property="Background" Value="#23282d"/>
+                                            <Setter Property="BorderBrush" Value="Transparent"/>
+                                            <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                            <Setter Property="BorderThickness" Value="0"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <Border Background="{TemplateBinding Background}" 
+                                                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+
+
+                                <TextBox x:Name="txtCapitalPrestamo" 
+                                         Grid.Column="1" Grid.Row="0"
+                                         HorizontalAlignment="Center" 
+                                         TextWrapping="Wrap" 
+                                         Text="1.000.000" 
+                                         Background="#23282d"
+                                         VerticalAlignment="Center" 
+                                         Width="200" 
+                                         Height="30" 
+                                         FontFamily="Cascadia Code SemiBold" 
+                                         FontSize="20" 
+                                         TextAlignment="Center" 
+                                         Foreground="WhiteSmoke" 
+                                         MaxLength="3" 
+                                         IsEnabled="False" IsReadOnly="True">
+                                    <TextBox.Style>
+                                        <Style TargetType="TextBox">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="TextBox">
+                                                        <Grid>
+                                                            <!-- Contenido del TextBox -->
+                                                            <Border Background="{TemplateBinding Background}" 
+                                                                    BorderThickness="0,0,0,2" 
+                                                                    BorderBrush="White">
+                                                                <ScrollViewer x:Name="PART_ContentHost"/>
+                                                            </Border>
+                                                        </Grid>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                            <Setter Property="Padding" Value="2"/>
+                                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                        </Style>
+                                    </TextBox.Style>
+                                </TextBox>
+
+                                <Button x:Name="btnCapitalSumar" Grid.Column="2" Grid.Row="0" Height="30" Width="50" Content="▶"
+                                        HorizontalAlignment="Left" VerticalAlignment="Center" Background="#23282d" Foreground="WhiteSmoke"
+                                        FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnCapitalSumar_Click"  >
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <!-- Configuración inicial -->
+                                            <Setter Property="Background" Value="#23282d"/>
+                                            <Setter Property="BorderBrush" Value="Transparent"/>
+                                            <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                            <Setter Property="BorderThickness" Value="0"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <Border Background="{TemplateBinding Background}" 
+                                                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Column="0" Grid.Row="1" Background="WhiteSmoke">
+                            <TextBlock Text="Semanas" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                       FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" TextAlignment="Center" />
+                        </Border>
+
+                        <Border Grid.Column="1" Grid.Row="1" Background="WhiteSmoke">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Button x:Name="btnSemanasRestar" Grid.Column="0" Grid.Row="0" Height="30" Width="50" Content="◀"
+                                        HorizontalAlignment="Right" VerticalAlignment="Center" Background="#23282d" Foreground="WhiteSmoke"
+                                        FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnSemanasRestar_Click"  >
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <!-- Configuración inicial -->
+                                            <Setter Property="Background" Value="#23282d"/>
+                                            <Setter Property="BorderBrush" Value="Transparent"/>
+                                            <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                            <Setter Property="BorderThickness" Value="0"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <Border Background="{TemplateBinding Background}" 
+                                                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+
+
+                                <TextBox x:Name="txtSemanasPrestamo" 
+                                         Grid.Column="1" Grid.Row="0"
+                                         HorizontalAlignment="Center" 
+                                         TextWrapping="Wrap" 
+                                         Text="50" 
+                                         Background="#23282d"
+                                         VerticalAlignment="Center" 
+                                         Width="200" 
+                                         Height="30" 
+                                         FontFamily="Cascadia Code SemiBold" 
+                                         FontSize="20" 
+                                         TextAlignment="Center" 
+                                         Foreground="WhiteSmoke" 
+                                         MaxLength="3" 
+                                         IsEnabled="False" IsReadOnly="True">
+                                    <TextBox.Style>
+                                        <Style TargetType="TextBox">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="TextBox">
+                                                        <Grid>
+                                                            <!-- Contenido del TextBox -->
+                                                            <Border Background="{TemplateBinding Background}" 
+                                                                    BorderThickness="0,0,0,2" 
+                                                                    BorderBrush="White">
+                                                                <ScrollViewer x:Name="PART_ContentHost"/>
+                                                            </Border>
+                                                        </Grid>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                            <Setter Property="Padding" Value="2"/>
+                                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                        </Style>
+                                    </TextBox.Style>
+                                </TextBox>
+
+                                <Button x:Name="btnSemanasSumar" Grid.Column="2" Grid.Row="0" Height="30" Width="50" Content="▶"
+                                        HorizontalAlignment="Left" VerticalAlignment="Center" Background="#23282d" Foreground="WhiteSmoke"
+                                        FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnSemanasSumar_Click"  >
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <!-- Configuración inicial -->
+                                            <Setter Property="Background" Value="#23282d"/>
+                                            <Setter Property="BorderBrush" Value="Transparent"/>
+                                            <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                            <Setter Property="BorderThickness" Value="0"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <Border Background="{TemplateBinding Background}" 
+                                                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Column="0" Grid.Row="2" Background="LightGray">
+                            <TextBlock Text="Tasa de interés" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                       FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" TextAlignment="Center" />
+                        </Border>
+
+                        <Border Grid.Column="1" Grid.Row="2" Background="LightGray">
+                            <TextBlock x:Name="txtTasaInteres" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                      FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" TextAlignment="Center" />
+                        </Border>
+
+                        <Border Grid.Column="0" Grid.Row="3" Background="WhiteSmoke">
+                            <TextBlock Text="Pago de la semana" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                       FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" TextAlignment="Center" />
+                        </Border>
+
+                        <Border Grid.Column="1" Grid.Row="3" Background="WhiteSmoke">
+                            <TextBlock x:Name="txtPagoSemana" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                       FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" TextAlignment="Center" />
+                        </Border>
+
+                        <Border Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Background="LightGray">
+                            <Button x:Name="btnSolicitarPrestamo" Height="30" Width="350" Content="SOLICITAR PRÉSTAMO"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center" Background="#23282d" Foreground="WhiteSmoke"
+                                    FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnSolicitarPrestamo_Click" Visibility="Hidden"  >
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <!-- Configuración inicial -->
+                                        <Setter Property="Background" Value="#23282d"/>
+                                        <Setter Property="BorderBrush" Value="Transparent"/>
+                                        <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Background="{TemplateBinding Background}" 
+                                                            BorderBrush="{TemplateBinding BorderBrush}" 
+                                                            BorderThickness="{TemplateBinding BorderThickness}">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </Border>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- Fila 3 -->
+        <Border x:Name="bordeFila3" Background="LightGray" BorderThickness="1" BorderBrush="#23282d" Margin="15"
+        Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+            <Grid Background="WhiteSmoke">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+
+                <!-- Fila 1 de la Fila 3-->
+                <Border Grid.Column="0" Grid.Row="0" Background="#1d6a7d" />
+                <Border Grid.Column="1" Grid.Row="0" Background="#1d6a7d">
+                    <TextBlock Text="FECHA" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                               FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="2" Grid.Row="0" Background="#1d6a7d">
+                    <TextBlock Text="CAPITAL" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="3" Grid.Row="0" Background="#1d6a7d">
+                    <TextBlock Text="CAPITAL RESTANTE" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="4" Grid.Row="0" Background="#1d6a7d">
+                    <TextBlock Text="SEMANAS" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="5" Grid.Row="0" Background="#1d6a7d">
+                    <TextBlock Text="SEMANAS RESTANTES" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="6" Grid.Row="0" Background="#1d6a7d">
+                    <TextBlock Text="TASA INTERÉS" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="7" Grid.Row="0" Background="#1d6a7d">
+                    <TextBlock Text="PAGO SEMANAL" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="8" Grid.Row="0" Background="#1d6a7d" />
+
+                <!-- Fila 2 de la Fila 3-->
+                <Border Grid.Column="0" Grid.Row="1" Background="#23282d">
+                    <TextBlock x:Name="txtPrestamo1Orden" Text="1" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="1" Grid.Row="1" Background="WhiteSmoke">
+                    <TextBlock x:Name="txtPrestamo1Fecha" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="2" Grid.Row="1" Background="WhiteSmoke">
+                    <TextBlock x:Name="txtPrestamo1Capital" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="3" Grid.Row="1" Background="WhiteSmoke">
+                    <TextBlock x:Name="txtPrestamo1CapitalRestante" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="4" Grid.Row="1" Background="WhiteSmoke">
+                    <TextBlock x:Name="txtPrestamo1Semanas" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="5" Grid.Row="1" Background="WhiteSmoke">
+                    <TextBlock x:Name="txtPrestamo1SemanasRestantes" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="6" Grid.Row="1" Background="WhiteSmoke">
+                    <TextBlock x:Name="txtPrestamo1TasaInteres" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="7" Grid.Row="1" Background="WhiteSmoke">
+                    <TextBlock x:Name="txtPrestamo1PagoSemanal" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="8" Grid.Row="1" Background="WhiteSmoke">
+                    <Button x:Name="btnCancelarPrestamo1" Height="30" Width="350" Content="CANCELAR PRÉSTAMO"
+                            HorizontalAlignment="Center" VerticalAlignment="Center" Background="#23282d" Foreground="WhiteSmoke"
+                            FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnCancelarPrestamo1_Click" Visibility="Hidden">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <!-- Configuración inicial -->
+                                <Setter Property="Background" Value="#23282d"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}" 
+                                                    BorderBrush="{TemplateBinding BorderBrush}" 
+                                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Border>
+
+                <!-- Fila 3 de la Fila 3-->
+                <Border Grid.Column="0" Grid.Row="2" Background="#23282d">
+                    <TextBlock x:Name="txtPrestamo2Orden" Text="2" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="1" Grid.Row="2" Background="WhiteSmoke">
+                    <TextBlock x:Name="txtPrestamo2Fecha" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="2" Grid.Row="2" Background="WhiteSmoke">
+                    <TextBlock x:Name="txtPrestamo2Capital" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="3" Grid.Row="2" Background="WhiteSmoke">
+                    <TextBlock x:Name="txtPrestamo2CapitalRestante" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="4" Grid.Row="2" Background="WhiteSmoke">
+                    <TextBlock x:Name="txtPrestamo2Semanas" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="5" Grid.Row="2" Background="WhiteSmoke">
+                    <TextBlock x:Name="txtPrestamo2SemanasRestantes" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="6" Grid.Row="2" Background="WhiteSmoke">
+                    <TextBlock x:Name="txtPrestamo2TasaInteres" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="7" Grid.Row="2" Background="WhiteSmoke">
+                    <TextBlock x:Name="txtPrestamo2PagoSemanal" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="8" Grid.Row="2" Background="WhiteSmoke">
+                    <Button x:Name="btnCancelarPrestamo2" Height="30" Width="350" Content="CANCELAR PRÉSTAMO"
+                            HorizontalAlignment="Center" VerticalAlignment="Center" Background="#23282d" Foreground="WhiteSmoke"
+                            FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnCancelarPrestamo2_Click" Visibility="Hidden">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <!-- Configuración inicial -->
+                                <Setter Property="Background" Value="#23282d"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}" 
+                                                    BorderBrush="{TemplateBinding BorderBrush}" 
+                                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Border>
+
+                <!-- Fila 4 de la Fila 3-->
+                <Border Grid.Column="0" Grid.Row="3" Background="#23282d">
+                    <TextBlock x:Name="txtPrestamo3Orden" Text="3" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="1" Grid.Row="3" Background="WhiteSmoke">
+                    <TextBlock x:Name="txtPrestamo3Fecha" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="2" Grid.Row="3" Background="WhiteSmoke">
+                    <TextBlock x:Name="txtPrestamo3Capital" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="3" Grid.Row="3" Background="WhiteSmoke">
+                    <TextBlock x:Name="txtPrestamo3CapitalRestante" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="4" Grid.Row="3" Background="WhiteSmoke">
+                    <TextBlock x:Name="txtPrestamo3Semanas" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="5" Grid.Row="3" Background="WhiteSmoke">
+                    <TextBlock x:Name="txtPrestamo3SemanasRestantes" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="6" Grid.Row="3" Background="WhiteSmoke">
+                    <TextBlock x:Name="txtPrestamo3TasaInteres" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="7" Grid.Row="3" Background="WhiteSmoke">
+                    <TextBlock x:Name="txtPrestamo3PagoSemanal" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="Black" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="8" Grid.Row="3" Background="WhiteSmoke">
+                    <Button x:Name="btnCancelarPrestamo3" Height="30" Width="350" Content="CANCELAR PRÉSTAMO"
+                            HorizontalAlignment="Center" VerticalAlignment="Center" Background="#23282d" Foreground="WhiteSmoke"
+                            FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnCancelarPrestamo3_Click" Visibility="Hidden">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <!-- Configuración inicial -->
+                                <Setter Property="Background" Value="#23282d"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}" 
+                                                    BorderBrush="{TemplateBinding BorderBrush}" 
+                                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Border>
+
+                <!-- Fila 5 de la Fila 3-->
+                <Border Grid.Column="0" Grid.Row="4" Background="#23282d" />
+                <Border Grid.Column="1" Grid.Row="4" Background="#23282d">
+                    <TextBlock Text="TOTAL" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                    FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="2" Grid.Row="4" Background="#23282d">
+                    <TextBlock Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="3" Grid.Row="4" Background="#23282d">
+                    <TextBlock Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="4" Grid.Row="4" Background="#23282d">
+                    <TextBlock Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="5" Grid.Row="4" Background="#23282d">
+                    <TextBlock Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="6" Grid.Row="4" Background="#23282d">
+                    <TextBlock Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="7" Grid.Row="4" Background="#23282d">
+                    <TextBlock Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center" />
+                </Border>
+                <Border Grid.Column="8" Grid.Row="4" Background="#23282d">
+                    <TextBlock Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" TextAlignment="Center" />
+                </Border>
+            </Grid>
+        </Border>
+
+    </Grid>
+</UserControl>

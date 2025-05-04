@@ -37,7 +37,7 @@
                 </Grid.RowDefinitions>
 
                 <Border Grid.Column="0" Grid.Row="0" Background="#23282d">
-                    <TextBlock x:Name="txtNombrePabellon" Grid.Column="2" HorizontalAlignment="Left" Text="Nombre Pabellon" VerticalAlignment="Center" 
+                    <TextBlock x:Name="txtNombreEstadio" Grid.Column="2" HorizontalAlignment="Left" Text="Nombre Estadio" VerticalAlignment="Center" 
                                FontFamily="Cascadia Code SemiBold" FontSize="24" Foreground="WhiteSmoke" Margin="20,0,0,0"/>
                 </Border>
 
@@ -67,7 +67,7 @@
                     <TextBlock x:Name="txtEquipamiento" Grid.Column="2" HorizontalAlignment="Left" Text="INTERIOR DEL ESTADIO" VerticalAlignment="Center" 
                                FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" Margin="20,0,0,0"/>
                 </Border>
-                <Image x:Name="imgPabellon" Grid.Row="4" VerticalAlignment="Top" HorizontalAlignment="Left"  
+                <Image x:Name="imgEstadio" Grid.Row="4" VerticalAlignment="Top" HorizontalAlignment="Left"  
                        Width="700" Height="540" Stretch="UniformToFill" />
 
             </Grid>

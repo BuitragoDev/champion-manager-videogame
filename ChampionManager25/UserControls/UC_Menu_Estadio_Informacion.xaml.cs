@@ -41,9 +41,9 @@ namespace ChampionManager25.UserControls
         {
             Equipo miEquipo = _logicaEquipo.ListarDetallesEquipo(_equipo);
             imgLogo.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + miEquipo.RutaImagen));
-            imgPabellon.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + miEquipo.RutaEstadioInterior));
+            imgEstadio.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + miEquipo.RutaEstadioInterior));
 
-            txtNombrePabellon.Text = _logicaEquipo.ListarDetallesEquipo(_equipo).Estadio;
+            txtNombreEstadio.Text = _logicaEquipo.ListarDetallesEquipo(_equipo).Estadio;
             txtCapacidad.Text = _logicaEquipo.ListarDetallesEquipo(_equipo).Aforo.ToString("N0") + " asientos";
         }
     }

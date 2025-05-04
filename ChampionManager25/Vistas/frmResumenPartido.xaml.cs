@@ -321,8 +321,40 @@ namespace ChampionManager25.Vistas
                 List<int> lesionados = SimularLesiones(jugadoresLocal, jugadoresVisitante);
                 foreach (int jugador in lesionados)
                 {
-                    int numeroAleatorio = random.Next(0, 9);
-                    _logicaJugador.PonerJugadorLesionado(jugador, numeroAleatorio);
+                    List<(string Descripcion, int MinSemanas, int MaxSemanas)> lesiones = new List<(string, int, int)>
+                    {
+                        ("Contusión leve", 1, 1),
+                        ("Distensión muscular leve", 2, 3),
+                        ("Contractura lumbar", 2, 4),
+                        ("Esguince de tobillo grado 1", 2, 4),
+                        ("Tendinitis rotuliana", 3, 5),
+                        ("Rotura fibrilar leve", 3, 5),
+                        ("Esguince de rodilla grado 2", 5, 7),
+                        ("Fractura de dedo del pie", 6, 8),
+                        ("Rotura fibrilar moderada", 6, 9),
+                        ("Desgarro isquiotibial", 7, 10),
+                        ("Lesión del ligamento colateral medial", 8, 11),
+                        ("Fractura de costilla", 9, 12),
+                        ("Lesión meniscal", 10, 14),
+                        ("Luxación de hombro", 11, 15),
+                        ("Rotura parcial del ligamento cruzado anterior", 13, 17),
+                        ("Fractura de metatarsiano", 14, 18),
+                        ("Rotura de menisco con cirugía", 16, 20),
+                        ("Rotura completa del ligamento cruzado anterior", 20, 28),
+                        ("Fractura de tibia", 25, 32),
+                        ("Doble rotura ligamentosa con cirugía", 30, 40)
+                    };
+
+                    int numeroAleatorio = random.Next(1, 41); // de 1 a 40
+                    var lesion = lesiones.FirstOrDefault(l => numeroAleatorio >= l.MinSemanas && numeroAleatorio <= l.MaxSemanas);
+
+                    // En caso de no encontrar ninguna (aunque no debería pasar con rangos bien cubiertos)
+                    if (lesion.Descripcion == null)
+                    {
+                        lesion = ("Lesión desconocida", numeroAleatorio, numeroAleatorio);
+                    }
+
+                    _logicaJugador.PonerJugadorLesionado(jugador, numeroAleatorio, lesion.Descripcion);
 
                     // Si es un jugador de mi equipo...
                     if (_logicaJugador.EsDeMiEquipo(jugador, _equipo))
@@ -333,7 +365,7 @@ namespace ChampionManager25.Vistas
                             Fecha = Metodos.hoy,
                             Remitente = _logicaJugador.MostrarDatosJugador(jugador).NombreCompleto,
                             Asunto = "Jugador Lesionado",
-                            Contenido = "Desde el equipo médico del " + _logicaEquipo.ListarDetallesEquipo(_equipo).Nombre + " te informamos de que " + _logicaJugador.MostrarDatosJugador(jugador).NombreCompleto + " se ha lesionado, y permanecerá de baja durante " + numeroAleatorio + " partidos.",
+                            Contenido = "Desde el equipo médico del " + _logicaEquipo.ListarDetallesEquipo(_equipo).Nombre + " te informamos de que " + _logicaJugador.MostrarDatosJugador(jugador).NombreCompleto + " se ha lesionado (" + lesion.Descripcion + "), y permanecerá de baja durante " + numeroAleatorio + " semanas.",
                             TipoMensaje = "Notificación",
                             IdEquipo = _equipo,
                             IdManager = _manager.IdManager,
@@ -654,7 +686,7 @@ namespace ChampionManager25.Vistas
             // Recorrer jugadores locales y visitantes
             foreach (var jugador in jugadoresLocal)
             {
-                if (random.Next(0, 81) == 13) // Generar número entre 0 y 80, si es 13 -> lesión
+                if (random.Next(0, 51) == 13) // Generar número entre 0 y 50, si es 13 -> lesión
                 {
                     lesionados.Add(jugador.IdJugador);
                 }
@@ -662,7 +694,7 @@ namespace ChampionManager25.Vistas
 
             foreach (var jugador in jugadoresVisitante)
             {
-                if (random.Next(0, 81) == 13)
+                if (random.Next(0, 51) == 13)
                 {
                     lesionados.Add(jugador.IdJugador);
                 }
@@ -684,7 +716,7 @@ namespace ChampionManager25.Vistas
                 // Reducir el número de partidos lesionado si es mayor que 0
                 if (jugador.Lesion > 0)
                 {
-                    _logicaJugador.PonerJugadorLesionado(jugador.IdJugador, jugador.Lesion - 1);
+                    _logicaJugador.PonerJugadorLesionado(jugador.IdJugador, jugador.Lesion - 1, jugador.TipoLesion);
                 }
             }
         }

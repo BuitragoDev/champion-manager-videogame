@@ -21,6 +21,8 @@ namespace ChampionManager25.UserControls
         // Eventos para notificar al control principal
         public event Action? MostrarInformacion;
         public event Action? MostrarPlantilla;
+        public event Action? MostrarEmpleados;
+        public event Action? MostrarLesionados;
 
         public UC_Menu_Club()
         {
@@ -32,6 +34,8 @@ namespace ChampionManager25.UserControls
             Metodos.ReproducirSonidoClick();
             lblInformacion.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
             lblPlantilla.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
+            lblEmpleados.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
+            lblLesionados.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             MostrarInformacion?.Invoke();
         }
 
@@ -40,7 +44,29 @@ namespace ChampionManager25.UserControls
             Metodos.ReproducirSonidoClick();
             lblInformacion.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             lblPlantilla.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+            lblEmpleados.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
+            lblLesionados.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             MostrarPlantilla?.Invoke();
+        }
+
+        private void lblEmpleados_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Metodos.ReproducirSonidoClick();
+            lblEmpleados.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+            lblInformacion.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
+            lblPlantilla.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
+            lblLesionados.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
+            MostrarEmpleados?.Invoke();
+        }
+
+        private void lblLesionados_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Metodos.ReproducirSonidoClick();
+            lblEmpleados.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
+            lblInformacion.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
+            lblPlantilla.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
+            lblLesionados.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+            MostrarLesionados?.Invoke();
         }
     }
 }

@@ -1,0 +1,835 @@
+﻿<UserControl x:Class="ChampionManager25.UserControls.UC_Menu_Club_Empleados"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ChampionManager25.UserControls"
+             mc:Ignorable="d" d:DesignHeight="935" d:DesignWidth="1845" Loaded="UserControl_Loaded">
+    <Grid Background="WhiteSmoke">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1320"/>
+            <ColumnDefinition Width="520"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+
+        <!-- ÁREA SUPERIOR IZQUIERDA -->
+        <Border x:Name="bordeEmpleados" Background="WhiteSmoke" BorderThickness="1" BorderBrush="#1d6a7d" Margin="10"
+                Grid.Column="0" Grid.Row="0">
+
+            <Grid Background="WhiteSmoke">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Column="0" Grid.Row="0" Background="#1d6a7d"/>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="EMPLEADOS" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                           FontFamily="Cascadia Code SemiBold" Foreground="WhiteSmoke" FontSize="20" />
+
+                <Border Grid.Column="0" Grid.Row="1" Background="WhiteSmoke" BorderThickness="1" BorderBrush="LightGray" Margin="10">
+                    <Grid Background="WhiteSmoke">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Encabezados -->
+                        <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" Background="#1d6a7d" />
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="EMPLEADO" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code SemiBold" Foreground="WhiteSmoke" FontSize="16" />
+                        <TextBlock Grid.Column="1" Grid.Row="0" Text="PUESTO" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code SemiBold" Foreground="WhiteSmoke" FontSize="16" />
+                        <TextBlock Grid.Column="2" Grid.Row="0" Text="CATEGORÍA" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code SemiBold" Foreground="WhiteSmoke" FontSize="16" />
+                        <TextBlock Grid.Column="3" Grid.Row="0" Text="SALARIO" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code SemiBold" Foreground="WhiteSmoke" FontSize="16" />
+
+                        <!-- Segundo Entrenador -->
+                        <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" Background="WhiteSmoke" />
+                        <TextBlock x:Name="txtNombreSegundoEntrenador" Grid.Column="0" Grid.Row="1" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" Cursor="Hand" MouseLeftButtonDown="txtNombreSegundoEntrenador_MouseLeftButtonDown" />
+                        <TextBlock Grid.Column="1" Grid.Row="1" Text="Segundo Entrenador" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <Canvas x:Name="canvasSegundoEntrenador" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                Height="30" Width="155"/>
+                        <TextBlock x:Name="txtSalarioSegundoEntrenador" Grid.Column="3" Grid.Row="1" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <Button x:Name="btnContratarSegundoEntrenador" Grid.Column="4" Grid.Row="1" Height="30" Width="200" Content="CONTRATAR EMPLEADO"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Background="#23282d" Foreground="WhiteSmoke"
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Click="btnContratarSegundoEntrenador_Click">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <!-- Configuración inicial -->
+                                    <Setter Property="Background" Value="#23282d"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" 
+                                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <Button x:Name="btnDespedirSegundoEntrenador" Grid.Column="4" Grid.Row="1" Height="30" Width="200" Content="DESPEDIR EMPLEADO"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Background="#941f13" Foreground="WhiteSmoke"
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Click="btnDespedirSegundoEntrenador_Click" Visibility="Hidden">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <!-- Configuración inicial -->
+                                    <Setter Property="Background" Value="#941f13"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" 
+                                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <!-- Delegado -->
+                        <Border Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="5" Background="LightGray" />
+                        <TextBlock x:Name="txtNombreDelegado" Grid.Column="0" Grid.Row="2" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" Cursor="Hand" MouseLeftButtonDown="txtNombreDelegado_MouseLeftButtonDown" />
+                        <TextBlock Grid.Column="1" Grid.Row="2" Text="Delegado" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <Canvas x:Name="canvasDelegado" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                Height="30" Width="155"/>
+                        <TextBlock x:Name="txtSalarioDelegado" Grid.Column="3" Grid.Row="2" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <Button x:Name="btnContratarDelegado" Grid.Column="4" Grid.Row="2" Height="30" Width="200" Content="CONTRATAR EMPLEADO"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Background="#23282d" Foreground="WhiteSmoke"
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Click="btnContratarDelegado_Click">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <!-- Configuración inicial -->
+                                    <Setter Property="Background" Value="#23282d"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" 
+                                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <Button x:Name="btnDespedirDelegado" Grid.Column="4" Grid.Row="2" Height="30" Width="200" Content="DESPEDIR EMPLEADO"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Background="#941f13" Foreground="WhiteSmoke"
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Click="btnDespedirDelegado_Click" Visibility="Hidden">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <!-- Configuración inicial -->
+                                    <Setter Property="Background" Value="#941f13"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" 
+                                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <!-- Director Técnico -->
+                        <Border Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="5" Background="WhiteSmoke" />
+                        <TextBlock x:Name="txtNombreDirectorTecnico" Grid.Column="0" Grid.Row="3" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" Cursor="Hand" MouseLeftButtonDown="txtNombreDirectorTecnico_MouseLeftButtonDown" />
+                        <TextBlock Grid.Column="1" Grid.Row="3" Text="Director Técnico" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <Canvas x:Name="canvasDirectorTecnico" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                Height="30" Width="155"/>
+                        <TextBlock x:Name="txtSalarioDirectorTecnico" Grid.Column="3" Grid.Row="3" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <Button x:Name="btnContratarDirectorTecnico" Grid.Column="4" Grid.Row="3" Height="30" Width="200" Content="CONTRATAR EMPLEADO"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Background="#23282d" Foreground="WhiteSmoke"
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Click="btnContratarDirectorTecnico_Click">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <!-- Configuración inicial -->
+                                    <Setter Property="Background" Value="#23282d"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" 
+                                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <Button x:Name="btnDespedirDirectorTecnico" Grid.Column="4" Grid.Row="3" Height="30" Width="200" Content="DESPEDIR EMPLEADO"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Background="#941f13" Foreground="WhiteSmoke"
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Click="btnDespedirDirectorTecnico_Click" Visibility="Hidden">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <!-- Configuración inicial -->
+                                    <Setter Property="Background" Value="#941f13"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" 
+                                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <!-- Preparador Físico -->
+                        <Border Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="5" Background="LightGray" />
+                        <TextBlock x:Name="txtNombrePreparadorFisico" Grid.Column="0" Grid.Row="4" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" Cursor="Hand" MouseLeftButtonDown="txtNombrePreparadorFisico_MouseLeftButtonDown" />
+                        <TextBlock Grid.Column="1" Grid.Row="4" Text="Preparador Físico" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <Canvas x:Name="canvasPreparadorFisico" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                Height="30" Width="155"/>
+                        <TextBlock x:Name="txtSalarioPreparadorFisico" Grid.Column="3" Grid.Row="4" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <Button x:Name="btnContratarPreparadorFisico" Grid.Column="4" Grid.Row="4" Height="30" Width="200" Content="CONTRATAR EMPLEADO"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Background="#23282d" Foreground="WhiteSmoke"
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Click="btnContratarPreparadorFisico_Click">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <!-- Configuración inicial -->
+                                    <Setter Property="Background" Value="#23282d"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" 
+                                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <Button x:Name="btnDespedirPreparadorFisico" Grid.Column="4" Grid.Row="4" Height="30" Width="200" Content="DESPEDIR EMPLEADO"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Background="#941f13" Foreground="WhiteSmoke"
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Visibility="Hidden" Click="btnDespedirPreparadorFisico_Click">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <!-- Configuración inicial -->
+                                    <Setter Property="Background" Value="#941f13"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" 
+                                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <!-- Psicólogo -->
+                        <Border Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="5" Background="WhiteSmoke" />
+                        <TextBlock x:Name="txtNombrePsicologo" Grid.Column="0" Grid.Row="5" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" Cursor="Hand" MouseLeftButtonDown="txtNombrePsicologo_MouseLeftButtonDown" />
+                        <TextBlock Grid.Column="1" Grid.Row="5" Text="Psicólogo" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <Canvas x:Name="canvasPsicologo" Grid.Column="2" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                Height="30" Width="155"/>
+                        <TextBlock x:Name="txtSalarioPsicologo" Grid.Column="3" Grid.Row="5" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <Button x:Name="btnContratarPsicologo" Grid.Column="4" Grid.Row="5" Height="30" Width="200" Content="CONTRATAR EMPLEADO"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Background="#23282d" Foreground="WhiteSmoke"
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Click="btnContratarPsicologo_Click">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <!-- Configuración inicial -->
+                                    <Setter Property="Background" Value="#23282d"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" 
+                                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <Button x:Name="btnDespedirPsicologo" Grid.Column="4" Grid.Row="5" Height="30" Width="200" Content="DESPEDIR EMPLEADO"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Background="#941f13" Foreground="WhiteSmoke"
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Click="btnDespedirPsicologo_Click" Visibility="Hidden">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <!-- Configuración inicial -->
+                                    <Setter Property="Background" Value="#941f13"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" 
+                                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <!-- Financiero -->
+                        <Border Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="5" Background="LightGray" />
+                        <TextBlock x:Name="txtNombreFinanciero" Grid.Column="0" Grid.Row="6" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" Cursor="Hand" MouseLeftButtonDown="txtNombreFinanciero_MouseLeftButtonDown" />
+                        <TextBlock Grid.Column="1" Grid.Row="6" Text="Financiero" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <Canvas x:Name="canvasFinanciero" Grid.Column="2" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                Height="30" Width="155"/>
+                        <TextBlock x:Name="txtSalarioFinanciero" Grid.Column="3" Grid.Row="6" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <Button x:Name="btnContratarFinanciero" Grid.Column="4" Grid.Row="6" Height="30" Width="200" Content="CONTRATAR EMPLEADO"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Background="#23282d" Foreground="WhiteSmoke"
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Click="btnContratarFinanciero_Click">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <!-- Configuración inicial -->
+                                    <Setter Property="Background" Value="#23282d"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" 
+                                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <Button x:Name="btnDespedirFinanciero" Grid.Column="4" Grid.Row="6" Height="30" Width="200" Content="DESPEDIR EMPLEADO"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Background="#941f13" Foreground="WhiteSmoke"
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Visibility="Hidden" Click="btnDespedirFinanciero_Click">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <!-- Configuración inicial -->
+                                    <Setter Property="Background" Value="#941f13"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" 
+                                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <!-- Equipo Médico -->
+                        <Border Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="5" Background="WhiteSmoke" />
+                        <TextBlock x:Name="txtNombreEquipoMedico" Grid.Column="0" Grid.Row="7" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" Cursor="Hand" MouseLeftButtonDown="txtNombreEquipoMedico_MouseLeftButtonDown" />
+                        <TextBlock Grid.Column="1" Grid.Row="7" Text="Equipo Médico" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <Canvas x:Name="canvasEquipoMedico" Grid.Column="2" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                Height="30" Width="155"/>
+                        <TextBlock x:Name="txtSalarioEquipoMedico" Grid.Column="3" Grid.Row="7" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <Button x:Name="btnContratarEquipoMedico" Grid.Column="4" Grid.Row="7" Height="30" Width="200" Content="CONTRATAR EMPLEADO"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Background="#23282d" Foreground="WhiteSmoke"
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Click="btnContratarEquipoMedico_Click">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <!-- Configuración inicial -->
+                                    <Setter Property="Background" Value="#23282d"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" 
+                                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <Button x:Name="btnDespedirEquipoMedico" Grid.Column="4" Grid.Row="7" Height="30" Width="200" Content="DESPEDIR EMPLEADO"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Background="#941f13" Foreground="WhiteSmoke"
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Visibility="Hidden" Click="btnDespedirEquipoMedico_Click">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <!-- Configuración inicial -->
+                                    <Setter Property="Background" Value="#941f13"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" 
+                                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <!-- Encargado Campo -->
+                        <Border Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="5" Background="LightGray" />
+                        <TextBlock x:Name="txtNombreEncargadoPabellon" Grid.Column="0" Grid.Row="8" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" Cursor="Hand" MouseLeftButtonDown="txtNombreEncargadoPabellon_MouseLeftButtonDown" />
+                        <TextBlock Grid.Column="1" Grid.Row="8" Text="Encargado Campo" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <Canvas x:Name="canvasEncargadoPabellon" Grid.Column="2" Grid.Row="8" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                Height="30" Width="155"/>
+                        <TextBlock x:Name="txtSalarioEncargadoPabellon" Grid.Column="3" Grid.Row="8" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <Button x:Name="btnContratarEncargadoPabellon" Grid.Column="4" Grid.Row="8" Height="30" Width="200" Content="CONTRATAR EMPLEADO"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Background="#23282d" Foreground="WhiteSmoke"
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Click="btnContratarEncargadoPabellon_Click">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <!-- Configuración inicial -->
+                                    <Setter Property="Background" Value="#23282d"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" 
+                                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <Button x:Name="btnDespedirEncargadoPabellon" Grid.Column="4" Grid.Row="8" Height="30" Width="200" Content="DESPEDIR EMPLEADO"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Background="#941f13" Foreground="WhiteSmoke"
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Visibility="Hidden" Click="btnDespedirEncargadoPabellon_Click">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <!-- Configuración inicial -->
+                                    <Setter Property="Background" Value="#941f13"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" 
+                                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- ÁREA INFERIOR IZQUIERDA-->
+        <Border x:Name="bordeEmpleadosDisponibles" Background="WhiteSmoke" BorderThickness="1" BorderBrush="#1d6a7d" Margin="15"
+                Grid.Column="0" Grid.Row="1">
+            <Grid Background="WhiteSmoke">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Column="0" Grid.Row="0" Background="#1d6a7d"/>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="EMPLEADOS DISPONIBLES" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                           FontFamily="Cascadia Code SemiBold" Foreground="WhiteSmoke" FontSize="20" />
+
+                <Border Grid.Column="0" Grid.Row="1" Background="WhiteSmoke" BorderThickness="1" BorderBrush="LightGray" Margin="10">
+                    <Grid Background="WhiteSmoke">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Encabezados -->
+                        <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" Background="#1d6a7d" />
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="EMPLEADO" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code SemiBold" Foreground="WhiteSmoke" FontSize="16" />
+                        <TextBlock Grid.Column="1" Grid.Row="0" Text="PUESTO" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code SemiBold" Foreground="WhiteSmoke" FontSize="16" />
+                        <TextBlock Grid.Column="2" Grid.Row="0" Text="CATEGORÍA" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code SemiBold" Foreground="WhiteSmoke" FontSize="16" />
+                        <TextBlock Grid.Column="3" Grid.Row="0" Text="SALARIO" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code SemiBold" Foreground="WhiteSmoke" FontSize="16" />
+
+                        <!-- Empleado Disponible 1 -->
+                        <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" Background="LightGray" />
+                        <TextBlock x:Name="txtNombreEmpleadoDisponible1" Grid.Column="0" Grid.Row="1" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <TextBlock x:Name="txtPuestoEmpleadoDisponible1" Grid.Column="1" Grid.Row="1" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <Canvas x:Name="canvasEmpleadoDisponible1" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                Height="30" Width="155"/>
+                        <TextBlock x:Name="txtSalarioEmpleadoDisponible1" Grid.Column="3" Grid.Row="1" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <Button x:Name="btnFirmar1" Grid.Column="4" Grid.Row="1" Height="30" Width="200" Content="FIRMAR"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Background="#23282d" Foreground="WhiteSmoke"
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Click="btnFirmar1_Click">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <!-- Configuración inicial -->
+                                    <Setter Property="Background" Value="#23282d"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" 
+                                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <!-- Empleado Disponible 2 -->
+                        <Border Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="5" Background="WhiteSmoke" />
+                        <TextBlock x:Name="txtNombreEmpleadoDisponible2" Grid.Column="0" Grid.Row="2" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                  FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <TextBlock x:Name="txtPuestoEmpleadoDisponible2" Grid.Column="1" Grid.Row="2" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <Canvas x:Name="canvasEmpleadoDisponible2" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                Height="30" Width="155"/>
+                        <TextBlock x:Name="txtSalarioEmpleadoDisponible2" Grid.Column="3" Grid.Row="2" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <Button x:Name="btnFirmar2" Grid.Column="4" Grid.Row="2" Height="30" Width="200" Content="FIRMAR"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Background="#23282d" Foreground="WhiteSmoke"
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Click="btnFirmar2_Click">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <!-- Configuración inicial -->
+                                    <Setter Property="Background" Value="#23282d"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" 
+                                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <!-- Empleado Disponible 3 -->
+                        <Border Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="5" Background="LightGray" />
+                        <TextBlock x:Name="txtNombreEmpleadoDisponible3" Grid.Column="0" Grid.Row="3" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <TextBlock x:Name="txtPuestoEmpleadoDisponible3" Grid.Column="1" Grid.Row="3" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <Canvas x:Name="canvasEmpleadoDisponible3" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                Height="30" Width="155"/>
+                        <TextBlock x:Name="txtSalarioEmpleadoDisponible3" Grid.Column="3" Grid.Row="3" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <Button x:Name="btnFirmar3" Grid.Column="4" Grid.Row="3" Height="30" Width="200" Content="FIRMAR"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Background="#23282d" Foreground="WhiteSmoke"
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Click="btnFirmar3_Click">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <!-- Configuración inicial -->
+                                    <Setter Property="Background" Value="#23282d"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" 
+                                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <!-- Empleado Disponible 4 -->
+                        <Border Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="5" Background="WhiteSmoke" />
+                        <TextBlock x:Name="txtNombreEmpleadoDisponible4" Grid.Column="0" Grid.Row="4" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <TextBlock x:Name="txtPuestoEmpleadoDisponible4" Grid.Column="1" Grid.Row="4" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <Canvas x:Name="canvasEmpleadoDisponible4" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                Height="30" Width="155"/>
+                        <TextBlock x:Name="txtSalarioEmpleadoDisponible4" Grid.Column="3" Grid.Row="4" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <Button x:Name="btnFirmar4" Grid.Column="4" Grid.Row="4" Height="30" Width="200" Content="FIRMAR"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Background="#23282d" Foreground="WhiteSmoke"
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Click="btnFirmar4_Click">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <!-- Configuración inicial -->
+                                    <Setter Property="Background" Value="#23282d"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" 
+                                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <!-- Empleado Disponible 5 -->
+                        <Border Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="5" Background="LightGray" />
+                        <TextBlock x:Name="txtNombreEmpleadoDisponible5" Grid.Column="0" Grid.Row="5" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                  FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <TextBlock x:Name="txtPuestoEmpleadoDisponible5" Grid.Column="1" Grid.Row="5" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <Canvas x:Name="canvasEmpleadoDisponible5" Grid.Column="2" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                Height="30" Width="155"/>
+                        <TextBlock x:Name="txtSalarioEmpleadoDisponible5" Grid.Column="3" Grid.Row="5" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code Light" Foreground="Black" FontSize="14" />
+                        <Button x:Name="btnFirmar5" Grid.Column="4" Grid.Row="5" Height="30" Width="200" Content="FIRMAR"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Background="#23282d" Foreground="WhiteSmoke"
+                                FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Click="btnFirmar5_Click">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <!-- Configuración inicial -->
+                                    <Setter Property="Background" Value="#23282d"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" 
+                                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- ÁREA DERECHA -->
+        <Border x:Name="bordeFichaEmpleado" Background="WhiteSmoke" BorderThickness="1" BorderBrush="#1d6a7d" Margin="15"
+                Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
+            <Grid Background="WhiteSmoke">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Column="0" Grid.Row="0" Background="#1d6a7d"/>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="FICHA" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                           FontFamily="Cascadia Code SemiBold" Foreground="WhiteSmoke" FontSize="20" />
+
+                <Border Grid.Column="0" Grid.Row="1" Background="WhiteSmoke" BorderThickness="1" BorderBrush="LightGray" Margin="10">
+                    <Grid Background="WhiteSmoke">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0" Background="#23282d"/>
+                        <TextBlock x:Name="txtFichaEmpleado"  Grid.Column="0" Grid.Row="0" Text="FICHA EMPLEADO" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code SemiBold" Foreground="WhiteSmoke" FontSize="16" />
+
+                        <Border Grid.Column="0" Grid.Row="1" Background="LightGray"/>
+                        <TextBlock x:Name="txtFichaNombreEmpleado" Grid.Column="0" Grid.Row="1" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code SemiBold" Foreground="#23282d" FontSize="16" />
+
+                        <Border Grid.Column="0" Grid.Row="2" Background="WhiteSmoke"/>
+                        <Canvas x:Name="canvasFichaEmpleado" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                Height="30" Width="155" />
+
+                        <Border Grid.Column="0" Grid.Row="3" Background="LightGray"/>
+                        <TextBlock x:Name="txtFichaSalarioEmpleado" Grid.Column="0" Grid.Row="3" Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code SemiBold" Foreground="#23282d" FontSize="16" />
+
+                        <Border Grid.Column="0" Grid.Row="4" Background="#23282d"/>
+                        <TextBlock Grid.Column="0" Grid.Row="4" Text="INFO" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code SemiBold" Foreground="WhiteSmoke" FontSize="16" />
+
+                        <Border Grid.Column="0" Grid.Row="5" Background="LightGray"/>
+                        <TextBlock x:Name="txtFichaInfo" Grid.Row="5" Text="-" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0"
+                                   FontFamily="Cascadia Code Light" Foreground="#23282d" FontSize="16" Width="426" TextWrapping="Wrap" LineHeight="22" />
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

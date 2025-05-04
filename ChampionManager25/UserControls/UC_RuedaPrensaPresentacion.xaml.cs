@@ -39,6 +39,7 @@ namespace ChampionManager25.UserControls
         EstadisticasLogica _logicaEstadistica = new EstadisticasLogica();
         HistorialLogica _logicaHistorial = new HistorialLogica();
         PartidoLogica _logicaPartido = new PartidoLogica();
+        TaquillaLogica _logicaTaquilla = new TaquillaLogica();
 
         private Cuestionario _cuestionario = new Cuestionario();
 
@@ -162,6 +163,9 @@ namespace ChampionManager25.UserControls
                 int numJugadores = _logicaJugador.NumeroJugadoresTotales();
                 _logicaEstadistica.InsertarEstadisticasJugadores(numJugadores, _manager.IdManager);
 
+                // Asignar equipo a la tabla "taquilla"
+                _logicaTaquilla.GenerarTaquilla(_equipo, _manager.IdManager);
+
                 // Generar el primer registro del historial
                 _logicaHistorial.CrearLineaHistorial(_manager.IdManager, _equipo, "2024/2025");
 
@@ -181,6 +185,24 @@ namespace ChampionManager25.UserControls
                     Leido = false,
                     Icono = 0 // 0 es icono de equipo
                 };
+
+                // Crear el mensaje aconsejando poner precio a los abonos de temporada
+                string presidente = _logicaEquipo.ListarDetallesEquipo(_equipo).Presidente;
+
+                Mensaje mensajeAbonados = new Mensaje
+                {
+                    Fecha = Metodos.hoy,
+                    Remitente = presidente,
+                    Asunto = "Campaña de abonados",
+                    Contenido = $"¡Se ha iniciado la campaña de abonados al club!\n\nPuedes establecer los precios de los abonos de temporada en la sección de ESTADIO.\n\nRecuerda que los abonos solamente pueden realizarse antes del inicio de la competición de Liga.",
+                    TipoMensaje = "Notificación",
+                    IdEquipo = _equipo,
+                    IdManager = _manager.IdManager,
+                    Leido = false,
+                    Icono = 0 // 0 es icono de equipo
+                };
+
+                _logicaMensajes.crearMensaje(mensajeAbonados);
 
                 _logicaMensajes.crearMensaje(mensajeInicio1);
             });

@@ -47,6 +47,13 @@ namespace ChampionManager25.UserControls
         JugadorLogica _logicaJugador = new JugadorLogica();
         CompeticionLogica _logicaCompeticion = new CompeticionLogica();
         ManagerLogica _logicaManager = new ManagerLogica();
+        FinanzaLogica _logicaFinanza = new FinanzaLogica();
+        EmpleadoLogica _logicaEmpleado = new EmpleadoLogica();
+        PrestamoLogica _logicaPrestamo = new PrestamoLogica();
+        RemodelacionLogica _logicaRemodelacion = new RemodelacionLogica();
+        TaquillaLogica _logicaTaquilla = new TaquillaLogica();
+        PatrocinadorLogica _logicaPatrocinador = new PatrocinadorLogica();
+        TelevisionLogica _logicaTelevision = new TelevisionLogica();
 
         NacionalidadToFlagConverter convertidorBandera = new NacionalidadToFlagConverter();
 
@@ -74,6 +81,7 @@ namespace ChampionManager25.UserControls
             imgLogoEquipo.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + miEquipo.RutaImagen80));
 
             txtEquipo.Text = _logicaEquipo.ListarDetallesEquipo(_equipo).Nombre;
+            txtPresupuesto.Text = _logicaEquipo.ListarDetallesEquipo(_equipo).Presupuesto.ToString("N0") + " €";
             txtManager.Text = _manager.Nombre + " " + _manager.Apellido;
             int repu = _logicaManager.MostrarManager(_manager.IdManager).Reputacion;
             MostrarEstrellas(repu);
@@ -110,7 +118,352 @@ namespace ChampionManager25.UserControls
             // Reproducir el sonido
             Metodos.ReproducirSonidoTransicion();
 
-            // Comprobar si mi equipo tiene partido.
+            DateTime fechaHoy = Metodos.hoy;
+
+            // Si es lunes y hay contratado un psicologo aumentar la moral de todos los jugadores 1 punto
+            if (fechaHoy.DayOfWeek == DayOfWeek.Monday)
+            {
+                Empleado? psicologo = _logicaEmpleado.ObtenerEmpleadoPorPuesto("Psicólogo");
+                if (psicologo != null)
+                {
+                    List<Jugador> plantilla = _logicaJugador.ListadoJugadoresCompleto(_equipo);
+                    foreach (var jugador in plantilla)
+                    {
+                        _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 1, 0);
+                    }
+                }
+            }
+
+            // Comprobar si hoy acaba alguna Remodelacion y quitarla de la BD e incrementar el aforo
+            Remodelacion obraActivaDB = _logicaRemodelacion.ComprobarRemodelacion(_equipo, _manager.IdManager);
+            if (obraActivaDB != null)
+            {
+                if (obraActivaDB.FechaFinal == fechaHoy)
+                {
+                    _logicaRemodelacion.EliminarRemodelacion(obraActivaDB.IdRemodelacion);
+
+                    if (obraActivaDB.TipoRemodelacion == 1)
+                    {
+                        _logicaEquipo.ActualizarAforo(_equipo, 500);
+                    }
+                    else if (obraActivaDB.TipoRemodelacion == 2)
+                    {
+                        _logicaEquipo.ActualizarAforo(_equipo, 1000);
+                    }
+                    else if (obraActivaDB.TipoRemodelacion == 3)
+                    {
+                        _logicaEquipo.ActualizarAforo(_equipo, 1500);
+                    }
+                }
+            }
+
+            // Comprobar si hoy acaba algun prestamo bancario y quitarlo de la BD
+            List<Prestamo> prestamosActuales = _logicaPrestamo.MostrarPrestamos(_manager.IdManager, _equipo);
+            foreach (var prestamo in prestamosActuales)
+            {
+                if (prestamo.SemanasRestantes == 0)
+                {
+                    _logicaPrestamo.EliminarPrestamo(_manager.IdManager, _equipo, prestamo.Orden);
+                }  
+            }
+
+            // Mostrar los abonados de la temporada e ingresar el dinero si es el segundo Lunes de agosto
+            DateTime fechaAbonados = ObtenerSegundoLunesDeAgosto(Metodos.temporadaActual);
+            if (fechaHoy == fechaAbonados)
+            {
+                // Crear numero de abonados
+                Random random = new Random();
+                int aforo = _logicaEquipo.ListarDetallesEquipo(_equipo).Aforo;
+                string objetivo = _logicaEquipo.ListarDetallesEquipo(_equipo).Objetivo;
+                int reputacion = _logicaEquipo.ListarDetallesEquipo(_equipo).Reputacion;
+
+                int maxSocios = (int)(aforo * 0.90); // límite máximo realista, por ejemplo, 95% del aforo total
+
+                // Factor Objetivo
+                double factorObjetivo = 1;
+                if (objetivo.Equals("Campeón"))
+                {
+                    factorObjetivo = 0.70 + random.NextDouble() * (0.80 - 0.70); ;
+                }
+                else if (objetivo.Equals("Ascenso"))
+                {
+                    factorObjetivo = 0.70 + random.NextDouble() * (0.75 - 0.70); ;
+                }
+                else if (objetivo.Equals("Zona Tranquila"))
+                {
+                    factorObjetivo = 0.50 + random.NextDouble() * (0.75 - 0.50); ;
+                }
+                else if (objetivo.Equals("Descenso"))
+                {
+                    factorObjetivo = 0.30 + random.NextDouble() * (0.75 - 0.30); ;
+                }
+
+                // Factor precio abonos segun reputacion
+                Taquilla? precios = _logicaTaquilla.RecuperarPreciosTaquilla(_equipo, _manager.IdManager);
+                double factorReputacion = 1.0;
+
+                // Definir los umbrales según reputación
+                int umbralGeneral, umbralTribuna, umbralVip;
+
+                if (reputacion >= 95)
+                {
+                    umbralGeneral = 900;
+                    umbralTribuna = 2000;
+                    umbralVip = 3000;
+                }
+                else if (reputacion >= 80)
+                {
+                    umbralGeneral = 700;
+                    umbralTribuna = 1500;
+                    umbralVip = 2000;
+                }
+                else if (reputacion >= 70)
+                {
+                    umbralGeneral = 500;
+                    umbralTribuna = 1000;
+                    umbralVip = 1500;
+                }
+                else
+                {
+                    umbralGeneral = 200;
+                    umbralTribuna = 400;
+                    umbralVip = 500;
+                }
+
+                // Evaluar el factor según precios
+                factorReputacion = precios.PrecioAbonoGeneral >= umbralGeneral ? 0.8 : 1.1;
+                factorReputacion = precios.PrecioAbonoTribuna >= umbralTribuna ? 0.8 : factorReputacion;
+                factorReputacion = precios.PrecioAbonoVip >= umbralVip ? 0.9 : factorReputacion;
+
+                int sociosTemporada = (int)(maxSocios * factorObjetivo * factorReputacion);
+
+                // Crear el mensaje con el numero de abonados de la temporada
+                Empleado? financiero = _logicaEmpleado.ObtenerEmpleadoPorPuesto("Financiero");
+                string presidente = _logicaEquipo.ListarDetallesEquipo(_equipo).Presidente;
+
+                Mensaje mensajeAbonados = new Mensaje
+                {
+                    Fecha = Metodos.hoy,
+                    Remitente = financiero != null ? financiero.Nombre : presidente,
+                    Asunto = "Campaña de abonados terminada",
+                    Contenido = $"Ha terminado la campaña de abonos. Se han abonado un total de {sociosTemporada.ToString("N0", new CultureInfo("es-ES"))} socios.\n\n¡No está nada mal, las expectativas del equipo parece que han convencido a los socios!",
+                    TipoMensaje = "Notificación",
+                    IdEquipo = _equipo,
+                    IdManager = _manager.IdManager,
+                    Leido = false,
+                    Icono = 0 // 0 es icono de equipo
+                };
+
+                _logicaMensajes.crearMensaje(mensajeAbonados);
+
+                // Ingresar el dinero de los abonos
+                double abonoGeneral = sociosTemporada * 0.60;
+                double abonoTribuna = sociosTemporada * 0.30;
+                double abonoVip = sociosTemporada * 0.10;
+
+                int? precioAbonoGeneral = precios.PrecioAbonoGeneral ?? 0;
+                int? precioAbonoTribuna = precios.PrecioAbonoTribuna ?? 0;
+                int? precioAbonoVip = precios.PrecioAbonoVip ?? 0;
+
+                int ingresoTotal = (int)((abonoGeneral * precioAbonoGeneral) +(abonoTribuna * precioAbonoTribuna) +(abonoVip * precioAbonoVip));
+
+                // Crear el ingreso
+                Finanza nuevoIngreso = new Finanza
+                {
+                    IdEquipo = _equipo,
+                    IdManager = _manager.IdManager,
+                    Temporada = Metodos.temporadaActual.ToString(),
+                    IdConcepto = 5,
+                    Tipo = 1,
+                    Cantidad = ingresoTotal,
+                    Fecha = Metodos.hoy.Date
+                };
+                _logicaFinanza.CrearIngreso(nuevoIngreso);
+
+                // Sumar los ingresos al Presupuesto
+                _logicaEquipo.SumarCantidadAPresupuesto(_equipo, ingresoTotal);
+            }
+
+            // Realizar cobros de los salarios si es 1 de mes.
+            if (fechaHoy.Day == 1)
+            {
+                // EMPLEADOS
+                List<Empleado> listaEmpleadosContratados = _logicaEmpleado.MostrarListaEmpleadosContratados(_equipo, _manager.IdManager);
+                foreach (var empleado in listaEmpleadosContratados)
+                {
+                    int mensualidadE = (int)empleado.Salario / 12;
+                    Finanza nuevoGasto = new Finanza
+                    {
+                        IdEquipo = _equipo,
+                        IdManager = _manager.IdManager,
+                        Temporada = Metodos.temporadaActual.ToString(),
+                        IdConcepto = 13,
+                        Tipo = 2,
+                        Cantidad = mensualidadE,
+                        Fecha = Metodos.hoy.Date
+                    };
+                    _logicaFinanza.CrearGasto(nuevoGasto);
+
+                    // Restar la indemnización al Presupuesto
+                    _logicaEquipo.RestarCantidadAPresupuesto(_equipo, mensualidadE);
+                }
+
+                // JUGADORES
+                List<Jugador> listaJugadoresContratados = _logicaJugador.ListadoJugadoresCompleto(_equipo);
+                foreach (var jugador in listaJugadoresContratados)
+                {
+                    int mensualidadJ = (int)jugador.SalarioTemporada / 12;
+                    Finanza nuevoGasto = new Finanza
+                    {
+                        IdEquipo = _equipo,
+                        IdManager = _manager.IdManager,
+                        Temporada = Metodos.temporadaActual.ToString(),
+                        IdConcepto = 11,
+                        Tipo = 2,
+                        Cantidad = mensualidadJ,
+                        Fecha = Metodos.hoy.Date
+                    };
+                    _logicaFinanza.CrearGasto(nuevoGasto);
+
+                    // Restar la indemnización al Presupuesto
+                    _logicaEquipo.RestarCantidadAPresupuesto(_equipo, mensualidadJ);
+                }
+            }
+
+            // Realizar cobros de prestamos y remodelaciones (si los hubiera) si es Lunes.
+            if (fechaHoy.DayOfWeek == DayOfWeek.Monday)
+            {
+                // PRESTAMOS
+                List<Prestamo> prestamosActivos = _logicaPrestamo.MostrarPrestamos(_manager.IdManager, _equipo);
+                foreach (var prestamo in prestamosActivos)
+                {
+                    int pagoPrestamo = prestamo.PagoSemanal;
+                    Finanza nuevoGasto = new Finanza
+                    {
+                        IdEquipo = _equipo,
+                        IdManager = _manager.IdManager,
+                        Temporada = Metodos.temporadaActual.ToString(),
+                        IdConcepto = 17,
+                        Tipo = 2,
+                        Cantidad = pagoPrestamo,
+                        Fecha = Metodos.hoy.Date
+                    };
+                    _logicaFinanza.CrearGasto(nuevoGasto);
+
+                    // Restar la cantidad semanal al Presupuesto
+                    _logicaEquipo.RestarCantidadAPresupuesto(_equipo, pagoPrestamo);
+
+                    // Restar una semana al prestamo
+                    _logicaPrestamo.RestarSemana(prestamo.Orden);
+                }
+
+                // REMODELACIONES
+                Remodelacion obraActiva = _logicaRemodelacion.ComprobarRemodelacion(_equipo, _manager.IdManager);
+                Finanza nuevoGastoRemodelacion = null;
+                int pagoRemodelacion = 0;
+
+                if (obraActiva != null)
+                {
+                    if (obraActiva.TipoRemodelacion == 1)
+                    {
+                        pagoRemodelacion = 250000;
+                        nuevoGastoRemodelacion = new Finanza
+                        {
+                            IdEquipo = _equipo,
+                            IdManager = _manager.IdManager,
+                            Temporada = Metodos.temporadaActual.ToString(),
+                            IdConcepto = 15,
+                            Tipo = 2,
+                            Cantidad = pagoRemodelacion,
+                            Fecha = Metodos.hoy.Date
+                        };
+                    } 
+                    else if (obraActiva.TipoRemodelacion == 2)
+                    {
+                        pagoRemodelacion = 425000;
+                        nuevoGastoRemodelacion = new Finanza
+                        {
+                            IdEquipo = _equipo,
+                            IdManager = _manager.IdManager,
+                            Temporada = Metodos.temporadaActual.ToString(),
+                            IdConcepto = 15,
+                            Tipo = 2,
+                            Cantidad = pagoRemodelacion,
+                            Fecha = Metodos.hoy.Date
+                        };
+                    }
+                    else if (obraActiva.TipoRemodelacion == 3)
+                    {
+                        pagoRemodelacion = 600000;
+                        nuevoGastoRemodelacion = new Finanza
+                        {
+                            IdEquipo = _equipo,
+                            IdManager = _manager.IdManager,
+                            Temporada = Metodos.temporadaActual.ToString(),
+                            IdConcepto = 15,
+                            Tipo = 2,
+                            Cantidad = pagoRemodelacion,
+                            Fecha = Metodos.hoy.Date
+                        };
+                    }
+                    _logicaFinanza.CrearGasto(nuevoGastoRemodelacion);
+
+                    // Restar la indemnización al Presupuesto
+                    _logicaEquipo.RestarCantidadAPresupuesto(_equipo, pagoRemodelacion);
+                }
+            }
+
+            // Realizar los ingresos de Patrocinador y Television si es el dia 1 del mes
+            if (fechaHoy.Day == 1)
+            {
+                // PATROCINADOR
+                Patrocinador? patrocinador = _logicaPatrocinador.PatrocinadoresContratados(_manager.IdManager, _equipo);
+
+                if (patrocinador != null)
+                {
+                    int mensualidadPatrocinador = (int)patrocinador.Cantidad / 12;
+
+                    Finanza nuevoIngresoPatrocinio = new Finanza
+                    {
+                        IdEquipo = _equipo,
+                        IdManager = _manager.IdManager,
+                        Temporada = Metodos.temporadaActual.ToString(),
+                        IdConcepto = 6,
+                        Tipo = 1,
+                        Cantidad = mensualidadPatrocinador,
+                        Fecha = Metodos.hoy.Date
+                    };
+                    _logicaFinanza.CrearIngreso(nuevoIngresoPatrocinio);
+
+                    // Restar la indemnización al Presupuesto
+                    _logicaEquipo.SumarCantidadAPresupuesto(_equipo, mensualidadPatrocinador);
+                }
+
+                // CADENA TV
+                Television? television = _logicaTelevision.TelevisionesContratadas(_manager.IdManager, _equipo);
+
+                if (television != null)
+                {
+                    int mensualidadTelevision = (int)television.Cantidad / 12;
+
+                    Finanza nuevoIngresoTelevision = new Finanza
+                    {
+                        IdEquipo = _equipo,
+                        IdManager = _manager.IdManager,
+                        Temporada = Metodos.temporadaActual.ToString(),
+                        IdConcepto = 7,
+                        Tipo = 1,
+                        Cantidad = mensualidadTelevision,
+                        Fecha = Metodos.hoy.Date
+                    };
+                    _logicaFinanza.CrearIngreso(nuevoIngresoTelevision);
+
+                    // Restar la indemnización al Presupuesto
+                    _logicaEquipo.SumarCantidadAPresupuesto(_equipo, mensualidadTelevision);
+                }       
+            }
+
+            // --------------------------------------------- COMPROBAR SI MI EQUIPO TIENE PARTIDO ---------------------------------------------
             Partido miPartido = _logicaPartidos.ObtenerProximoPartido(_equipo, _manager.IdManager, Metodos.hoy);
 
             if (miPartido != null && miPartido.FechaPartido == Metodos.hoy)
@@ -468,6 +821,37 @@ namespace ChampionManager25.UserControls
                             string temporadaFormateada = $"{temporadaActual}/{temporadaActual + 1}";
                             _logicaHistorial.CrearLineaHistorial(_manager.IdManager, _equipo, temporadaFormateada);
 
+                            // Vaciar la tabla taquilla
+                            _logicaTaquilla.EstablecerPrecioAbonos(_equipo, _manager.IdManager, 0, 0, 0);
+
+                            // Restar un año al contrato del patrocinador y de la televisión.
+                            Patrocinador? patrocinador = _logicaPatrocinador.PatrocinadoresContratados(_manager.IdManager, _equipo);
+                            Television? television = _logicaTelevision.TelevisionesContratadas(_manager.IdManager, _equipo);
+
+                            if (patrocinador != null)
+                            {
+                                if (patrocinador.DuracionContrato > 1)
+                                {
+                                    _logicaPatrocinador.RestarAnioPatrocinador(patrocinador.IdPatrocinador);
+                                }
+                                else
+                                {
+                                    _logicaPatrocinador.CancelarPatrocinador(patrocinador.IdPatrocinador);
+                                } 
+                            }
+
+                            if (television != null)
+                            {
+                                if (television.DuracionContrato > 1)
+                                {
+                                    _logicaTelevision.RestarAnioCadenaTV(television.IdTelevision);
+                                }
+                                else
+                                {
+                                    _logicaTelevision.CancelarCadenaTV(television.IdTelevision);
+                                }
+                            }
+
                             // Crear los mensaje de inicio de partida
                             Mensaje mensajeNuevaTemporada = new Mensaje
                             {
@@ -504,6 +888,7 @@ namespace ChampionManager25.UserControls
                     }
                 }
             }
+            DockPanel_Submenu.Children.Clear();
         }
 
         // ----------------------------------------------------------------------------- Evento CLICK del botón AJUSTES
@@ -547,6 +932,8 @@ namespace ChampionManager25.UserControls
             // Suscribirse a los eventos
             menuClub.MostrarInformacion += CargarClubInformacion;
             menuClub.MostrarPlantilla += CargarClubPlantilla;
+            menuClub.MostrarEmpleados += CargarClubEmpleados;
+            menuClub.MostrarLesionados += CargarClubLesionados;
 
             // Cambiar el color del texto
             menuClub.lblInformacion.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
@@ -607,7 +994,7 @@ namespace ChampionManager25.UserControls
             UC_Menu_Competicion_Clasificacion clasificacionPrincipal = new UC_Menu_Competicion_Clasificacion(_manager, _equipo);
             DockPanel_Central.Children.Add(clasificacionPrincipal);
         }
-        // ------------------------------------------------------------------------------------------------------------
+        // ---------------------------------------------------------------------------------------------------------------
 
         // ----------------------------------------------------------------------------- Evento CLICK del botón CALENDARIO 
         private void imgCalendario_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -626,7 +1013,68 @@ namespace ChampionManager25.UserControls
         }
         // ---------------------------------------------------------------------------------------------------------------
 
-        // ----------------------------------------------------------------------------- Evento CLICK del botón ESTADIO
+        // ----------------------------------------------------------------------------- Evento CLICK del botón TRANSFERENCIAS 
+        private void imgTransferencias_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // Reproducir sonido
+            Metodos.ReproducirSonidoClick();
+
+            // Cargar Submenú
+            DockPanel_Submenu.Children.Clear();
+            UC_Menu_Transferencias menuTransferencias = new UC_Menu_Transferencias();
+
+            // Suscribirse a los eventos
+            menuTransferencias.MostrarMercado += CargarTransferenciasMercado;
+            //menuTransferencias.MostrarBuscarPorEquipo += CargarTransferenciasBuscarPorEquipo;
+            //menuTransferencias.MostrarBuscarPorFiltro += CargarTransferenciasBuscarPorFiltro;
+            menuTransferencias.MostrarCartera += CargarTransferenciasCartera;
+            //menuTransferencias.MostrarEstadoOfertas += CargarTransferenciasEstadoOfertas;
+            //menuTransferencias.MostrarListaTraspasos += CargarTransferenciasListaTraspasos;
+
+            // Cambiar el color del texto "Ingresos" a naranja
+            menuTransferencias.lblMercado.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+
+            // Añadir el menú a la vista
+            DockPanel_Submenu.Children.Add(menuTransferencias);
+
+            // Cargar Panel Principal (en este caso es el de "Mercado")
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Transferencias_Mercado transferenciasMercado = new UC_Menu_Transferencias_Mercado(_manager, _equipo);
+            DockPanel_Central.Children.Add(transferenciasMercado);
+        }
+        // ---------------------------------------------------------------------------------------------------------------
+
+        // ------------------------------------------------------------------------------- Evento CLICK del botón FINANZAS 
+        private void imgFinanzas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // Reproducir sonido
+            Metodos.ReproducirSonidoClick();
+
+            // Cargar Submenú
+            DockPanel_Submenu.Children.Clear();
+            UC_Menu_Finanzas menuFinanzas = new UC_Menu_Finanzas();
+
+            // Suscribirse a los eventos
+            menuFinanzas.MostrarIngresos += CargarFinanzasIngresos;
+            menuFinanzas.MostrarGastos += CargarFinanzasGastos;
+            menuFinanzas.MostrarPatrocinadores += CargarFinanzasPatrocinadores;
+            menuFinanzas.MostrarTelevision += CargarFinanzasDerechosTV;
+            menuFinanzas.MostrarPrestamos += CargarFinanzasPrestamos;
+
+            // Cambiar el color del texto "Ingresos" a naranja
+            menuFinanzas.lblIngresos.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+
+            // Añadir el menú a la vista
+            DockPanel_Submenu.Children.Add(menuFinanzas);
+
+            // Cargar Panel Principal (en este caso es el de "Ingresos")
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Finanzas_Ingresos finanzasIngresos = new UC_Menu_Finanzas_Ingresos(_manager, _equipo);
+            DockPanel_Central.Children.Add(finanzasIngresos);
+        }
+        // ---------------------------------------------------------------------------------------------------------------
+
+        // -------------------------------------------------------------------------------- Evento CLICK del botón ESTADIO
         private void imgPabellon_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Metodos.ReproducirSonidoClick();
@@ -635,6 +1083,14 @@ namespace ChampionManager25.UserControls
             DockPanel_Submenu.Children.Clear();
             UC_Menu_Estadio menuEstadio = new UC_Menu_Estadio();
             DockPanel_Submenu.Children.Add(menuEstadio);
+
+            // Suscribirse a los eventos
+            menuEstadio.MostrarInformacion += CargarEstadioInformacion;
+            menuEstadio.MostrarEntradas += CargarEstadioEntradas;
+            menuEstadio.MostrarAmpliaciones += CargarEstadioAmpliaciones;
+
+            // Cambiar el color del texto
+            menuEstadio.lblInformacion.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
 
             // Cargar Panel Principal
             DockPanel_Central.Children.Clear();
@@ -761,6 +1217,24 @@ namespace ChampionManager25.UserControls
             DockPanel_Central.Children.Add(clubPlantilla);
         }
 
+        // Método para cargar UC_Menu_Club_Empleados
+        private void CargarClubEmpleados()
+        {
+            // Cargar UC_Menu_Club_Empleados
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Club_Empleados clubEmpleados = new UC_Menu_Club_Empleados(_manager, _equipo);
+            DockPanel_Central.Children.Add(clubEmpleados);
+        }
+
+        // Método para cargar UC_Menu_Club_Lesionados
+        private void CargarClubLesionados()
+        {
+            // Cargar UC_Menu_Club_Lesionados
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Club_Lesionados clubEmpleados = new UC_Menu_Club_Lesionados(_manager, _equipo);
+            DockPanel_Central.Children.Add(clubEmpleados);
+        }
+
         // Método para cargar UC_Menu_Entrenador_Alineacion
         private void CargarEntrenadorAlineacion()
         {
@@ -856,6 +1330,87 @@ namespace ChampionManager25.UserControls
             DockPanel_Central.Children.Clear();
             UC_Menu_Estadio_Informacion pabellonInformacion = new UC_Menu_Estadio_Informacion(_manager, _equipo);
             DockPanel_Central.Children.Add(pabellonInformacion);
+        }
+
+        // Método para cargar UC_Menu_Estadio_Entradas
+        private void CargarEstadioEntradas()
+        {
+            // Cargar UC_Menu_Estadio_Entradas
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Estadio_Entradas pabellonEntradas = new UC_Menu_Estadio_Entradas(_manager, _equipo);
+            DockPanel_Central.Children.Add(pabellonEntradas);
+        }
+
+        // Método para cargar UC_Menu_Estadio_Ampliaciones
+        private void CargarEstadioAmpliaciones()
+        {
+            // Cargar UC_Menu_Estadio_Ampliaciones
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Estadio_Ampliaciones pabellonAmpliaciones = new UC_Menu_Estadio_Ampliaciones(_manager, _equipo);
+            DockPanel_Central.Children.Add(pabellonAmpliaciones);
+        }
+
+        // Método para cargar UC_Menu_Finanzas_Ingresos
+        private void CargarFinanzasIngresos()
+        {
+            // Cargar UC_Menu_Finanzas_Ingresos
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Finanzas_Ingresos finanzasIngresos = new UC_Menu_Finanzas_Ingresos(_manager, _equipo);
+            DockPanel_Central.Children.Add(finanzasIngresos);
+        }
+
+        // Método para cargar UC_Menu_Finanzas_Gastos
+        private void CargarFinanzasGastos()
+        {
+            // Cargar UC_Menu_Finanzas_Gastos
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Finanzas_Gastos finanzasGastos = new UC_Menu_Finanzas_Gastos(_manager, _equipo);
+            DockPanel_Central.Children.Add(finanzasGastos);
+        }
+
+        // Método para cargar UC_Menu_Finanzas_Patrocinadores
+        private void CargarFinanzasPatrocinadores()
+        {
+            // Cargar UC_Menu_Finanzas_Patrocinadores
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Finanzas_Patrocinadores finanzasPatrocinadores = new UC_Menu_Finanzas_Patrocinadores(_manager, _equipo);
+            DockPanel_Central.Children.Add(finanzasPatrocinadores);
+        }
+
+        // Método para cargar UC_Menu_Finanzas_DerechosTV
+        private void CargarFinanzasDerechosTV()
+        {
+            // Cargar UC_Menu_Finanzas_DerechosTV
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Finanzas_DerechosTV finanzasTelevisiones = new UC_Menu_Finanzas_DerechosTV(_manager, _equipo);
+            DockPanel_Central.Children.Add(finanzasTelevisiones);
+        }
+
+        // Método para cargar UC_Menu_Finanzas_Prestamos
+        private void CargarFinanzasPrestamos()
+        {
+            // Cargar UC_Menu_Finanzas_DerechosTV
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Finanzas_Prestamos finanzasPrestamos = new UC_Menu_Finanzas_Prestamos(_manager, _equipo);
+            DockPanel_Central.Children.Add(finanzasPrestamos);
+        }
+
+        // Método para cargar UC_Menu_Transferencias_Mercado
+        private void CargarTransferenciasMercado()
+        {
+            // Cargar UC_Menu_Transferencias_Mercado 
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Transferencias_Mercado transferenciasMercado = new UC_Menu_Transferencias_Mercado(_manager, _equipo);
+            DockPanel_Central.Children.Add(transferenciasMercado);
+        }
+
+        // Método para cargar UC_Menu_Transferencias_Cartera
+        private void CargarTransferenciasCartera()
+        {
+            // Cargar UC_Menu_Transferencias_Cartera 
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Transferencias_Cartera transferenciasCartera = new UC_Menu_Transferencias_Cartera(_manager, _equipo);
+            DockPanel_Central.Children.Add(transferenciasCartera);
         }
 
         private void CargarFecha()
@@ -1002,6 +1557,28 @@ namespace ChampionManager25.UserControls
             }
         }
 
+        public static DateTime ObtenerSegundoLunesDeAgosto(int anio)
+        {
+            DateTime fecha = new DateTime(anio, 8, 1);
+            int lunesEncontrados = 0;
+
+            while (fecha.Month == 8)
+            {
+                if (fecha.DayOfWeek == DayOfWeek.Monday)
+                {
+                    lunesEncontrados++;
+                    if (lunesEncontrados == 2)
+                    {
+                        return fecha;
+                    }
+                }
+
+                fecha = fecha.AddDays(1);
+            }
+
+            throw new Exception("No se encontró el tercer sábado de agosto.");
+        }
+
         public static DateTime ObtenerPrimerMiercolesSeptiembre(int anio)
         {
             DateTime fecha = new DateTime(anio, 9, 1);
@@ -1022,6 +1599,11 @@ namespace ChampionManager25.UserControls
             }
 
             throw new Exception("No se encontró el tercer sábado de agosto.");
+        }
+
+        public void ActualizarPresupuesto()
+        {
+            txtPresupuesto.Text = _logicaEquipo.ListarDetallesEquipo(_equipo).Presupuesto.ToString("N0") + " €";
         }
         #endregion
     }

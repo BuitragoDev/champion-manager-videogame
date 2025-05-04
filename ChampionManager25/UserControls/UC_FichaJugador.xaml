@@ -67,7 +67,7 @@
                                         <TextBlock Grid.Column="1" Grid.Row="0" x:Name="txtNombreJugador" Text="NombreJugador" HorizontalAlignment="Left" VerticalAlignment="Center" 
                                                    FontFamily="Cascadia Code SemiBold" FontSize="32" Foreground="WhiteSmoke" TextAlignment="Center"/>
                                         <Image x:Name="imgFotoJugador" Grid.Column="2" Grid.Row="0" Width="100" Height="100" VerticalAlignment="Center" 
-                                               HorizontalAlignment="Center" />
+                                               HorizontalAlignment="Center" Source="/Recursos/img/jugadores/1.png" />
                                     </Grid>
                                 </Border>
 
@@ -86,16 +86,17 @@
                                             <RowDefinition Height="*"/>
                                             <RowDefinition Height="*"/>
                                             <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
 
                                         <!-- Escudo Equipo y Media -->
                                         <Image x:Name="imgEscudoEquipo" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Width="120" Height="120" VerticalAlignment="Center" 
-                                               HorizontalAlignment="Center" />
+                                               HorizontalAlignment="Center" Source="/Recursos/img/escudos_equipos/80x80/1.png" />
 
-                                        <Ellipse x:Name="elipseMedia" Grid.Column="0" Grid.Row="3" Grid.RowSpan="3" HorizontalAlignment="Center" Height="120" Stroke="Green" 
-                                                 VerticalAlignment="Center" Width="120" StrokeThickness="20"/>
+                                        <Ellipse x:Name="elipseMedia" Grid.Column="0" Grid.Row="3" Grid.RowSpan="3" HorizontalAlignment="Center" Height="70" Stroke="Green" 
+                                                 VerticalAlignment="Center" Width="70" StrokeThickness="8"/>
                                         <TextBlock x:Name="lblAverage" Grid.Column="0" Grid.Row="3" Grid.RowSpan="3" Text="99" FontFamily="Cascadia Code SemiBold" 
-                                                   FontSize="32" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                                   FontSize="26" VerticalAlignment="Center" HorizontalAlignment="Center" />
 
                                         <!-- Datos Personales -->
                                         <TextBlock Grid.Column="1" Grid.Row="0" Text="Equipo:" HorizontalAlignment="Left" VerticalAlignment="Center" 
@@ -110,7 +111,9 @@
                                                    FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
                                         <TextBlock Grid.Column="1" Grid.Row="5" Text="Nacionalidad:" HorizontalAlignment="Left" VerticalAlignment="Center" 
                                                    FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
-                       
+                                        <TextBlock x:Name="txtFuturoTraspaso" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2" Text="" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                   FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+
                                         <TextBlock x:Name="txtNombreEquipo" Grid.Column="2" Grid.Row="0" Text="Equipo" HorizontalAlignment="Left" VerticalAlignment="Center" 
                                                    FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
                                         <TextBlock x:Name="txtPosicion" Grid.Column="2" Grid.Row="1" Text="Posicion" HorizontalAlignment="Left" VerticalAlignment="Center" 
@@ -125,7 +128,6 @@
                                                    FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
                                     </Grid>
                                 </Border>
-
                             </Grid>
                         </Border>
 
@@ -158,6 +160,8 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="20"/>
                             <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
@@ -181,6 +185,8 @@
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
 
                                 <!-- Condición Física -->
@@ -199,7 +205,6 @@
                                                    FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="#FF23282D" TextAlignment="Center"/>
                                     </Grid>
                                 </Border>
-                                
                                 <!-- Moral -->
                                 <Border Background="LightGray" Grid.Column="0" Grid.Row="1" Margin="5">
                                     <Grid>
@@ -216,9 +221,40 @@
                                                Height="32" Width="32" Source="/Recursos/img/icons/derecha_icon.png" />
                                     </Grid>
                                 </Border>
-                               
-                                <!-- Lesionado -->
+                                <!-- Estado de Ánimo -->
                                 <Border Background="WhiteSmoke" Grid.Column="0" Grid.Row="2" Margin="5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="70"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Estado de Ánimo:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"
+                                                   FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <Image x:Name="imgEstadoAnimo" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               Height="32" Width="32" Source="/Recursos/img/icons/derecha_icon.png" />
+                                    </Grid>
+                                </Border>
+                                <!-- Situación de Mercado -->
+                                <Border Background="LightGray" Grid.Column="0" Grid.Row="3" Margin="5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="70"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Situación de Mercado:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"
+                                                   FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                        <Image x:Name="imgSituacionMercado" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               Height="32" Width="32" />
+                                    </Grid>
+                                </Border>
+                                <!-- Lesionado -->
+                                <Border Background="WhiteSmoke" Grid.Column="0" Grid.Row="4" Margin="5">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
@@ -233,9 +269,8 @@
                                                Height="32" Width="32" />
                                     </Grid>
                                 </Border>
-                                
                                 <!-- Rol -->
-                                <Border Background="LightGray" Grid.Column="0" Grid.Row="3" Margin="5">
+                                <Border Background="LightGray" Grid.Column="0" Grid.Row="5" Margin="5">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
@@ -249,6 +284,82 @@
                                         <Image x:Name="imgStatus" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"
                                                Height="32" Width="32" />
                                     </Grid>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <!-- Detalles Contractuales -->
+                        <Border Background="#1d6a7d" Grid.Column="2" Grid.Row="0" BorderBrush="#1d6a7d" BorderThickness="1">
+                            <TextBlock Text="CONTRATO" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                        </Border>
+
+                        <Border Grid.Column="2" Grid.Row="1" BorderBrush="#1d6a7d" BorderThickness="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Border Background="LightGray" Grid.Column="0" Grid.Row="0" Margin="5">
+                                    <TextBlock Text="SALARIO ANUAL" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                               FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="#FF23282D" TextAlignment="Center"/>
+                                </Border>
+
+                                <Border Background="WhiteSmoke" Grid.Column="0" Grid.Row="1" Margin="5">
+                                    <TextBlock x:Name="txtSalario" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                               FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                </Border>
+
+                                <Border Background="LightGray" Grid.Column="0" Grid.Row="2" Margin="5">
+                                    <TextBlock Text="AÑOS RESTANTES" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                               FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="#FF23282D" TextAlignment="Center"/>
+                                </Border>
+
+                                <Border Background="WhiteSmoke" Grid.Column="0" Grid.Row="3" Margin="5">
+                                    <TextBlock x:Name="txtAniosContrato" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                               FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                </Border>
+
+                                <Border Background="LightGray" Grid.Column="0" Grid.Row="4" Margin="5">
+                                    <TextBlock Text="CLAÚSULA RESCISIÓN" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                               FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="#FF23282D" TextAlignment="Center"/>
+                                </Border>
+
+                                <Border Background="WhiteSmoke" Grid.Column="0" Grid.Row="5" Margin="5">
+                                    <TextBlock x:Name="txtClausulaRescision" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                               FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                </Border>
+
+                                <Border Background="LightGray" Grid.Column="0" Grid.Row="6" Margin="5">
+                                    <TextBlock Text="BONUS POR PARTIDOS" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                               FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="#FF23282D" TextAlignment="Center"/>
+                                </Border>
+
+                                <Border Background="WhiteSmoke" Grid.Column="0" Grid.Row="7" Margin="5">
+                                    <TextBlock x:Name="txtBonusPartido" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                               FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                                </Border>
+
+                                <Border Background="LightGray" Grid.Column="0" Grid.Row="8" Margin="5">
+                                    <TextBlock Text="BONUS POR GOLES" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                               FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="#FF23282D" TextAlignment="Center"/>
+                                </Border>
+
+                                <Border Background="WhiteSmoke" Grid.Column="0" Grid.Row="9" Margin="5">
+                                    <TextBlock x:Name="txtBonusGoles" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                               FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
                                 </Border>
                             </Grid>
                         </Border>
@@ -417,14 +528,15 @@
         <Border Background="#FF23282D" Grid.Column="0" Grid.Row="2">
             <Grid>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Button x:Name="btnVolverPlantilla" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"
-                        Height="50" Width="250" FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnVolverPlantilla_Click" Margin="0,0,10,0">
+                <Button x:Name="btnVolverPlantilla" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"
+                        Height="50" Width="250" FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnVolverPlantilla_Click">
                     <Button.Style>
                         <Style TargetType="Button">
                             <!-- Configuración inicial -->
@@ -463,6 +575,253 @@
                         </Style>
                     </Button.Style>
                 </Button>
+                <WrapPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Button x:Name="btnDespedir" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0"
+                            Height="50" Width="250" FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Visibility="Hidden" Click="btnDespedir_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <!-- Configuración inicial -->
+                                <Setter Property="Background" Value="#1d6a7d"/>
+                                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <!-- Imagen de la flecha -->
+                                                    <Image Source="/Recursos/img/icons/despedir_icon.png" Height="32" Width="32" VerticalAlignment="Center" Stretch="Uniform"/>
+                                                    <!-- Texto del botón -->
+                                                    <TextBlock Text="Despedir" 
+                                                               Foreground="{TemplateBinding Foreground}" 
+                                                               VerticalAlignment="Center" 
+                                                               Margin="20,0,5,0" FontSize="22"/>
+                                                </StackPanel>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+
+                                <!-- Configuración al pasar el ratón -->
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+                                        <Setter Property="BorderThickness" Value="1"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <Button x:Name="btnRenovar" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0"
+                            Height="50" Width="250" FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Visibility="Hidden" Click="btnRenovar_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <!-- Configuración inicial -->
+                                <Setter Property="Background" Value="#1d6a7d"/>
+                                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <!-- Imagen de la flecha -->
+                                                    <Image Source="/Recursos/img/icons/renovar_icon.png" Height="32" Width="32" VerticalAlignment="Center" Stretch="Uniform"/>
+                                                    <!-- Texto del botón -->
+                                                    <TextBlock Text="Renovar" 
+                                                               Foreground="{TemplateBinding Foreground}" 
+                                                               VerticalAlignment="Center" 
+                                                               Margin="20,0,5,0" FontSize="22"/>
+                                                </StackPanel>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+
+                                <!-- Configuración al pasar el ratón -->
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+                                        <Setter Property="BorderThickness" Value="1"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <Button x:Name="btnPonerEnMercado" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0"
+                            Height="50" Width="340" FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Visibility="Hidden" Click="btnPonerEnMercado_Click" >
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <!-- Configuración inicial -->
+                                <Setter Property="Background" Value="#1d6a7d"/>
+                                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <!-- Imagen de la flecha -->
+                                                    <Image Source="/Recursos/img/icons/enMercado_icon.png" Height="32" Width="32" VerticalAlignment="Center" Stretch="Uniform"/>
+                                                    <!-- Texto del botón -->
+                                                    <TextBlock Text="Poner en el Mercado" 
+                                                               Foreground="{TemplateBinding Foreground}" 
+                                                               VerticalAlignment="Center" 
+                                                               Margin="20,0,5,0" FontSize="22"/>
+                                                </StackPanel>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+
+                                <!-- Configuración al pasar el ratón -->
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+                                        <Setter Property="BorderThickness" Value="1"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <Button x:Name="btnQuitarDelMercado" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0"
+                            Height="50" Width="340" FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Visibility="Hidden" Click="btnQuitarDelMercado_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <!-- Configuración inicial -->
+                                <Setter Property="Background" Value="#1d6a7d"/>
+                                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <!-- Imagen de la flecha -->
+                                                    <Image Source="/Recursos/img/icons/enMercado_icon.png" Height="32" Width="32" VerticalAlignment="Center" Stretch="Uniform"/>
+                                                    <!-- Texto del botón -->
+                                                    <TextBlock Text="Quitar del Mercado" 
+                                                               Foreground="{TemplateBinding Foreground}" 
+                                                               VerticalAlignment="Center" 
+                                                               Margin="20,0,5,0" FontSize="22"/>
+                                                </StackPanel>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+
+                                <!-- Configuración al pasar el ratón -->
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+                                        <Setter Property="BorderThickness" Value="1"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <Button x:Name="btnContratar" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0"
+                            Height="50" Width="250" FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Visibility="Hidden">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <!-- Configuración inicial -->
+                                <Setter Property="Background" Value="#1d6a7d"/>
+                                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <!-- Imagen de la flecha -->
+                                                    <Image Source="/Recursos/img/icons/contratar_icon.png" Height="32" Width="32" VerticalAlignment="Center" Stretch="Uniform"/>
+                                                    <!-- Texto del botón -->
+                                                    <TextBlock Text="Contratar" 
+                                                               Foreground="{TemplateBinding Foreground}" 
+                                                               VerticalAlignment="Center" 
+                                                               Margin="20,0,5,0" FontSize="22"/>
+                                                </StackPanel>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+
+                                <!-- Configuración al pasar el ratón -->
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+                                        <Setter Property="BorderThickness" Value="1"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <Button x:Name="btnOjearJugador" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0"
+                            Height="50" Width="280" FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Visibility="Hidden" Click="btnOjearJugador_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <!-- Configuración inicial -->
+                                <Setter Property="Background" Value="#1d6a7d"/>
+                                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <!-- Imagen de la flecha -->
+                                                    <Image Source="/Recursos/img/icons/ojear_icon.png" Height="32" Width="32" VerticalAlignment="Center" Stretch="Uniform"/>
+                                                    <!-- Texto del botón -->
+                                                    <TextBlock Text="Ojear Jugador" 
+                                                               Foreground="{TemplateBinding Foreground}" 
+                                                               VerticalAlignment="Center" 
+                                                               Margin="20,0,5,0" FontSize="22"/>
+                                                </StackPanel>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+
+                                <!-- Configuración al pasar el ratón -->
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+                                        <Setter Property="BorderThickness" Value="1"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </WrapPanel>
             </Grid>
         </Border>
     </Grid>

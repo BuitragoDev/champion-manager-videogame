@@ -10,6 +10,8 @@
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="250"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -26,5 +28,13 @@
         <TextBlock x:Name="lblPlantilla" Grid.Column="2" HorizontalAlignment="Center" Text="Plantilla" VerticalAlignment="Center" 
            FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" FontWeight="Bold" Width="200" 
            TextAlignment="Center" Cursor="Hand" MouseLeftButtonDown="lblPlantilla_MouseLeftButtonDown"/>
+
+        <TextBlock x:Name="lblEmpleados" Grid.Column="3" HorizontalAlignment="Center" Text="Empleados" VerticalAlignment="Center" 
+                   FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" FontWeight="Bold" Width="200" 
+                   TextAlignment="Center" Cursor="Hand" MouseLeftButtonDown="lblEmpleados_MouseLeftButtonDown"/>
+
+        <TextBlock x:Name="lblLesionados" Grid.Column="4" HorizontalAlignment="Center" Text="Lesionados" VerticalAlignment="Center" 
+           FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" FontWeight="Bold" Width="200" 
+           TextAlignment="Center" Cursor="Hand" MouseLeftButtonDown="lblLesionados_MouseLeftButtonDown" />
     </Grid>
 </UserControl>

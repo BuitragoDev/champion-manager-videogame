@@ -132,6 +132,37 @@ namespace ChampionManager25.MisMetodos
             }
         }
         // --------------------------------------------------------------------------------------------------------------
+
+        // --------------------------------------------------------- METODO QUE DEVUELVE LA DEMARCACION EN FORMATO CORTO.
+        public static string ConvertirDemarcacion(int rol)
+        {
+            switch (rol)
+            {
+                case 1:
+                    return "POR";  // Portero
+                case 2:
+                    return "LD";   // Lateral Derecho
+                case 3:
+                    return "LI";   // Lateral Izquierdo
+                case 4:
+                    return "DFC";  // Defensa Central
+                case 5:
+                    return "MC";   // Mediocentro
+                case 6:
+                    return "MCD";  // Mediocentro Defensivo
+                case 7:
+                    return "MCO";  // Mediocentro Ofensivo
+                case 8:
+                    return "ED";   // Extremo Derecho
+                case 9:
+                    return "EI";   // Extremo Izquierdo
+                case 10:
+                    return "DC";   // Delantero Centro
+                default:
+                    return "";  // En caso de que no se reconozca el rol
+            }
+        }
+        // --------------------------------------------------------------------------------------------------------------
         #endregion
     }
 }

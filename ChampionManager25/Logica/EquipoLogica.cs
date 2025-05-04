@@ -66,5 +66,23 @@ namespace ChampionManager25.Logica
         {
             _datos.CambiarObjetivoTemporada(equipo, objetivo);
         }
+
+        // Llamada al método que resta una cantidad al Presupuesto
+        public void RestarCantidadAPresupuesto(int equipo, int cantidad)
+        {
+            _datos.RestarCantidadAPresupuesto(equipo, cantidad);
+        }
+
+        // Llamada al método que suma una cantidad al Presupuesto
+        public void SumarCantidadAPresupuesto(int equipo, int cantidad)
+        {
+            _datos.SumarCantidadAPresupuesto(equipo, cantidad);
+        }
+
+        // Llamada al método que actualiza el aforo de un estadio
+        public void ActualizarAforo(int equipo, int aumento)
+        {
+            _datos.ActualizarAforo(equipo, aumento);
+        }
     }
 }

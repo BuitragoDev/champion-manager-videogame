@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Media3D;
 
 namespace ChampionManager25.Datos
 {
@@ -108,9 +109,10 @@ namespace ChampionManager25.Datos
                     conn.Open();
 
                     // Consulta para obtener todos los jugadores del equipo con el id_equipo proporcionado
-                    string query = @"SELECT *
-                                    FROM jugadores
-                                    WHERE id_equipo = @idEquipo";
+                    string query = @"SELECT j.*, c.duracion AS AniosContrato, c.salario_anual AS SalarioTemporada, c.clausula_rescision AS ClausulaRescision
+                                    FROM jugadores j
+                                    LEFT JOIN contratos c ON j.id_jugador = c.id_jugador
+                                    WHERE j.id_equipo = @idEquipo";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                     {
@@ -148,11 +150,17 @@ namespace ChampionManager25.Datos
                                     Peso = dr.GetInt32(dr.GetOrdinal("peso")),
                                     Altura = dr.GetInt32(dr.GetOrdinal("altura")),
                                     Lesion = dr.GetInt32(dr.GetOrdinal("lesion")),
+                                    TipoLesion = dr.IsDBNull(dr.GetOrdinal("tipo_lesion")) ? null : dr.GetString(dr.GetOrdinal("tipo_lesion")),
                                     Nacionalidad = dr.GetString(dr.GetOrdinal("nacionalidad")),
                                     Status = dr.GetInt32(dr.GetOrdinal("status")),
                                     Sancionado = dr.GetInt32(dr.GetOrdinal("sancionado")),
                                     Entrenamiento = dr.GetInt32(dr.GetOrdinal("entrenamiento")),
-                                    RutaImagen = dr.GetString(dr.GetOrdinal("ruta_imagen"))
+                                    RutaImagen = dr.GetString(dr.GetOrdinal("ruta_imagen")),
+                                    ValorMercado = dr.GetInt32(dr.GetOrdinal("valor_mercado")),
+                                    AniosContrato = dr.IsDBNull(dr.GetOrdinal("AniosContrato")) ? null : dr.GetInt32(dr.GetOrdinal("AniosContrato")),
+                                    SalarioTemporada = dr.IsDBNull(dr.GetOrdinal("SalarioTemporada")) ? null : dr.GetInt32(dr.GetOrdinal("SalarioTemporada")),
+                                    ClausulaRescision = dr.IsDBNull(dr.GetOrdinal("ClausulaRescision")) ? null : dr.GetInt32(dr.GetOrdinal("ClausulaRescision")),
+                                    ProximaNegociacion = dr.IsDBNull(dr.GetOrdinal("proxima_negociacion")) ? (DateTime?)null : dr.GetDateTime(dr.GetOrdinal("proxima_negociacion"))
                                 };
 
                                 // Agregar el jugador a la lista
@@ -255,9 +263,46 @@ namespace ChampionManager25.Datos
                     conn.Open();
 
                     // Consulta para obtener todos los jugadores del equipo con el id_equipo proporcionado
-                    string query = @"SELECT *
-                                    FROM jugadores
-                                    WHERE id_jugador = @IdJugador;";
+                    string query = @"SELECT 
+                                        j.id_jugador,
+                                        j.nombre,
+                                        j.apellido,
+                                        j.peso,
+                                        j.altura,
+                                        j.nacionalidad,
+                                        j.dorsal,
+                                        j.fecha_nacimiento,
+                                        j.rol_id,
+                                        j.rol,
+                                        j.velocidad,
+                                        j.resistencia,
+                                        j.agresividad,
+                                        j.calidad,
+                                        j.estado_forma,
+                                        j.moral,
+                                        j.potencial,
+                                        j.portero,
+                                        j.pase,
+                                        j.regate,
+                                        j.remate,
+                                        j.entradas,
+                                        j.tiro,
+                                        j.lesion,
+                                        j.valor_mercado,
+                                        j.estado_animo, 
+                                        j.situacion_mercado,
+                                        j.id_equipo,
+                                        j.status,
+                                        j.proxima_negociacion,
+                                        j.ruta_imagen,
+                                        c.duracion AS AniosContrato,
+                                        c.salario_anual AS SalarioTemporada,
+                                        c.clausula_rescision AS ClausulaRescision,
+                                        c.bono_por_partidos AS BonoPartidos,
+                                        c.bono_por_goles AS BonoGoles
+                                    FROM jugadores j
+                                    LEFT JOIN contratos c ON j.id_jugador = c.id_jugador
+                                    WHERE j.id_jugador = @IdJugador";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                     {
@@ -295,9 +340,18 @@ namespace ChampionManager25.Datos
                                     Entradas = dr.GetInt32(dr.GetOrdinal("entradas")),
                                     Tiro = dr.GetInt32(dr.GetOrdinal("tiro")),
                                     Lesion = dr.GetInt32(dr.GetOrdinal("lesion")),
+                                    ValorMercado = dr.GetInt32(dr.GetOrdinal("valor_mercado")),
+                                    EstadoAnimo = dr.GetInt32(dr.GetOrdinal("estado_animo")),
+                                    RutaImagen = dr.GetString(dr.GetOrdinal("ruta_imagen")),
+                                    SituacionMercado = dr.IsDBNull(dr.GetOrdinal("situacion_mercado")) ? 0 : dr.GetInt32(dr.GetOrdinal("situacion_mercado")),
                                     IdEquipo = dr.GetInt32(dr.GetOrdinal("id_equipo")),
+                                    AniosContrato = dr.IsDBNull(dr.GetOrdinal("AniosContrato")) ? null : dr.GetInt32(dr.GetOrdinal("AniosContrato")),
+                                    SalarioTemporada = dr.IsDBNull(dr.GetOrdinal("SalarioTemporada")) ? null : dr.GetInt32(dr.GetOrdinal("SalarioTemporada")),
+                                    BonusPartido = dr.IsDBNull(dr.GetOrdinal("BonoPartidos")) ? null : dr.GetInt32(dr.GetOrdinal("BonoPartidos")),
+                                    BonusGoles = dr.IsDBNull(dr.GetOrdinal("BonoGoles")) ? null : dr.GetInt32(dr.GetOrdinal("BonoGoles")),
+                                    ClausulaRescision = dr.IsDBNull(dr.GetOrdinal("ClausulaRescision")) ? null : dr.GetInt32(dr.GetOrdinal("ClausulaRescision")),
                                     Status = dr.GetInt32(dr.GetOrdinal("status")),
-                                    RutaImagen = dr.GetString(dr.GetOrdinal("ruta_imagen"))
+                                    ProximaNegociacion = dr.IsDBNull(dr.GetOrdinal("proxima_negociacion")) ? (DateTime?)null : dr.GetDateTime(dr.GetOrdinal("proxima_negociacion"))
                                 };
                             }
                         }
@@ -360,6 +414,7 @@ namespace ChampionManager25.Datos
                                     Peso = dr.GetInt32(dr.GetOrdinal("peso")),
                                     Altura = dr.GetInt32(dr.GetOrdinal("altura")),
                                     Lesion = dr.GetInt32(dr.GetOrdinal("lesion")),
+                                    TipoLesion = dr.IsDBNull(dr.GetOrdinal("tipo_lesion")) ? null : dr.GetString(dr.GetOrdinal("tipo_lesion")),
                                     Nacionalidad = dr.GetString(dr.GetOrdinal("nacionalidad")),
                                     Status = dr.GetInt32(dr.GetOrdinal("status")),
                                     Sancionado = dr.GetInt32(dr.GetOrdinal("sancionado")),
@@ -981,6 +1036,7 @@ namespace ChampionManager25.Datos
                                     Peso = dr.GetInt32(dr.GetOrdinal("peso")),
                                     Altura = dr.GetInt32(dr.GetOrdinal("altura")),
                                     Lesion = dr.GetInt32(dr.GetOrdinal("lesion")),
+                                    TipoLesion = dr.IsDBNull(dr.GetOrdinal("tipo_lesion")) ? null : dr.GetString(dr.GetOrdinal("tipo_lesion")),
                                     Sancionado = dr.GetInt32(dr.GetOrdinal("sancionado")),
                                     Nacionalidad = dr.GetString(dr.GetOrdinal("nacionalidad")),
                                     Status = dr.GetInt32(dr.GetOrdinal("status")),
@@ -1165,6 +1221,7 @@ namespace ChampionManager25.Datos
                                     Peso = dr.GetInt32(dr.GetOrdinal("peso")),
                                     Altura = dr.GetInt32(dr.GetOrdinal("altura")),
                                     Lesion = dr.GetInt32(dr.GetOrdinal("lesion")),
+                                    TipoLesion = dr.IsDBNull(dr.GetOrdinal("tipo_lesion")) ? null : dr.GetString(dr.GetOrdinal("tipo_lesion")),
                                     Nacionalidad = dr.GetString(dr.GetOrdinal("nacionalidad")),
                                     Status = dr.GetInt32(dr.GetOrdinal("status")),
                                     RutaImagen = dr.GetString(dr.GetOrdinal("ruta_imagen"))
@@ -1246,6 +1303,7 @@ namespace ChampionManager25.Datos
                                     Entradas = dr.GetInt32(dr.GetOrdinal("entradas")),
                                     Tiro = dr.GetInt32(dr.GetOrdinal("tiro")),
                                     Lesion = dr.GetInt32(dr.GetOrdinal("lesion")),
+                                    TipoLesion = dr.IsDBNull(dr.GetOrdinal("tipo_lesion")) ? null : dr.GetString(dr.GetOrdinal("tipo_lesion")),
                                     Sancionado = dr.GetInt32(dr.GetOrdinal("sancionado")),
                                     FechaNacimiento = DateTime.Parse(dr.GetString(dr.GetOrdinal("fecha_nacimiento"))),
                                     Peso = dr.GetInt32(dr.GetOrdinal("peso")),
@@ -1328,6 +1386,7 @@ namespace ChampionManager25.Datos
                                     Entradas = dr.GetInt32(dr.GetOrdinal("entradas")),
                                     Tiro = dr.GetInt32(dr.GetOrdinal("tiro")),
                                     Lesion = dr.GetInt32(dr.GetOrdinal("lesion")),
+                                    TipoLesion = dr.IsDBNull(dr.GetOrdinal("tipo_lesion")) ? null : dr.GetString(dr.GetOrdinal("tipo_lesion")),
                                     Sancionado = dr.GetInt32(dr.GetOrdinal("sancionado")),
                                     FechaNacimiento = DateTime.Parse(dr.GetString(dr.GetOrdinal("fecha_nacimiento"))),
                                     Peso = dr.GetInt32(dr.GetOrdinal("peso")),
@@ -1358,7 +1417,7 @@ namespace ChampionManager25.Datos
         }
 
         // ===================================================================== Método que pone a un jugador como lesionado
-        public void PonerJugadorLesionado(int jugador, int duracion)
+        public void PonerJugadorLesionado(int jugador, int duracion, string tipo)
         {
             try
             {
@@ -1367,7 +1426,7 @@ namespace ChampionManager25.Datos
                     conn.Open();
 
                     // Consulta SQL para obtener las finanzas del equipo
-                    string query = @"UPDATE jugadores SET lesion = @Duracion
+                    string query = @"UPDATE jugadores SET lesion = @Duracion, tipo_lesion = @Descripcion
                                      WHERE id_jugador = @IdJugador";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
@@ -1375,7 +1434,7 @@ namespace ChampionManager25.Datos
                         // Agregar parámetro para evitar inyección SQL
                         cmd.Parameters.AddWithValue("@IdJugador", jugador);
                         cmd.Parameters.AddWithValue("@Duracion", duracion);
-
+                        cmd.Parameters.AddWithValue("@Descripcion", tipo);
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -1542,7 +1601,7 @@ namespace ChampionManager25.Datos
             }
         }
 
-        // ===================================================================== Método que resetea la moral y el estado de forma
+        // ------------------------------------------------------------------------- Método que resetea la moral y el estado de forma
         public void ResetearMoralEstadoForma()
         {
             try
@@ -1567,7 +1626,7 @@ namespace ChampionManager25.Datos
             }
         }
 
-        // ===================================================================== Método que actualiza un jugador
+        // ------------------------------------------------------------------------- Método que actualiza un jugador
         public void ActualizarJugador(Jugador ojugadorEditar)
         {
             try
@@ -1657,5 +1716,419 @@ namespace ChampionManager25.Datos
             }
         }
 
+        // ------------------------------------------------------------------- Método que reduce una lesion un %
+        public void TratarLesion(int idJugador, int porcentaje)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Paso 1: Obtener el valor actual de la lesión
+                    int lesionActual = 0;
+                    string selectQuery = "SELECT lesion FROM jugadores WHERE id_jugador = @IdJugador";
+                    using (SQLiteCommand selectCmd = new SQLiteCommand(selectQuery, conn))
+                    {
+                        selectCmd.Parameters.AddWithValue("@IdJugador", idJugador);
+                        object result = selectCmd.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                            lesionActual = Convert.ToInt32(result);
+                    }
+
+                    // Paso 2: Calcular la nueva lesión
+                    double factor = (100 - porcentaje) / 100.0;
+                    int nuevaLesion = (int)Math.Round(lesionActual * factor);
+
+                    // Paso 3: Actualizar el valor de lesión
+                    string updateQuery = "UPDATE jugadores SET lesion = @NuevaLesion WHERE id_jugador = @IdJugador";
+                    using (SQLiteCommand updateCmd = new SQLiteCommand(updateQuery, conn))
+                    {
+                        updateCmd.Parameters.AddWithValue("@NuevaLesion", nuevaLesion);
+                        updateCmd.Parameters.AddWithValue("@IdJugador", idJugador);
+                        updateCmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // ---------------------------------------------------------------------- Método que pone un jugador en el mercado
+        public void PonerJugadorEnMercado(int jugador, int opcion)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Consulta SQL para obtener las finanzas del equipo
+                    string query = @"UPDATE jugadores SET situacion_mercado = @Opcion WHERE id_jugador = @IdJugador";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        // Agregar parámetro para evitar inyección SQL
+                        cmd.Parameters.AddWithValue("@IdJugador", jugador);
+                        cmd.Parameters.AddWithValue("@Opcion", opcion);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // ---------------------------------------------------------------------- Método que quita un jugador del mercado
+        public void QuitarJugadorDeMercado(int jugador)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Consulta SQL para obtener las finanzas del equipo
+                    string query = @"UPDATE jugadores SET situacion_mercado = 0 WHERE id_jugador = @IdJugador";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        // Agregar parámetro para evitar inyección SQL
+                        cmd.Parameters.AddWithValue("@IdJugador", jugador);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // ---------------------------------------------------------------------- Método que despide un jugador del equipo
+        public void DespedirJugador(int jugador)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Consulta SQL para obtener las finanzas del equipo
+                    string query = @"UPDATE jugadores SET id_equipo = 0 WHERE id_jugador = @IdJugador";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        // Agregar parámetro para evitar inyección SQL
+                        cmd.Parameters.AddWithValue("@IdJugador", jugador);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // ---------------------------------------------------------------------- Método que elimina un contrato de un jugador
+        public void EliminarContratoJugador(int jugador)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Consulta SQL para obtener las finanzas del equipo
+                    string query = @"DELETE FROM contratos WHERE id_jugador = @IdJugador";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        // Agregar parámetro para evitar inyección SQL
+                        cmd.Parameters.AddWithValue("@IdJugador", jugador);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // ---------------------------------------------------------------------- Método que crea una nueva fecha de negociación
+        public void NegociacionCancelada(int jugador, int dias)
+        {
+            DateTime fechaEnfado = Metodos.hoy.AddDays(dias);
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Consulta SQL para obtener las finanzas del equipo
+                    string query = @"UPDATE jugadores SET proxima_negociacion = @FechaEnfado WHERE id_jugador = @IdJugador";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        // Agregar parámetro para evitar inyección SQL
+                        cmd.Parameters.AddWithValue("@IdJugador", jugador);
+                        cmd.Parameters.AddWithValue("@FechaEnfado", fechaEnfado.ToString("yyyy-MM-dd"));
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // ---------------------------------------------------------------------- Método que renueva el contrato de un jugador
+        public void RenovarContratoJugador(int jugador, int salario, int clausula, int anios, int bonusP, int bonusG)
+        {
+            DateTime nuevaFecha = new DateTime(Metodos.hoy.Year + anios, 6, 30);
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Consulta SQL para obtener las finanzas del equipo
+                    string query = @"UPDATE contratos SET salario_anual = @Salario, 
+                                                          clausula_rescision = @Clausula, 
+                                                          duracion = @Anios, 
+                                                          bono_por_partidos = @BonusP, 
+                                                          bono_por_goles = @BonusG, 
+                                                          fecha_inicio = @FechaInicio,
+                                                          fecha_fin = @FechaFin
+                                     WHERE id_jugador = @IdJugador";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        // Agregar parámetro para evitar inyección SQL
+                        cmd.Parameters.AddWithValue("@IdJugador", jugador);
+                        cmd.Parameters.AddWithValue("@Salario", salario);
+                        cmd.Parameters.AddWithValue("@Clausula", clausula);
+                        cmd.Parameters.AddWithValue("@Anios", anios);
+                        cmd.Parameters.AddWithValue("@FechaInicio", Metodos.hoy.ToString("yyyy-MM-dd"));
+                        cmd.Parameters.AddWithValue("@FechaFin", nuevaFecha.ToString("yyyy-MM-dd"));
+                        cmd.Parameters.AddWithValue("@BonusP", bonusP);
+                        cmd.Parameters.AddWithValue("@BonusG", bonusG);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // ---------------------------------------------------------------------- Método para mostrar la lista de Jugadores en el Mercado
+        public List<Jugador> ListadoJugadoresMercado(int equipo, int tipoStart, int tipoEnd, int mediaStart, int mediaEnd, int posicionStart, int posicionEnd)
+        {
+            List<Jugador> lista = new List<Jugador>();
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Consulta para obtener todos los jugadores del equipo con el id_equipo proporcionado
+                    string query = @"SELECT j.*, c.duracion AS AniosContrato, c.salario_anual AS SalarioTemporada, c.clausula_rescision AS ClausulaRescision
+                                     FROM jugadores j
+                                     LEFT JOIN contratos c ON j.id_jugador = c.id_jugador
+                                     WHERE j.id_equipo <> @Equipo AND
+                                           j.situacion_mercado BETWEEN @TipoStart AND @TipoEnd AND
+                                           ROUND((j.velocidad + j.agresividad + j.resistencia + j.calidad + j.estado_forma + j.moral) / 6, 0) BETWEEN @MediaStart AND @MediaEnd AND
+                                           j.rol_id BETWEEN @PosicionStart AND @PosicionEnd";
+
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        // Asignar el valor del parámetro de la consulta
+                        cmd.Parameters.AddWithValue("@Equipo", equipo);
+                        cmd.Parameters.AddWithValue("@TipoStart", tipoStart);
+                        cmd.Parameters.AddWithValue("@TipoEnd", tipoEnd);
+                        cmd.Parameters.AddWithValue("@MediaStart", mediaStart);
+                        cmd.Parameters.AddWithValue("@MediaEnd", mediaEnd);
+                        cmd.Parameters.AddWithValue("@PosicionStart", posicionStart);
+                        cmd.Parameters.AddWithValue("@PosicionEnd", posicionEnd);
+
+                        using (SQLiteDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                // Crear un objeto Jugador y asignar los valores de la base de datos
+                                Jugador jugador = new Jugador
+                                {
+                                    IdJugador = dr.GetInt32(dr.GetOrdinal("id_jugador")),
+                                    Nombre = dr.GetString(dr.GetOrdinal("nombre")),
+                                    Apellido = dr.GetString(dr.GetOrdinal("apellido")),
+                                    Peso = dr.GetInt32(dr.GetOrdinal("peso")),
+                                    Altura = dr.GetInt32(dr.GetOrdinal("altura")),
+                                    Nacionalidad = dr.GetString(dr.GetOrdinal("nacionalidad")),
+                                    Dorsal = dr.GetInt32(dr.GetOrdinal("dorsal")),
+                                    FechaNacimiento = DateTime.Parse(dr.GetString(dr.GetOrdinal("fecha_nacimiento"))),
+                                    RolId = dr.GetInt32(dr.GetOrdinal("rol_id")),
+                                    Rol = dr.GetString(dr.GetOrdinal("rol")),
+                                    Velocidad = dr.GetInt32(dr.GetOrdinal("velocidad")),
+                                    Resistencia = dr.GetInt32(dr.GetOrdinal("resistencia")),
+                                    Agresividad = dr.GetInt32(dr.GetOrdinal("agresividad")),
+                                    Calidad = dr.GetInt32(dr.GetOrdinal("calidad")),
+                                    EstadoForma = dr.GetInt32(dr.GetOrdinal("estado_forma")),
+                                    Moral = dr.GetInt32(dr.GetOrdinal("moral")),
+                                    Potencial = dr.GetInt32(dr.GetOrdinal("potencial")),
+                                    Portero = dr.GetInt32(dr.GetOrdinal("portero")),
+                                    Pase = dr.GetInt32(dr.GetOrdinal("pase")),
+                                    Regate = dr.GetInt32(dr.GetOrdinal("regate")),
+                                    Remate = dr.GetInt32(dr.GetOrdinal("remate")),
+                                    Entradas = dr.GetInt32(dr.GetOrdinal("entradas")),
+                                    Tiro = dr.GetInt32(dr.GetOrdinal("tiro")),
+                                    Lesion = dr.GetInt32(dr.GetOrdinal("lesion")),
+                                    ValorMercado = dr.GetInt32(dr.GetOrdinal("valor_mercado")),
+                                    EstadoAnimo = dr.GetInt32(dr.GetOrdinal("estado_animo")),
+                                    RutaImagen = dr.GetString(dr.GetOrdinal("ruta_imagen")),
+                                    SituacionMercado = dr.IsDBNull(dr.GetOrdinal("situacion_mercado")) ? 0 : dr.GetInt32(dr.GetOrdinal("situacion_mercado")),
+                                    IdEquipo = dr.GetInt32(dr.GetOrdinal("id_equipo")),
+                                    AniosContrato = dr.IsDBNull(dr.GetOrdinal("AniosContrato")) ? null : dr.GetInt32(dr.GetOrdinal("AniosContrato")),
+                                    SalarioTemporada = dr.IsDBNull(dr.GetOrdinal("SalarioTemporada")) ? null : dr.GetInt32(dr.GetOrdinal("SalarioTemporada")),
+                                    ClausulaRescision = dr.IsDBNull(dr.GetOrdinal("ClausulaRescision")) ? null : dr.GetInt32(dr.GetOrdinal("ClausulaRescision")),
+                                    Status = dr.GetInt32(dr.GetOrdinal("status")),
+                                    ProximaNegociacion = dr.IsDBNull(dr.GetOrdinal("proxima_negociacion")) ? (DateTime?)null : dr.GetDateTime(dr.GetOrdinal("proxima_negociacion"))
+                                };
+
+                                // Agregar el jugador a la lista
+                                lista.Add(jugador);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                // En caso de error, mostrar el mensaje con la excepción
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return lista;
+        }
+
+        // ---------------------------------------------------------------------- Método para mostrar la lista de Jugadores Por Filtros
+        public List<Jugador> ListadoJugadoresPorFiltro(int equipo, string nacionalidad, int competicion, int posicion, int edadMin, int edadMax, int mediaMin, int mediaMax, int calidadMax, int velocidadMax, int resistenciaMax, int agresividadMax)
+        {
+            List<Jugador> lista = new List<Jugador>();
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Consulta para obtener todos los jugadores del equipo con el id_equipo proporcionado
+                    string query = @"SELECT j.* 
+                                     FROM jugadores j
+                                     JOIN equipos e ON j.id_equipo = e.id_equipo
+                                     WHERE (@equipo <> j.id_equipo
+                                           AND @nacionalidad = '' OR j.nacionalidad1 = @nacionalidad)
+                                           AND (@competicion = 0 OR e.id_competicion = @competicion)
+                                           AND (@posicion = 0 OR j.rol_id = @posicion)
+                                           AND ((julianday(@hoy) - julianday(j.fecha_nacimiento)) / 365.25) BETWEEN @edadMin AND @edadMax
+                                           AND (@mediaMax = 0 OR ((j.velocidad + j.resistencia + j.agresividad + j.calidad + j.estado_forma + j.moral) / 6.0) BETWEEN @mediaMin AND @mediaMax)
+                                           AND (@calidadMax = 0 OR j.calidad <= @calidadMax)
+                                           AND (@velocidadMax = 0 OR j.velocidad <= @velocidadMax)
+                                           AND (@resistenciaMax = 0 OR j.resistencia <= @resistenciaMax)
+                                           AND (@agresividadMax = 0 OR j.agresividad <= @agresividadMax)
+                                     ORDER BY j.calidad DESC";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        // Asignar el valor de los parámetros de la consulta
+                        cmd.Parameters.AddWithValue("@nacionalidad", nacionalidad);
+                        cmd.Parameters.AddWithValue("@competicion", competicion);
+                        cmd.Parameters.AddWithValue("@posicion", posicion);
+                        cmd.Parameters.AddWithValue("@edadMin", edadMin);
+                        cmd.Parameters.AddWithValue("@edadMax", edadMax);
+                        cmd.Parameters.AddWithValue("@mediaMin", mediaMin);
+                        cmd.Parameters.AddWithValue("@mediaMax", mediaMax);
+                        cmd.Parameters.AddWithValue("@calidadMax", calidadMax);
+                        cmd.Parameters.AddWithValue("@velocidadMax", velocidadMax);
+                        cmd.Parameters.AddWithValue("@resistenciaMax", resistenciaMax);
+                        cmd.Parameters.AddWithValue("@agresividadMax", agresividadMax);
+                        cmd.Parameters.AddWithValue("@hoy", Metodos.hoy.ToString("yyyy-MM-dd"));
+                        cmd.Parameters.AddWithValue("@equipo", equipo);
+
+                        using (SQLiteDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                // Crear un objeto Jugador y asignar los valores de la base de datos
+                                Jugador jugador = new Jugador
+                                {
+                                    IdJugador = dr.GetInt32(dr.GetOrdinal("id_jugador")),
+                                    Nombre = dr.GetString(dr.GetOrdinal("nombre")),
+                                    Apellido = dr.GetString(dr.GetOrdinal("apellido")),
+                                    Peso = dr.GetInt32(dr.GetOrdinal("peso")),
+                                    Altura = dr.GetInt32(dr.GetOrdinal("altura")),
+                                    Nacionalidad = dr.GetString(dr.GetOrdinal("nacionalidad")),
+                                    Dorsal = dr.GetInt32(dr.GetOrdinal("dorsal")),
+                                    FechaNacimiento = DateTime.Parse(dr.GetString(dr.GetOrdinal("fecha_nacimiento"))),
+                                    RolId = dr.GetInt32(dr.GetOrdinal("rol_id")),
+                                    Rol = dr.GetString(dr.GetOrdinal("rol")),
+                                    Velocidad = dr.GetInt32(dr.GetOrdinal("velocidad")),
+                                    Resistencia = dr.GetInt32(dr.GetOrdinal("resistencia")),
+                                    Agresividad = dr.GetInt32(dr.GetOrdinal("agresividad")),
+                                    Calidad = dr.GetInt32(dr.GetOrdinal("calidad")),
+                                    EstadoForma = dr.GetInt32(dr.GetOrdinal("estado_forma")),
+                                    Moral = dr.GetInt32(dr.GetOrdinal("moral")),
+                                    Potencial = dr.GetInt32(dr.GetOrdinal("potencial")),
+                                    Portero = dr.GetInt32(dr.GetOrdinal("portero")),
+                                    Pase = dr.GetInt32(dr.GetOrdinal("pase")),
+                                    Regate = dr.GetInt32(dr.GetOrdinal("regate")),
+                                    Remate = dr.GetInt32(dr.GetOrdinal("remate")),
+                                    Entradas = dr.GetInt32(dr.GetOrdinal("entradas")),
+                                    Tiro = dr.GetInt32(dr.GetOrdinal("tiro")),
+                                    Lesion = dr.GetInt32(dr.GetOrdinal("lesion")),
+                                    ValorMercado = dr.GetInt32(dr.GetOrdinal("valor_mercado")),
+                                    EstadoAnimo = dr.GetInt32(dr.GetOrdinal("estado_animo")),
+                                    RutaImagen = dr.GetString(dr.GetOrdinal("ruta_imagen")),
+                                    SituacionMercado = dr.IsDBNull(dr.GetOrdinal("situacion_mercado")) ? 0 : dr.GetInt32(dr.GetOrdinal("situacion_mercado")),
+                                    IdEquipo = dr.GetInt32(dr.GetOrdinal("id_equipo")),
+                                    AniosContrato = dr.IsDBNull(dr.GetOrdinal("AniosContrato")) ? null : dr.GetInt32(dr.GetOrdinal("AniosContrato")),
+                                    SalarioTemporada = dr.IsDBNull(dr.GetOrdinal("SalarioTemporada")) ? null : dr.GetInt32(dr.GetOrdinal("SalarioTemporada")),
+                                    ClausulaRescision = dr.IsDBNull(dr.GetOrdinal("ClausulaRescision")) ? null : dr.GetInt32(dr.GetOrdinal("ClausulaRescision")),
+                                    Status = dr.GetInt32(dr.GetOrdinal("status")),
+                                    ProximaNegociacion = dr.IsDBNull(dr.GetOrdinal("proxima_negociacion")) ? (DateTime?)null : dr.GetDateTime(dr.GetOrdinal("proxima_negociacion"))
+                                };
+
+                                // Agregar el jugador a la lista
+                                lista.Add(jugador);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                // En caso de error, mostrar el mensaje con la excepción
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return lista;
+        }
     }
 }

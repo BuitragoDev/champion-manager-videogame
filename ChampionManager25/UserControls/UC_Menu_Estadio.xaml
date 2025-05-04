@@ -8,6 +8,9 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -16,5 +19,17 @@
         <TextBlock x:Name="lblEstadio" Grid.Column="0" HorizontalAlignment="Center" Text="ESTADIO" VerticalAlignment="Center" 
                    FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" FontWeight="Bold" Width="200" 
                    TextAlignment="Center"/>
+
+        <TextBlock x:Name="lblInformacion" Grid.Column="1" HorizontalAlignment="Center" Text="Información" VerticalAlignment="Center" 
+                   FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" FontWeight="Bold" Width="200" 
+                   TextAlignment="Center" Cursor="Hand" MouseLeftButtonDown="lblInformacion_MouseLeftButtonDown"/>
+
+        <TextBlock x:Name="lblEntradas" Grid.Column="2" HorizontalAlignment="Center" Text="Entradas" VerticalAlignment="Center" 
+                   FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" FontWeight="Bold" Width="200" 
+                   TextAlignment="Center" Cursor="Hand" MouseLeftButtonDown="lblEntradas_MouseLeftButtonDown"/>
+
+        <TextBlock x:Name="lblAmpliaciones" Grid.Column="3" HorizontalAlignment="Center" Text="Ampliaciones" VerticalAlignment="Center" 
+                   FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" FontWeight="Bold" Width="200" 
+                   TextAlignment="Center" Cursor="Hand" MouseLeftButtonDown="lblAmpliaciones_MouseLeftButtonDown"/>
     </Grid>
 </UserControl>

@@ -19,6 +19,9 @@
     <None Remove="Recursos\img\backgroundCarga1920x1080.png" />
     <None Remove="Recursos\img\backgroundEstadio_img.png" />
     <None Remove="Recursos\img\backgroundPrincipal1920x1080.png" />
+    <None Remove="Recursos\img\background_banner_prestamo.png" />
+    <None Remove="Recursos\img\background_negociaciones.png" />
+    <None Remove="Recursos\img\background_oficina.png" />
     <None Remove="Recursos\img\background_ruedaPrensa.png" />
     <None Remove="Recursos\img\banderas\AFG.png" />
     <None Remove="Recursos\img\banderas\AGO.png" />
@@ -218,6 +221,36 @@
     <None Remove="Recursos\img\bannerBalonOro.png" />
     <None Remove="Recursos\img\bannerBotaOro.png" />
     <None Remove="Recursos\img\bannerPalmares.png" />
+    <None Remove="Recursos\img\cadenaTV\1.png" />
+    <None Remove="Recursos\img\cadenaTV\10.png" />
+    <None Remove="Recursos\img\cadenaTV\10small.png" />
+    <None Remove="Recursos\img\cadenaTV\11.png" />
+    <None Remove="Recursos\img\cadenaTV\11small.png" />
+    <None Remove="Recursos\img\cadenaTV\12.png" />
+    <None Remove="Recursos\img\cadenaTV\12small.png" />
+    <None Remove="Recursos\img\cadenaTV\13.png" />
+    <None Remove="Recursos\img\cadenaTV\13small.png" />
+    <None Remove="Recursos\img\cadenaTV\14.png" />
+    <None Remove="Recursos\img\cadenaTV\14small.png" />
+    <None Remove="Recursos\img\cadenaTV\15.png" />
+    <None Remove="Recursos\img\cadenaTV\15small.png" />
+    <None Remove="Recursos\img\cadenaTV\1small.png" />
+    <None Remove="Recursos\img\cadenaTV\2.png" />
+    <None Remove="Recursos\img\cadenaTV\2small.png" />
+    <None Remove="Recursos\img\cadenaTV\3.png" />
+    <None Remove="Recursos\img\cadenaTV\3small.png" />
+    <None Remove="Recursos\img\cadenaTV\4.png" />
+    <None Remove="Recursos\img\cadenaTV\4small.png" />
+    <None Remove="Recursos\img\cadenaTV\5.png" />
+    <None Remove="Recursos\img\cadenaTV\5small.png" />
+    <None Remove="Recursos\img\cadenaTV\6.png" />
+    <None Remove="Recursos\img\cadenaTV\6small.png" />
+    <None Remove="Recursos\img\cadenaTV\7.png" />
+    <None Remove="Recursos\img\cadenaTV\7small.png" />
+    <None Remove="Recursos\img\cadenaTV\8.png" />
+    <None Remove="Recursos\img\cadenaTV\8small.png" />
+    <None Remove="Recursos\img\cadenaTV\9.png" />
+    <None Remove="Recursos\img\cadenaTV\9small.png" />
     <None Remove="Recursos\img\cargarPartida.png" />
     <None Remove="Recursos\img\cargarPartidaHover.png" />
     <None Remove="Recursos\img\demarcaciones\1.png" />
@@ -763,9 +796,17 @@
     <None Remove="Recursos\img\estadios\8interior.png" />
     <None Remove="Recursos\img\estadios\9exterior.png" />
     <None Remove="Recursos\img\estadios\9interior.png" />
+    <None Remove="Recursos\img\estadios\large-construction.png" />
+    <None Remove="Recursos\img\estadios\large.png" />
+    <None Remove="Recursos\img\estadios\medium-construction.png" />
+    <None Remove="Recursos\img\estadios\medium.png" />
+    <None Remove="Recursos\img\estadios\small-construction.png" />
+    <None Remove="Recursos\img\estadios\small.png" />
     <None Remove="Recursos\img\fondoDockPanelSuperior.png" />
     <None Remove="Recursos\img\fondoResultados.png" />
+    <None Remove="Recursos\img\gradas3D.png" />
     <None Remove="Recursos\img\icons\abajo_icon.png" />
+    <None Remove="Recursos\img\icons\abono_icon.png" />
     <None Remove="Recursos\img\icons\acuerdo_icon.png" />
     <None Remove="Recursos\img\icons\ajustesBlanco.png" />
     <None Remove="Recursos\img\icons\ajustesNegro.png" />
@@ -774,6 +815,8 @@
     <None Remove="Recursos\img\icons\amonestacionRoja.png" />
     <None Remove="Recursos\img\icons\ampliar_icon.png" />
     <None Remove="Recursos\img\icons\arriba_icon.png" />
+    <None Remove="Recursos\img\icons\asientoGeneral_icon.png" />
+    <None Remove="Recursos\img\icons\asientoTribuna_icon.png" />
     <None Remove="Recursos\img\icons\asistenciaGol_img.png" />
     <None Remove="Recursos\img\icons\asistencia_icon.png" />
     <None Remove="Recursos\img\icons\asistencia_img.png" />
@@ -795,17 +838,25 @@
     <None Remove="Recursos\img\icons\cerrar32px.png" />
     <None Remove="Recursos\img\icons\cerrar64px.png" />
     <None Remove="Recursos\img\icons\club_icon.png" />
+    <None Remove="Recursos\img\icons\codigoBarras.png" />
     <None Remove="Recursos\img\icons\competicion1.png" />
     <None Remove="Recursos\img\icons\competicionesNegro_icon.png" />
     <None Remove="Recursos\img\icons\competiciones_icon.png" />
+    <None Remove="Recursos\img\icons\contratar_icon.png" />
     <None Remove="Recursos\img\icons\correo_icon.png" />
+    <None Remove="Recursos\img\icons\cruzblanca_icon.png" />
     <None Remove="Recursos\img\icons\derecha_icon.png" />
+    <None Remove="Recursos\img\icons\despedir_icon.png" />
+    <None Remove="Recursos\img\icons\enfermeria_icon.png" />
+    <None Remove="Recursos\img\icons\enMercado_icon.png" />
     <None Remove="Recursos\img\icons\entrenador_icon.png" />
     <None Remove="Recursos\img\icons\estadioBlanco_icon.png" />
     <None Remove="Recursos\img\icons\estadioNegro_icon.png" />
     <None Remove="Recursos\img\icons\estrellaOff.png" />
     <None Remove="Recursos\img\icons\estrellaOn.png" />
     <None Remove="Recursos\img\icons\europa_icon.png" />
+    <None Remove="Recursos\img\icons\excavadora_icon.png" />
+    <None Remove="Recursos\img\icons\finanzas_icon.png" />
     <None Remove="Recursos\img\icons\flechaDerecha32px.png" />
     <None Remove="Recursos\img\icons\flechaDerechaBlanca32px.png" />
     <None Remove="Recursos\img\icons\flechaDerechaBlanca64px_icon.png" />
@@ -829,7 +880,10 @@
     <None Remove="Recursos\img\icons\mirilla.png" />
     <None Remove="Recursos\img\icons\mvp_icon.png" />
     <None Remove="Recursos\img\icons\mvp_img.png" />
+    <None Remove="Recursos\img\icons\noSeleccionado_icon.png" />
+    <None Remove="Recursos\img\icons\ojear_icon.png" />
     <None Remove="Recursos\img\icons\pabellon_icon.png" />
+    <None Remove="Recursos\img\icons\paciencia_icon.png" />
     <None Remove="Recursos\img\icons\papelera_icon.png" />
     <None Remove="Recursos\img\icons\plantilla_datos.png" />
     <None Remove="Recursos\img\icons\plantilla_estadisticas.png" />
@@ -843,12 +897,18 @@
     <None Remove="Recursos\img\icons\rol3_icon.png" />
     <None Remove="Recursos\img\icons\rol4_icon.png" />
     <None Remove="Recursos\img\icons\salir_icon.png" />
+    <None Remove="Recursos\img\icons\seleccionado_icon.png" />
     <None Remove="Recursos\img\icons\simulando_icon.png" />
     <None Remove="Recursos\img\icons\tarjetaAmarilla_img.png" />
     <None Remove="Recursos\img\icons\tarjetaRoja_img.png" />
+    <None Remove="Recursos\img\icons\tarjetaSocio.png" />
+    <None Remove="Recursos\img\icons\ticket_icon.png" />
+    <None Remove="Recursos\img\icons\transferencias_icon.png" />
+    <None Remove="Recursos\img\icons\transferible_icon.png" />
     <None Remove="Recursos\img\icons\trofeo_campeon.png" />
     <None Remove="Recursos\img\icons\trofeo_subcampeon.png" />
     <None Remove="Recursos\img\icons\verificado_icon.png" />
+    <None Remove="Recursos\img\icons\vip_icon.png" />
     <None Remove="Recursos\img\icons\volver_icon.png" />
     <None Remove="Recursos\img\jugadores\1.png" />
     <None Remove="Recursos\img\jugadores\10.png" />
@@ -2447,6 +2507,66 @@
     <None Remove="Recursos\img\managers\default.png" />
     <None Remove="Recursos\img\microfonos_ruedaPrensa.png" />
     <None Remove="Recursos\img\pase.png" />
+    <None Remove="Recursos\img\patrocinadores\1.png" />
+    <None Remove="Recursos\img\patrocinadores\10.png" />
+    <None Remove="Recursos\img\patrocinadores\10small.png" />
+    <None Remove="Recursos\img\patrocinadores\11.png" />
+    <None Remove="Recursos\img\patrocinadores\11small.png" />
+    <None Remove="Recursos\img\patrocinadores\12.png" />
+    <None Remove="Recursos\img\patrocinadores\12small.png" />
+    <None Remove="Recursos\img\patrocinadores\13.png" />
+    <None Remove="Recursos\img\patrocinadores\13small.png" />
+    <None Remove="Recursos\img\patrocinadores\14.png" />
+    <None Remove="Recursos\img\patrocinadores\14small.png" />
+    <None Remove="Recursos\img\patrocinadores\15.png" />
+    <None Remove="Recursos\img\patrocinadores\15small.png" />
+    <None Remove="Recursos\img\patrocinadores\16.png" />
+    <None Remove="Recursos\img\patrocinadores\16small.png" />
+    <None Remove="Recursos\img\patrocinadores\17.png" />
+    <None Remove="Recursos\img\patrocinadores\17small.png" />
+    <None Remove="Recursos\img\patrocinadores\18.png" />
+    <None Remove="Recursos\img\patrocinadores\18small.png" />
+    <None Remove="Recursos\img\patrocinadores\19.png" />
+    <None Remove="Recursos\img\patrocinadores\19small.png" />
+    <None Remove="Recursos\img\patrocinadores\1small.png" />
+    <None Remove="Recursos\img\patrocinadores\2.png" />
+    <None Remove="Recursos\img\patrocinadores\20.png" />
+    <None Remove="Recursos\img\patrocinadores\20small.png" />
+    <None Remove="Recursos\img\patrocinadores\21.png" />
+    <None Remove="Recursos\img\patrocinadores\21small.png" />
+    <None Remove="Recursos\img\patrocinadores\22.png" />
+    <None Remove="Recursos\img\patrocinadores\22small.png" />
+    <None Remove="Recursos\img\patrocinadores\23.png" />
+    <None Remove="Recursos\img\patrocinadores\23small.png" />
+    <None Remove="Recursos\img\patrocinadores\24.png" />
+    <None Remove="Recursos\img\patrocinadores\24small.png" />
+    <None Remove="Recursos\img\patrocinadores\25.png" />
+    <None Remove="Recursos\img\patrocinadores\25small.png" />
+    <None Remove="Recursos\img\patrocinadores\26.png" />
+    <None Remove="Recursos\img\patrocinadores\26small.png" />
+    <None Remove="Recursos\img\patrocinadores\27.png" />
+    <None Remove="Recursos\img\patrocinadores\27small.png" />
+    <None Remove="Recursos\img\patrocinadores\28.png" />
+    <None Remove="Recursos\img\patrocinadores\28small.png" />
+    <None Remove="Recursos\img\patrocinadores\29.png" />
+    <None Remove="Recursos\img\patrocinadores\29small.png" />
+    <None Remove="Recursos\img\patrocinadores\2small.png" />
+    <None Remove="Recursos\img\patrocinadores\3.png" />
+    <None Remove="Recursos\img\patrocinadores\30.png" />
+    <None Remove="Recursos\img\patrocinadores\30small.png" />
+    <None Remove="Recursos\img\patrocinadores\3small.png" />
+    <None Remove="Recursos\img\patrocinadores\4.png" />
+    <None Remove="Recursos\img\patrocinadores\4small.png" />
+    <None Remove="Recursos\img\patrocinadores\5.png" />
+    <None Remove="Recursos\img\patrocinadores\5small.png" />
+    <None Remove="Recursos\img\patrocinadores\6.png" />
+    <None Remove="Recursos\img\patrocinadores\6small.png" />
+    <None Remove="Recursos\img\patrocinadores\7.png" />
+    <None Remove="Recursos\img\patrocinadores\7small.png" />
+    <None Remove="Recursos\img\patrocinadores\8.png" />
+    <None Remove="Recursos\img\patrocinadores\8small.png" />
+    <None Remove="Recursos\img\patrocinadores\9.png" />
+    <None Remove="Recursos\img\patrocinadores\9small.png" />
     <None Remove="Recursos\img\portero.png" />
     <None Remove="Recursos\img\regate.png" />
     <None Remove="Recursos\img\remate.png" />
@@ -2487,6 +2607,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\backgroundPrincipal1920x1080.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\background_banner_prestamo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\background_negociaciones.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\background_oficina.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\background_ruedaPrensa.png">
@@ -3084,6 +3213,96 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\bannerPalmares.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\10.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\10small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\11.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\11small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\12.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\12small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\13.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\13small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\14.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\14small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\15.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\15small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\1small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\2small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\3small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\4small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\5small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\6small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\7small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\8.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\8small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\9.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\cadenaTV\9small.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\cargarPartida.png">
@@ -4724,13 +4943,37 @@
     <Content Include="Recursos\img\estadios\9interior.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\estadios\large-construction.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\estadios\large.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\estadios\medium-construction.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\estadios\medium.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\estadios\small-construction.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\estadios\small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\fondoDockPanelSuperior.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\fondoResultados.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\gradas3D.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\icons\abajo_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\abono_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\acuerdo_icon.png">
@@ -4755,6 +4998,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\arriba_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\asientoGeneral_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\asientoTribuna_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\asistenciaGol_img.png">
@@ -4820,6 +5069,9 @@
     <Content Include="Recursos\img\icons\club_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\icons\codigoBarras.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\icons\competicion1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -4829,10 +5081,25 @@
     <Content Include="Recursos\img\icons\competiciones_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\icons\contratar_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\icons\correo_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\icons\cruzblanca_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\icons\derecha_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\despedir_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\enfermeria_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\enMercado_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\entrenador_icon.png">
@@ -4851,6 +5118,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\europa_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\excavadora_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\finanzas_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\flechaDerecha32px.png">
@@ -4922,7 +5195,16 @@
     <Content Include="Recursos\img\icons\mvp_img.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\icons\noSeleccionado_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\ojear_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\icons\pabellon_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\paciencia_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\papelera_icon.png">
@@ -4964,6 +5246,9 @@
     <Content Include="Recursos\img\icons\salir_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\icons\seleccionado_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\icons\simulando_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -4973,6 +5258,18 @@
     <Content Include="Recursos\img\icons\tarjetaRoja_img.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\icons\tarjetaSocio.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\ticket_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\transferencias_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\transferible_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\icons\trofeo_campeon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -4980,6 +5277,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\verificado_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\vip_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\volver_icon.png">
@@ -9768,6 +10068,186 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\pase.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\10.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\10small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\11.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\11small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\12.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\12small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\13.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\13small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\14.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\14small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\15.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\15small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\16small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\17.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\17small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\18.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\18small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\19.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\19small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\1small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\20.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\20small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\21.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\21small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\22.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\22small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\23.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\23small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\24.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\24small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\25.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\25small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\26.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\26small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\27.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\27small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\28.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\28small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\29.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\29small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\2small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\30.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\30small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\3small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\4small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\5small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\6small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\7small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\8.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\8small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\9.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\patrocinadores\9small.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\portero.png">

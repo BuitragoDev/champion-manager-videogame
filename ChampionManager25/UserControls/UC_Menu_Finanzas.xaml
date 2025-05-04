@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="ChampionManager25.UserControls.UC_Menu_Finanzas"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ChampionManager25.UserControls"
+             mc:Ignorable="d" d:DesignHeight="50" d:DesignWidth="1845">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="lblFinanzas" Grid.Column="0" HorizontalAlignment="Center" Text="FINANZAS" VerticalAlignment="Center" 
+                   FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" FontWeight="Bold" Width="200" 
+                   TextAlignment="Center"/>
+
+        <TextBlock x:Name="lblIngresos" Grid.Column="1" HorizontalAlignment="Center" Text="Ingresos" VerticalAlignment="Center" 
+                   FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" FontWeight="Bold" Width="200" 
+                   TextAlignment="Center" Cursor="Hand" MouseLeftButtonDown="lblIngresos_MouseLeftButtonDown"/>
+
+        <TextBlock x:Name="lblGastos" Grid.Column="2" HorizontalAlignment="Center" Text="Gastos" VerticalAlignment="Center" 
+                   FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" FontWeight="Bold" Width="200" 
+                   TextAlignment="Center" Cursor="Hand" MouseLeftButtonDown="lblGastos_MouseLeftButtonDown"/>
+
+        <TextBlock x:Name="lblPatrocinadores" Grid.Column="3" HorizontalAlignment="Center" Text="Patrocinadores" VerticalAlignment="Center" 
+                   FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" FontWeight="Bold" Width="200" 
+                   TextAlignment="Center" Cursor="Hand" MouseLeftButtonDown="lblPatrocinadores_MouseLeftButtonDown"/>
+
+        <TextBlock x:Name="lblTelevision" Grid.Column="4" HorizontalAlignment="Center" Text="Televisión" VerticalAlignment="Center" 
+                   FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" FontWeight="Bold" Width="200" 
+                   TextAlignment="Center" Cursor="Hand" MouseLeftButtonDown="lblTelevision_MouseLeftButtonDown"/>
+
+        <TextBlock x:Name="lblPrestamos" Grid.Column="5" HorizontalAlignment="Center" Text="Préstamos Bancarios" VerticalAlignment="Center" 
+                   FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" FontWeight="Bold" Width="200" 
+                   TextAlignment="Center" Cursor="Hand" MouseLeftButtonDown="lblPrestamos_MouseLeftButtonDown"/>
+    </Grid>
+</UserControl>

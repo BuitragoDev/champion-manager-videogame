@@ -656,7 +656,16 @@ namespace ChampionManager25.Datos
                     conn.Open();
 
                     string query = @"SELECT * FROM (SELECT 
-                                                        p.*, 
+                                                        p.id_partido,
+                                                        p.id_equipo_local,
+                                                        p.id_equipo_visitante,
+                                                        p.fecha,
+                                                        p.id_manager,
+                                                        p.goles_local,
+                                                        p.goles_visitante,
+                                                        p.id_competicion,
+                                                        p.jornada,
+                                                        NULL AS id_ronda,
                                                         el.nombre AS nombre_local, 
                                                         ev.nombre AS nombre_visitante 
                                                     FROM partidos p
@@ -669,7 +678,16 @@ namespace ChampionManager25.Datos
                                                     UNION ALL
 
                                                     SELECT 
-                                                        pc.*, 
+                                                        pc.id_partido,
+                                                        pc.id_equipo_local,
+                                                        pc.id_equipo_visitante,
+                                                        pc.fecha,
+                                                        pc.id_manager,
+                                                        pc.goles_local,
+                                                        pc.goles_visitante,
+                                                        pc.id_competicion,
+                                                        NULL AS jornada,
+                                                        pc.id_ronda,
                                                         el.nombre AS nombre_local, 
                                                         ev.nombre AS nombre_visitante 
                                                     FROM partidos_copaNacional pc
@@ -678,9 +696,9 @@ namespace ChampionManager25.Datos
                                                     WHERE pc.id_equipo_local = @IdEquipo 
                                                       AND pc.id_manager = @IdManager 
                                                       AND pc.fecha > @Fecha
-                                                    )
-                                                    ORDER BY fecha ASC
-                                                    LIMIT 1";
+                                                )
+                                                ORDER BY fecha ASC
+                                                LIMIT 1";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                     {
@@ -702,8 +720,8 @@ namespace ChampionManager25.Datos
                                     IdCompeticion = reader["id_competicion"] != DBNull.Value ? Convert.ToInt32(reader["id_competicion"]) : 0,
                                     Jornada = reader["jornada"] != DBNull.Value ? Convert.ToInt32(reader["jornada"]) : 0,
                                     NombreEquipoLocal = reader["nombre_local"]?.ToString() ?? "",
-                                    NombreEquipoVisitante = reader["nombre_visitante"]?.ToString() ?? ""
-
+                                    NombreEquipoVisitante = reader["nombre_visitante"]?.ToString() ?? "",
+                                    Ronda = reader["id_ronda"] != DBNull.Value ? Convert.ToInt32(reader["id_ronda"]) : 0
                                 };
                             }
                         }
