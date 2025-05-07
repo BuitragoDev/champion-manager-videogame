@@ -209,23 +209,9 @@ namespace ChampionManager25.Logica
         }
 
         // Llamada al método para mostrar la lista de Jugadores Por Filtros
-        public List<Jugador> ListadoJugadoresPorFiltro(int equipo, string nacionalidad, string competicion, string posicion, string edad, string media, string calidad, string velocidad, string resistencia, string agresividad)
+        public List<Jugador> ListadoJugadoresPorFiltro(int equipo, string nacionalidad, int competicion, string posicion, int edadMin, int edadMax, int mediaMin, int mediaMax, int calidadMin, int calidadMax,
+                               int velocidadMin, int velocidadMax, int resistenciaMin, int resistenciaMax, int agresividadMin, int agresividadMax)
         {
-            // Competiciones
-            int comp = 0;
-            if (competicion == "LaLiga EA Sports")
-            {
-                comp = 1;
-            }
-            else if (competicion == "LaLiga Hypermotion")
-            {
-                comp = 2;
-            }
-            else if (competicion == "Primera Federación")
-            {
-                comp = 3;
-            }
-
             // Posiciones
             var posiciones = new Dictionary<string, int>
             {
@@ -242,86 +228,28 @@ namespace ChampionManager25.Logica
             };
             int pos = posiciones.GetValueOrDefault(posicion, 0);
 
-            // Edad
-            var rangosEdad = new Dictionary<string, (int min, int max)>
-            {
-                { ">40", (40, 100) },
-                { "30-40", (30, 40) },
-                { "25-35", (25, 35) },
-                { "18-30", (18, 30) },
-                { "18-25", (18, 25) },
-                { "<18", (0, 18) }
-            };
+           
 
-            (int edadMin, int edadMax) = rangosEdad.GetValueOrDefault(edad, (0, 100));
+            return _datos.ListadoJugadoresPorFiltro(equipo, nacionalidad, competicion, pos, edadMin, edadMax, mediaMin, mediaMax, calidadMin, calidadMax,
+                               velocidadMin, velocidadMax, resistenciaMin, resistenciaMax, agresividadMin, agresividadMax);
+        }
 
-            // Media
-            var rangosMedia = new Dictionary<string, (int min, int max)>
-            {
-                { "0-100", (0, 100) },
-                { "0-90", (0, 90) },
-                { "80-100", (80, 100) },
-                { "0-80", (0, 80) },
-                { "0-70", (0, 70) },
-                { "0-60", (0, 60) },
-                { "0-50", (0, 50) }
-            };
+        // Llamada al método que resta un año de contrato
+        public void RestarAnioContrato(int jugador)
+        {
+            _datos.RestarAnioContrato(jugador);
+        }
 
-            (int mediaMin, int mediaMax) = rangosMedia.GetValueOrDefault(media, (0, 100));
+        // Llamada al método que borra un contrato
+        public void BorrarContrato(int jugador)
+        {
+            _datos.BorrarContrato(jugador);
+        }
 
-            // Calidad
-            var rangosCalidad = new Dictionary<string, int>
-            {
-                { "0-100", 100 },
-                { "0-90", 90 },
-                { "0-80", 80 },
-                { "0-70", 70 },
-                { "0-60", 60 },
-                { "0-50", 50 }
-            };
-
-            int calidadMax = rangosCalidad.GetValueOrDefault(calidad, (100));
-
-            // Velocidad
-            var rangosVelocidad = new Dictionary<string, int>
-            {
-                { "0-100", 100 },
-                { "0-90", 90 },
-                { "0-80", 80 },
-                { "0-70", 70 },
-                { "0-60", 60 },
-                { "0-50", 50 }
-            };
-
-            int velocidadMax = rangosVelocidad.GetValueOrDefault(velocidad, (100));
-
-            // Resistencia
-            var rangosResistencia = new Dictionary<string, int>
-            {
-                { "0-100", 100 },
-                { "0-90", 90 },
-                { "0-80", 80 },
-                { "0-70", 70 },
-                { "0-60", 60 },
-                { "0-50", 50 }
-            };
-
-            int resistenciaMax = rangosResistencia.GetValueOrDefault(resistencia, (100));
-
-            // Agresividad
-            var rangosAgresividad = new Dictionary<string, int>
-            {
-                { "0-100", 100 },
-                { "0-90", 90 },
-                { "0-80", 80 },
-                { "0-70", 70 },
-                { "0-60", 60 },
-                { "0-50", 50 }
-            };
-
-            int agresividadMax = rangosAgresividad.GetValueOrDefault(agresividad, (100));
-
-            return _datos.ListadoJugadoresPorFiltro(equipo, nacionalidad, comp, pos, edadMin, edadMax, mediaMin, mediaMax, calidadMax, velocidadMax, resistenciaMax, agresividadMax);
+        // Llamada al método para mostrar todos los contratos de jugadores
+        public List<Contrato> MostrarListaTotalContratos()
+        {
+            return _datos.MostrarListaTotalContratos();
         }
     }
 }

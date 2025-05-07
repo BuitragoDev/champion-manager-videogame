@@ -152,7 +152,16 @@
     <Compile Update="UserControls\UC_Menu_Transferencias.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\UC_Menu_Transferencias_BuscarPorEquipo.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Transferencias_BuscarPorFiltro.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\UC_Menu_Transferencias_Cartera.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Transferencias_EstadoOfertas.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControls\UC_Menu_Transferencias_Mercado.xaml.cs">
@@ -204,6 +213,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Vistas\frmSimulandoPartidos.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Vistas\frmTraspasoJugador.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Vistas\frmVentanaDespido.xaml.cs">

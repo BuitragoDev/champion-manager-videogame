@@ -1,4 +1,5 @@
-﻿using ChampionManager25.Entidades;
+﻿using ChampionManager25.Datos;
+using ChampionManager25.Entidades;
 using ChampionManager25.Logica;
 using ChampionManager25.MisMetodos;
 using ChampionManager25.Vistas;
@@ -25,6 +26,7 @@ namespace ChampionManager25.UserControls
         private int _equipo;
 
         TelevisionLogica _logicaTelevision = new TelevisionLogica();
+        EquipoLogica _logicaEquipo = new EquipoLogica();
 
         public UC_Menu_Finanzas_DerechosTV(Manager manager, int equipo)
         {
@@ -61,10 +63,8 @@ namespace ChampionManager25.UserControls
 
         private void CargarDatosDerechosTV()
         {
-            // Repetir el código para cargar los patrocinadores, igual que en el evento UserControl_Loaded
-            string localPath = $"/Recursos/img/escudos_equipos/{_equipo}.png";
-            BitmapImage bitmapImageLocal = new BitmapImage(new Uri(localPath, UriKind.Relative));
-            imgLogo.Source = bitmapImageLocal;
+            Equipo miEquipo = _logicaEquipo.ListarDetallesEquipo(_equipo);
+            imgLogo.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + miEquipo.RutaImagen));
 
             // Consultar si hay patrocinadores contratados
             Television cadenatv = _logicaTelevision.TelevisionesContratadas(_manager.IdManager, _equipo);

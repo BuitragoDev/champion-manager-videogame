@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ChampionManager25.Datos;
 
 namespace ChampionManager25.UserControls
 {
@@ -25,6 +26,7 @@ namespace ChampionManager25.UserControls
         private int _equipo;
 
         PatrocinadorLogica _logicaPatrocinador = new PatrocinadorLogica();
+        EquipoLogica _logicaEquipo = new EquipoLogica();
 
         public UC_Menu_Finanzas_Patrocinadores(Manager manager, int equipo)
         {
@@ -61,10 +63,8 @@ namespace ChampionManager25.UserControls
 
         private void CargarDatosPatrocinador()
         {
-            // Repetir el código para cargar los patrocinadores, igual que en el evento UserControl_Loaded
-            string localPath = $"/Recursos/img/escudos_equipos/{_equipo}.png";
-            BitmapImage bitmapImageLocal = new BitmapImage(new Uri(localPath, UriKind.Relative));
-            imgLogo.Source = bitmapImageLocal;
+            Equipo miEquipo = _logicaEquipo.ListarDetallesEquipo(_equipo);
+            imgLogo.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + miEquipo.RutaImagen));
 
             // Consultar si hay patrocinadores contratados
             Patrocinador patrocinador = _logicaPatrocinador.PatrocinadoresContratados(_manager.IdManager, _equipo);

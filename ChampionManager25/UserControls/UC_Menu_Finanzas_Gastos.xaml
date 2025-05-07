@@ -141,6 +141,7 @@
                             <RowDefinition Height="30"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
                             <RowDefinition Height="30"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
@@ -150,91 +151,112 @@
                         <!-- Jugadores -->
                         <Border Background="DarkRed" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
                             <TextBlock Text="JUGADORES" HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                   FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                       FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="WhiteSmoke" TextAlignment="Center"/>
                         </Border>
                         <Border Background="LightGray" Grid.Column="0" Grid.Row="1">
                             <TextBlock Text="Salario jugadores" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="20,0,0,0"
-                                   FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="Black" TextAlignment="Center"/>
+                                       FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="Black" TextAlignment="Center"/>
                         </Border>
                         <Border Background="LightGray" Grid.Column="1" Grid.Row="1">
-                            <TextBlock x:Name="txtSalarioJugadores" Text="000.000.000 $" HorizontalAlignment="Right" VerticalAlignment="Center"  Margin="0,0,20,0"
-                                   FontFamily="Cascadia Code Light" FontSize="20" Foreground="Black" TextAlignment="Center"/>
+                            <TextBlock x:Name="txtSalarioJugadores" Text="000.000.000 €" HorizontalAlignment="Right" VerticalAlignment="Center"  Margin="0,0,20,0"
+                                       FontFamily="Cascadia Code Light" FontSize="20" Foreground="Black" TextAlignment="Center"/>
                         </Border>
 
                         <Border Background="WhiteSmoke" Grid.Column="0" Grid.Row="2">
                             <TextBlock Text="Cancelación de los contratos" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="20,0,0,0"
-                                   FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="Black" TextAlignment="Center"/>
+                                       FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="Black" TextAlignment="Center"/>
                         </Border>
                         <Border Background="WhiteSmoke" Grid.Column="1" Grid.Row="2">
-                            <TextBlock x:Name="txtCancelacionSalarioJugador" Text="000.000.000 $" HorizontalAlignment="Right" VerticalAlignment="Center"  Margin="0,0,20,0"
-                                   FontFamily="Cascadia Code Light" FontSize="20" Foreground="Black" TextAlignment="Center"/>
+                            <TextBlock x:Name="txtCancelacionSalarioJugador" Text="000.000.000 €" HorizontalAlignment="Right" VerticalAlignment="Center"  Margin="0,0,20,0"
+                                       FontFamily="Cascadia Code Light" FontSize="20" Foreground="Black" TextAlignment="Center"/>
                         </Border>
 
-                        <!-- Impuestos de Lujo -->
-                        <Border Background="DarkRed" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2">
-                            <TextBlock Text="MULTAS" HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                   FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                        <Border Background="LightGray" Grid.Column="0" Grid.Row="3">
+                            <TextBlock Text="Fichajes" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="20,0,0,0"
+                                       FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="Black" TextAlignment="Center"/>
                         </Border>
-                        <Border Background="LightGray" Grid.Column="0" Grid.Row="4">
-                            <TextBlock Text="Multas Recibidas" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="20,0,0,0"
-                                   FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="Black" TextAlignment="Center"/>
+                        <Border Background="LightGray" Grid.Column="1" Grid.Row="3">
+                            <TextBlock x:Name="txtFichajes" Text="000.000.000 €" HorizontalAlignment="Right" VerticalAlignment="Center"  Margin="0,0,20,0"
+                                       FontFamily="Cascadia Code Light" FontSize="20" Foreground="Black" TextAlignment="Center"/>
                         </Border>
-                        <Border Background="LightGray" Grid.Column="1" Grid.Row="4">
-                            <TextBlock x:Name="txtMultas" Text="000.000.000 $" HorizontalAlignment="Right" VerticalAlignment="Center"  Margin="0,0,20,0"
-                                   FontFamily="Cascadia Code Light" FontSize="20" Foreground="Black" TextAlignment="Center"/>
-                        </Border>
-
-                        <Border Background="WhiteSmoke" Grid.Column="0" Grid.Row="5"  Grid.ColumnSpan="2"/>
 
                         <!-- Empleados -->
                         <Border Background="DarkRed" Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2">
                             <TextBlock Text="EMPLEADOS" HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                   FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                       FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="WhiteSmoke" TextAlignment="Center"/>
                         </Border>
                         <Border Background="LightGray" Grid.Column="2" Grid.Row="1">
                             <TextBlock Text="Salarios empleados" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="20,0,0,0"
-                                   FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="Black" TextAlignment="Center"/>
-                        </Border>
-                        <Border Background="LightGray" Grid.Column="3" Grid.Row="1">
-                            <TextBlock x:Name="txtSalarioEmpleado" Text="000.000.000 $" HorizontalAlignment="Right" VerticalAlignment="Center"  Margin="0,0,20,0"
-                                   FontFamily="Cascadia Code Light" FontSize="20" Foreground="Black" TextAlignment="Center"/>
-                        </Border>
-                        <Border Background="WhiteSmoke" Grid.Column="2" Grid.Row="2">
-                            <TextBlock Text="Cancelación de los contratos" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="20,0,0,0"
-                                   FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="Black" TextAlignment="Center"/>
-                        </Border>
-                        <Border Background="WhiteSmoke" Grid.Column="3" Grid.Row="2">
-                            <TextBlock x:Name="txtCancelacionContratoEmpleado" Text="000.000.000 $" HorizontalAlignment="Right" VerticalAlignment="Center"  Margin="0,0,20,0"
-                                   FontFamily="Cascadia Code Light" FontSize="20" Foreground="Black" TextAlignment="Center"/>
-                        </Border>
-
-
-                        <!-- Remodelaciones -->
-                        <Border Background="DarkRed" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2">
-                            <TextBlock Text="OTROS GASTOS" HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                   FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="WhiteSmoke" TextAlignment="Center"/>
-                        </Border>
-                        <Border Background="WhiteSmoke" Grid.Column="2" Grid.Row="4">
-                            <TextBlock Text="Remodelación de las Gradas" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="20,0,0,0"
-                                   FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="Black" TextAlignment="Center"/>
-                        </Border>
-                        <Border Background="WhiteSmoke" Grid.Column="3" Grid.Row="4">
-                            <TextBlock x:Name="txtGradas" Text="000.000.000 $" HorizontalAlignment="Right" VerticalAlignment="Center"  Margin="0,0,20,0"
-                                   FontFamily="Cascadia Code Light" FontSize="20" Foreground="Black" TextAlignment="Center"/>
-                        </Border>
-
-                        <Border Background="LightGray" Grid.Column="2" Grid.Row="5">
-                            <TextBlock Text="Préstamos bancarios" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="20,0,0,0"
                                        FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="Black" TextAlignment="Center"/>
                         </Border>
-                        <Border Background="LightGray" Grid.Column="3" Grid.Row="5">
-                            <TextBlock x:Name="txtPrestamos" Text="000.000.000 $" HorizontalAlignment="Right" VerticalAlignment="Center"  Margin="0,0,20,0"
+                        <Border Background="LightGray" Grid.Column="3" Grid.Row="1">
+                            <TextBlock x:Name="txtSalarioEmpleado" Text="000.000.000 €" HorizontalAlignment="Right" VerticalAlignment="Center"  Margin="0,0,20,0"
                                        FontFamily="Cascadia Code Light" FontSize="20" Foreground="Black" TextAlignment="Center"/>
                         </Border>
 
+                        <Border Background="WhiteSmoke" Grid.Column="2" Grid.Row="2">
+                            <TextBlock Text="Cancelación de los contratos" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="20,0,0,0"
+                                       FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="Black" TextAlignment="Center"/>
+                        </Border>
+                        <Border Background="WhiteSmoke" Grid.Column="3" Grid.Row="2">
+                            <TextBlock x:Name="txtCancelacionContratoEmpleado" Text="000.000.000 €" HorizontalAlignment="Right" VerticalAlignment="Center"  Margin="0,0,20,0"
+                                       FontFamily="Cascadia Code Light" FontSize="20" Foreground="Black" TextAlignment="Center"/>
+                        </Border>
+
+                        <!-- Multas -->
+                        <Border Background="DarkRed" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2">
+                            <TextBlock Text="MULTAS" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                       FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                        </Border>
+                        <Border Background="LightGray" Grid.Column="0" Grid.Row="5">
+                            <TextBlock Text="Multas Recibidas" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="20,0,0,0"
+                                       FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="Black" TextAlignment="Center"/>
+                        </Border>
+                        <Border Background="LightGray" Grid.Column="1" Grid.Row="5">
+                            <TextBlock x:Name="txtMultas" Text="000.000.000 €" HorizontalAlignment="Right" VerticalAlignment="Center"  Margin="0,0,20,0"
+                                       FontFamily="Cascadia Code Light" FontSize="20" Foreground="Black" TextAlignment="Center"/>
+                        </Border>
+
+                        <Border Background="WhiteSmoke" Grid.Column="0" Grid.Row="6">
+                            
+                        </Border>
+                        <Border Background="WhiteSmoke" Grid.Column="1" Grid.Row="6">
+                           
+                        </Border>
+
+                        <!-- Otros Gastos -->
+                        <Border Background="DarkRed" Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="2">
+                            <TextBlock Text="OTROS GASTOS" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                       FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                        </Border>
+                        <Border Background="LightGray" Grid.Column="2" Grid.Row="5">
+                            <TextBlock Text="Remodelación de las Gradas" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="20,0,0,0"
+                                       FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="Black" TextAlignment="Center"/>
+                        </Border>
+                        <Border Background="LightGray" Grid.Column="3" Grid.Row="5">
+                            <TextBlock x:Name="txtGradas" Text="000.000.000 €" HorizontalAlignment="Right" VerticalAlignment="Center"  Margin="0,0,20,0"
+                                       FontFamily="Cascadia Code Light" FontSize="20" Foreground="Black" TextAlignment="Center"/>
+                        </Border>
+
+                        <Border Background="WhiteSmoke" Grid.Column="2" Grid.Row="6">
+                            <TextBlock Text="Préstamos bancarios" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="20,0,0,0"
+                                       FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="Black" TextAlignment="Center"/>
+                        </Border>
+                        <Border Background="WhiteSmoke" Grid.Column="3" Grid.Row="6">
+                            <TextBlock x:Name="txtPrestamos" Text="000.000.000 €" HorizontalAlignment="Right" VerticalAlignment="Center"  Margin="0,0,20,0"
+                                       FontFamily="Cascadia Code Light" FontSize="20" Foreground="Black" TextAlignment="Center"/>
+                        </Border>
+
+                        <Border Background="LightGray" Grid.Column="2" Grid.Row="3">
+
+                        </Border>
+                        <Border Background="LightGray" Grid.Column="3" Grid.Row="3">
+
+                        </Border>
+
                         <!-- Totales -->
-                        <Border Background="DarkRed" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2"/>
-                        <Border Background="DarkRed" Grid.Column="2" Grid.Row="6" Grid.ColumnSpan="2">
+                        <Border Background="DarkRed" Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2"/>
+                        <Border Background="DarkRed" Grid.Column="2" Grid.Row="9" Grid.ColumnSpan="2">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -244,9 +266,9 @@
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
                                 <TextBlock Grid.Column="0" Grid.Row="0" Text="TOTAL" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"
-                                       FontFamily="Cascadia Code SemiBold" FontSize="32" Foreground="WhiteSmoke" TextAlignment="Center"/>
-                                <TextBlock x:Name="txtTotal" Grid.Column="1" Grid.Row="0" Text="000.000.000 $" HorizontalAlignment="Right" VerticalAlignment="Center"  
-                                       Margin="0,0,20,0" FontFamily="Cascadia Code Light" FontSize="32" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                           FontFamily="Cascadia Code SemiBold" FontSize="32" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                <TextBlock x:Name="txtTotal" Grid.Column="1" Grid.Row="0" Text="000.000.000 €" HorizontalAlignment="Right" VerticalAlignment="Center"  
+                                           Margin="0,0,20,0" FontFamily="Cascadia Code Light" FontSize="32" Foreground="WhiteSmoke" TextAlignment="Center"/>
                             </Grid>
                         </Border>
                     </Grid>

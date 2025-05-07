@@ -159,8 +159,7 @@ namespace ChampionManager25.Datos
                                     ValorMercado = dr.GetInt32(dr.GetOrdinal("valor_mercado")),
                                     AniosContrato = dr.IsDBNull(dr.GetOrdinal("AniosContrato")) ? null : dr.GetInt32(dr.GetOrdinal("AniosContrato")),
                                     SalarioTemporada = dr.IsDBNull(dr.GetOrdinal("SalarioTemporada")) ? null : dr.GetInt32(dr.GetOrdinal("SalarioTemporada")),
-                                    ClausulaRescision = dr.IsDBNull(dr.GetOrdinal("ClausulaRescision")) ? null : dr.GetInt32(dr.GetOrdinal("ClausulaRescision")),
-                                    ProximaNegociacion = dr.IsDBNull(dr.GetOrdinal("proxima_negociacion")) ? (DateTime?)null : dr.GetDateTime(dr.GetOrdinal("proxima_negociacion"))
+                                    ClausulaRescision = dr.IsDBNull(dr.GetOrdinal("ClausulaRescision")) ? null : dr.GetInt32(dr.GetOrdinal("ClausulaRescision"))
                                 };
 
                                 // Agregar el jugador a la lista
@@ -299,8 +298,10 @@ namespace ChampionManager25.Datos
                                         c.salario_anual AS SalarioTemporada,
                                         c.clausula_rescision AS ClausulaRescision,
                                         c.bono_por_partidos AS BonoPartidos,
-                                        c.bono_por_goles AS BonoGoles
+                                        c.bono_por_goles AS BonoGoles,
+                                        e.nombre AS NombreEquipo
                                     FROM jugadores j
+                                    LEFT JOIN equipos e ON e.id_equipo = j.id_equipo
                                     LEFT JOIN contratos c ON j.id_jugador = c.id_jugador
                                     WHERE j.id_jugador = @IdJugador";
 
@@ -343,6 +344,7 @@ namespace ChampionManager25.Datos
                                     ValorMercado = dr.GetInt32(dr.GetOrdinal("valor_mercado")),
                                     EstadoAnimo = dr.GetInt32(dr.GetOrdinal("estado_animo")),
                                     RutaImagen = dr.GetString(dr.GetOrdinal("ruta_imagen")),
+                                    NombreEquipo = dr.GetString(dr.GetOrdinal("NombreEquipo")),
                                     SituacionMercado = dr.IsDBNull(dr.GetOrdinal("situacion_mercado")) ? 0 : dr.GetInt32(dr.GetOrdinal("situacion_mercado")),
                                     IdEquipo = dr.GetInt32(dr.GetOrdinal("id_equipo")),
                                     AniosContrato = dr.IsDBNull(dr.GetOrdinal("AniosContrato")) ? null : dr.GetInt32(dr.GetOrdinal("AniosContrato")),
@@ -476,16 +478,41 @@ namespace ChampionManager25.Datos
                 {
                     conn.Open();
 
-                    // Consulta SQL para obtener las finanzas del equipo
-                    string query = @"UPDATE jugadores SET id_equipo = @IdEquipo
-                                     WHERE id_jugador = @IdJugador";
+                    // 1. Obtener dorsales usados por el equipo destino
+                    List<int> dorsalesOcupados = new List<int>();
+                    string dorsalesQuery = @"SELECT dorsal FROM jugadores WHERE id_equipo = @IdEquipo";
+
+                    using (SQLiteCommand cmdDorsales = new SQLiteCommand(dorsalesQuery, conn))
+                    {
+                        cmdDorsales.Parameters.AddWithValue("@IdEquipo", equipo);
+                        using (SQLiteDataReader reader = cmdDorsales.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                dorsalesOcupados.Add(reader.GetInt32(0));
+                            }
+                        }
+                    }
+
+                    // 2. Buscar el primer dorsal disponible del 1 al 50
+                    int nuevoDorsal = Enumerable.Range(1, 50).FirstOrDefault(d => !dorsalesOcupados.Contains(d));
+
+                    if (nuevoDorsal == 0)
+                    {
+                        MessageBox.Show("No hay dorsales disponibles entre 1 y 50 para este equipo.");
+                        return;
+                    }
+
+                    // 3. Actualizar el equipo y el dorsal del jugador
+                    string query = @"UPDATE jugadores 
+                             SET id_equipo = @IdEquipo, dorsal = @NuevoDorsal 
+                             WHERE id_jugador = @IdJugador";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                     {
-                        // Agregar parámetro para evitar inyección SQL
                         cmd.Parameters.AddWithValue("@IdJugador", jugador);
                         cmd.Parameters.AddWithValue("@IdEquipo", equipo);
-
+                        cmd.Parameters.AddWithValue("@NuevoDorsal", nuevoDorsal);
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -495,6 +522,7 @@ namespace ChampionManager25.Datos
                 MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
         }
+
 
         // ======================================================= Método para mostrar los titulares del equipo
         public void CrearAlineacion(string tactica, int equipo)
@@ -2029,7 +2057,8 @@ namespace ChampionManager25.Datos
         }
 
         // ---------------------------------------------------------------------- Método para mostrar la lista de Jugadores Por Filtros
-        public List<Jugador> ListadoJugadoresPorFiltro(int equipo, string nacionalidad, int competicion, int posicion, int edadMin, int edadMax, int mediaMin, int mediaMax, int calidadMax, int velocidadMax, int resistenciaMax, int agresividadMax)
+        public List<Jugador> ListadoJugadoresPorFiltro(int equipo, string nacionalidad, int competicion, int posicion, int edadMin, int edadMax, int mediaMin, int mediaMax, int calidadMin, int calidadMax,
+                               int velocidadMin, int velocidadMax, int resistenciaMin, int resistenciaMax, int agresividadMin, int agresividadMax)
         {
             List<Jugador> lista = new List<Jugador>();
 
@@ -2044,15 +2073,19 @@ namespace ChampionManager25.Datos
                                      FROM jugadores j
                                      JOIN equipos e ON j.id_equipo = e.id_equipo
                                      WHERE (@equipo <> j.id_equipo
-                                           AND @nacionalidad = '' OR j.nacionalidad1 = @nacionalidad)
+                                           AND (@nacionalidad = '' OR j.nacionalidad = @nacionalidad))
                                            AND (@competicion = 0 OR e.id_competicion = @competicion)
                                            AND (@posicion = 0 OR j.rol_id = @posicion)
                                            AND ((julianday(@hoy) - julianday(j.fecha_nacimiento)) / 365.25) BETWEEN @edadMin AND @edadMax
-                                           AND (@mediaMax = 0 OR ((j.velocidad + j.resistencia + j.agresividad + j.calidad + j.estado_forma + j.moral) / 6.0) BETWEEN @mediaMin AND @mediaMax)
-                                           AND (@calidadMax = 0 OR j.calidad <= @calidadMax)
-                                           AND (@velocidadMax = 0 OR j.velocidad <= @velocidadMax)
-                                           AND (@resistenciaMax = 0 OR j.resistencia <= @resistenciaMax)
-                                           AND (@agresividadMax = 0 OR j.agresividad <= @agresividadMax)
+                                           AND (@mediaMax = 1 OR ((j.velocidad + j.resistencia + j.agresividad + j.calidad + j.estado_forma + j.moral) / 6.0) BETWEEN @mediaMin AND @mediaMax)
+                                           AND (@calidadMin = 1 OR j.calidad >= @calidadMin)
+                                           AND (@calidadMax = 1 OR j.calidad <= @calidadMax)
+                                           AND (@velocidadMin = 1 OR j.velocidad >= @velocidadMin)
+                                           AND (@velocidadMax = 1 OR j.velocidad <= @velocidadMax)
+                                           AND (@resistenciaMin = 1 OR j.resistencia >= @resistenciaMin)
+                                           AND (@resistenciaMax = 1 OR j.resistencia <= @resistenciaMax)
+                                           AND (@agresividadMin = 1 OR j.agresividad >= @agresividadMin)
+                                           AND (@agresividadMax = 1 OR j.agresividad <= @agresividadMax)
                                      ORDER BY j.calidad DESC";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
@@ -2065,9 +2098,13 @@ namespace ChampionManager25.Datos
                         cmd.Parameters.AddWithValue("@edadMax", edadMax);
                         cmd.Parameters.AddWithValue("@mediaMin", mediaMin);
                         cmd.Parameters.AddWithValue("@mediaMax", mediaMax);
+                        cmd.Parameters.AddWithValue("@calidadMin", calidadMin);
                         cmd.Parameters.AddWithValue("@calidadMax", calidadMax);
+                        cmd.Parameters.AddWithValue("@velocidadMin", velocidadMin);
                         cmd.Parameters.AddWithValue("@velocidadMax", velocidadMax);
+                        cmd.Parameters.AddWithValue("@resistenciaMin", resistenciaMin);
                         cmd.Parameters.AddWithValue("@resistenciaMax", resistenciaMax);
+                        cmd.Parameters.AddWithValue("@agresividadMin", agresividadMin);
                         cmd.Parameters.AddWithValue("@agresividadMax", agresividadMax);
                         cmd.Parameters.AddWithValue("@hoy", Metodos.hoy.ToString("yyyy-MM-dd"));
                         cmd.Parameters.AddWithValue("@equipo", equipo);
@@ -2126,6 +2163,112 @@ namespace ChampionManager25.Datos
             {
                 // En caso de error, mostrar el mensaje con la excepción
                 Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return lista;
+        }
+
+        // ---------------------------------------------------------------------- Método que resta un año de contrato
+        public void RestarAnioContrato(int jugador)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Consulta SQL para obtener las finanzas del equipo
+                    string query = @"UPDATE contratos 
+                                     SET duracion = duracion - 1, 
+                                         fecha_fin = DATE(fecha_fin, '-1 year') 
+                                     WHERE id_jugador = @IdJugador";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        // Agregar parámetro para evitar inyección SQL
+                        cmd.Parameters.AddWithValue("@IdJugador", jugador);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // ---------------------------------------------------------------------- Método que borra un contrato
+        public void BorrarContrato(int jugador)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Consulta SQL para obtener las finanzas del equipo
+                    string query = @"DELETE FROM contratos WHERE id_jugador = @IdJugador";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        // Agregar parámetro para evitar inyección SQL
+                        cmd.Parameters.AddWithValue("@IdJugador", jugador);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // ======================================================= Método para mostrar todos los contratos de jugadores
+        public List<Contrato> MostrarListaTotalContratos()
+        {
+            List<Contrato> lista = new List<Contrato>();
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Consulta para obtener todos los jugadores del equipo con el id_equipo proporcionado
+                    string query = @"SELECT * FROM contratos";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        using (SQLiteDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                // Crear un objeto Contrato
+                                Contrato contrato = new Contrato
+                                {
+                                    IdContrato = Convert.ToInt32(dr["id_contrato"]),
+                                    IdJugador = Convert.ToInt32(dr["id_jugador"]),
+                                    IdEquipo = Convert.ToInt32(dr["id_equipo"]),
+                                    SalarioAnual = Convert.ToInt32(dr["salario_anual"]),
+                                    Duracion = Convert.ToInt32(dr["duracion"]),
+                                    FechaInicio = dr["fecha_inicio"].ToString(),
+                                    FechaFin = dr["fecha_fin"].ToString(),
+                                    ClausulaRescision = Convert.ToInt32(dr["clausula_rescision"]),
+                                    BonoPorGoles = Convert.ToInt32(dr["bono_por_goles"]),
+                                    BonoPorPartidos = Convert.ToInt32(dr["bono_por_partidos"])
+                                };
+
+                                // Agregar el contrato a la lista
+                                lista.Add(contrato);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                // En caso de error, mostrar el mensaje con la excepción
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
 
             return lista;

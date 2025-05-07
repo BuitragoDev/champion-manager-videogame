@@ -18,6 +18,7 @@ using ChampionManager25.Datos;
 using ChampionManager25.Entidades;
 using ChampionManager25.Logica;
 using ChampionManager25.MisMetodos;
+using ChampionManager25.Vistas;
 
 namespace ChampionManager25.UserControls
 {
@@ -92,9 +93,17 @@ namespace ChampionManager25.UserControls
                 imgExcavadora2.Visibility = Visibility.Hidden;
                 imgExcavadora3.Visibility = Visibility.Hidden;
 
-                if (aforo >= 75000)
+                if (aforo >= 85000)
+                {
+                    imgStadium.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/estadios/largeDeluxe.png"));
+                }
+                else if (aforo >= 75000)
                 {
                     imgStadium.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/estadios/large.png"));
+                }
+                else if (aforo >= 50000)
+                {
+                    imgStadium.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/estadios/mediumDeluxe.png"));
                 }
                 else if (aforo >= 25000)
                 {
@@ -142,89 +151,111 @@ namespace ChampionManager25.UserControls
         {
             Metodos.ReproducirSonidoClick();
 
-            int aumento = 0;
-            int semanasObras = 0;
-            if (tipoRemodelacion != 0)
+            Equipo miEquipo = _logicaEquipo.ListarDetallesEquipo(_equipo);
+            if (miEquipo.Aforo < 150000)
             {
-                DateTime fechaFinal;
+                int aumento = 0;
+                int semanasObras = 0;
+                if (tipoRemodelacion != 0)
+                {
+                    DateTime fechaFinal;
+                    if (tipoRemodelacion == 1)
+                    {
+                        aumento = 500;
+                        semanasObras = 20;
+                        fechaFinal = Metodos.hoy.AddDays(20 * 7); // Fecha actual más 20 semanas
+                        _logicaRemodelacion.CrearNuevaRemodelacion(_equipo, _manager.IdManager, fechaFinal, tipoRemodelacion);
+                    }
+                    else if (tipoRemodelacion == 2)
+                    {
+                        aumento = 1000;
+                        semanasObras = 35;
+                        fechaFinal = Metodos.hoy.AddDays(35 * 7); // Fecha actual más 35 semanas
+                        _logicaRemodelacion.CrearNuevaRemodelacion(_equipo, _manager.IdManager, fechaFinal, tipoRemodelacion);
+                    }
+                    else if (tipoRemodelacion == 3)
+                    {
+                        aumento = 1500;
+                        semanasObras = 50;
+                        fechaFinal = Metodos.hoy.AddDays(50 * 7); // Fecha actual más 50 semanas
+                        _logicaRemodelacion.CrearNuevaRemodelacion(_equipo, _manager.IdManager, fechaFinal, tipoRemodelacion);
+                    }
+                }
+
+                imgSeleccionObra1.Visibility = Visibility.Hidden;
+                imgSeleccionObra2.Visibility = Visibility.Hidden;
+                imgSeleccionObra3.Visibility = Visibility.Hidden;
+                btnEmpezarObras.Visibility = Visibility.Hidden;
+
                 if (tipoRemodelacion == 1)
                 {
-                    aumento = 500;
-                    semanasObras = 20;
-                    fechaFinal = Metodos.hoy.AddDays(20 * 7); // Fecha actual más 20 semanas
-                    _logicaRemodelacion.CrearNuevaRemodelacion(_equipo, _manager.IdManager, fechaFinal, tipoRemodelacion);
+                    imgExcavadora1.Visibility = Visibility.Visible;
                 }
                 else if (tipoRemodelacion == 2)
                 {
-                    aumento = 1000;
-                    semanasObras = 35;
-                    fechaFinal = Metodos.hoy.AddDays(35 * 7); // Fecha actual más 35 semanas
-                    _logicaRemodelacion.CrearNuevaRemodelacion(_equipo, _manager.IdManager, fechaFinal, tipoRemodelacion);
+                    imgExcavadora2.Visibility = Visibility.Visible;
                 }
                 else if (tipoRemodelacion == 3)
                 {
-                    aumento = 1500;
-                    semanasObras = 50;
-                    fechaFinal = Metodos.hoy.AddDays(50 * 7); // Fecha actual más 50 semanas
-                    _logicaRemodelacion.CrearNuevaRemodelacion(_equipo, _manager.IdManager, fechaFinal, tipoRemodelacion);
+                    imgExcavadora3.Visibility = Visibility.Visible;
                 }
-            }
 
-            imgSeleccionObra1.Visibility = Visibility.Hidden;
-            imgSeleccionObra2.Visibility = Visibility.Hidden;
-            imgSeleccionObra3.Visibility = Visibility.Hidden;
-            btnEmpezarObras.Visibility = Visibility.Hidden;
+                Remodelacion obraActiva = _logicaRemodelacion.ComprobarRemodelacion(_equipo, _manager.IdManager);
 
-            if (tipoRemodelacion == 1)
+                if (obraActiva != null)
+                {
+                    borderBarraTitulo.Background = new SolidColorBrush(Colors.DarkRed);
+                    TimeSpan semanasRestantes = obraActiva.FechaFinal - Metodos.hoy;
+                    int semanas = (int)Math.Ceiling(semanasRestantes.TotalDays / 7);
+                    txtTitulo.Text = "LAS OBRAS FINALIZARÁN EN " + semanas.ToString() + " SEMANAS";
+
+                    CargarImagenConstruccion(aforo);
+                }
+
+                // Creamos el mensaje
+                Empleado? financiero = _logicaEmpleado.ObtenerEmpleadoPorPuesto("Financiero");
+                string presidente = _logicaEquipo.ListarDetallesEquipo(_equipo).Presidente;
+
+                Mensaje mensajeObras = new Mensaje
+                {
+                    Fecha = Metodos.hoy,
+                    Remitente = financiero != null ? financiero.Nombre : presidente,
+                    Asunto = "Inicio de las Obras de Remodelación del Estadio",
+                    Contenido = $"Hoy es un día importante para nuestro club. Me complace informarte que han comenzado oficialmente las obras de remodelación de las gradas del estadio. Esta inversión mejorará la comodidad de nuestros aficionados y aumentará la capacidad en {aumento.ToString("N0", new CultureInfo("es-ES"))} asientos, lo que se traducirá en mayores ingresos a futuro.\n\nAunque durante las próximas {semanasObras} semanas podremos experimentar ciertas limitaciones en la asistencia, estamos convencidos de que este paso es fundamental para crecer como institución.",
+                    TipoMensaje = "Notificación",
+                    IdEquipo = _equipo,
+                    IdManager = _manager.IdManager,
+                    Leido = false,
+                    Icono = 0 // 0 es icono de equipo
+                };
+
+                _logicaMensajes.crearMensaje(mensajeObras);
+            } 
+            else
             {
-                imgExcavadora1.Visibility = Visibility.Visible;
-            }
-            else if (tipoRemodelacion == 2)
-            {
-                imgExcavadora2.Visibility = Visibility.Visible;
-            }
-            else if (tipoRemodelacion == 3)
-            {
-                imgExcavadora3.Visibility = Visibility.Visible;
-            }
+                string titulo = "INFORMACIÓN";
+                string mensaje = "La capacidad actual del estadio ya ha alcanzado el límite máximo permitido. No es posible realizar más ampliaciones en estas instalaciones.";
 
-            Remodelacion obraActiva = _logicaRemodelacion.ComprobarRemodelacion(_equipo, _manager.IdManager);
+                // Crear una nueva instancia de la vista frmVentanaEmergenteMensaje
+                frmVentanaEmergenteDosBotones mensajeOjeador = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
 
-            if (obraActiva != null)
-            {
-                borderBarraTitulo.Background = new SolidColorBrush(Colors.DarkRed);
-                TimeSpan semanasRestantes = obraActiva.FechaFinal - Metodos.hoy;
-                int semanas = (int)Math.Ceiling(semanasRestantes.TotalDays / 7);
-                txtTitulo.Text = "LAS OBRAS FINALIZARÁN EN " + semanas.ToString() + " SEMANAS";
-
-                CargarImagenConstruccion(aforo);
-            }
-
-            // Creamos el mensaje
-            Empleado? financiero = _logicaEmpleado.ObtenerEmpleadoPorPuesto("Financiero");
-            string presidente = _logicaEquipo.ListarDetallesEquipo(_equipo).Presidente;
-
-            Mensaje mensajePrestamo = new Mensaje
-            {
-                Fecha = Metodos.hoy,
-                Remitente = financiero != null ? financiero.Nombre : presidente,
-                Asunto = "Inicio de las Obras de Remodelación del Estadio",
-                Contenido = $"Hoy es un día importante para nuestro club. Me complace informarte que han comenzado oficialmente las obras de remodelación de las gradas del estadio. Esta inversión mejorará la comodidad de nuestros aficionados y aumentará la capacidad en {aumento.ToString("N0", new CultureInfo("es-ES"))} asientos, lo que se traducirá en mayores ingresos a futuro.\n\nAunque durante las próximas {semanasObras} semanas podremos experimentar ciertas limitaciones en la asistencia, estamos convencidos de que este paso es fundamental para crecer como institución.",
-                TipoMensaje = "Notificación",
-                IdEquipo = _equipo,
-                IdManager = _manager.IdManager,
-                Leido = false,
-                Icono = 0 // 0 es icono de equipo
-            };
-
-            _logicaMensajes.crearMensaje(mensajePrestamo);
+                mensajeOjeador.ShowDialog();
+            }       
         }
 
         private void CargarImagenConstruccion(int aforo)
         {
-            if (aforo >= 75000)
+            if (aforo >= 85000)
+            {
+                imgStadium.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/estadios/largeDeluxe-construction.png"));
+            }
+            else if (aforo >= 75000)
             {
                 imgStadium.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/estadios/large-construction.png"));
+            }
+            else if (aforo >= 50000)
+            {
+                imgStadium.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/estadios/mediumDeluxe-construction.png"));
             }
             else if (aforo >= 25000)
             {

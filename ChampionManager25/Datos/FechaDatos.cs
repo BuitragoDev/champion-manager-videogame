@@ -103,7 +103,7 @@ namespace ChampionManager25.Datos
                 using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
-                    string nuevaFecha = $"{temporada}-07-15";
+                    string nuevaFecha = $"{temporada}-07-01";
                     string query = "UPDATE fechas SET hoy = @Fecha WHERE id_fecha = 1";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))

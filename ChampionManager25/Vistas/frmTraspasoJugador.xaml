@@ -1,0 +1,517 @@
+﻿<Window x:Class="ChampionManager25.Vistas.frmTraspasoJugador"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChampionManager25.Vistas"
+        mc:Ignorable="d" Height="1080" Width="1920" 
+        Title="frmTraspasoJugador" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" WindowState="Maximized" Loaded="Window_Loaded" Unloaded="Window_Unloaded">
+    <Grid>
+        <!-- Imagen de Fondo del UserControl-->
+        <Grid.Background>
+            <ImageBrush ImageSource="/Recursos/img/background_negociaciones.png" Stretch="UniformToFill" TileMode="None"/>
+        </Grid.Background>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1920"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="#FF23282D" Grid.Column="0" Grid.Row="0">
+            <TextBlock Text="NEGOCIACIÓN DE TRAPASO CON EL EQUIPO" HorizontalAlignment="Center" VerticalAlignment="Center"
+               FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="WhiteSmoke" TextAlignment="Center"/>
+        </Border>
+
+        <Border Grid.Column="0" Grid.Row="1" Margin="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="520"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Columna Central -->
+                <Border Background="LightGray" Grid.Column="1" Grid.Row="0" Margin="20" Height="480" VerticalAlignment="Top">
+                    <Border.Effect>
+                        <DropShadowEffect Color="Black" 
+                                  BlurRadius="10" 
+                                  ShadowDepth="5" 
+                                  Direction="320" 
+                                  Opacity="0.5"/>
+                    </Border.Effect>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="150"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Dorsal y nombre del jugador -->
+                        <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Background="#FF23282D">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock x:Name="txtDorsal" Grid.Column="0" Grid.Row="0" Text="" HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="32" 
+                                   Foreground="WhiteSmoke" TextAlignment="Center"/>
+
+                                <TextBlock x:Name="txtNombreJugador" Grid.Column="1" Grid.Row="0" Text="" HorizontalAlignment="Left" 
+                                   VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="26" 
+                                   Foreground="WhiteSmoke" TextAlignment="Center"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Foto del Jugador -->
+                        <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Background="WhiteSmoke">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Image x:Name="imgFotoJugador" Grid.Column="0" Grid.Row="0" Width="120" Height="120" VerticalAlignment="Center" 
+                               HorizontalAlignment="Center" Source="/Recursos/img/jugadores/1.png" />
+
+                                <Image x:Name="imgEscudoEquipo" Grid.Column="1" Grid.Row="0" Width="120" Height="120" VerticalAlignment="Center" 
+                               HorizontalAlignment="Center" Source="/Recursos/img/escudos_equipos/80x80/1.png" />
+
+                                <Ellipse x:Name="elipseMedia" Grid.Column="2" HorizontalAlignment="Center" Height="80" Stroke="Green" 
+                                 VerticalAlignment="Center" Width="80" StrokeThickness="10"/>
+                                <TextBlock x:Name="lblAverage" Grid.Column="2" Text="99" FontFamily="Cascadia Code SemiBold" 
+                                   FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            </Grid>
+                        </Border>
+
+                        <!-- Equipo del Jugador -->
+                        <Border Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Background="LightGray">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="250"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Equipo:" HorizontalAlignment="Left" Margin="20,0,0,0" 
+                                   VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="16" 
+                                   Foreground="#FF23282D" TextAlignment="Left"/>
+
+                                <TextBlock x:Name="txtEquipoJugador" Grid.Row="0" Grid.Column="1" Text="..." HorizontalAlignment="Left" 
+                                   VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="16" Margin="20,0,0,0" 
+                                   Foreground="#FF23282D" TextAlignment="Left"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Posición del Jugador -->
+                        <Border Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Background="WhiteSmoke">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="250"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Posición:" HorizontalAlignment="Left" Margin="20,0,0,0" 
+                                   VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="16" 
+                                   Foreground="#FF23282D" TextAlignment="Left"/>
+
+                                <TextBlock x:Name="txtPosicionJugador" Grid.Row="0" Grid.Column="1" Text="..." HorizontalAlignment="Left" 
+                                   VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="16" Margin="20,0,0,0" 
+                                   Foreground="#FF23282D" TextAlignment="Left"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Status del Jugador -->
+                        <Border Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Background="LightGray">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="250"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Rol:" HorizontalAlignment="Left" Margin="20,0,0,0" 
+                                   VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="16" 
+                                   Foreground="#FF23282D" TextAlignment="Left"/>
+
+                                <TextBlock x:Name="txtStatusJugador" Grid.Row="0" Grid.Column="1" Text="..." HorizontalAlignment="Left" 
+                                   VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="16" Margin="20,0,0,0" 
+                                   Foreground="#FF23282D" TextAlignment="Left"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Salario del Jugador -->
+                        <Border Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Background="WhiteSmoke">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="250"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Salario (año):" HorizontalAlignment="Left" Margin="20,0,0,0" 
+                                   VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="16" 
+                                   Foreground="#FF23282D" TextAlignment="Left"/>
+
+                                <TextBlock x:Name="txtSalarioJugador" Grid.Row="0" Grid.Column="1" Text="..." HorizontalAlignment="Left" 
+                                   VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="16" Margin="20,0,0,0" 
+                                   Foreground="#FF23282D" TextAlignment="Left"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Claúsula del Jugador -->
+                        <Border Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Background="LightGray">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="250"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Claúsula de rescisión:" HorizontalAlignment="Left" Margin="20,0,0,0" 
+                                   VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="16" 
+                                   Foreground="#FF23282D" TextAlignment="Left"/>
+
+                                <TextBlock x:Name="txtClausulaJugador" Grid.Row="0" Grid.Column="1" Text="..." HorizontalAlignment="Left" 
+                                   VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="16" Margin="20,0,0,0" 
+                                   Foreground="#FF23282D" TextAlignment="Left"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Años contrato del Jugador -->
+                        <Border Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Background="WhiteSmoke">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="250"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Años:" HorizontalAlignment="Left" Margin="20,0,0,0" 
+                                   VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="16" 
+                                   Foreground="#FF23282D" TextAlignment="Left"/>
+
+                                <TextBlock x:Name="txtAniosJugador" Grid.Row="0" Grid.Column="1" Text="..." HorizontalAlignment="Left" 
+                                   VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="16" Margin="20,0,0,0" 
+                                   Foreground="#FF23282D" TextAlignment="Left"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Valor de Mercado -->
+                        <Border Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" Background="LightGray">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="250"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Valor de Mercado:" HorizontalAlignment="Left" Margin="20,0,0,0" 
+                                           VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="16" 
+                                           Foreground="#FF23282D" TextAlignment="Left"/>
+
+                                <TextBlock x:Name="txtValorMercado" Grid.Row="0" Grid.Column="1" Text="..." HorizontalAlignment="Left" 
+                                           VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="16" Margin="20,0,0,0" 
+                                           Foreground="#FF23282D" TextAlignment="Left"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- Oferta de Traspaso -->
+                <Border Background="WhiteSmoke" Grid.Column="1" Grid.Row="1" Margin="20" Height="90" VerticalAlignment="Top">
+                    <Border.Effect>
+                        <DropShadowEffect Color="Black" 
+                                          BlurRadius="10" 
+                                          ShadowDepth="5" 
+                                          Direction="320" 
+                                          Opacity="0.5"/>
+                    </Border.Effect>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="40"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="#FF23282D">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Column="0" Grid.Row="0" Text="OFERTA AL EQUIPO" HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="22" 
+                                   Foreground="WhiteSmoke" TextAlignment="Center"/>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Background="WhiteSmoke">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="250"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Cantidad Ofrecida:" HorizontalAlignment="Left" Margin="20,0,0,0" 
+                                           VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="16" 
+                                           Foreground="#FF23282D" TextAlignment="Left"/>
+
+                                <Border Grid.Row="0" Grid.Column="1" Background="#FF23282D" Margin="3" Width="245">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="30"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBox x:Name="txtOfertaTraspaso" 
+                                                 Grid.Column="0" 
+                                                 HorizontalAlignment="Right" 
+                                                 TextWrapping="Wrap" 
+                                                 Text="0" 
+                                                 Background="#23282d"
+                                                 VerticalAlignment="Center" 
+                                                 Width="200" 
+                                                 Height="40" 
+                                                 FontFamily="Cascadia Code SemiBold" 
+                                                 FontSize="24" 
+                                                 TextAlignment="Right" 
+                                                 Foreground="WhiteSmoke" 
+                                                 MaxLength="10" 
+                                                 Margin="0,3,15,0">
+                                            <TextBox.Style>
+                                                <Style TargetType="TextBox">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="TextBox">
+                                                                <Grid>
+                                                                    <Border Background="{TemplateBinding Background}" 
+                                                                            BorderThickness="0,0,0,2" 
+                                                                            BorderBrush="WhiteSMoke">
+                                                                        <ScrollViewer x:Name="PART_ContentHost"/>
+                                                                    </Border>
+                                                                </Grid>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                                    <Setter Property="Padding" Value="2"/>
+                                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                                </Style>
+                                            </TextBox.Style>
+                                        </TextBox>
+
+                                        <TextBlock Grid.Row="0" Grid.Column="1" Text="€" HorizontalAlignment="Left" 
+                                                   VerticalAlignment="Center" FontFamily="Cascadia Code Light" FontSize="22" 
+                                                   Foreground="WhiteSmoke" TextAlignment="Left"/>
+                                    </Grid>
+                                </Border>
+
+
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- Oferta de Cesion -->
+                <Border Grid.Column="1" Grid.Row="2" Margin="20" Height="90" VerticalAlignment="Top">
+                    <Border.Effect>
+                        <DropShadowEffect Color="Black" 
+                                          BlurRadius="10" 
+                                          ShadowDepth="5" 
+                                          Direction="320" 
+                                          Opacity="0.5"/>
+                    </Border.Effect>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Button x:Name="btnCesion" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Center"
+                                Height="60" Width="593"
+                                FontFamily="Cascadia Code SemiBold" FontSize="22" Cursor="Hand"
+                                Content="PEDIR CESIÓN" Click="btnCesion_Click" >
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Background" Value="#FF23282D" />
+                                    <Setter Property="Foreground" Value="White" />
+                                    <Setter Property="FontSize" Value="24" />
+                                    <Setter Property="SnapsToDevicePixels" Value="True" />
+
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                                    <Grid>
+                                                        <Image x:Name="imgBoton" Source="/Recursos/img/icons/transferencias_icon.png" Height="48" Width="48" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Uniform" Margin="17,0,0,0"/>
+                                                        <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                                                    </Grid>
+                                                </Border>
+
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#2d343a" />
+                                                        <Setter Property="Foreground" Value="White" />
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+
+        <Border Background="#FF23282D" Grid.Column="0" Grid.Row="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <WrapPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Cursor="">
+                    <Button x:Name="btnCancelarNegociacion" Grid.Column="0" Grid.Row="0" Content="CANCELAR NEGOCIACIÓN" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0"
+                    Height="50" Width="320" FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnCancelarNegociacion_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <!-- Configuración inicial -->
+                                <Setter Property="Background" Value="#1d6a7d"/>
+                                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}">
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <!-- Texto del botón -->
+                                                    <TextBlock Text="{TemplateBinding Content}" 
+                                                       Foreground="WhiteSmoke" 
+                                                       VerticalAlignment="Center" 
+                                                       FontSize="22" Cursor=""/>
+                                                </StackPanel>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+
+                                <!-- Configuración al pasar el ratón -->
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+                                        <Setter Property="BorderThickness" Value="1"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <Button x:Name="btnEnviarOferta" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0"
+                            Height="50" Width="320" FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnEnviarOferta_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <!-- Configuración inicial -->
+                                <Setter Property="Background" Value="#1d6a7d"/>
+                                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <!-- Texto del botón -->
+                                                    <TextBlock Text="ENVIAR OFERTA" 
+                                                                Foreground="WhiteSmoke" 
+                                                                VerticalAlignment="Center" 
+                                                                FontSize="22"/>
+                                                </StackPanel>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+
+                                <!-- Configuración al pasar el ratón -->
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+                                        <Setter Property="BorderThickness" Value="1"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </WrapPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

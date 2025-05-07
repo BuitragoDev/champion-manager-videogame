@@ -26,6 +26,7 @@ namespace ChampionManager25.Vistas
         private List<Jugador> _listaBalonOro;
         private List<Jugador> _listaBotaOro;
         private List<Jugador> _listaMejorOnce;
+        private int _equipo;
         #endregion
 
         // Instancias de la LOGICA
@@ -33,13 +34,16 @@ namespace ChampionManager25.Vistas
         CompeticionLogica _logicaCompeticion = new CompeticionLogica();
         PalmaresLogica _logicaPalmares = new PalmaresLogica();
         EstadisticasLogica _logicaEstadistica = new EstadisticasLogica();
+        JugadorLogica _logicaJugador = new JugadorLogica();
+        TransferenciaLogica _logicaTransferencia = new TransferenciaLogica();
 
-        public frmVentanaPremioJugadores(List<Jugador> listaBalonOro, List<Jugador> listaBotaOro, List<Jugador> listaMejorOnce)
+        public frmVentanaPremioJugadores(List<Jugador> listaBalonOro, List<Jugador> listaBotaOro, List<Jugador> listaMejorOnce, int equipo)
         {
             InitializeComponent();
             _listaBalonOro = listaBalonOro;
             _listaBotaOro = listaBotaOro;
             _listaMejorOnce = listaMejorOnce;
+            _equipo = equipo;
         }
 
         private void premiosJugadores_Loaded(object sender, RoutedEventArgs e)
@@ -91,9 +95,130 @@ namespace ChampionManager25.Vistas
         }
 
         // ----------------------------------------------------------------------------- Evento CLICK del boton TERMINAR TEMPORADA
-        private void btnAvanzar_Click(object sender, RoutedEventArgs e)
+        private async void btnAvanzar_Click(object sender, RoutedEventArgs e)
         {
             Metodos.ReproducirSonidoTransicion();
+
+            progressBar.Visibility = Visibility.Visible;
+
+            await Task.Run(() =>
+            {
+                // Devolver a los jugadores cedidos a sus equipos
+                List<Transferencia> traspasos = _logicaTransferencia.ListarOfertas();
+                foreach (var traspaso in traspasos)
+                {
+                    if (traspaso.TipoFichaje == 2)
+                    {
+                        _logicaJugador.CambiarDeEquipo(traspaso.IdJugador, traspaso.IdEquipoOrigen);
+                    }
+                }
+
+                // Restar un año de contrato a todos los jugadores y dejar si equipo si es CERO
+                List<Contrato> totalContratosAntes = _logicaJugador.MostrarListaTotalContratos();
+                foreach (var contrato in totalContratosAntes)
+                {
+                    _logicaJugador.RestarAnioContrato(contrato.IdJugador);
+                }
+                List<Contrato> totalContratosDespues = _logicaJugador.MostrarListaTotalContratos();
+                foreach (var contrato in totalContratosDespues)
+                {
+                    if (contrato.Duracion == 0)
+                    {
+                        if (_logicaJugador.MostrarDatosJugador(contrato.IdJugador).Status == 1)
+                        {
+                            if (contrato.IdEquipo != _equipo)
+                            {
+                                // Ampliar el contrato dependiendo de la edad
+                                if (_logicaJugador.MostrarDatosJugador(contrato.IdJugador).Edad > 30)
+                                {
+                                    _logicaJugador.RenovarContratoJugador(contrato.IdJugador, contrato.SalarioAnual, contrato.ClausulaRescision, 1, contrato.BonoPorPartidos, contrato.BonoPorGoles);
+                                }
+                                else
+                                {
+                                    int nuevoSalario = (int)Math.Round(contrato.SalarioAnual * 0.2 / 100000.0) * 100000;
+                                    _logicaJugador.RenovarContratoJugador(contrato.IdJugador, nuevoSalario, contrato.ClausulaRescision, 5, contrato.BonoPorPartidos, contrato.BonoPorGoles);
+                                }
+                            } 
+                            else
+                            {
+                                _logicaJugador.BorrarContrato(contrato.IdJugador);
+                                _logicaJugador.CambiarDeEquipo(contrato.IdJugador, 0);
+                            }
+                        }
+                        else if (_logicaJugador.MostrarDatosJugador(contrato.IdJugador).Status == 2)
+                        {
+                            if (contrato.IdEquipo != _equipo)
+                            {
+                                // Ampliar el contrato dependiendo de la edad
+                                if (_logicaJugador.MostrarDatosJugador(contrato.IdJugador).Edad > 30)
+                                {
+                                    _logicaJugador.RenovarContratoJugador(contrato.IdJugador, contrato.SalarioAnual, contrato.ClausulaRescision, 1, contrato.BonoPorPartidos, contrato.BonoPorGoles);
+                                }
+                                else
+                                {
+                                    int nuevoSalario = (int)Math.Round(contrato.SalarioAnual * 0.2 / 100000.0) * 100000;
+                                    _logicaJugador.RenovarContratoJugador(contrato.IdJugador, nuevoSalario, contrato.ClausulaRescision, 4, contrato.BonoPorPartidos, contrato.BonoPorGoles);
+                                }
+                            }
+                            else
+                            {
+                                _logicaJugador.BorrarContrato(contrato.IdJugador);
+                                _logicaJugador.CambiarDeEquipo(contrato.IdJugador, 0);
+                            }
+                        }
+                        else if (_logicaJugador.MostrarDatosJugador(contrato.IdJugador).Status == 3)
+                        {
+                            if (contrato.IdEquipo != _equipo)
+                            {
+                                // Ampliar el contrato dependiendo de la edad
+                                if (_logicaJugador.MostrarDatosJugador(contrato.IdJugador).Edad > 30)
+                                {
+                                    int salarioBase = contrato.SalarioAnual;
+                                    int descuento = (int)Math.Round(salarioBase * 0.2 / 100000.0) * 100000;
+                                    int nuevoSalario = salarioBase - descuento;
+                                    _logicaJugador.RenovarContratoJugador(contrato.IdJugador, nuevoSalario, contrato.ClausulaRescision, 1, contrato.BonoPorPartidos, contrato.BonoPorGoles);
+                                }
+                                else
+                                {
+                                    int nuevoSalario = (int)Math.Round(contrato.SalarioAnual * 0.05 / 100000.0) * 100000;
+                                    _logicaJugador.RenovarContratoJugador(contrato.IdJugador, nuevoSalario, contrato.ClausulaRescision, 3, contrato.BonoPorPartidos, contrato.BonoPorGoles);
+                                }
+                            }
+                            else
+                            {
+                                _logicaJugador.BorrarContrato(contrato.IdJugador);
+                                _logicaJugador.CambiarDeEquipo(contrato.IdJugador, 0);
+                            }
+                        }
+                        else
+                        {
+                            if (contrato.IdEquipo != _equipo)
+                            {
+                                List<Jugador> jugadoresEquipo = _logicaJugador.ListadoJugadoresCompleto(contrato.IdEquipo);
+                                int totalJugadores = jugadoresEquipo.Count();
+                                if (totalJugadores >= 20)
+                                {
+                                    _logicaJugador.BorrarContrato(contrato.IdJugador);
+                                    _logicaJugador.CambiarDeEquipo(contrato.IdJugador, 0);
+                                }
+                                else
+                                {
+                                    int salarioBase = contrato.SalarioAnual;
+                                    int descuento = (int)Math.Round(salarioBase * 0.25 / 100000.0) * 100000;
+                                    int nuevoSalario = salarioBase - descuento;
+                                    _logicaJugador.RenovarContratoJugador(contrato.IdJugador, nuevoSalario, contrato.ClausulaRescision, 1, contrato.BonoPorPartidos, contrato.BonoPorGoles);
+                                }
+                            }
+                            else
+                            {
+                                _logicaJugador.BorrarContrato(contrato.IdJugador);
+                                _logicaJugador.CambiarDeEquipo(contrato.IdJugador, 0);
+                            }
+                        }
+                    }
+                }
+            });
+            progressBar.Visibility = Visibility.Collapsed;
             this.Close();
         }
 

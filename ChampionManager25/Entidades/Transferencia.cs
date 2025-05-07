@@ -15,6 +15,7 @@ namespace ChampionManager25.Entidades
         public int TipoFichaje { get; set; }
         public int MontoOferta { get; set; }
         public string FechaOferta { get; set; }
+        public string FechaTraspaso { get; set; }
         public int SalarioAnual { get; set; }
         public string FinContrato { get; set; }
         public int ClausulaRescision { get; set; }
@@ -29,8 +30,7 @@ namespace ChampionManager25.Entidades
         public int Status { get; set; }
         public int PresupuestoComprador { get; set; }
         public int PresupuestoVendedor { get; set; }
-        public int Rival1 { get; set; }
-        public int Rival2 { get; set; }
+        public int Rival { get; set; }
         public int Duracion { get; set; }
 
         // Constructor vacío
@@ -38,10 +38,10 @@ namespace ChampionManager25.Entidades
 
         // Constructor con parámetros
         public Transferencia(int idFichaje, int idJugador, int idEquipoOrigen, int idEquipoDestino, int tipoFichaje,
-                              int montoOferta, string fechaOferta, int salarioAnual, string finContrato, int clausulaRescision,
+                              int montoOferta, string fechaOferta, string fechaTraspaso, int salarioAnual, string finContrato, int clausulaRescision,
                               int bonoPorGoles, int bonoPorPartidos, int? respuestaEquipo, int? respuestaJugador,
                               int valorMercado, int situacionMercado, int moral, int estadoAnimo, int status, int presupuestoComprador,
-                              int presupuestoVendedor, int rival1, int rival2, int duracion)
+                              int presupuestoVendedor, int rival, int duracion)
         {
             IdFichaje = idFichaje;
             IdJugador = idJugador;
@@ -50,6 +50,7 @@ namespace ChampionManager25.Entidades
             TipoFichaje = tipoFichaje;
             MontoOferta = montoOferta;
             FechaOferta = fechaOferta;
+            FechaTraspaso = fechaTraspaso;
             SalarioAnual = salarioAnual;
             FinContrato = finContrato;
             ClausulaRescision = clausulaRescision;
@@ -64,17 +65,16 @@ namespace ChampionManager25.Entidades
             Status = status;
             PresupuestoComprador = presupuestoComprador;
             PresupuestoVendedor = presupuestoVendedor;
-            Rival1 = rival1;
-            Rival2 = rival2;
+            Rival = rival;
             Duracion = duracion;
         }
 
         // Constructor con parámetros sin ID
         public Transferencia(int idJugador, int idEquipoOrigen, int idEquipoDestino, int tipoFichaje,
-                              int montoOferta, string fechaOferta, int salarioAnual, string finContrato, int clausulaRescision,
+                              int montoOferta, string fechaOferta, string fechaTraspaso, int salarioAnual, string finContrato, int clausulaRescision,
                               int bonoPorGoles, int bonoPorPartidos, int? respuestaEquipo, int? respuestaJugador,
                               int valorMercado, int situacionMercado, int moral, int estadoAnimo, int status, int presupuestoComprador,
-                              int presupuestoVendedor, int rival1, int rival2, int duracion)
+                              int presupuestoVendedor, int rival, int duracion)
         {
             IdJugador = idJugador;
             IdEquipoOrigen = idEquipoOrigen;
@@ -82,6 +82,7 @@ namespace ChampionManager25.Entidades
             TipoFichaje = tipoFichaje;
             MontoOferta = montoOferta;
             FechaOferta = fechaOferta;
+            FechaTraspaso = fechaTraspaso;
             SalarioAnual = salarioAnual;
             FinContrato = finContrato;
             ClausulaRescision = clausulaRescision;
@@ -96,20 +97,19 @@ namespace ChampionManager25.Entidades
             Status = status;
             PresupuestoComprador = presupuestoComprador;
             PresupuestoVendedor = presupuestoVendedor;
-            Rival1 = rival1;
-            Rival2 = rival2;
+            Rival = rival;
             Duracion = duracion;
         }
 
         public override string ToString()
         {
             return $"IdFichaje: {IdFichaje}, IdJugador: {IdJugador}, IdEquipoOrigen: {IdEquipoOrigen}, IdEquipoDestino: {IdEquipoDestino}, " +
-                   $"TipoFichaje: {TipoFichaje}, MontoOferta: {MontoOferta}, FechaOferta: {FechaOferta}, SalarioAnual: {SalarioAnual}, " +
+                   $"TipoFichaje: {TipoFichaje}, MontoOferta: {MontoOferta}, FechaOferta: {FechaOferta}, Fecha Traspaso: {FechaTraspaso}, SalarioAnual: {SalarioAnual}, " +
                    $"FinContrato: {FinContrato}, ClausulaRescision: {ClausulaRescision}, BonoPorGoles: {BonoPorGoles}, BonoPorPartidos: {BonoPorPartidos}, " +
                    $"RespuestaEquipo: {RespuestaEquipo?.ToString() ?? "N/A"}, RespuestaJugador: {RespuestaJugador?.ToString() ?? "N/A"}, " +
                    $"ValorMercado: {ValorMercado}, SituacionMercado: {SituacionMercado}, Moral: {Moral}, EstadoAnimo: {EstadoAnimo}, " +
                    $"Status: {Status}, PresupuestoComprador: {PresupuestoComprador}, PresupuestoVendedor: {PresupuestoVendedor}, " +
-                   $"Rival1: {Rival1}, Rival2: {Rival2}, Duracion: {Duracion}";
+                   $"Rival: {Rival}, Duracion: {Duracion}";
         }
     }
 }

@@ -54,6 +54,7 @@ namespace ChampionManager25.UserControls
         TaquillaLogica _logicaTaquilla = new TaquillaLogica();
         PatrocinadorLogica _logicaPatrocinador = new PatrocinadorLogica();
         TelevisionLogica _logicaTelevision = new TelevisionLogica();
+        TransferenciaLogica _logicaTransferencia = new TransferenciaLogica();
 
         NacionalidadToFlagConverter convertidorBandera = new NacionalidadToFlagConverter();
 
@@ -119,6 +120,19 @@ namespace ChampionManager25.UserControls
             Metodos.ReproducirSonidoTransicion();
 
             DateTime fechaHoy = Metodos.hoy;
+
+            // Realizar traspasos y cesiones si las hay
+            List <Transferencia> traspasos = _logicaTransferencia.ListarTraspasos();
+            foreach (var traspaso in traspasos)
+            {
+                if (DateTime.Parse(traspaso.FechaTraspaso) == fechaHoy.AddDays(1))
+                {
+                    // Cambiar jugador de equipo
+                    _logicaJugador.CambiarDeEquipo(traspaso.IdJugador, traspaso.IdEquipoDestino);
+
+                    // Cambiar dorsal si no esta disponible
+                }
+            }
 
             // Si es lunes y hay contratado un psicologo aumentar la moral de todos los jugadores 1 punto
             if (fechaHoy.DayOfWeek == DayOfWeek.Monday)
@@ -870,7 +884,7 @@ namespace ChampionManager25.UserControls
                         });
 
                         // Cargar Pantalla de Premios de Jugadores
-                        frmVentanaPremioJugadores ventanaPremiosJugadores = new frmVentanaPremioJugadores(balonOro, botaOro, mejorOnce);
+                        frmVentanaPremioJugadores ventanaPremiosJugadores = new frmVentanaPremioJugadores(balonOro, botaOro, mejorOnce, _equipo);
                         ventanaPremiosJugadores.ShowDialog();
 
                         CargarFecha();
@@ -1025,10 +1039,10 @@ namespace ChampionManager25.UserControls
 
             // Suscribirse a los eventos
             menuTransferencias.MostrarMercado += CargarTransferenciasMercado;
-            //menuTransferencias.MostrarBuscarPorEquipo += CargarTransferenciasBuscarPorEquipo;
-            //menuTransferencias.MostrarBuscarPorFiltro += CargarTransferenciasBuscarPorFiltro;
+            menuTransferencias.MostrarBuscarPorEquipo += CargarTransferenciasBuscarPorEquipo;
+            menuTransferencias.MostrarBuscarPorFiltro += CargarTransferenciasBuscarPorFiltro;
             menuTransferencias.MostrarCartera += CargarTransferenciasCartera;
-            //menuTransferencias.MostrarEstadoOfertas += CargarTransferenciasEstadoOfertas;
+            menuTransferencias.MostrarEstadoOfertas += CargarTransferenciasEstadoOfertas;
             //menuTransferencias.MostrarListaTraspasos += CargarTransferenciasListaTraspasos;
 
             // Cambiar el color del texto "Ingresos" a naranja
@@ -1404,6 +1418,24 @@ namespace ChampionManager25.UserControls
             DockPanel_Central.Children.Add(transferenciasMercado);
         }
 
+        // Método para cargar UC_Menu_Transferencias_BuscarPorEquipo
+        private void CargarTransferenciasBuscarPorEquipo()
+        {
+            // Cargar UC_Menu_Transferencias_BuscarPorEquipo 
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Transferencias_BuscarPorEquipo transferenciasBuscarPorEquipo = new UC_Menu_Transferencias_BuscarPorEquipo(_manager, _equipo);
+            DockPanel_Central.Children.Add(transferenciasBuscarPorEquipo);
+        }
+
+        // Método para cargar UC_Menu_Transferencias_BuscarPorFiltro
+        private void CargarTransferenciasBuscarPorFiltro()
+        {
+            // Cargar UC_Menu_Transferencias_BuscarPorFiltro 
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Transferencias_BuscarPorFiltro transferenciasBuscarPorFiltro = new UC_Menu_Transferencias_BuscarPorFiltro(_manager, _equipo);
+            DockPanel_Central.Children.Add(transferenciasBuscarPorFiltro);
+        }
+
         // Método para cargar UC_Menu_Transferencias_Cartera
         private void CargarTransferenciasCartera()
         {
@@ -1411,6 +1443,15 @@ namespace ChampionManager25.UserControls
             DockPanel_Central.Children.Clear();
             UC_Menu_Transferencias_Cartera transferenciasCartera = new UC_Menu_Transferencias_Cartera(_manager, _equipo);
             DockPanel_Central.Children.Add(transferenciasCartera);
+        }
+
+        // Método para cargar UC_Menu_Transferencias_EstadoOfertas
+        private void CargarTransferenciasEstadoOfertas()
+        {
+            // Cargar UC_Menu_Transferencias_EstadoOfertas 
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Transferencias_EstadoOfertas transferenciasEstadoOfertas = new UC_Menu_Transferencias_EstadoOfertas(_manager, _equipo);
+            DockPanel_Central.Children.Add(transferenciasEstadoOfertas);
         }
 
         private void CargarFecha()

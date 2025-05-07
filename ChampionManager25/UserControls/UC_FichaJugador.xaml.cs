@@ -30,6 +30,8 @@ namespace ChampionManager25.UserControls
         private Manager _manager;
         private UC_PantallaPrincipal _pantallaPrincipal;
         int opcionBotones = 1; // Variable para cambiar los botones
+        int _ojeado;
+        int operaciones = 0;
         #endregion
 
         // Instancias de la LOGICA
@@ -60,16 +62,11 @@ namespace ChampionManager25.UserControls
             if (jugador.IdEquipo == _equipo)
             {
                 CargarFichaJugador();
-                opcionBotones = 1;
+                opcionBotones = 1;  
             }
             else
             {
-                if (ojeado == true)
-                {
-                    _opcion = 1;
-                }
-
-                if (_opcion == 1)
+                if (ojeado)
                 {
                     CargarFichaJugador();
                 }
@@ -127,16 +124,23 @@ namespace ChampionManager25.UserControls
 
                 if (_opcion == 4)
                 {
-                    
+                    UC_Menu_Transferencias_BuscarPorEquipo menuTransferencias = new UC_Menu_Transferencias_BuscarPorEquipo(_manager, _equipo);
+                    parentDockPanel.Children.Add(menuTransferencias);
                 }
                 else if (_opcion == 5)
                 {
-                    
+                    UC_Menu_Transferencias_BuscarPorFiltro menuTransferencias = new UC_Menu_Transferencias_BuscarPorFiltro(_manager, _equipo);
+                    parentDockPanel.Children.Add(menuTransferencias);
                 }
                 else if (_opcion == 6)
                 {
                     UC_Menu_Transferencias_Cartera menuCartera = new UC_Menu_Transferencias_Cartera(_manager, _equipo);
                     parentDockPanel.Children.Add(menuCartera);
+                }
+                else if (_opcion == 7)
+                {
+                    UC_Menu_Transferencias_EstadoOfertas menuEstadoOfertas = new UC_Menu_Transferencias_EstadoOfertas(_manager, _equipo);
+                    parentDockPanel.Children.Add(menuEstadoOfertas);
                 }
                 else
                 {
@@ -209,9 +213,6 @@ namespace ChampionManager25.UserControls
             {
                 string titulo = "INFORMACIÓN";
                 string mensaje = "En estos momentos " + (jugador.NombreCompleto ?? "el jugador") + " no quiere reunirse contigo. A partir del próximo " + (proximaNegociacion?.ToString("dd/MM/yyyy") ?? "No disponible") + " puedes volver a intentarlo.";
-
-
-                // Crear una nueva instancia de la vista frmVentanaEmergenteMensaje
                 frmVentanaEmergenteDosBotones mensajeRenovacion = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
 
                 mensajeRenovacion.ShowDialog();
@@ -577,6 +578,110 @@ namespace ChampionManager25.UserControls
         }
         // -----------------------------------------------------------------------------------------------
 
+        // --------------------------------------------------------------- Evento CLICK del BOTÓN CONTRATAR
+        private void btnContratar_Click(object sender, RoutedEventArgs e)
+        {
+            Metodos.ReproducirSonidoClick();
+            Jugador jugador = _logicaJugador.MostrarDatosJugador(_jugador);
+            DateTime? proximaNegociacion = jugador.ProximaNegociacion;
+
+            // Comprobamos si tenemos contratado un Director Tecnico
+            Empleado? director = _logicaEmpleado.ObtenerEmpleadoPorPuesto("Director Técnico");
+
+            if (director != null)
+            {
+                int[] numOperaciones = {
+                        1, 2, 3, 4, 5
+                    };
+
+                if (director.Categoria >= 1 && director.Categoria <= 5)
+                {
+                    operaciones = numOperaciones[director.Categoria - 1];
+                }
+
+                List<Transferencia> ofertas = _logicaTransferencia.ListarOfertasSinFinalizar();
+                int ofertasActivas = ofertas.Count();
+                int jugadorConOferta = _logicaTransferencia.ComprobarRespuestaJugador(jugador.IdJugador, _equipo, jugador.IdEquipo);
+
+                if (jugadorConOferta == 0)
+                {
+                    ofertasActivas = 0;
+                }
+
+                if (ofertasActivas >= operaciones)
+                {
+                    string titulo = "INFORMACIÓN";
+                    string mensaje = $"Ya estás negociando con el número máximo de jugadores permitido por tu Director Técnico.";
+                    frmVentanaEmergenteDosBotones mensajeEmergente = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
+                    mensajeEmergente.ShowDialog();
+                } 
+                else
+                {
+                    if (jugador.ProximaNegociacion > Metodos.hoy)
+                    {
+                        string titulo = "INFORMACIÓN";
+                        string mensaje = "En estos momentos el " + (jugador.NombreEquipo ?? "el equipo") + " no quiere reunirse contigo. A partir del próximo " + (proximaNegociacion?.ToString("dd/MM/yyyy") ?? "No disponible") + " puedes volver a intentarlo.";
+                        frmVentanaEmergenteDosBotones mensajeEmergente = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
+                        mensajeEmergente.ShowDialog();
+                    }
+                    else
+                    {
+                        // No dejar realizar ofertas a jugadores que estan cedidos
+                        int yaCedido = _logicaTransferencia.ComprobarRespuestaEquipoCesion(jugador.IdJugador, _equipo, jugador.IdEquipo);
+                        if (yaCedido > 0)
+                        {
+                            string titulo = "INFORMACIÓN";
+                            string mensaje = $"{jugador.NombreCompleto} ya ha aceptado una oferta de cesión y no puede recibir más ofertas hasta su finalización.";
+                            frmVentanaEmergenteDosBotones mensajeEmergente = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
+                            mensajeEmergente.ShowDialog();
+                        }
+                        else
+                        {
+                            // Comprobar si el jugador ya tiene una oferta activa.
+                            int respuestaEquipoTraspaso = _logicaTransferencia.ComprobarRespuestaEquipo(jugador.IdJugador, _equipo, jugador.IdEquipo);
+                            int respuestaEquipoCesion = _logicaTransferencia.ComprobarRespuestaEquipoCesion(jugador.IdJugador, _equipo, jugador.IdEquipo);
+                       
+                            if (respuestaEquipoTraspaso < 1 && respuestaEquipoCesion < 1)
+                            {
+                                // Crear una nueva instancia de la vista frmNegociacionesJugador
+                                frmTraspasoJugador negociaciones = new frmTraspasoJugador(jugador, _manager, _equipo, _pantallaPrincipal);
+                                negociaciones.Show();
+                            }
+                            else
+                            {
+                                // Comprobar si el equipo ya ha aceptado o rechazado la oferta.
+                                int respuestaEquipo = _logicaTransferencia.ComprobarRespuestaEquipo(jugador.IdJugador, _equipo, jugador.IdEquipo);
+
+                                if (respuestaEquipo == 0)
+                                {
+                                    // Crear una nueva instancia de la vista frmNegociacionesJugador
+                                    frmTraspasoJugador negociaciones = new frmTraspasoJugador(jugador, _manager, _equipo, _pantallaPrincipal);
+                                    negociaciones.Show();
+                                }
+                                else
+                                {
+                                    // Crear una nueva instancia de la vista frmNegociacionesJugador (2 = negociacion fichaje)
+                                    frmNegociacionesJugador negociaciones = new frmNegociacionesJugador(jugador, _manager, _equipo, 2, _pantallaPrincipal);
+
+                                    // Suscribirse al evento Closed para ejecutar una acción cuando se cierre la ventana
+                                    negociaciones.Closed += (s, e) => CargarFichaJugadorSinOjear();
+                                    negociaciones.Show();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                string titulo = "INFORMACIÓN";
+                string mensaje = $"No tienes ningún Director Técnico contratado. Para poder realizar ofertas por jugadores necesitas contratar uno.";
+                frmVentanaEmergenteDosBotones mensajeEmergente = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
+                mensajeEmergente.ShowDialog();
+            } 
+        }
+        // -----------------------------------------------------------------------------------------------
+
         #region "Métodos"
         private void RecargarDatos()
         {
@@ -602,10 +707,10 @@ namespace ChampionManager25.UserControls
         private void CargarFichaJugador()
         {
             Jugador jugador = _logicaJugador.MostrarDatosJugador(_jugador);
-
             int situacion = _logicaJugador.MostrarDatosJugador(jugador.IdJugador).SituacionMercado;
+            bool esDeMiequipo = _logicaJugador.EsDeMiEquipo(jugador.IdJugador, _equipo);
 
-            if (situacion == 0)
+            if (situacion == 0 && esDeMiequipo == true)
             {
                 btnPonerEnMercado.Visibility = Visibility.Visible;
                 btnQuitarDelMercado.Visibility = Visibility.Collapsed;
@@ -630,6 +735,19 @@ namespace ChampionManager25.UserControls
             txtPeso.Text = jugador.Peso.ToString() + " kg";
             txtEdad.Text = jugador.Edad.ToString() + " años (" + jugador.FechaNacimiento.ToString("dd/MM/yyyy") + ")";
             txtNacionalidad.Text = jugador.Nacionalidad;
+            txtValorMercado.Text = jugador.ValorMercado.ToString("N0") + " €";
+
+            List<Transferencia> traspasos = _logicaTransferencia.ListarOfertas();
+            foreach (var traspaso in traspasos)
+            {
+                if (traspaso.IdJugador == jugador.IdJugador && traspaso.TipoFichaje == 2)
+                {
+                    txtFuturoTraspaso.Text = $"📌 CEDIDO POR EL {_logicaEquipo.ListarDetallesEquipo(traspaso.IdEquipoOrigen).Nombre.ToUpper()}";
+                    btnRenovar.IsEnabled = false;
+                    btnDespedir.IsEnabled = false;
+                    btnPonerEnMercado.IsEnabled = false;
+                }
+            }
 
             // Posición en el campo.
             int posicion = jugador.RolId;
@@ -754,6 +872,7 @@ namespace ChampionManager25.UserControls
             txtPeso.Text = jugador.Peso.ToString() + " kg";
             txtEdad.Text = jugador.Edad.ToString() + " años (" + jugador.FechaNacimiento.ToString("dd/MM/yyyy") + ")";
             txtNacionalidad.Text = jugador.Nacionalidad;
+            txtValorMercado.Text = "";
 
             // Posición en el campo.
             int posicion = jugador.RolId;

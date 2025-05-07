@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Globalization;
+using ChampionManager25.Datos;
 
 namespace ChampionManager25.UserControls
 {
@@ -104,9 +105,10 @@ namespace ChampionManager25.UserControls
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(200) });
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(100) });
 
+                string imagePath = $"{GestorPartidas.RutaMisDocumentos}/{jugador.RutaImagen}";
                 grid.Children.Add(new Image
                 {
-                    Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/jugadores/" + jugador.IdJugador + ".png")),
+                    Source = new BitmapImage(new Uri(imagePath, UriKind.Absolute)),
                     Width = 80,
                     Height = 80,
                     VerticalAlignment = VerticalAlignment.Center,
@@ -140,7 +142,7 @@ namespace ChampionManager25.UserControls
                     // Limpiar el contenido actual
                     parentDockPanel.Children.Clear();
 
-                    // Crear el nuevo UserControl y agregarlo al DockPanel (Opcion 4: Busqueda por Filtro)
+                    // Crear el nuevo UserControl y agregarlo al DockPanel (Opcion 6: Cartera)
                     UC_FichaJugador fichaJugador = new UC_FichaJugador(jugador.IdJugador, _equipo, _manager, 6, pantallaPrincipal);
                     parentDockPanel.Children.Add(fichaJugador);
 
@@ -182,21 +184,21 @@ namespace ChampionManager25.UserControls
                 });
                 Grid.SetColumn(grid.Children[^1], 4);
 
+                grid.Children.Add(new Image
+                {
+                    Source = new BitmapImage(new Uri(rutaStatus)),
+                    Width = 32,
+                    Height = 32,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    Margin = new Thickness(10)
+                });
+                Grid.SetColumn(grid.Children[^1], 5);
+
                 if (DateTime.TryParse(jugador.FechaInforme, out DateTime fechaInforme))
                 {
                     if (fechaInforme <= fechaHoy)
                     {
-                        grid.Children.Add(new Image
-                        {
-                            Source = new BitmapImage(new Uri(rutaStatus)),
-                            Width = 32,
-                            Height = 32,
-                            VerticalAlignment = VerticalAlignment.Center,
-                            HorizontalAlignment = HorizontalAlignment.Center,
-                            Margin = new Thickness(10)
-                        });
-                        Grid.SetColumn(grid.Children[^1], 5);
-
                         grid.Children.Add(new TextBlock
                         {
                             Text = jugador.Media.ToString(),
@@ -247,12 +249,6 @@ namespace ChampionManager25.UserControls
                     }
                     else
                     {
-                        grid.Children.Add(new TextBlock
-                        {
-                            Text = "",
-                        });
-                        Grid.SetColumn(grid.Children[^1], 5);
-
                         grid.Children.Add(new TextBlock
                         {
                             Text = "",

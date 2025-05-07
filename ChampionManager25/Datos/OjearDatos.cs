@@ -136,7 +136,7 @@ namespace ChampionManager25.Datos
                         if (resultado != null && resultado != DBNull.Value)
                         {
                             fechaInforme = Convert.ToDateTime(resultado);
-                            if (fechaInforme < hoy)
+                            if (fechaInforme <= hoy)
                             {
                                 ojeado = true;
                             }
@@ -200,6 +200,7 @@ namespace ChampionManager25.Datos
                                     ClausulaRescision = dr.IsDBNull(dr.GetOrdinal("clausula_rescision")) ? null : dr.GetInt32(dr.GetOrdinal("clausula_rescision")),
                                     Status = dr.GetInt32(dr.GetOrdinal("status")),
                                     FechaInforme = dr.GetString(dr.GetOrdinal("fecha_informe")),
+                                    RutaImagen = dr.GetString(dr.GetOrdinal("ruta_imagen"))
                                 };
 
                                 // Agregar el jugador a la lista

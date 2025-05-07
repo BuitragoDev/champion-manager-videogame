@@ -46,6 +46,30 @@ namespace ChampionManager25.UserControls
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             ConfigurarDataGrid();
+
+            // Cargar ComboBox
+            ComboBox[] comboBoxes = new ComboBox[]
+            {
+                cbMediaMin, cbMediaMax
+            };
+
+            // Llenar del 1 al 99
+            for (int i = 1; i <= 99; i++)
+            {
+                foreach (ComboBox cb in comboBoxes)
+                {
+                    cb.Items.Add(i);
+                }
+            }
+
+            // Establecer valores por defecto
+            foreach (ComboBox cb in comboBoxes)
+            {
+                if (cb.Name.EndsWith("Min"))
+                    cb.SelectedItem = 1;
+                else if (cb.Name.EndsWith("Max"))
+                    cb.SelectedItem = 99;
+            }
         }
 
         // ------------------------------------------------------------------- Evento CLICK del botón TRANSFERIBLE
@@ -111,184 +135,26 @@ namespace ChampionManager25.UserControls
             ConfigurarDataGrid();
         }
 
-        // ------------------------------------------------------------------- Evento CLICK del botón 0-50
-        private void btnMedia0050_Click(object sender, RoutedEventArgs e)
+        // ------------------------------------------------------------------- Evento SELECTION CHANGED del comboBox MEDIAMIN
+        private void cbMediaMin_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Metodos.ReproducirSonidoClick();
-            btnMedia0050.Background = new SolidColorBrush(Color.FromRgb(29, 106, 125));
-            btnMedia0050.Foreground = Brushes.WhiteSmoke;
-            btnMedia5165.Background = Brushes.WhiteSmoke;
-            btnMedia5165.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-            btnMedia6680.Background = Brushes.WhiteSmoke;
-            btnMedia6680.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-            btnMedia8190.Background = Brushes.WhiteSmoke;
-            btnMedia8190.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-            btnMedia91100.Background = Brushes.WhiteSmoke;
-            btnMedia91100.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-            btnMediaTodos.Background = Brushes.LightGray;
-            btnMediaTodos.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-
-            btnMedia0050.IsEnabled = false;
-            btnMedia5165.IsEnabled = true;
-            btnMedia6680.IsEnabled = true;
-            btnMedia8190.IsEnabled = true;
-            btnMedia91100.IsEnabled = true;
-            btnMediaTodos.IsEnabled = true;
-
-            mediaStart = 0;
-            mediaEnd = 50;
-
-            ConfigurarDataGrid();
+            if (cbMediaMin.SelectedItem != null && cbMediaMax.SelectedItem != null)
+            {
+                mediaStart = (int)cbMediaMin.SelectedItem;
+                mediaEnd = (int)cbMediaMax.SelectedItem;
+                ConfigurarDataGrid();
+            }
         }
 
-        // ------------------------------------------------------------------- Evento CLICK del botón 51-65
-        private void btnMedia5165_Click(object sender, RoutedEventArgs e)
+        // ------------------------------------------------------------------- Evento SELECTION CHANGED del comboBox MEDIAMAX
+        private void cbMediaMax_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Metodos.ReproducirSonidoClick();
-            btnMedia5165.Background = new SolidColorBrush(Color.FromRgb(29, 106, 125));
-            btnMedia5165.Foreground = Brushes.WhiteSmoke;
-            btnMedia0050.Background = Brushes.WhiteSmoke;
-            btnMedia0050.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-            btnMedia6680.Background = Brushes.WhiteSmoke;
-            btnMedia6680.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-            btnMedia8190.Background = Brushes.WhiteSmoke;
-            btnMedia8190.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-            btnMedia91100.Background = Brushes.WhiteSmoke;
-            btnMedia91100.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-            btnMediaTodos.Background = Brushes.LightGray;
-            btnMediaTodos.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-
-            btnMedia0050.IsEnabled = true;
-            btnMedia5165.IsEnabled = false;
-            btnMedia6680.IsEnabled = true;
-            btnMedia8190.IsEnabled = true;
-            btnMedia91100.IsEnabled = true;
-            btnMediaTodos.IsEnabled = true;
-
-            mediaStart = 51;
-            mediaEnd = 65;
-
-            ConfigurarDataGrid();
-        }
-
-        // ------------------------------------------------------------------- Evento CLICK del botón 66-80
-        private void btnMedia6680_Click(object sender, RoutedEventArgs e)
-        {
-            Metodos.ReproducirSonidoClick();
-            btnMedia6680.Background = new SolidColorBrush(Color.FromRgb(29, 106, 125));
-            btnMedia6680.Foreground = Brushes.WhiteSmoke;
-            btnMedia5165.Background = Brushes.WhiteSmoke;
-            btnMedia5165.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-            btnMedia0050.Background = Brushes.WhiteSmoke;
-            btnMedia0050.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-            btnMedia8190.Background = Brushes.WhiteSmoke;
-            btnMedia8190.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-            btnMedia91100.Background = Brushes.WhiteSmoke;
-            btnMedia91100.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-            btnMediaTodos.Background = Brushes.LightGray;
-            btnMediaTodos.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-
-            btnMedia0050.IsEnabled = true;
-            btnMedia5165.IsEnabled = true;
-            btnMedia6680.IsEnabled = false;
-            btnMedia8190.IsEnabled = true;
-            btnMedia91100.IsEnabled = true;
-            btnMediaTodos.IsEnabled = true;
-
-            mediaStart = 66;
-            mediaEnd = 80;
-
-            ConfigurarDataGrid();
-        }
-
-        // ------------------------------------------------------------------- Evento CLICK del botón 81-90
-        private void btnMedia8190_Click(object sender, RoutedEventArgs e)
-        {
-            Metodos.ReproducirSonidoClick();
-            btnMedia8190.Background = new SolidColorBrush(Color.FromRgb(29, 106, 125));
-            btnMedia8190.Foreground = Brushes.WhiteSmoke;
-            btnMedia5165.Background = Brushes.WhiteSmoke;
-            btnMedia5165.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-            btnMedia6680.Background = Brushes.WhiteSmoke;
-            btnMedia6680.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-            btnMedia0050.Background = Brushes.WhiteSmoke;
-            btnMedia0050.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-            btnMedia91100.Background = Brushes.WhiteSmoke;
-            btnMedia91100.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-            btnMediaTodos.Background = Brushes.LightGray;
-            btnMediaTodos.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-
-            btnMedia0050.IsEnabled = true;
-            btnMedia5165.IsEnabled = true;
-            btnMedia6680.IsEnabled = true;
-            btnMedia8190.IsEnabled = false;
-            btnMedia91100.IsEnabled = true;
-            btnMediaTodos.IsEnabled = true;
-
-            mediaStart = 81;
-            mediaEnd = 90;
-
-            ConfigurarDataGrid();
-        }
-
-        // ------------------------------------------------------------------- Evento CLICK del botón 91-100
-        private void btnMedia91100_Click(object sender, RoutedEventArgs e)
-        {
-            Metodos.ReproducirSonidoClick();
-            btnMedia91100.Background = new SolidColorBrush(Color.FromRgb(29, 106, 125));
-            btnMedia91100.Foreground = Brushes.WhiteSmoke;
-            btnMedia5165.Background = Brushes.WhiteSmoke;
-            btnMedia5165.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-            btnMedia6680.Background = Brushes.WhiteSmoke;
-            btnMedia6680.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-            btnMedia8190.Background = Brushes.WhiteSmoke;
-            btnMedia8190.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-            btnMedia0050.Background = Brushes.WhiteSmoke;
-            btnMedia0050.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-            btnMediaTodos.Background = Brushes.LightGray;
-            btnMediaTodos.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-
-            btnMedia0050.IsEnabled = true;
-            btnMedia5165.IsEnabled = true;
-            btnMedia6680.IsEnabled = true;
-            btnMedia8190.IsEnabled = true;
-            btnMedia91100.IsEnabled = false;
-            btnMediaTodos.IsEnabled = true;
-
-            mediaStart = 91;
-            mediaEnd = 100;
-
-            ConfigurarDataGrid();
-        }
-
-        // ------------------------------------------------------------------- Evento CLICK del botón TODOS (MEDIA)
-        private void btnMediaTodos_Click(object sender, RoutedEventArgs e)
-        {
-            Metodos.ReproducirSonidoClick();
-            btnMedia91100.Background = Brushes.WhiteSmoke;
-            btnMedia91100.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-            btnMedia5165.Background = Brushes.WhiteSmoke;
-            btnMedia5165.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-            btnMedia6680.Background = Brushes.WhiteSmoke;
-            btnMedia6680.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-            btnMedia8190.Background = Brushes.WhiteSmoke;
-            btnMedia8190.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-            btnMedia0050.Background = Brushes.WhiteSmoke;
-            btnMedia0050.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x23, 0x28, 0x2D));
-            btnMediaTodos.Background = new SolidColorBrush(Color.FromRgb(29, 106, 125));
-            btnMediaTodos.Foreground = Brushes.WhiteSmoke;
-
-            btnMedia0050.IsEnabled = true;
-            btnMedia5165.IsEnabled = true;
-            btnMedia6680.IsEnabled = true;
-            btnMedia8190.IsEnabled = true;
-            btnMedia91100.IsEnabled = true;
-            btnMediaTodos.IsEnabled = false;
-
-            mediaStart = 0;
-            mediaEnd = 100;
-
-            ConfigurarDataGrid();
+            if (cbMediaMin.SelectedItem != null && cbMediaMax.SelectedItem != null)
+            {
+                mediaStart = (int)cbMediaMin.SelectedItem;
+                mediaEnd = (int)cbMediaMax.SelectedItem;
+                ConfigurarDataGrid();
+            }
         }
 
         // ------------------------------------------------------------------- Evento CLICK del botón PORTERO
@@ -671,8 +537,8 @@ namespace ChampionManager25.UserControls
             };
 
             imageFactory2.SetBinding(Image.SourceProperty, binding);
-            imageFactory2.SetValue(Image.WidthProperty, 30.0);
-            imageFactory2.SetValue(Image.HeightProperty, 30.0);
+            imageFactory2.SetValue(Image.WidthProperty, 20.0);
+            imageFactory2.SetValue(Image.HeightProperty, 20.0);
             imageFactory2.SetValue(Image.VerticalAlignmentProperty, VerticalAlignment.Center);
             imageFactory2.SetValue(Image.HorizontalAlignmentProperty, HorizontalAlignment.Center);
 
