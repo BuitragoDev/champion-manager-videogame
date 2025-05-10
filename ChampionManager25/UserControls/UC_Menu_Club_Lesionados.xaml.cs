@@ -51,7 +51,6 @@ namespace ChampionManager25.UserControls
 
             if (medico != null)
             {
-                btnTratarLesion.IsEnabled = true;
                 txtNombreMedico.Text = medico.Nombre;
                 reputacionMedico = medico.Categoria;
                 MostrarEstrellas(reputacionMedico);
@@ -93,7 +92,8 @@ namespace ChampionManager25.UserControls
         {
             Metodos.ReproducirSonidoClick();
 
-            if (jugadorSeleccionado != null)
+            int jugadorTratado = _logicaJugador.MostrarDatosJugador(jugadorSeleccionado.IdJugador).LesionTratada;
+            if (jugadorSeleccionado != null && jugadorTratado != 1)
             {
                 _logicaJugador.TratarLesion(jugadorSeleccionado.IdJugador, reduccion);
 
@@ -102,7 +102,19 @@ namespace ChampionManager25.UserControls
                 frmVentanaEmergenteDosBotones ventanaEmergente = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
                 bool? resultado = ventanaEmergente.ShowDialog();
 
+                _logicaJugador.ActivarTratamientoLesion(jugadorSeleccionado.IdJugador, 1);
+
                 CargarListajugadores();
+
+                jugadorTratado = _logicaJugador.MostrarDatosJugador(jugadorSeleccionado.IdJugador).LesionTratada;
+                if (jugadorSeleccionado != null && jugadorTratado == 1)
+                {
+                    btnTratarLesion.IsEnabled = false;
+                }
+                else
+                {
+                    btnTratarLesion.IsEnabled = true;
+                }
             }
         }
 
@@ -233,6 +245,16 @@ namespace ChampionManager25.UserControls
                 // Obtener el jugador
                 var idJugador = (int)tag.GetType().GetProperty("IdJugador").GetValue(tag);
                 jugadorSeleccionado = _logicaJugador.MostrarDatosJugador(idJugador);
+
+                int jugadorTratado = _logicaJugador.MostrarDatosJugador(jugadorSeleccionado.IdJugador).LesionTratada;
+                if (jugadorSeleccionado != null && jugadorTratado == 1)
+                {
+                    btnTratarLesion.IsEnabled = false;
+                }
+                else
+                {
+                    btnTratarLesion.IsEnabled = true;
+                }
             }
         }
 

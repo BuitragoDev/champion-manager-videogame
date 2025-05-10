@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChampionManager25.Vistas"
-        mc:Ignorable="d" Height="400" Width="1000"
+        mc:Ignorable="d" Height="300" Width="800"
         Title="frmPonerEnMercado" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid Background="#FF23282D">
         <Grid.ColumnDefinitions>
@@ -31,7 +31,7 @@
                 </Border>
 
                 <Border Grid.Column="0" Grid.Row="1" Margin="10" Background="LightGray">
-                    <TextBlock x:Name="txtMensaje" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600" TextWrapping="Wrap"
+                    <TextBlock x:Name="txtMensaje" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="614" TextWrapping="Wrap"
                                FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
                 </Border>
 
@@ -46,7 +46,7 @@
                         </Grid.RowDefinitions>
 
                         <Button x:Name="btnMercadoTransferibles" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                Height="60" Width="370" FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnMercadoTransferibles_Click">
+                                Height="50" Width="350" FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnMercadoTransferibles_Click">
                             <Button.Style>
                                 <Style TargetType="Button">
                                     <!-- Configuración inicial -->
@@ -67,7 +67,7 @@
                                                         <TextBlock Text="Mercado de Transferibles" 
                                                                    Foreground="{TemplateBinding Foreground}" 
                                                                    VerticalAlignment="Center" 
-                                                                   Margin="20,0,5,0" FontSize="22"/>
+                                                                   Margin="20,0,5,0" FontSize="18"/>
                                                     </StackPanel>
                                                 </Border>
                                             </ControlTemplate>
@@ -77,8 +77,8 @@
                                     <!-- Configuración al pasar el ratón -->
                                     <Style.Triggers>
                                         <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                                            <Setter Property="BorderThickness" Value="1"/>
+                                            <Setter Property="Background" Value="#22798e" />
+                                            <Setter Property="Foreground" Value="WhiteSmoke" />
                                         </Trigger>
                                     </Style.Triggers>
                                 </Style>
@@ -86,7 +86,7 @@
                         </Button>
 
                         <Button x:Name="btnMercadoCesiones" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                Height="60" Width="370" FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnMercadoCesiones_Click">
+                                Height="50" Width="350" FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnMercadoCesiones_Click">
                             <Button.Style>
                                 <Style TargetType="Button">
                                     <!-- Configuración inicial -->
@@ -107,7 +107,7 @@
                                                         <TextBlock Text="Mercado de Cesiones" 
                                                                    Foreground="{TemplateBinding Foreground}" 
                                                                    VerticalAlignment="Center" 
-                                                                   Margin="20,0,5,0" FontSize="22"/>
+                                                                   Margin="20,0,5,0" FontSize="18"/>
                                                     </StackPanel>
                                                 </Border>
                                             </ControlTemplate>
@@ -117,8 +117,8 @@
                                     <!-- Configuración al pasar el ratón -->
                                     <Style.Triggers>
                                         <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                                            <Setter Property="BorderThickness" Value="1"/>
+                                            <Setter Property="Background" Value="#22798e" />
+                                            <Setter Property="Foreground" Value="WhiteSmoke" />
                                         </Trigger>
                                     </Style.Triggers>
                                 </Style>

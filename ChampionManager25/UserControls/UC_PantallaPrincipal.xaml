@@ -105,7 +105,7 @@
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="Background" Value="#FF23282D" />
-                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="Foreground" Value="WhiteSmoke" />
                             <Setter Property="FontSize" Value="24" />
                             <Setter Property="SnapsToDevicePixels" Value="True" />
 
@@ -122,7 +122,7 @@
                                         <ControlTemplate.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
                                                 <Setter Property="Background" Value="#2d343a" />
-                                                <Setter Property="Foreground" Value="White" />
+                                                <Setter Property="Foreground" Value="WhiteSmoke" />
                                             </Trigger>
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>
@@ -131,7 +131,6 @@
                         </Style>
                     </Button.Style>
                 </Button>
-
             </Grid>
         </DockPanel>
         <!-- DOCK PANEL MENU SUPERIOR -->

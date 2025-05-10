@@ -17,6 +17,7 @@
     <None Remove="Recursos\audio\click.wav" />
     <None Remove="Recursos\audio\transicion.wav" />
     <None Remove="Recursos\img\backgroundCarga1920x1080.png" />
+    <None Remove="Recursos\img\backgroundCargarPartida1920x1080.png" />
     <None Remove="Recursos\img\backgroundEstadio_img.png" />
     <None Remove="Recursos\img\backgroundPrincipal1920x1080.png" />
     <None Remove="Recursos\img\background_banner_prestamo.png" />
@@ -348,10 +349,12 @@
     <None Remove="Recursos\img\entrenadores\7.png" />
     <None Remove="Recursos\img\entrenadores\8.png" />
     <None Remove="Recursos\img\entrenadores\9.png" />
+    <None Remove="Recursos\img\escudos_equipos\0.png" />
     <None Remove="Recursos\img\escudos_equipos\1.png" />
     <None Remove="Recursos\img\escudos_equipos\10.png" />
     <None Remove="Recursos\img\escudos_equipos\11.png" />
     <None Remove="Recursos\img\escudos_equipos\12.png" />
+    <None Remove="Recursos\img\escudos_equipos\120x120\0.png" />
     <None Remove="Recursos\img\escudos_equipos\120x120\1.png" />
     <None Remove="Recursos\img\escudos_equipos\120x120\10.png" />
     <None Remove="Recursos\img\escudos_equipos\120x120\11.png" />
@@ -438,6 +441,7 @@
     <None Remove="Recursos\img\escudos_equipos\30.png" />
     <None Remove="Recursos\img\escudos_equipos\31.png" />
     <None Remove="Recursos\img\escudos_equipos\32.png" />
+    <None Remove="Recursos\img\escudos_equipos\32x32\0.png" />
     <None Remove="Recursos\img\escudos_equipos\32x32\1.png" />
     <None Remove="Recursos\img\escudos_equipos\32x32\10.png" />
     <None Remove="Recursos\img\escudos_equipos\32x32\11.png" />
@@ -537,6 +541,7 @@
     <None Remove="Recursos\img\escudos_equipos\62.png" />
     <None Remove="Recursos\img\escudos_equipos\63.png" />
     <None Remove="Recursos\img\escudos_equipos\64.png" />
+    <None Remove="Recursos\img\escudos_equipos\64x64\0.png" />
     <None Remove="Recursos\img\escudos_equipos\64x64\1.png" />
     <None Remove="Recursos\img\escudos_equipos\64x64\10.png" />
     <None Remove="Recursos\img\escudos_equipos\64x64\11.png" />
@@ -603,6 +608,7 @@
     <None Remove="Recursos\img\escudos_equipos\64x64\9.png" />
     <None Remove="Recursos\img\escudos_equipos\7.png" />
     <None Remove="Recursos\img\escudos_equipos\8.png" />
+    <None Remove="Recursos\img\escudos_equipos\80x80\0.png" />
     <None Remove="Recursos\img\escudos_equipos\80x80\1.png" />
     <None Remove="Recursos\img\escudos_equipos\80x80\10.png" />
     <None Remove="Recursos\img\escudos_equipos\80x80\11.png" />
@@ -838,24 +844,30 @@
     <None Remove="Recursos\img\icons\bota-de-plata.png" />
     <None Remove="Recursos\img\icons\calendario_icon.png" />
     <None Remove="Recursos\img\icons\camisetaFutbol_icon.png" />
+    <None Remove="Recursos\img\icons\cancelar_icon.png" />
     <None Remove="Recursos\img\icons\casaNegro_icon.png" />
     <None Remove="Recursos\img\icons\casa_icon.png" />
     <None Remove="Recursos\img\icons\cerrar32px.png" />
     <None Remove="Recursos\img\icons\cerrar64px.png" />
+    <None Remove="Recursos\img\icons\close_icon.png" />
     <None Remove="Recursos\img\icons\club_icon.png" />
     <None Remove="Recursos\img\icons\codigoBarras.png" />
     <None Remove="Recursos\img\icons\competicion1.png" />
     <None Remove="Recursos\img\icons\competicionesNegro_icon.png" />
     <None Remove="Recursos\img\icons\competiciones_icon.png" />
+    <None Remove="Recursos\img\icons\confirmar_icon.png" />
     <None Remove="Recursos\img\icons\contratar_icon.png" />
     <None Remove="Recursos\img\icons\correo_icon.png" />
     <None Remove="Recursos\img\icons\cruzblanca_icon.png" />
+    <None Remove="Recursos\img\icons\delete_icon.png" />
     <None Remove="Recursos\img\icons\derecha_icon.png" />
     <None Remove="Recursos\img\icons\despedir_icon.png" />
     <None Remove="Recursos\img\icons\director_tecnico.png" />
     <None Remove="Recursos\img\icons\enfermeria_icon.png" />
     <None Remove="Recursos\img\icons\enMercado_icon.png" />
+    <None Remove="Recursos\img\icons\entrada_icon.png" />
     <None Remove="Recursos\img\icons\entrenador_icon.png" />
+    <None Remove="Recursos\img\icons\enviar_icon.png" />
     <None Remove="Recursos\img\icons\estadioBlanco_icon.png" />
     <None Remove="Recursos\img\icons\estadioNegro_icon.png" />
     <None Remove="Recursos\img\icons\estrellaOff.png" />
@@ -871,43 +883,55 @@
     <None Remove="Recursos\img\icons\flechaIzquierdaBlanca32px.png" />
     <None Remove="Recursos\img\icons\flechaIzquierdaBlanca64px_icon.png" />
     <None Remove="Recursos\img\icons\flechaIzquierdaNegra64px_icon.png" />
+    <None Remove="Recursos\img\icons\freeAgent_icon.png" />
     <None Remove="Recursos\img\icons\goleador.png" />
     <None Remove="Recursos\img\icons\goleador_icon.png" />
     <None Remove="Recursos\img\icons\gol_img.png" />
     <None Remove="Recursos\img\icons\hattrick_img.png" />
     <None Remove="Recursos\img\icons\home_icon.png" />
+    <None Remove="Recursos\img\icons\igualar_icon.png" />
     <None Remove="Recursos\img\icons\intercambio.png" />
     <None Remove="Recursos\img\icons\lesion.png" />
+    <None Remove="Recursos\img\icons\load_icon.png" />
     <None Remove="Recursos\img\icons\manager_icon.png" />
     <None Remove="Recursos\img\icons\matchday_icon.png" />
     <None Remove="Recursos\img\icons\maximoGoleador.png" />
     <None Remove="Recursos\img\icons\media_img.png" />
     <None Remove="Recursos\img\icons\mejorJugador.png" />
     <None Remove="Recursos\img\icons\mensaje_abierto.png" />
+    <None Remove="Recursos\img\icons\menuPrincipal_icon.png" />
     <None Remove="Recursos\img\icons\mirilla.png" />
     <None Remove="Recursos\img\icons\mundo_icon.png" />
     <None Remove="Recursos\img\icons\mvp_icon.png" />
     <None Remove="Recursos\img\icons\mvp_img.png" />
     <None Remove="Recursos\img\icons\noSeleccionado_icon.png" />
+    <None Remove="Recursos\img\icons\obras_icon.png" />
     <None Remove="Recursos\img\icons\ojear_icon.png" />
     <None Remove="Recursos\img\icons\pabellon_icon.png" />
     <None Remove="Recursos\img\icons\paciencia_icon.png" />
     <None Remove="Recursos\img\icons\papelera_icon.png" />
+    <None Remove="Recursos\img\icons\pase_icon.png" />
     <None Remove="Recursos\img\icons\plantilla_datos.png" />
     <None Remove="Recursos\img\icons\plantilla_estadisticas.png" />
     <None Remove="Recursos\img\icons\plantilla_puntuacion.png" />
+    <None Remove="Recursos\img\icons\portero_icon.png" />
     <None Remove="Recursos\img\icons\prohibido_icon.png" />
     <None Remove="Recursos\img\icons\rechazado32px.png" />
     <None Remove="Recursos\img\icons\rechazado_icon.png" />
+    <None Remove="Recursos\img\icons\regate_icon.png" />
+    <None Remove="Recursos\img\icons\remate_icon.png" />
     <None Remove="Recursos\img\icons\renovar_icon.png" />
     <None Remove="Recursos\img\icons\roja_icon.png" />
     <None Remove="Recursos\img\icons\rol1_icon.png" />
     <None Remove="Recursos\img\icons\rol2_icon.png" />
     <None Remove="Recursos\img\icons\rol3_icon.png" />
     <None Remove="Recursos\img\icons\rol4_icon.png" />
+    <None Remove="Recursos\img\icons\salirJuego_icon.png" />
     <None Remove="Recursos\img\icons\salir_icon.png" />
     <None Remove="Recursos\img\icons\seleccionado_icon.png" />
     <None Remove="Recursos\img\icons\simulando_icon.png" />
+    <None Remove="Recursos\img\icons\sonidoOff_icon.png" />
+    <None Remove="Recursos\img\icons\sonidoOn_icon.png" />
     <None Remove="Recursos\img\icons\tarjetaAmarilla_img.png" />
     <None Remove="Recursos\img\icons\tarjetaRoja_img.png" />
     <None Remove="Recursos\img\icons\tarjetaSocio.png" />
@@ -2612,6 +2636,9 @@
     <Content Include="Recursos\img\backgroundCarga1920x1080.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\backgroundCargarPartida1920x1080.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\backgroundEstadio_img.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -3608,6 +3635,9 @@
     <Content Include="Recursos\img\entrenadores\9.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\escudos_equipos\0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\escudos_equipos\1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -3618,6 +3648,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\escudos_equipos\12.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\120x120\0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\escudos_equipos\120x120\1.png">
@@ -3876,6 +3909,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\escudos_equipos\32.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\32x32\0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\escudos_equipos\32x32\1.png">
@@ -4175,6 +4211,9 @@
     <Content Include="Recursos\img\escudos_equipos\64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\escudos_equipos\64x64\0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\escudos_equipos\64x64\1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -4371,6 +4410,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\escudos_equipos\8.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\escudos_equipos\80x80\0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\escudos_equipos\80x80\1.png">
@@ -5078,6 +5120,9 @@
     <Content Include="Recursos\img\icons\camisetaFutbol_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\icons\cancelar_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\icons\casaNegro_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -5088,6 +5133,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\cerrar64px.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\close_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\club_icon.png">
@@ -5105,6 +5153,9 @@
     <Content Include="Recursos\img\icons\competiciones_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\icons\confirmar_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\icons\contratar_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -5112,6 +5163,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\cruzblanca_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\delete_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\derecha_icon.png">
@@ -5129,7 +5183,13 @@
     <Content Include="Recursos\img\icons\enMercado_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\icons\entrada_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\icons\entrenador_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\enviar_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\estadioBlanco_icon.png">
@@ -5177,6 +5237,9 @@
     <Content Include="Recursos\img\icons\flechaIzquierdaNegra64px_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\icons\freeAgent_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\icons\goleador.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -5192,10 +5255,16 @@
     <Content Include="Recursos\img\icons\home_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\icons\igualar_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\icons\intercambio.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\lesion.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\load_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\manager_icon.png">
@@ -5216,6 +5285,9 @@
     <Content Include="Recursos\img\icons\mensaje_abierto.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\icons\menuPrincipal_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\icons\mirilla.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -5231,6 +5303,9 @@
     <Content Include="Recursos\img\icons\noSeleccionado_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\icons\obras_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\icons\ojear_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -5243,6 +5318,9 @@
     <Content Include="Recursos\img\icons\papelera_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\icons\pase_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\icons\plantilla_datos.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -5252,6 +5330,9 @@
     <Content Include="Recursos\img\icons\plantilla_puntuacion.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\icons\portero_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\icons\prohibido_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -5259,6 +5340,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\rechazado_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\regate_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\remate_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\renovar_icon.png">
@@ -5279,6 +5366,9 @@
     <Content Include="Recursos\img\icons\rol4_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\icons\salirJuego_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\icons\salir_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -5286,6 +5376,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\simulando_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\sonidoOff_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\sonidoOn_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\tarjetaAmarilla_img.png">

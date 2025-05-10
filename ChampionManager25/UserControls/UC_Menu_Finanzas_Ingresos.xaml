@@ -44,14 +44,14 @@
                         </Grid.RowDefinitions>
 
                         <Button x:Name="btnAnioAnterior" Grid.Column="0" Content="◀" Width="50" 
-                                Height="30" Margin="5" Cursor="Hand" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                                Height="30" Margin="5" Cursor="Hand" VerticalAlignment="Center" HorizontalAlignment="Right" Click="btnAnioAnterior_Click" />
 
                         <TextBlock x:Name="txtAnio" Grid.Column="1" Text="Temporada 0000/0000" HorizontalAlignment="Center" VerticalAlignment="Center" 
                                    FontFamily="Cascadia Code SemiBold" FontSize="22" Foreground="WhiteSmoke"
                                    Width="290" TextAlignment="Center"/>
 
                         <Button x:Name="btnAnioSiguiente" Grid.Column="2" Content="▶" Width="50" 
-                                Height="30" Margin="5" Cursor="Hand" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                                Height="30" Margin="5" Cursor="Hand" VerticalAlignment="Center" HorizontalAlignment="Left" Click="btnAnioSiguiente_Click" />
                     </Grid>
                 </Border>
 

@@ -186,44 +186,39 @@
                                                   Width="100" Height="40" VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" 
                                                   FontSize="20" VerticalContentAlignment="Center" Cursor="Hand" IsEnabled="False" />
 
-
-                                        <Button x:Name="btnBuscar" Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="5" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                Height="40" Width="507" FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnBuscar_Click">
+                                        <Button x:Name="btnBuscar" Grid.Column="0" Grid.Row="10" Content="BUSCAR JUGADORES" Grid.ColumnSpan="5" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                Height="50" Width="507" FontFamily="Cascadia Code SemiBold" FontSize="22" Cursor="Hand" Click="btnBuscar_Click">
                                             <Button.Style>
-                                                <Style TargetType="Button">
-                                                    <!-- Configuración inicial -->
-                                                    <Setter Property="Background" Value="#1d6a7d"/>
-                                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
-                                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                                <Style TargetType="{x:Type Button}">
+                                                    <Setter Property="Background" Value="#1d6a7d" />
+                                                    <Setter Property="Foreground" Value="White" />
+                                                    <Setter Property="FontSize" Value="22" />
+                                                    <Setter Property="SnapsToDevicePixels" Value="True" />
                                                     <Setter Property="BorderThickness" Value="0"/>
-                                                    <Setter Property="Cursor" Value="Hand"/>
                                                     <Setter Property="Template">
                                                         <Setter.Value>
-                                                            <ControlTemplate TargetType="Button">
-                                                                <Border Background="{TemplateBinding Background}"
-                                                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                                                        BorderThickness="{TemplateBinding BorderThickness}">
-                                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                                        <!-- Imagen de la flecha -->
-                                                                        <Image Source="/Recursos/img/icons/ojear_icon.png" Height="32" Width="32" VerticalAlignment="Center" Stretch="Uniform"/>
-                                                                        <!-- Texto del botón -->
-                                                                        <TextBlock Text="BUSCAR" 
-                                                                                   Foreground="{TemplateBinding Foreground}" 
-                                                                                   VerticalAlignment="Center" 
-                                                                                   Margin="20,0,5,0" FontSize="22"/>
-                                                                    </StackPanel>
+                                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                                <Border CornerRadius="8" Background="{TemplateBinding Background}">
+                                                                    <Grid>
+                                                                        <Image x:Name="imgBoton" Source="/Recursos/img/icons/ojear_icon.png" 
+                                                                               Height="32" Width="32" VerticalAlignment="Center" 
+                                                                               HorizontalAlignment="Left" Stretch="Uniform" Margin="17,0,0,0"/>
+                                                                        <ContentPresenter x:Name="MyContentPresenter" 
+                                                                                          Content="{TemplateBinding Content}" 
+                                                                                          HorizontalAlignment="Center" 
+                                                                                          VerticalAlignment="Center" 
+                                                                                          Margin="20,0,0,0" />
+                                                                    </Grid>
                                                                 </Border>
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background" Value="#22798e" />
+                                                                        <Setter Property="Foreground" Value="WhiteSmoke" />
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
                                                             </ControlTemplate>
                                                         </Setter.Value>
                                                     </Setter>
-
-                                                    <!-- Configuración al pasar el ratón -->
-                                                    <Style.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                                                            <Setter Property="BorderThickness" Value="1"/>
-                                                        </Trigger>
-                                                    </Style.Triggers>
                                                 </Style>
                                             </Button.Style>
                                         </Button>

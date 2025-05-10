@@ -112,7 +112,8 @@ namespace ChampionManager25.Datos
                     string query = @"SELECT j.*, c.duracion AS AniosContrato, c.salario_anual AS SalarioTemporada, c.clausula_rescision AS ClausulaRescision
                                     FROM jugadores j
                                     LEFT JOIN contratos c ON j.id_jugador = c.id_jugador
-                                    WHERE j.id_equipo = @idEquipo";
+                                    WHERE j.id_equipo = @idEquipo
+                                    ORDER BY j.rol_id ASC";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                     {
@@ -151,6 +152,7 @@ namespace ChampionManager25.Datos
                                     Altura = dr.GetInt32(dr.GetOrdinal("altura")),
                                     Lesion = dr.GetInt32(dr.GetOrdinal("lesion")),
                                     TipoLesion = dr.IsDBNull(dr.GetOrdinal("tipo_lesion")) ? null : dr.GetString(dr.GetOrdinal("tipo_lesion")),
+                                    LesionTratada = dr.GetInt32(dr.GetOrdinal("lesion_tratada")),
                                     Nacionalidad = dr.GetString(dr.GetOrdinal("nacionalidad")),
                                     Status = dr.GetInt32(dr.GetOrdinal("status")),
                                     Sancionado = dr.GetInt32(dr.GetOrdinal("sancionado")),
@@ -287,6 +289,8 @@ namespace ChampionManager25.Datos
                                         j.entradas,
                                         j.tiro,
                                         j.lesion,
+                                        j.tipo_lesion,
+                                        j.lesion_tratada,
                                         j.valor_mercado,
                                         j.estado_animo, 
                                         j.situacion_mercado,
@@ -341,6 +345,8 @@ namespace ChampionManager25.Datos
                                     Entradas = dr.GetInt32(dr.GetOrdinal("entradas")),
                                     Tiro = dr.GetInt32(dr.GetOrdinal("tiro")),
                                     Lesion = dr.GetInt32(dr.GetOrdinal("lesion")),
+                                    TipoLesion = dr.IsDBNull(dr.GetOrdinal("tipo_lesion")) ? null : dr.GetString(dr.GetOrdinal("tipo_lesion")),
+                                    LesionTratada = dr.GetInt32(dr.GetOrdinal("lesion_tratada")),
                                     ValorMercado = dr.GetInt32(dr.GetOrdinal("valor_mercado")),
                                     EstadoAnimo = dr.GetInt32(dr.GetOrdinal("estado_animo")),
                                     RutaImagen = dr.GetString(dr.GetOrdinal("ruta_imagen")),
@@ -417,6 +423,7 @@ namespace ChampionManager25.Datos
                                     Altura = dr.GetInt32(dr.GetOrdinal("altura")),
                                     Lesion = dr.GetInt32(dr.GetOrdinal("lesion")),
                                     TipoLesion = dr.IsDBNull(dr.GetOrdinal("tipo_lesion")) ? null : dr.GetString(dr.GetOrdinal("tipo_lesion")),
+                                    LesionTratada = dr.GetInt32(dr.GetOrdinal("lesion_tratada")),
                                     Nacionalidad = dr.GetString(dr.GetOrdinal("nacionalidad")),
                                     Status = dr.GetInt32(dr.GetOrdinal("status")),
                                     Sancionado = dr.GetInt32(dr.GetOrdinal("sancionado")),
@@ -480,7 +487,7 @@ namespace ChampionManager25.Datos
 
                     // 1. Obtener dorsales usados por el equipo destino
                     List<int> dorsalesOcupados = new List<int>();
-                    string dorsalesQuery = @"SELECT dorsal FROM jugadores WHERE id_equipo = @IdEquipo";
+                    string dorsalesQuery = @"SELECT dorsal FROM jugadores WHERE id_equipo = @IdEquipo AND id_equipo <> 0";
 
                     using (SQLiteCommand cmdDorsales = new SQLiteCommand(dorsalesQuery, conn))
                     {
@@ -525,479 +532,103 @@ namespace ChampionManager25.Datos
 
 
         // ======================================================= Método para mostrar los titulares del equipo
-        public void CrearAlineacion(string tactica, int equipo)
+        public void CrearAlineacion(int equipo)
         {
             try
             {
                 using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
-                    string query = "";
 
-                    if (tactica == "5-4-1")
-                    {
-                        // Query para obtener jugadores ordenados por su media de atributos
-                        query = @"SELECT id_jugador, rol_id,
-                                         (velocidad + resistencia + agresividad + calidad + estado_forma + moral) / 6.0 as media
-                                  FROM jugadores 
-                                  WHERE id_equipo = @equipo
-                                  ORDER BY 
+                    string query = @"SELECT id_jugador, rol_id,
+                                           (velocidad + resistencia + agresividad + calidad + estado_forma + moral) / 6.0 as media
+                                     FROM jugadores 
+                                     WHERE id_equipo = @equipo
+                                     ORDER BY 
                                         CASE 
-                                            WHEN rol_id = 1 THEN 1  -- Portero
-                                            WHEN rol_id = 4 THEN 2  -- Centrales
-                                            WHEN rol_id = 2 THEN 3  -- Lateral Derecho
-                                            WHEN rol_id = 3 THEN 4  -- Lateral Izquierdo
-                                            WHEN rol_id BETWEEN 5 AND 7 THEN 5  -- Mediocampistas
-                                            WHEN rol_id BETWEEN 8 AND 10 THEN 6  -- Delanteros
+                                            WHEN rol_id = 1 THEN 1
+                                            WHEN rol_id = 4 THEN 2
+                                            WHEN rol_id = 2 THEN 3
+                                            WHEN rol_id = 3 THEN 4
+                                            WHEN rol_id BETWEEN 5 AND 7 THEN 5
+                                            WHEN rol_id BETWEEN 8 AND 10 THEN 6
                                             ELSE 7 
                                         END,
                                         media DESC";
 
-                        using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@equipo", equipo);
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
                         {
-                            cmd.Parameters.AddWithValue("@equipo", equipo);
-                            using (SQLiteDataReader reader = cmd.ExecuteReader())
+                            List<(int id_jugador, int rol_id, double media)> jugadores = new();
+
+                            while (reader.Read())
                             {
-                                List<(int id_jugador, int rol_id, double media)> jugadores = new();
+                                jugadores.Add((
+                                    reader.GetInt32(0),
+                                    reader.GetInt32(1),
+                                    reader.GetDouble(2)
+                                ));
+                            }
 
-                                while (reader.Read())
+                            if (jugadores.Count == 0) return;
+
+                            // Agrupar por rol
+                            var porteros = jugadores.Where(j => j.rol_id == 1).ToList();
+                            var centrales = jugadores.Where(j => j.rol_id == 4).ToList();
+                            var lateralDer = jugadores.Where(j => j.rol_id == 2).ToList();
+                            var lateralIzq = jugadores.Where(j => j.rol_id == 3).ToList();
+                            var mediocampistas = jugadores.Where(j => j.rol_id >= 5 && j.rol_id <= 7).ToList();
+                            var delanteros = jugadores.Where(j => j.rol_id >= 8 && j.rol_id <= 10).ToList();
+
+                            Dictionary<int, int> posiciones = new();
+                            int posicion = 1;
+
+                            if (porteros.Count >= 1) posiciones[posicion++] = porteros[0].id_jugador;
+                            if (centrales.Count >= 2) { posiciones[posicion++] = centrales[0].id_jugador; posiciones[posicion++] = centrales[1].id_jugador; }
+                            if (lateralDer.Count >= 1) posiciones[posicion++] = lateralDer[0].id_jugador;
+                            if (lateralIzq.Count >= 1) posiciones[posicion++] = lateralIzq[0].id_jugador;
+
+                            for (int i = 0; i < Math.Min(4, mediocampistas.Count); i++)
+                                posiciones[posicion++] = mediocampistas[i].id_jugador;
+
+                            for (int i = 0; i < Math.Min(2, delanteros.Count); i++)
+                                posiciones[posicion++] = delanteros[i].id_jugador;
+
+                            // Si hay menos de 11 jugadores asignados, completar con los mejores disponibles restantes
+                            var usados = new HashSet<int>(posiciones.Values);
+                            var restantes = jugadores.Where(j => !usados.Contains(j.id_jugador)).ToList();
+
+                            while (posiciones.Count < 11 && restantes.Count > 0)
+                            {
+                                posiciones[posicion++] = restantes[0].id_jugador;
+                                usados.Add(restantes[0].id_jugador);
+                                restantes.RemoveAt(0);
+                            }
+
+                            // Insertar titulares
+                            foreach (var kvp in posiciones)
+                            {
+                                string insertQuery = "INSERT INTO alineacion (id_jugador, posicion) VALUES (@id_jugador, @posicion)";
+                                using (SQLiteCommand insertCmd = new SQLiteCommand(insertQuery, conn))
                                 {
-                                    jugadores.Add((
-                                        reader.GetInt32(0), // id_jugador
-                                        reader.GetInt32(1), // rol_id
-                                        reader.GetDouble(2) // media
-                                    ));
-                                }
-
-                                if (jugadores.Count == 0) return;
-
-                                // Definir posiciones titulares
-                                Dictionary<int, int> posiciones = new();
-                                posiciones[1] = jugadores.First(j => j.rol_id == 1).id_jugador; 
-                                posiciones[2] = jugadores.Where(j => j.rol_id == 4).Take(1).First().id_jugador; 
-                                posiciones[3] = jugadores.Where(j => j.rol_id == 4).Skip(1).Take(1).First().id_jugador;
-                                posiciones[4] = jugadores.Where(j => j.rol_id == 4).Skip(2).Take(1).First().id_jugador; 
-                                posiciones[5] = jugadores.First(j => j.rol_id == 2).id_jugador; 
-                                posiciones[6] = jugadores.First(j => j.rol_id == 3).id_jugador; 
-                                posiciones[7] = jugadores.Where(j => j.rol_id >= 5 && j.rol_id <= 7).Take(1).First().id_jugador; 
-                                posiciones[8] = jugadores.Where(j => j.rol_id >= 5 && j.rol_id <= 7).Skip(1).Take(1).First().id_jugador; 
-                                posiciones[9] = jugadores.Where(j => j.rol_id >= 5 && j.rol_id <= 7).Skip(2).Take(1).First().id_jugador; 
-                                posiciones[10] = jugadores.Where(j => j.rol_id >= 5 && j.rol_id <= 7).Skip(3).Take(1).First().id_jugador; 
-                                posiciones[11] = jugadores.Where(j => j.rol_id >= 8 && j.rol_id <= 10).Take(1).First().id_jugador; 
-
-                                // Insertar titulares
-                                foreach (var kvp in posiciones)
-                                {
-                                    string insertQuery = "INSERT INTO alineacion (id_jugador, posicion) VALUES (@id_jugador, @posicion)";
-                                    using (SQLiteCommand insertCmd = new SQLiteCommand(insertQuery, conn))
-                                    {
-                                        insertCmd.Parameters.AddWithValue("@id_jugador", kvp.Value);
-                                        insertCmd.Parameters.AddWithValue("@posicion", kvp.Key);
-                                        insertCmd.ExecuteNonQuery();
-                                    }
-                                }
-
-                                // Insertar suplentes (posición 12 en adelante)
-                                int pos = 12;
-                                foreach (var suplente in jugadores.Where(j => !posiciones.Values.Contains(j.id_jugador)))
-                                {
-                                    string insertQuery = "INSERT INTO alineacion (id_jugador, posicion) VALUES (@id_jugador, @posicion)";
-                                    using (SQLiteCommand insertCmd = new SQLiteCommand(insertQuery, conn))
-                                    {
-                                        insertCmd.Parameters.AddWithValue("@id_jugador", suplente.id_jugador);
-                                        insertCmd.Parameters.AddWithValue("@posicion", pos++);
-                                        insertCmd.ExecuteNonQuery();
-                                    }
+                                    insertCmd.Parameters.AddWithValue("@id_jugador", kvp.Value);
+                                    insertCmd.Parameters.AddWithValue("@posicion", kvp.Key);
+                                    insertCmd.ExecuteNonQuery();
                                 }
                             }
-                        }
-                    }
-                    else if (tactica == "5-3-2")
-                    {
-                        // Query para obtener jugadores ordenados por su media de atributos
-                        query = @"SELECT id_jugador, rol_id,
-                                         (velocidad + resistencia + agresividad + calidad + estado_forma + moral) / 6.0 as media
-                                  FROM jugadores 
-                                  WHERE id_equipo = @equipo
-                                  ORDER BY 
-                                        CASE 
-                                            WHEN rol_id = 1 THEN 1  -- Portero
-                                            WHEN rol_id = 4 THEN 2  -- Centrales
-                                            WHEN rol_id = 2 THEN 3  -- Lateral Derecho
-                                            WHEN rol_id = 3 THEN 4  -- Lateral Izquierdo
-                                            WHEN rol_id BETWEEN 5 AND 7 THEN 5  -- Mediocampistas
-                                            WHEN rol_id BETWEEN 8 AND 10 THEN 6  -- Delanteros
-                                            ELSE 7 
-                                        END,
-                                        media DESC";
 
-                        using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@equipo", equipo);
-                            using (SQLiteDataReader reader = cmd.ExecuteReader())
+                            // Insertar suplentes
+                            int pos = 12;
+                            foreach (var suplente in jugadores.Where(j => !posiciones.Values.Contains(j.id_jugador)))
                             {
-                                List<(int id_jugador, int rol_id, double media)> jugadores = new();
-
-                                while (reader.Read())
+                                string insertQuery = "INSERT INTO alineacion (id_jugador, posicion) VALUES (@id_jugador, @posicion)";
+                                using (SQLiteCommand insertCmd = new SQLiteCommand(insertQuery, conn))
                                 {
-                                    jugadores.Add((
-                                        reader.GetInt32(0), // id_jugador
-                                        reader.GetInt32(1), // rol_id
-                                        reader.GetDouble(2) // media
-                                    ));
-                                }
-
-                                if (jugadores.Count == 0) return;
-
-                                // Definir posiciones titulares
-                                Dictionary<int, int> posiciones = new();
-                                posiciones[1] = jugadores.First(j => j.rol_id == 1).id_jugador; 
-                                posiciones[2] = jugadores.Where(j => j.rol_id == 4).Take(1).First().id_jugador; 
-                                posiciones[3] = jugadores.Where(j => j.rol_id == 4).Skip(1).Take(1).First().id_jugador; 
-                                posiciones[4] = jugadores.Where(j => j.rol_id == 4).Skip(2).Take(1).First().id_jugador; 
-                                posiciones[5] = jugadores.First(j => j.rol_id == 2).id_jugador; 
-                                posiciones[6] = jugadores.First(j => j.rol_id == 3).id_jugador; 
-                                posiciones[7] = jugadores.Where(j => j.rol_id >= 5 && j.rol_id <= 7).Take(1).First().id_jugador; 
-                                posiciones[8] = jugadores.Where(j => j.rol_id >= 5 && j.rol_id <= 7).Skip(1).Take(1).First().id_jugador; 
-                                posiciones[9] = jugadores.Where(j => j.rol_id >= 5 && j.rol_id <= 7).Skip(2).Take(1).First().id_jugador; 
-                                posiciones[10] = jugadores.Where(j => j.rol_id >= 8 && j.rol_id <= 10).Take(1).First().id_jugador; 
-                                posiciones[11] = jugadores.Where(j => j.rol_id >= 8 && j.rol_id <= 10).Skip(1).Take(1).First().id_jugador; 
-
-                                // Insertar titulares
-                                foreach (var kvp in posiciones)
-                                {
-                                    string insertQuery = "INSERT INTO alineacion (id_jugador, posicion) VALUES (@id_jugador, @posicion)";
-                                    using (SQLiteCommand insertCmd = new SQLiteCommand(insertQuery, conn))
-                                    {
-                                        insertCmd.Parameters.AddWithValue("@id_jugador", kvp.Value);
-                                        insertCmd.Parameters.AddWithValue("@posicion", kvp.Key);
-                                        insertCmd.ExecuteNonQuery();
-                                    }
-                                }
-
-                                // Insertar suplentes (posición 12 en adelante)
-                                int pos = 12;
-                                foreach (var suplente in jugadores.Where(j => !posiciones.Values.Contains(j.id_jugador)))
-                                {
-                                    string insertQuery = "INSERT INTO alineacion (id_jugador, posicion) VALUES (@id_jugador, @posicion)";
-                                    using (SQLiteCommand insertCmd = new SQLiteCommand(insertQuery, conn))
-                                    {
-                                        insertCmd.Parameters.AddWithValue("@id_jugador", suplente.id_jugador);
-                                        insertCmd.Parameters.AddWithValue("@posicion", pos++);
-                                        insertCmd.ExecuteNonQuery();
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else if (tactica == "4-5-1")
-                    {
-                        // Query para obtener jugadores ordenados por su media de atributos
-                        query = @"SELECT id_jugador, rol_id,
-                                         (velocidad + resistencia + agresividad + calidad + estado_forma + moral) / 6.0 as media
-                                  FROM jugadores 
-                                  WHERE id_equipo = @equipo
-                                  ORDER BY 
-                                        CASE 
-                                            WHEN rol_id = 1 THEN 1  -- Portero
-                                            WHEN rol_id = 4 THEN 2  -- Centrales
-                                            WHEN rol_id = 2 THEN 3  -- Lateral Derecho
-                                            WHEN rol_id = 3 THEN 4  -- Lateral Izquierdo
-                                            WHEN rol_id BETWEEN 5 AND 7 THEN 5  -- Mediocampistas
-                                            WHEN rol_id BETWEEN 8 AND 10 THEN 6  -- Delanteros
-                                            ELSE 7 
-                                        END,
-                                        media DESC";
-
-                        using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@equipo", equipo);
-                            using (SQLiteDataReader reader = cmd.ExecuteReader())
-                            {
-                                List<(int id_jugador, int rol_id, double media)> jugadores = new();
-
-                                while (reader.Read())
-                                {
-                                    jugadores.Add((
-                                        reader.GetInt32(0), // id_jugador
-                                        reader.GetInt32(1), // rol_id
-                                        reader.GetDouble(2) // media
-                                    ));
-                                }
-
-                                if (jugadores.Count == 0) return;
-
-                                // Definir posiciones titulares
-                                Dictionary<int, int> posiciones = new();
-                                posiciones[1] = jugadores.First(j => j.rol_id == 1).id_jugador;
-                                posiciones[2] = jugadores.Where(j => j.rol_id == 4).Take(1).First().id_jugador;
-                                posiciones[3] = jugadores.Where(j => j.rol_id == 4).Skip(1).Take(1).First().id_jugador;
-                                posiciones[4] = jugadores.First(j => j.rol_id == 2).id_jugador;
-                                posiciones[5] = jugadores.First(j => j.rol_id == 3).id_jugador;
-                                posiciones[6] = jugadores.Where(j => j.rol_id >= 5 && j.rol_id <= 7).Take(1).First().id_jugador;
-                                posiciones[7] = jugadores.Where(j => j.rol_id >= 5 && j.rol_id <= 7).Skip(1).Take(1).First().id_jugador;
-                                posiciones[8] = jugadores.Where(j => j.rol_id >= 5 && j.rol_id <= 7).Skip(2).Take(1).First().id_jugador;
-                                posiciones[9] = jugadores.Where(j => j.rol_id >= 5 && j.rol_id <= 7).Skip(3).Take(1).First().id_jugador;
-                                posiciones[10] = jugadores.Where(j => j.rol_id >= 5 && j.rol_id <= 7).Skip(4).Take(1).First().id_jugador;
-                                posiciones[11] = jugadores.Where(j => j.rol_id >= 8 && j.rol_id <= 10).Take(1).First().id_jugador;
-
-                                // Insertar titulares
-                                foreach (var kvp in posiciones)
-                                {
-                                    string insertQuery = "INSERT INTO alineacion (id_jugador, posicion) VALUES (@id_jugador, @posicion)";
-                                    using (SQLiteCommand insertCmd = new SQLiteCommand(insertQuery, conn))
-                                    {
-                                        insertCmd.Parameters.AddWithValue("@id_jugador", kvp.Value);
-                                        insertCmd.Parameters.AddWithValue("@posicion", kvp.Key);
-                                        insertCmd.ExecuteNonQuery();
-                                    }
-                                }
-
-                                // Insertar suplentes (posición 12 en adelante)
-                                int pos = 12;
-                                foreach (var suplente in jugadores.Where(j => !posiciones.Values.Contains(j.id_jugador)))
-                                {
-                                    string insertQuery = "INSERT INTO alineacion (id_jugador, posicion) VALUES (@id_jugador, @posicion)";
-                                    using (SQLiteCommand insertCmd = new SQLiteCommand(insertQuery, conn))
-                                    {
-                                        insertCmd.Parameters.AddWithValue("@id_jugador", suplente.id_jugador);
-                                        insertCmd.Parameters.AddWithValue("@posicion", pos++);
-                                        insertCmd.ExecuteNonQuery();
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else if (tactica == "4-4-2")
-                    {
-                        // Query para obtener jugadores ordenados por su media de atributos
-                        query = @"SELECT id_jugador, rol_id,
-                                         (velocidad + resistencia + agresividad + calidad + estado_forma + moral) / 6.0 as media
-                                  FROM jugadores 
-                                  WHERE id_equipo = @equipo
-                                  ORDER BY 
-                                        CASE 
-                                            WHEN rol_id = 1 THEN 1  -- Portero
-                                            WHEN rol_id = 4 THEN 2  -- Centrales
-                                            WHEN rol_id = 2 THEN 3  -- Lateral Derecho
-                                            WHEN rol_id = 3 THEN 4  -- Lateral Izquierdo
-                                            WHEN rol_id BETWEEN 5 AND 7 THEN 5  -- Mediocampistas
-                                            WHEN rol_id BETWEEN 8 AND 10 THEN 6  -- Delanteros
-                                            ELSE 7 
-                                        END,
-                                        media DESC";
-
-                        using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@equipo", equipo);
-                            using (SQLiteDataReader reader = cmd.ExecuteReader())
-                            {
-                                List<(int id_jugador, int rol_id, double media)> jugadores = new();
-
-                                while (reader.Read())
-                                {
-                                    jugadores.Add((
-                                        reader.GetInt32(0), // id_jugador
-                                        reader.GetInt32(1), // rol_id
-                                        reader.GetDouble(2) // media
-                                    ));
-                                }
-
-                                if (jugadores.Count == 0) return;
-
-                                // Definir posiciones titulares
-                                Dictionary<int, int> posiciones = new();
-                                posiciones[1] = jugadores.First(j => j.rol_id == 1).id_jugador;
-                                posiciones[2] = jugadores.Where(j => j.rol_id == 4).Take(1).First().id_jugador;
-                                posiciones[3] = jugadores.Where(j => j.rol_id == 4).Skip(1).Take(1).First().id_jugador;
-                                posiciones[4] = jugadores.First(j => j.rol_id == 2).id_jugador;
-                                posiciones[5] = jugadores.First(j => j.rol_id == 3).id_jugador;
-                                posiciones[6] = jugadores.Where(j => j.rol_id >= 5 && j.rol_id <= 7).Take(1).First().id_jugador;
-                                posiciones[7] = jugadores.Where(j => j.rol_id >= 5 && j.rol_id <= 7).Skip(1).Take(1).First().id_jugador;
-                                posiciones[8] = jugadores.Where(j => j.rol_id >= 5 && j.rol_id <= 7).Skip(2).Take(1).First().id_jugador;
-                                posiciones[9] = jugadores.Where(j => j.rol_id >= 5 && j.rol_id <= 7).Skip(3).Take(1).First().id_jugador;
-                                posiciones[10] = jugadores.Where(j => j.rol_id >= 8 && j.rol_id <= 10).Take(1).First().id_jugador;
-                                posiciones[11] = jugadores.Where(j => j.rol_id >= 8 && j.rol_id <= 10).Skip(1).Take(1).First().id_jugador;
-
-                                // Insertar titulares
-                                foreach (var kvp in posiciones)
-                                {
-                                    string insertQuery = "INSERT INTO alineacion (id_jugador, posicion) VALUES (@id_jugador, @posicion)";
-                                    using (SQLiteCommand insertCmd = new SQLiteCommand(insertQuery, conn))
-                                    {
-                                        insertCmd.Parameters.AddWithValue("@id_jugador", kvp.Value);
-                                        insertCmd.Parameters.AddWithValue("@posicion", kvp.Key);
-                                        insertCmd.ExecuteNonQuery();
-                                    }
-                                }
-
-                                // Insertar suplentes (posición 12 en adelante)
-                                int pos = 12;
-                                foreach (var suplente in jugadores.Where(j => !posiciones.Values.Contains(j.id_jugador)))
-                                {
-                                    string insertQuery = "INSERT INTO alineacion (id_jugador, posicion) VALUES (@id_jugador, @posicion)";
-                                    using (SQLiteCommand insertCmd = new SQLiteCommand(insertQuery, conn))
-                                    {
-                                        insertCmd.Parameters.AddWithValue("@id_jugador", suplente.id_jugador);
-                                        insertCmd.Parameters.AddWithValue("@posicion", pos++);
-                                        insertCmd.ExecuteNonQuery();
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else if (tactica == "4-3-3")
-                    {
-                        // Query para obtener jugadores ordenados por su media de atributos
-                        query = @"SELECT id_jugador, rol_id,
-                                         (velocidad + resistencia + agresividad + calidad + estado_forma + moral) / 6.0 as media
-                                  FROM jugadores 
-                                  WHERE id_equipo = @equipo
-                                  ORDER BY 
-                                        CASE 
-                                            WHEN rol_id = 1 THEN 1  -- Portero
-                                            WHEN rol_id = 4 THEN 2  -- Centrales
-                                            WHEN rol_id = 2 THEN 3  -- Lateral Derecho
-                                            WHEN rol_id = 3 THEN 4  -- Lateral Izquierdo
-                                            WHEN rol_id BETWEEN 5 AND 7 THEN 5  -- Mediocampistas
-                                            WHEN rol_id BETWEEN 8 AND 10 THEN 6  -- Delanteros
-                                            ELSE 7 
-                                        END,
-                                        media DESC";
-
-                        using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@equipo", equipo);
-                            using (SQLiteDataReader reader = cmd.ExecuteReader())
-                            {
-                                List<(int id_jugador, int rol_id, double media)> jugadores = new();
-
-                                while (reader.Read())
-                                {
-                                    jugadores.Add((
-                                        reader.GetInt32(0), // id_jugador
-                                        reader.GetInt32(1), // rol_id
-                                        reader.GetDouble(2) // media
-                                    ));
-                                }
-
-                                if (jugadores.Count == 0) return;
-
-                                // Definir posiciones titulares
-                                Dictionary<int, int> posiciones = new();
-                                posiciones[1] = jugadores.First(j => j.rol_id == 1).id_jugador;
-                                posiciones[2] = jugadores.Where(j => j.rol_id == 4).Take(1).First().id_jugador;
-                                posiciones[3] = jugadores.Where(j => j.rol_id == 4).Skip(1).Take(1).First().id_jugador;
-                                posiciones[4] = jugadores.First(j => j.rol_id == 2).id_jugador;
-                                posiciones[5] = jugadores.First(j => j.rol_id == 3).id_jugador;
-                                posiciones[6] = jugadores.Where(j => j.rol_id >= 5 && j.rol_id <= 7).Take(1).First().id_jugador;
-                                posiciones[7] = jugadores.Where(j => j.rol_id >= 5 && j.rol_id <= 7).Skip(1).Take(1).First().id_jugador;
-                                posiciones[8] = jugadores.Where(j => j.rol_id >= 5 && j.rol_id <= 7).Skip(2).Take(1).First().id_jugador;
-                                posiciones[9] = jugadores.Where(j => j.rol_id >= 8 && j.rol_id <= 10).Take(1).First().id_jugador;
-                                posiciones[10] = jugadores.Where(j => j.rol_id >= 8 && j.rol_id <= 10).Skip(1).Take(1).First().id_jugador;
-                                posiciones[11] = jugadores.Where(j => j.rol_id >= 8 && j.rol_id <= 10).Skip(2).Take(1).First().id_jugador;
-
-                                // Insertar titulares
-                                foreach (var kvp in posiciones)
-                                {
-                                    string insertQuery = "INSERT INTO alineacion (id_jugador, posicion) VALUES (@id_jugador, @posicion)";
-                                    using (SQLiteCommand insertCmd = new SQLiteCommand(insertQuery, conn))
-                                    {
-                                        insertCmd.Parameters.AddWithValue("@id_jugador", kvp.Value);
-                                        insertCmd.Parameters.AddWithValue("@posicion", kvp.Key);
-                                        insertCmd.ExecuteNonQuery();
-                                    }
-                                }
-
-                                // Insertar suplentes (posición 12 en adelante)
-                                int pos = 12;
-                                foreach (var suplente in jugadores.Where(j => !posiciones.Values.Contains(j.id_jugador)))
-                                {
-                                    string insertQuery = "INSERT INTO alineacion (id_jugador, posicion) VALUES (@id_jugador, @posicion)";
-                                    using (SQLiteCommand insertCmd = new SQLiteCommand(insertQuery, conn))
-                                    {
-                                        insertCmd.Parameters.AddWithValue("@id_jugador", suplente.id_jugador);
-                                        insertCmd.Parameters.AddWithValue("@posicion", pos++);
-                                        insertCmd.ExecuteNonQuery();
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else if (tactica == "3-5-2")
-                    {
-                        // Query para obtener jugadores ordenados por su media de atributos
-                        query = @"SELECT id_jugador, rol_id,
-                                         (velocidad + resistencia + agresividad + calidad + estado_forma + moral) / 6.0 as media
-                                  FROM jugadores 
-                                  WHERE id_equipo = @equipo
-                                  ORDER BY 
-                                        CASE 
-                                            WHEN rol_id = 1 THEN 1  -- Portero
-                                            WHEN rol_id = 4 THEN 2  -- Centrales
-                                            WHEN rol_id = 2 THEN 3  -- Lateral Derecho
-                                            WHEN rol_id = 3 THEN 4  -- Lateral Izquierdo
-                                            WHEN rol_id BETWEEN 5 AND 7 THEN 5  -- Mediocampistas
-                                            WHEN rol_id BETWEEN 8 AND 10 THEN 6  -- Delanteros
-                                            ELSE 7 
-                                        END,
-                                        media DESC";
-
-                        using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@equipo", equipo);
-                            using (SQLiteDataReader reader = cmd.ExecuteReader())
-                            {
-                                List<(int id_jugador, int rol_id, double media)> jugadores = new();
-
-                                while (reader.Read())
-                                {
-                                    jugadores.Add((
-                                        reader.GetInt32(0), // id_jugador
-                                        reader.GetInt32(1), // rol_id
-                                        reader.GetDouble(2) // media
-                                    ));
-                                }
-
-                                if (jugadores.Count == 0) return;
-
-                                // Definir posiciones titulares
-                                Dictionary<int, int> posiciones = new();
-                                posiciones[1] = jugadores.First(j => j.rol_id == 1).id_jugador;
-                                posiciones[2] = jugadores.Where(j => j.rol_id == 4).Take(1).First().id_jugador;
-                                posiciones[3] = jugadores.Where(j => j.rol_id == 4).Skip(1).Take(1).First().id_jugador;
-                                posiciones[4] = jugadores.Where(j => j.rol_id == 4).Skip(2).Take(1).First().id_jugador;
-                                posiciones[5] = jugadores.Where(j => j.rol_id >= 5 && j.rol_id <= 7).Take(1).First().id_jugador;
-                                posiciones[6] = jugadores.Where(j => j.rol_id >= 5 && j.rol_id <= 7).Skip(1).Take(1).First().id_jugador;
-                                posiciones[7] = jugadores.Where(j => j.rol_id >= 5 && j.rol_id <= 7).Skip(2).Take(1).First().id_jugador;
-                                posiciones[8] = jugadores.Where(j => j.rol_id >= 5 && j.rol_id <= 7).Skip(3).Take(1).First().id_jugador;
-                                posiciones[9] = jugadores.Where(j => j.rol_id >= 5 && j.rol_id <= 7).Skip(4).Take(1).First().id_jugador;
-                                posiciones[10] = jugadores.Where(j => j.rol_id >= 8 && j.rol_id <= 10).Take(1).First().id_jugador;
-                                posiciones[11] = jugadores.Where(j => j.rol_id >= 8 && j.rol_id <= 10).Skip(1).Take(1).First().id_jugador;
-
-                                // Insertar titulares
-                                foreach (var kvp in posiciones)
-                                {
-                                    string insertQuery = "INSERT INTO alineacion (id_jugador, posicion) VALUES (@id_jugador, @posicion)";
-                                    using (SQLiteCommand insertCmd = new SQLiteCommand(insertQuery, conn))
-                                    {
-                                        insertCmd.Parameters.AddWithValue("@id_jugador", kvp.Value);
-                                        insertCmd.Parameters.AddWithValue("@posicion", kvp.Key);
-                                        insertCmd.ExecuteNonQuery();
-                                    }
-                                }
-
-                                // Insertar suplentes (posición 12 en adelante)
-                                int pos = 12;
-                                foreach (var suplente in jugadores.Where(j => !posiciones.Values.Contains(j.id_jugador)))
-                                {
-                                    string insertQuery = "INSERT INTO alineacion (id_jugador, posicion) VALUES (@id_jugador, @posicion)";
-                                    using (SQLiteCommand insertCmd = new SQLiteCommand(insertQuery, conn))
-                                    {
-                                        insertCmd.Parameters.AddWithValue("@id_jugador", suplente.id_jugador);
-                                        insertCmd.Parameters.AddWithValue("@posicion", pos++);
-                                        insertCmd.ExecuteNonQuery();
-                                    }
+                                    insertCmd.Parameters.AddWithValue("@id_jugador", suplente.id_jugador);
+                                    insertCmd.Parameters.AddWithValue("@posicion", pos++);
+                                    insertCmd.ExecuteNonQuery();
                                 }
                             }
                         }
@@ -1008,8 +639,13 @@ namespace ChampionManager25.Datos
             {
                 MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show($"Error al generar la alineación: {ex.Message}");
+            }
         }
-        
+
+
         // ======================================================= Método para mostrar la lista de Jugadores Detallada por equipo
         public List<Jugador> MostrarAlineacion(int inicio, int final)
         {
@@ -1065,6 +701,7 @@ namespace ChampionManager25.Datos
                                     Altura = dr.GetInt32(dr.GetOrdinal("altura")),
                                     Lesion = dr.GetInt32(dr.GetOrdinal("lesion")),
                                     TipoLesion = dr.IsDBNull(dr.GetOrdinal("tipo_lesion")) ? null : dr.GetString(dr.GetOrdinal("tipo_lesion")),
+                                    LesionTratada = dr.GetInt32(dr.GetOrdinal("lesion_tratada")),
                                     Sancionado = dr.GetInt32(dr.GetOrdinal("sancionado")),
                                     Nacionalidad = dr.GetString(dr.GetOrdinal("nacionalidad")),
                                     Status = dr.GetInt32(dr.GetOrdinal("status")),
@@ -1250,6 +887,7 @@ namespace ChampionManager25.Datos
                                     Altura = dr.GetInt32(dr.GetOrdinal("altura")),
                                     Lesion = dr.GetInt32(dr.GetOrdinal("lesion")),
                                     TipoLesion = dr.IsDBNull(dr.GetOrdinal("tipo_lesion")) ? null : dr.GetString(dr.GetOrdinal("tipo_lesion")),
+                                    LesionTratada = dr.GetInt32(dr.GetOrdinal("lesion_tratada")),
                                     Nacionalidad = dr.GetString(dr.GetOrdinal("nacionalidad")),
                                     Status = dr.GetInt32(dr.GetOrdinal("status")),
                                     RutaImagen = dr.GetString(dr.GetOrdinal("ruta_imagen"))
@@ -1332,6 +970,7 @@ namespace ChampionManager25.Datos
                                     Tiro = dr.GetInt32(dr.GetOrdinal("tiro")),
                                     Lesion = dr.GetInt32(dr.GetOrdinal("lesion")),
                                     TipoLesion = dr.IsDBNull(dr.GetOrdinal("tipo_lesion")) ? null : dr.GetString(dr.GetOrdinal("tipo_lesion")),
+                                    LesionTratada = dr.GetInt32(dr.GetOrdinal("lesion_tratada")),
                                     Sancionado = dr.GetInt32(dr.GetOrdinal("sancionado")),
                                     FechaNacimiento = DateTime.Parse(dr.GetString(dr.GetOrdinal("fecha_nacimiento"))),
                                     Peso = dr.GetInt32(dr.GetOrdinal("peso")),
@@ -1415,6 +1054,7 @@ namespace ChampionManager25.Datos
                                     Tiro = dr.GetInt32(dr.GetOrdinal("tiro")),
                                     Lesion = dr.GetInt32(dr.GetOrdinal("lesion")),
                                     TipoLesion = dr.IsDBNull(dr.GetOrdinal("tipo_lesion")) ? null : dr.GetString(dr.GetOrdinal("tipo_lesion")),
+                                    LesionTratada = dr.GetInt32(dr.GetOrdinal("lesion_tratada")),
                                     Sancionado = dr.GetInt32(dr.GetOrdinal("sancionado")),
                                     FechaNacimiento = DateTime.Parse(dr.GetString(dr.GetOrdinal("fecha_nacimiento"))),
                                     Peso = dr.GetInt32(dr.GetOrdinal("peso")),
@@ -1808,7 +1448,7 @@ namespace ChampionManager25.Datos
             }
             catch (SQLiteException ex)
             {
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
         }
 
@@ -1835,7 +1475,7 @@ namespace ChampionManager25.Datos
             }
             catch (SQLiteException ex)
             {
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
         }
 
@@ -1862,7 +1502,7 @@ namespace ChampionManager25.Datos
             }
             catch (SQLiteException ex)
             {
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
         }
 
@@ -1889,7 +1529,7 @@ namespace ChampionManager25.Datos
             }
             catch (SQLiteException ex)
             {
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
         }
 
@@ -1918,7 +1558,7 @@ namespace ChampionManager25.Datos
             }
             catch (SQLiteException ex)
             {
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
         }
 
@@ -1961,7 +1601,52 @@ namespace ChampionManager25.Datos
             }
             catch (SQLiteException ex)
             {
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // ---------------------------------------------------------------------- Método que cambia el contrato tras un fichaje
+        public void CambiarContratoJugador(int jugador, int salario, int clausula, int anios, int bonusP, int bonusG, int equipo)
+        {
+            DateTime nuevaFecha = new DateTime(Metodos.hoy.Year + anios, 6, 30);
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Consulta SQL para obtener las finanzas del equipo
+                    string query = @"UPDATE contratos SET salario_anual = @Salario, 
+                                                          clausula_rescision = @Clausula, 
+                                                          duracion = @Anios, 
+                                                          bono_por_partidos = @BonusP, 
+                                                          bono_por_goles = @BonusG, 
+                                                          fecha_inicio = @FechaInicio,
+                                                          fecha_fin = @FechaFin,
+                                                          id_equipo = @IdEquipo
+                                     WHERE id_jugador = @IdJugador";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        // Agregar parámetro para evitar inyección SQL
+                        cmd.Parameters.AddWithValue("@IdJugador", jugador);
+                        cmd.Parameters.AddWithValue("@Salario", salario);
+                        cmd.Parameters.AddWithValue("@Clausula", clausula);
+                        cmd.Parameters.AddWithValue("@Anios", anios);
+                        cmd.Parameters.AddWithValue("@FechaInicio", Metodos.hoy.ToString("yyyy-MM-dd"));
+                        cmd.Parameters.AddWithValue("@FechaFin", nuevaFecha.ToString("yyyy-MM-dd"));
+                        cmd.Parameters.AddWithValue("@BonusP", bonusP);
+                        cmd.Parameters.AddWithValue("@BonusG", bonusG);
+                        cmd.Parameters.AddWithValue("@IdEquipo", equipo);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
         }
 
@@ -2028,6 +1713,8 @@ namespace ChampionManager25.Datos
                                     Entradas = dr.GetInt32(dr.GetOrdinal("entradas")),
                                     Tiro = dr.GetInt32(dr.GetOrdinal("tiro")),
                                     Lesion = dr.GetInt32(dr.GetOrdinal("lesion")),
+                                    TipoLesion = dr.IsDBNull(dr.GetOrdinal("tipo_lesion")) ? null : dr.GetString(dr.GetOrdinal("tipo_lesion")),
+                                    LesionTratada = dr.GetInt32(dr.GetOrdinal("lesion_tratada")),
                                     ValorMercado = dr.GetInt32(dr.GetOrdinal("valor_mercado")),
                                     EstadoAnimo = dr.GetInt32(dr.GetOrdinal("estado_animo")),
                                     RutaImagen = dr.GetString(dr.GetOrdinal("ruta_imagen")),
@@ -2050,7 +1737,7 @@ namespace ChampionManager25.Datos
             catch (SQLiteException ex)
             {
                 // En caso de error, mostrar el mensaje con la excepción
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
 
             return lista;
@@ -2140,6 +1827,8 @@ namespace ChampionManager25.Datos
                                     Entradas = dr.GetInt32(dr.GetOrdinal("entradas")),
                                     Tiro = dr.GetInt32(dr.GetOrdinal("tiro")),
                                     Lesion = dr.GetInt32(dr.GetOrdinal("lesion")),
+                                    TipoLesion = dr.IsDBNull(dr.GetOrdinal("tipo_lesion")) ? null : dr.GetString(dr.GetOrdinal("tipo_lesion")),
+                                    LesionTratada = dr.GetInt32(dr.GetOrdinal("lesion_tratada")),
                                     ValorMercado = dr.GetInt32(dr.GetOrdinal("valor_mercado")),
                                     EstadoAnimo = dr.GetInt32(dr.GetOrdinal("estado_animo")),
                                     RutaImagen = dr.GetString(dr.GetOrdinal("ruta_imagen")),
@@ -2162,7 +1851,7 @@ namespace ChampionManager25.Datos
             catch (SQLiteException ex)
             {
                 // En caso de error, mostrar el mensaje con la excepción
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
 
             return lista;
@@ -2193,7 +1882,7 @@ namespace ChampionManager25.Datos
             }
             catch (SQLiteException ex)
             {
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
         }
 
@@ -2219,7 +1908,7 @@ namespace ChampionManager25.Datos
             }
             catch (SQLiteException ex)
             {
-                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
             }
         }
 
@@ -2272,6 +1961,425 @@ namespace ChampionManager25.Datos
             }
 
             return lista;
+        }
+
+        // -------------------------------------------------------- Método para devuelve el salario medio de los jugadores con la misma media
+        public int SalarioMedioJugadores(int jugador)
+        {
+            int num = 0;
+
+            using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+            {
+                conn.Open();
+
+                string query = @"WITH media_objetivo AS (
+                                    SELECT 
+                                        (velocidad + resistencia + agresividad + calidad + estado_forma + moral) / 6.0 AS media
+                                    FROM jugadores
+                                    WHERE id_jugador = @IdJugador
+                                 )
+                                 SELECT 
+                                    CAST((CAST(AVG(c.salario_anual) AS FLOAT) + 500) / 1000 AS INTEGER) * 1000 AS salario_medio
+                                 FROM jugadores j
+                                 JOIN contratos c ON j.id_jugador = c.id_jugador
+                                 JOIN media_objetivo mo ON 
+                                    ABS(((j.velocidad + j.resistencia + j.agresividad + j.calidad + j.estado_forma + j.moral) / 6.0) - mo.media) < 0.01";
+
+                using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@IdJugador", jugador);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            num = reader.GetInt32(0);
+                        }
+                    }
+                }
+            }
+
+            return num;
+        }
+
+        // -------------------------------------------------------- Método para devuelve la clausula media de los jugadores con la misma media
+        public int ClausulaMediaJugadores(int jugador)
+        {
+            int num = 0;
+
+            using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+            {
+                conn.Open();
+
+                string query = @"WITH media_objetivo AS (
+                                    SELECT 
+                                        (velocidad + resistencia + agresividad + calidad + estado_forma + moral) / 6.0 AS media
+                                    FROM jugadores
+                                    WHERE id_jugador = @IdJugador
+                                 )
+                                 SELECT 
+                                    CAST((CAST(AVG(c.clausula_rescision) AS FLOAT) + 500) / 1000 AS INTEGER) * 1000 AS clausula_media
+                                 FROM jugadores j
+                                 JOIN contratos c ON j.id_jugador = c.id_jugador
+                                 JOIN media_objetivo mo ON 
+                                    ABS(((j.velocidad + j.resistencia + j.agresividad + j.calidad + j.estado_forma + j.moral) / 6.0) - mo.media) < 0.01";
+
+                using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@IdJugador", jugador);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            num = reader.GetInt32(0);
+                        }
+                    }
+                }
+            }
+
+            return num;
+        }
+
+        // --------------------------------------------------------------------- Método que borra la Proxima Fecha de Negociacion
+        public void BorrarFechaNegociacion(int jugador)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Consulta SQL para obtener las finanzas del equipo
+                    string query = @"UPDATE jugadores SET proxima_negociacion = NULL WHERE id_jugador = @IdJugador";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        // Agregar parámetro para evitar inyección SQL
+                        cmd.Parameters.AddWithValue("@IdJugador", jugador);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // --------------------------------------------------------------------- Método que suma una semana lesionado
+        public void SumarSemanaLesionado(int jugador)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Consulta SQL para obtener las finanzas del equipo
+                    string query = @"UPDATE estadisticas_jugadores SET semanas_lesionado = semanas_lesionado + 1 WHERE id_jugador = @IdJugador";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        // Agregar parámetro para evitar inyección SQL
+                        cmd.Parameters.AddWithValue("@IdJugador", jugador);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // -------------------------------------------------------- Método para devuelve las semanas lesionado de un jugador
+        public int SemanasLesionado(int jugador)
+        {
+            int num = 0;
+
+            using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+            {
+                conn.Open();
+
+                string query = @"SELECT semanas_lesionado FROM estadisticas_jugadores WHERE id_jugador = @IdJugador";
+
+                using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@IdJugador", jugador);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            num = reader.GetInt32(0);
+                        }
+                    }
+                }
+            }
+
+            return num;
+        }
+
+        // --------------------------------------------------------------------- Método que pone al jugador en tratamiento por lesion
+        public void ActivarTratamientoLesion(int jugador, int valor)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Consulta SQL para obtener las finanzas del equipo
+                    string query = @"UPDATE jugadores SET lesion_tratada = @Valor WHERE id_jugador = @IdJugador";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        // Agregar parámetro para evitar inyección SQL
+                        cmd.Parameters.AddWithValue("@IdJugador", jugador);
+                        cmd.Parameters.AddWithValue("@Valor", valor);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // --------------------------------------------------------------------- Método que pone un jugador Transferible
+        public void PonerTransferible(int jugador)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Consulta SQL para obtener las finanzas del equipo
+                    string query = @"UPDATE jugadores SET situacion_mercado = 1 WHERE id_jugador = @IdJugador";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        // Agregar parámetro para evitar inyección SQL
+                        cmd.Parameters.AddWithValue("@IdJugador", jugador);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // --------------------------------------------------------------------- Método que pone un jugador Cedible
+        public void PonerCedible(int jugador)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Consulta SQL para obtener las finanzas del equipo
+                    string query = @"UPDATE jugadores SET situacion_mercado = 2 WHERE id_jugador = @IdJugador";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        // Agregar parámetro para evitar inyección SQL
+                        cmd.Parameters.AddWithValue("@IdJugador", jugador);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // --------------------------------------------------------------------- Método que realiza los traspasos de la IA
+        public void TraspasosIA(int equipo)
+        {
+            using (var connection = new SQLiteConnection(Conexion.Cadena))
+            {
+                connection.Open();
+                var transaction = connection.BeginTransaction();
+
+                var cmdEquipos = new SQLiteCommand("SELECT id_equipo FROM equipos WHERE id_equipo <> @idManagerEquipo AND id_equipo <> 0", connection, transaction);
+                cmdEquipos.Parameters.AddWithValue("@idManagerEquipo", equipo);
+                var readerEquipos = cmdEquipos.ExecuteReader();
+                var rnd = new Random();
+
+                var equiposIA = new List<int>();
+                while (readerEquipos.Read())
+                    equiposIA.Add(readerEquipos.GetInt32(0));
+                readerEquipos.Close();
+
+                foreach (int idEquipoIA in equiposIA)
+                {
+                    if (rnd.Next(0, 100) >= 40) continue;
+
+                    // Obtener reputación del equipo IA
+                    int reputacionEquipo;
+                    var cmdReputacion = new SQLiteCommand("SELECT reputacion FROM equipos WHERE id_equipo = @idEquipoIA", connection, transaction);
+                    cmdReputacion.Parameters.AddWithValue("@idEquipoIA", idEquipoIA);
+                    reputacionEquipo = Convert.ToInt32(cmdReputacion.ExecuteScalar());
+
+                    // Determinar media mínima exigida según la reputación
+                    int mediaMinima = reputacionEquipo switch
+                                    {
+                                        >= 90 => 80,
+                                        >= 70 => 70,
+                                        >= 50 => 60,
+                                        _ => 50
+                                    };
+
+                    var necesidades = new Dictionary<int, int>
+                                    {
+                                        { 1, 2 },  { 2, 2 }, { 3, 2 }, { 4, 4 },
+                                        { 5, 2 },  { 6, 2 }, { 7, 2 }, { 8, 2 },
+                                        { 9, 2 }, { 10, 2 }
+                                    };
+
+                    var cmdConteo = new SQLiteCommand(@"SELECT rol_id, COUNT(*) 
+                                                        FROM jugadores 
+                                                        WHERE id_equipo = @idEquipo 
+                                                        GROUP BY rol_id", connection, transaction);
+                    cmdConteo.Parameters.AddWithValue("@idEquipo", idEquipoIA);
+
+                    var actuales = new Dictionary<int, int>();
+                    using (var lector = cmdConteo.ExecuteReader())
+                    {
+                        while (lector.Read())
+                        {
+                            int rol = lector.GetInt32(0);
+                            int cantidad = lector.GetInt32(1);
+                            actuales[rol] = cantidad;
+                        }
+                    }
+
+                    int rolNecesitado = -1;
+                    int maxDeficit = 0;
+                    foreach (var kvp in necesidades)
+                    {
+                        int rol = kvp.Key;
+                        int minimo = kvp.Value;
+                        int tiene = actuales.ContainsKey(rol) ? actuales[rol] : 0;
+                        int deficit = minimo - tiene;
+
+                        if (deficit > maxDeficit)
+                        {
+                            maxDeficit = deficit;
+                            rolNecesitado = rol;
+                        }
+                    }
+
+                    if (rolNecesitado == -1) continue;
+
+                    // Buscar un jugador en el mercado que cumpla la media mínima
+                    var cmdObjetivos = new SQLiteCommand(@"SELECT id_jugador, id_equipo, valor_mercado 
+                                                           FROM jugadores 
+                                                           WHERE situacion_mercado = 1 
+                                                              AND rol_id = @rolNecesitado 
+                                                              AND id_equipo != @equipoIA 
+                                                              AND (
+                                                                  (velocidad + resistencia + agresividad + calidad + estado_forma + moral) / 6.0
+                                                              ) >= @mediaMinima
+                                                           ORDER BY valor_mercado ASC 
+                                                           LIMIT 1", connection, transaction);
+                    cmdObjetivos.Parameters.AddWithValue("@rolNecesitado", rolNecesitado);
+                    cmdObjetivos.Parameters.AddWithValue("@equipoIA", idEquipoIA);
+                    cmdObjetivos.Parameters.AddWithValue("@mediaMinima", mediaMinima);
+
+                    var readerObjetivo = cmdObjetivos.ExecuteReader();
+
+                    if (readerObjetivo.Read())
+                    {
+                        int idJugador = readerObjetivo.GetInt32(0);
+                        int idEquipoOrigen = readerObjetivo.GetInt32(1);
+                        int valor = readerObjetivo.GetInt32(2);
+                        readerObjetivo.Close();
+
+                        // Comprobar presupuesto
+                        var cmdPresupuesto = new SQLiteCommand("SELECT presupuesto FROM equipos WHERE id_equipo = @idEquipo", connection, transaction);
+                        cmdPresupuesto.Parameters.AddWithValue("@idEquipo", idEquipoIA);
+                        int presupuestoIA = Convert.ToInt32(cmdPresupuesto.ExecuteScalar());
+
+                        if (valor > presupuestoIA)
+                            continue;
+
+                        int salario = valor / 10;
+                        int duracion = rnd.Next(2, 5);
+                        int clausula = valor * 2;
+
+                        string fechaHoy = Metodos.hoy.ToString("yyyy-MM-dd");
+                        string fechaFin = Metodos.hoy.AddYears(duracion).ToString("yyyy-MM-dd");
+
+                        var updateContratoAnterior = new SQLiteCommand(@"UPDATE contratos 
+                                                                         SET fecha_fin = @fechaFinReal 
+                                                                         WHERE id_jugador = @idJugador AND fecha_fin > @fechaFinReal", connection, transaction);
+                        updateContratoAnterior.Parameters.AddWithValue("@fechaFinReal", fechaHoy);
+                        updateContratoAnterior.Parameters.AddWithValue("@idJugador", idJugador);
+                        updateContratoAnterior.ExecuteNonQuery();
+
+                        var insertTransferencia = new SQLiteCommand(@"INSERT INTO transferencias 
+                                                                      (id_jugador, id_equipo_origen, id_equipo_destino, tipo_fichaje, monto_oferta, fecha_oferta, fecha_traspaso, salario_anual, duracion, clausula_rescision, respuesta_equipo, respuesta_jugador)
+                                                                      VALUES (@idJugador, @origen, @destino, 1, @monto, @fecha, @fecha, @salario, @duracion, @clausula, 1, 1)", connection, transaction);
+                        insertTransferencia.Parameters.AddWithValue("@idJugador", idJugador);
+                        insertTransferencia.Parameters.AddWithValue("@origen", idEquipoOrigen);
+                        insertTransferencia.Parameters.AddWithValue("@destino", idEquipoIA);
+                        insertTransferencia.Parameters.AddWithValue("@monto", valor);
+                        insertTransferencia.Parameters.AddWithValue("@fecha", fechaHoy);
+                        insertTransferencia.Parameters.AddWithValue("@salario", salario);
+                        insertTransferencia.Parameters.AddWithValue("@duracion", duracion);
+                        insertTransferencia.Parameters.AddWithValue("@clausula", clausula);
+                        insertTransferencia.ExecuteNonQuery();
+
+                        var updateJugador = new SQLiteCommand(@"UPDATE jugadores 
+                                                                SET id_equipo = @nuevoEquipo, situacion_mercado = 0 
+                                                                WHERE id_jugador = @idJugador", connection, transaction);
+                        updateJugador.Parameters.AddWithValue("@nuevoEquipo", idEquipoIA);
+                        updateJugador.Parameters.AddWithValue("@idJugador", idJugador);
+                        updateJugador.ExecuteNonQuery();
+
+                        var deleteContrato = new SQLiteCommand(@"DELETE FROM contratos WHERE id_jugador = @idJugador", connection, transaction);
+                        deleteContrato.Parameters.AddWithValue("@idJugador", idJugador);
+                        deleteContrato.ExecuteNonQuery();
+
+                        var insertContrato = new SQLiteCommand(@"INSERT INTO contratos 
+                                                                 (id_jugador, id_equipo, salario_anual, duracion, fecha_inicio, fecha_fin, clausula_rescision)
+                                                                 VALUES (@idJugador, @idEquipo, @salario, @duracion, @fechaInicio, @fechaFin, @clausula)", connection, transaction);
+                        insertContrato.Parameters.AddWithValue("@idJugador", idJugador);
+                        insertContrato.Parameters.AddWithValue("@idEquipo", idEquipoIA);
+                        insertContrato.Parameters.AddWithValue("@salario", salario);
+                        insertContrato.Parameters.AddWithValue("@duracion", duracion);
+                        insertContrato.Parameters.AddWithValue("@fechaInicio", fechaHoy);
+                        insertContrato.Parameters.AddWithValue("@fechaFin", fechaFin);
+                        insertContrato.Parameters.AddWithValue("@clausula", clausula);
+                        insertContrato.ExecuteNonQuery();
+
+                        var updatePresupuestoComprador = new SQLiteCommand("UPDATE equipos SET presupuesto = presupuesto - @valor WHERE id_equipo = @idEquipo", connection, transaction);
+                        updatePresupuestoComprador.Parameters.AddWithValue("@valor", valor);
+                        updatePresupuestoComprador.Parameters.AddWithValue("@idEquipo", idEquipoIA);
+                        updatePresupuestoComprador.ExecuteNonQuery();
+
+                        var updatePresupuestoVendedor = new SQLiteCommand("UPDATE equipos SET presupuesto = presupuesto + @valor WHERE id_equipo = @idEquipo", connection, transaction);
+                        updatePresupuestoVendedor.Parameters.AddWithValue("@valor", valor);
+                        updatePresupuestoVendedor.Parameters.AddWithValue("@idEquipo", idEquipoOrigen);
+                        updatePresupuestoVendedor.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        readerObjetivo.Close();
+                    }
+                }
+
+                transaction.Commit();
+                connection.Close();
+            }
         }
     }
 }

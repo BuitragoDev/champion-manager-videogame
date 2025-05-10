@@ -64,8 +64,8 @@ namespace ChampionManager25.Vistas
             imgEquipoBronce.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + rutaEquipo3));
 
             txtNombreBalonOro.Text = $"{_listaBalonOro[0].Nombre} {_listaBalonOro[0].Apellido} - {_listaBalonOro[0].Valoracion} puntos";
-            txtNombreBalonPlata.Text = $"{_listaBalonOro[1].Nombre} {_listaBalonOro[1].Apellido} - {_listaBalonOro[1].Valoracion} puntos puntos";
-            txtNombreBalonBronce.Text = $"{_listaBalonOro[2].Nombre} {_listaBalonOro[2].Apellido} - {_listaBalonOro[2].Valoracion}";
+            txtNombreBalonPlata.Text = $"{_listaBalonOro[1].Nombre} {_listaBalonOro[1].Apellido} - {_listaBalonOro[1].Valoracion} puntos";
+            txtNombreBalonBronce.Text = $"{_listaBalonOro[2].Nombre} {_listaBalonOro[2].Apellido} - {_listaBalonOro[2].Valoracion} puntos";
 
             // Bota de Oro
             imgFotoBotaOro.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + _listaBotaOro[0].RutaImagen));
@@ -104,16 +104,19 @@ namespace ChampionManager25.Vistas
             await Task.Run(() =>
             {
                 // Devolver a los jugadores cedidos a sus equipos
-                List<Transferencia> traspasos = _logicaTransferencia.ListarOfertas();
-                foreach (var traspaso in traspasos)
+                List<Transferencia> traspasos = _logicaTransferencia.ListarTraspasos();
+                if (traspasos != null)
                 {
-                    if (traspaso.TipoFichaje == 2)
+                    foreach (var traspaso in traspasos)
                     {
-                        _logicaJugador.CambiarDeEquipo(traspaso.IdJugador, traspaso.IdEquipoOrigen);
+                        if (traspaso.TipoFichaje == 2)
+                        {
+                            _logicaJugador.CambiarDeEquipo(traspaso.IdJugador, traspaso.IdEquipoOrigen);
+                        }
                     }
                 }
 
-                // Restar un año de contrato a todos los jugadores y dejar si equipo si es CERO
+                // Restar un año de contrato a todos los jugadores y dejar sin equipo si es CERO
                 List<Contrato> totalContratosAntes = _logicaJugador.MostrarListaTotalContratos();
                 foreach (var contrato in totalContratosAntes)
                 {

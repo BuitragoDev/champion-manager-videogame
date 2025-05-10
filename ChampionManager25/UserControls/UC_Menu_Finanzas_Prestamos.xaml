@@ -350,24 +350,32 @@
                         </Border>
 
                         <Border Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Background="LightGray">
-                            <Button x:Name="btnSolicitarPrestamo" Height="30" Width="350" Content="SOLICITAR PRÉSTAMO"
+                            <Button x:Name="btnSolicitarPrestamo" Height="40" Width="350" Content="SOLICITAR PRÉSTAMO"
                                     HorizontalAlignment="Center" VerticalAlignment="Center" Background="#23282d" Foreground="WhiteSmoke"
-                                    FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnSolicitarPrestamo_Click" Visibility="Hidden"  >
+                                    FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnSolicitarPrestamo_Click" Visibility="Hidden">
                                 <Button.Style>
-                                    <Style TargetType="Button">
-                                        <!-- Configuración inicial -->
-                                        <Setter Property="Background" Value="#23282d"/>
-                                        <Setter Property="BorderBrush" Value="Transparent"/>
-                                        <Setter Property="Foreground" Value="WhiteSmoke"/>
-                                        <Setter Property="BorderThickness" Value="0"/>
+                                    <Style TargetType="{x:Type Button}">
+                                        <Setter Property="Background" Value="#FF23282D" />
+                                        <Setter Property="Foreground" Value="WhiteSmoke" />
+                                        <Setter Property="FontSize" Value="24" />
+                                        <Setter Property="SnapsToDevicePixels" Value="True" />
+
                                         <Setter Property="Template">
                                             <Setter.Value>
-                                                <ControlTemplate TargetType="Button">
-                                                    <Border Background="{TemplateBinding Background}" 
-                                                            BorderBrush="{TemplateBinding BorderBrush}" 
-                                                            BorderThickness="{TemplateBinding BorderThickness}">
-                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                                        <Grid>
+                                                            <Image x:Name="imgBoton" Source="/Recursos/img/icons/enviar_icon.png" Height="32" Width="32" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Uniform" Margin="17,0,0,0"/>
+                                                            <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30,0,0,0" />
+                                                        </Grid>
                                                     </Border>
+
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="#2d343a" />
+                                                            <Setter Property="Foreground" Value="WhiteSmoke" />
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
                                                 </ControlTemplate>
                                             </Setter.Value>
                                         </Setter>
@@ -473,20 +481,28 @@
                             HorizontalAlignment="Center" VerticalAlignment="Center" Background="#23282d" Foreground="WhiteSmoke"
                             FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnCancelarPrestamo1_Click" Visibility="Hidden">
                         <Button.Style>
-                            <Style TargetType="Button">
-                                <!-- Configuración inicial -->
-                                <Setter Property="Background" Value="#23282d"/>
-                                <Setter Property="BorderBrush" Value="Transparent"/>
-                                <Setter Property="Foreground" Value="WhiteSmoke"/>
-                                <Setter Property="BorderThickness" Value="0"/>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#FF23282D" />
+                                <Setter Property="Foreground" Value="WhiteSmoke" />
+                                <Setter Property="FontSize" Value="24" />
+                                <Setter Property="SnapsToDevicePixels" Value="True" />
+
                                 <Setter Property="Template">
                                     <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="{TemplateBinding Background}" 
-                                                    BorderBrush="{TemplateBinding BorderBrush}" 
-                                                    BorderThickness="{TemplateBinding BorderThickness}">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                                <Grid>
+                                                    <Image x:Name="imgBoton" Source="/Recursos/img/icons/cancelar_icon.png" Height="24" Width="24" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Uniform" Margin="17,0,0,0"/>
+                                                    <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,0,0,0" />
+                                                </Grid>
                                             </Border>
+
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#2d343a" />
+                                                    <Setter Property="Foreground" Value="WhiteSmoke" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
                                         </ControlTemplate>
                                     </Setter.Value>
                                 </Setter>
@@ -533,20 +549,28 @@
                             HorizontalAlignment="Center" VerticalAlignment="Center" Background="#23282d" Foreground="WhiteSmoke"
                             FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnCancelarPrestamo2_Click" Visibility="Hidden">
                         <Button.Style>
-                            <Style TargetType="Button">
-                                <!-- Configuración inicial -->
-                                <Setter Property="Background" Value="#23282d"/>
-                                <Setter Property="BorderBrush" Value="Transparent"/>
-                                <Setter Property="Foreground" Value="WhiteSmoke"/>
-                                <Setter Property="BorderThickness" Value="0"/>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#FF23282D" />
+                                <Setter Property="Foreground" Value="WhiteSmoke" />
+                                <Setter Property="FontSize" Value="24" />
+                                <Setter Property="SnapsToDevicePixels" Value="True" />
+
                                 <Setter Property="Template">
                                     <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="{TemplateBinding Background}" 
-                                                    BorderBrush="{TemplateBinding BorderBrush}" 
-                                                    BorderThickness="{TemplateBinding BorderThickness}">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                                <Grid>
+                                                    <Image x:Name="imgBoton" Source="/Recursos/img/icons/cancelar_icon.png" Height="24" Width="24" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Uniform" Margin="17,0,0,0"/>
+                                                    <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,0,0,0" />
+                                                </Grid>
                                             </Border>
+
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#2d343a" />
+                                                    <Setter Property="Foreground" Value="WhiteSmoke" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
                                         </ControlTemplate>
                                     </Setter.Value>
                                 </Setter>
@@ -593,20 +617,28 @@
                             HorizontalAlignment="Center" VerticalAlignment="Center" Background="#23282d" Foreground="WhiteSmoke"
                             FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnCancelarPrestamo3_Click" Visibility="Hidden">
                         <Button.Style>
-                            <Style TargetType="Button">
-                                <!-- Configuración inicial -->
-                                <Setter Property="Background" Value="#23282d"/>
-                                <Setter Property="BorderBrush" Value="Transparent"/>
-                                <Setter Property="Foreground" Value="WhiteSmoke"/>
-                                <Setter Property="BorderThickness" Value="0"/>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#FF23282D" />
+                                <Setter Property="Foreground" Value="WhiteSmoke" />
+                                <Setter Property="FontSize" Value="24" />
+                                <Setter Property="SnapsToDevicePixels" Value="True" />
+
                                 <Setter Property="Template">
                                     <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="{TemplateBinding Background}" 
-                                                    BorderBrush="{TemplateBinding BorderBrush}" 
-                                                    BorderThickness="{TemplateBinding BorderThickness}">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                                <Grid>
+                                                    <Image x:Name="imgBoton" Source="/Recursos/img/icons/cancelar_icon.png" Height="24" Width="24" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Uniform" Margin="17,0,0,0"/>
+                                                    <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,0,0,0" />
+                                                </Grid>
                                             </Border>
+
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#2d343a" />
+                                                    <Setter Property="Foreground" Value="WhiteSmoke" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
                                         </ControlTemplate>
                                     </Setter.Value>
                                 </Setter>

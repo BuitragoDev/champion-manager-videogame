@@ -107,6 +107,22 @@ namespace ChampionManager25.UserControls
                 btnContratar.Visibility = Visibility.Visible;
                 btnOjearJugador.Visibility = Visibility.Visible;
             }
+
+            List<Transferencia> ofertas = _logicaTransferencia.ListarTraspasos();
+            DateTime fechaHoy = Metodos.hoy;
+            DateTime fechaManiana = fechaHoy.AddDays(1);
+
+            foreach (var oferta in ofertas)
+            {
+                if (!string.IsNullOrWhiteSpace(oferta.FechaTraspaso) &&
+                    DateTime.TryParse(oferta.FechaTraspaso, out DateTime fechaTraspaso) &&
+                    oferta.IdJugador == _jugador &&
+                    fechaTraspaso == fechaManiana)
+                {
+                    btnContratar.IsEnabled = false;
+                    btnOjearJugador.IsEnabled = false;
+                }
+            }
         }
 
         // --------------------------------------------------------------- Evento CLICK del BOTÓN VOLVER
@@ -640,12 +656,18 @@ namespace ChampionManager25.UserControls
                             // Comprobar si el jugador ya tiene una oferta activa.
                             int respuestaEquipoTraspaso = _logicaTransferencia.ComprobarRespuestaEquipo(jugador.IdJugador, _equipo, jugador.IdEquipo);
                             int respuestaEquipoCesion = _logicaTransferencia.ComprobarRespuestaEquipoCesion(jugador.IdJugador, _equipo, jugador.IdEquipo);
-                       
+
+                            // Si es un jugador sin equipo
+                            if (jugador.IdEquipo == 0)
+                            {
+                                respuestaEquipoTraspaso = 1;
+                            }
+
                             if (respuestaEquipoTraspaso < 1 && respuestaEquipoCesion < 1)
                             {
                                 // Crear una nueva instancia de la vista frmNegociacionesJugador
-                                frmTraspasoJugador negociaciones = new frmTraspasoJugador(jugador, _manager, _equipo, _pantallaPrincipal);
-                                negociaciones.Show();
+                                frmTraspasoJugador traspaso = new frmTraspasoJugador(jugador, _manager, _equipo, _pantallaPrincipal);
+                                traspaso.Show();
                             }
                             else
                             {
@@ -655,8 +677,8 @@ namespace ChampionManager25.UserControls
                                 if (respuestaEquipo == 0)
                                 {
                                     // Crear una nueva instancia de la vista frmNegociacionesJugador
-                                    frmTraspasoJugador negociaciones = new frmTraspasoJugador(jugador, _manager, _equipo, _pantallaPrincipal);
-                                    negociaciones.Show();
+                                    frmTraspasoJugador traspaso = new frmTraspasoJugador(jugador, _manager, _equipo, _pantallaPrincipal);
+                                    traspaso.Show();
                                 }
                                 else
                                 {
@@ -664,7 +686,10 @@ namespace ChampionManager25.UserControls
                                     frmNegociacionesJugador negociaciones = new frmNegociacionesJugador(jugador, _manager, _equipo, 2, _pantallaPrincipal);
 
                                     // Suscribirse al evento Closed para ejecutar una acción cuando se cierre la ventana
-                                    negociaciones.Closed += (s, e) => CargarFichaJugadorSinOjear();
+                                    negociaciones.Closed += (s, e) =>
+                                    {
+                                        _pantallaPrincipal.RecargarFichaJugador(_jugador, _equipo, _manager, _opcion);
+                                    };
                                     negociaciones.Show();
                                 }
                             }
@@ -961,6 +986,9 @@ namespace ChampionManager25.UserControls
             txtEntradas.Text = jugador.Entradas.ToString();
             txtTiro.Text = jugador.Tiro.ToString();
         }
+
+        
+
         #endregion
     }
 }

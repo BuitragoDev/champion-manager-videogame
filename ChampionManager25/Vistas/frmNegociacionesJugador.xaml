@@ -1156,158 +1156,131 @@
                 </Grid.RowDefinitions>
 
                 <WrapPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <Button x:Name="btnCancelarNegociacion" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0"
-                            Height="50" Width="320" FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnCancelarNegociacion_Click">
+                    <Button x:Name="btnCancelarNegociacion" Grid.Column="0" Grid.Row="0" Content="CANCELAR NEGOCIACIÓN" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0"
+                            Height="50" Width="320" FontFamily="Cascadia Code SemiBold" FontSize="20" Cursor="Hand" Click="btnCancelarNegociacion_Click">
                         <Button.Style>
-                            <Style TargetType="Button">
-                                <!-- Configuración inicial -->
-                                <Setter Property="Background" Value="#1d6a7d"/>
-                                <Setter Property="Foreground" Value="WhiteSmoke"/>
-                                <Setter Property="BorderBrush" Value="Transparent"/>
-                                <Setter Property="BorderThickness" Value="0"/>
-                                <Setter Property="Cursor" Value="Hand"/>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#1d6a7d" />
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="FontSize" Value="20" />
+                                <Setter Property="SnapsToDevicePixels" Value="True" />
+
                                 <Setter Property="Template">
                                     <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="{TemplateBinding Background}"
-                                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                                    BorderThickness="{TemplateBinding BorderThickness}">
-                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                    <!-- Texto del botón -->
-                                                    <TextBlock Text="CANCELAR NEGOCIACIÓN" 
-                                                               Foreground="WhiteSmoke" 
-                                                               VerticalAlignment="Center" 
-                                                               FontSize="22"/>
-                                                </StackPanel>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                                <Grid>
+                                                    <Image x:Name="imgBoton" Source="/Recursos/img/icons/cancelar_icon.png" Height="32" Width="32" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Uniform" Margin="7,0,0,0"/>
+                                                    <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="25,0,0,0" />
+                                                </Grid>
                                             </Border>
+
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#22798e" />
+                                                    <Setter Property="Foreground" Value="WhiteSmoke" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
                                         </ControlTemplate>
                                     </Setter.Value>
                                 </Setter>
-
-                                <!-- Configuración al pasar el ratón -->
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                                        <Setter Property="BorderThickness" Value="1"/>
-                                    </Trigger>
-                                </Style.Triggers>
                             </Style>
                         </Button.Style>
                     </Button>
 
-                    <Button x:Name="btnIgualarOferta" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0"
-                            Height="50" Width="320" FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnIgualarOferta_Click">
+
+                    <Button x:Name="btnIgualarOferta" Grid.Column="0" Grid.Row="0" Content="IGUALAR OFERTA" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0"
+                            Height="50" Width="320" FontFamily="Cascadia Code SemiBold" FontSize="20" Cursor="Hand" Click="btnIgualarOferta_Click">
                         <Button.Style>
-                            <Style TargetType="Button">
-                                <!-- Configuración inicial -->
-                                <Setter Property="Background" Value="#1d6a7d"/>
-                                <Setter Property="Foreground" Value="WhiteSmoke"/>
-                                <Setter Property="BorderBrush" Value="Transparent"/>
-                                <Setter Property="BorderThickness" Value="0"/>
-                                <Setter Property="Cursor" Value="Hand"/>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#1d6a7d" />
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="FontSize" Value="20" />
+                                <Setter Property="SnapsToDevicePixels" Value="True" />
+
                                 <Setter Property="Template">
                                     <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="{TemplateBinding Background}"
-                                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                                    BorderThickness="{TemplateBinding BorderThickness}">
-                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                    <!-- Texto del botón -->
-                                                    <TextBlock Text="IGUALAR OFERTA" 
-                                                               Foreground="WhiteSmoke" 
-                                                               VerticalAlignment="Center" 
-                                                               FontSize="22"/>
-                                                </StackPanel>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                                <Grid>
+                                                    <Image x:Name="imgBoton" Source="/Recursos/img/icons/igualar_icon.png" Height="36" Width="36" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Uniform" Margin="7,0,0,0"/>
+                                                    <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="25,0,0,0" />
+                                                </Grid>
                                             </Border>
+
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#22798e" />
+                                                    <Setter Property="Foreground" Value="WhiteSmoke" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
                                         </ControlTemplate>
                                     </Setter.Value>
                                 </Setter>
-
-                                <!-- Configuración al pasar el ratón -->
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                                        <Setter Property="BorderThickness" Value="1"/>
-                                    </Trigger>
-                                </Style.Triggers>
                             </Style>
                         </Button.Style>
                     </Button>
 
-                    <Button x:Name="btnEnviarOferta" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0"
-                                    Height="50" Width="320" FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnEnviarOferta_Click">
+                    <Button x:Name="btnEnviarOferta" Grid.Column="0" Grid.Row="0" Content="ENVIAR OFERTA" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0"
+                                    Height="50" Width="320" FontFamily="Cascadia Code SemiBold" FontSize="20" Cursor="Hand" Click="btnEnviarOferta_Click">
                         <Button.Style>
-                            <Style TargetType="Button">
-                                <!-- Configuración inicial -->
-                                <Setter Property="Background" Value="#1d6a7d"/>
-                                <Setter Property="Foreground" Value="WhiteSmoke"/>
-                                <Setter Property="BorderBrush" Value="Transparent"/>
-                                <Setter Property="BorderThickness" Value="0"/>
-                                <Setter Property="Cursor" Value="Hand"/>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#1d6a7d" />
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="FontSize" Value="20" />
+                                <Setter Property="SnapsToDevicePixels" Value="True" />
+
                                 <Setter Property="Template">
                                     <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="{TemplateBinding Background}"
-                                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                                    BorderThickness="{TemplateBinding BorderThickness}">
-                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                    <!-- Texto del botón -->
-                                                    <TextBlock Text="ENVIAR OFERTA" 
-                                                               Foreground="WhiteSmoke" 
-                                                               VerticalAlignment="Center" 
-                                                               FontSize="22"/>
-                                                </StackPanel>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                                <Grid>
+                                                    <Image x:Name="imgBoton" Source="/Recursos/img/icons/enviar_icon.png" Height="36" Width="36" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Uniform" Margin="7,0,0,0"/>
+                                                    <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="25,0,0,0" />
+                                                </Grid>
                                             </Border>
+
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#22798e" />
+                                                    <Setter Property="Foreground" Value="WhiteSmoke" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
                                         </ControlTemplate>
                                     </Setter.Value>
                                 </Setter>
-
-                                <!-- Configuración al pasar el ratón -->
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                                        <Setter Property="BorderThickness" Value="1"/>
-                                    </Trigger>
-                                </Style.Triggers>
                             </Style>
                         </Button.Style>
                     </Button>
 
-                    <Button x:Name="btnConfirmarOferta" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0"
-                            Height="50" Width="320" FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Visibility="Collapsed" Click="btnConfirmarOferta_Click">
+                    <Button x:Name="btnConfirmarOferta" Grid.Column="0" Grid.Row="0" Content="CONFIRMAR OFERTA" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0"
+                            Height="50" Width="320" FontFamily="Cascadia Code SemiBold" FontSize="20" Cursor="Hand" Visibility="Collapsed" Click="btnConfirmarOferta_Click">
                         <Button.Style>
-                            <Style TargetType="Button">
-                                <!-- Configuración inicial -->
-                                <Setter Property="Background" Value="#569704"/>
-                                <Setter Property="Foreground" Value="WhiteSmoke"/>
-                                <Setter Property="BorderBrush" Value="Transparent"/>
-                                <Setter Property="BorderThickness" Value="0"/>
-                                <Setter Property="Cursor" Value="Hand"/>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#569704" />
+                                <Setter Property="Foreground" Value="WhiteSmoke" />
+                                <Setter Property="FontSize" Value="20" />
+                                <Setter Property="SnapsToDevicePixels" Value="True" />
+
                                 <Setter Property="Template">
                                     <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="{TemplateBinding Background}"
-                                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                                    BorderThickness="{TemplateBinding BorderThickness}">
-                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                    <!-- Texto del botón -->
-                                                    <TextBlock Text="CONFIRMAR OFERTA" 
-                                                               Foreground="WhiteSmoke" 
-                                                               VerticalAlignment="Center" 
-                                                               FontSize="22"/>
-                                                </StackPanel>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                                <Grid>
+                                                    <Image x:Name="imgBoton" Source="/Recursos/img/icons/confirmar_icon.png" Height="32" Width="32" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Uniform" Margin="7,0,0,0"/>
+                                                    <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="25,0,0,0" />
+                                                </Grid>
                                             </Border>
+
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#61a807" />
+                                                    <Setter Property="Foreground" Value="WhiteSmoke" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
                                         </ControlTemplate>
                                     </Setter.Value>
                                 </Setter>
-
-                                <!-- Configuración al pasar el ratón -->
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                                        <Setter Property="BorderThickness" Value="1"/>
-                                    </Trigger>
-                                </Style.Triggers>
                             </Style>
                         </Button.Style>
                     </Button>

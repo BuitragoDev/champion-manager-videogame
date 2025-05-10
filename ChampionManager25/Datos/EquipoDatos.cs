@@ -225,6 +225,74 @@ namespace ChampionManager25.Datos
                 {
                     conn.Open();
 
+                    // Consulta para obtener el aforo y la reputación del equipo
+                    string query = "SELECT aforo, reputacion FROM equipos WHERE id_equipo = @idEquipo";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@idEquipo", idEquipoLocal);
+
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                int aforo = Convert.ToInt32(reader["aforo"]);
+                                int reputacion = Convert.ToInt32(reader["reputacion"]);
+
+                                // Verificar si hay alguna remodelación en la tabla 'remodelaciones' para este equipo
+                                string remodelacionQuery = "SELECT COUNT(*) FROM remodelaciones WHERE id_equipo = @idEquipo";
+
+                                using (SQLiteCommand remodelacionCmd = new SQLiteCommand(remodelacionQuery, conn))
+                                {
+                                    remodelacionCmd.Parameters.AddWithValue("@idEquipo", idEquipoLocal);
+                                    int remodelacionesCount = Convert.ToInt32(remodelacionCmd.ExecuteScalar());
+
+                                    // Si hay remodelaciones, reducimos el aforo en un 10%
+                                    if (remodelacionesCount > 0)
+                                    {
+                                        aforo = (int)(aforo * 0.90); // Reducción del 10%
+                                    }
+                                }
+
+                                // Calculamos la asistencia base
+                                double asistenciaBase = aforo * (reputacion / 100.0);
+
+                                // Añadimos una variación aleatoria, pero sin que sobrepase el aforo
+                                Random rand = new Random();
+                                double maxVariacion = 0.10; // Variación máxima permitida, hasta un 10% del aforo
+                                double variacion = rand.NextDouble() * maxVariacion; // Variación positiva entre 0% y 10%
+
+                                // La asistencia no puede ser mayor que el aforo
+                                double asistenciaFinal = asistenciaBase * (1 + variacion);
+
+                                // Aseguramos que no se exceda el aforo
+                                if (asistenciaFinal > aforo)
+                                {
+                                    asistenciaFinal = aforo;
+                                }
+
+                                // Redondeamos y devolvemos el valor final
+                                return (int)Math.Round(asistenciaFinal);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return 0;
+        }
+        /*public int CalcularAsistencia(int idEquipoLocal)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
                     // Consulta
                     string query = "SELECT aforo, reputacion FROM equipos WHERE id_equipo = @idEquipo";
 
@@ -238,7 +306,26 @@ namespace ChampionManager25.Datos
                             {
                                 int aforo = Convert.ToInt32(reader["aforo"]);
                                 int reputacion = Convert.ToInt32(reader["reputacion"]);
-                                return (int)(aforo * (reputacion / 100.0));
+
+                                // Calculamos la asistencia base
+                                double asistenciaBase = aforo * (reputacion / 100.0);
+
+                                // Añadimos una variación aleatoria, pero sin que sobrepase el aforo
+                                Random rand = new Random();
+                                double maxVariacion = 0.10; // Variación máxima permitida, hasta un 10% del aforo
+                                double variacion = rand.NextDouble() * maxVariacion; // Variación positiva entre 0% y 10%
+
+                                // La asistencia no puede ser mayor que el aforo
+                                double asistenciaFinal = asistenciaBase * (1 + variacion);
+
+                                // Aseguramos que no se exceda el aforo
+                                if (asistenciaFinal > aforo)
+                                {
+                                    asistenciaFinal = aforo;
+                                }
+
+                                // Redondeamos y devolvemos el valor final
+                                return (int)Math.Round(asistenciaFinal);
                             }
                         }
                     }
@@ -250,7 +337,7 @@ namespace ChampionManager25.Datos
             }
 
             return 0;
-        }
+        }*/
 
         // ==================================================== Método para Mostrar el Listado de todos los equipos excepto el elegido
         public List<Equipo> ListarOtrosEquipos(int equipoElegido)

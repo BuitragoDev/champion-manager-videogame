@@ -45,6 +45,8 @@ namespace ChampionManager25.Vistas
         MensajeLogica _logicaMensajes = new MensajeLogica();
         ManagerLogica _logicaManager = new ManagerLogica();
         CompeticionLogica _logicaCompeticion = new CompeticionLogica();
+        TaquillaLogica _logicaTaquilla = new TaquillaLogica();
+        FinanzaLogica _logicaFinanza = new FinanzaLogica();
 
         public frmResumenPartido(Manager manager, int equipo, Partido partido)
         {
@@ -56,7 +58,10 @@ namespace ChampionManager25.Vistas
             // Código que inicializa el sonido de fondo 
             try
             {
-                Metodos.ReproducirMusica("backgroundMusic2.wav");
+                if (Metodos.SonidoActivado == true)
+                {
+                    Metodos.ReproducirMusica("backgroundMusic2.wav");
+                } 
             }
             catch (FileNotFoundException ex)
             {
@@ -89,8 +94,8 @@ namespace ChampionManager25.Vistas
             equipoLocal = _logicaEquipo.ListarDetallesEquipo(_partido.IdEquipoLocal);
             equipoVisitante = _logicaEquipo.ListarDetallesEquipo(_partido.IdEquipoVisitante);
             // Cargar datos basicos del partido
-            txtEquipoLocal.Text = _logicaEquipo.ListarDetallesEquipo(_partido.IdEquipoLocal).Nombre;
-            txtEquipoVisitante.Text = _logicaEquipo.ListarDetallesEquipo(_partido.IdEquipoVisitante).Nombre;
+            txtEquipoLocal.Text = _logicaEquipo.ListarDetallesEquipo(_partido.IdEquipoLocal).Nombre.ToUpper();
+            txtEquipoVisitante.Text = _logicaEquipo.ListarDetallesEquipo(_partido.IdEquipoVisitante).Nombre.ToUpper();
             imgEscudoEquipoLocal.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoLocal.RutaImagen120));
             imgEscudoEquipoVisitante.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoVisitante.RutaImagen120));
             txtEstadio.Text = _logicaEquipo.ListarDetallesEquipo(_partido.IdEquipoLocal).Estadio;
@@ -121,15 +126,18 @@ namespace ChampionManager25.Vistas
                 }
             }
 
-            imgBotonCerrar.IsEnabled = true;
+            btnAvanzar.IsEnabled = true;
         }
 
         private void resumenPartido_Unloaded(object sender, RoutedEventArgs e)
         {
-            Metodos.ReproducirMusica("backgroundTrainingSounds.wav");
+            if (Metodos.SonidoActivado == true)
+            {
+                Metodos.ReproducirMusica("backgroundTrainingSounds.wav");
+            }
         }
 
-        private void imgBotonCerrar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void btnAvanzar_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
@@ -180,6 +188,59 @@ namespace ChampionManager25.Vistas
             // Calcular asistencia al estadio
             partido.Asistencia = _logicaEquipo.CalcularAsistencia(partido.IdEquipoLocal);
             txtAsistencia.Text = (partido.Asistencia?.ToString("N0") ?? "0") + " espectadores";
+
+            // Calcular recaudacion
+            Taquilla taquilla = _logicaTaquilla.RecuperarPreciosTaquilla(_equipo, _manager.IdManager);
+            double? recaudacion = taquilla.PrecioEntradaGeneral * (partido.Asistencia * 0.50) + 
+                                 taquilla.PrecioEntradaTribuna * (partido.Asistencia * 0.40) + 
+                                 taquilla.PrecioEntradaVip * (partido.Asistencia * 0.10);
+
+            // Redondeamos a un número entero
+            int recaudacionEntera = recaudacion.HasValue
+                        ? (int)Math.Round(recaudacion.Value)  // Redondeamos el valor y lo convertimos a int
+                        : 0;  // Si es null, asignamos 0
+
+            txtRecaudacion.Text = recaudacionEntera.ToString("N0") + " €"; // o " E" si prefieres la E
+
+            // ---------------- SUMAR LA RECAUDACION DE LA TAQUILLA
+            if (partido.IdEquipoLocal == _equipo)
+            {
+                // Crear el ingreso
+                Finanza nuevoIngreso = new Finanza
+                {
+                    IdEquipo = _equipo,
+                    IdManager = _manager.IdManager,
+                    Temporada = Metodos.temporadaActual.ToString(),
+                    IdConcepto = 1,
+                    Tipo = 1,
+                    Cantidad = recaudacionEntera,
+                    Fecha = Metodos.hoy.Date
+                };
+                _logicaFinanza.CrearIngreso(nuevoIngreso);
+
+                // Sumar los ingresos al Presupuesto
+                _logicaEquipo.SumarCantidadAPresupuesto(_equipo, recaudacionEntera);
+            }
+
+            // ---------------- CREAR INGRESO EXTRA TELEVISION POR PARTIDO DE COPA
+            if (partido.IdEquipoLocal == _equipo && partido.IdCompeticion == 4)
+            {
+                // Crear el ingreso
+                Finanza nuevoIngreso = new Finanza
+                {
+                    IdEquipo = _equipo,
+                    IdManager = _manager.IdManager,
+                    Temporada = Metodos.temporadaActual.ToString(),
+                    IdConcepto = 3,
+                    Tipo = 1,
+                    Cantidad = 1500000,
+                    Fecha = Metodos.hoy.Date
+                };
+                _logicaFinanza.CrearIngreso(nuevoIngreso);
+
+                // Sumar los ingresos al Presupuesto
+                _logicaEquipo.SumarCantidadAPresupuesto(_equipo, recaudacionEntera);
+            }
 
             // ACTUALIZAR RESULTADO SI ES UN AMISTOSO
             if (partido.IdCompeticion == 10)
@@ -490,8 +551,9 @@ namespace ChampionManager25.Vistas
 
             // Asignar pesos basados en atributos y posición
             var pesosGoleadores = jugadoresNoPorteros.Select(j =>
-                (jugador: j, peso: (j.Remate * 1.5 + j.Tiro * 1.5 + j.Regate * 1.5 + j.Calidad) * (j.RolId >= 7 && j.RolId <= 10 ? 5 : 0.5)) // Aumentado a x5
-            ).ToList();
+                                                                (jugador: j, peso: (j.Remate * 1.5 + j.Tiro * 1.5 + j.Regate * 1.5 + j.Calidad) *
+                                                                (j.RolId == 10 ? 10 : (j.RolId >= 7 && j.RolId <= 9 ? 5 : 0.5))) // RolId 10 tiene un peso de 10, y 7-9 tienen un peso de 5
+                                                             ).ToList();
 
             var pesosAsistentes = jugadoresNoPorteros.Select(j =>
                 (jugador: j, peso: (j.Pase * 1.5 + j.Calidad) * (j.RolId >= 6 && j.RolId <= 10 ? 2 : 1))
@@ -511,6 +573,29 @@ namespace ChampionManager25.Vistas
                     SeleccionarJugadorPonderado(pesosAsistentes, totalPesoAsistente, random) : null;
 
                 lista.Add((goleador, asistente));
+
+                // -------------- CREAR GASTO POR GOL
+                Jugador player = _logicaJugador.MostrarDatosJugador(goleador.IdJugador);
+
+                // Bonus
+                int bonusGoles = player.BonusGoles ?? 0;
+                if (bonusGoles != 0)
+                {
+                    Finanza nuevoGasto = new Finanza
+                    {
+                        IdEquipo = _equipo,
+                        IdManager = _manager.IdManager,
+                        Temporada = Metodos.temporadaActual.ToString(),
+                        IdConcepto = 16,
+                        Tipo = 2,
+                        Cantidad = bonusGoles,
+                        Fecha = Metodos.hoy.Date
+                    };
+                    _logicaFinanza.CrearGasto(nuevoGasto);
+
+                    // Restar la indemnización al Presupuesto
+                    _logicaEquipo.RestarCantidadAPresupuesto(_equipo, bonusGoles);
+                }
             }
 
             return lista;
@@ -649,6 +734,29 @@ namespace ChampionManager25.Vistas
                     TarjetasRojas = 0,
                     MVP = 0
                 };
+
+                // -------------- CREAR GASTO POR PARTIDO
+                Jugador player = _logicaJugador.MostrarDatosJugador(jugador.IdJugador);
+
+                // Bonus
+                int bonusPartido = player.BonusPartido ?? 0;
+                if (bonusPartido != 0)
+                {
+                    Finanza nuevoGasto = new Finanza
+                    {
+                        IdEquipo = _equipo,
+                        IdManager = _manager.IdManager,
+                        Temporada = Metodos.temporadaActual.ToString(),
+                        IdConcepto = 16,
+                        Tipo = 2,
+                        Cantidad = bonusPartido,
+                        Fecha = Metodos.hoy.Date
+                    };
+                    _logicaFinanza.CrearGasto(nuevoGasto);
+
+                    // Restar la indemnización al Presupuesto
+                    _logicaEquipo.RestarCantidadAPresupuesto(_equipo, bonusPartido);
+                }
             }
 
             // Sumar goles y asistencias
@@ -711,12 +819,6 @@ namespace ChampionManager25.Vistas
                 if (jugador.Sancionado > 0)
                 {
                     _logicaJugador.PonerJugadorSancionado(jugador.IdJugador, jugador.Sancionado - 1);
-                }
-
-                // Reducir el número de partidos lesionado si es mayor que 0
-                if (jugador.Lesion > 0)
-                {
-                    _logicaJugador.PonerJugadorLesionado(jugador.IdJugador, jugador.Lesion - 1, jugador.TipoLesion);
                 }
             }
         }
@@ -906,43 +1008,40 @@ namespace ChampionManager25.Vistas
             if (golesLocal > golesVisitante)
             {
                 // Subir la moral 1 punto del los jugadores que ganan y bajar 1 punto de los jugadores que pierden
-                // Bajar el estado de forma 1 punto de los jugadores que ganan y 2 puntos de los jugadores que pierden
                 foreach (var jugador in jugadoresLocal)
                 {
-                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 1, -1);
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 1, 0);
                 }
 
                 foreach (var jugador in jugadoresVisitante)
                 {
-                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, -1, -2);
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, -1, 0);
                 }
             } 
             else if (golesLocal < golesVisitante)
             {
                 // Subir la moral 1 punto del los jugadores que ganan y bajar 1 punto de los jugadores que pierden
-                // Bajar el estado de forma 1 punto de los jugadores que ganan y 2 puntos de los jugadores que pierden
                 foreach (var jugador in jugadoresVisitante)
                 {
-                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 1, -1);
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 1, 0);
                 }
 
                 foreach (var jugador in jugadoresLocal)
                 {
-                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, -1, -2);
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, -1, 0);
                 }
             } 
             else
             {
                 // Subir la moral 1 punto del los jugadores que empatan
-                // Bajar el estado de forma 2 puntos de los jugadores que empatan
                 foreach (var jugador in jugadoresLocal)
                 {
-                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 1, -2);
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 1, 0);
                 }
 
                 foreach (var jugador in jugadoresVisitante)
                 {
-                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 1, -2);
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 1, 0);
                 }
             }
 

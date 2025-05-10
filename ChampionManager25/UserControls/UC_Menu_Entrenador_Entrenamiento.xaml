@@ -163,118 +163,100 @@
                                         </Grid.RowDefinitions>
 
                                         <!-- Boton btnPortero -->
-                                        <Button x:Name="btnPortero" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                Height="50" Width="250" FontFamily="Cascadia Code SemiBold" FontSize="24" Cursor="Hand" Click="btnPortero_Click" IsEnabled="False">
+                                        <Button x:Name="btnPortero" Grid.Column="0" Grid.Row="0" Content="PORTERO" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                Height="50" Width="250" FontFamily="Cascadia Code SemiBold" FontSize="22" Cursor="Hand" Click="btnPortero_Click" IsEnabled="False">
                                             <Button.Style>
-                                                <Style TargetType="Button">
-                                                    <!-- Configuración inicial -->
-                                                    <Setter Property="Background" Value="#FF23282D"/>
-                                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
-                                                    <Setter Property="BorderBrush" Value="Transparent"/>
-                                                    <Setter Property="BorderThickness" Value="0"/>
-                                                    <Setter Property="Cursor" Value="Hand"/>
+                                                <Style TargetType="{x:Type Button}">
+                                                    <Setter Property="Background" Value="#FF23282D" />
+                                                    <Setter Property="Foreground" Value="White" />
+                                                    <Setter Property="FontSize" Value="22" />
+                                                    <Setter Property="SnapsToDevicePixels" Value="True" />
+
                                                     <Setter Property="Template">
                                                         <Setter.Value>
-                                                            <ControlTemplate TargetType="Button">
-                                                                <Border Background="{TemplateBinding Background}"
-                                                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                                                        BorderThickness="{TemplateBinding BorderThickness}">
-                                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                                        <TextBlock Text="PORTERO" 
-                                                                                   Foreground="WhiteSmoke" 
-                                                                                   VerticalAlignment="Center" 
-                                                                                   FontSize="18"/>
-                                                                    </StackPanel>
+                                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                                <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                                                    <Grid>
+                                                                        <Image x:Name="imgBoton" Source="/Recursos/img/icons/portero_icon.png" Height="32" Width="32" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Uniform" Margin="17,0,0,0"/>
+                                                                        <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30,0,0,0" />
+                                                                    </Grid>
                                                                 </Border>
+
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background" Value="#2d343a" />
+                                                                        <Setter Property="Foreground" Value="White" />
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
                                                             </ControlTemplate>
                                                         </Setter.Value>
                                                     </Setter>
-
-                                                    <!-- Configuración al pasar el ratón -->
-                                                    <Style.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                                                            <Setter Property="BorderThickness" Value="1"/>
-                                                        </Trigger>
-                                                    </Style.Triggers>
                                                 </Style>
                                             </Button.Style>
                                         </Button>
 
                                         <!-- Boton btnEntradas -->
-                                        <Button x:Name="btnEntradas" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                Height="50" Width="250" FontFamily="Cascadia Code SemiBold" FontSize="24" Cursor="Hand" Click="btnEntradas_Click" IsEnabled="False">
+                                        <Button x:Name="btnEntradas" Grid.Column="1" Grid.Row="0" Content="ENTRADAS" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                Height="50" Width="250" FontFamily="Cascadia Code SemiBold" FontSize="22" Cursor="Hand" Click="btnEntradas_Click" IsEnabled="False">
                                             <Button.Style>
-                                                <Style TargetType="Button">
-                                                    <!-- Configuración inicial -->
-                                                    <Setter Property="Background" Value="#FF23282D"/>
-                                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
-                                                    <Setter Property="BorderBrush" Value="Transparent"/>
-                                                    <Setter Property="BorderThickness" Value="0"/>
-                                                    <Setter Property="Cursor" Value="Hand"/>
+                                                <Style TargetType="{x:Type Button}">
+                                                    <Setter Property="Background" Value="#FF23282D" />
+                                                    <Setter Property="Foreground" Value="White" />
+                                                    <Setter Property="FontSize" Value="22" />
+                                                    <Setter Property="SnapsToDevicePixels" Value="True" />
+
                                                     <Setter Property="Template">
                                                         <Setter.Value>
-                                                            <ControlTemplate TargetType="Button">
-                                                                <Border Background="{TemplateBinding Background}"
-                                                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                                                        BorderThickness="{TemplateBinding BorderThickness}">
-                                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                                        <TextBlock Text="ENTRADAS" 
-                                                                                   Foreground="WhiteSmoke" 
-                                                                                   VerticalAlignment="Center" 
-                                                                                   FontSize="18"/>
-                                                                    </StackPanel>
+                                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                                <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                                                    <Grid>
+                                                                        <Image x:Name="imgBoton" Source="/Recursos/img/icons/entrada_icon.png" Height="32" Width="32" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Uniform" Margin="17,0,0,0"/>
+                                                                        <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30,0,0,0" />
+                                                                    </Grid>
                                                                 </Border>
+
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background" Value="#2d343a" />
+                                                                        <Setter Property="Foreground" Value="White" />
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
                                                             </ControlTemplate>
                                                         </Setter.Value>
                                                     </Setter>
-
-                                                    <!-- Configuración al pasar el ratón -->
-                                                    <Style.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                                                            <Setter Property="BorderThickness" Value="1"/>
-                                                        </Trigger>
-                                                    </Style.Triggers>
                                                 </Style>
                                             </Button.Style>
                                         </Button>
 
                                         <!-- Boton btnRemate -->
-                                        <Button x:Name="btnRemate" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                Height="50" Width="250" FontFamily="Cascadia Code SemiBold" FontSize="24" Cursor="Hand" Click="btnRemate_Click" IsEnabled="False">
+                                        <Button x:Name="btnRemate" Grid.Column="2" Grid.Row="0" Content="REMATE" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                Height="50" Width="250" FontFamily="Cascadia Code SemiBold" FontSize="22" Cursor="Hand" Click="btnRemate_Click" IsEnabled="False">
                                             <Button.Style>
-                                                <Style TargetType="Button">
-                                                    <!-- Configuración inicial -->
-                                                    <Setter Property="Background" Value="#FF23282D"/>
-                                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
-                                                    <Setter Property="BorderBrush" Value="Transparent"/>
-                                                    <Setter Property="BorderThickness" Value="0"/>
-                                                    <Setter Property="Cursor" Value="Hand"/>
+                                                <Style TargetType="{x:Type Button}">
+                                                    <Setter Property="Background" Value="#FF23282D" />
+                                                    <Setter Property="Foreground" Value="White" />
+                                                    <Setter Property="FontSize" Value="22" />
+                                                    <Setter Property="SnapsToDevicePixels" Value="True" />
+
                                                     <Setter Property="Template">
                                                         <Setter.Value>
-                                                            <ControlTemplate TargetType="Button">
-                                                                <Border Background="{TemplateBinding Background}"
-                                                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                                                        BorderThickness="{TemplateBinding BorderThickness}">
-                                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                                        <TextBlock Text="REMATE" 
-                                                                                   Foreground="WhiteSmoke" 
-                                                                                   VerticalAlignment="Center" 
-                                                                                   FontSize="18"/>
-                                                                    </StackPanel>
+                                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                                <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                                                    <Grid>
+                                                                        <Image x:Name="imgBoton" Source="/Recursos/img/icons/remate_icon.png" Height="32" Width="32" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Uniform" Margin="17,0,0,0"/>
+                                                                        <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30,0,0,0" />
+                                                                    </Grid>
                                                                 </Border>
+
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background" Value="#2d343a" />
+                                                                        <Setter Property="Foreground" Value="White" />
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
                                                             </ControlTemplate>
                                                         </Setter.Value>
                                                     </Setter>
-
-                                                    <!-- Configuración al pasar el ratón -->
-                                                    <Style.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                                                            <Setter Property="BorderThickness" Value="1"/>
-                                                        </Trigger>
-                                                    </Style.Triggers>
                                                 </Style>
                                             </Button.Style>
                                         </Button>
@@ -294,118 +276,100 @@
                                         </Grid.RowDefinitions>
 
                                         <!-- Boton btnPase -->
-                                        <Button x:Name="btnPase" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                Height="50" Width="250" FontFamily="Cascadia Code SemiBold" FontSize="24" Cursor="Hand" Click="btnPase_Click">
+                                        <Button x:Name="btnPase" Grid.Column="0" Grid.Row="0" Content="PASE" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                Height="50" Width="250" FontFamily="Cascadia Code SemiBold" FontSize="22" Cursor="Hand" Click="btnPase_Click">
                                             <Button.Style>
-                                                <Style TargetType="Button">
-                                                    <!-- Configuración inicial -->
-                                                    <Setter Property="Background" Value="#FF23282D"/>
-                                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
-                                                    <Setter Property="BorderBrush" Value="Transparent"/>
-                                                    <Setter Property="BorderThickness" Value="0"/>
-                                                    <Setter Property="Cursor" Value="Hand"/>
+                                                <Style TargetType="{x:Type Button}">
+                                                    <Setter Property="Background" Value="#FF23282D" />
+                                                    <Setter Property="Foreground" Value="White" />
+                                                    <Setter Property="FontSize" Value="22" />
+                                                    <Setter Property="SnapsToDevicePixels" Value="True" />
+
                                                     <Setter Property="Template">
                                                         <Setter.Value>
-                                                            <ControlTemplate TargetType="Button">
-                                                                <Border Background="{TemplateBinding Background}"
-                                                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                                                        BorderThickness="{TemplateBinding BorderThickness}">
-                                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                                        <TextBlock Text="PASE" 
-                                                                                   Foreground="WhiteSmoke" 
-                                                                                   VerticalAlignment="Center" 
-                                                                                   FontSize="18"/>
-                                                                    </StackPanel>
+                                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                                <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                                                    <Grid>
+                                                                        <Image x:Name="imgBoton" Source="/Recursos/img/icons/pase_icon.png" Height="32" Width="32" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Uniform" Margin="17,0,0,0"/>
+                                                                        <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30,0,0,0" />
+                                                                    </Grid>
                                                                 </Border>
+
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background" Value="#2d343a" />
+                                                                        <Setter Property="Foreground" Value="White" />
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
                                                             </ControlTemplate>
                                                         </Setter.Value>
                                                     </Setter>
-
-                                                    <!-- Configuración al pasar el ratón -->
-                                                    <Style.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                                                            <Setter Property="BorderThickness" Value="1"/>
-                                                        </Trigger>
-                                                    </Style.Triggers>
                                                 </Style>
                                             </Button.Style>
                                         </Button>
 
                                         <!-- Boton btnRegate -->
-                                        <Button x:Name="btnRegate" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                Height="50" Width="250" FontFamily="Cascadia Code SemiBold" FontSize="24" Cursor="Hand" Click="btnRegate_Click" IsEnabled="False">
+                                        <Button x:Name="btnRegate" Grid.Column="1" Grid.Row="0" Content="REGATE" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                Height="50" Width="250" FontFamily="Cascadia Code SemiBold" FontSize="22" Cursor="Hand" Click="btnRegate_Click" IsEnabled="False">
                                             <Button.Style>
-                                                <Style TargetType="Button">
-                                                    <!-- Configuración inicial -->
-                                                    <Setter Property="Background" Value="#FF23282D"/>
-                                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
-                                                    <Setter Property="BorderBrush" Value="Transparent"/>
-                                                    <Setter Property="BorderThickness" Value="0"/>
-                                                    <Setter Property="Cursor" Value="Hand"/>
+                                                <Style TargetType="{x:Type Button}">
+                                                    <Setter Property="Background" Value="#FF23282D" />
+                                                    <Setter Property="Foreground" Value="White" />
+                                                    <Setter Property="FontSize" Value="22" />
+                                                    <Setter Property="SnapsToDevicePixels" Value="True" />
+
                                                     <Setter Property="Template">
                                                         <Setter.Value>
-                                                            <ControlTemplate TargetType="Button">
-                                                                <Border Background="{TemplateBinding Background}"
-                                                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                                                        BorderThickness="{TemplateBinding BorderThickness}">
-                                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                                        <TextBlock Text="REGATE" 
-                                                                                   Foreground="WhiteSmoke" 
-                                                                                   VerticalAlignment="Center" 
-                                                                                   FontSize="18"/>
-                                                                    </StackPanel>
+                                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                                <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                                                    <Grid>
+                                                                        <Image x:Name="imgBoton" Source="/Recursos/img/icons/regate_icon.png" Height="32" Width="32" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Uniform" Margin="17,0,0,0"/>
+                                                                        <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30,0,0,0" />
+                                                                    </Grid>
                                                                 </Border>
+
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background" Value="#2d343a" />
+                                                                        <Setter Property="Foreground" Value="White" />
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
                                                             </ControlTemplate>
                                                         </Setter.Value>
                                                     </Setter>
-
-                                                    <!-- Configuración al pasar el ratón -->
-                                                    <Style.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                                                            <Setter Property="BorderThickness" Value="1"/>
-                                                        </Trigger>
-                                                    </Style.Triggers>
                                                 </Style>
                                             </Button.Style>
                                         </Button>
 
                                         <!-- Boton btnTiro -->
-                                        <Button x:Name="btnTiro" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                        <Button x:Name="btnTiro" Grid.Column="2" Grid.Row="0" Content="TIRO" VerticalAlignment="Center" HorizontalAlignment="Center"
                                                 Height="50" Width="250" FontFamily="Cascadia Code SemiBold" FontSize="24" Cursor="Hand" Click="btnTiro_Click" IsEnabled="False">
                                             <Button.Style>
-                                                <Style TargetType="Button">
-                                                    <!-- Configuración inicial -->
-                                                    <Setter Property="Background" Value="#FF23282D"/>
-                                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
-                                                    <Setter Property="BorderBrush" Value="Transparent"/>
-                                                    <Setter Property="BorderThickness" Value="0"/>
-                                                    <Setter Property="Cursor" Value="Hand"/>
+                                                <Style TargetType="{x:Type Button}">
+                                                    <Setter Property="Background" Value="#FF23282D" />
+                                                    <Setter Property="Foreground" Value="White" />
+                                                    <Setter Property="FontSize" Value="22" />
+                                                    <Setter Property="SnapsToDevicePixels" Value="True" />
+
                                                     <Setter Property="Template">
                                                         <Setter.Value>
-                                                            <ControlTemplate TargetType="Button">
-                                                                <Border Background="{TemplateBinding Background}"
-                                                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                                                        BorderThickness="{TemplateBinding BorderThickness}">
-                                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                                        <TextBlock Text="TIRO" 
-                                                                                   Foreground="WhiteSmoke" 
-                                                                                   VerticalAlignment="Center" 
-                                                                                   FontSize="18"/>
-                                                                    </StackPanel>
+                                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                                <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                                                    <Grid>
+                                                                        <Image x:Name="imgBoton" Source="/Recursos/img/icons/tiro_icon.png" Height="32" Width="32" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Uniform" Margin="17,0,0,0"/>
+                                                                        <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30,0,0,0" />
+                                                                    </Grid>
                                                                 </Border>
+
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background" Value="#2d343a" />
+                                                                        <Setter Property="Foreground" Value="White" />
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
                                                             </ControlTemplate>
                                                         </Setter.Value>
                                                     </Setter>
-
-                                                    <!-- Configuración al pasar el ratón -->
-                                                    <Style.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                                                            <Setter Property="BorderThickness" Value="1"/>
-                                                        </Trigger>
-                                                    </Style.Triggers>
                                                 </Style>
                                             </Button.Style>
                                         </Button>
@@ -423,40 +387,34 @@
                                         </Grid.RowDefinitions>
 
                                         <!-- Boton btnNoEntrenar -->
-                                        <Button x:Name="btnNoEntrenar" Grid.Column="5" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                        <Button x:Name="btnNoEntrenar" Grid.Column="5" Content="SIN ENTRENAMIENTO" VerticalAlignment="Center" HorizontalAlignment="Center"
                                                 Height="50" Width="1080" FontFamily="Cascadia Code SemiBold" FontSize="24" Cursor="Hand" Click="btnNoEntrenar_Click" IsEnabled="False">
                                             <Button.Style>
-                                                <Style TargetType="Button">
-                                                    <!-- Configuración inicial -->
-                                                    <Setter Property="Background" Value="#FF23282D"/>
-                                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
-                                                    <Setter Property="BorderBrush" Value="Transparent"/>
-                                                    <Setter Property="BorderThickness" Value="0"/>
-                                                    <Setter Property="Cursor" Value="Hand"/>
+                                                <Style TargetType="{x:Type Button}">
+                                                    <Setter Property="Background" Value="#FF23282D" />
+                                                    <Setter Property="Foreground" Value="White" />
+                                                    <Setter Property="FontSize" Value="24" />
+                                                    <Setter Property="SnapsToDevicePixels" Value="True" />
+
                                                     <Setter Property="Template">
                                                         <Setter.Value>
-                                                            <ControlTemplate TargetType="Button">
-                                                                <Border Background="{TemplateBinding Background}"
-                                                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                                                        BorderThickness="{TemplateBinding BorderThickness}">
-                                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                                        <TextBlock Text="SIN ENTRENAMIENTO" 
-                                                                                   Foreground="WhiteSmoke" 
-                                                                                   VerticalAlignment="Center" 
-                                                                                   FontSize="18"/>
-                                                                    </StackPanel>
+                                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                                <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                                                    <Grid>
+                                                                        <Image x:Name="imgBoton" Source="/Recursos/img/icons/cancelar_icon.png" Height="32" Width="32" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Uniform" Margin="17,0,0,0"/>
+                                                                        <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                                                                    </Grid>
                                                                 </Border>
+
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background" Value="#2d343a" />
+                                                                        <Setter Property="Foreground" Value="White" />
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
                                                             </ControlTemplate>
                                                         </Setter.Value>
                                                     </Setter>
-
-                                                    <!-- Configuración al pasar el ratón -->
-                                                    <Style.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                                                            <Setter Property="BorderThickness" Value="1"/>
-                                                        </Trigger>
-                                                    </Style.Triggers>
                                                 </Style>
                                             </Button.Style>
                                         </Button>

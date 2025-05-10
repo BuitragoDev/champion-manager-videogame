@@ -164,6 +164,9 @@
     <Compile Update="UserControls\UC_Menu_Transferencias_EstadoOfertas.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\UC_Menu_Transferencias_ListaTraspasos.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\UC_Menu_Transferencias_Mercado.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

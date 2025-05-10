@@ -233,9 +233,10 @@ namespace ChampionManager25.UserControls
             int salarioEmpleado = 0;
             int cancelacionEmpleado = 0;
             int obras = 0;
-            int multas = 0;
+            int bonus = 0;
             int prestamosGasto = 0;
             int total = 0;
+            int traspaso = 0;
 
             foreach (Finanza finanza in listaFinanzas)
             {
@@ -261,11 +262,15 @@ namespace ChampionManager25.UserControls
                 }
                 if (finanza.IdConcepto == 16)
                 {
-                    multas += (int)finanza.Cantidad;
+                    bonus += (int)finanza.Cantidad;
                 }
                 if (finanza.IdConcepto == 17)
                 {
                     prestamosGasto += (int)finanza.Cantidad;
+                }
+                if (finanza.IdConcepto == 18)
+                {
+                    traspaso += (int)finanza.Cantidad;
                 }
                 if (finanza.Tipo == 2) // Tipo 2 = Gastos
                 {
@@ -277,9 +282,10 @@ namespace ChampionManager25.UserControls
             txtSalarioEmpleado.Text = salarioEmpleado.ToString("N0") + " €";
             txtCancelacionContratoEmpleado.Text = cancelacionEmpleado.ToString("N0") + " €";
             txtGradas.Text = obras.ToString("N0") + " €";
-            txtMultas.Text = multas.ToString("N0") + " €";
+            txtBonusJugadores.Text = bonus.ToString("N0") + " €";
             txtPrestamos.Text = prestamosGasto.ToString("N0") + " €";
             txtTotal.Text = total.ToString("N0") + " €";
+            txtFichajes.Text = traspaso.ToString("N0") + " €";
         }
 
 

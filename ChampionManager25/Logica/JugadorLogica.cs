@@ -66,9 +66,9 @@ namespace ChampionManager25.Logica
         }
 
         // Llamada al método para mostrar los titulares del equipo
-        public void CrearAlineacion(string tactica, int equipo)
+        public void CrearAlineacion(int equipo)
         {
-            _datos.CrearAlineacion(tactica, equipo);
+            _datos.CrearAlineacion(equipo);
         }
 
         // Llamada al método para mostrar la lista de Jugadores Detallada por equipo
@@ -202,6 +202,12 @@ namespace ChampionManager25.Logica
             _datos.RenovarContratoJugador(jugador, salario, clausula, anios, bonusP, bonusG);
         }
 
+        // Llamada al método que cambia el contrato tras un fichaje
+        public void CambiarContratoJugador(int jugador, int salario, int clausula, int anios, int bonusP, int bonusG, int equipo)
+        {
+            _datos.CambiarContratoJugador(jugador, salario, clausula, anios, bonusP, bonusG, equipo);
+        }
+
         // Llamada al método para mostrar la lista de Jugadores en el Mercado
         public List<Jugador> ListadoJugadoresMercado(int equipo, int tipoStart, int tipoEnd, int mediaStart, int mediaEnd, int posicionStart, int posicionEnd)
         {
@@ -250,6 +256,60 @@ namespace ChampionManager25.Logica
         public List<Contrato> MostrarListaTotalContratos()
         {
             return _datos.MostrarListaTotalContratos();
+        }
+
+        // Llamada al método para devuelve el salario medio de los jugadores con la misma media
+        public int SalarioMedioJugadores(int jugador)
+        {
+            return _datos.SalarioMedioJugadores(jugador);
+        }
+
+        // Llamada al método para devuelve la clausula media de los jugadores con la misma media
+        public int ClausulaMediaJugadores(int jugador)
+        {
+            return _datos.ClausulaMediaJugadores(jugador);
+        }
+
+        // Llamada al método que borra la Proxima Fecha de Negociacion
+        public void BorrarFechaNegociacion(int jugador)
+        {
+            _datos.BorrarFechaNegociacion(jugador);
+        }
+
+        // Llamada al método que suma una semana lesionado
+        public void SumarSemanaLesionado(int jugador)
+        {
+            _datos.SumarSemanaLesionado(jugador);
+        }
+
+        // Llamada al método que muestra las semanas lesionado
+        public int SemanasLesionado(int jugador)
+        {
+            return _datos.SemanasLesionado(jugador);
+        }
+
+        // Llamada al método que pone al jugador en tratamiento por lesion
+        public void ActivarTratamientoLesion(int jugador, int valor)
+        {
+            _datos.ActivarTratamientoLesion(jugador, valor);
+        }
+
+        // Llamada al método que pone un jugador Transferible
+        public void PonerTransferible(int jugador)
+        {
+            _datos.PonerTransferible(jugador);
+        }
+
+        // Llamada al método que pone un jugador Cedible
+        public void PonerCedible(int jugador)
+        {
+            _datos.PonerCedible(jugador);
+        }
+
+        // Llamada al método que realiza los traspasos de la IA
+        public void TraspasosIA(int equipo)
+        {
+            _datos.TraspasosIA(equipo);
         }
     }
 }

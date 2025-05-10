@@ -19,6 +19,8 @@ namespace ChampionManager25.MisMetodos
         #region "Variables GLOBALES"
         public static int temporadaActual;
         public static DateTime hoy;
+        public static bool SonidoActivado { get; set; } = true;
+        public static int avisosBancarrota = 0;
 
         #endregion
 

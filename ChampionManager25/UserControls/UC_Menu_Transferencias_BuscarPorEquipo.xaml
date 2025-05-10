@@ -68,7 +68,7 @@
                                        HorizontalAlignment="Center" Margin="10" Source="/Recursos/img/icons/europa_icon.png" Cursor="Hand" MouseLeftButtonDown="imgLiga4_MouseLeftButtonDown" />
 
                                 <Image x:Name="imgLiga5" Grid.Column="4" Grid.Row="0" Width="64" Height="64" Stretch="Uniform" VerticalAlignment="Center" 
-                                       HorizontalAlignment="Center" Margin="10" Source="/Recursos/img/icons/mundo_icon.png" Cursor="Hand" MouseLeftButtonDown="imgLiga5_MouseLeftButtonDown" />
+                                       HorizontalAlignment="Center" Margin="10" Source="/Recursos/img/icons/freeAgent_icon.png" Cursor="Hand" MouseLeftButtonDown="imgLiga5_MouseLeftButtonDown" />
                             </Grid>
                         </Border>
 

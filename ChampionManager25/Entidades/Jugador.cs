@@ -37,6 +37,7 @@ namespace ChampionManager25.Entidades
         public double AlturaEnMetros => Altura / 100.00; // Propiedad calculada para convertir altura
         public int Lesion { get; set; }
         public string TipoLesion { get; set; }
+        public int LesionTratada { get; set; }
         public string? Nacionalidad { get; set; }
         public int Status { get; set; } // 1. Clave, 2. Importante, 3. Rotación, 4. Ocasional
         public int Entrenamiento { get; set; } // 1 Portero, 2 Entradas, 3 Remate, 4 Pase, 5 Regate, 6 Tiro
@@ -86,8 +87,8 @@ namespace ChampionManager25.Entidades
         public Jugador(int idJugador, string nombre, string apellido, int idEquipo, int dorsal, string rol, int rolId,
                        int velocidad, int resistencia, int agresividad, int calidad, int estadoForma, int estadoAnimo, int moral,
                        int potencial, int portero, int pase, int regate, int remate, int entradas, int tiro,
-                       DateTime fechaNacimiento, int peso, int altura, int lesion, string tipoLesion, string nacionalidad, int status,
-                       int entrenamiento, int sancionado, string rutaImagen)
+                       DateTime fechaNacimiento, int peso, int altura, int lesion, string tipoLesion,  string nacionalidad, int status,
+                       int entrenamiento, int sancionado, string rutaImagen, int lesionTratada)
         {
             IdJugador = idJugador;
             Nombre = nombre;
@@ -120,6 +121,7 @@ namespace ChampionManager25.Entidades
             Entrenamiento = entrenamiento;
             Sancionado = sancionado;
             RutaImagen = rutaImagen;
+            LesionTratada = lesionTratada;
         }
 
         // Constructor con parámetros SIN ID
@@ -127,7 +129,7 @@ namespace ChampionManager25.Entidades
                        int velocidad, int resistencia, int agresividad, int calidad, int estadoForma, int estadoAnimo, int moral,
                        int potencial, int portero, int pase, int regate, int remate, int entradas, int tiro,
                        DateTime fechaNacimiento, int peso, int altura, int lesion, string tipoLesion, string nacionalidad, int status,
-                       int entrenamiento, int sancionado, string rutaImagen)
+                       int entrenamiento, int sancionado, string rutaImagen, int lesionTratada)
         {
             Nombre = nombre;
             Apellido = apellido;
@@ -159,6 +161,7 @@ namespace ChampionManager25.Entidades
             Entrenamiento = entrenamiento;
             Sancionado = sancionado;
             RutaImagen = rutaImagen;
+            LesionTratada = lesionTratada;
         }
 
         // Método ToString

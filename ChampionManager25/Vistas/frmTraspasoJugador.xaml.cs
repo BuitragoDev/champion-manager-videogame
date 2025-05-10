@@ -1,4 +1,5 @@
-﻿using ChampionManager25.Entidades;
+﻿using ChampionManager25.Datos;
+using ChampionManager25.Entidades;
 using ChampionManager25.Logica;
 using ChampionManager25.MisMetodos;
 using ChampionManager25.UserControls;
@@ -33,6 +34,7 @@ namespace ChampionManager25.Vistas
         MensajeLogica _logicaMensaje = new MensajeLogica();
         OjearLogica _logicaOjear = new OjearLogica();
         TransferenciaLogica _logicaTransferencia = new TransferenciaLogica();
+        EmpleadoLogica _logicaEmpleado = new EmpleadoLogica();
 
         private UC_PantallaPrincipal _pantallaPrincipal;
 
@@ -148,6 +150,7 @@ namespace ChampionManager25.Vistas
         // ---------------------------------------------------- Evento CLICK del botón ENVIAR OFERTA
         private void btnEnviarOferta_Click(object sender, RoutedEventArgs e)
         {
+            Jugador jugador = _logicaJugador.MostrarDatosJugador(_jugador.IdJugador);
             // Recogemos el valor de la oferta de la caja de texto
             string textoMontoOferta = txtOfertaTraspaso.Text; // Texto original con puntos y símbolo €
             string textoMontoOfertaSinSimbolos = System.Text.RegularExpressions.Regex.Replace(textoMontoOferta, @"[^\d]", ""); // Elimina todo lo que no sea un dígito
@@ -181,8 +184,8 @@ namespace ChampionManager25.Vistas
             else if (montoOferta >= valorMercado * 1.0) puntosOferta += 1;
             else puntosOferta -= 2; // Oferta demasiado baja
 
-            // ✔ Factor 2: Situación en el mercado (jugador transferible)
-            if (situacionMercado == 1) puntosOferta += 3; // Más fácil de aceptar si es transferible
+            // ✔ Factor 2: Situación en el mercado (jugador transferible o cedible)
+            if (situacionMercado == 1 || situacionMercado == 2) puntosOferta += 3; // Más fácil de aceptar si es transferible
 
             // ✔ Factor 3: Estado del jugador
             if (estadoAnimo < 30 || moral < 30) puntosOferta += 2; // Jugador infeliz, más probable que lo vendan
@@ -251,6 +254,26 @@ namespace ChampionManager25.Vistas
                     _logicaTransferencia.ActualizarOferta(ofertaAceptada);
                 }
 
+                // Crear el mensaje confirmando la aceptacion de un oferta de traspaso
+                Empleado? director = _logicaEmpleado.ObtenerEmpleadoPorPuesto("Director Técnico");
+                string presidente = _logicaEquipo.ListarDetallesEquipo(_equipo).Presidente;
+                string nombreJugador = _logicaJugador.MostrarDatosJugador(_jugador.IdJugador).NombreCompleto;
+
+                Mensaje mensajeEquipoAceptaOferta = new Mensaje
+                {
+                    Fecha = Metodos.hoy,
+                    Remitente = nombreJugador != null ? nombreJugador : director.Nombre,
+                    Asunto = "Oferta aceptada",
+                    Contenido = $"El {_logicaEquipo.ListarDetallesEquipo(jugador.IdEquipo).Nombre.ToUpper()} ha aceptado nuestra oferta de {ofertaEquipo.ToString("N0", new CultureInfo("es-ES"))}€ por {_logicaJugador.MostrarDatosJugador(jugador.IdJugador).NombreCompleto.ToUpper()}. Nos han autorizado a iniciar conversaciones directas con el jugador y su representante para negociar los términos personales del contrato.\n\nPuedes comenzar la negociación en cuanto lo consideres oportuno. Te recomendamos actuar con agilidad para cerrar el acuerdo antes de que otros clubes se interpongan.",
+                    TipoMensaje = "Notificación",
+                    IdEquipo = _equipo,
+                    IdManager = _manager.IdManager,
+                    Leido = false,
+                    Icono = jugador.IdJugador
+                };
+
+                _logicaMensaje.crearMensaje(mensajeEquipoAceptaOferta);
+
                 // Ventana emergente diciendo que el equipo ha aceptado la oferta.
                 string titulo = "INFORMACIÓN";
                 string mensaje = $"El {_logicaEquipo.ListarDetallesEquipo(equipoOrigen).Nombre.ToUpper()} ha aceptado tu oferta por {_logicaJugador.MostrarDatosJugador(_jugador.IdJugador).NombreCompleto.ToUpper()}. Ahora ya puedes negociar con el jugador.";
@@ -306,6 +329,26 @@ namespace ChampionManager25.Vistas
 
                 // No querer negociar en 2 semanas
                 _logicaJugador.NegociacionCancelada(oferta.IdJugador, 14);
+
+                // Crear el mensaje confirmando el rechazo de la oferta de traspaso
+                Empleado? director = _logicaEmpleado.ObtenerEmpleadoPorPuesto("Director Técnico");
+                string presidente = _logicaEquipo.ListarDetallesEquipo(_equipo).Presidente;
+                string nombreJugador = _logicaJugador.MostrarDatosJugador(_jugador.IdJugador).NombreCompleto;
+
+                Mensaje mensajeEquipoAceptaOferta = new Mensaje
+                {
+                    Fecha = Metodos.hoy,
+                    Remitente = nombreJugador != null ? nombreJugador : director.Nombre,
+                    Asunto = "Oferta rechazada",
+                    Contenido = $"El {_logicaEquipo.ListarDetallesEquipo(jugador.IdEquipo).Nombre.ToUpper()} ha rechazado nuestra oferta de {ofertaEquipo.ToString("N0", new CultureInfo("es-ES"))}€ por {_logicaJugador.MostrarDatosJugador(jugador.IdJugador).NombreCompleto.ToUpper()}. El club considera que las condiciones económicas ofrecidas no se ajustan a sus expectativas o al valor que otorgan al futbolista en su plantilla.\n\nSi deseas, podemos revisar y ajustar la propuesta para intentar una nueva ofensiva dentro de 2 semanas, o explorar otras opciones en el mercado que se ajusten a las necesidades del equipo.",
+                    TipoMensaje = "Notificación",
+                    IdEquipo = _equipo,
+                    IdManager = _manager.IdManager,
+                    Leido = false,
+                    Icono = jugador.IdJugador
+                };
+
+                _logicaMensaje.crearMensaje(mensajeEquipoAceptaOferta);
 
                 btnEnviarOferta.Visibility = Visibility.Collapsed;
                 btnCancelarNegociacion.Content = "ABANDONAR NEGOCIACIÓN";
@@ -451,6 +494,26 @@ namespace ChampionManager25.Vistas
 
                         // Registrar la transferencia ya confirmada
                         _logicaTransferencia.RegistrarTransferencia(oferta);
+
+                        // Crear el mensaje confirmando la cesión de un jugador
+                        Empleado? director = _logicaEmpleado.ObtenerEmpleadoPorPuesto("Director Técnico");
+                        string presidente = _logicaEquipo.ListarDetallesEquipo(_equipo).Presidente;
+                        string nombreJugador = _logicaJugador.MostrarDatosJugador(_jugador.IdJugador).NombreCompleto;
+
+                        Mensaje mensajeJugadorCedido = new Mensaje
+                        {
+                            Fecha = Metodos.hoy,
+                            Remitente = nombreJugador != null ? nombreJugador : director.Nombre,
+                            Asunto = "Confirmación de cesión",
+                            Contenido = $"Nos complace informarte que hemos cerrado satisfactoriamente la cesión de {_logicaJugador.MostrarDatosJugador(jugador.IdJugador).NombreCompleto.ToUpper()} procedente del {_logicaEquipo.ListarDetallesEquipo(jugador.IdEquipo).Nombre.ToUpper()}. El acuerdo es válido hasta el final de la presente temporada y el jugador estará disponible en nuestra plantilla a partir de mañana.\n\nCreemos que esta cesión será beneficiosa para su desarrollo, ya que contará con más minutos en un entorno competitivo. Estaremos atentos a su evolución durante su estancia en su nuevo club.\n\nAgradecemos tu gestión y quedamos a tu disposición para cualquier consulta adicional.",
+                            TipoMensaje = "Notificación",
+                            IdEquipo = _equipo,
+                            IdManager = _manager.IdManager,
+                            Leido = false,
+                            Icono = jugador.IdJugador
+                        };
+
+                        _logicaMensaje.crearMensaje(mensajeJugadorCedido);
                     }
                     else
                     {
@@ -495,6 +558,26 @@ namespace ChampionManager25.Vistas
                         }
 
                         _logicaJugador.NegociacionCancelada(jugador.IdJugador, 7);
+
+                        // Crear el mensaje confirmando la cesión de un jugador
+                        Empleado? director = _logicaEmpleado.ObtenerEmpleadoPorPuesto("Director Técnico");
+                        string presidente = _logicaEquipo.ListarDetallesEquipo(_equipo).Presidente;
+                        string nombreJugador = _logicaJugador.MostrarDatosJugador(_jugador.IdJugador).NombreCompleto;
+
+                        Mensaje mensajeJugadorCedido = new Mensaje
+                        {
+                            Fecha = Metodos.hoy,
+                            Remitente = nombreJugador != null ? nombreJugador : director.Nombre,
+                            Asunto = "Oferta de cesión rechazada",
+                            Contenido = $"Lamentamos informarte que el {_logicaEquipo.ListarDetallesEquipo(jugador.IdEquipo).Nombre.ToUpper()} ha rechazado nuestra oferta de cesión por {_logicaJugador.MostrarDatosJugador(jugador.IdJugador).NombreCompleto.ToUpper()}.\n\nTras evaluar la propuesta, nos han comunicado que el jugador es parte de sus planes a corto plazo y no contemplan su salida en este momento.",
+                            TipoMensaje = "Notificación",
+                            IdEquipo = _equipo,
+                            IdManager = _manager.IdManager,
+                            Leido = false,
+                            Icono = jugador.IdJugador
+                        };
+
+                        _logicaMensaje.crearMensaje(mensajeJugadorCedido);
 
                         btnEnviarOferta.Visibility = Visibility.Collapsed;
                         btnCancelarNegociacion.Content = "ABANDONAR NEGOCIACIÓN";

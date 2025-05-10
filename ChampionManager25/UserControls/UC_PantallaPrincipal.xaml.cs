@@ -118,407 +118,618 @@ namespace ChampionManager25.UserControls
         {
             // Reproducir el sonido
             Metodos.ReproducirSonidoTransicion();
-
             DateTime fechaHoy = Metodos.hoy;
 
-            // Realizar traspasos y cesiones si las hay
-            List <Transferencia> traspasos = _logicaTransferencia.ListarTraspasos();
-            foreach (var traspaso in traspasos)
-            {
-                if (DateTime.Parse(traspaso.FechaTraspaso) == fechaHoy.AddDays(1))
-                {
-                    // Cambiar jugador de equipo
-                    _logicaJugador.CambiarDeEquipo(traspaso.IdJugador, traspaso.IdEquipoDestino);
+            // --------------------- REALIZAR TRASPASOS DENTRO DE LAS VENTANAS DE TRASPASOS
+            DateTime inicioVerano = new DateTime(fechaHoy.Year, 7, 1);
+            DateTime finVerano = new DateTime(fechaHoy.Year, 8, 30);
+            DateTime inicioInvierno = new DateTime(fechaHoy.Year, 1, 1);
+            DateTime finInvierno = new DateTime(fechaHoy.Year, 1, 31);
 
-                    // Cambiar dorsal si no esta disponible
-                }
+            // Comprobar si hoy está en un rango válido
+            bool enRangoEnero = fechaHoy >= inicioInvierno && fechaHoy <= finInvierno;
+            bool enRangoVerano = fechaHoy >= inicioVerano && fechaHoy <= finVerano;
+
+            if (enRangoEnero || enRangoVerano)
+            {
+                _logicaJugador.TraspasosIA(_equipo);
             }
 
-            // Si es lunes y hay contratado un psicologo aumentar la moral de todos los jugadores 1 punto
-            if (fechaHoy.DayOfWeek == DayOfWeek.Monday)
+            // --------------------------- SI ES LUNES -------------------------
+            btnAvanzar.Visibility = Visibility.Collapsed;
+            progressBar.Visibility = Visibility.Visible;
+
+            await Task.Run(() =>
             {
-                Empleado? psicologo = _logicaEmpleado.ObtenerEmpleadoPorPuesto("Psicólogo");
-                if (psicologo != null)
+                if (fechaHoy.DayOfWeek == DayOfWeek.Monday)
                 {
-                    List<Jugador> plantilla = _logicaJugador.ListadoJugadoresCompleto(_equipo);
-                    foreach (var jugador in plantilla)
+                    // --------------------- COMPROBAR MI PRESUPUESTO
+                    int presupuesto = _logicaEquipo.ListarDetallesEquipo(_equipo).Presupuesto;
+                    if (presupuesto < 0)
                     {
-                        _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 1, 0);
+                        Metodos.avisosBancarrota += 1;
                     }
-                }
-            }
 
-            // Comprobar si hoy acaba alguna Remodelacion y quitarla de la BD e incrementar el aforo
-            Remodelacion obraActivaDB = _logicaRemodelacion.ComprobarRemodelacion(_equipo, _manager.IdManager);
-            if (obraActivaDB != null)
-            {
-                if (obraActivaDB.FechaFinal == fechaHoy)
-                {
-                    _logicaRemodelacion.EliminarRemodelacion(obraActivaDB.IdRemodelacion);
-
-                    if (obraActivaDB.TipoRemodelacion == 1)
+                    if (Metodos.avisosBancarrota > 0 && Metodos.avisosBancarrota < 4)
                     {
-                        _logicaEquipo.ActualizarAforo(_equipo, 500);
+                        // Mostrar ventana de aviso de bancarrota
+                        string titulo = "INFORMACIÓN";
+                        string unidad = Metodos.avisosBancarrota == 1 ? "semana" : "semanas";
+                        string mensaje = $"Tu equipo lleva {Metodos.avisosBancarrota} {unidad} en bancarrota.\n\nLa situación económica del club es crítica. No hay fondos suficientes para cubrir los gastos básicos, y la deuda sigue aumentando.\n\nSi no logras revertir esta situación pronto, la directiva podría tomar medidas drásticas, incluida tu destitución como manager.";
+                        frmVentanaDespido ventanaBancarrota = new frmVentanaDespido(titulo, mensaje);
+                        ventanaBancarrota.ShowDialog();
                     }
-                    else if (obraActivaDB.TipoRemodelacion == 2)
+
+                    // --------------------- COMPROBAR JUGADORES QUE PUEDEN SER AGREGADOS AL MERCADO DE TRANSFERIBLES Y ACTUALIZAR LESIONADOS
+                    List<Jugador> listaJugadores = _logicaJugador.MostrarListaTotalJugadores();
+                    int partidosEquipo = _logicaPartidos.ObtenerProximoPartido(_equipo, _manager.IdManager, Metodos.hoy).Jornada - 1 ?? 0;
+                    int partidosJugador = 0; 
+                    int semanasLesionado = 0;
+                    List<int> jugadoresTransferibles = new List<int>();
+             
+                    foreach (var jugador in listaJugadores)
                     {
-                        _logicaEquipo.ActualizarAforo(_equipo, 1000);
-                    }
-                    else if (obraActivaDB.TipoRemodelacion == 3)
-                    {
-                        _logicaEquipo.ActualizarAforo(_equipo, 1500);
-                    }
-                }
-            }
-
-            // Comprobar si hoy acaba algun prestamo bancario y quitarlo de la BD
-            List<Prestamo> prestamosActuales = _logicaPrestamo.MostrarPrestamos(_manager.IdManager, _equipo);
-            foreach (var prestamo in prestamosActuales)
-            {
-                if (prestamo.SemanasRestantes == 0)
-                {
-                    _logicaPrestamo.EliminarPrestamo(_manager.IdManager, _equipo, prestamo.Orden);
-                }  
-            }
-
-            // Mostrar los abonados de la temporada e ingresar el dinero si es el segundo Lunes de agosto
-            DateTime fechaAbonados = ObtenerSegundoLunesDeAgosto(Metodos.temporadaActual);
-            if (fechaHoy == fechaAbonados)
-            {
-                // Crear numero de abonados
-                Random random = new Random();
-                int aforo = _logicaEquipo.ListarDetallesEquipo(_equipo).Aforo;
-                string objetivo = _logicaEquipo.ListarDetallesEquipo(_equipo).Objetivo;
-                int reputacion = _logicaEquipo.ListarDetallesEquipo(_equipo).Reputacion;
-
-                int maxSocios = (int)(aforo * 0.90); // límite máximo realista, por ejemplo, 95% del aforo total
-
-                // Factor Objetivo
-                double factorObjetivo = 1;
-                if (objetivo.Equals("Campeón"))
-                {
-                    factorObjetivo = 0.70 + random.NextDouble() * (0.80 - 0.70); ;
-                }
-                else if (objetivo.Equals("Ascenso"))
-                {
-                    factorObjetivo = 0.70 + random.NextDouble() * (0.75 - 0.70); ;
-                }
-                else if (objetivo.Equals("Zona Tranquila"))
-                {
-                    factorObjetivo = 0.50 + random.NextDouble() * (0.75 - 0.50); ;
-                }
-                else if (objetivo.Equals("Descenso"))
-                {
-                    factorObjetivo = 0.30 + random.NextDouble() * (0.75 - 0.30); ;
-                }
-
-                // Factor precio abonos segun reputacion
-                Taquilla? precios = _logicaTaquilla.RecuperarPreciosTaquilla(_equipo, _manager.IdManager);
-                double factorReputacion = 1.0;
-
-                // Definir los umbrales según reputación
-                int umbralGeneral, umbralTribuna, umbralVip;
-
-                if (reputacion >= 95)
-                {
-                    umbralGeneral = 900;
-                    umbralTribuna = 2000;
-                    umbralVip = 3000;
-                }
-                else if (reputacion >= 80)
-                {
-                    umbralGeneral = 700;
-                    umbralTribuna = 1500;
-                    umbralVip = 2000;
-                }
-                else if (reputacion >= 70)
-                {
-                    umbralGeneral = 500;
-                    umbralTribuna = 1000;
-                    umbralVip = 1500;
-                }
-                else
-                {
-                    umbralGeneral = 200;
-                    umbralTribuna = 400;
-                    umbralVip = 500;
-                }
-
-                // Evaluar el factor según precios
-                factorReputacion = precios.PrecioAbonoGeneral >= umbralGeneral ? 0.8 : 1.1;
-                factorReputacion = precios.PrecioAbonoTribuna >= umbralTribuna ? 0.8 : factorReputacion;
-                factorReputacion = precios.PrecioAbonoVip >= umbralVip ? 0.9 : factorReputacion;
-
-                int sociosTemporada = (int)(maxSocios * factorObjetivo * factorReputacion);
-
-                // Crear el mensaje con el numero de abonados de la temporada
-                Empleado? financiero = _logicaEmpleado.ObtenerEmpleadoPorPuesto("Financiero");
-                string presidente = _logicaEquipo.ListarDetallesEquipo(_equipo).Presidente;
-
-                Mensaje mensajeAbonados = new Mensaje
-                {
-                    Fecha = Metodos.hoy,
-                    Remitente = financiero != null ? financiero.Nombre : presidente,
-                    Asunto = "Campaña de abonados terminada",
-                    Contenido = $"Ha terminado la campaña de abonos. Se han abonado un total de {sociosTemporada.ToString("N0", new CultureInfo("es-ES"))} socios.\n\n¡No está nada mal, las expectativas del equipo parece que han convencido a los socios!",
-                    TipoMensaje = "Notificación",
-                    IdEquipo = _equipo,
-                    IdManager = _manager.IdManager,
-                    Leido = false,
-                    Icono = 0 // 0 es icono de equipo
-                };
-
-                _logicaMensajes.crearMensaje(mensajeAbonados);
-
-                // Ingresar el dinero de los abonos
-                double abonoGeneral = sociosTemporada * 0.60;
-                double abonoTribuna = sociosTemporada * 0.30;
-                double abonoVip = sociosTemporada * 0.10;
-
-                int? precioAbonoGeneral = precios.PrecioAbonoGeneral ?? 0;
-                int? precioAbonoTribuna = precios.PrecioAbonoTribuna ?? 0;
-                int? precioAbonoVip = precios.PrecioAbonoVip ?? 0;
-
-                int ingresoTotal = (int)((abonoGeneral * precioAbonoGeneral) +(abonoTribuna * precioAbonoTribuna) +(abonoVip * precioAbonoVip));
-
-                // Crear el ingreso
-                Finanza nuevoIngreso = new Finanza
-                {
-                    IdEquipo = _equipo,
-                    IdManager = _manager.IdManager,
-                    Temporada = Metodos.temporadaActual.ToString(),
-                    IdConcepto = 5,
-                    Tipo = 1,
-                    Cantidad = ingresoTotal,
-                    Fecha = Metodos.hoy.Date
-                };
-                _logicaFinanza.CrearIngreso(nuevoIngreso);
-
-                // Sumar los ingresos al Presupuesto
-                _logicaEquipo.SumarCantidadAPresupuesto(_equipo, ingresoTotal);
-            }
-
-            // Realizar cobros de los salarios si es 1 de mes.
-            if (fechaHoy.Day == 1)
-            {
-                // EMPLEADOS
-                List<Empleado> listaEmpleadosContratados = _logicaEmpleado.MostrarListaEmpleadosContratados(_equipo, _manager.IdManager);
-                foreach (var empleado in listaEmpleadosContratados)
-                {
-                    int mensualidadE = (int)empleado.Salario / 12;
-                    Finanza nuevoGasto = new Finanza
-                    {
-                        IdEquipo = _equipo,
-                        IdManager = _manager.IdManager,
-                        Temporada = Metodos.temporadaActual.ToString(),
-                        IdConcepto = 13,
-                        Tipo = 2,
-                        Cantidad = mensualidadE,
-                        Fecha = Metodos.hoy.Date
-                    };
-                    _logicaFinanza.CrearGasto(nuevoGasto);
-
-                    // Restar la indemnización al Presupuesto
-                    _logicaEquipo.RestarCantidadAPresupuesto(_equipo, mensualidadE);
-                }
-
-                // JUGADORES
-                List<Jugador> listaJugadoresContratados = _logicaJugador.ListadoJugadoresCompleto(_equipo);
-                foreach (var jugador in listaJugadoresContratados)
-                {
-                    int mensualidadJ = (int)jugador.SalarioTemporada / 12;
-                    Finanza nuevoGasto = new Finanza
-                    {
-                        IdEquipo = _equipo,
-                        IdManager = _manager.IdManager,
-                        Temporada = Metodos.temporadaActual.ToString(),
-                        IdConcepto = 11,
-                        Tipo = 2,
-                        Cantidad = mensualidadJ,
-                        Fecha = Metodos.hoy.Date
-                    };
-                    _logicaFinanza.CrearGasto(nuevoGasto);
-
-                    // Restar la indemnización al Presupuesto
-                    _logicaEquipo.RestarCantidadAPresupuesto(_equipo, mensualidadJ);
-                }
-            }
-
-            // Realizar cobros de prestamos y remodelaciones (si los hubiera) si es Lunes.
-            if (fechaHoy.DayOfWeek == DayOfWeek.Monday)
-            {
-                // PRESTAMOS
-                List<Prestamo> prestamosActivos = _logicaPrestamo.MostrarPrestamos(_manager.IdManager, _equipo);
-                foreach (var prestamo in prestamosActivos)
-                {
-                    int pagoPrestamo = prestamo.PagoSemanal;
-                    Finanza nuevoGasto = new Finanza
-                    {
-                        IdEquipo = _equipo,
-                        IdManager = _manager.IdManager,
-                        Temporada = Metodos.temporadaActual.ToString(),
-                        IdConcepto = 17,
-                        Tipo = 2,
-                        Cantidad = pagoPrestamo,
-                        Fecha = Metodos.hoy.Date
-                    };
-                    _logicaFinanza.CrearGasto(nuevoGasto);
-
-                    // Restar la cantidad semanal al Presupuesto
-                    _logicaEquipo.RestarCantidadAPresupuesto(_equipo, pagoPrestamo);
-
-                    // Restar una semana al prestamo
-                    _logicaPrestamo.RestarSemana(prestamo.Orden);
-                }
-
-                // REMODELACIONES
-                Remodelacion obraActiva = _logicaRemodelacion.ComprobarRemodelacion(_equipo, _manager.IdManager);
-                Finanza nuevoGastoRemodelacion = null;
-                int pagoRemodelacion = 0;
-
-                if (obraActiva != null)
-                {
-                    if (obraActiva.TipoRemodelacion == 1)
-                    {
-                        pagoRemodelacion = 250000;
-                        nuevoGastoRemodelacion = new Finanza
+                        // LESIONADOS
+                        // Reducir el número de partidos lesionado si es mayor que 0
+                        if (jugador.Lesion > 0)
                         {
-                            IdEquipo = _equipo,
-                            IdManager = _manager.IdManager,
-                            Temporada = Metodos.temporadaActual.ToString(),
-                            IdConcepto = 15,
-                            Tipo = 2,
-                            Cantidad = pagoRemodelacion,
-                            Fecha = Metodos.hoy.Date
-                        };
-                    } 
-                    else if (obraActiva.TipoRemodelacion == 2)
-                    {
-                        pagoRemodelacion = 425000;
-                        nuevoGastoRemodelacion = new Finanza
+                            _logicaJugador.PonerJugadorLesionado(jugador.IdJugador, jugador.Lesion - 1, jugador.TipoLesion);
+
+                            // Sumar semana lesionado a la tabla estadisticas_jugadores
+                            _logicaJugador.SumarSemanaLesionado(jugador.IdJugador);
+                        }
+                        else
                         {
-                            IdEquipo = _equipo,
-                            IdManager = _manager.IdManager,
-                            Temporada = Metodos.temporadaActual.ToString(),
-                            IdConcepto = 15,
-                            Tipo = 2,
-                            Cantidad = pagoRemodelacion,
-                            Fecha = Metodos.hoy.Date
-                        };
+                            _logicaJugador.ActivarTratamientoLesion(jugador.IdJugador, 0);
+                        }
+
+                        // COMPROBAR TRANSFERIBLES
+                        if (jugador.IdEquipo != _equipo && jugador.SituacionMercado == 0)
+                        {
+                            semanasLesionado = _logicaJugador.SemanasLesionado(jugador.IdJugador);
+                            partidosJugador = _logicaEstadisticas.MostrarEstadisticasJugador(jugador.IdJugador, _manager.IdManager).PartidosJugados;
+
+                            // 📌 Sistema de Puntuación
+                            int indiceTransferibilidad = 0;
+
+                            // ✔ Factor 1: Edad y Proyeccion
+                            if (jugador.Edad > 30 && partidosEquipo > 10 && partidosJugador < (partidosEquipo * 0.25) && semanasLesionado < (partidosEquipo * 0.25))
+                            {
+                                indiceTransferibilidad += 2;
+                            }
+
+                            // ✔ Factor 2: Rol vs Partidos Jugados
+                            if (jugador.Status <= 2 && partidosEquipo > 10 && partidosJugador < (partidosEquipo * 0.25) && semanasLesionado < (partidosEquipo * 0.25))
+                            {
+                                indiceTransferibilidad += 1;
+                            } 
+                            else if(jugador.Status > 2 && partidosEquipo > 10 && partidosJugador < (partidosEquipo * 0.25) && semanasLesionado < (partidosEquipo * 0.25))
+                            {
+                                indiceTransferibilidad += 2;
+                            }
+
+                            // ✔ Factor 3: Valor Mercado vs Suplencia
+                            int presupuestoEquipo = _logicaEquipo.ListarDetallesEquipo(jugador.IdEquipo).Presupuesto;
+                            if (jugador.SalarioTemporada > (presupuestoEquipo * 0.015) && partidosEquipo > 10 && partidosJugador < (partidosEquipo * 0.25) && semanasLesionado < (partidosEquipo * 0.25))
+                            {
+                                indiceTransferibilidad += 2;
+                            }
+
+                            // ✔ Factor 4: Rendimiento y Moral
+                            if (jugador.Moral < 30 && partidosEquipo > 10 && partidosJugador < (partidosEquipo * 0.50))
+                            {
+                                indiceTransferibilidad += 1;
+                            }
+
+                            // ✔ Factor 5: Final de Contrato
+                            if (jugador.AniosContrato == 1 && partidosEquipo > 10 && partidosJugador < (partidosEquipo * 0.50))
+                            {
+                                indiceTransferibilidad += 1;
+                            }
+
+                            // 📌 RESULTADOS DE TRANSFERIBILIDAD
+                            if (indiceTransferibilidad >= 4)
+                            {
+                                jugadoresTransferibles.Add(jugador.IdJugador);
+                            }
+                        }
                     }
-                    else if (obraActiva.TipoRemodelacion == 3)
+
+                    // Ponemos a los jugadores en la lista de transferibles.
+                    foreach (var id in jugadoresTransferibles)
                     {
-                        pagoRemodelacion = 600000;
-                        nuevoGastoRemodelacion = new Finanza
+                        Random rnd = new Random();
+                        int numero = rnd.Next(1, 3);
+                        if (numero == 1)
                         {
-                            IdEquipo = _equipo,
-                            IdManager = _manager.IdManager,
-                            Temporada = Metodos.temporadaActual.ToString(),
-                            IdConcepto = 15,
-                            Tipo = 2,
-                            Cantidad = pagoRemodelacion,
-                            Fecha = Metodos.hoy.Date
-                        };
+                            _logicaJugador.PonerTransferible(id);
+                        } else
+                        {
+                            _logicaJugador.PonerCedible(id);
+                        }
+                    
                     }
-                    _logicaFinanza.CrearGasto(nuevoGastoRemodelacion);
-
-                    // Restar la indemnización al Presupuesto
-                    _logicaEquipo.RestarCantidadAPresupuesto(_equipo, pagoRemodelacion);
                 }
-            }
+            });
+            btnAvanzar.Visibility = Visibility.Visible;
+            progressBar.Visibility = Visibility.Collapsed;
 
-            // Realizar los ingresos de Patrocinador y Television si es el dia 1 del mes
-            if (fechaHoy.Day == 1)
+            // --------------------- COMPROBAR AVISOS DE BANCARROTA
+            if (Metodos.avisosBancarrota > 3)
             {
-                // PATROCINADOR
-                Patrocinador? patrocinador = _logicaPatrocinador.PatrocinadoresContratados(_manager.IdManager, _equipo);
+                // Despedir al manager en la Base de Datos
+                _logicaManager.DespedirManager(_manager.IdManager);
 
-                if (patrocinador != null)
-                {
-                    int mensualidadPatrocinador = (int)patrocinador.Cantidad / 12;
+                // Mostrar ventana de despido
+                string titulo = "INFORMACIÓN";
+                string mensaje = "El club ha decidido prescindir de tus servicios.\n\nTras varias semanas en una grave situación económica y sin haber logrado revertir la bancarrota, la directiva ha tomado la difícil decisión de destituirte como manager del equipo.\n\nA pesar de los esfuerzos realizados, la falta de liquidez, el impago de salarios y la presión institucional han provocado un desenlace inevitable.";
+                frmVentanaDespido ventanaDespido = new frmVentanaDespido(titulo, mensaje);
+                ventanaDespido.ShowDialog();
 
-                    Finanza nuevoIngresoPatrocinio = new Finanza
-                    {
-                        IdEquipo = _equipo,
-                        IdManager = _manager.IdManager,
-                        Temporada = Metodos.temporadaActual.ToString(),
-                        IdConcepto = 6,
-                        Tipo = 1,
-                        Cantidad = mensualidadPatrocinador,
-                        Fecha = Metodos.hoy.Date
-                    };
-                    _logicaFinanza.CrearIngreso(nuevoIngresoPatrocinio);
+                Metodos.ReproducirSonidoTransicion();
 
-                    // Restar la indemnización al Presupuesto
-                    _logicaEquipo.SumarCantidadAPresupuesto(_equipo, mensualidadPatrocinador);
-                }
-
-                // CADENA TV
-                Television? television = _logicaTelevision.TelevisionesContratadas(_manager.IdManager, _equipo);
-
-                if (television != null)
-                {
-                    int mensualidadTelevision = (int)television.Cantidad / 12;
-
-                    Finanza nuevoIngresoTelevision = new Finanza
-                    {
-                        IdEquipo = _equipo,
-                        IdManager = _manager.IdManager,
-                        Temporada = Metodos.temporadaActual.ToString(),
-                        IdConcepto = 7,
-                        Tipo = 1,
-                        Cantidad = mensualidadTelevision,
-                        Fecha = Metodos.hoy.Date
-                    };
-                    _logicaFinanza.CrearIngreso(nuevoIngresoTelevision);
-
-                    // Restar la indemnización al Presupuesto
-                    _logicaEquipo.SumarCantidadAPresupuesto(_equipo, mensualidadTelevision);
-                }       
-            }
-
-            // --------------------------------------------- COMPROBAR SI MI EQUIPO TIENE PARTIDO ---------------------------------------------
-            Partido miPartido = _logicaPartidos.ObtenerProximoPartido(_equipo, _manager.IdManager, Metodos.hoy);
-
-            if (miPartido != null && miPartido.FechaPartido == Metodos.hoy)
+                var mainWindow = (MainWindow)Application.Current.MainWindow;
+                mainWindow.CargarPortada();
+            } 
+            else
             {
-                int cont = 0;
-                if (miPartido.IdCompeticion != 4){
-                    // Comprobamos si hay jugadores lesionados o sancionados en la alineacion titular en partidos de Liga
-                    List<Jugador> alineacion = _logicaJugador.MostrarAlineacion(1, 11);
-
-                    foreach (var jugador in alineacion)
+                // --------------------- REALIZAR TRASPASOS Y CESIONES SI LOS HAY
+                List<Transferencia> traspasos = _logicaTransferencia.ListarTraspasos();
+                foreach (var traspaso in traspasos)
+                {
+                    if (DateTime.Parse(traspaso.FechaTraspaso) == fechaHoy.AddDays(1))
                     {
-                        if (jugador.Lesion > 0 || jugador.Sancionado > 0)
+                        // Cambiar jugador de equipo
+                        _logicaJugador.CambiarDeEquipo(traspaso.IdJugador, traspaso.IdEquipoDestino);
+
+                        if (traspaso.TipoFichaje == 1)
                         {
-                            cont++;
+                            // Cambiar su contrato
+                            _logicaJugador.CambiarContratoJugador(traspaso.IdJugador, traspaso.SalarioAnual, traspaso.ClausulaRescision, traspaso.Duracion, traspaso.BonoPorPartidos, traspaso.BonoPorGoles, traspaso.IdEquipoDestino);
                         }
                     }
                 }
 
-                if (cont > 0)
+                // --------------------- SI ES LUNES Y HAY CONTRATADO UN PSICÓLOGO AUMENTAR LA MORAL DE TODOS LOS JUGADORES 1 PUNTO
+                if (fechaHoy.DayOfWeek == DayOfWeek.Monday)
                 {
-                    // Mostrar ventana avisando de que la alineacion es incorrecta
-                    string titulo = "INFORMACIÓN";
-                    string mensaje = "Por favor revisa la alineación, has incluido jugadores que están lesionados o sancionados y no pueden jugar el partido.";
-                    frmVentanaEmergenteDosBotones ventanaAlineacionIncorrecta = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
-                    ventanaAlineacionIncorrecta.ShowDialog();
-                } 
-                else
-                {
-                    // Cargar Pantalla de Simulacion de MI PARTIDO
-                    frmResumenPartido ventanaResumenPartido = new frmResumenPartido(_manager, _equipo, miPartido);
-                    ventanaResumenPartido.ShowDialog();
-
-                    if (ventanaResumenPartido.copaFinalizada == 1)
+                    Empleado? psicologo = _logicaEmpleado.ObtenerEmpleadoPorPuesto("Psicólogo");
+                    if (psicologo != null)
                     {
-                        // Cargar Pantalla de Final de Copa
-                        frmResumenCopaNacional ventanaResumenCopaNacional = new frmResumenCopaNacional(_manager, _equipo);
-                        ventanaResumenCopaNacional.ShowDialog();
+                        List<Jugador> plantilla = _logicaJugador.ListadoJugadoresCompleto(_equipo);
+                        foreach (var jugador in plantilla)
+                        {
+                            _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 1, 0);
+                        }
+                    }
+                }
+
+                // --------------------- COMPROBAR SI HOY ACABA ALGUNA REMODELACIÓN Y QUITARLA DE LA BD E INCREMENTAR EL AFORO
+                Remodelacion obraActivaDB = _logicaRemodelacion.ComprobarRemodelacion(_equipo, _manager.IdManager);
+                if (obraActivaDB != null)
+                {
+                    if (obraActivaDB.FechaFinal == fechaHoy)
+                    {
+                        _logicaRemodelacion.EliminarRemodelacion(obraActivaDB.IdRemodelacion);
+
+                        if (obraActivaDB.TipoRemodelacion == 1)
+                        {
+                            _logicaEquipo.ActualizarAforo(_equipo, 500);
+                        }
+                        else if (obraActivaDB.TipoRemodelacion == 2)
+                        {
+                            _logicaEquipo.ActualizarAforo(_equipo, 1000);
+                        }
+                        else if (obraActivaDB.TipoRemodelacion == 3)
+                        {
+                            _logicaEquipo.ActualizarAforo(_equipo, 1500);
+                        }
+                    }
+                }
+
+                // --------------------- COMPROBAR SI HOY ACABA ALGÚN PRÉSTAMO BANCARIO Y QUITARLO DE LA BD
+                List<Prestamo> prestamosActuales = _logicaPrestamo.MostrarPrestamos(_manager.IdManager, _equipo);
+                foreach (var prestamo in prestamosActuales)
+                {
+                    if (prestamo.SemanasRestantes == 0)
+                    {
+                        _logicaPrestamo.EliminarPrestamo(_manager.IdManager, _equipo, prestamo.Orden);
+                    }
+                }
+
+                // --------------------- MOSTRAR LOS ABONADOS DE LA TEMPORADA E INGRESAR EL DINERO SI ES EL SEGUNDO LUNES DE AGOSTO
+                DateTime fechaAbonados = ObtenerSegundoLunesDeAgosto(Metodos.temporadaActual);
+                if (fechaHoy == fechaAbonados)
+                {
+                    // Crear numero de abonados
+                    Random random = new Random();
+                    int aforo = _logicaEquipo.ListarDetallesEquipo(_equipo).Aforo;
+                    string objetivo = _logicaEquipo.ListarDetallesEquipo(_equipo).Objetivo;
+                    int reputacion = _logicaEquipo.ListarDetallesEquipo(_equipo).Reputacion;
+
+                    int maxSocios = (int)(aforo * 0.90); // límite máximo realista, por ejemplo, 95% del aforo total
+
+                    // Factor Objetivo
+                    double factorObjetivo = 1;
+                    if (objetivo.Equals("Campeón"))
+                    {
+                        factorObjetivo = 0.70 + random.NextDouble() * (0.80 - 0.70); ;
+                    }
+                    else if (objetivo.Equals("Ascenso"))
+                    {
+                        factorObjetivo = 0.70 + random.NextDouble() * (0.75 - 0.70); ;
+                    }
+                    else if (objetivo.Equals("Zona Tranquila"))
+                    {
+                        factorObjetivo = 0.50 + random.NextDouble() * (0.75 - 0.50); ;
+                    }
+                    else if (objetivo.Equals("Descenso"))
+                    {
+                        factorObjetivo = 0.30 + random.NextDouble() * (0.75 - 0.30); ;
                     }
 
-                    // Comprobamos si hay otros partidos hoy
+                    // Factor precio abonos segun reputacion
+                    Taquilla? precios = _logicaTaquilla.RecuperarPreciosTaquilla(_equipo, _manager.IdManager);
+                    double factorReputacion = 1.0;
+
+                    // Definir los umbrales según reputación
+                    int umbralGeneral, umbralTribuna, umbralVip;
+
+                    if (reputacion >= 95)
+                    {
+                        umbralGeneral = 900;
+                        umbralTribuna = 2000;
+                        umbralVip = 3000;
+                    }
+                    else if (reputacion >= 80)
+                    {
+                        umbralGeneral = 700;
+                        umbralTribuna = 1500;
+                        umbralVip = 2000;
+                    }
+                    else if (reputacion >= 70)
+                    {
+                        umbralGeneral = 500;
+                        umbralTribuna = 1000;
+                        umbralVip = 1500;
+                    }
+                    else
+                    {
+                        umbralGeneral = 200;
+                        umbralTribuna = 400;
+                        umbralVip = 500;
+                    }
+
+                    // Evaluar el factor según precios
+                    factorReputacion = precios.PrecioAbonoGeneral >= umbralGeneral ? 0.8 : 1.1;
+                    factorReputacion = precios.PrecioAbonoTribuna >= umbralTribuna ? 0.8 : factorReputacion;
+                    factorReputacion = precios.PrecioAbonoVip >= umbralVip ? 0.9 : factorReputacion;
+
+                    int sociosTemporada = (int)(maxSocios * factorObjetivo * factorReputacion);
+
+                    // Crear el mensaje con el numero de abonados de la temporada
+                    Empleado? financiero = _logicaEmpleado.ObtenerEmpleadoPorPuesto("Financiero");
+                    string presidente = _logicaEquipo.ListarDetallesEquipo(_equipo).Presidente;
+
+                    Mensaje mensajeAbonados = new Mensaje
+                    {
+                        Fecha = Metodos.hoy,
+                        Remitente = financiero != null ? financiero.Nombre : presidente,
+                        Asunto = "Campaña de abonados terminada",
+                        Contenido = $"Ha terminado la campaña de abonos. Se han abonado un total de {sociosTemporada.ToString("N0", new CultureInfo("es-ES"))} socios.\n\n¡No está nada mal, las expectativas del equipo parece que han convencido a los socios!",
+                        TipoMensaje = "Notificación",
+                        IdEquipo = _equipo,
+                        IdManager = _manager.IdManager,
+                        Leido = false,
+                        Icono = 0 // 0 es icono de equipo
+                    };
+
+                    _logicaMensajes.crearMensaje(mensajeAbonados);
+
+                    // Ingresar el dinero de los abonos
+                    double abonoGeneral = sociosTemporada * 0.60;
+                    double abonoTribuna = sociosTemporada * 0.30;
+                    double abonoVip = sociosTemporada * 0.10;
+
+                    int? precioAbonoGeneral = precios.PrecioAbonoGeneral ?? 0;
+                    int? precioAbonoTribuna = precios.PrecioAbonoTribuna ?? 0;
+                    int? precioAbonoVip = precios.PrecioAbonoVip ?? 0;
+
+                    int ingresoTotal = (int)((abonoGeneral * precioAbonoGeneral) + (abonoTribuna * precioAbonoTribuna) + (abonoVip * precioAbonoVip));
+
+                    // Crear el ingreso
+                    Finanza nuevoIngreso = new Finanza
+                    {
+                        IdEquipo = _equipo,
+                        IdManager = _manager.IdManager,
+                        Temporada = Metodos.temporadaActual.ToString(),
+                        IdConcepto = 5,
+                        Tipo = 1,
+                        Cantidad = ingresoTotal,
+                        Fecha = Metodos.hoy.Date
+                    };
+                    _logicaFinanza.CrearIngreso(nuevoIngreso);
+
+                    // Sumar los ingresos al Presupuesto
+                    _logicaEquipo.SumarCantidadAPresupuesto(_equipo, ingresoTotal);
+                }
+
+                // --------------------- REALIZAR COBROS DE LOS SALARIOS SI ES 1 DE MES
+                if (fechaHoy.Day == 1)
+                {
+                    // SALARIO EMPLEADOS
+                    List<Empleado> listaEmpleadosContratados = _logicaEmpleado.MostrarListaEmpleadosContratados(_equipo, _manager.IdManager);
+                    foreach (var empleado in listaEmpleadosContratados)
+                    {
+                        int mensualidadE = (int)empleado.Salario / 12;
+                        Finanza nuevoGasto = new Finanza
+                        {
+                            IdEquipo = _equipo,
+                            IdManager = _manager.IdManager,
+                            Temporada = Metodos.temporadaActual.ToString(),
+                            IdConcepto = 13,
+                            Tipo = 2,
+                            Cantidad = mensualidadE,
+                            Fecha = Metodos.hoy.Date
+                        };
+                        _logicaFinanza.CrearGasto(nuevoGasto);
+
+                        // Restar la indemnización al Presupuesto
+                        _logicaEquipo.RestarCantidadAPresupuesto(_equipo, mensualidadE);
+                    }
+
+                    // JUGADORES
+                    List<Jugador> listaJugadoresContratados = _logicaJugador.ListadoJugadoresCompleto(_equipo);
+                    foreach (var jugador in listaJugadoresContratados)
+                    {
+                        // Salario
+                        int mensualidadJ = (int)jugador.SalarioTemporada / 12;
+                        Finanza nuevoGasto = new Finanza
+                        {
+                            IdEquipo = _equipo,
+                            IdManager = _manager.IdManager,
+                            Temporada = Metodos.temporadaActual.ToString(),
+                            IdConcepto = 11,
+                            Tipo = 2,
+                            Cantidad = mensualidadJ,
+                            Fecha = Metodos.hoy.Date
+                        };
+                        _logicaFinanza.CrearGasto(nuevoGasto);
+
+                        // Restar la indemnización al Presupuesto
+                        _logicaEquipo.RestarCantidadAPresupuesto(_equipo, mensualidadJ);
+                    }
+                }
+
+                // --------------------- REALIZAR COBROS DE PRÉSTAMOS Y REMODELACIONES (SI LOS HUBIERA) SI ES LUNES
+                if (fechaHoy.DayOfWeek == DayOfWeek.Monday)
+                {
+                    // PRESTAMOS
+                    List<Prestamo> prestamosActivos = _logicaPrestamo.MostrarPrestamos(_manager.IdManager, _equipo);
+                    foreach (var prestamo in prestamosActivos)
+                    {
+                        int pagoPrestamo = prestamo.PagoSemanal;
+                        Finanza nuevoGasto = new Finanza
+                        {
+                            IdEquipo = _equipo,
+                            IdManager = _manager.IdManager,
+                            Temporada = Metodos.temporadaActual.ToString(),
+                            IdConcepto = 17,
+                            Tipo = 2,
+                            Cantidad = pagoPrestamo,
+                            Fecha = Metodos.hoy.Date
+                        };
+                        _logicaFinanza.CrearGasto(nuevoGasto);
+
+                        // Restar la cantidad semanal al Presupuesto
+                        _logicaEquipo.RestarCantidadAPresupuesto(_equipo, pagoPrestamo);
+
+                        // Restar una semana al prestamo
+                        _logicaPrestamo.RestarSemana(prestamo.Orden);
+                    }
+
+                    // REMODELACIONES
+                    Remodelacion obraActiva = _logicaRemodelacion.ComprobarRemodelacion(_equipo, _manager.IdManager);
+                    Finanza nuevoGastoRemodelacion = null;
+                    int pagoRemodelacion = 0;
+
+                    if (obraActiva != null)
+                    {
+                        if (obraActiva.TipoRemodelacion == 1)
+                        {
+                            pagoRemodelacion = 250000;
+                            nuevoGastoRemodelacion = new Finanza
+                            {
+                                IdEquipo = _equipo,
+                                IdManager = _manager.IdManager,
+                                Temporada = Metodos.temporadaActual.ToString(),
+                                IdConcepto = 15,
+                                Tipo = 2,
+                                Cantidad = pagoRemodelacion,
+                                Fecha = Metodos.hoy.Date
+                            };
+                        }
+                        else if (obraActiva.TipoRemodelacion == 2)
+                        {
+                            pagoRemodelacion = 425000;
+                            nuevoGastoRemodelacion = new Finanza
+                            {
+                                IdEquipo = _equipo,
+                                IdManager = _manager.IdManager,
+                                Temporada = Metodos.temporadaActual.ToString(),
+                                IdConcepto = 15,
+                                Tipo = 2,
+                                Cantidad = pagoRemodelacion,
+                                Fecha = Metodos.hoy.Date
+                            };
+                        }
+                        else if (obraActiva.TipoRemodelacion == 3)
+                        {
+                            pagoRemodelacion = 600000;
+                            nuevoGastoRemodelacion = new Finanza
+                            {
+                                IdEquipo = _equipo,
+                                IdManager = _manager.IdManager,
+                                Temporada = Metodos.temporadaActual.ToString(),
+                                IdConcepto = 15,
+                                Tipo = 2,
+                                Cantidad = pagoRemodelacion,
+                                Fecha = Metodos.hoy.Date
+                            };
+                        }
+                        _logicaFinanza.CrearGasto(nuevoGastoRemodelacion);
+
+                        // Restar la indemnización al Presupuesto
+                        _logicaEquipo.RestarCantidadAPresupuesto(_equipo, pagoRemodelacion);
+                    }
+                }
+
+                // --------------------- REALIZAR LOS INGRESOS DE PATROCINADOR Y TELEVISIÓN SI ES EL DÍA 1 DEL MES
+                if (fechaHoy.Day == 1)
+                {
+                    // PATROCINADOR
+                    Patrocinador? patrocinador = _logicaPatrocinador.PatrocinadoresContratados(_manager.IdManager, _equipo);
+
+                    if (patrocinador != null)
+                    {
+                        int mensualidadPatrocinador = (int)patrocinador.Cantidad / 12;
+
+                        Finanza nuevoIngresoPatrocinio = new Finanza
+                        {
+                            IdEquipo = _equipo,
+                            IdManager = _manager.IdManager,
+                            Temporada = Metodos.temporadaActual.ToString(),
+                            IdConcepto = 6,
+                            Tipo = 1,
+                            Cantidad = mensualidadPatrocinador,
+                            Fecha = Metodos.hoy.Date
+                        };
+                        _logicaFinanza.CrearIngreso(nuevoIngresoPatrocinio);
+
+                        // Restar la indemnización al Presupuesto
+                        _logicaEquipo.SumarCantidadAPresupuesto(_equipo, mensualidadPatrocinador);
+                    }
+
+                    // CADENA TV
+                    Television? television = _logicaTelevision.TelevisionesContratadas(_manager.IdManager, _equipo);
+
+                    if (television != null)
+                    {
+                        int mensualidadTelevision = (int)television.Cantidad / 12;
+
+                        Finanza nuevoIngresoTelevision = new Finanza
+                        {
+                            IdEquipo = _equipo,
+                            IdManager = _manager.IdManager,
+                            Temporada = Metodos.temporadaActual.ToString(),
+                            IdConcepto = 7,
+                            Tipo = 1,
+                            Cantidad = mensualidadTelevision,
+                            Fecha = Metodos.hoy.Date
+                        };
+                        _logicaFinanza.CrearIngreso(nuevoIngresoTelevision);
+
+                        // Restar la indemnización al Presupuesto
+                        _logicaEquipo.SumarCantidadAPresupuesto(_equipo, mensualidadTelevision);
+                    }
+                }
+
+                // --------------------- COMPROBAR SI MI EQUIPO TIENE PARTIDO 
+                Partido miPartido = _logicaPartidos.ObtenerProximoPartido(_equipo, _manager.IdManager, Metodos.hoy);
+
+                if (miPartido != null && miPartido.FechaPartido == Metodos.hoy)
+                {
+                    int cont = 0;
+                    if (miPartido.IdCompeticion != 4)
+                    {
+                        // Comprobamos si hay jugadores lesionados o sancionados en la alineacion titular en partidos de Liga
+                        List<Jugador> alineacion = _logicaJugador.MostrarAlineacion(1, 11);
+
+                        foreach (var jugador in alineacion)
+                        {
+                            if (jugador.Lesion > 0 || jugador.Sancionado > 0)
+                            {
+                                cont++;
+                            }
+                        }
+                    }
+
+                    if (cont > 0)
+                    {
+                        // Mostrar ventana avisando de que la alineacion es incorrecta
+                        string titulo = "INFORMACIÓN";
+                        string mensaje = "Por favor revisa la alineación, has incluido jugadores que están lesionados o sancionados y no pueden jugar el partido.";
+                        frmVentanaEmergenteDosBotones ventanaAlineacionIncorrecta = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
+                        ventanaAlineacionIncorrecta.ShowDialog();
+                    }
+                    else
+                    {
+                        // Cargar Pantalla de Simulacion de MI PARTIDO
+                        frmResumenPartido ventanaResumenPartido = new frmResumenPartido(_manager, _equipo, miPartido);
+                        ventanaResumenPartido.ShowDialog();
+
+                        if (ventanaResumenPartido.copaFinalizada == 1)
+                        {
+                            // Cargar Pantalla de Final de Copa
+                            frmResumenCopaNacional ventanaResumenCopaNacional = new frmResumenCopaNacional(_manager, _equipo);
+                            ventanaResumenCopaNacional.ShowDialog();
+                        }
+
+                        // Comprobamos si hay otros partidos hoy
+                        List<Partido> listaPartidos = _logicaPartidos.PartidosHoy(_equipo, _manager.IdManager);
+                        if (listaPartidos != null && listaPartidos.Count > 0)
+                        {
+                            // Cargar Ventana de Simulacion de partidos
+                            frmSimulandoPartidos ventanaSimulacion = new frmSimulandoPartidos(_manager, _equipo, listaPartidos);
+                            ventanaSimulacion.ShowDialog();
+
+                            // Avanzamos un dia en el calendario
+                            _datosFecha.AvanzarUnDia();
+
+                            // Esperamos un momento para asegurarnos de que la base de datos ya procesó el cambio
+                            await Task.Delay(50);
+
+                            // Recargamos la fecha
+                            CargarFecha();
+
+                            // CARGAR EL CONTENIDO DEL PANEL PRINCIPAL
+                            if (DockPanel_Central.Children.Count > 0)
+                            {
+                                DockPanel_Central.Children.Clear();
+                            }
+                            UC_Menu_Home_MenuPrincipal homeMenuPrincipal = new UC_Menu_Home_MenuPrincipal(_manager, _equipo);
+                            DockPanel_Central.Children.Add(homeMenuPrincipal);
+
+                            if (ventanaSimulacion.copaFinalizada == 1)
+                            {
+                                // Cargar Pantalla de Final de Copa
+                                frmResumenCopaNacional ventanaResumenCopaNacional = new frmResumenCopaNacional(_manager, _equipo);
+                                ventanaResumenCopaNacional.ShowDialog();
+                            }
+                        }
+                        else
+                        {
+                            // Avanzamos un dia en el calendario
+                            _datosFecha.AvanzarUnDia();
+
+                            // Recargamos la fecha
+                            CargarFecha();
+
+                            // CARGAR EL CONTENIDO DEL PANEL PRINCIPAL
+                            if (DockPanel_Central.Children.Count > 0)
+                            {
+                                DockPanel_Central.Children.Clear();
+                            }
+                            UC_Menu_Home_MenuPrincipal homeMenuPrincipal = new UC_Menu_Home_MenuPrincipal(_manager, _equipo);
+                            DockPanel_Central.Children.Add(homeMenuPrincipal);
+                        }
+                    }
+                }
+                else
+                {
+                    // --------------------- COMPROBAR SI HAY PARTIDOS ESTE DÍA Y SIMULARLOS
                     List<Partido> listaPartidos = _logicaPartidos.PartidosHoy(_equipo, _manager.IdManager);
+
                     if (listaPartidos != null && listaPartidos.Count > 0)
                     {
                         // Cargar Ventana de Simulacion de partidos
@@ -554,6 +765,9 @@ namespace ChampionManager25.UserControls
                         // Avanzamos un dia en el calendario
                         _datosFecha.AvanzarUnDia();
 
+                        // Esperamos un momento para asegurarnos de que la base de datos ya procesó el cambio
+                        await Task.Delay(50);
+
                         // Recargamos la fecha
                         CargarFecha();
 
@@ -565,343 +779,290 @@ namespace ChampionManager25.UserControls
                         UC_Menu_Home_MenuPrincipal homeMenuPrincipal = new UC_Menu_Home_MenuPrincipal(_manager, _equipo);
                         DockPanel_Central.Children.Add(homeMenuPrincipal);
                     }
-                }  
-            }
-            else
-            {
-                // Comprobar si hay partidos este dia y simularlos
-                List<Partido> listaPartidos = _logicaPartidos.PartidosHoy(_equipo, _manager.IdManager);
-                
-                if (listaPartidos != null && listaPartidos.Count > 0)
-                {
-                    // Cargar Ventana de Simulacion de partidos
-                    frmSimulandoPartidos ventanaSimulacion = new frmSimulandoPartidos(_manager, _equipo, listaPartidos);
-                    ventanaSimulacion.ShowDialog();
-
-                    // Avanzamos un dia en el calendario
-                    _datosFecha.AvanzarUnDia();
-
-                    // Esperamos un momento para asegurarnos de que la base de datos ya procesó el cambio
-                    await Task.Delay(50);
-
-                    // Recargamos la fecha
-                    CargarFecha();
-
-                    // CARGAR EL CONTENIDO DEL PANEL PRINCIPAL
-                    if (DockPanel_Central.Children.Count > 0)
-                    {
-                        DockPanel_Central.Children.Clear();
-                    }
-                    UC_Menu_Home_MenuPrincipal homeMenuPrincipal = new UC_Menu_Home_MenuPrincipal(_manager, _equipo);
-                    DockPanel_Central.Children.Add(homeMenuPrincipal);
-
-                    if (ventanaSimulacion.copaFinalizada == 1)
-                    {
-                        // Cargar Pantalla de Final de Copa
-                        frmResumenCopaNacional ventanaResumenCopaNacional = new frmResumenCopaNacional(_manager, _equipo);
-                        ventanaResumenCopaNacional.ShowDialog();
-                    }
                 }
-                else
+
+                // --------------------- COMPROBAMOS SI LA FECHA DE HOY ES MAYOR QUE EL ÚLTIMO PARTIDO DEL CALENDARIO
+                if (DateTime.TryParse(_logicaPartidos.ultimoPartidoCalendario(), out DateTime ultimoPartido))
                 {
-                    // Avanzamos un dia en el calendario
-                    _datosFecha.AvanzarUnDia();
+                    DateTime hoy = Metodos.hoy;
 
-                    // Esperamos un momento para asegurarnos de que la base de datos ya procesó el cambio
-                    await Task.Delay(50);
-
-                    // Recargamos la fecha
-                    CargarFecha();
-
-                    // CARGAR EL CONTENIDO DEL PANEL PRINCIPAL
-                    if (DockPanel_Central.Children.Count > 0)
+                    if (hoy > ultimoPartido)
                     {
-                        DockPanel_Central.Children.Clear();
-                    }
-                    UC_Menu_Home_MenuPrincipal homeMenuPrincipal = new UC_Menu_Home_MenuPrincipal(_manager, _equipo);
-                    DockPanel_Central.Children.Add(homeMenuPrincipal);
-                }
-            }
+                        int miCompeticion = _logicaEquipo.ListarDetallesEquipo(_equipo).IdCompeticion;
+                        List<Clasificacion> clasificacion = _logicaClasificacion.MostrarClasificacion(miCompeticion, _manager.IdManager);
+                        int miEquipoId = _equipo;
+                        int posicion = clasificacion.FirstOrDefault(c => c.IdEquipo == miEquipoId)?.Posicion ?? 0;
 
-            // Comprobamos si la fecha de hoy es mayor que el ultimo partido del calendario
-            if (DateTime.TryParse(_logicaPartidos.ultimoPartidoCalendario(), out DateTime ultimoPartido))
-            {
-                DateTime hoy = Metodos.hoy;
+                        // Cargar Pantalla de Final de Temporada
+                        frmResumenTemporada ventanaResumenTemporada = new frmResumenTemporada(_manager, _equipo, clasificacion, posicion);
+                        ventanaResumenTemporada.ShowDialog();
 
-                if (hoy > ultimoPartido)
-                {
-                    int miCompeticion = _logicaEquipo.ListarDetallesEquipo(_equipo).IdCompeticion;
-                    List<Clasificacion> clasificacion = _logicaClasificacion.MostrarClasificacion(miCompeticion, _manager.IdManager);
-                    int miEquipoId = _equipo;
-                    int posicion = clasificacion.FirstOrDefault(c => c.IdEquipo == miEquipoId)?.Posicion ?? 0;
+                        // Comprobar si se ha conseguido el Objetivo de Temporada
+                        string objetivo = _logicaEquipo.ListarDetallesEquipo(_equipo).Objetivo;
+                        CalcularObjetivoTemporada(objetivo, posicion, miCompeticion);
 
-                    // Cargar Pantalla de Final de Temporada
-                    frmResumenTemporada ventanaResumenTemporada = new frmResumenTemporada(_manager, _equipo, clasificacion, posicion);
-                    ventanaResumenTemporada.ShowDialog();
-                    
-                    // Comprobar si se ha conseguido el Objetivo de Temporada
-                    string objetivo = _logicaEquipo.ListarDetallesEquipo(_equipo).Objetivo;
-                    CalcularObjetivoTemporada(objetivo, posicion, miCompeticion);
-
-                    Manager yo = _logicaManager.MostrarManager(_manager.IdManager);
-                    if (yo.CDirectiva == 0 || yo.CFans == 0 || yo.CJugadores == 0)
-                    {
-                        // Despedir al manager en la Base de Datos
-                        _logicaManager.DespedirManager(_manager.IdManager);
-
-                        // Mostrar ventana de despido
-                        string titulo = "INFORMACIÓN";
-                        string mensaje = "El club ha decidido prescindir de los servicios de su entrenador.\n\nLos recientes resultados no han estado a la altura de las expectativas, y la directiva considera necesario un cambio de rumbo para reconducir el club.\n\nAgradecemos su dedicación y profesionalidad durante su etapa al frente del equipo, y le deseamos suerte en sus futuros proyectos.";
-                        frmVentanaDespido ventanaDespido = new frmVentanaDespido(titulo, mensaje);
-                        ventanaDespido.ShowDialog();
-
-                        Metodos.ReproducirSonidoTransicion();
-
-                        var mainWindow = (MainWindow)Application.Current.MainWindow;
-                        mainWindow.CargarPortada();
-                    }
-                    else
-                    {
-                        btnAvanzar.Visibility = Visibility.Collapsed;
-                        progressBar.Visibility = Visibility.Visible;
-
-                        await Task.Run(() =>
+                        Manager yo = _logicaManager.MostrarManager(_manager.IdManager);
+                        if (yo.CDirectiva == 0 || yo.CFans == 0 || yo.CJugadores == 0)
                         {
-                            // Actualizar la tabla historial_manager
-                            _logicaHistorial.CopiarPartidosHistorialManager(Metodos.temporadaActual);
-                            _logicaHistorial.CopiarConfianzasManager(Metodos.temporadaActual);
-                            _logicaHistorial.CopiarPosicionLigaManager(Metodos.temporadaActual, posicion);
+                            // Despedir al manager en la Base de Datos
+                            _logicaManager.DespedirManager(_manager.IdManager);
 
-                            // Actualizar las tablas palmares, palmares_manager e historial_finales
-                            // PALMARES
-                            foreach (var equipo in clasificacion)
-                            {
-                                if (equipo.Posicion == 1)
-                                {
-                                    _logicaPalmares.AnadirTituloCampeon(equipo.IdEquipo);
-                                }
-                            }
+                            // Mostrar ventana de despido
+                            string titulo = "INFORMACIÓN";
+                            string mensaje = "El club ha decidido prescindir de los servicios de su entrenador.\n\nLos recientes resultados no han estado a la altura de las expectativas, y la directiva considera necesario un cambio de rumbo para reconducir el club.\n\nAgradecemos su dedicación y profesionalidad durante su etapa al frente del equipo, y le deseamos suerte en sus futuros proyectos.";
+                            frmVentanaDespido ventanaDespido = new frmVentanaDespido(titulo, mensaje);
+                            ventanaDespido.ShowDialog();
 
-                            // PALMARES_MANAGER
-                            if (posicion == 1) // Si he ganado la liga...
-                            {
-                                _logicaPalmares.AnadirTituloManager(1, _equipo, _manager.IdManager, Metodos.temporadaActual);
-                            }
+                            Metodos.ReproducirSonidoTransicion();
 
-                            // REPUTACION MANAGER
-                            if (posicion == 1)
-                            {
-                                _logicaManager.ActualizarReputacion(_manager.IdManager, 25);
-                            }
-                            else if (posicion <= 4)
-                            {
-                                _logicaManager.ActualizarReputacion(_manager.IdManager, 10);
-                            }
-                            else if (posicion >= 16)
-                            {
-                                _logicaManager.ActualizarReputacion(_manager.IdManager, -10);
-                            }
-                            else
-                            {
-                                _logicaManager.ActualizarReputacion(_manager.IdManager, 5);
-                            }
-
-                            // HISTORIAL FINALES
-                            int campeon = 0;
-                            int finalista = 0;
-                            foreach (var equipo in clasificacion)
-                            {
-                                if (equipo.Posicion == 1)
-                                {
-                                    campeon = equipo.IdEquipo;
-                                }
-                                if (equipo.Posicion == 2)
-                                {
-                                    finalista = equipo.IdEquipo;
-                                }
-                            }
-                            _logicaPalmares.AnadirCampeonFinalista(Metodos.temporadaActual, campeon, finalista);
-
-                            // Balon de Oro
-                            balonOro = _logicaEstadisticas.BalonDeOro();
-
-                            // Bota de Oro
-                            botaOro = _logicaEstadisticas.BotaDeOro();
-
-                            // Mejor 11 de la Temporada
-                            mejorOnce = _logicaEstadisticas.MejorOnceTemporada();
-
-                            // Crear clasificaciones para descensos y ascensos
-                            List<Clasificacion> clasificacion1Final = _logicaClasificacion.MostrarClasificacion(1, _manager.IdManager);
-                            List<Clasificacion> clasificacion2Final = _logicaClasificacion.MostrarClasificacion2(2, _manager.IdManager);
-                            List<Equipo> listaReservas = _logicaEquipo.ListarEquiposCompeticion(3);
-
-                            // Resetear tablas clasificacion, estadisticas_jugadores, historial_manager_temp
-                            _logicaClasificacion.ResetearClasificacion(1);
-                            _logicaClasificacion.ResetearClasificacion(2);
-                            _logicaEstadisticas.ResetearEstadisticas();
-                            _logicaHistorial.ResetearHistorialTemporal();
-                            _logicaPartidos.ResetearPartidos();
-
-                            // Resetear Moral y Estado de Forma a 50
-                            _logicaJugador.ResetearMoralEstadoForma();
-
-                            // Crear Nueva temporada
-                            _datosFecha.AvanzarUnAnio();
-                            Metodos.temporadaActual = _datosFecha.ObtenerFechaHoy().Anio;
-                            _datosFecha.AvanzarFecha(Metodos.temporadaActual);
-                            Metodos.hoy = DateTime.Parse(_datosFecha.ObtenerFechaHoy().Hoy);
-
-                            // Descender a Division 2
-                            int totalEquipos = clasificacion1Final.Count();
-                            foreach (var equipo in clasificacion1Final)
-                            {
-                                if (equipo.Posicion <= 2)
-                                {
-                                    _logicaEquipo.CambiarObjetivoTemporada(equipo.IdEquipo, "Campeón");
-                                }
-                                if (equipo.Posicion >= 5 && equipo.Posicion <= 15)
-                                {
-                                    _logicaEquipo.CambiarObjetivoTemporada(equipo.IdEquipo, "Zona Tranquila");
-                                }
-                                if (equipo.Posicion > (totalEquipos - 4) && equipo.Posicion <= totalEquipos)
-                                {
-                                    _logicaEquipo.AscenderDescenderEquipo(equipo.IdEquipo, 2);
-                                    _logicaEquipo.CambiarObjetivoTemporada(equipo.IdEquipo, "Ascenso");
-                                }
-                            }
-
-                            // Ascender a Division 1
-                            foreach (var equipo in clasificacion2Final)
-                            {
-                                if (equipo.Posicion >= 1 && equipo.Posicion <= 4)
-                                {
-                                    _logicaEquipo.AscenderDescenderEquipo(equipo.IdEquipo, 1);
-                                    _logicaEquipo.CambiarObjetivoTemporada(equipo.IdEquipo, "Descenso");
-                                }
-                                if (equipo.Posicion >= 7 && equipo.Posicion <= 15)
-                                {
-                                    _logicaEquipo.CambiarObjetivoTemporada(equipo.IdEquipo, "Zona Tranquila");
-                                }
-                                if (equipo.Posicion > 4 && equipo.Posicion < 7)
-                                {
-                                    _logicaEquipo.CambiarObjetivoTemporada(equipo.IdEquipo, "Ascenso");
-                                }
-                            }
-
-                            // Descender a Reservas
-                            int totalEquipos2 = clasificacion2Final.Count();
-                            foreach (var equipo in clasificacion2Final)
-                            {
-                                if (equipo.Posicion > (totalEquipos - 4) && equipo.Posicion <= totalEquipos2)
-                                {
-                                    _logicaEquipo.AscenderDescenderEquipo(equipo.IdEquipo, 3);
-                                    _logicaEquipo.CambiarObjetivoTemporada(equipo.IdEquipo, "Ascenso");
-                                }
-                            }
-
-                            // Ascender a Division 2
-                            Random random = new Random();
-                            
-                            List<Equipo> equiposSeleccionados = listaReservas // Seleccionar 4 equipos aleatorios sin repetir
-                                .OrderBy(e => random.Next())
-                                .Take(4)
-                                .ToList();
-
-                            List<int> idsSeleccionados = equiposSeleccionados // Obtener solo los IdEquipo
-                                .Select(e => e.IdEquipo)
-                                .ToList();
-                            
-                            foreach (var equipo in idsSeleccionados)
-                            {
-                                _logicaEquipo.AscenderDescenderEquipo(equipo, 2);
-                                _logicaEquipo.CambiarObjetivoTemporada(equipo, "Descenso");
-                            }
-
-                            // Crear el calendario de las Ligas
-                            int temporadaActual = Metodos.temporadaActual;
-                            _logicaPartidos.GenerarCalendario(temporadaActual, _manager.IdManager, 1);
-                            _logicaPartidos.GenerarCalendario(temporadaActual, _manager.IdManager, 2);
-
-                            // Generar el calendario de Copa nacional
-                            List<Equipo> listaEquipos = _logicaEquipo.ListarTodosLosEquipos();
-                            GeneralCalendarioCopa(listaEquipos);
-
-                            // Generar las clasificaciones
-                            _logicaClasificacion.RellenarClasificacion(1, _manager.IdManager);
-                            _logicaClasificacion.RellenarClasificacion2(2, _manager.IdManager);
-
-                            // Generar el primer registro del historial
-                            string temporadaFormateada = $"{temporadaActual}/{temporadaActual + 1}";
-                            _logicaHistorial.CrearLineaHistorial(_manager.IdManager, _equipo, temporadaFormateada);
-
-                            // Vaciar la tabla taquilla
-                            _logicaTaquilla.EstablecerPrecioAbonos(_equipo, _manager.IdManager, 0, 0, 0);
-
-                            // Restar un año al contrato del patrocinador y de la televisión.
-                            Patrocinador? patrocinador = _logicaPatrocinador.PatrocinadoresContratados(_manager.IdManager, _equipo);
-                            Television? television = _logicaTelevision.TelevisionesContratadas(_manager.IdManager, _equipo);
-
-                            if (patrocinador != null)
-                            {
-                                if (patrocinador.DuracionContrato > 1)
-                                {
-                                    _logicaPatrocinador.RestarAnioPatrocinador(patrocinador.IdPatrocinador);
-                                }
-                                else
-                                {
-                                    _logicaPatrocinador.CancelarPatrocinador(patrocinador.IdPatrocinador);
-                                } 
-                            }
-
-                            if (television != null)
-                            {
-                                if (television.DuracionContrato > 1)
-                                {
-                                    _logicaTelevision.RestarAnioCadenaTV(television.IdTelevision);
-                                }
-                                else
-                                {
-                                    _logicaTelevision.CancelarCadenaTV(television.IdTelevision);
-                                }
-                            }
-
-                            // Crear los mensaje de inicio de partida
-                            Mensaje mensajeNuevaTemporada = new Mensaje
-                            {
-                                Fecha = new DateTime(temporadaActual, 7, 15),
-                                Remitente = _logicaEquipo.ListarDetallesEquipo(_equipo).Presidente,
-                                Asunto = "Nueva Temporada",
-                                Contenido = "Desde la Directiva del " + _logicaEquipo.ListarDetallesEquipo(_equipo).Nombre + " te damos la bienvenida a una nueva temporada.\n\nLa junta directiva y los empleados te irán informando a través de correos electrónicos de las cosas que sucedan en el club.",
-                                TipoMensaje = "Notificación",
-                                IdEquipo = _equipo,
-                                IdManager = _manager.IdManager,
-                                Leido = false,
-                                Icono = 0 // 0 es icono de equipo
-                            };
-
-                            _logicaMensajes.crearMensaje(mensajeNuevaTemporada);
-                        });
-
-                        // Cargar Pantalla de Premios de Jugadores
-                        frmVentanaPremioJugadores ventanaPremiosJugadores = new frmVentanaPremioJugadores(balonOro, botaOro, mejorOnce, _equipo);
-                        ventanaPremiosJugadores.ShowDialog();
-
-                        CargarFecha();
-
-                        // CARGAR EL CONTENIDO DEL PANEL PRINCIPAL
-                        if (DockPanel_Central.Children.Count > 0)
-                        {
-                            DockPanel_Central.Children.Clear();
+                            var mainWindow = (MainWindow)Application.Current.MainWindow;
+                            mainWindow.CargarPortada();
                         }
-                        UC_Menu_Home_MenuPrincipal homeMenuPrincipal = new UC_Menu_Home_MenuPrincipal(_manager, _equipo);
-                        DockPanel_Central.Children.Add(homeMenuPrincipal);
+                        else
+                        {
+                            btnAvanzar.Visibility = Visibility.Collapsed;
+                            progressBar.Visibility = Visibility.Visible;
 
-                        progressBar.Visibility = Visibility.Collapsed;
-                        btnAvanzar.Visibility = Visibility.Visible;
+                            await Task.Run(() =>
+                            {
+                                // Actualizar la tabla historial_manager
+                                _logicaHistorial.CopiarPartidosHistorialManager(Metodos.temporadaActual);
+                                _logicaHistorial.CopiarConfianzasManager(Metodos.temporadaActual);
+                                _logicaHistorial.CopiarPosicionLigaManager(Metodos.temporadaActual, posicion);
+
+                                // Actualizar las tablas palmares, palmares_manager e historial_finales
+                                // PALMARES
+                                foreach (var equipo in clasificacion)
+                                {
+                                    if (equipo.Posicion == 1)
+                                    {
+                                        _logicaPalmares.AnadirTituloCampeon(equipo.IdEquipo);
+                                    }
+                                }
+
+                                // PALMARES_MANAGER
+                                if (posicion == 1) // Si he ganado la liga...
+                                {
+                                    _logicaPalmares.AnadirTituloManager(1, _equipo, _manager.IdManager, Metodos.temporadaActual);
+                                }
+
+                                // REPUTACION MANAGER
+                                if (posicion == 1)
+                                {
+                                    _logicaManager.ActualizarReputacion(_manager.IdManager, 25);
+                                }
+                                else if (posicion <= 4)
+                                {
+                                    _logicaManager.ActualizarReputacion(_manager.IdManager, 10);
+                                }
+                                else if (posicion >= 16)
+                                {
+                                    _logicaManager.ActualizarReputacion(_manager.IdManager, -10);
+                                }
+                                else
+                                {
+                                    _logicaManager.ActualizarReputacion(_manager.IdManager, 5);
+                                }
+
+                                // HISTORIAL FINALES
+                                int campeon = 0;
+                                int finalista = 0;
+                                foreach (var equipo in clasificacion)
+                                {
+                                    if (equipo.Posicion == 1)
+                                    {
+                                        campeon = equipo.IdEquipo;
+                                    }
+                                    if (equipo.Posicion == 2)
+                                    {
+                                        finalista = equipo.IdEquipo;
+                                    }
+                                }
+                                _logicaPalmares.AnadirCampeonFinalista(Metodos.temporadaActual, campeon, finalista);
+
+                                // Balon de Oro
+                                balonOro = _logicaEstadisticas.BalonDeOro();
+
+                                // Bota de Oro
+                                botaOro = _logicaEstadisticas.BotaDeOro();
+
+                                // Mejor 11 de la Temporada
+                                mejorOnce = _logicaEstadisticas.MejorOnceTemporada();
+
+                                // Crear clasificaciones para descensos y ascensos
+                                List<Clasificacion> clasificacion1Final = _logicaClasificacion.MostrarClasificacion(1, _manager.IdManager);
+                                List<Clasificacion> clasificacion2Final = _logicaClasificacion.MostrarClasificacion2(2, _manager.IdManager);
+                                List<Equipo> listaReservas = _logicaEquipo.ListarEquiposCompeticion(3);
+
+                                // Resetear tablas clasificacion, estadisticas_jugadores, historial_manager_temp, partidos y ofertas/transferencias
+                                _logicaClasificacion.ResetearClasificacion(1);
+                                _logicaClasificacion.ResetearClasificacion(2);
+                                _logicaEstadisticas.ResetearEstadisticas();
+                                _logicaHistorial.ResetearHistorialTemporal();
+                                _logicaPartidos.ResetearPartidos();
+                                _logicaTransferencia.ResetearTransferencias();
+
+                                // Resetear Moral y Estado de Forma a 50
+                                _logicaJugador.ResetearMoralEstadoForma();
+
+                                // Crear Nueva temporada
+                                _datosFecha.AvanzarUnAnio();
+                                Metodos.temporadaActual = _datosFecha.ObtenerFechaHoy().Anio;
+                                _datosFecha.AvanzarFecha(Metodos.temporadaActual);
+                                Metodos.hoy = DateTime.Parse(_datosFecha.ObtenerFechaHoy().Hoy);
+
+                                // Descender a Division 2
+                                int totalEquipos = clasificacion1Final.Count();
+                                foreach (var equipo in clasificacion1Final)
+                                {
+                                    if (equipo.Posicion <= 2)
+                                    {
+                                        _logicaEquipo.CambiarObjetivoTemporada(equipo.IdEquipo, "Campeón");
+                                    }
+                                    if (equipo.Posicion >= 5 && equipo.Posicion <= 15)
+                                    {
+                                        _logicaEquipo.CambiarObjetivoTemporada(equipo.IdEquipo, "Zona Tranquila");
+                                    }
+                                    if (equipo.Posicion > (totalEquipos - 4) && equipo.Posicion <= totalEquipos)
+                                    {
+                                        _logicaEquipo.AscenderDescenderEquipo(equipo.IdEquipo, 2);
+                                        _logicaEquipo.CambiarObjetivoTemporada(equipo.IdEquipo, "Ascenso");
+                                    }
+                                }
+
+                                // Ascender a Division 1
+                                foreach (var equipo in clasificacion2Final)
+                                {
+                                    if (equipo.Posicion >= 1 && equipo.Posicion <= 4)
+                                    {
+                                        _logicaEquipo.AscenderDescenderEquipo(equipo.IdEquipo, 1);
+                                        _logicaEquipo.CambiarObjetivoTemporada(equipo.IdEquipo, "Descenso");
+                                    }
+                                    if (equipo.Posicion >= 7 && equipo.Posicion <= 15)
+                                    {
+                                        _logicaEquipo.CambiarObjetivoTemporada(equipo.IdEquipo, "Zona Tranquila");
+                                    }
+                                    if (equipo.Posicion > 4 && equipo.Posicion < 7)
+                                    {
+                                        _logicaEquipo.CambiarObjetivoTemporada(equipo.IdEquipo, "Ascenso");
+                                    }
+                                }
+
+                                // Descender a Reservas
+                                int totalEquipos2 = clasificacion2Final.Count();
+                                foreach (var equipo in clasificacion2Final)
+                                {
+                                    if (equipo.Posicion > (totalEquipos - 4) && equipo.Posicion <= totalEquipos2)
+                                    {
+                                        _logicaEquipo.AscenderDescenderEquipo(equipo.IdEquipo, 3);
+                                        _logicaEquipo.CambiarObjetivoTemporada(equipo.IdEquipo, "Ascenso");
+                                    }
+                                }
+
+                                // Ascender a Division 2
+                                Random random = new Random();
+
+                                List<Equipo> equiposSeleccionados = listaReservas // Seleccionar 4 equipos aleatorios sin repetir
+                                    .OrderBy(e => random.Next())
+                                    .Take(4)
+                                    .ToList();
+
+                                List<int> idsSeleccionados = equiposSeleccionados // Obtener solo los IdEquipo
+                                    .Select(e => e.IdEquipo)
+                                    .ToList();
+
+                                foreach (var equipo in idsSeleccionados)
+                                {
+                                    _logicaEquipo.AscenderDescenderEquipo(equipo, 2);
+                                    _logicaEquipo.CambiarObjetivoTemporada(equipo, "Descenso");
+                                }
+
+                                // Crear el calendario de las Ligas
+                                int temporadaActual = Metodos.temporadaActual;
+                                _logicaPartidos.GenerarCalendario(temporadaActual, _manager.IdManager, 1);
+                                _logicaPartidos.GenerarCalendario(temporadaActual, _manager.IdManager, 2);
+
+                                // Generar el calendario de Copa nacional
+                                List<Equipo> listaEquipos = _logicaEquipo.ListarTodosLosEquipos();
+                                GeneralCalendarioCopa(listaEquipos);
+
+                                // Generar las clasificaciones
+                                _logicaClasificacion.RellenarClasificacion(1, _manager.IdManager);
+                                _logicaClasificacion.RellenarClasificacion2(2, _manager.IdManager);
+
+                                // Generar el primer registro del historial
+                                string temporadaFormateada = $"{temporadaActual}/{temporadaActual + 1}";
+                                _logicaHistorial.CrearLineaHistorial(_manager.IdManager, _equipo, temporadaFormateada);
+
+                                // Vaciar la tabla taquilla
+                                _logicaTaquilla.EstablecerPrecioAbonos(_equipo, _manager.IdManager, 0, 0, 0);
+
+                                // Restar un año al contrato del patrocinador y de la televisión.
+                                Patrocinador? patrocinador = _logicaPatrocinador.PatrocinadoresContratados(_manager.IdManager, _equipo);
+                                Television? television = _logicaTelevision.TelevisionesContratadas(_manager.IdManager, _equipo);
+
+                                if (patrocinador != null)
+                                {
+                                    if (patrocinador.DuracionContrato > 1)
+                                    {
+                                        _logicaPatrocinador.RestarAnioPatrocinador(patrocinador.IdPatrocinador);
+                                    }
+                                    else
+                                    {
+                                        _logicaPatrocinador.CancelarPatrocinador(patrocinador.IdPatrocinador);
+                                    }
+                                }
+
+                                if (television != null)
+                                {
+                                    if (television.DuracionContrato > 1)
+                                    {
+                                        _logicaTelevision.RestarAnioCadenaTV(television.IdTelevision);
+                                    }
+                                    else
+                                    {
+                                        _logicaTelevision.CancelarCadenaTV(television.IdTelevision);
+                                    }
+                                }
+
+                                // Crear los mensaje de inicio de partida
+                                Mensaje mensajeNuevaTemporada = new Mensaje
+                                {
+                                    Fecha = new DateTime(temporadaActual, 7, 15),
+                                    Remitente = _logicaEquipo.ListarDetallesEquipo(_equipo).Presidente,
+                                    Asunto = "Nueva Temporada",
+                                    Contenido = "Desde la Directiva del " + _logicaEquipo.ListarDetallesEquipo(_equipo).Nombre + " te damos la bienvenida a una nueva temporada.\n\nLa junta directiva y los empleados te irán informando a través de correos electrónicos de las cosas que sucedan en el club.",
+                                    TipoMensaje = "Notificación",
+                                    IdEquipo = _equipo,
+                                    IdManager = _manager.IdManager,
+                                    Leido = false,
+                                    Icono = 0 // 0 es icono de equipo
+                                };
+
+                                _logicaMensajes.crearMensaje(mensajeNuevaTemporada);
+                            });
+
+                            // Cargar Pantalla de Premios de Jugadores
+                            frmVentanaPremioJugadores ventanaPremiosJugadores = new frmVentanaPremioJugadores(balonOro, botaOro, mejorOnce, _equipo);
+                            ventanaPremiosJugadores.ShowDialog();
+
+                            CargarFecha();
+
+                            // CARGAR EL CONTENIDO DEL PANEL PRINCIPAL
+                            if (DockPanel_Central.Children.Count > 0)
+                            {
+                                DockPanel_Central.Children.Clear();
+                            }
+                            UC_Menu_Home_MenuPrincipal homeMenuPrincipal = new UC_Menu_Home_MenuPrincipal(_manager, _equipo);
+                            DockPanel_Central.Children.Add(homeMenuPrincipal);
+
+                            progressBar.Visibility = Visibility.Collapsed;
+                            btnAvanzar.Visibility = Visibility.Visible;
+                        }
                     }
                 }
             }
+            txtPresupuesto.Text = _logicaEquipo.ListarDetallesEquipo(_equipo).Presupuesto.ToString("N0") + " €";
             DockPanel_Submenu.Children.Clear();
         }
 
@@ -1043,7 +1204,7 @@ namespace ChampionManager25.UserControls
             menuTransferencias.MostrarBuscarPorFiltro += CargarTransferenciasBuscarPorFiltro;
             menuTransferencias.MostrarCartera += CargarTransferenciasCartera;
             menuTransferencias.MostrarEstadoOfertas += CargarTransferenciasEstadoOfertas;
-            //menuTransferencias.MostrarListaTraspasos += CargarTransferenciasListaTraspasos;
+            menuTransferencias.MostrarListaTraspasos += CargarTransferenciasListaTraspasos;
 
             // Cambiar el color del texto "Ingresos" a naranja
             menuTransferencias.lblMercado.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
@@ -1454,6 +1615,15 @@ namespace ChampionManager25.UserControls
             DockPanel_Central.Children.Add(transferenciasEstadoOfertas);
         }
 
+        // Método para cargar UC_Menu_Transferencias_ListaTraspasos
+        private void CargarTransferenciasListaTraspasos()
+        {
+            // Cargar UC_Menu_Transferencias_ListaTraspasos 
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Transferencias_ListaTraspasos transferenciasListaTraspasos = new UC_Menu_Transferencias_ListaTraspasos(_manager, _equipo);
+            DockPanel_Central.Children.Add(transferenciasListaTraspasos);
+        }
+
         private void CargarFecha()
         {
             Fecha fechaObjeto = _datosFecha.ObtenerFechaHoy();
@@ -1484,9 +1654,24 @@ namespace ChampionManager25.UserControls
             if (proximopartido != null && proximopartido.FechaPartido == hoy)
             {
                 btnAvanzar.Content = "PARTIDO";
-            } else
+                // Obtén la imagen (imgBoton) del template del botón
+                Image imgBoton = btnAvanzar.Template.FindName("imgBoton", btnAvanzar) as Image;
+                if (imgBoton != null)
+                {
+                    // Cambiar la fuente de la imagen
+                    imgBoton.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/icons/matchday_icon.png"));
+                }
+            } 
+            else
             {
                 btnAvanzar.Content = "AVANZAR";
+                // Obtén la imagen (imgBoton) del template del botón
+                Image imgBoton = btnAvanzar.Template.FindName("imgBoton", btnAvanzar) as Image;
+                if (imgBoton != null)
+                {
+                    // Cambiar la fuente de la imagen
+                    imgBoton.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/icons/flechaDerechaBlanca64px_icon.png"));
+                }
             }
         }
 
@@ -1645,6 +1830,13 @@ namespace ChampionManager25.UserControls
         public void ActualizarPresupuesto()
         {
             txtPresupuesto.Text = _logicaEquipo.ListarDetallesEquipo(_equipo).Presupuesto.ToString("N0") + " €";
+        }
+
+        public void RecargarFichaJugador(int idJugador, int idEquipo, Manager manager, int opcion)
+        {
+            UC_FichaJugador nuevaFicha = new UC_FichaJugador(idJugador, idEquipo, manager, opcion, this);
+            DockPanel_Central.Children.Clear(); 
+            DockPanel_Central.Children.Add(nuevaFicha);
         }
         #endregion
     }

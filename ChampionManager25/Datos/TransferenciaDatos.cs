@@ -444,7 +444,7 @@ namespace ChampionManager25.Datos
                 using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
                 {
                     conn.Open();
-                    string query = @"SELECT * FROM transferencias";
+                    string query = @"SELECT * FROM transferencias ORDER BY fecha_traspaso ASC";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                     {
@@ -620,5 +620,27 @@ namespace ChampionManager25.Datos
             return transferencia;
         }
 
+        // ------------------------------------------------------------- Metodo que resetea las tablas ofertas y transferencias
+        public void ResetearTransferencias()
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+                    string query = @"DELETE FROM transferencias;
+                                     DELETE FROM ofertas;";
+
+                    using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
     }
 }

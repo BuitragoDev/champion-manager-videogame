@@ -90,5 +90,11 @@ namespace ChampionManager25.Logica
         {
             return _datos.MostrarDetallesOferta(jugador);
         }
+
+        // Llamada al metodo que resetea las tablas ofertas y transferencias
+        public void ResetearTransferencias()
+        {
+            _datos.ResetearTransferencias();
+        }
     }
 }

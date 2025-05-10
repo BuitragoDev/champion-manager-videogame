@@ -110,42 +110,35 @@
                             <WrapPanel x:Name="wrapJugadores" VerticalAlignment="Top" />
                         </ScrollViewer>
 
-                        <Button x:Name="btnTratarLesion" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center"
+                        <Button x:Name="btnTratarLesion" Grid.Column="0" Grid.Row="2" Content="TRATAR LESIÓN" VerticalAlignment="Center" HorizontalAlignment="Center"
                                 Height="50" Width="1804" FontFamily="Cascadia Code SemiBold" FontSize="24" Cursor="Hand" IsEnabled="False" Click="btnTratarLesion_Click">
                             <Button.Style>
-                                <Style TargetType="Button">
-                                    <!-- Configuración inicial -->
-                                    <Setter Property="Background" Value="DarkRed"/>
-                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
-                                    <Setter Property="BorderBrush" Value="Transparent"/>
-                                    <Setter Property="BorderThickness" Value="0"/>
-                                    <Setter Property="Cursor" Value="Hand"/>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Background" Value="#8b0000" />
+                                    <Setter Property="Foreground" Value="WhiteSmoke" />
+                                    <Setter Property="FontSize" Value="24" />
+                                    <Setter Property="SnapsToDevicePixels" Value="True" />
+
                                     <Setter Property="Template">
                                         <Setter.Value>
-                                            <ControlTemplate TargetType="Button">
-                                                <Border Background="{TemplateBinding Background}"
-                                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                                        BorderThickness="{TemplateBinding BorderThickness}">
-                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                        <!-- Imagen de la flecha -->
-                                                        <Image Source="/Recursos/img/icons/cruzblanca_icon.png" Height="32" Width="32" VerticalAlignment="Center" Stretch="Uniform" Margin="0,0,20,0"/>
-                                                        <TextBlock Text="TRATAR LESIÓN" 
-                                                                   Foreground="WhiteSmoke" 
-                                                                   VerticalAlignment="Center" 
-                                                                   FontSize="24"/>
-                                                    </StackPanel>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                                    <Grid>
+                                                        <Image x:Name="imgBoton" Source="/Recursos/img/icons/cruzblanca_icon.png" Height="32" Width="32" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Uniform" Margin="17,0,0,0"/>
+                                                        <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                                                        <Image x:Name="imgBoton2" Source="/Recursos/img/icons/cruzblanca_icon.png" Height="32" Width="32" VerticalAlignment="Center" HorizontalAlignment="Right" Stretch="Uniform" Margin="0,0,17,0"/>
+                                                    </Grid>
                                                 </Border>
+
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#a80b0b" />
+                                                        <Setter Property="Foreground" Value="WhiteSmoke" />
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
                                             </ControlTemplate>
                                         </Setter.Value>
                                     </Setter>
-
-                                    <!-- Configuración al pasar el ratón -->
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                                            <Setter Property="BorderThickness" Value="1"/>
-                                        </Trigger>
-                                    </Style.Triggers>
                                 </Style>
                             </Button.Style>
                         </Button>

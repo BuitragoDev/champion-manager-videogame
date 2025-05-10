@@ -5,6 +5,168 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ChampionManager25.UserControls"
              mc:Ignorable="d" d:DesignHeight="935" d:DesignWidth="1845" Background="WhiteSmoke" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="20" />
+                </Grid.ColumnDefinitions>
+                <Border x:Name="Border" 
+                        Grid.ColumnSpan="2"
+                        CornerRadius="0"
+                        Background="LightGray"
+                        BorderBrush="#FF97A0A5"
+                        BorderThickness="1" />
+                <Border Grid.Column="0"
+                        CornerRadius="0" 
+                        Margin="1" 
+                        Background="WhiteSmoke" 
+                        BorderBrush="#FF97A0A5"
+                        BorderThickness="0,0,1,0" />
+                <Path x:Name="Arrow"
+                      Grid.Column="1"     
+                      Fill="Black"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z"
+                    />
+            </Grid>
+            <!--<ControlTemplate.Triggers>
+                <Trigger Property="ToggleButton.IsMouseOver" Value="true">
+                    <Setter TargetName="Border" Property="Background" Value="#808080" />
+                </Trigger>
+                <Trigger Property="ToggleButton.IsChecked" Value="true">
+                    <Setter TargetName="Border" Property="Background" Value="#E0E0E0" />
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter TargetName="Border" Property="Background" Value="#EEEEEE" />
+                    <Setter TargetName="Border" Property="BorderBrush" Value="#AAAAAA" />
+                    <Setter Property="Foreground" Value="#888888"/>
+                    <Setter TargetName="Arrow" Property="Fill" Value="#888888" />
+                </Trigger>
+            </ControlTemplate.Triggers>-->
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
+            <Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}" />
+        </ControlTemplate>
+
+        <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+            <Setter Property="MinWidth" Value="70"/>
+            <Setter Property="MinHeight" Value="20"/>
+            <Setter Property="Foreground" Value="#FF23282D"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBox}">
+                        <Grid>
+                            <ToggleButton 
+                                Name="ToggleButton" 
+                                Template="{StaticResource ComboBoxToggleButton}" 
+                                Grid.Column="2" 
+                                Focusable="false"
+                                IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
+                                ClickMode="Press">
+                            </ToggleButton>
+                            <ContentPresenter Name="ContentSite" IsHitTestVisible="False"  Content="{TemplateBinding SelectionBoxItem}"
+                                ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                Margin="15,3,23,3"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left" />
+                            <TextBox x:Name="PART_EditableTextBox"
+                                Style="{x:Null}" 
+                                Template="{StaticResource ComboBoxTextBox}" 
+                                HorizontalAlignment="Left" 
+                                VerticalAlignment="Center" 
+                                Margin="3,3,23,3"
+                                Focusable="True" 
+                                Background="#FF3F3F3F"
+                                Foreground="Green"
+                                Visibility="Hidden"
+                                IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                            <Popup 
+                                Name="Popup"
+                                Placement="Bottom"
+                                IsOpen="{TemplateBinding IsDropDownOpen}"
+                                AllowsTransparency="True" 
+                                Focusable="False"
+                                PopupAnimation="Slide">
+
+                                <Grid Name="DropDown"
+                                  SnapsToDevicePixels="True"                
+                                  MinWidth="{TemplateBinding ActualWidth}"
+                                  MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border 
+                                    x:Name="DropDownBorder"
+                                    Background="#FF3F3F3F"
+                                     
+                                    BorderThickness="1"
+                                    BorderBrush="#888888"/>
+                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="#888888"/>
+                            </Trigger>
+                            <Trigger Property="IsGrouping" Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                            </Trigger>
+                            <Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="true">
+                                <Setter TargetName="DropDownBorder" Property="CornerRadius" Value="0"/>
+                                <Setter TargetName="DropDownBorder" Property="Margin" Value="0,2,0,0"/>
+                            </Trigger>
+                            <Trigger Property="IsEditable"  Value="true">
+                                <Setter Property="IsTabStop" Value="false"/>
+                                <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+            </Style.Triggers>
+        </Style>
+
+        <!-- SimpleStyles: ComboBoxItem -->
+        <Style x:Key="{x:Type ComboBoxItem}" TargetType="{x:Type ComboBoxItem}">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                        <Border Name="Border"
+                                  Padding="2"
+                                  SnapsToDevicePixels="true">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="#FF4F4F4F"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="#888888"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid Background="WhiteSmoke">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1845"/>
@@ -90,121 +252,97 @@
                                 </Grid.RowDefinitions>
 
                                 <!-- BOTÓN TRANSFERIBLE -->
-                                <Button x:Name="btnTransferibles" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                <Button x:Name="btnTransferibles" Grid.Column="0" Grid.Row="0" Content="TRANSFERIBLE" VerticalAlignment="Center" HorizontalAlignment="Center"
                                         Height="35" Width="150" FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Click="btnTransferibles_Click">
                                     <Button.Style>
-                                        <Style TargetType="Button">
-                                            <!-- Configuración inicial -->
+                                        <Style TargetType="{x:Type Button}">
                                             <Setter Property="Background" Value="WhiteSmoke"/>
                                             <Setter Property="Foreground" Value="#FF23282D"/>
-                                            <Setter Property="BorderBrush" Value="Transparent"/>
-                                            <Setter Property="BorderThickness" Value="0"/>
-                                            <Setter Property="Cursor" Value="Hand"/>
+                                            <Setter Property="FontSize" Value="16" />
+                                            <Setter Property="SnapsToDevicePixels" Value="True" />
+
                                             <Setter Property="Template">
                                                 <Setter.Value>
-                                                    <ControlTemplate TargetType="Button">
-                                                        <Border Background="{TemplateBinding Background}"
-                                                                BorderBrush="{TemplateBinding BorderBrush}"
-                                                                BorderThickness="{TemplateBinding BorderThickness}">
-                                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                                <!-- Enlazar el Foreground al del Button -->
-                                                                <TextBlock Text="TRANSFERIBLE" 
-                                                                           Foreground="{TemplateBinding Foreground}"  
-                                                                           VerticalAlignment="Center" 
-                                                                           FontSize="16"/>
-                                                            </StackPanel>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                                            <Grid>
+                                                                <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                                                            </Grid>
                                                         </Border>
+
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Background" Value="#eff0ee" />
+                                                                <Setter Property="Foreground" Value="#FF23282D" />
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
                                                     </ControlTemplate>
                                                 </Setter.Value>
                                             </Setter>
-
-                                            <!-- Configuración al pasar el ratón -->
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                                                    <Setter Property="BorderThickness" Value="1"/>
-                                                </Trigger>
-                                            </Style.Triggers>
                                         </Style>
                                     </Button.Style>
                                 </Button>
 
                                 <!-- BOTÓN CEDIBLES -->
-                                <Button x:Name="btnCedibles" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                <Button x:Name="btnCedibles" Grid.Column="1" Content="CEDIBLE" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"
                                         Height="35" Width="150" FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Click="btnCedibles_Click">
                                     <Button.Style>
-                                        <Style TargetType="Button">
-                                            <!-- Configuración inicial -->
+                                        <Style TargetType="{x:Type Button}">
                                             <Setter Property="Background" Value="WhiteSmoke"/>
                                             <Setter Property="Foreground" Value="#FF23282D"/>
-                                            <Setter Property="BorderBrush" Value="Transparent"/>
-                                            <Setter Property="BorderThickness" Value="0"/>
-                                            <Setter Property="Cursor" Value="Hand"/>
+                                            <Setter Property="FontSize" Value="16" />
+                                            <Setter Property="SnapsToDevicePixels" Value="True" />
+
                                             <Setter Property="Template">
                                                 <Setter.Value>
-                                                    <ControlTemplate TargetType="Button">
-                                                        <Border Background="{TemplateBinding Background}"
-                                                                BorderBrush="{TemplateBinding BorderBrush}"
-                                                                BorderThickness="{TemplateBinding BorderThickness}">
-                                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                                <!-- Texto del botón -->
-                                                                <TextBlock Text="CEDIBLE" 
-                                                                           Foreground="{TemplateBinding Foreground}"  
-                                                                           VerticalAlignment="Center" 
-                                                                           FontSize="16"/>
-                                                            </StackPanel>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                                            <Grid>
+                                                                <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                                                            </Grid>
                                                         </Border>
+
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Background" Value="#eff0ee" />
+                                                                <Setter Property="Foreground" Value="#FF23282D" />
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
                                                     </ControlTemplate>
                                                 </Setter.Value>
                                             </Setter>
-
-                                            <!-- Configuración al pasar el ratón -->
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                                                    <Setter Property="BorderThickness" Value="1"/>
-                                                </Trigger>
-                                            </Style.Triggers>
                                         </Style>
                                     </Button.Style>
                                 </Button>
 
                                 <!-- BOTÓN TODOS -->
-                                <Button x:Name="btnTodosTipo" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                        Height="35" Width="150" FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Click="btnTodosTipo_Click" IsEnabled="False">
+                                <Button x:Name="btnTodosTipo" Grid.Column="2" Grid.Row="0" Content="TODOS" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                        Height="35" Width="150" FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Click="btnTodosTipo_Click">
                                     <Button.Style>
-                                        <Style TargetType="Button">
-                                            <!-- Configuración inicial -->
+                                        <Style TargetType="{x:Type Button}">
                                             <Setter Property="Background" Value="#1d6a7d"/>
                                             <Setter Property="Foreground" Value="WhiteSmoke"/>
-                                            <Setter Property="BorderBrush" Value="Transparent"/>
-                                            <Setter Property="BorderThickness" Value="0"/>
-                                            <Setter Property="Cursor" Value="Hand"/>
+                                            <Setter Property="FontSize" Value="16" />
+                                            <Setter Property="SnapsToDevicePixels" Value="True" />
+
                                             <Setter Property="Template">
                                                 <Setter.Value>
-                                                    <ControlTemplate TargetType="Button">
-                                                        <Border Background="{TemplateBinding Background}"
-                                                                BorderBrush="{TemplateBinding BorderBrush}"
-                                                                BorderThickness="{TemplateBinding BorderThickness}">
-                                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                                <!-- Texto del botón -->
-                                                                <TextBlock Text="TODOS" 
-                                                                           Foreground="{TemplateBinding Foreground}"  
-                                                                           VerticalAlignment="Center" 
-                                                                           FontSize="16"/>
-                                                            </StackPanel>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                                            <Grid>
+                                                                <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                                                            </Grid>
                                                         </Border>
+
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Background" Value="#22798e" />
+                                                                <Setter Property="Foreground" Value="WhiteSmoke" />
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
                                                     </ControlTemplate>
                                                 </Setter.Value>
                                             </Setter>
-
-                                            <!-- Configuración al pasar el ratón -->
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                                                    <Setter Property="BorderThickness" Value="1"/>
-                                                </Trigger>
-                                            </Style.Triggers>
                                         </Style>
                                     </Button.Style>
                                 </Button>
@@ -253,201 +391,161 @@
                                 </Grid.RowDefinitions>
 
                                 <!-- BOTÓN PORTEROS -->
-                                <Button x:Name="btnPorteros" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                <Button x:Name="btnPorteros" Grid.Column="0" Content="PORTERO" VerticalAlignment="Center" HorizontalAlignment="Center"
                                         Height="36" Width="90" FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Click="btnPorteros_Click">
                                     <Button.Style>
-                                        <Style TargetType="Button">
-                                            <!-- Configuración inicial -->
+                                        <Style TargetType="{x:Type Button}">
                                             <Setter Property="Background" Value="WhiteSmoke"/>
                                             <Setter Property="Foreground" Value="#FF23282D"/>
-                                            <Setter Property="BorderBrush" Value="Transparent"/>
-                                            <Setter Property="BorderThickness" Value="0"/>
-                                            <Setter Property="Cursor" Value="Hand"/>
+                                            <Setter Property="FontSize" Value="16" />
+                                            <Setter Property="SnapsToDevicePixels" Value="True" />
+
                                             <Setter Property="Template">
                                                 <Setter.Value>
-                                                    <ControlTemplate TargetType="Button">
-                                                        <Border Background="{TemplateBinding Background}"
-                                                                BorderBrush="{TemplateBinding BorderBrush}"
-                                                                BorderThickness="{TemplateBinding BorderThickness}">
-                                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                                <!-- Texto del botón -->
-                                                                <TextBlock Text="PORTERO" 
-                                                                           Foreground="{TemplateBinding Foreground}"  
-                                                                           VerticalAlignment="Center" 
-                                                                           FontSize="16"/>
-                                                            </StackPanel>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                                            <Grid>
+                                                                <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                                                            </Grid>
                                                         </Border>
+
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Background" Value="#eff0ee" />
+                                                                <Setter Property="Foreground" Value="#FF23282D" />
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
                                                     </ControlTemplate>
                                                 </Setter.Value>
                                             </Setter>
-
-                                            <!-- Configuración al pasar el ratón -->
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                                                    <Setter Property="BorderThickness" Value="1"/>
-                                                </Trigger>
-                                            </Style.Triggers>
                                         </Style>
                                     </Button.Style>
                                 </Button>
 
                                 <!-- BOTÓN DEFENSAS -->
-                                <Button x:Name="btnDefensas" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                <Button x:Name="btnDefensas" Grid.Column="1" Content="DEFENSA" VerticalAlignment="Center" HorizontalAlignment="Center"
                                         Height="36" Width="90" FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Click="btnDefensas_Click">
                                     <Button.Style>
-                                        <Style TargetType="Button">
-                                            <!-- Configuración inicial -->
+                                        <Style TargetType="{x:Type Button}">
                                             <Setter Property="Background" Value="WhiteSmoke"/>
                                             <Setter Property="Foreground" Value="#FF23282D"/>
-                                            <Setter Property="BorderBrush" Value="Transparent"/>
-                                            <Setter Property="BorderThickness" Value="0"/>
-                                            <Setter Property="Cursor" Value="Hand"/>
+                                            <Setter Property="FontSize" Value="16" />
+                                            <Setter Property="SnapsToDevicePixels" Value="True" />
+
                                             <Setter Property="Template">
                                                 <Setter.Value>
-                                                    <ControlTemplate TargetType="Button">
-                                                        <Border Background="{TemplateBinding Background}"
-                                                                BorderBrush="{TemplateBinding BorderBrush}"
-                                                                BorderThickness="{TemplateBinding BorderThickness}">
-                                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                                <!-- Texto del botón -->
-                                                                <TextBlock Text="DEFENSA" 
-                                                                           Foreground="{TemplateBinding Foreground}"  
-                                                                           VerticalAlignment="Center" 
-                                                                           FontSize="16"/>
-                                                            </StackPanel>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                                            <Grid>
+                                                                <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                                                            </Grid>
                                                         </Border>
+
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Background" Value="#eff0ee" />
+                                                                <Setter Property="Foreground" Value="#FF23282D" />
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
                                                     </ControlTemplate>
                                                 </Setter.Value>
                                             </Setter>
-
-                                            <!-- Configuración al pasar el ratón -->
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                                                    <Setter Property="BorderThickness" Value="1"/>
-                                                </Trigger>
-                                            </Style.Triggers>
                                         </Style>
                                     </Button.Style>
                                 </Button>
 
                                 <!-- BOTÓN CENTROCAMPISTAS -->
-                                <Button x:Name="btnMedios" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                <Button x:Name="btnMedios" Grid.Column="2" Content="MEDIO" VerticalAlignment="Center" HorizontalAlignment="Center"
                                         Height="36" Width="90" FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Click="btnMedios_Click">
                                     <Button.Style>
-                                        <Style TargetType="Button">
-                                            <!-- Configuración inicial -->
+                                        <Style TargetType="{x:Type Button}">
                                             <Setter Property="Background" Value="WhiteSmoke"/>
                                             <Setter Property="Foreground" Value="#FF23282D"/>
-                                            <Setter Property="BorderBrush" Value="Transparent"/>
-                                            <Setter Property="BorderThickness" Value="0"/>
-                                            <Setter Property="Cursor" Value="Hand"/>
+                                            <Setter Property="FontSize" Value="16" />
+                                            <Setter Property="SnapsToDevicePixels" Value="True" />
+
                                             <Setter Property="Template">
                                                 <Setter.Value>
-                                                    <ControlTemplate TargetType="Button">
-                                                        <Border Background="{TemplateBinding Background}"
-                                                                BorderBrush="{TemplateBinding BorderBrush}"
-                                                                BorderThickness="{TemplateBinding BorderThickness}">
-                                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                                <!-- Texto del botón -->
-                                                                <TextBlock Text="MEDIO" 
-                                                                           Foreground="{TemplateBinding Foreground}"  
-                                                                           VerticalAlignment="Center" 
-                                                                           FontSize="16"/>
-                                                            </StackPanel>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                                            <Grid>
+                                                                <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                                                            </Grid>
                                                         </Border>
+
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Background" Value="#eff0ee" />
+                                                                <Setter Property="Foreground" Value="#FF23282D" />
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
                                                     </ControlTemplate>
                                                 </Setter.Value>
                                             </Setter>
-
-                                            <!-- Configuración al pasar el ratón -->
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                                                    <Setter Property="BorderThickness" Value="1"/>
-                                                </Trigger>
-                                            </Style.Triggers>
                                         </Style>
                                     </Button.Style>
                                 </Button>
 
                                 <!-- BOTÓN DELANTERO -->
-                                <Button x:Name="btnDelanteros" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                <Button x:Name="btnDelanteros" Grid.Column="3" Content="DELANTERO" VerticalAlignment="Center" HorizontalAlignment="Center"
                                         Height="36" Width="110" FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Click="btnDelanteros_Click">
                                     <Button.Style>
-                                        <Style TargetType="Button">
-                                            <!-- Configuración inicial -->
+                                        <Style TargetType="{x:Type Button}">
                                             <Setter Property="Background" Value="WhiteSmoke"/>
                                             <Setter Property="Foreground" Value="#FF23282D"/>
-                                            <Setter Property="BorderBrush" Value="Transparent"/>
-                                            <Setter Property="BorderThickness" Value="0"/>
-                                            <Setter Property="Cursor" Value="Hand"/>
+                                            <Setter Property="FontSize" Value="16" />
+                                            <Setter Property="SnapsToDevicePixels" Value="True" />
+
                                             <Setter Property="Template">
                                                 <Setter.Value>
-                                                    <ControlTemplate TargetType="Button">
-                                                        <Border Background="{TemplateBinding Background}"
-                                                                BorderBrush="{TemplateBinding BorderBrush}"
-                                                                BorderThickness="{TemplateBinding BorderThickness}">
-                                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                                <!-- Texto del botón -->
-                                                                <TextBlock Text="DELANTERO" 
-                                                                           Foreground="{TemplateBinding Foreground}"  
-                                                                           VerticalAlignment="Center" 
-                                                                           FontSize="16"/>
-                                                            </StackPanel>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                                            <Grid>
+                                                                <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                                                            </Grid>
                                                         </Border>
+
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Background" Value="#eff0ee" />
+                                                                <Setter Property="Foreground" Value="#FF23282D" />
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
                                                     </ControlTemplate>
                                                 </Setter.Value>
                                             </Setter>
-
-                                            <!-- Configuración al pasar el ratón -->
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                                                    <Setter Property="BorderThickness" Value="1"/>
-                                                </Trigger>
-                                            </Style.Triggers>
                                         </Style>
                                     </Button.Style>
                                 </Button>
 
                                 <!-- BOTÓN TODOS -->
-                                <Button x:Name="btnTodosPosicion" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                <Button x:Name="btnTodosPosicion" Grid.Column="4" Content="TODOS" VerticalAlignment="Center" HorizontalAlignment="Center"
                                         Height="36" Width="80" FontFamily="Cascadia Code SemiBold" FontSize="16" Cursor="Hand" Click="btnTodosPosicion_Click" IsEnabled="False">
                                     <Button.Style>
-                                        <Style TargetType="Button">
-                                            <!-- Configuración inicial -->
+                                        <Style TargetType="{x:Type Button}">
                                             <Setter Property="Background" Value="#1d6a7d"/>
                                             <Setter Property="Foreground" Value="WhiteSmoke"/>
-                                            <Setter Property="BorderBrush" Value="Transparent"/>
-                                            <Setter Property="BorderThickness" Value="0"/>
-                                            <Setter Property="Cursor" Value="Hand"/>
+                                            <Setter Property="FontSize" Value="16" />
+                                            <Setter Property="SnapsToDevicePixels" Value="True" />
+
                                             <Setter Property="Template">
                                                 <Setter.Value>
-                                                    <ControlTemplate TargetType="Button">
-                                                        <Border Background="{TemplateBinding Background}"
-                                                                BorderBrush="{TemplateBinding BorderBrush}"
-                                                                BorderThickness="{TemplateBinding BorderThickness}">
-                                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                                <!-- Texto del botón -->
-                                                                <TextBlock Text="TODOS" 
-                                                                           Foreground="{TemplateBinding Foreground}"  
-                                                                           VerticalAlignment="Center" 
-                                                                           FontSize="16"/>
-                                                            </StackPanel>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                                            <Grid>
+                                                                <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                                                            </Grid>
                                                         </Border>
+
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Background" Value="#22798e" />
+                                                                <Setter Property="Foreground" Value="WhiteSmoke" />
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
                                                     </ControlTemplate>
                                                 </Setter.Value>
                                             </Setter>
-
-                                            <!-- Configuración al pasar el ratón -->
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                                                    <Setter Property="BorderThickness" Value="1"/>
-                                                </Trigger>
-                                            </Style.Triggers>
                                         </Style>
                                     </Button.Style>
                                 </Button>

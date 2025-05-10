@@ -34,6 +34,8 @@ namespace ChampionManager25.Vistas
         MensajeLogica _logicaMensaje = new MensajeLogica();
         TransferenciaLogica _logicaTransferencia = new TransferenciaLogica();
         OjearLogica _logicaOjear = new OjearLogica();
+        EmpleadoLogica _logicaEmpleado = new EmpleadoLogica();
+        FinanzaLogica _logicaFinanza = new FinanzaLogica();
 
         bool desplegableActivado = false;
 
@@ -65,9 +67,9 @@ namespace ChampionManager25.Vistas
             bool miJugador = _logicaJugador.EsDeMiEquipo(_jugador.IdJugador, _equipo);
 
             // Comprobar si el jugador ha sido ojeado
-            Transferencia jugadorConoferta = _logicaTransferencia.MostrarDetallesOferta(_jugador.IdJugador);
+            Transferencia jugadorConOferta = _logicaTransferencia.MostrarDetallesOferta(_jugador.IdJugador);
 
-            if (miJugador == true || jugadorConoferta != null)
+            if (miJugador == true || jugadorConOferta != null)
             {
                 // Cargar datos del Jugador
                 txtDorsal.Text = _jugador.Dorsal.ToString();
@@ -137,39 +139,76 @@ namespace ChampionManager25.Vistas
             }
             else
             {
-                // Cargar datos del Jugador
-                txtDorsal.Text = _jugador.Dorsal.ToString();
-                if (_jugador.NombreCompleto != null)
+                if (_jugador.IdEquipo == 0)
                 {
-                    txtNombreJugador.Text = _jugador.NombreCompleto.ToUpper();
+                    // Cargar datos del Jugador
+                    txtDorsal.Text = _jugador.Dorsal.ToString();
+                    if (_jugador.NombreCompleto != null)
+                    {
+                        txtNombreJugador.Text = _jugador.NombreCompleto.ToUpper();
+                    }
+
+                    imgFotoJugador.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/jugadores/" + _jugador.IdJugador + ".png"));
+                    imgEscudoEquipo.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/120x120/" + _jugador.IdEquipo + ".png"));
+                    lblAverage.Text = "?";
+                    elipseMedia.Stroke = Brushes.DarkGray;
+
+                    txtEquipoJugador.Text = _logicaEquipo.ListarDetallesEquipo(_jugador.IdEquipo).Nombre;
+                    txtPosicionJugador.Text = _jugador.Rol;
+                    int status = _jugador.Status;
+                    txtStatusJugador.Text = "";
+
+                    txtSalarioJugador.Text = "";
+                    txtClausulaJugador.Text = "";
+                    txtAniosJugador.Text = "";
+
+                    // -------------------------------------------- CARGAR DEMANDA DEL JUGADOR VACIA ----------------------------------------
+                    txtDemandaSalario.Text = $"{_logicaJugador.SalarioMedioJugadores(_jugador.IdJugador):N0} €";
+                    txtDemandaClausula.Text = $"{_logicaJugador.ClausulaMediaJugadores(_jugador.IdJugador):N0} €";
+                    if (_jugador.Edad > 30)
+                    {
+                        txtDemandaAnios.Text = "1";
+                    }
+                    else
+                    {
+                        txtDemandaAnios.Text = "3";
+                    }
+                    txtDemandaRol.Text = "Rotación";
+                    chkDemandaBonusGoles.IsChecked = false;
+                    chkDemandaBonusPartido.IsChecked = false;
                 }
+                else
+                {
+                    // Cargar datos del Jugador
+                    txtDorsal.Text = _jugador.Dorsal.ToString();
+                    if (_jugador.NombreCompleto != null)
+                    {
+                        txtNombreJugador.Text = _jugador.NombreCompleto.ToUpper();
+                    }
 
-                imgFotoJugador.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/jugadores/" + _jugador.IdJugador + ".png"));
-                imgEscudoEquipo.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/120x120/" + _jugador.IdEquipo + ".png"));
-                lblAverage.Text = "?";
-                elipseMedia.Stroke = Brushes.DarkGray;
+                    imgFotoJugador.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/jugadores/" + _jugador.IdJugador + ".png"));
+                    imgEscudoEquipo.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/escudos_equipos/120x120/" + _jugador.IdEquipo + ".png"));
+                    lblAverage.Text = "?";
+                    elipseMedia.Stroke = Brushes.DarkGray;
 
-                txtEquipoJugador.Text = _logicaEquipo.ListarDetallesEquipo(_jugador.IdEquipo).Nombre;
-                txtPosicionJugador.Text = _jugador.Rol;
-                int status = _jugador.Status;
-                txtStatusJugador.Text = "";
-        
-                txtSalarioJugador.Text = "";
-                txtClausulaJugador.Text = "";
-                txtAniosJugador.Text = "";
+                    txtEquipoJugador.Text = _logicaEquipo.ListarDetallesEquipo(_jugador.IdEquipo).Nombre;
+                    txtPosicionJugador.Text = _jugador.Rol;
+                    int status = _jugador.Status;
+                    txtStatusJugador.Text = "";
 
-                // -------------------------------------------- CARGAR DEMANDA DEL JUGADOR VACIA ----------------------------------------
-                var demanda = GenerarDemandaContrato(_jugador);
+                    txtSalarioJugador.Text = "";
+                    txtClausulaJugador.Text = "";
+                    txtAniosJugador.Text = "";
 
-                txtDemandaSalario.Text = "";
-                txtDemandaClausula.Text = "";
-                txtDemandaAnios.Text = "";
-                txtDemandaRol.Text = "";
-                chkDemandaBonusGoles.IsChecked = false;
-                chkDemandaBonusPartido.IsChecked = false;
-            }
-
-                
+                    // -------------------------------------------- CARGAR DEMANDA DEL JUGADOR VACIA ----------------------------------------
+                    txtDemandaSalario.Text = "";
+                    txtDemandaClausula.Text = "";
+                    txtDemandaAnios.Text = "";
+                    txtDemandaRol.Text = "";
+                    chkDemandaBonusGoles.IsChecked = false;
+                    chkDemandaBonusPartido.IsChecked = false;
+                }   
+            }      
         }
 
         private void Window_Unloaded(object sender, RoutedEventArgs e)
@@ -384,6 +423,77 @@ namespace ChampionManager25.Vistas
                 frmVentanaEmergenteDosBotones mensajeContratoAceptado = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
 
                 mensajeContratoAceptado.ShowDialog();
+                
+                // Si es un jugador sin equipo registramos la oferta aceptada
+                if (_jugador.IdEquipo == 0)
+                {
+                    bool enNegociacion = _logicaTransferencia.ComprobarOfertaActiva(_jugador.IdJugador, _equipo, _jugador.IdEquipo);
+
+                    // Verificar disponibilidad para la cesion.
+                    DateTime hoy = Metodos.hoy;
+
+                    // Ventanas de fichajes
+                    DateTime inicioVerano = new DateTime(hoy.Year, 7, 1);
+                    DateTime finVerano = new DateTime(hoy.Year, 8, 30);
+                    DateTime inicioInvierno = new DateTime(hoy.Year, 1, 1);
+                    DateTime finInvierno = new DateTime(hoy.Year, 1, 31);
+
+                    // Comprobamos la fecha de Traspaso dentro de los periodos de fichajes
+                    DateTime fechaTraspaso;
+
+                    // Comprobar si hoy está en un rango válido
+                    bool enRangoEnero = hoy >= inicioInvierno && hoy <= finInvierno;
+                    bool enRangoVerano = hoy >= inicioVerano && hoy <= finVerano;
+
+                    if (enRangoEnero || enRangoVerano)
+                    {
+                        fechaTraspaso = hoy.AddDays(1);
+                    }
+                    else
+                    {
+                        // Determinar el próximo rango válido
+                        if (hoy < inicioInvierno)
+                        {
+                            fechaTraspaso = inicioInvierno;
+                        }
+                        else if (hoy < inicioVerano)
+                        {
+                            fechaTraspaso = inicioVerano;
+                        }
+                        else
+                        {
+                            // Después del 30 de agosto, ir al enero del siguiente año
+                            fechaTraspaso = new DateTime(hoy.Year + 1, 1, 1);
+                        }
+                    }
+
+                    Transferencia oferta = new Transferencia
+                    {
+                        IdJugador = _jugador.IdJugador,
+                        IdEquipoOrigen = _jugador.IdEquipo,
+                        IdEquipoDestino = _equipo,
+                        TipoFichaje = 1,
+                        FechaOferta = Metodos.hoy.ToString("yyyy-MM-dd"),
+                        FechaTraspaso = fechaTraspaso.ToString("yyyy-MM-dd"),
+                        RespuestaEquipo = 1,
+                        RespuestaJugador = 1,
+                        MontoOferta = 0,
+                        SalarioAnual = ofertaSalario,
+                        ClausulaRescision = ofertaClausula,
+                        Duracion = ofertaAnios,
+                        BonoPorGoles = ofertaBonusGoles,
+                        BonoPorPartidos = ofertaBonusPartidos,
+                    };
+
+                    if (enNegociacion != true)
+                    {
+                        _logicaTransferencia.RegistrarOferta(oferta);
+                    }
+                    else
+                    {
+                        _logicaTransferencia.ActualizarOferta(oferta);
+                    }
+                }
             }
 
             // Comprobar si la paciencia del jugador ha llegado a cero y no dejarle hacer mas ofertas.
@@ -409,8 +519,60 @@ namespace ChampionManager25.Vistas
 
                 mensajeRenovacion.ShowDialog();
 
+                // Si es un jugador sin equipo registramos la oferta rechazada
+                if (_jugador.IdEquipo == 0)
+                {
+                    bool enNegociacion = _logicaTransferencia.ComprobarOfertaActiva(_jugador.IdJugador, _equipo, _jugador.IdEquipo);
+
+                    Transferencia oferta = new Transferencia
+                    {
+                        IdJugador = _jugador.IdJugador,
+                        IdEquipoOrigen = _logicaJugador.MostrarDatosJugador(_jugador.IdJugador).IdEquipo,
+                        IdEquipoDestino = _equipo,
+                        TipoFichaje = 1,
+                        MontoOferta = 0,
+                        FechaOferta = Metodos.hoy.ToString("yyyy-MM-dd"),
+                        FechaTraspaso = "",
+                        RespuestaEquipo = 1,
+                        RespuestaJugador = 0,
+                        SalarioAnual = 0,
+                        ClausulaRescision = 0,
+                        Duracion = 0,
+                        BonoPorGoles = 0,
+                        BonoPorPartidos = 0,
+                    };
+
+                    if (enNegociacion != true)
+                    {
+                        _logicaTransferencia.RegistrarOferta(oferta);
+                    }
+                    else
+                    {
+                        _logicaTransferencia.ActualizarOferta(oferta);
+                    }
+                }
+
                 // Cancelar las negociaciones en la base de datos.
                 _logicaJugador.NegociacionCancelada(_jugador.IdJugador, 14);
+
+                // Crear el mensaje confirmando que el jugador rechaza la oferta de traspaso
+                Empleado? director = _logicaEmpleado.ObtenerEmpleadoPorPuesto("Director Técnico");
+                string presidente = _logicaEquipo.ListarDetallesEquipo(_equipo).Presidente;
+
+                Mensaje mensajeJugadorRechazaOferta = new Mensaje
+                {
+                    Fecha = Metodos.hoy,
+                    Remitente = nombreJugador != null ? nombreJugador : director.Nombre,
+                    Asunto = "Negociación fallida",
+                    Contenido = $"Lamentablemente, no ha sido posible llegar a un acuerdo con {nombreJugador.ToUpper()} tras la negociación de los términos contractuales.\n\nEl jugador y su representante han rechazado nuestra propuesta y han decidido no continuar con las conversaciones. Esto significa que, por el momento, el fichaje queda descartado.\n\nPuedes optar por realizar una nueva oferta en 2 semanas para modificar las condiciones o centrarte en otras alternativas disponibles en el mercado.",
+                    TipoMensaje = "Notificación",
+                    IdEquipo = _equipo,
+                    IdManager = _manager.IdManager,
+                    Leido = false,
+                    Icono = _jugador.IdJugador
+                };
+
+                _logicaMensaje.crearMensaje(mensajeJugadorRechazaOferta);
 
                 Metodos.ReproducirSonidoTransicion();
                 this.Close();
@@ -457,7 +619,7 @@ namespace ChampionManager25.Vistas
                 string nombreJugador = _jugador.Nombre + " " + _jugador.Apellido;
                 string nombreManager = _logicaManager.MostrarManager(_manager.IdManager).Nombre + " " +
                                        _logicaManager.MostrarManager(_manager.IdManager).Apellido;
-                Mensaje mensajeDespido = new Mensaje
+                Mensaje mensajeRenovacion = new Mensaje
                 {
                     Fecha = Metodos.hoy,
                     Remitente = nombreJugador != null ? nombreJugador : "Desconocido",
@@ -469,7 +631,7 @@ namespace ChampionManager25.Vistas
                     Leido = false,
                     Icono = _jugador.IdJugador // Distinto de 0 es icono de jugador
                 };
-                _logicaMensaje.crearMensaje(mensajeDespido);
+                _logicaMensaje.crearMensaje(mensajeRenovacion);
             }
             else
             {
@@ -545,6 +707,53 @@ namespace ChampionManager25.Vistas
 
                 // Cancelar las negociaciones en la base de datos durante 6 meses.
                 _logicaJugador.NegociacionCancelada(_jugador.IdJugador, 180);
+
+                // Crear el mensaje confirmando que el jugador acepta la oferta de traspaso
+                Empleado? director = _logicaEmpleado.ObtenerEmpleadoPorPuesto("Director Técnico");
+                string presidente = _logicaEquipo.ListarDetallesEquipo(_equipo).Presidente;
+                string nombreJugador = _logicaJugador.MostrarDatosJugador(_jugador.IdJugador).NombreCompleto;
+
+                Mensaje mensajeJugadorAceptaOferta = new Mensaje
+                {
+                    Fecha = Metodos.hoy,
+                    Remitente = nombreJugador != null ? nombreJugador : director.Nombre,
+                    Asunto = "Traspaso confirmado",
+                    Contenido = $"{nombreJugador.ToUpper()} ha aceptado los términos personales que le propusimos " +
+                                $"y se ha convertido oficialmente en nuevo jugador del {_logicaEquipo.ListarDetallesEquipo(_jugador.IdEquipo).Nombre.ToUpper().ToUpper()}.\n\n" +
+                                "Los detalles finales del acuerdo son los siguientes:\n\n" +
+                                $"• Tipo de operación: Traspaso\n" +
+                                $"• Coste del fichaje: {_logicaTransferencia.MostrarDetallesOferta(_jugador.IdJugador).MontoOferta.ToString("N0", new CultureInfo("es-ES"))}€\n" +
+                                $"• Duración del contrato: {ofertaAnios} temporadas\n" +
+                                $"• Salario acordado: {ofertaSalario.ToString("N0", new CultureInfo("es-ES"))}€\n" +
+                                $"• Rol en la plantilla: {txtOfertaRol.Text}\n" +
+                                $"• Bonus por partidos: {ofertaBonusPartidos.ToString("N0", new CultureInfo("es-ES"))}€\n" +
+                                $"• Bonus por goles: {ofertaBonusGoles.ToString("N0", new CultureInfo("es-ES"))}€\n\n" +
+                                "El jugador se incorporará de inmediato a los entrenamientos y estará disponible para el próximo partido, salvo indicaciones médicas.",
+                    TipoMensaje = "Notificación",
+                    IdEquipo = _equipo,
+                    IdManager = _manager.IdManager,
+                    Leido = false,
+                    Icono = _jugador.IdJugador
+                };
+
+                _logicaMensaje.crearMensaje(mensajeJugadorAceptaOferta);
+
+                // Crear el gasto del fichaje
+                int cantidadFichaje = _logicaTransferencia.MostrarDetallesOferta(_jugador.IdJugador).MontoOferta;
+                Finanza nuevoGasto = new Finanza
+                {
+                    IdEquipo = _equipo,
+                    IdManager = _manager.IdManager,
+                    Temporada = Metodos.temporadaActual.ToString(),
+                    IdConcepto = 18,
+                    Tipo = 2,
+                    Cantidad = cantidadFichaje,
+                    Fecha = Metodos.hoy.Date
+                };
+                _logicaFinanza.CrearGasto(nuevoGasto);
+
+                // Restar la indemnización al Presupuesto
+                _logicaEquipo.RestarCantidadAPresupuesto(_equipo, cantidadFichaje);
             }
 
             // Llamar al método ActualizarPresupuesto() de UC_PantallaPrincipal

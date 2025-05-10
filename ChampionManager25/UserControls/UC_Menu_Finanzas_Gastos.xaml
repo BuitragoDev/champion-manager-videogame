@@ -205,15 +205,15 @@
 
                         <!-- Multas -->
                         <Border Background="DarkRed" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2">
-                            <TextBlock Text="MULTAS" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                            <TextBlock Text="BONUS" HorizontalAlignment="Center" VerticalAlignment="Center" 
                                        FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="WhiteSmoke" TextAlignment="Center"/>
                         </Border>
                         <Border Background="LightGray" Grid.Column="0" Grid.Row="5">
-                            <TextBlock Text="Multas Recibidas" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="20,0,0,0"
+                            <TextBlock Text="Bonus jugadores" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="20,0,0,0"
                                        FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="Black" TextAlignment="Center"/>
                         </Border>
                         <Border Background="LightGray" Grid.Column="1" Grid.Row="5">
-                            <TextBlock x:Name="txtMultas" Text="000.000.000 €" HorizontalAlignment="Right" VerticalAlignment="Center"  Margin="0,0,20,0"
+                            <TextBlock x:Name="txtBonusJugadores" Text="000.000.000 €" HorizontalAlignment="Right" VerticalAlignment="Center"  Margin="0,0,20,0"
                                        FontFamily="Cascadia Code Light" FontSize="20" Foreground="Black" TextAlignment="Center"/>
                         </Border>
 

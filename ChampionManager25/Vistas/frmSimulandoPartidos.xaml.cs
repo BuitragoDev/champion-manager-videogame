@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Common;
 using System.Data.SQLite;
+using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -52,6 +53,19 @@ namespace ChampionManager25.Vistas
             _manager = manager;
             _equipo = equipo;
             this.listaPartidos = listaPartidos;
+
+            // Código que inicializa el sonido de fondo 
+            try
+            {
+                if (Metodos.SonidoActivado == true)
+                {
+                    Metodos.ReproducirMusica("backgroundMusic2.wav");
+                }
+            }
+            catch (FileNotFoundException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private async void simulacionPartidos_Loaded(object sender, RoutedEventArgs e)
@@ -111,6 +125,14 @@ namespace ChampionManager25.Vistas
                 {
                     copaFinalizada = 1;
                 }
+            }
+        }
+
+        private void simulacionPartidos_Unloaded(object sender, RoutedEventArgs e)
+        {
+            if (Metodos.SonidoActivado == true)
+            {
+                Metodos.ReproducirMusica("backgroundTrainingSounds.wav");
             }
         }
 
@@ -394,8 +416,9 @@ namespace ChampionManager25.Vistas
 
             // Asignar pesos basados en atributos y posición
             var pesosGoleadores = jugadoresNoPorteros.Select(j =>
-                (jugador: j, peso: (j.Remate * 1.5 + j.Tiro * 1.5 + j.Regate * 1.5 + j.Calidad) * (j.RolId >= 7 && j.RolId <= 10 ? 5 : 0.5)) // Aumentado a x5
-            ).ToList();
+                                                                (jugador: j, peso: (j.Remate * 1.5 + j.Tiro * 1.5 + j.Regate * 1.5 + j.Calidad) *
+                                                                (j.RolId == 10 ? 10 : (j.RolId >= 7 && j.RolId <= 9 ? 5 : 0.5))) // RolId 10 tiene un peso de 10, y 7-9 tienen un peso de 5
+                                                            ).ToList();
 
             var pesosAsistentes = jugadoresNoPorteros.Select(j =>
                 (jugador: j, peso: (j.Pase * 1.5 + j.Calidad) * (j.RolId >= 6 && j.RolId <= 10 ? 2 : 1))
@@ -607,12 +630,6 @@ namespace ChampionManager25.Vistas
                 {
                     _logicaJugador.PonerJugadorSancionado(jugador.IdJugador, jugador.Sancionado - 1);
                 }
-
-                // Reducir el número de partidos lesionado si es mayor que 0
-                if (jugador.Lesion > 0)
-                {
-                    _logicaJugador.PonerJugadorLesionado(jugador.IdJugador, jugador.Lesion - 1, jugador.TipoLesion);
-                }
             }
         }
 
@@ -639,43 +656,40 @@ namespace ChampionManager25.Vistas
             if (golesLocal > golesVisitante)
             {
                 // Subir la moral 1 punto del los jugadores que ganan y bajar 1 punto de los jugadores que pierden
-                // Bajar el estado de forma 1 punto de los jugadores que ganan y 2 puntos de los jugadores que pierden
                 foreach (var jugador in jugadoresLocal)
                 {
-                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 1, -1);
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 1, 0);
                 }
 
                 foreach (var jugador in jugadoresVisitante)
                 {
-                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, -1, -2);
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, -1, 0);
                 }
             }
             else if (golesLocal < golesVisitante)
             {
                 // Subir la moral 1 punto del los jugadores que ganan y bajar 1 punto de los jugadores que pierden
-                // Bajar el estado de forma 1 punto de los jugadores que ganan y 2 puntos de los jugadores que pierden
                 foreach (var jugador in jugadoresVisitante)
                 {
-                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 1, -1);
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 1, 0);
                 }
 
                 foreach (var jugador in jugadoresLocal)
                 {
-                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, -1, -2);
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, -1, 0);
                 }
             }
             else
             {
                 // Subir la moral 1 punto del los jugadores que empatan
-                // Bajar el estado de forma 2 puntos de los jugadores que empatan
                 foreach (var jugador in jugadoresLocal)
                 {
-                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 1, -2);
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 1, 0);
                 }
 
                 foreach (var jugador in jugadoresVisitante)
                 {
-                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 1, -2);
+                    _logicaJugador.ActualizarMoralEstadoForma(jugador.IdJugador, 1, 0);
                 }
             }
 

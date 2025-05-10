@@ -60,6 +60,7 @@ namespace ChampionManager25.UserControls
             imgLiga4.IsEnabled = true;
             imgLiga5.IsEnabled = true;
 
+            dgJugadores.ItemsSource = null;
             CargarEscudos(1);
         }
 
@@ -73,6 +74,7 @@ namespace ChampionManager25.UserControls
             imgLiga4.IsEnabled = true;
             imgLiga5.IsEnabled = true;
 
+            dgJugadores.ItemsSource = null;
             CargarEscudos(2);
         }
 
@@ -86,6 +88,7 @@ namespace ChampionManager25.UserControls
             imgLiga4.IsEnabled = true;
             imgLiga5.IsEnabled = true;
 
+            dgJugadores.ItemsSource = null;
             CargarEscudos(3);
         }
 
@@ -99,10 +102,11 @@ namespace ChampionManager25.UserControls
             imgLiga4.IsEnabled = false;
             imgLiga5.IsEnabled = true;
 
+            dgJugadores.ItemsSource = null;
             CargarEscudos(5);
         }
 
-        // --------------------------------------------- EVENTO CLICK DEL BOTON DIVISIÓN 5 -------------------------------------------------
+        // --------------------------------------------- EVENTO CLICK DEL BOTON FREE AGENTS -------------------------------------------------
         private void imgLiga5_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Metodos.ReproducirSonidoTransicion();
@@ -112,7 +116,11 @@ namespace ChampionManager25.UserControls
             imgLiga4.IsEnabled = true;
             imgLiga5.IsEnabled = false;
 
-            CargarEscudos(6);
+            wrapPanelEquipos.Children.Clear();
+            dgJugadoresTexto.Visibility = Visibility.Hidden;
+            dgJugadores.Visibility = Visibility.Visible;
+            txtListadoJugadores.Text = "LISTADO DE JUGADORES SIN EQUIPO";
+            ConfigurarDataGrid(0);
         }
 
         #region "Métodos"
