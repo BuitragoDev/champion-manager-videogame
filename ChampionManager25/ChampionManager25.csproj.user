@@ -170,6 +170,9 @@
     <Compile Update="UserControls\UC_Menu_Transferencias_Mercado.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\UC_Menu_Transferencias_OfertasRecibidas.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\UC_PantallaCarga.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -225,6 +228,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Vistas\frmVentanaDespidoJugador.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Vistas\frmVentanaEmergenteAceptarOferta.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Vistas\frmVentanaEmergenteDosBotones.xaml.cs">

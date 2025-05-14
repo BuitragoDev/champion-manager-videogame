@@ -27,10 +27,12 @@ namespace ChampionManager25.Vistas
         PatrocinadorLogica _logicaPatrocinador = new PatrocinadorLogica();
         EmpleadoLogica _logicaEmpleado = new EmpleadoLogica();
         MensajeLogica _logicaMensajes = new MensajeLogica();
+        FinanzaLogica _logicaFinanza = new FinanzaLogica();
 
         int patrocinadorPrincipalSeleccionado = 0;
         int[]? patrocinadorPrincipal;
         int[]? cantidadesPrincipal;
+        int[]? mensualidadPrincipal;
         int[]? duracionesPrincipal;
 
         public frmListaPatrocinadores(int equipo, Manager manager)
@@ -48,16 +50,20 @@ namespace ChampionManager25.Vistas
             List<Patrocinador> listaPatrocinadores = _logicaPatrocinador.MostrarListaPatrocinadores();
 
             // Generar lista de Patrocinadores Principales
-            GenerarPatrocinadoresPrincipales(reputacionEquipo, listaPatrocinadores, out patrocinadorPrincipal, out cantidadesPrincipal, out duracionesPrincipal);
+            GenerarPatrocinadoresPrincipales(reputacionEquipo, listaPatrocinadores, out patrocinadorPrincipal, out cantidadesPrincipal, out mensualidadPrincipal, out duracionesPrincipal);
 
             // Cargar datos en la ventana
             imgPatrocinadorPrincipal1.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/patrocinadores/" + patrocinadorPrincipal[0] + ".png"));
             imgPatrocinadorPrincipal2.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/patrocinadores/" + patrocinadorPrincipal[1] + ".png"));
             imgPatrocinadorPrincipal3.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/patrocinadores/" + patrocinadorPrincipal[2] + ".png"));
 
-            txtCantidadPatrocinadorPrincipal1.Text = cantidadesPrincipal[0].ToString("N0") + " $";
-            txtCantidadPatrocinadorPrincipal2.Text = cantidadesPrincipal[1].ToString("N0") + " $";
-            txtCantidadPatrocinadorPrincipal3.Text = cantidadesPrincipal[2].ToString("N0") + " $";
+            txtCantidadPatrocinadorPrincipal1.Text = cantidadesPrincipal[0].ToString("N0") + " €";
+            txtCantidadPatrocinadorPrincipal2.Text = cantidadesPrincipal[1].ToString("N0") + " €";
+            txtCantidadPatrocinadorPrincipal3.Text = cantidadesPrincipal[2].ToString("N0") + " €";
+
+            txtMensualidadPatrocinadorPrincipal1.Text = mensualidadPrincipal[0].ToString("N0") + " €";
+            txtMensualidadPatrocinadorPrincipal2.Text = mensualidadPrincipal[1].ToString("N0") + " €";
+            txtMensualidadPatrocinadorPrincipal3.Text = mensualidadPrincipal[2].ToString("N0") + " €";
 
             if (duracionesPrincipal[0] == 1)
             {
@@ -132,7 +138,7 @@ namespace ChampionManager25.Vistas
         private void btnConfirmarPatrocinadores_Click(object sender, RoutedEventArgs e)
         {
             Metodos.ReproducirSonidoClick();
-            _logicaPatrocinador.AnadirUnPatrocinador(patrocinadorPrincipal[patrocinadorPrincipalSeleccionado - 1], cantidadesPrincipal[patrocinadorPrincipalSeleccionado - 1], duracionesPrincipal[patrocinadorPrincipalSeleccionado - 1], _equipo, _manager.IdManager);
+            _logicaPatrocinador.AnadirUnPatrocinador(patrocinadorPrincipal[patrocinadorPrincipalSeleccionado - 1], cantidadesPrincipal[patrocinadorPrincipalSeleccionado - 1], mensualidadPrincipal[patrocinadorPrincipalSeleccionado - 1], duracionesPrincipal[patrocinadorPrincipalSeleccionado - 1], _equipo, _manager.IdManager);
 
             // Crear el mensaje con el numero de abonados de la temporada
             Empleado? financiero = _logicaEmpleado.ObtenerEmpleadoPorPuesto("Financiero");
@@ -144,7 +150,7 @@ namespace ChampionManager25.Vistas
                 Fecha = Metodos.hoy,
                 Remitente = financiero != null ? financiero.Nombre : presidente,
                 Asunto = "Nuevo Acuerdo de Patrocinio Cerrado",
-                Contenido = $"Me complace anunciar que hemos alcanzado un acuerdo con un nuevo patrocinador: {nombrePatrocinador}. Este contrato nos aportará {cantidadesPrincipal[patrocinadorPrincipalSeleccionado - 1].ToString("N0", new CultureInfo("es-ES"))}€ por temporada durante {duracionesPrincipal[patrocinadorPrincipalSeleccionado - 1]} años y refleja el creciente interés comercial en nuestro proyecto deportivo.\n\nEste tipo de alianzas son fundamentales para mejorar nuestra situación financiera y nos permitirán tener mayor margen de maniobra en futuras operaciones.\n\nFelicidades por la imagen que estás proyectando del club. ¡Sigamos creciendo juntos!",
+                Contenido = $"Me complace anunciar que hemos alcanzado un acuerdo con un nuevo patrocinador: {nombrePatrocinador}. Este contrato nos aportará un pago inicial de {cantidadesPrincipal[patrocinadorPrincipalSeleccionado - 1].ToString("N0", new CultureInfo("es-ES"))}€ y un pago mensual de {mensualidadPrincipal[patrocinadorPrincipalSeleccionado - 1].ToString("N0", new CultureInfo("es-ES"))}€ por temporada durante {duracionesPrincipal[patrocinadorPrincipalSeleccionado - 1]} años y refleja el creciente interés comercial en nuestro proyecto deportivo.\n\nEste tipo de alianzas son fundamentales para mejorar nuestra situación financiera y nos permitirán tener mayor margen de maniobra en futuras operaciones.\n\nFelicidades por la imagen que estás proyectando del club. ¡Sigamos creciendo juntos!",
                 TipoMensaje = "Notificación",
                 IdEquipo = _equipo,
                 IdManager = _manager.IdManager,
@@ -153,61 +159,111 @@ namespace ChampionManager25.Vistas
             };
 
             _logicaMensajes.crearMensaje(mensajePatrocinador);
+
+            // Crear ingreso del pago inicial del patrocinador
+            int pagoPatrocinador = cantidadesPrincipal[patrocinadorPrincipalSeleccionado - 1];
+            Finanza nuevoIngresoPatrocinio = new Finanza
+            {
+                IdEquipo = _equipo,
+                IdManager = _manager.IdManager,
+                Temporada = Metodos.temporadaActual.ToString(),
+                IdConcepto = 6,
+                Tipo = 1,
+                Cantidad = pagoPatrocinador,
+                Fecha = Metodos.hoy.Date
+            };
+            _logicaFinanza.CrearIngreso(nuevoIngresoPatrocinio);
+
+            // Restar la indemnización al Presupuesto
+            _logicaEquipo.SumarCantidadAPresupuesto(_equipo, pagoPatrocinador);
+
             this.Close();
         }
 
         #region "Métodos"
         public void GenerarPatrocinadoresPrincipales(int reputacionEquipo, List<Patrocinador> listaPatrocinadores,
-                          out int[] patrocinadorPrincipal, out int[] cantidadesPrincipal, out int[] duracionesPrincipal)
+                  out int[] patrocinadorPrincipal, out int[] cantidadesPrincipal, out int[] mensualidadPrincipal, out int[] duracionesPrincipal)
         {
-            // Determinar el límite de reputación de patrocinadores basado en la reputación del equipo
             int limiteReputacion;
+            int cantidadMin = 20; // en millones
+            int cantidadMax = 50;
+            int mensualidadMin = 200000;
+            int mensualidadMax = 1000000;
+
             if (reputacionEquipo >= 50 && reputacionEquipo <= 60)
             {
                 limiteReputacion = 1;
+                cantidadMin = 10;
+                cantidadMax = 25;
+                mensualidadMin = 200000;
+                mensualidadMax = 500000;
             }
             else if (reputacionEquipo >= 61 && reputacionEquipo <= 70)
             {
                 limiteReputacion = 2;
+                cantidadMin = 15;
+                cantidadMax = 30;
+                mensualidadMin = 300000;
+                mensualidadMax = 600000;
             }
             else if (reputacionEquipo >= 71 && reputacionEquipo <= 80)
             {
                 limiteReputacion = 3;
+                cantidadMin = 20;
+                cantidadMax = 40;
+                mensualidadMin = 400000;
+                mensualidadMax = 800000;
             }
             else if (reputacionEquipo >= 81 && reputacionEquipo <= 90)
             {
                 limiteReputacion = 4;
+                cantidadMin = 25;
+                cantidadMax = 45;
+                mensualidadMin = 500000;
+                mensualidadMax = 900000;
             }
             else if (reputacionEquipo >= 91 && reputacionEquipo <= 100)
             {
                 limiteReputacion = 5;
+                cantidadMin = 30;
+                cantidadMax = 50;
+                mensualidadMin = 600000;
+                mensualidadMax = 1000000;
             }
             else
             {
-                limiteReputacion = 0; // No aplica selección si no está dentro de los rangos
+                limiteReputacion = 0;
+                cantidadMin = 5;
+                cantidadMax = 15;
+                mensualidadMin = 50000;
+                mensualidadMax = 100000;
             }
 
             // Filtrar patrocinadores según el límite de reputación
             var patrocinadoresFiltrados = listaPatrocinadores
-            .Where(p => p.Reputacion <= limiteReputacion)
-            .ToList();
+                .Where(p => p.Reputacion <= limiteReputacion)
+                .ToList();
 
             // Barajar los patrocinadores para obtener una selección aleatoria
             Random random = new Random();
             var seleccionAleatoria = patrocinadoresFiltrados
                 .OrderBy(x => random.Next())
-                .Take(3) // Tomar hasta 3 patrocinadores
+                .Take(3)
                 .ToList();
 
-            // Inicializar los arrays
+            // Inicializar arrays
             patrocinadorPrincipal = seleccionAleatoria.Select(p => p.IdPatrocinador).ToArray();
             cantidadesPrincipal = seleccionAleatoria
-                .Select(p => random.Next(20, 51) * 500000) // Generar valores aleatorios entre 20M y 50M, múltiplos de 500K
+                .Select(p => random.Next(cantidadMin, cantidadMax + 1) * 500000)
+                .ToArray();
+            mensualidadPrincipal = seleccionAleatoria
+                .Select(p => random.Next(mensualidadMin / 50000, mensualidadMax / 50000 + 1) * 50000)
                 .ToArray();
             duracionesPrincipal = seleccionAleatoria
-                .Select(p => random.Next(1, 4)) // Generar valores aleatorios entre 1 y 3 años
+                .Select(p => random.Next(1, 4))
                 .ToArray();
         }
+
 
         private void visibilidadBoton()
         {

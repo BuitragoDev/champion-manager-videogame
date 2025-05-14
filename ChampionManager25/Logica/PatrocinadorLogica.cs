@@ -20,9 +20,9 @@ namespace ChampionManager25.Logica
         }
 
         // Llamada al método que añade un nuevo patrocinador contratado
-        public void AnadirUnPatrocinador(int patrocinador, int cantidad, int duracion, int equipo, int manager)
+        public void AnadirUnPatrocinador(int patrocinador, int cantidad, int mensualidad, int duracion, int equipo, int manager)
         {
-            _datos.AnadirUnPatrocinador(patrocinador, cantidad, duracion, equipo, manager);
+            _datos.AnadirUnPatrocinador(patrocinador, cantidad, mensualidad, duracion, equipo, manager);
         }
 
         // Llamada al método que muestra los patrocinadores contratados

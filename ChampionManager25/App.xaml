@@ -41,5 +41,16 @@
             <Setter Property="Background" Value="#d9534f"/>
             <Setter Property="BorderBrush" Value="#a94442"/>
         </Style>
+
+        <!-- Estilo para quitar la animacion a los botones -->
+        <ControlTemplate x:Key="NoHoverButtonTemplate" TargetType="Button">
+            <Border Background="{TemplateBinding Background}" 
+                BorderBrush="{TemplateBinding BorderBrush}" 
+                BorderThickness="{TemplateBinding BorderThickness}">
+                <ContentPresenter HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              RecognizesAccessKey="True"/>
+            </Border>
+        </ControlTemplate>
     </Application.Resources>
 </Application>

@@ -97,6 +97,17 @@ namespace ChampionManager25.UserControls
             {
                 btnEstablecerPrecioAbono.Visibility = Visibility.Visible;
             }
+
+            // Comprobar si ha pasado la fecha de abonados.
+            DateTime fechaAbonados = ObtenerSegundoLunesDeAgosto(Metodos.temporadaActual);
+            DateTime hoy = Metodos.hoy;
+            DateTime limite = new DateTime(Metodos.temporadaActual + 1, 6, 30); // 30 de junio del año siguiente
+
+            if (fechaAbonados <= hoy && hoy < limite)
+            {
+                btnEstablecerPrecioAbono.IsEnabled = false;
+                btnEstablecerPrecioAbono.Visibility = Visibility.Hidden;
+            }
         }
 
         // ---------------------------------------------------------------------------------------------- Eventos de las CAJAS DE TEXTO
@@ -154,6 +165,28 @@ namespace ChampionManager25.UserControls
             _logicaTaquilla.EstablecerPrecioAbonos(_equipo, _manager.IdManager, int.Parse(txtPrecioAbonoGeneral.Text.Trim()),
                                                    int.Parse(txtPrecioAbonoTribuna.Text.Trim()), int.Parse(txtPrecioAbonoVip.Text.Trim()));
             btnEstablecerPrecioAbono.Visibility = Visibility.Hidden;
+        }
+
+        public static DateTime ObtenerSegundoLunesDeAgosto(int anio)
+        {
+            DateTime fecha = new DateTime(anio, 8, 1);
+            int lunesEncontrados = 0;
+
+            while (fecha.Month == 8)
+            {
+                if (fecha.DayOfWeek == DayOfWeek.Monday)
+                {
+                    lunesEncontrados++;
+                    if (lunesEncontrados == 2)
+                    {
+                        return fecha;
+                    }
+                }
+
+                fecha = fecha.AddDays(1);
+            }
+
+            throw new Exception("No se encontró el tercer sábado de agosto.");
         }
     }
 }

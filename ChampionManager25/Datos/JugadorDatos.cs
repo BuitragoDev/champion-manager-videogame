@@ -531,7 +531,7 @@ namespace ChampionManager25.Datos
         }
 
 
-        // ======================================================= Método para mostrar los titulares del equipo
+        // ------------------------------------------------------------------------- Método para mostrar los titulares del equipo
         public void CrearAlineacion(int equipo)
         {
             try
@@ -645,6 +645,107 @@ namespace ChampionManager25.Datos
             }
         }
 
+        // ---------------------------------------------------------------------- Método que agrega un jugador a la alineacion
+        public void AgregarJugadorAlineacion(int jugador)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Consulta SQL para obtener las finanzas del equipo
+                    string query = @"INSERT INTO alineacion (id_jugador, posicion)
+                                    VALUES (@IdJugador,
+                                        COALESCE((SELECT MAX(posicion) FROM alineacion), 0) + 1)";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        // Agregar parámetro para evitar inyección SQL
+                        cmd.Parameters.AddWithValue("@IdJugador", jugador);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // ---------------------------------------------------------------------- Método que resetea la tabla alineacion
+        public void ResetearAlineacion()
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Consulta SQL para obtener las finanzas del equipo
+                    string query = @"DELETE FROM alineacion";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // ---------------------------------------------------------------------- Método que quita un jugador a la alineacion
+        public void QuitarJugadorAlineacion(int idJugador)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Paso 1: Obtener la posición del jugador a eliminar
+                    int posicionJugador = -1;
+                    string queryPosicion = "SELECT posicion FROM alineacion WHERE id_jugador = @IdJugador";
+                    using (SQLiteCommand cmd = new SQLiteCommand(queryPosicion, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@IdJugador", idJugador);
+                        object result = cmd.ExecuteScalar();
+                        if (result != null)
+                        {
+                            posicionJugador = Convert.ToInt32(result);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Jugador no encontrado en la alineación.");
+                            return;
+                        }
+                    }
+
+                    // Paso 2: Eliminar el jugador
+                    string queryEliminar = "DELETE FROM alineacion WHERE id_jugador = @IdJugador";
+                    using (SQLiteCommand cmd = new SQLiteCommand(queryEliminar, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@IdJugador", idJugador);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    // Paso 3: Actualizar posiciones de los jugadores con posición mayor
+                    string queryActualizar = "UPDATE alineacion SET posicion = posicion - 1 WHERE posicion > @Posicion";
+                    using (SQLiteCommand cmd = new SQLiteCommand(queryActualizar, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Posicion", posicionJugador);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
 
         // ======================================================= Método para mostrar la lista de Jugadores Detallada por equipo
         public List<Jugador> MostrarAlineacion(int inicio, int final)
@@ -1665,8 +1766,7 @@ namespace ChampionManager25.Datos
                     string query = @"SELECT j.*, c.duracion AS AniosContrato, c.salario_anual AS SalarioTemporada, c.clausula_rescision AS ClausulaRescision
                                      FROM jugadores j
                                      LEFT JOIN contratos c ON j.id_jugador = c.id_jugador
-                                     WHERE j.id_equipo <> @Equipo AND
-                                           j.situacion_mercado BETWEEN @TipoStart AND @TipoEnd AND
+                                     WHERE j.situacion_mercado BETWEEN @TipoStart AND @TipoEnd AND
                                            ROUND((j.velocidad + j.agresividad + j.resistencia + j.calidad + j.estado_forma + j.moral) / 6, 0) BETWEEN @MediaStart AND @MediaEnd AND
                                            j.rol_id BETWEEN @PosicionStart AND @PosicionEnd";
 
@@ -2229,19 +2329,21 @@ namespace ChampionManager25.Datos
                     reputacionEquipo = Convert.ToInt32(cmdReputacion.ExecuteScalar());
 
                     // Determinar media mínima exigida según la reputación
-                    int mediaMinima = reputacionEquipo switch
+                    int mediaMaxima = reputacionEquipo switch
                                     {
-                                        >= 90 => 80,
-                                        >= 70 => 70,
+                                        >= 90 => 99,
+                                        >= 80 => 82,
+                                        >= 70 => 78,
+                                        >= 60 => 70,
                                         >= 50 => 60,
                                         _ => 50
                                     };
 
                     var necesidades = new Dictionary<int, int>
                                     {
-                                        { 1, 2 },  { 2, 2 }, { 3, 2 }, { 4, 4 },
-                                        { 5, 2 },  { 6, 2 }, { 7, 2 }, { 8, 2 },
-                                        { 9, 2 }, { 10, 2 }
+                                        { 1, 3 },  { 2, 3 }, { 3, 3 }, { 4, 5 },
+                                        { 5, 4 },  { 6, 4 }, { 7, 4 }, { 8, 4 },
+                                        { 9, 4 }, { 10, 4 }
                                     };
 
                     var cmdConteo = new SQLiteCommand(@"SELECT rol_id, COUNT(*) 
@@ -2282,17 +2384,18 @@ namespace ChampionManager25.Datos
                     // Buscar un jugador en el mercado que cumpla la media mínima
                     var cmdObjetivos = new SQLiteCommand(@"SELECT id_jugador, id_equipo, valor_mercado 
                                                            FROM jugadores 
-                                                           WHERE situacion_mercado = 1 
+                                                           WHERE (situacion_mercado = 1 OR id_equipo = 0)
                                                               AND rol_id = @rolNecesitado 
-                                                              AND id_equipo != @equipoIA 
+                                                              AND (id_equipo != @equipoIA AND id_equipo != @idMiEquipo)
                                                               AND (
                                                                   (velocidad + resistencia + agresividad + calidad + estado_forma + moral) / 6.0
-                                                              ) >= @mediaMinima
+                                                              ) >= @mediaMaxima
                                                            ORDER BY valor_mercado ASC 
                                                            LIMIT 1", connection, transaction);
                     cmdObjetivos.Parameters.AddWithValue("@rolNecesitado", rolNecesitado);
                     cmdObjetivos.Parameters.AddWithValue("@equipoIA", idEquipoIA);
-                    cmdObjetivos.Parameters.AddWithValue("@mediaMinima", mediaMinima);
+                    cmdObjetivos.Parameters.AddWithValue("@idMiEquipo", equipo);
+                    cmdObjetivos.Parameters.AddWithValue("@mediaMaxima", mediaMaxima);
 
                     var readerObjetivo = cmdObjetivos.ExecuteReader();
 
@@ -2379,6 +2482,196 @@ namespace ChampionManager25.Datos
 
                 transaction.Commit();
                 connection.Close();
+            }
+        }
+
+        // --------------------------------------------------------------------- Método que comprueba si hay equipos que quieran hacerme ofertas
+        public List<OfertaIA> OfertasMiEquipo(int miEquipo)
+        {
+            var ofertas = new List<OfertaIA>();
+
+            using (var connection = new SQLiteConnection(Conexion.Cadena))
+            {
+                connection.Open();
+                var transaction = connection.BeginTransaction();
+
+                var cmdEquipos = new SQLiteCommand("SELECT id_equipo FROM equipos WHERE id_equipo <> @idManagerEquipo AND id_equipo <> 0", connection, transaction);
+                cmdEquipos.Parameters.AddWithValue("@idManagerEquipo", miEquipo);
+                var readerEquipos = cmdEquipos.ExecuteReader();
+                var rnd = new Random();
+
+                var equiposIA = new List<int>();
+                while (readerEquipos.Read())
+                    equiposIA.Add(readerEquipos.GetInt32(0));
+                readerEquipos.Close();
+
+                foreach (int idEquipoIA in equiposIA)
+                {
+                    if (rnd.Next(0, 100) >= 50) continue;
+
+                    // Obtener reputación del equipo IA
+                    var cmdReputacion = new SQLiteCommand("SELECT reputacion FROM equipos WHERE id_equipo = @idEquipoIA", connection, transaction);
+                    cmdReputacion.Parameters.AddWithValue("@idEquipoIA", idEquipoIA);
+                    int reputacionEquipo = Convert.ToInt32(cmdReputacion.ExecuteScalar());
+
+                    int mediaMaxima = reputacionEquipo switch
+                                    {
+                                        >= 90 => 99,
+                                        >= 80 => 82,
+                                        >= 70 => 78,
+                                        >= 60 => 70,
+                                        >= 50 => 60,
+                                        _ => 50
+                                    };
+
+                    var necesidades = new Dictionary<int, int>
+                                    {
+                                        { 1, 2 }, { 2, 2 }, { 3, 2 }, { 4, 4 },
+                                        { 5, 2 }, { 6, 2 }, { 7, 2 }, { 8, 2 },
+                                        { 9, 2 }, { 10, 2 }
+                                    };
+
+                    var cmdConteo = new SQLiteCommand(@"SELECT rol_id, COUNT(*) 
+                                                        FROM jugadores 
+                                                        WHERE id_equipo = @idEquipo 
+                                                        GROUP BY rol_id", connection, transaction);
+                    cmdConteo.Parameters.AddWithValue("@idEquipo", idEquipoIA);
+
+                    var actuales = new Dictionary<int, int>();
+                    using (var lector = cmdConteo.ExecuteReader())
+                    {
+                        while (lector.Read())
+                        {
+                            int rol = lector.GetInt32(0);
+                            int cantidad = lector.GetInt32(1);
+                            actuales[rol] = cantidad;
+                        }
+                    }
+
+                    int rolNecesitado = -1;
+                    int maxDeficit = 0;
+                    foreach (var kvp in necesidades)
+                    {
+                        int rol = kvp.Key;
+                        int minimo = kvp.Value;
+                        int tiene = actuales.ContainsKey(rol) ? actuales[rol] : 0;
+                        int deficit = minimo - tiene;
+
+                        if (deficit > maxDeficit)
+                        {
+                            maxDeficit = deficit;
+                            rolNecesitado = rol;
+                        }
+                    }
+
+                    if (rolNecesitado == -1) continue;
+
+                    // Buscar jugador disponible y con media suficiente
+                    var cmdObjetivos = new SQLiteCommand(@"SELECT id_jugador 
+                                                           FROM jugadores 
+                                                           WHERE (situacion_mercado = 1 OR situacion_mercado = 2)
+                                                              AND rol_id = @rolNecesitado 
+                                                              AND id_equipo = @idMiEquipo
+                                                              AND ((velocidad + resistencia + agresividad + calidad + estado_forma + moral) / 6.0) <= @mediaMaxima
+                                                              AND NOT EXISTS (
+                                                                  SELECT 1 
+                                                                  FROM ofertasRecibidas 
+                                                                  WHERE ofertasRecibidas.id_jugador_interesado = jugadores.id_jugador
+                                                           )
+                                                           ORDER BY valor_mercado ASC 
+                                                           LIMIT 1", connection, transaction);
+
+                    cmdObjetivos.Parameters.AddWithValue("@rolNecesitado", rolNecesitado);
+                    cmdObjetivos.Parameters.AddWithValue("@idMiEquipo", miEquipo);
+                    cmdObjetivos.Parameters.AddWithValue("@mediaMaxima", mediaMaxima);
+
+                    var readerObjetivo = cmdObjetivos.ExecuteReader();
+
+                    if (readerObjetivo.Read())
+                    {
+                        int idJugador = readerObjetivo.GetInt32(0);
+                        ofertas.Add(new OfertaIA
+                        {
+                            IdEquipoInteresado = idEquipoIA,
+                            IdJugadorObjetivo = idJugador
+                        });
+                    }
+                    readerObjetivo.Close();
+                }
+
+                transaction.Commit();
+                connection.Close();
+            }
+
+            return ofertas;
+        }
+
+        // ---------------------------------------------------------------- Método para decir si tengo portero en la alineacion titular
+        public bool TengoPortero(int equipo)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+            {
+                conn.Open();
+
+                string query = @"SELECT COUNT(*) 
+                                 FROM alineacion a
+                                 JOIN jugadores j ON a.id_jugador = j.id_jugador
+                                 WHERE a.posicion BETWEEN 1 AND 11
+                                      AND j.rol_id = 1
+                                      AND j.id_equipo = @equipo";
+
+                using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@equipo", equipo);
+                    long count = (long)cmd.ExecuteScalar();
+                    return count > 0;
+                }
+            }
+        }
+
+        // ---------------------------------------------------------------- Método para decir si tengo 4 defensas en el 11 titular
+        public bool TengoDefensas(int equipo)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+            {
+                conn.Open();
+
+                string query = @"SELECT COUNT(*) 
+                                 FROM alineacion a
+                                 JOIN jugadores j ON a.id_jugador = j.id_jugador
+                                 WHERE a.posicion BETWEEN 1 AND 11
+                                      AND j.rol_id BETWEEN 2 AND 4
+                                      AND j.id_equipo = @equipo";
+
+                using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@equipo", equipo);
+                    long count = (long)cmd.ExecuteScalar();
+                    return count > 3;
+                }
+            }
+        }
+
+        // ---------------------------------------------------------------- Método para decir cuantos si tengo 1 delantero en el 11 titular
+        public bool TengoDelanteros(int equipo)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+            {
+                conn.Open();
+
+                string query = @"SELECT COUNT(*) 
+                                 FROM alineacion a
+                                 JOIN jugadores j ON a.id_jugador = j.id_jugador
+                                 WHERE a.posicion BETWEEN 1 AND 11
+                                      AND j.rol_id = 10
+                                      AND j.id_equipo = @equipo";
+
+                using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@equipo", equipo);
+                    long count = (long)cmd.ExecuteScalar();
+                    return count > 0;
+                }
             }
         }
     }

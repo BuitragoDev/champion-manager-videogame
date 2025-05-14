@@ -20,9 +20,9 @@ namespace ChampionManager25.Logica
         }
 
         // Llamada al método para crear un contrato con una Television
-        public void AnadirUnaCadenaTV(int cadenatv, int cantidad, int duracion, int equipo, int manager)
+        public void AnadirUnaCadenaTV(int cadenatv, int cantidad, int mensualidad, int duracion, int equipo, int manager)
         {
-            _datos.AnadirUnaCadenaTV(cadenatv, cantidad, duracion, equipo, manager);
+            _datos.AnadirUnaCadenaTV(cadenatv, cantidad, mensualidad, duracion, equipo, manager);
         }
 
         // Llamada al método para Mostrar las televisiones contratadas

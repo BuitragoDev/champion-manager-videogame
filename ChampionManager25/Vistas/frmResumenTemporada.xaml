@@ -71,7 +71,7 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="200"/>
-                        <RowDefinition Height="200"/>
+                        <RowDefinition Height="250"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="90"/>
                         <RowDefinition Height="90"/>
@@ -85,7 +85,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="30"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
@@ -108,10 +108,14 @@
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
 
-                                    <Image Grid.Column="0" Grid.Row="0" Height="64" Width="64" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                           Source="/Recursos/img/icons/trofeo_campeon.png" />
+                                    <Border Background="#23282d" Grid.Column="0" Grid.Row="0">
+                                        <Image Grid.Column="0" Grid.Row="0" Height="128" Width="128" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               Source="/Recursos/img/icons/trofeo_campeon.png" />
+                                    </Border>
 
-                                    <Image x:Name="imgCampeon" Height="120" Width="120" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    <Border Background="LightGray" Grid.Column="1" Grid.Row="0">
+                                        <Image x:Name="imgCampeon" Height="120" Width="120" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
                                 </Grid>
                             </Border>
                             <!-- SubCampeon -->
@@ -125,10 +129,14 @@
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
 
-                                    <Image Grid.Column="0" Grid.Row="0" Height="64" Width="64" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                           Source="/Recursos/img/icons/trofeo_subcampeon.png" />
+                                    <Border Background="#23282d" Grid.Column="0" Grid.Row="0">
+                                        <Image Grid.Column="0" Grid.Row="0" Height="96" Width="96" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               Source="/Recursos/img/icons/trofeo_subcampeon.png" />
+                                    </Border>
 
-                                    <Image x:Name="imgSubcampeon" Height="120" Width="120" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    <Border Background="LightGray" Grid.Column="1" Grid.Row="0">
+                                        <Image x:Name="imgSubcampeon" Height="120" Width="120" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
                                 </Grid>
                             </Border>
                         </Grid>
@@ -142,8 +150,9 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="30"/>
                                 <RowDefinition Height="*"/>
+                                <RowDefinition Height="40"/>
                             </Grid.RowDefinitions>
 
                             <Border Background="#1d6a7d" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
@@ -151,22 +160,33 @@
                                            FontFamily="Cascadia Code SemiBold" FontSize="22" Foreground="WhiteSmoke" TextAlignment="Center"/>
                             </Border>
 
-                            <Image x:Name="imgMiEquipo" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                           Height="120" Width="120" />
-                            <TextBlock x:Name="txtPosicion" Grid.Column="1" Grid.Row="1" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                       FontFamily="Cascadia Code SemiBold" FontSize="64" Foreground="Black" TextAlignment="Center"/>
+                            <Border Background="LightGray" Grid.Column="0" Grid.Row="1">
+                                <Image x:Name="imgMiEquipo" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                       Height="120" Width="120" />
+                            </Border>
+
+                            <Border Background="LightGray" Grid.Column="1" Grid.Row="1">
+                                <TextBlock x:Name="txtPosicion" Grid.Column="1" Grid.Row="1" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                           FontFamily="Cascadia Code SemiBold" FontSize="64" Foreground="Black" TextAlignment="Center"/>
+                            </Border>
+
+                            <Border Background="#23282d" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+                                <TextBlock x:Name="txtClasificacion" Grid.Column="1" Grid.Row="1" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                           FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                            </Border>
+
                         </Grid>
                     </Border>
 
                     <!-- FILA 3 -->
-                    <Border Grid.Column="0" Grid.Row="2">
+                    <Border Grid.Column="0" Grid.Row="2" Background="LightGray">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="30"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
@@ -201,8 +221,8 @@
                                                 <RowDefinition Height="*"/>
                                             </Grid.RowDefinitions>
 
-                                            <Ellipse x:Name="elipseDirectiva" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Height="120" Stroke="Green" 
-                                                     VerticalAlignment="Center" Width="120" StrokeThickness="15"/>
+                                            <Ellipse x:Name="elipseDirectiva" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Height="80" Stroke="Green" 
+                                                     VerticalAlignment="Center" Width="80" StrokeThickness="10"/>
                                             <TextBlock x:Name="txtCDirectiva" Grid.Column="0" Grid.Row="0" Text="" FontFamily="Cascadia Code SemiBold" 
                                                        FontSize="32" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                         </Grid>
@@ -222,8 +242,8 @@
                                                 <RowDefinition Height="*"/>
                                             </Grid.RowDefinitions>
 
-                                            <Ellipse x:Name="elipseFans" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Height="120" Stroke="Green" 
-                                                     VerticalAlignment="Center" Width="120" StrokeThickness="15"/>
+                                            <Ellipse x:Name="elipseFans" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Height="80" Stroke="Green" 
+                                                     VerticalAlignment="Center" Width="80" StrokeThickness="10"/>
                                             <TextBlock x:Name="txtCFans" Grid.Column="0" Grid.Row="0" Text="" FontFamily="Cascadia Code SemiBold" 
                                                        FontSize="32" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                         </Grid>
@@ -243,8 +263,8 @@
                                                 <RowDefinition Height="*"/>
                                             </Grid.RowDefinitions>
 
-                                            <Ellipse x:Name="elipseJugadores" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Height="120" Stroke="Green" 
-                                                     VerticalAlignment="Center" Width="120" StrokeThickness="15"/>
+                                            <Ellipse x:Name="elipseJugadores" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Height="80" Stroke="Green" 
+                                                     VerticalAlignment="Center" Width="80" StrokeThickness="10"/>
                                             <TextBlock x:Name="txtCJugadores" Grid.Column="0" Grid.Row="0" Text="" FontFamily="Cascadia Code SemiBold" 
                                                        FontSize="32" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                         </Grid>
@@ -255,14 +275,14 @@
                     </Border>
 
                     <!-- FILA 4 -->
-                    <Border Grid.Column="0" Grid.Row="3">
+                    <Border Grid.Column="0" Grid.Row="3" Background="LightGray">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="30"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
@@ -280,14 +300,14 @@
                     </Border>
 
                     <!-- FILA 5 -->
-                    <Border Grid.Column="0" Grid.Row="4">
+                    <Border Grid.Column="0" Grid.Row="4" Background="LightGray">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="30"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
@@ -297,7 +317,7 @@
                             </Border>
 
                             <TextBlock x:Name="txtPuntosReputacion" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                       FontFamily="Cascadia Code SemiBold" FontSize="22" Foreground="#FF23282D" TextAlignment="Center"/>
+                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
                         </Grid>
                     </Border>
                 </Grid>

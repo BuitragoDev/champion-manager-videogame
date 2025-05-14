@@ -72,7 +72,8 @@ namespace ChampionManager25.UserControls
             {
                 txtPatrocinador1.Text = patrocinador.Nombre.ToUpper();
                 imgPatrocinador1.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/patrocinadores/" + patrocinador.IdPatrocinador + ".png"));
-                txtCantidadPatrocinador1.Text = patrocinador.Cantidad.ToString("N0") + " $";
+                txtCantidadPatrocinador1.Text = patrocinador.Cantidad.ToString("N0") + " €";
+                txtMensualidadPatrocinador1.Text = patrocinador.Mensualidad.ToString("N0") + " €";
                 if (patrocinador.DuracionContrato == 1)
                 {
                     txtDuracionPatrocinador1.Text = patrocinador.DuracionContrato.ToString() + " año";

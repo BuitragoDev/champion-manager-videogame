@@ -87,6 +87,17 @@ namespace ChampionManager25.UserControls
             int repu = _logicaManager.MostrarManager(_manager.IdManager).Reputacion;
             MostrarEstrellas(repu);
 
+            // Comprobar mensajes nuevos
+            int mensajesNoLeidos = _logicaMensajes.MensajesNoLeidos(_manager.IdManager);
+            if (mensajesNoLeidos > 0)
+            {
+                imgCorreo.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/icons/correoNuevo_icon.png"));
+            }
+            else
+            {
+                imgCorreo.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/icons/correo_icon.png"));
+            }
+
             CargarFecha();
 
             Fecha fechaObjeto = _datosFecha.ObtenerFechaHoy();
@@ -132,6 +143,7 @@ namespace ChampionManager25.UserControls
 
             if (enRangoEnero || enRangoVerano)
             {
+                // Realizar traspasos IA
                 _logicaJugador.TraspasosIA(_equipo);
             }
 
@@ -184,7 +196,20 @@ namespace ChampionManager25.UserControls
                         }
 
                         // COMPROBAR TRANSFERIBLES
-                        if (jugador.IdEquipo != _equipo && jugador.SituacionMercado == 0)
+                        // Comprobar si esta en la lista de transferidos
+                        List<Transferencia> listaTraspasos = _logicaTransferencia.ListarTraspasos();
+                        bool traspasado = false;
+                        foreach (var traspaso in listaTraspasos)
+                        {
+                            if (traspaso.IdJugador == jugador.IdJugador)
+                            {
+                                traspasado = true;
+                                break;
+                            }
+                        }
+
+                        // Si el jugador no pertenece a mi equipo, no es ya transferible y no esta en la lista de traspasos realizados...
+                        if (jugador.IdEquipo != _equipo && jugador.SituacionMercado == 0 && traspasado == false)
                         {
                             semanasLesionado = _logicaJugador.SemanasLesionado(jugador.IdJugador);
                             partidosJugador = _logicaEstadisticas.MostrarEstadisticasJugador(jugador.IdJugador, _manager.IdManager).PartidosJugados;
@@ -193,17 +218,17 @@ namespace ChampionManager25.UserControls
                             int indiceTransferibilidad = 0;
 
                             // ✔ Factor 1: Edad y Proyeccion
-                            if (jugador.Edad > 30 && partidosEquipo > 10 && partidosJugador < (partidosEquipo * 0.25) && semanasLesionado < (partidosEquipo * 0.25))
+                            if (jugador.Edad > 30 && partidosEquipo > 10 && partidosJugador <= (partidosEquipo * 0.25) && semanasLesionado <= (partidosEquipo * 0.25))
                             {
                                 indiceTransferibilidad += 2;
                             }
 
                             // ✔ Factor 2: Rol vs Partidos Jugados
-                            if (jugador.Status <= 2 && partidosEquipo > 10 && partidosJugador < (partidosEquipo * 0.25) && semanasLesionado < (partidosEquipo * 0.25))
+                            if (jugador.Status <= 2 && partidosEquipo > 10 && partidosJugador <= (partidosEquipo * 0.75) && semanasLesionado <= (partidosEquipo * 0.25))
                             {
-                                indiceTransferibilidad += 1;
+                                indiceTransferibilidad += 2;
                             } 
-                            else if(jugador.Status > 2 && partidosEquipo > 10 && partidosJugador < (partidosEquipo * 0.25) && semanasLesionado < (partidosEquipo * 0.25))
+                            else if(jugador.Status > 2 && partidosEquipo > 10 && partidosJugador <= (partidosEquipo * 0.25) && semanasLesionado <= (partidosEquipo * 0.25))
                             {
                                 indiceTransferibilidad += 2;
                             }
@@ -216,13 +241,13 @@ namespace ChampionManager25.UserControls
                             }
 
                             // ✔ Factor 4: Rendimiento y Moral
-                            if (jugador.Moral < 30 && partidosEquipo > 10 && partidosJugador < (partidosEquipo * 0.50))
+                            if (jugador.Moral < 30 && partidosEquipo > 10 && partidosJugador <= (partidosEquipo * 0.50))
                             {
                                 indiceTransferibilidad += 1;
                             }
 
                             // ✔ Factor 5: Final de Contrato
-                            if (jugador.AniosContrato == 1 && partidosEquipo > 10 && partidosJugador < (partidosEquipo * 0.50))
+                            if (jugador.AniosContrato == 1 && partidosEquipo > 10 && partidosJugador <= (partidosEquipo * 0.50))
                             {
                                 indiceTransferibilidad += 1;
                             }
@@ -286,6 +311,78 @@ namespace ChampionManager25.UserControls
                         {
                             // Cambiar su contrato
                             _logicaJugador.CambiarContratoJugador(traspaso.IdJugador, traspaso.SalarioAnual, traspaso.ClausulaRescision, traspaso.Duracion, traspaso.BonoPorPartidos, traspaso.BonoPorGoles, traspaso.IdEquipoDestino);
+                        }
+
+                        // Comprobar si es un jugador que ficha mi equipo
+                        if (traspaso.IdEquipoDestino == _equipo)
+                        {
+                            // Añadimos al jugador a la tabla alineaciones
+                            _logicaJugador.AgregarJugadorAlineacion(traspaso.IdJugador);
+                        }
+
+                        // Comprobar si es un equipo que vende mi equipo
+                        if (traspaso.IdEquipoOrigen == _equipo)
+                        {
+                            // Quitar jugador de la alineacion
+                            _logicaJugador.QuitarJugadorAlineacion(traspaso.IdJugador);
+                        }
+
+                        // Poner estadisticas del jugador a 0 si viene de otra division
+                        int divisionOrigen = _logicaEquipo.ListarDetallesEquipo(traspaso.IdEquipoOrigen).IdCompeticion;
+                        int divisionDestino = _logicaEquipo.ListarDetallesEquipo(traspaso.IdEquipoDestino).IdCompeticion;
+                        if (divisionOrigen != divisionDestino)
+                        {
+                            _logicaEstadisticas.ResetearEstadisticaJugador(traspaso.IdJugador);
+                        }
+
+                        // Quitar jugador del mercado
+                        _logicaJugador.QuitarJugadorDeMercado(traspaso.IdJugador);
+                    }
+                }
+
+                // --------------------- COMPROBAR OFERTAS POR MIS JUGADORES
+                if (fechaHoy.DayOfWeek == DayOfWeek.Monday)
+                {
+                    List<OfertaIA> ofertasParaMi = _logicaJugador.OfertasMiEquipo(_equipo);
+                    if (ofertasParaMi != null)
+                    {
+                        foreach (var oferta in ofertasParaMi)
+                        {
+                            int presupuestoEquipoInteresado = _logicaEquipo.ListarDetallesEquipo(oferta.IdEquipoInteresado).Presupuesto;
+                            int valorMercadoJugadorInteresado = _logicaJugador.MostrarDatosJugador(oferta.IdJugadorObjetivo).ValorMercado;
+                            int clausulaJugadorInteresado = _logicaJugador.MostrarDatosJugador(oferta.IdJugadorObjetivo).ClausulaRescision ?? 0;
+                            int estadoForma = _logicaJugador.MostrarDatosJugador(oferta.IdJugadorObjetivo).EstadoForma;
+                            int moral = _logicaJugador.MostrarDatosJugador(oferta.IdJugadorObjetivo).Moral;
+                            int potencial = _logicaJugador.MostrarDatosJugador(oferta.IdJugadorObjetivo).Potencial;
+                            int edad = _logicaJugador.MostrarDatosJugador(oferta.IdJugadorObjetivo).Edad;
+
+                            int tipo;
+                            int monto;
+
+                            if (presupuestoEquipoInteresado * 0.5 >= clausulaJugadorInteresado && estadoForma >= 80 
+                                && moral >= 80 && potencial >= 85 && edad <= 30)
+                            {
+                                // Pagan la cláusula si el jugador está en buen estado y tienen dinero
+                                tipo = 1;
+                                monto = clausulaJugadorInteresado;
+                            }
+                            else if (presupuestoEquipoInteresado * 0.7 >= valorMercadoJugadorInteresado)
+                            {
+                                // Hacen una oferta de traspaso negociable
+                                tipo = 1;
+                                // Generar un valor aleatorio dentro del rango
+                                int montoBase = AleatorioEntre((int)(valorMercadoJugadorInteresado * 0.7), (int)(valorMercadoJugadorInteresado * 1.1));
+                                // Redondear al múltiplo más cercano de 50,000
+                                monto = ((montoBase + 25000) / 50000) * 50000;
+                            }
+                            else
+                            {
+                                // Intentan cesión si no tienen dinero
+                                tipo = 2;
+                                monto = 0;
+                            }
+
+                            _logicaTransferencia.AgregarOfertaRecibida(oferta.IdJugadorObjetivo, oferta.IdEquipoInteresado, tipo, monto, 0);
                         }
                     }
                 }
@@ -452,6 +549,9 @@ namespace ChampionManager25.UserControls
 
                     // Sumar los ingresos al Presupuesto
                     _logicaEquipo.SumarCantidadAPresupuesto(_equipo, ingresoTotal);
+
+                    // Deshabilitar el boton de abonados
+                    Metodos.BotonAbonos = false;
                 }
 
                 // --------------------- REALIZAR COBROS DE LOS SALARIOS SI ES 1 DE MES
@@ -592,7 +692,7 @@ namespace ChampionManager25.UserControls
 
                     if (patrocinador != null)
                     {
-                        int mensualidadPatrocinador = (int)patrocinador.Cantidad / 12;
+                        int mensualidadPatrocinador = (int)patrocinador.Mensualidad;
 
                         Finanza nuevoIngresoPatrocinio = new Finanza
                         {
@@ -615,14 +715,14 @@ namespace ChampionManager25.UserControls
 
                     if (television != null)
                     {
-                        int mensualidadTelevision = (int)television.Cantidad / 12;
+                        int mensualidadTelevision = (int)television.Mensualidad;
 
                         Finanza nuevoIngresoTelevision = new Finanza
                         {
                             IdEquipo = _equipo,
                             IdManager = _manager.IdManager,
                             Temporada = Metodos.temporadaActual.ToString(),
-                            IdConcepto = 7,
+                            IdConcepto = 3,
                             Tipo = 1,
                             Cantidad = mensualidadTelevision,
                             Fecha = Metodos.hoy.Date
@@ -894,14 +994,6 @@ namespace ChampionManager25.UserControls
                                 List<Clasificacion> clasificacion2Final = _logicaClasificacion.MostrarClasificacion2(2, _manager.IdManager);
                                 List<Equipo> listaReservas = _logicaEquipo.ListarEquiposCompeticion(3);
 
-                                // Resetear tablas clasificacion, estadisticas_jugadores, historial_manager_temp, partidos y ofertas/transferencias
-                                _logicaClasificacion.ResetearClasificacion(1);
-                                _logicaClasificacion.ResetearClasificacion(2);
-                                _logicaEstadisticas.ResetearEstadisticas();
-                                _logicaHistorial.ResetearHistorialTemporal();
-                                _logicaPartidos.ResetearPartidos();
-                                _logicaTransferencia.ResetearTransferencias();
-
                                 // Resetear Moral y Estado de Forma a 50
                                 _logicaJugador.ResetearMoralEstadoForma();
 
@@ -927,6 +1019,28 @@ namespace ChampionManager25.UserControls
                                     {
                                         _logicaEquipo.AscenderDescenderEquipo(equipo.IdEquipo, 2);
                                         _logicaEquipo.CambiarObjetivoTemporada(equipo.IdEquipo, "Ascenso");
+
+                                        if (equipo.IdEquipo == _equipo) // Mi equipo desciende a Division 2
+                                        {
+                                            // Crear el mensaje de descenso de equipo
+                                            Empleado? delegado = _logicaEmpleado.ObtenerEmpleadoPorPuesto("Delegado");
+                                            string presidente = _logicaEquipo.ListarDetallesEquipo(_equipo).Presidente;
+
+                                            Mensaje mensajeDescenso = new Mensaje
+                                            {
+                                                Fecha = Metodos.hoy,
+                                                Remitente = delegado != null ? delegado.Nombre : presidente,
+                                                Asunto = "Descenso confirmado",
+                                                Contenido = $"El club ha certificado su descenso a {_logicaCompeticion.MostrarNombreCompeticion(2)} tras una temporada decepcionante.\nSi bien reconocemos tu trabajo y esfuerzo, los resultados no han acompañado. Esperamos una reunión contigo en los próximos días para analizar la situación y valorar tu continuidad al frente del proyecto.",
+                                                TipoMensaje = "Notificación",
+                                                IdEquipo = _equipo,
+                                                IdManager = _manager.IdManager,
+                                                Leido = false,
+                                                Icono = 0 // 0 es icono de equipo
+                                            };
+
+                                            _logicaMensajes.crearMensaje(mensajeDescenso);
+                                        }
                                     }
                                 }
 
@@ -937,6 +1051,28 @@ namespace ChampionManager25.UserControls
                                     {
                                         _logicaEquipo.AscenderDescenderEquipo(equipo.IdEquipo, 1);
                                         _logicaEquipo.CambiarObjetivoTemporada(equipo.IdEquipo, "Descenso");
+
+                                        if (equipo.IdEquipo == _equipo) // Mi equipo asciende a Division 1
+                                        {
+                                            // Crear el mensaje de ascenso de equipo
+                                            Empleado? delegado = _logicaEmpleado.ObtenerEmpleadoPorPuesto("Delegado");
+                                            string presidente = _logicaEquipo.ListarDetallesEquipo(_equipo).Presidente;
+
+                                            Mensaje mensajeAscenso = new Mensaje
+                                            {
+                                                Fecha = Metodos.hoy,
+                                                Remitente = delegado != null ? delegado.Nombre : presidente,
+                                                Asunto = "Ascenso confirmado",
+                                                Contenido = $"¡Felicidades! El club ha logrado el ascenso y tú has sido una pieza clave en este éxito.\nLa ciudad celebra, la afición sueña y la directiva ya piensa en lo que viene.\nNos gustaría contar contigo para liderar al equipo en esta nueva aventura en {_logicaCompeticion.MostrarNombreCompeticion(1)}.",
+                                                TipoMensaje = "Notificación",
+                                                IdEquipo = _equipo,
+                                                IdManager = _manager.IdManager,
+                                                Leido = false,
+                                                Icono = 0 // 0 es icono de equipo
+                                            };
+
+                                            _logicaMensajes.crearMensaje(mensajeAscenso);
+                                        }
                                     }
                                     if (equipo.Posicion >= 7 && equipo.Posicion <= 15)
                                     {
@@ -956,6 +1092,23 @@ namespace ChampionManager25.UserControls
                                     {
                                         _logicaEquipo.AscenderDescenderEquipo(equipo.IdEquipo, 3);
                                         _logicaEquipo.CambiarObjetivoTemporada(equipo.IdEquipo, "Ascenso");
+
+                                        if (equipo.IdEquipo == _equipo) // Mi equipo desciende a Reservas
+                                        {
+                                            // Despedir al manager en la Base de Datos
+                                            _logicaManager.DespedirManager(_manager.IdManager);
+
+                                            // Mostrar ventana de despido
+                                            string titulo = "INFORMACIÓN";
+                                            string mensaje = $"El club ha decidido prescindir de los servicios de su entrenador.\n\nLos recientes resultados no han estado a la altura de las expectativas ya que el equipo ha consagrado el descenso en {_logicaCompeticion.MostrarNombreCompeticion(2)} abandonando el fútbol profesional, y la directiva considera necesario un cambio de rumbo para reconducir el club.\n\nAgradecemos su dedicación y profesionalidad durante su etapa al frente del equipo, y le deseamos suerte en sus futuros proyectos.";
+                                            frmVentanaDespido ventanaDespido = new frmVentanaDespido(titulo, mensaje);
+                                            ventanaDespido.ShowDialog();
+
+                                            Metodos.ReproducirSonidoTransicion();
+
+                                            var mainWindow = (MainWindow)Application.Current.MainWindow;
+                                            mainWindow.CargarPortada();
+                                        }
                                     }
                                 }
 
@@ -976,6 +1129,13 @@ namespace ChampionManager25.UserControls
                                     _logicaEquipo.AscenderDescenderEquipo(equipo, 2);
                                     _logicaEquipo.CambiarObjetivoTemporada(equipo, "Descenso");
                                 }
+
+                                // Resetear tablas clasificacion, estadisticas_jugadores, historial_manager_temp, partidos y ofertas
+                                _logicaClasificacion.ResetearClasificacion(1);
+                                _logicaClasificacion.ResetearClasificacion(2);
+                                _logicaEstadisticas.ResetearEstadisticas();
+                                _logicaHistorial.ResetearHistorialTemporal();
+                                _logicaPartidos.ResetearPartidos();
 
                                 // Crear el calendario de las Ligas
                                 int temporadaActual = Metodos.temporadaActual;
@@ -1040,11 +1200,18 @@ namespace ChampionManager25.UserControls
                                 };
 
                                 _logicaMensajes.crearMensaje(mensajeNuevaTemporada);
+
+                                // Activar el boton de abonados
+                                Metodos.BotonAbonos = true;
                             });
 
                             // Cargar Pantalla de Premios de Jugadores
                             frmVentanaPremioJugadores ventanaPremiosJugadores = new frmVentanaPremioJugadores(balonOro, botaOro, mejorOnce, _equipo);
                             ventanaPremiosJugadores.ShowDialog();
+
+                            // Resetear y Generar la alineacion del equipo
+                            _logicaJugador.ResetearAlineacion();
+                            _logicaJugador.CrearAlineacion(_equipo);
 
                             CargarFecha();
 
@@ -1064,6 +1231,17 @@ namespace ChampionManager25.UserControls
             }
             txtPresupuesto.Text = _logicaEquipo.ListarDetallesEquipo(_equipo).Presupuesto.ToString("N0") + " €";
             DockPanel_Submenu.Children.Clear();
+
+            // Comprobar mensajes nuevos
+            int mensajesNoLeidos = _logicaMensajes.MensajesNoLeidos(_manager.IdManager);
+            if (mensajesNoLeidos > 0)
+            {
+                imgCorreo.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/icons/correoNuevo_icon.png"));
+            }
+            else
+            {
+                imgCorreo.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/icons/correo_icon.png"));
+            }
         }
 
         // ----------------------------------------------------------------------------- Evento CLICK del botón AJUSTES
@@ -1204,6 +1382,7 @@ namespace ChampionManager25.UserControls
             menuTransferencias.MostrarBuscarPorFiltro += CargarTransferenciasBuscarPorFiltro;
             menuTransferencias.MostrarCartera += CargarTransferenciasCartera;
             menuTransferencias.MostrarEstadoOfertas += CargarTransferenciasEstadoOfertas;
+            menuTransferencias.MostrarOfertasRecibidas += CargarTransferenciasOfertasRecibidas;
             menuTransferencias.MostrarListaTraspasos += CargarTransferenciasListaTraspasos;
 
             // Cambiar el color del texto "Ingresos" a naranja
@@ -1615,6 +1794,15 @@ namespace ChampionManager25.UserControls
             DockPanel_Central.Children.Add(transferenciasEstadoOfertas);
         }
 
+        // Método para cargar UC_Menu_Transferencias_OfertasRecibidas
+        private void CargarTransferenciasOfertasRecibidas()
+        {
+            // Cargar UC_Menu_Transferencias_OfertasRecibidas 
+            DockPanel_Central.Children.Clear();
+            UC_Menu_Transferencias_OfertasRecibidas transferenciasOfertasRecibidas = new UC_Menu_Transferencias_OfertasRecibidas(_manager, _equipo);
+            DockPanel_Central.Children.Add(transferenciasOfertasRecibidas);
+        }
+
         // Método para cargar UC_Menu_Transferencias_ListaTraspasos
         private void CargarTransferenciasListaTraspasos()
         {
@@ -1837,6 +2025,12 @@ namespace ChampionManager25.UserControls
             UC_FichaJugador nuevaFicha = new UC_FichaJugador(idJugador, idEquipo, manager, opcion, this);
             DockPanel_Central.Children.Clear(); 
             DockPanel_Central.Children.Add(nuevaFicha);
+        }
+
+        public int AleatorioEntre(int min, int max)
+        {
+            Random rnd = new Random();
+            return rnd.Next(min, max + 1); // Incluye el máximo
         }
         #endregion
     }

@@ -4,10 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChampionManager25.Vistas"
-        mc:Ignorable="d" x:Name="VerPatrocinadoresWindow" Height="600" Width="1000" 
+        mc:Ignorable="d" x:Name="VerPatrocinadoresWindow" Height="650" Width="1000" 
         Title="frmListaPatrocinadores" ResizeMode="NoResize" WindowStyle="None" Loaded="VerPatrocinadoresWindow_Loaded" WindowStartupLocation="CenterScreen">
 
-    <Grid Width="1000" Height="600" Background="#1d6a7d">
+    <Grid Width="1000" Height="650" Background="#1d6a7d">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -16,16 +16,13 @@
         </Grid.RowDefinitions>
 
         <Border x:Name="bordeLadoIzquierdo" Grid.Column="0" Grid.Row="0" Background="WhiteSmoke" BorderThickness="1" 
-                BorderBrush="#23282d" Margin="25,25,25,25">
+                BorderBrush="#23282d" Margin="15,15,15,15">
             <Border.Effect>
                 <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5" Opacity="0.5"/>
             </Border.Effect>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"/>
@@ -33,64 +30,224 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
 
                 <!-- Área Título Patrocinadores Principales -->
-                <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Background="#2b6775">
-                    <TextBlock x:Name="txtPatrocinador1" Text="OFERTAS DE PATROCINIO PRINCIPAL" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                <Border Grid.Column="0" Grid.Row="0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Background="#2b6775">
+                            <TextBlock x:Name="txtPatrocinador1" Text="OFERTAS DE PATROCINIO PRINCIPAL" HorizontalAlignment="Center" VerticalAlignment="Center" 
                                FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                        </Border>
+
+                        <Image x:Name="imgCerrar" Grid.Column="3" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" Cursor="Hand"  
+                               Width="30" Height="30" Stretch="Uniform" Source="/Recursos/img/icons/cerrar32px.png" MouseLeftButtonDown="imgCerrar_MouseLeftButtonDown"/>
+                    </Grid>
                 </Border>
-                <Image x:Name="imgCerrar" Grid.Column="3" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" Cursor="Hand"  
-                       Width="30" Height="30" Stretch="Uniform" Source="/Recursos/img/icons/cerrar32px.png" MouseLeftButtonDown="imgCerrar_MouseLeftButtonDown"/>
-                <Border Grid.Column="0" Grid.Row="1" Background="#23282d">
-                    <TextBlock Text="PATROCINADOR" HorizontalAlignment="Center" VerticalAlignment="Center" 
+
+                <!-- Área Cabeceras -->
+                <Border Grid.Column="0" Grid.Row="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0" Background="#23282d">
+                            <TextBlock Text="PATROCINADOR" HorizontalAlignment="Center" VerticalAlignment="Center" 
                                FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
-                </Border>
-                <Border Grid.Column="1" Grid.Row="1" Background="#23282d">
-                    <TextBlock Text="INVERSIÓN BÁSICA" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                        </Border>
+                        <Border Grid.Column="1" Grid.Row="0" Background="#23282d">
+                            <TextBlock Text="INVERSIÓN" HorizontalAlignment="Center" VerticalAlignment="Center" 
                                FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
-                </Border>
-                <Border Grid.Column="2" Grid.Row="1" Background="#23282d">
-                    <TextBlock Text="DURACIÓN" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                        </Border>
+                        <Border Grid.Column="2" Grid.Row="0" Background="#23282d">
+                            <TextBlock Text="DURACIÓN" HorizontalAlignment="Center" VerticalAlignment="Center" 
                                FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                        </Border>
+                        <Border Grid.Column="3" Grid.Row="0" Background="#23282d" />
+                    </Grid>
                 </Border>
-                <Border Grid.Column="3" Grid.Row="1" Background="#23282d" />
 
                 <!-- Área Patrocinador Principal 1 -->
-                <Image x:Name="imgPatrocinadorPrincipal1" Grid.Column="0" Grid.Row="2" Width="128" Height="128" Stretch="Uniform" 
-                       HorizontalAlignment="Center" VerticalAlignment="Center" />
-                <TextBlock x:Name="txtCantidadPatrocinadorPrincipal1" Grid.Column="1" Grid.Row="2" Text="" HorizontalAlignment="Center" 
-                           VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="Black" TextAlignment="Center"/>
-                <TextBlock x:Name="txtDuracionPatrocinadorPrincipal1" Grid.Column="2" Grid.Row="2" Text="" HorizontalAlignment="Center" 
-                           VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="Black" TextAlignment="Center"/>
-                <Image x:Name="imgSeleccionPatrocinadorPrincipal1" Grid.Column="3" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Cursor="Hand"  
-                       Width="32" Height="32" Stretch="Uniform" Source="/Recursos/img/icons/noSeleccionado_icon.png" MouseLeftButtonDown="imgSeleccionPatrocinadorPrincipal1_MouseLeftButtonDown"/>
+                <Border Grid.Column="0" Grid.Row="2" Background="LightGray" BorderBrush="#23282d" BorderThickness="1" Margin="2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Image x:Name="imgPatrocinadorPrincipal1" Grid.Column="0" Grid.Row="0" Width="128" Height="128" Stretch="Uniform" 
+                               HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+                        <Border Grid.Column="1" Grid.Row="0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Border Grid.Column="0" Grid.Row="0" Background="#23282d">
+                                    <TextBlock Text="PAGO ANTICIPADO" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                               FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                </Border>
+
+                                <TextBlock x:Name="txtCantidadPatrocinadorPrincipal1" Grid.Column="0" Grid.Row="1" Text="" HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="Black" TextAlignment="Center"/>
+
+                                <Border Grid.Column="0" Grid.Row="2" Background="#23282d">
+                                    <TextBlock Text="PAGO MENSUAL" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                               FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                </Border>
+
+                                <TextBlock x:Name="txtMensualidadPatrocinadorPrincipal1" Grid.Column="0" Grid.Row="3" Text="" HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="Black" TextAlignment="Center"/>
+                            </Grid>
+                        </Border>
+
+                        <TextBlock x:Name="txtDuracionPatrocinadorPrincipal1" Grid.Column="2" Grid.Row="0" Text="" HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="Black" TextAlignment="Center"/>
+                        <Image x:Name="imgSeleccionPatrocinadorPrincipal1" Grid.Column="3" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Cursor="Hand"  
+                               Width="32" Height="32" Stretch="Uniform" Source="/Recursos/img/icons/noSeleccionado_icon.png" MouseLeftButtonDown="imgSeleccionPatrocinadorPrincipal1_MouseLeftButtonDown"/>
+                    </Grid>
+                </Border>
 
                 <!-- Área Patrocinador Principal 2 -->
-                <Image x:Name="imgPatrocinadorPrincipal2" Grid.Column="0" Grid.Row="3" Width="128" Height="128" Stretch="Uniform" 
-                       HorizontalAlignment="Center" VerticalAlignment="Center" />
-                <TextBlock x:Name="txtCantidadPatrocinadorPrincipal2" Grid.Column="1" Grid.Row="3" Text="" HorizontalAlignment="Center" 
-                           VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="Black" TextAlignment="Center"/>
-                <TextBlock x:Name="txtDuracionPatrocinadorPrincipal2" Grid.Column="2" Grid.Row="3" Text="" HorizontalAlignment="Center" 
-                           VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="Black" TextAlignment="Center"/>
-                <Image x:Name="imgSeleccionPatrocinadorPrincipal2" Grid.Column="3" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Cursor="Hand"  
-                       Width="32" Height="32" Stretch="Uniform" Source="/Recursos/img/icons/noSeleccionado_icon.png" MouseLeftButtonDown="imgSeleccionPatrocinadorPrincipal2_MouseLeftButtonDown"/>
+                <Border Grid.Column="0" Grid.Row="3" Background="WhiteSmoke" BorderBrush="#23282d" BorderThickness="1" Margin="2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Image x:Name="imgPatrocinadorPrincipal2" Grid.Column="0" Grid.Row="0" Width="128" Height="128" Stretch="Uniform" 
+                               HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+                        <Border Grid.Column="1" Grid.Row="0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Border Grid.Column="0" Grid.Row="0" Background="#23282d">
+                                    <TextBlock Text="PAGO ANTICIPADO" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                               FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                </Border>
+
+                                <TextBlock x:Name="txtCantidadPatrocinadorPrincipal2" Grid.Column="0" Grid.Row="1" Text="" HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="Black" TextAlignment="Center"/>
+
+                                <Border Grid.Column="0" Grid.Row="2" Background="#23282d">
+                                    <TextBlock Text="PAGO MENSUAL" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                               FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                </Border>
+
+                                <TextBlock x:Name="txtMensualidadPatrocinadorPrincipal2" Grid.Column="0" Grid.Row="3" Text="" HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="Black" TextAlignment="Center"/>
+                            </Grid>
+                        </Border>
+
+                        <TextBlock x:Name="txtDuracionPatrocinadorPrincipal2" Grid.Column="2" Grid.Row="0" Text="" HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="Black" TextAlignment="Center"/>
+                        <Image x:Name="imgSeleccionPatrocinadorPrincipal2" Grid.Column="3" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Cursor="Hand"  
+                               Width="32" Height="32" Stretch="Uniform" Source="/Recursos/img/icons/noSeleccionado_icon.png" MouseLeftButtonDown="imgSeleccionPatrocinadorPrincipal2_MouseLeftButtonDown"/>
+                    </Grid>
+                </Border>
 
                 <!-- Área Patrocinador Principal 3 -->
-                <Image x:Name="imgPatrocinadorPrincipal3" Grid.Column="0" Grid.Row="4" Width="128" Height="128" Stretch="Uniform" 
-                       HorizontalAlignment="Center" VerticalAlignment="Center" />
-                <TextBlock x:Name="txtCantidadPatrocinadorPrincipal3" Grid.Column="1" Grid.Row="4" Text="" HorizontalAlignment="Center" 
-                           VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="Black" TextAlignment="Center"/>
-                <TextBlock x:Name="txtDuracionPatrocinadorPrincipal3" Grid.Column="2" Grid.Row="4" Text="" HorizontalAlignment="Center" 
-                           VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="Black" TextAlignment="Center"/>
-                <Image x:Name="imgSeleccionPatrocinadorPrincipal3" Grid.Column="3" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center" Cursor="Hand"  
-                       Width="32" Height="32" Stretch="Uniform" Source="/Recursos/img/icons/noSeleccionado_icon.png" MouseLeftButtonDown="imgSeleccionPatrocinadorPrincipal3_MouseLeftButtonDown"/>
+                <Border Grid.Column="0" Grid.Row="4" Background="LightGray" BorderBrush="#23282d" BorderThickness="1" Margin="2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Image x:Name="imgPatrocinadorPrincipal3" Grid.Column="0" Grid.Row="0" Width="128" Height="128" Stretch="Uniform" 
+                               HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+                        <Border Grid.Column="1" Grid.Row="0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Border Grid.Column="0" Grid.Row="0" Background="#23282d">
+                                    <TextBlock Text="PAGO ANTICIPADO" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                               FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                </Border>
+
+                                <TextBlock x:Name="txtCantidadPatrocinadorPrincipal3" Grid.Column="0" Grid.Row="1" Text="" HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="Black" TextAlignment="Center"/>
+
+                                <Border Grid.Column="0" Grid.Row="2" Background="#23282d">
+                                    <TextBlock Text="PAGO MENSUAL" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                               FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                                </Border>
+
+                                <TextBlock x:Name="txtMensualidadPatrocinadorPrincipal3" Grid.Column="0" Grid.Row="3" Text="" HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="Black" TextAlignment="Center"/>
+                            </Grid>
+                        </Border>
+
+                        <TextBlock x:Name="txtDuracionPatrocinadorPrincipal3" Grid.Column="2" Grid.Row="0" Text="" HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="Black" TextAlignment="Center"/>
+                        <Image x:Name="imgSeleccionPatrocinadorPrincipal3" Grid.Column="3" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Cursor="Hand"  
+                               Width="32" Height="32" Stretch="Uniform" Source="/Recursos/img/icons/noSeleccionado_icon.png" MouseLeftButtonDown="imgSeleccionPatrocinadorPrincipal3_MouseLeftButtonDown"/>
+                    </Grid>
+                </Border>
 
                 <!-- Área Botón Cerrar -->
                 <Border Background="WhiteSmoke" Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="4">
-                    <Button x:Name="btnConfirmarPatrocinadores" Height="30" Width="350" Content="CONFIRMAR PATROCINADOR"
-                            HorizontalAlignment="Center" VerticalAlignment="Top"
+                    <Button x:Name="btnConfirmarPatrocinadores" Height="50" Width="350" Content="CONFIRMAR PATROCINADOR"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
                             FontFamily="Cascadia Code SemiBold" FontSize="20" Cursor="Hand" Click="btnConfirmarPatrocinadores_Click" Visibility="Hidden">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">

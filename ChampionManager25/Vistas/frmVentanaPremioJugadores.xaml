@@ -82,7 +82,7 @@
                     </Grid.RowDefinitions>
 
                     <Border Background="DarkGoldenrod" Grid.Column="0" Grid.Row="0">
-                        <TextBlock Text="BALÓN DE ORO" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                        <TextBlock Text="MEJORES JUGADORES TEMPORADA" HorizontalAlignment="Center" VerticalAlignment="Center" 
                                    FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
                     </Border>
 
@@ -140,7 +140,7 @@
                     </Border>
 
                     <Border Background="DarkGoldenrod" Grid.Column="0" Grid.Row="2">
-                        <TextBlock Text="BOTA DE ORO" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                        <TextBlock Text="MÁXIMOS GOLEADORES TEMPORADA" HorizontalAlignment="Center" VerticalAlignment="Center" 
                                    FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
                     </Border>
 

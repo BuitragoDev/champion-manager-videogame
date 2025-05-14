@@ -80,7 +80,8 @@ namespace ChampionManager25.UserControls
                     imgLocalVisitanteUltimoPartido.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/icons/avion_icon.png"));
                 }
 
-                txtUltimoPartido.Text += NombreCompeticion(ultimoPartido.IdCompeticion);
+                txtUltimoPartido.Text += NombreCompeticion(ultimoPartido.IdCompeticion,
+                                                           ultimoPartido.Jornada ?? 0);
 
                 imgEscudoLocal.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoLocal.RutaImagen80));
                 imgEscudoVisitante.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoVisitante.RutaImagen80));
@@ -109,8 +110,9 @@ namespace ChampionManager25.UserControls
                     imgLocalVisitante.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/icons/avion_icon.png"));
                 }
 
-                txtProximoPartido.Text += NombreCompeticion(proximoPartido.IdCompeticion);
-
+                txtProximoPartido.Text += NombreCompeticion(proximoPartido.IdCompeticion,
+                                                           proximoPartido.Jornada ?? 0);
+                
                 imgLogoLocal.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoLocal.RutaImagen80));
                 imgLogoVisitante.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoVisitante.RutaImagen80));
 
@@ -333,10 +335,16 @@ namespace ChampionManager25.UserControls
         }
 
         #region "Métodos"
-        private string NombreCompeticion(int id)
+        private string NombreCompeticion(int id, int? jornada)
         {
-            return $" ({_logicaCompeticion.MostrarNombreCompeticion(id)})";
+            string nombreCompeticion = _logicaCompeticion.MostrarNombreCompeticion(id);
+
+            if (jornada != 0)
+                return $" ({nombreCompeticion} - J{jornada})";
+            else
+                return $" ({nombreCompeticion})";
         }
+
 
         private void ConfigurarDataGridClasificacion()
         {

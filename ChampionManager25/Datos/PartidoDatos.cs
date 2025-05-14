@@ -389,9 +389,11 @@ namespace ChampionManager25.Datos
                 {
                     conn.Open();
 
-                    string query = @"SELECT fecha, id_equipo_local, id_equipo_visitante, goles_local, goles_visitante, id_competicion, jornada
+                    string query = @"SELECT fecha, id_equipo_local, id_equipo_visitante, goles_local, goles_visitante, id_competicion, 
+                                           CASE WHEN source = 'liga' THEN jornada ELSE 0 END AS jornada,
+                                           CASE WHEN source = 'copa' THEN id_ronda ELSE NULL END AS ronda
                                      FROM (
-                                        SELECT fecha, id_equipo_local, id_equipo_visitante, goles_local, goles_visitante, id_competicion, jornada
+                                        SELECT fecha, id_equipo_local, id_equipo_visitante, goles_local, goles_visitante, id_competicion, jornada, NULL as id_ronda, 'liga' as source
                                         FROM partidos
                                         WHERE 
                                             (id_equipo_local = @IdEquipo OR id_equipo_visitante = @IdEquipo)
@@ -400,7 +402,7 @@ namespace ChampionManager25.Datos
 
                                         UNION ALL
 
-                                        SELECT fecha, id_equipo_local, id_equipo_visitante, goles_local, goles_visitante, id_competicion, id_ronda
+                                        SELECT fecha, id_equipo_local, id_equipo_visitante, goles_local, goles_visitante, id_competicion, 0 as jornada, id_ronda, 'copa' as source
                                         FROM partidos_copaNacional
                                         WHERE 
                                             (id_equipo_local = @IdEquipo OR id_equipo_visitante = @IdEquipo)
@@ -427,7 +429,9 @@ namespace ChampionManager25.Datos
                                     IdEquipoVisitante = Convert.ToInt32(reader["id_equipo_visitante"]),
                                     GolesLocal = reader["goles_local"] != DBNull.Value ? Convert.ToInt32(reader["goles_local"]) : 0,
                                     GolesVisitante = reader["goles_visitante"] != DBNull.Value ? Convert.ToInt32(reader["goles_visitante"]) : 0,
-                                    IdCompeticion = reader["id_competicion"] != DBNull.Value ? Convert.ToInt32(reader["id_competicion"]) : 0
+                                    IdCompeticion = reader["id_competicion"] != DBNull.Value ? Convert.ToInt32(reader["id_competicion"]) : 0,
+                                    Jornada = Convert.ToInt32(reader["jornada"]),
+                                    Ronda = reader["ronda"] != DBNull.Value ? Convert.ToInt32(reader["ronda"]) : (int?)null
                                 };
                             }
                         }
@@ -1312,6 +1316,89 @@ namespace ChampionManager25.Datos
                 }
             }
             return nombre;
+        }
+
+        // ----------------------------------------------------------------- Metodo que devuelve la ultima jornada de Liga jugada
+        public int ObtenerUltimaJornadaJugada(int equipo)
+        {
+            int ultimaJornada = 0;
+
+            using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+            {
+                conn.Open();
+                string query = @"SELECT MAX(jornada) 
+                                 FROM partidos 
+                                 WHERE (id_equipo_local = @IdEquipo OR id_equipo_visitante = @IdEquipo) 
+                                    AND estado != 'Pendiente'";
+
+                using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@IdEquipo", equipo);
+
+                    object result = cmd.ExecuteScalar();
+                    if (result != DBNull.Value && result != null)
+                    {
+                        ultimaJornada = Convert.ToInt32(result);
+                    }
+                }
+            }
+
+            return ultimaJornada;
+        }
+
+        // ----------------------------------------------------------------- Metodo que devuelve la ultima ronda de Copa jugada
+        public int ObtenerUltimaRondaJugada(int equipo)
+        {
+            int ultimaJornada = 0;
+
+            using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+            {
+                conn.Open();
+                string query = @"SELECT MAX(id_ronda) 
+                                 FROM partidos_copaNacional
+                                 WHERE estado != 'Pendiente'";
+
+                using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@IdEquipo", equipo);
+
+                    object result = cmd.ExecuteScalar();
+                    if (result != DBNull.Value && result != null)
+                    {
+                        ultimaJornada = Convert.ToInt32(result);
+                    }
+                }
+            }
+
+            return ultimaJornada;
+        }
+
+        // ----------------------------------------------------------------- Metodo que devuelve la ultima ronda de Copa jugada por mi equipo
+        public int ObtenerUltimaRondaJugadaMiEquipo(int equipo)
+        {
+            int ultimaJornada = 0;
+
+            using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+            {
+                conn.Open();
+                string query = @"SELECT MAX(id_ronda) 
+                                 FROM partidos_copaNacional
+                                 WHERE (id_equipo_local = @IdEquipo OR id_equipo_visitante = @IdEquipo) 
+                                    AND estado != 'Pendiente'";
+
+                using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@IdEquipo", equipo);
+
+                    object result = cmd.ExecuteScalar();
+                    if (result != DBNull.Value && result != null)
+                    {
+                        ultimaJornada = Convert.ToInt32(result);
+                    }
+                }
+            }
+
+            return ultimaJornada;
         }
     }
 }

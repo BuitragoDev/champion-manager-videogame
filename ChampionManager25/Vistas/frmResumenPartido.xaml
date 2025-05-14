@@ -61,7 +61,7 @@
         <!-- ÁREA PRINCIPAL -->
         <Border Grid.Column="1" Grid.Row="1" Height="900" VerticalAlignment="Center" Background="WhiteSmoke">
             <Border.Effect>
-                <DropShadowEffect Color="Black" 
+                <DropShadowEffect Color="#FF23282D" 
                   BlurRadius="10" 
                   ShadowDepth="5" 
                   Direction="320" 
@@ -130,7 +130,7 @@
                             </Grid.RowDefinitions>
 
                             <!-- Tarjetas Equipo Local -->
-                            <Border Grid.Column="0" Grid.Row="0" Margin="10" Background="LightGray" BorderBrush="#1d6a7d" BorderThickness="1">
+                            <Border Grid.Column="0" Grid.Row="0" Margin="10" Background="WhiteSmoke" BorderBrush="#1d6a7d" BorderThickness="1">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
@@ -149,7 +149,7 @@
                             </Border>
 
                             <!-- Goleadores Equipo Local -->
-                            <Border Grid.Column="1" Grid.Row="0" Margin="10" Background="LightGray" BorderBrush="#1d6a7d" BorderThickness="1">
+                            <Border Grid.Column="1" Grid.Row="0" Margin="10" Background="WhiteSmoke" BorderBrush="#1d6a7d" BorderThickness="1">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
@@ -168,7 +168,7 @@
                             </Border>
 
                             <!-- Goleadores Equipo Visitante -->
-                            <Border Grid.Column="3" Grid.Row="0" Margin="10" Background="LightGray" BorderBrush="#1d6a7d" BorderThickness="1">
+                            <Border Grid.Column="3" Grid.Row="0" Margin="10" Background="WhiteSmoke" BorderBrush="#1d6a7d" BorderThickness="1">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
@@ -187,7 +187,7 @@
                             </Border>
 
                             <!-- Tarjetas Equipo Local -->
-                            <Border Grid.Column="4" Grid.Row="0" Margin="10" Background="LightGray" BorderBrush="#1d6a7d" BorderThickness="1">
+                            <Border Grid.Column="4" Grid.Row="0" Margin="10" Background="WhiteSmoke" BorderBrush="#1d6a7d" BorderThickness="1">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
@@ -271,7 +271,7 @@
                             </Border>
 
                             <!-- MVP -->
-                            <Border Grid.Column="1" Grid.Row="0" Margin="10,10,10,134" BorderBrush="#1d6a7d" BorderThickness="1">
+                            <Border Grid.Column="1" Grid.Row="0" Margin="10,10,10,134" Background="WhiteSmoke" BorderBrush="#1d6a7d" BorderThickness="1">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="150"/>
@@ -289,8 +289,25 @@
 
                                     <Image x:Name="imgMvp" Grid.Column="0" Grid.Row="1" Width="100" Height="100" Stretch="Uniform" 
                                                    VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <TextBlock x:Name="txtNombreMvp" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                                               Text="" Foreground="#FF23282D" FontSize="32" FontFamily="Cascadia Code SemiBold" Width="546" />
+
+                                    <Border Grid.Column="1" Grid.Row="1" Background="#FF23282D" >
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock x:Name="txtDetallesMvp" Grid.Column="0" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20,0,0,0"
+                                                       Text="" Foreground="WhiteSmoke" FontSize="14" FontFamily="Cascadia Code Light" Width="546" />
+                                            <TextBlock x:Name="txtNombreMvp" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0"
+                                                       Text="" Foreground="WhiteSmoke" FontSize="32" FontFamily="Cascadia Code SemiBold" Width="546" />
+                                            <TextBlock x:Name="txtEstadisticasMvp" Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,0,0,0"
+                                                       Text="" Foreground="WhiteSmoke" FontSize="18" FontFamily="Cascadia Code Light" Width="546" />
+                                        </Grid>
+                                    </Border>
                                 </Grid>
                             </Border>
                         </Grid>

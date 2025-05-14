@@ -591,7 +591,7 @@ namespace ChampionManager25.Datos
             return stats;
         }
 
-        // ===================================================================== Método para actualizar las estadisticas de los jugadores
+        // --------------------------------------------------------------- Método para actualizar las estadisticas de los jugadores
         public void ActualizarEstadisticas(Estadistica estadistica)
         {
             try
@@ -616,6 +616,35 @@ namespace ChampionManager25.Datos
                         cmd.Parameters.AddWithValue("@TarjetasRojas", estadistica.TarjetasRojas);
                         cmd.Parameters.AddWithValue("@MVPs", estadistica.MVP);
                         cmd.Parameters.AddWithValue("@PartidosJugados", estadistica.PartidosJugados);
+                        cmd.ExecuteNonQuery(); // Ejecuta la consulta
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al añadir el equipo al Manager: " + ex.Message);
+            }
+        }
+
+        // --------------------------------------------------------------- Método para resetea la estadistica de un jugador
+        public void ResetearEstadisticaJugador(int jugador)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+                    string query = @"UPDATE estadisticas_jugadores 
+                                     SET partidosJugados = 0,
+                                         goles = 0,
+                                         asistencias = 0,
+                                         tarjetasAmarillas = 0,
+                                         tarjetasRojas = 0,
+                                         mvp = 0
+                                     WHERE id_jugador = @IdJugador";
+                    using (var cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@IdJugador", jugador);
                         cmd.ExecuteNonQuery(); // Ejecuta la consulta
                     }
                 }
@@ -671,12 +700,14 @@ namespace ChampionManager25.Datos
                                         j.apellido,
                                         j.ruta_imagen,
                                         j.id_equipo,
-                                        (ej.goles * 2) +
-                                        (ej.asistencias) +
-                                        (ej.partidosJugados) +
-                                        (ej.mvp * 3) -
-                                        (ej.tarjetasAmarillas) -
-                                        (ej.tarjetasRojas * 2) AS puntos
+                                        CAST( 
+                                            (ej.goles * 2) +
+                                            (ej.asistencias * 2.5) +
+                                            (ej.partidosJugados) +
+                                            (ej.mvp * 3) -
+                                            (ej.tarjetasAmarillas * 0.5) -
+                                            (ej.tarjetasRojas * 2) 
+                                        AS INTEGER) AS puntos
                                      FROM estadisticas_jugadores ej
                                      JOIN jugadores j ON ej.id_jugador = j.id_jugador
                                      JOIN equipos e ON j.id_equipo = e.id_equipo

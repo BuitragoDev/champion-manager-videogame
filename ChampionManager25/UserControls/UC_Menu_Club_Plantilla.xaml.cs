@@ -144,7 +144,7 @@ namespace ChampionManager25.UserControls
             {
                 Binding = new System.Windows.Data.Binding("NombreCompleto"),
                 Header = "JUGADOR",
-                Width = new DataGridLength(500, DataGridLengthUnitType.Pixel),
+                Width = new DataGridLength(350, DataGridLengthUnitType.Pixel),
                 HeaderStyle = new Style(typeof(DataGridColumnHeader))
                 {
                     Setters =
@@ -336,6 +336,26 @@ namespace ChampionManager25.UserControls
                                 new Setter(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center),
                                 new Setter(TextBlock.ForegroundProperty, Brushes.DarkRed)
                             }
+                }
+            });
+
+            dgPlantilla.Columns.Add(new DataGridTextColumn
+            {
+                Binding = new System.Windows.Data.Binding("AniosContrato"),
+                Header = "AÑOS CONTRATO",
+                Width = new DataGridLength(150, DataGridLengthUnitType.Pixel),
+                ElementStyle = new Style(typeof(TextBlock))
+                {
+                    Setters =
+                    {
+                        new Setter(TextBlock.TextAlignmentProperty, TextAlignment.Center),
+                        new Setter(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center),
+                        new Setter(DataGridCell.ForegroundProperty, new Binding
+                        {
+                            Path = new PropertyPath("AniosContrato"),
+                            Converter = new DuracionToColorConverter() // Convertidor para cambiar el color del texto
+                        })
+                    }
                 }
             });
 

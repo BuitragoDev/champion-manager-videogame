@@ -29,7 +29,7 @@ namespace ChampionManager25.UserControls
         Equipo equipo;
         private DockPanel _panelCentral;
 
-        private int jornadaActual = 1;
+        private int jornadaActual;
         private const int jornadaMin = 1;
         private const int jornadaMax = 35;
         int miCompeticion;
@@ -49,6 +49,7 @@ namespace ChampionManager25.UserControls
             Metodos metodos = new Metodos();
 
             miCompeticion = _logicaEquipo.ListarDetallesEquipo(_equipo).IdCompeticion;
+            jornadaActual = Math.Max(1, _logicaPartido.ObtenerUltimaJornadaJugada(_equipo));
             List<Partido> partidosJornada = _logicaPartido.CargarJornada(jornadaActual, _manager.IdManager, miCompeticion);
             MostrarPartidos(partidosJornada); 
         }

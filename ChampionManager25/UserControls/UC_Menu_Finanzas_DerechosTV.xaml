@@ -50,9 +50,11 @@
                             <RowDefinition Height="30"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="30"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="120"/>
                             <RowDefinition Height="30"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="120"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="120"/>
                         </Grid.RowDefinitions>
 
                         <Border Grid.Column="0" Grid.Row="0" Background="#23282d">
@@ -64,7 +66,7 @@
                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
                         <Border Grid.Column="0" Grid.Row="2" Background="#23282d">
-                            <TextBlock Text="INVERSIÓN BÁSICA" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                            <TextBlock Text="PAGO INICIAL" HorizontalAlignment="Center" VerticalAlignment="Center" 
                                        FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="WhiteSmoke" TextAlignment="Center"/>
                         </Border>
 
@@ -72,11 +74,19 @@
                                    FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="Black" TextAlignment="Center"/>
 
                         <Border Grid.Column="0" Grid.Row="4" Background="#23282d">
+                            <TextBlock Text="PAGO MENSUAL" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                       FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                        </Border>
+
+                        <TextBlock x:Name="txtMensualidadTelevision1" Grid.Column="0" Grid.Row="5" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="Black" TextAlignment="Center"/>
+
+                        <Border Grid.Column="0" Grid.Row="6" Background="#23282d">
                             <TextBlock Text="DURACIÓN DEL CONTRATO" HorizontalAlignment="Center" VerticalAlignment="Center" 
                                        FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="WhiteSmoke" TextAlignment="Center"/>
                         </Border>
 
-                        <TextBlock x:Name="txtDuracionTelevision1" Grid.Column="0" Grid.Row="5" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                        <TextBlock x:Name="txtDuracionTelevision1" Grid.Column="0" Grid.Row="7" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" 
                                    FontFamily="Cascadia Code SemiBold" FontSize="20" Foreground="Black" TextAlignment="Center"/>
                     </Grid>
                 </Border>
@@ -85,24 +95,32 @@
 
         <!-- Lado Inferior -->
         <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
-            <Button x:Name="btnOfertasTelevisiones" Height="40" Width="350" Content="OFERTAS TV"
+            <Button x:Name="btnOfertasTelevisiones" Height="50" Width="350" Content="OFERTAS TV"
                     HorizontalAlignment="Left" VerticalAlignment="Top" Background="#23282d" Foreground="WhiteSmoke" Margin="15,0,0,0"
-                    FontFamily="Cascadia Code SemiBold" FontSize="20" Cursor="Hand" Click="btnOfertasTelevisiones_Click" >
+                    FontFamily="Cascadia Code SemiBold" FontSize="20" Cursor="Hand" Click="btnOfertasTelevisiones_Click">
                 <Button.Style>
-                    <Style TargetType="Button">
-                        <!-- Configuración inicial -->
-                        <Setter Property="Background" Value="#23282d"/>
-                        <Setter Property="BorderBrush" Value="Transparent"/>
-                        <Setter Property="Foreground" Value="WhiteSmoke"/>
-                        <Setter Property="BorderThickness" Value="0"/>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#FF23282D" />
+                        <Setter Property="Foreground" Value="WhiteSmoke" />
+                        <Setter Property="FontSize" Value="24" />
+                        <Setter Property="SnapsToDevicePixels" Value="True" />
+
                         <Setter Property="Template">
                             <Setter.Value>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Background="{TemplateBinding Background}" 
-                                            BorderBrush="{TemplateBinding BorderBrush}" 
-                                            BorderThickness="{TemplateBinding BorderThickness}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                        <Grid>
+                                            <Image x:Name="imgBoton" Source="/Recursos/img/icons/flechaDerechaBlanca64px_icon.png" Height="32" Width="32" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Uniform" Margin="17,0,0,0"/>
+                                            <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,0,0,0" />
+                                        </Grid>
                                     </Border>
+
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#2d343a" />
+                                            <Setter Property="Foreground" Value="WhiteSmoke" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>

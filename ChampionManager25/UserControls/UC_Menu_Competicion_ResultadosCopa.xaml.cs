@@ -49,6 +49,7 @@ namespace ChampionManager25.UserControls
             Metodos metodos = new Metodos();
 
             miCompeticion = _logicaEquipo.ListarDetallesEquipo(_equipo).IdCompeticion;
+            rondaActual = Math.Max(1, _logicaPartido.ObtenerUltimaRondaJugada(_equipo));
             List<Partido> partidosRonda = _logicaPartido.CargarRondaCopa(rondaActual, vueltaActual, _manager.IdManager, 4);
             _panelCentral = panelCentral;
             MostrarPartidos(partidosRonda);

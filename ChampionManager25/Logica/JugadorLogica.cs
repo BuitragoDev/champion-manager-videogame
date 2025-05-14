@@ -71,6 +71,24 @@ namespace ChampionManager25.Logica
             _datos.CrearAlineacion(equipo);
         }
 
+        // Llamada al método que agrega un jugador a la alineacion
+        public void AgregarJugadorAlineacion(int jugador)
+        {
+            _datos.AgregarJugadorAlineacion(jugador);
+        }
+
+        // Llamada al método que quita un jugador a la alineacion
+        public void QuitarJugadorAlineacion(int idJugador)
+        {
+            _datos.QuitarJugadorAlineacion(idJugador);
+        }
+
+        // Llamada al método que resetea la tabla alineacion
+        public void ResetearAlineacion()
+        {
+            _datos.ResetearAlineacion();
+        }
+
         // Llamada al método para mostrar la lista de Jugadores Detallada por equipo
         public List<Jugador> MostrarAlineacion(int inicio, int final)
         {
@@ -310,6 +328,30 @@ namespace ChampionManager25.Logica
         public void TraspasosIA(int equipo)
         {
             _datos.TraspasosIA(equipo);
+        }
+
+        // Llamada al método que comprueba si hay equipos que quieran hacerme ofertas
+        public List<OfertaIA> OfertasMiEquipo(int miEquipo)
+        {
+            return _datos.OfertasMiEquipo(miEquipo);
+        }
+
+        // Llamada al método para decir si tengo portero en la alineacion titular
+        public bool TengoPortero(int equipo)
+        {
+            return _datos.TengoPortero(equipo);
+        }
+
+        // Llamada al método para decir tengo 4 defensas en el 11 titular
+        public bool TengoDefensas(int equipo)
+        {
+            return _datos.TengoDefensas(equipo);
+        }
+
+        // Llamada al método para decir tengo 1 delantero en el 11 titular
+        public bool TengoDelanteros(int equipo)
+        {
+            return _datos.TengoDelanteros(equipo);
         }
     }
 }

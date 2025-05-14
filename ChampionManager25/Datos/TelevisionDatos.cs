@@ -61,7 +61,7 @@ namespace ChampionManager25.Datos
         }
 
         // ===================================================================== Método para crear un contrato con una Television
-        public void AnadirUnaCadenaTV(int cadenatv, int cantidad, int duracion, int equipo, int manager)
+        public void AnadirUnaCadenaTV(int cadenatv, int cantidad, int mensualidad, int duracion, int equipo, int manager)
         {
             try
             {
@@ -70,8 +70,8 @@ namespace ChampionManager25.Datos
                     conn.Open();
 
                     // Consulta SQL para obtener las finanzas del equipo
-                    string query = @"INSERT INTO contratos_cadenastv (id_cadenatv, id_equipo, id_manager, cantidad, duracion_contrato) 
-                                     VALUES (@IdCadenaTV, @IdEquipo, @IdManager, @Cantidad, @Duracion)";
+                    string query = @"INSERT INTO contratos_cadenastv (id_cadenatv, id_equipo, id_manager, cantidad, mensualidad, duracion_contrato) 
+                                     VALUES (@IdCadenaTV, @IdEquipo, @IdManager, @Cantidad, @Mensualidad, @Duracion)";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                     {
@@ -80,6 +80,7 @@ namespace ChampionManager25.Datos
                         cmd.Parameters.AddWithValue("@IdEquipo", equipo);
                         cmd.Parameters.AddWithValue("@IdManager", manager);
                         cmd.Parameters.AddWithValue("@Cantidad", cantidad);
+                        cmd.Parameters.AddWithValue("@Mensualidad", mensualidad);
                         cmd.Parameters.AddWithValue("@Duracion", duracion);
 
                         cmd.ExecuteNonQuery();
@@ -109,6 +110,7 @@ namespace ChampionManager25.Datos
                                         ca.nombre, 
                                         ca.reputacion, 
                                         c.cantidad, 
+                                        c.mensualidad,
                                         c.duracion_contrato
                                      FROM 
                                         cadenastv AS ca
@@ -139,7 +141,8 @@ namespace ChampionManager25.Datos
                                     Nombre = dr.GetString(1),
                                     Reputacion = dr.GetInt32(2),
                                     Cantidad = dr.GetInt32(3),
-                                    DuracionContrato = dr.GetInt32(4)
+                                    Mensualidad = dr.GetInt32(4),
+                                    DuracionContrato = dr.GetInt32(5)
                                 };
                             }
                         }

@@ -85,6 +85,12 @@ namespace ChampionManager25.Logica
             _datos.ActualizarEstadisticas(estadistica);
         }
 
+        // Llamada al método para resetea la estadistica de un jugador
+        public void ResetearEstadisticaJugador(int jugador)
+        {
+            _datos.ResetearEstadisticaJugador(jugador);
+        }
+
         // Llamada al metodo que resetea las estadisticas de los jugadores
         public void ResetearEstadisticas()
         {

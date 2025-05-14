@@ -30,11 +30,21 @@ namespace ChampionManager25.Datos
             string nombreArchivo = $"Partida_Temporal_{Guid.NewGuid()}.db";
             string rutaCompleta = Path.Combine(RutaPartidas, nombreArchivo);
 
-            // Copia la base de datos original a la nueva ruta temporal
-            File.Copy("championsManagerDB.db", rutaCompleta);
+            // Ruta de la base personalizada
+            string rutaBasePersonalizada = Path.Combine(RutaMisDocumentos, "database", "basePersonalizada.db");
+
+            // Ruta de la base original
+            string rutaBaseOriginal = "championsManagerDB.db";
+
+            // Determinar cuál base de datos usar
+            string rutaBaseOrigen = File.Exists(rutaBasePersonalizada) ? rutaBasePersonalizada : rutaBaseOriginal;
+
+            // Copiar la base elegida a la nueva ruta de partida
+            File.Copy(rutaBaseOrigen, rutaCompleta);
 
             return rutaCompleta;
         }
+
 
         // Método para confirmar la partida (copiar el archivo temporal a la ubicación final)
         public static string ConfirmarPartida(string rutaTemporal)

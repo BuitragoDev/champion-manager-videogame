@@ -145,12 +145,11 @@ namespace ChampionManager25.Vistas
         #region "Metodos"
         private void SimularPartido(Partido partido)
         {
-            List<Jugador> jugadoresLocal = null;
-            List<Jugador> jugadoresVisitante = null;
+            List<Jugador> jugadoresLocal;
+            List<Jugador> jugadoresVisitante;
+            bool soyLocal = partido.IdEquipoLocal == _equipo;
 
-            // Cargar jugadores de los equipos desde la BD
-            // Comprobar si soy el local o el visitante
-            if (partido.IdEquipoLocal == _equipo)
+            if (soyLocal)
             {
                 jugadoresLocal = _logicaJugador.JugadoresMiEquipoJueganPartido(partido.IdEquipoLocal);
                 jugadoresVisitante = _logicaJugador.JugadoresJueganPartido(partido.IdEquipoVisitante);
@@ -161,11 +160,33 @@ namespace ChampionManager25.Vistas
                 jugadoresVisitante = _logicaJugador.JugadoresMiEquipoJueganPartido(partido.IdEquipoVisitante);
             }
 
-            // Calcular goles con el equipo rival en cuenta
-            int golesLocal = CalcularGoles(jugadoresLocal, jugadoresVisitante);
-            int golesVisitante = CalcularGoles(jugadoresVisitante, jugadoresLocal);
+            // Solo tu equipo puede tener penalizaciones
+            bool yoSinPortero = !_logicaJugador.TengoPortero(_equipo);
+            bool yoSinDefensas = !_logicaJugador.TengoDefensas(_equipo);
+            bool yoSinDelanteros = !_logicaJugador.TengoDelanteros(_equipo);
 
-            // Guardar resultado en el partido
+            // Penalizaciones propias
+            bool penalizarAtaqueLocal = soyLocal && yoSinDelanteros;
+            bool penalizarDefensaLocal = soyLocal && (yoSinPortero || yoSinDefensas);
+
+            bool penalizarAtaqueVisitante = !soyLocal && yoSinDelanteros;
+            bool penalizarDefensaVisitante = !soyLocal && (yoSinPortero || yoSinDefensas);
+
+            // Simular goles
+            int golesLocal = CalcularGoles(
+                jugadoresLocal,
+                jugadoresVisitante,
+                penalizarAtaqueLocal,
+                penalizarDefensaVisitante // penaliza al rival solo si TU defensa está mal
+            );
+
+            int golesVisitante = CalcularGoles(
+                jugadoresVisitante,
+                jugadoresLocal,
+                penalizarAtaqueVisitante,
+                penalizarDefensaLocal // penaliza al rival solo si TU defensa está mal
+            );
+
             partido.GolesLocal = golesLocal;
             partido.GolesVisitante = golesVisitante;
 
@@ -182,8 +203,13 @@ namespace ChampionManager25.Vistas
 
             // Determinar MVP
             Jugador mvp = DeterminarMVP(golesYAsistencias, jugadoresLocal, jugadoresVisitante);
+            txtDetallesMvp.Text = $"{_logicaJugador.MostrarDatosJugador(mvp.IdJugador).Rol.ToUpper()}";
             txtNombreMvp.Text = _logicaJugador.MostrarDatosJugador(mvp.IdJugador).NombreCompleto;
             imgMvp.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + mvp.RutaImagen));
+            // Contar goles y asistencias del MVP
+            int golesMVP = golesYAsistencias.Count(ga => ga.Item1.IdJugador == mvp.IdJugador);
+            int asistenciasMVP = golesYAsistencias.Count(ga => ga.Item2 != null && ga.Item2.IdJugador == mvp.IdJugador);
+            txtEstadisticasMvp.Text = $"{golesMVP} {(golesMVP == 1 ? "gol" : "goles")} / {asistenciasMVP} {(asistenciasMVP == 1 ? "asistencia" : "asistencias")}";
 
             // Calcular asistencia al estadio
             partido.Asistencia = _logicaEquipo.CalcularAsistencia(partido.IdEquipoLocal);
@@ -518,30 +544,41 @@ namespace ChampionManager25.Vistas
             ActualizarPanels(golesYAsistencias, tarjetas);
         }
 
-        private int CalcularGoles(List<Jugador> jugadores, List<Jugador> jugadoresRival)
+        private int CalcularGoles(List<Jugador> jugadores, List<Jugador> jugadoresRival,
+                          bool penalizarAtaque, bool rivalConDefensaDebil)
         {
-            if (jugadores.Count == 0 || jugadoresRival.Count == 0) return 0; // Evitar errores
+            if (jugadores.Count == 0 || jugadoresRival.Count == 0)
+                return 0;
 
-            // Calcular ataque del equipo y defensa del rival
-            double ataque = jugadores.Average(j => (j.Remate + j.Pase + j.Calidad + j.Tiro + j.Regate + j.EstadoForma + j.Moral) / 7.0);
-            double defensa = jugadoresRival.Average(j => (j.Entradas + j.Resistencia + j.Agresividad + j.EstadoForma + j.Velocidad + j.Moral) / 6.0);
+            // Nivel ofensivo del equipo que ataca
+            double ataque = jugadores.Average(j =>
+                (j.Remate + j.Pase + j.Calidad + j.Tiro + j.Regate + j.Velocidad) / 6.0);
 
-            // Diferencia ajustada con más impacto
-            double diferencia = (ataque - defensa) / 5.0; // Reducimos la escala del impacto
-            double factor = 0.5 + (diferencia / 2.0); // Hacemos que el factor oscile más entre 0.3 y 0.7
+            // Penalización si NO tienes delanteros
+            if (penalizarAtaque)
+                ataque *= 0.5;
 
-            factor = Math.Clamp(factor, 0.25, 0.75); // Limitamos el factor ofensivo a valores más realistas
+            // Nivel defensivo del rival
+            double defensaRival = jugadoresRival.Average(j =>
+                (j.Entradas + j.Resistencia + j.Agresividad + j.Velocidad) / 4.0);
 
-            // Goles esperados con una mayor base de variabilidad
-            double golesEsperados = factor * (2.0 + random.NextDouble() * 2.5); // Entre 2 y 4.5 goles posibles
+            // Si la defensa del rival está mal (porque eres tú sin portero o sin defensas)
+            if (rivalConDefensaDebil)
+                defensaRival *= 0.5;
 
-            // Variación aleatoria equilibrada
-            double variacion = (random.NextDouble() * 1.8) - 0.9; // De -0.9 a +0.9 para más variedad
+            // Diferencia entre ataque y defensa
+            double diferencia = ataque - defensaRival;
+            double factor = 0.5 + (diferencia / 10.0);
+            factor = Math.Clamp(factor, 0.2, 1.2); // para evitar resultados extremos
+
+            // Cálculo de goles esperados con un poco de aleatoriedad
+            double golesEsperados = factor * 2.0;
+            double variacion = (random.NextDouble() * 2.0) - 1.0;
             int goles = (int)Math.Round(golesEsperados + variacion);
 
-            // Asegurar valores dentro de un rango realista
             return Math.Clamp(goles, 0, 7);
         }
+
         private List<(Jugador, Jugador?)> AsignarGolesYAsistencias(int goles, List<Jugador> jugadores, Random random)
         {
             List<(Jugador, Jugador?)> lista = new List<(Jugador, Jugador?)>();
@@ -568,8 +605,8 @@ namespace ChampionManager25.Vistas
                 // Selección ponderada de goleador
                 Jugador goleador = SeleccionarJugadorPonderado(pesosGoleadores, totalPesoGoleador, random);
 
-                // 50% de probabilidad de asistencia
-                Jugador? asistente = random.NextDouble() > 0.5 ?
+                // 80% de probabilidad de asistencia
+                Jugador? asistente = random.NextDouble() > 0.2 ?
                     SeleccionarJugadorPonderado(pesosAsistentes, totalPesoAsistente, random) : null;
 
                 lista.Add((goleador, asistente));
@@ -695,7 +732,7 @@ namespace ChampionManager25.Vistas
                 {
                     if (!puntuaciones.ContainsKey(asistente)) puntuaciones[asistente] = 0;
                     puntuaciones[asistente] += 2;
-                }
+                }  
             }
 
             // Si hay puntuaciones, devolver el jugador con más puntos
@@ -843,49 +880,47 @@ namespace ChampionManager25.Vistas
             }
 
             // Actualizamos las confianzas
-            // Determinar qué equipo es más fuerte basado en la clasificación actual
             int rankingMiEquipo = ObtenerPuestoEquipo(miEquipo, 1, _manager.IdManager);
             int rankingRival = ObtenerPuestoEquipo(rival, 1, _manager.IdManager);
-
-            // Obtener el rival historico de mi equipo
             int rivalidad = _logicaEquipo.ListarDetallesEquipo(miEquipo).Rival;
+            int diferenciaGoles = Math.Abs(golesEquipo - golesRival);
 
             // Base de confianza (valores iniciales)
             int cambioDirectiva = 0;
             int cambioFans = 0;
             int cambioJugadores = 0;
 
-            // Diferencia de goles
-            int diferenciaGoles = Math.Abs(golesEquipo - golesRival);
+            bool esRivalHistorico = rival == rivalidad;
+            bool victoria = golesEquipo > golesRival;
+            bool derrota = golesEquipo < golesRival;
+            bool empate = golesEquipo == golesRival;
+            bool goleada = diferenciaGoles >= 3;
 
-            // Lógica de confianza según el resultado del partido
-            if (golesEquipo > golesRival) // Victoria
+            if (victoria)
             {
-                if (rankingMiEquipo > rankingRival) // Ganamos contra un equipo más fuerte
-                {
-                    cambioDirectiva = 4;
-                    cambioFans = 5;
-                    cambioJugadores = 4;
-                }
-                else // Ganamos contra un equipo más débil
-                {
-                    cambioDirectiva = 3;
-                    cambioFans = 3;
-                    cambioJugadores = 3;
-                }
+                // Directiva: evalúa rendimiento según fuerza del rival
+                cambioDirectiva = rankingMiEquipo > rankingRival ? 4 : 2;
+                // Fans: celebran victoria, más si es contra rival histórico
+                cambioFans = 4;
+                if (esRivalHistorico) cambioFans += 6;
+                // Jugadores: sube moral por victoria
+                cambioJugadores = 3;
 
-                if (rival == rivalidad) // Ganamos contra el rival historico
+                if (goleada)
                 {
-                    cambioDirectiva += 20;
-                    cambioFans += 20;
-                    cambioJugadores += 20;
+                    cambioDirectiva += 3;
+                    cambioFans += 5;
+                    cambioJugadores += 3;
                 }
 
-                // Actualizar tabla managers
-                _logicaManager.ActualizarResultadoManager(_manager.IdManager, 1, 1, 0, 0, 5);
+                if (esRivalHistorico)
+                {
+                    cambioDirectiva += 3;
+                    cambioJugadores += 2;
+                }
 
-                // Actualizar la tabla historial_manager_temp
-                Historial historial = new Historial
+                _logicaManager.ActualizarResultadoManager(_manager.IdManager, 1, 1, 0, 0, 3);
+                _logicaManager.ActualizarManagerTemporal(new Historial
                 {
                     PartidosJugados = 1,
                     PartidosGanados = 1,
@@ -893,36 +928,29 @@ namespace ChampionManager25.Vistas
                     PartidosPerdidos = 0,
                     GolesMarcados = golesEquipo,
                     GolesRecibidos = golesRival
-                };
-                _logicaManager.ActualizarManagerTemporal(historial);
+                });
             }
-            else if (golesEquipo < golesRival) // Derrota
+            else if (derrota)
             {
-                if (rankingMiEquipo < rankingRival) // Perdemos contra un equipo más fuerte
+                cambioDirectiva = rankingMiEquipo < rankingRival ? -2 : -4;
+                cambioFans = -4;
+                cambioJugadores = -3;
+
+                if (goleada)
                 {
-                    cambioDirectiva = -2;
-                    cambioFans = -3;
-                    cambioJugadores = -2;
-                }
-                else // Perdemos contra un equipo más débil
-                {
-                    cambioDirectiva = -4;
-                    cambioFans = -5;
-                    cambioJugadores = -4;
+                    cambioFans -= 2;
+                    cambioJugadores -= 1;
                 }
 
-                if (rival == rivalidad) // Perdemos contra el rival historico
+                if (esRivalHistorico)
                 {
-                    cambioDirectiva -= 10;
-                    cambioFans -= 10;
-                    cambioJugadores -= 5;
+                    cambioFans -= 6;
+                    cambioDirectiva -= 2;
+                    cambioJugadores -= 2;
                 }
 
-                // Actualizar tabla managers
                 _logicaManager.ActualizarResultadoManager(_manager.IdManager, 1, 0, 0, 1, 0);
-
-                // Actualizar la tabla historial_manager_temp
-                Historial historial = new Historial
+                _logicaManager.ActualizarManagerTemporal(new Historial
                 {
                     PartidosJugados = 1,
                     PartidosGanados = 0,
@@ -930,28 +958,22 @@ namespace ChampionManager25.Vistas
                     PartidosPerdidos = 1,
                     GolesMarcados = golesEquipo,
                     GolesRecibidos = golesRival
-                };
-                _logicaManager.ActualizarManagerTemporal(historial);
+                });
             }
-            else // Empate
+            else if (empate)
             {
-                if (rankingMiEquipo > rankingRival) // Empate contra equipo fuerte
-                {
-                    cambioDirectiva = 1;
-                    cambioFans = 2;
-                    cambioJugadores = 1;
-                }
-                else // Empate contra equipo más débil
-                {
-                    cambioDirectiva = -2;
-                    cambioFans = -3;
-                    cambioJugadores = -2;
-                }
-                // Actualizar tabla managers
-                _logicaManager.ActualizarResultadoManager(_manager.IdManager, 1, 0, 1, 0, 2);
+                cambioDirectiva = rankingMiEquipo > rankingRival ? 1 : -1;
+                cambioFans = rankingMiEquipo > rankingRival ? 2 : -2;
+                cambioJugadores = rankingMiEquipo > rankingRival ? 1 : -2;
 
-                // Actualizar la tabla historial_manager_temp
-                Historial historial = new Historial
+                if (esRivalHistorico)
+                {
+                    cambioFans += 1;
+                    cambioJugadores += 1;
+                }
+
+                _logicaManager.ActualizarResultadoManager(_manager.IdManager, 1, 0, 1, 0, 1);
+                _logicaManager.ActualizarManagerTemporal(new Historial
                 {
                     PartidosJugados = 1,
                     PartidosGanados = 0,
@@ -959,36 +981,14 @@ namespace ChampionManager25.Vistas
                     PartidosPerdidos = 0,
                     GolesMarcados = golesEquipo,
                     GolesRecibidos = golesRival
-                };
-                _logicaManager.ActualizarManagerTemporal(historial);
+                });
             }
 
-            // Ajuste por goleada
-            if (diferenciaGoles >= 3)
-            {
-                if (golesEquipo > golesRival) // Goleada a favor
-                {
-                    cambioDirectiva += 1;
-                    cambioFans += 2;
-                    cambioJugadores += 1;
-                }
-                else // Goleada en contra
-                {
-                    cambioDirectiva -= 1;
-                    cambioFans -= 2;
-                    cambioJugadores -= 1;
-                }
-            }
+            // Limitar el rango de impacto según tipo de confianza
+            cambioDirectiva = Math.Clamp(cambioDirectiva, -5, 5);
+            cambioFans = Math.Clamp(cambioFans, -8, 8);
+            cambioJugadores = Math.Clamp(cambioJugadores, -6, 6);
 
-            if (rival != rivalidad) 
-            {
-                // Limitar los cambios de confianza a un máximo de 5 por partido
-                cambioDirectiva = Math.Clamp(cambioDirectiva, -5, 5);
-                cambioFans = Math.Clamp(cambioFans, -5, 5);
-                cambioJugadores = Math.Clamp(cambioJugadores, -5, 5);
-            }
-
-            // Actualizar la confianza en la base de datos
             _logicaManager.ActualizarConfianza(_manager.IdManager, cambioDirectiva, cambioFans, cambioJugadores);
         }
 

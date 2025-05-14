@@ -144,5 +144,23 @@ namespace ChampionManager25.Logica
         {
             return _datos.ObtenerUltimaRondaEquipo(equipo);
         }
+
+        // Llamada al metodo que devuelve la ultima jornada de Liga jugada
+        public int ObtenerUltimaJornadaJugada(int equipo)
+        {
+            return _datos.ObtenerUltimaJornadaJugada(equipo);
+        }
+
+        // Llamada al metodo que devuelve la ultima ronda de Copa jugada
+        public int ObtenerUltimaRondaJugada(int equipo)
+        {
+            return _datos.ObtenerUltimaRondaJugada(equipo);
+        }
+
+        // Llamada al metodo que devuelve la ultima ronda de Copa jugada por mi equipo
+        public int ObtenerUltimaRondaJugadaMiEquipo(int equipo)
+        {
+            return _datos.ObtenerUltimaRondaJugadaMiEquipo(equipo);
+        }
     }
 }

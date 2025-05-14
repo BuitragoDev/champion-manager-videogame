@@ -4,6 +4,7 @@ using ChampionManager25.Logica;
 using ChampionManager25.MisMetodos;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,7 +37,20 @@ namespace ChampionManager25.UserControls
 
         private void editorEquipos_Loaded(object sender, RoutedEventArgs e)
         {
-            Conexion.EstablecerConexionPartida("./championsManagerDB.db");
+            // Ruta de la base personalizada
+            string rutaBasePersonalizada = System.IO.Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                "ChampionsManager", "database", "basePersonalizada.db");
+
+            // Ruta base original
+            string rutaBaseOriginal = "championsManagerDB.db";
+
+            // Si hay personalizada, usarla; si no, usar la original
+            string rutaElegida = File.Exists(rutaBasePersonalizada) ? rutaBasePersonalizada : rutaBaseOriginal;
+
+            // Establecer la conexión
+            Conexion.EstablecerConexionPartida(rutaElegida);
+
             string ruta_competicion_principal = _logicaCompeticion.ObtenerCompeticion(1).RutaImagen;
             string ruta_competicion_dos = _logicaCompeticion.ObtenerCompeticion(2).RutaImagen;
             string ruta_competicion_reserva = _logicaCompeticion.ObtenerCompeticion(3).RutaImagen;

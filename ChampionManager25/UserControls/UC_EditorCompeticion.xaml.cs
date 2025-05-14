@@ -48,7 +48,20 @@ namespace ChampionManager25.UserControls
 
         private void editarCompeticion_Loaded(object sender, RoutedEventArgs e)
         {
-            Conexion.EstablecerConexionPartida("./championsManagerDB.db");
+            // Ruta de la base personalizada
+            string rutaBasePersonalizada = System.IO.Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                "ChampionsManager", "database", "basePersonalizada.db");
+
+            // Ruta base original
+            string rutaBaseOriginal = "championsManagerDB.db";
+
+            // Si hay personalizada, usarla; si no, usar la original
+            string rutaElegida = File.Exists(rutaBasePersonalizada) ? rutaBasePersonalizada : rutaBaseOriginal;
+
+            // Establecer la conexión
+            Conexion.EstablecerConexionPartida(rutaElegida);
+
             competicion = _logicaCompeticion.ObtenerCompeticion(1);
             competicion2 = _logicaCompeticion.ObtenerCompeticion(2);
 

@@ -73,6 +73,18 @@ namespace ChampionManager25.Vistas
             imgMiEquipo.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + miEquipo.RutaImagen120));
             txtNombreMiEquipo.Text += " " + _logicaEquipo.ListarDetallesEquipo(_equipo).Nombre.ToUpper();
             txtPosicion.Text = _posicion + "º";
+            if (_posicion >= 1 && _posicion <= 4)
+            {
+                txtClasificacion.Text = "Clasificado para competición europea";
+            } 
+            else if (_posicion >= 17 && _posicion <= 20)
+            {
+                txtClasificacion.Text = "Descenso de categoría";
+            }
+            else
+            {
+                txtClasificacion.Text = "";
+            }
 
             Manager manager = _logicaManager.MostrarManager(_manager.IdManager);
             txtCDirectiva.Text = manager.CDirectiva.ToString();

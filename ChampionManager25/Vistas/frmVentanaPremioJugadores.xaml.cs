@@ -36,6 +36,10 @@ namespace ChampionManager25.Vistas
         EstadisticasLogica _logicaEstadistica = new EstadisticasLogica();
         JugadorLogica _logicaJugador = new JugadorLogica();
         TransferenciaLogica _logicaTransferencia = new TransferenciaLogica();
+        PartidoLogica _logicaPartidos = new PartidoLogica();
+        HistorialLogica _logicaHistorial = new HistorialLogica();
+        ClasificacionLogica _logicaClasificacion = new ClasificacionLogica();
+        EstadisticasLogica _logicaEstadisticas = new EstadisticasLogica();
 
         public frmVentanaPremioJugadores(List<Jugador> listaBalonOro, List<Jugador> listaBotaOro, List<Jugador> listaMejorOnce, int equipo)
         {
@@ -220,6 +224,9 @@ namespace ChampionManager25.Vistas
                         }
                     }
                 }
+
+                // Resetear tabla transferencias
+                _logicaTransferencia.ResetearTransferencias();
             });
             progressBar.Visibility = Visibility.Collapsed;
             this.Close();

@@ -26,6 +26,7 @@ namespace ChampionManager25.Entidades
         public int Puntos { get; set; }
         public string Tactica { get; set; }
         public int Despedido { get; set; }
+        public int PrimeraTemporada { get; set; }
 
         public string RutaImagen { get; set; }
 
@@ -35,7 +36,7 @@ namespace ChampionManager25.Entidades
         // Constructor con parámetros
         public Manager(int idManager, string nombre, string apellido, string nacionalidad, DateTime fechaNacimiento, int? idEquipo,
             int cDirectiva, int cFans, int cJugadores, int reputacion, int partidosJugados, int partidosGanados, int partidosEmpatados,
-            int partidosPerdidos, int puntos, string tactica, int despedido, string rutaImagen)
+            int partidosPerdidos, int puntos, string tactica, int despedido, string rutaImagen, int primeraTemporada)
         {
             IdManager = idManager;
             Nombre = nombre;
@@ -55,12 +56,13 @@ namespace ChampionManager25.Entidades
             Tactica = tactica;
             Despedido = despedido;
             RutaImagen = rutaImagen;
+            PrimeraTemporada = primeraTemporada;
         }
 
         // Constructor con parámetros sin ID_MANAGER
         public Manager(string nombre, string apellido, string nacionalidad, DateTime fechaNacimiento, int? idEquipo, int cDirectiva,
             int cFans, int cJugadores, int reputacion, int partidosJugados, int partidosGanados, int partidosEmpatados,
-            int partidosPerdidos, int puntos, string tactica, int despedido, string rutaImagen)
+            int partidosPerdidos, int puntos, string tactica, int despedido, string rutaImagen, int primeraTemporada)
         {
             Nombre = nombre;
             Apellido = apellido;
@@ -79,6 +81,7 @@ namespace ChampionManager25.Entidades
             Tactica = tactica;
             Despedido = despedido;
             RutaImagen = rutaImagen;
+            PrimeraTemporada = primeraTemporada;
         }
 
         // Método ToString

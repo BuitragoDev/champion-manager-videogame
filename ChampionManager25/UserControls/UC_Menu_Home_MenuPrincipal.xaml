@@ -264,10 +264,12 @@
                                                                    HorizontalAlignment="Left" VerticalAlignment="Center" 
                                                                    FontFamily="Cascadia Mono ExtraLight" FontSize="14" Foreground="Black" 
                                                                    Width="auto" TextAlignment="Left" Margin="10,50,0,0" FontStyle="Italic" />
-                                                        <TextBlock x:Name="txtGolesValor" Grid.Row="0" Grid.Column="2" Text="0" 
-                                                                   HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                                                   FontFamily="Cascadia Code SemiBold" FontSize="32" Foreground="Black" 
-                                                                   Width="auto" TextAlignment="Center" />
+                                                        <Border Grid.Row="0" Grid.Column="2" Background="#FF23282D" Margin="5">
+                                                            <TextBlock x:Name="txtGolesValor" Text="0" 
+                                                                       HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                                       FontFamily="Cascadia Code SemiBold" FontSize="36" Foreground="WhiteSmoke" 
+                                                                       Width="auto" TextAlignment="Center" />
+                                                        </Border>
                                                     </Grid>
                                                 </DockPanel>
                                             </Border>
@@ -297,10 +299,12 @@
                                                                    HorizontalAlignment="Left" VerticalAlignment="Center" 
                                                                    FontFamily="Cascadia Mono ExtraLight" FontSize="14" Foreground="Black" 
                                                                    Width="auto" TextAlignment="Left" Margin="10,50,0,0" FontStyle="Italic" />
-                                                        <TextBlock x:Name="txtAsistenciasValor" Grid.Row="0" Grid.Column="2" Text="0" 
-                                                                   HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                                                   FontFamily="Cascadia Code SemiBold" FontSize="32" Foreground="Black" 
-                                                                   Width="auto" TextAlignment="Center" />
+                                                        <Border Grid.Row="0" Grid.Column="2" Background="#FF23282D" Margin="5">
+                                                            <TextBlock x:Name="txtAsistenciasValor" Text="0" 
+                                                                       HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                                       FontFamily="Cascadia Code SemiBold" FontSize="36" Foreground="WhiteSmoke" 
+                                                                       Width="auto" TextAlignment="Center" />
+                                                        </Border>
                                                     </Grid>
                                                 </DockPanel>
                                             </Border>
@@ -330,10 +334,12 @@
                                                                    HorizontalAlignment="Left" VerticalAlignment="Center" 
                                                                    FontFamily="Cascadia Mono ExtraLight" FontSize="14" Foreground="Black" 
                                                                    Width="auto" TextAlignment="Left" Margin="10,50,0,0" FontStyle="Italic" />
-                                                        <TextBlock x:Name="txtTarjetasAmarillasValor" Grid.Row="0" Grid.Column="2" Text="0" 
-                                                                   HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                                                   FontFamily="Cascadia Code SemiBold" FontSize="32" Foreground="Black" 
-                                                                   Width="auto" TextAlignment="Center" />
+                                                        <Border Grid.Row="0" Grid.Column="2" Background="#FF23282D" Margin="5">
+                                                            <TextBlock x:Name="txtTarjetasAmarillasValor" Text="0" 
+                                                                       HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                                       FontFamily="Cascadia Code SemiBold" FontSize="36" Foreground="WhiteSmoke" 
+                                                                       Width="auto" TextAlignment="Center" />
+                                                        </Border>
                                                     </Grid>
                                                 </DockPanel>
                                             </Border>
@@ -363,10 +369,12 @@
                                                                    HorizontalAlignment="Left" VerticalAlignment="Center" 
                                                                    FontFamily="Cascadia Mono ExtraLight" FontSize="14" Foreground="Black" 
                                                                    Width="auto" TextAlignment="Left" Margin="10,50,0,0" FontStyle="Italic" />
-                                                        <TextBlock x:Name="txtTarjetasRojasValor" Grid.Row="0" Grid.Column="2" Text="0" 
-                                                                   HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                                                   FontFamily="Cascadia Code SemiBold" FontSize="32" Foreground="Black" 
-                                                                   Width="auto" TextAlignment="Center" />
+                                                        <Border Grid.Row="0" Grid.Column="2" Background="#FF23282D" Margin="5">
+                                                            <TextBlock x:Name="txtTarjetasRojasValor" Text="0" 
+                                                                       HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                                       FontFamily="Cascadia Code SemiBold" FontSize="36" Foreground="WhiteSmoke" 
+                                                                       Width="auto" TextAlignment="Center" />
+                                                        </Border>
                                                     </Grid>
                                                 </DockPanel>
                                             </Border>
@@ -396,10 +404,12 @@
                                                                    HorizontalAlignment="Left" VerticalAlignment="Center" 
                                                                    FontFamily="Cascadia Mono ExtraLight" FontSize="14" Foreground="Black" 
                                                                    Width="auto" TextAlignment="Left" Margin="10,50,0,0" FontStyle="Italic" />
-                                                        <TextBlock x:Name="txtMvpValor" Grid.Row="0" Grid.Column="2" Text="0" 
-                                                                   HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                                                   FontFamily="Cascadia Code SemiBold" FontSize="32" Foreground="Black" 
-                                                                   Width="auto" TextAlignment="Center" />
+                                                        <Border Grid.Row="0" Grid.Column="2" Background="#FF23282D" Margin="5">
+                                                            <TextBlock x:Name="txtMvpValor" Text="0" 
+                                                                       HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                                       FontFamily="Cascadia Code SemiBold" FontSize="36" Foreground="WhiteSmoke" 
+                                                                       Width="auto" TextAlignment="Center" />
+                                                        </Border>
                                                     </Grid>
                                                 </DockPanel>
                                             </Border>

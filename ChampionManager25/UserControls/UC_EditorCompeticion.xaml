@@ -164,41 +164,34 @@
         <!-- BARRA INFERIOR -->
         <Border Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Background="#23282d">
             <Button x:Name="btnGuardar" Content="GUARDAR CAMBIOS"
-                    VerticalAlignment="Center" HorizontalAlignment="Right" Height="50" Width="450" 
-                    FontFamily="Cascadia Code SemiBold" Cursor="Hand" FontSize="24" Margin="0,0,30,0" Click="btnGuardar_Click">
+                    VerticalAlignment="Center" HorizontalAlignment="Left" Height="50" Width="412" 
+                    FontFamily="Cascadia Code SemiBold" Cursor="Hand" FontSize="24" Margin="1478,0,0,0" Click="btnGuardar_Click">
                 <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Background" Value="#1d6a7d"/>
-                        <Setter Property="Foreground" Value="WhiteSmoke"/>
-                        <Setter Property="BorderBrush" Value="#FF23282D"/>
-                        <Setter Property="BorderThickness" Value="1"/>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#1d6a7d" />
+                        <Setter Property="Foreground" Value="WhiteSmoke" />
+                        <Setter Property="FontSize" Value="24" />
+                        <Setter Property="SnapsToDevicePixels" Value="True" />
+
                         <Setter Property="Template">
                             <Setter.Value>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Background="{TemplateBinding Background}"
-                                            BorderBrush="{TemplateBinding BorderBrush}"
-                                            BorderThickness="{TemplateBinding BorderThickness}">
-                                        <Border.Effect>
-                                            <DropShadowEffect Color="#FF23282D" Opacity="0.8" BlurRadius="10" ShadowDepth="5"/>
-                                        </Border.Effect>
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <!-- Contenido dinámico -->
-                                            <TextBlock Text="{TemplateBinding Content}"
-                                                       Foreground="{TemplateBinding Foreground}" 
-                                                       VerticalAlignment="Center"
-                                                       Margin="0,0,5,0"/>
-                                        </StackPanel>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                        <Grid>
+                                            <Image x:Name="imgBoton" Source="/Recursos/img/icons/load_icon.png" Height="32" Width="32" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Uniform" Margin="17,0,0,0"/>
+                                            <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30,0,0,0" />
+                                        </Grid>
                                     </Border>
+
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#22798e" />
+                                            <Setter Property="Foreground" Value="WhiteSmoke" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>
-
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                                <Setter Property="BorderThickness" Value="1"/>
-                            </Trigger>
-                        </Style.Triggers>
                     </Style>
                 </Button.Style>
             </Button>

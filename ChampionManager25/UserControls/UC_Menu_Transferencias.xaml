@@ -14,6 +14,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -43,7 +44,11 @@
                    FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" FontWeight="Bold" Width="200" 
                    TextAlignment="Center" Cursor="Hand" MouseLeftButtonDown="lblEstadoOfertas_MouseLeftButtonDown"/>
 
-        <TextBlock x:Name="lblListaTraspasos" Grid.Column="6" HorizontalAlignment="Center" Text="Lista de Traspasos" VerticalAlignment="Center" 
+        <TextBlock x:Name="lblOfertasRecibidas" Grid.Column="6" HorizontalAlignment="Center" Text="Ofertas Recibidas" VerticalAlignment="Center" 
+                    FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" FontWeight="Bold" Width="200" 
+                    TextAlignment="Center" Cursor="Hand" MouseLeftButtonDown="lblOfertasRecibidas_MouseLeftButtonDown"/>
+
+        <TextBlock x:Name="lblListaTraspasos" Grid.Column="7" HorizontalAlignment="Center" Text="Lista de Traspasos" VerticalAlignment="Center" 
                    FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="WhiteSmoke" FontWeight="Bold" Width="200" 
                    TextAlignment="Center" Cursor="Hand" MouseLeftButtonDown="lblListaTraspasos_MouseLeftButtonDown"/>
     </Grid>

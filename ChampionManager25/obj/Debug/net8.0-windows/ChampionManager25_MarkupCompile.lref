@@ -57,6 +57,7 @@ FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Transferencias_EstadoOfertas.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Transferencias_ListaTraspasos.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Transferencias_Mercado.xaml;;
+FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Transferencias_OfertasRecibidas.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_PantallaCarga.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_PantallaPrincipal.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Portada.xaml;;
@@ -76,6 +77,7 @@ FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmSimul
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmTraspasoJugador.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmVentanaDespido.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmVentanaDespidoJugador.xaml;;
+FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmVentanaEmergenteAceptarOferta.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmVentanaEmergenteDosBotones.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmVentanaEmergenteQuitarCartera.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmVentanaPremioJugadores.xaml;;

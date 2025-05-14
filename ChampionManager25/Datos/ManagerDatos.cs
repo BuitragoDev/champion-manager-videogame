@@ -24,10 +24,10 @@ namespace ChampionManager25.Datos
 
                     string columnas = @"nombre, apellido, nacionalidad, fechaNacimiento, 
                                 cDirectiva, cFans, cJugadores, partidosJugados, partidosGanados, 
-                                partidosEmpatados, partidosPerdidos, reputacion, puntos, tactica, despedido";
+                                partidosEmpatados, partidosPerdidos, reputacion, puntos, tactica, despedido, primera_temporada";
 
                     string valores = @"@Nombre, @Apellido, @Nacionalidad, @FechaNacimiento, 
-                               50, 50, 50, 0, 0, 0, 0, 0, 0, @Tactica, 0";
+                               50, 50, 50, 0, 0, 0, 0, 0, 0, @Tactica, 0, 0";
 
                     if (tieneImagen)
                     {
@@ -207,11 +207,13 @@ namespace ChampionManager25.Datos
                                     Reputacion = reader.IsDBNull(reader.GetOrdinal("reputacion")) ? 0 : reader.GetInt32(reader.GetOrdinal("reputacion")),
                                     PartidosJugados = reader.IsDBNull(reader.GetOrdinal("partidosJugados")) ? 0 : reader.GetInt32(reader.GetOrdinal("partidosJugados")),
                                     PartidosGanados = reader.IsDBNull(reader.GetOrdinal("partidosGanados")) ? 0 : reader.GetInt32(reader.GetOrdinal("partidosGanados")),
+                                    PartidosEmpatados = reader.IsDBNull(reader.GetOrdinal("partidosEmpatados")) ? 0 : reader.GetInt32(reader.GetOrdinal("partidosEmpatados")),
                                     PartidosPerdidos = reader.IsDBNull(reader.GetOrdinal("partidosPerdidos")) ? 0 : reader.GetInt32(reader.GetOrdinal("partidosPerdidos")),
                                     Puntos = reader.IsDBNull(reader.GetOrdinal("puntos")) ? 0 : reader.GetInt32(reader.GetOrdinal("puntos")),
                                     Tactica = reader.GetString(reader.GetOrdinal("tactica")),
                                     Despedido = reader.GetInt32(reader.GetOrdinal("despedido")),
-                                    RutaImagen = reader["ruta_imagen"]?.ToString() ?? string.Empty
+                                    RutaImagen = reader["ruta_imagen"]?.ToString() ?? string.Empty,
+                                    PrimeraTemporada = reader.GetInt32(reader.GetOrdinal("primera_temporada"))
                                 };
                             }
                         }

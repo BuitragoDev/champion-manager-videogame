@@ -16,6 +16,7 @@
     <None Remove="Recursos\audio\backgroundTrainingSounds.wav" />
     <None Remove="Recursos\audio\click.wav" />
     <None Remove="Recursos\audio\transicion.wav" />
+    <None Remove="Recursos\img\background2_img.png" />
     <None Remove="Recursos\img\backgroundCarga1920x1080.png" />
     <None Remove="Recursos\img\backgroundCargarPartida1920x1080.png" />
     <None Remove="Recursos\img\backgroundEstadio_img.png" />
@@ -254,6 +255,7 @@
     <None Remove="Recursos\img\cadenaTV\9small.png" />
     <None Remove="Recursos\img\cargarPartida.png" />
     <None Remove="Recursos\img\cargarPartidaHover.png" />
+    <None Remove="Recursos\img\cargarPartidaON.png" />
     <None Remove="Recursos\img\demarcaciones\1.png" />
     <None Remove="Recursos\img\demarcaciones\10.png" />
     <None Remove="Recursos\img\demarcaciones\2.png" />
@@ -278,6 +280,7 @@
     <None Remove="Recursos\img\demarcaciones\p9.png" />
     <None Remove="Recursos\img\editorJuego.png" />
     <None Remove="Recursos\img\editorJuegoHover.png" />
+    <None Remove="Recursos\img\editorJuegoON.png" />
     <None Remove="Recursos\img\editor_competicion.png" />
     <None Remove="Recursos\img\editor_competicion_hover.png" />
     <None Remove="Recursos\img\editor_equipos.png" />
@@ -857,6 +860,7 @@
     <None Remove="Recursos\img\icons\competiciones_icon.png" />
     <None Remove="Recursos\img\icons\confirmar_icon.png" />
     <None Remove="Recursos\img\icons\contratar_icon.png" />
+    <None Remove="Recursos\img\icons\correoNuevo_icon.png" />
     <None Remove="Recursos\img\icons\correo_icon.png" />
     <None Remove="Recursos\img\icons\cruzblanca_icon.png" />
     <None Remove="Recursos\img\icons\delete_icon.png" />
@@ -892,6 +896,7 @@
     <None Remove="Recursos\img\icons\igualar_icon.png" />
     <None Remove="Recursos\img\icons\intercambio.png" />
     <None Remove="Recursos\img\icons\lesion.png" />
+    <None Remove="Recursos\img\icons\loadBlack_icon.png" />
     <None Remove="Recursos\img\icons\load_icon.png" />
     <None Remove="Recursos\img\icons\manager_icon.png" />
     <None Remove="Recursos\img\icons\matchday_icon.png" />
@@ -920,6 +925,7 @@
     <None Remove="Recursos\img\icons\rechazado_icon.png" />
     <None Remove="Recursos\img\icons\regate_icon.png" />
     <None Remove="Recursos\img\icons\remate_icon.png" />
+    <None Remove="Recursos\img\icons\renovarBlack_icon.png" />
     <None Remove="Recursos\img\icons\renovar_icon.png" />
     <None Remove="Recursos\img\icons\roja_icon.png" />
     <None Remove="Recursos\img\icons\rol1_icon.png" />
@@ -936,6 +942,7 @@
     <None Remove="Recursos\img\icons\tarjetaRoja_img.png" />
     <None Remove="Recursos\img\icons\tarjetaSocio.png" />
     <None Remove="Recursos\img\icons\ticket_icon.png" />
+    <None Remove="Recursos\img\icons\tiro_icon.png" />
     <None Remove="Recursos\img\icons\transferencias_icon.png" />
     <None Remove="Recursos\img\icons\transferible_icon.png" />
     <None Remove="Recursos\img\icons\trofeo_campeon.png" />
@@ -2517,6 +2524,11 @@
     <None Remove="Recursos\img\logo300x300.png" />
     <None Remove="Recursos\img\logo400x400.png" />
     <None Remove="Recursos\img\logoBuitragoStudios.png" />
+    <None Remove="Recursos\img\logoCargarPartida.png" />
+    <None Remove="Recursos\img\logoEditorJuego.png" />
+    <None Remove="Recursos\img\logoManager.png" />
+    <None Remove="Recursos\img\logoPromanager.png" />
+    <None Remove="Recursos\img\logoSalirJuego.png" />
     <None Remove="Recursos\img\logos_competiciones\1.png" />
     <None Remove="Recursos\img\logos_competiciones\10.png" />
     <None Remove="Recursos\img\logos_competiciones\1off.png" />
@@ -2539,6 +2551,10 @@
     <None Remove="Recursos\img\managers\avatar.png" />
     <None Remove="Recursos\img\managers\default.png" />
     <None Remove="Recursos\img\microfonos_ruedaPrensa.png" />
+    <None Remove="Recursos\img\partidaManager.png" />
+    <None Remove="Recursos\img\partidaManagerON.png" />
+    <None Remove="Recursos\img\partidaPromanager.png" />
+    <None Remove="Recursos\img\partidaPromanagerON.png" />
     <None Remove="Recursos\img\pase.png" />
     <None Remove="Recursos\img\patrocinadores\1.png" />
     <None Remove="Recursos\img\patrocinadores\10.png" />
@@ -2603,8 +2619,11 @@
     <None Remove="Recursos\img\portero.png" />
     <None Remove="Recursos\img\regate.png" />
     <None Remove="Recursos\img\remate.png" />
+    <None Remove="Recursos\img\reportarErrores.png" />
+    <None Remove="Recursos\img\reportarErroresON.png" />
     <None Remove="Recursos\img\salirJuego.png" />
     <None Remove="Recursos\img\salirJuegoHover.png" />
+    <None Remove="Recursos\img\salirJuegoON.png" />
     <None Remove="Recursos\img\sinEntrenamiento.png" />
     <None Remove="Recursos\img\tiro.png" />
     <None Remove="Recursos\img\training.png" />
@@ -2631,6 +2650,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\audio\transicion.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\background2_img.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\backgroundCarga1920x1080.png">
@@ -3344,7 +3366,7 @@
     <Content Include="Recursos\img\cargarPartida.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Recursos\img\cargarPartidaHover.png">
+    <Content Include="Recursos\img\cargarPartidaON.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\demarcaciones\p0.png">
@@ -3419,7 +3441,7 @@
     <Content Include="Recursos\img\editorJuego.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Recursos\img\editorJuegoHover.png">
+    <Content Include="Recursos\img\editorJuegoON.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\editor_competicion.png">
@@ -5159,6 +5181,9 @@
     <Content Include="Recursos\img\icons\contratar_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\icons\correoNuevo_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\icons\correo_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -5264,6 +5289,9 @@
     <Content Include="Recursos\img\icons\lesion.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\icons\loadBlack_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\icons\load_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -5348,6 +5376,9 @@
     <Content Include="Recursos\img\icons\remate_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\icons\renovarBlack_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\icons\renovar_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -5394,6 +5425,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\ticket_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\icons\tiro_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\icons\transferencias_icon.png">
@@ -9737,12 +9771,6 @@
     <Content Include="Recursos\img\jugadores\999.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Recursos\img\jugarCampeonato.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Recursos\img\jugarCampeonatoHover.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Recursos\img\kits\10local.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -10139,6 +10167,21 @@
     <Content Include="Recursos\img\logoBuitragoStudios.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\logoCargarPartida.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\logoEditorJuego.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\logoManager.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\logoPromanager.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\logoSalirJuego.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\logos_competiciones\1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -10197,6 +10240,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\microfonos_ruedaPrensa.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\partidaManager.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\partidaManagerON.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\partidaPromanager.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\partidaPromanagerON.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\pase.png">
@@ -10391,10 +10446,16 @@
     <Content Include="Recursos\img\remate.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\reportarErrores.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\reportarErroresON.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\salirJuego.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Recursos\img\salirJuegoHover.png">
+    <Content Include="Recursos\img\salirJuegoON.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\sinEntrenamiento.png">

@@ -225,53 +225,93 @@ namespace ChampionManager25.Datos
                 {
                     conn.Open();
 
-                    // Consulta para obtener el aforo y la reputación del equipo
-                    string query = "SELECT aforo, reputacion FROM equipos WHERE id_equipo = @idEquipo";
+                    // Obtener aforo y reputación
+                    string queryEquipo = "SELECT aforo, reputacion FROM equipos WHERE id_equipo = @idEquipo";
 
-                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    using (SQLiteCommand cmdEquipo = new SQLiteCommand(queryEquipo, conn))
                     {
-                        cmd.Parameters.AddWithValue("@idEquipo", idEquipoLocal);
+                        cmdEquipo.Parameters.AddWithValue("@idEquipo", idEquipoLocal);
 
-                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        using (SQLiteDataReader reader = cmdEquipo.ExecuteReader())
                         {
                             if (reader.Read())
                             {
                                 int aforo = Convert.ToInt32(reader["aforo"]);
                                 int reputacion = Convert.ToInt32(reader["reputacion"]);
 
-                                // Verificar si hay alguna remodelación en la tabla 'remodelaciones' para este equipo
-                                string remodelacionQuery = "SELECT COUNT(*) FROM remodelaciones WHERE id_equipo = @idEquipo";
-
-                                using (SQLiteCommand remodelacionCmd = new SQLiteCommand(remodelacionQuery, conn))
+                                // Ajustar aforo por remodelaciones
+                                string queryRemodelacion = "SELECT COUNT(*) FROM remodelaciones WHERE id_equipo = @idEquipo";
+                                using (SQLiteCommand remodelacionCmd = new SQLiteCommand(queryRemodelacion, conn))
                                 {
                                     remodelacionCmd.Parameters.AddWithValue("@idEquipo", idEquipoLocal);
-                                    int remodelacionesCount = Convert.ToInt32(remodelacionCmd.ExecuteScalar());
+                                    int remodelaciones = Convert.ToInt32(remodelacionCmd.ExecuteScalar());
 
-                                    // Si hay remodelaciones, reducimos el aforo en un 10%
-                                    if (remodelacionesCount > 0)
-                                    {
+                                    if (remodelaciones > 0)
                                         aforo = (int)(aforo * 0.90); // Reducción del 10%
+                                }
+
+                                // Precios por defecto
+                                int precioGeneral = 80;
+                                int precioTribuna = 100;
+                                int precioVIP = 150;
+
+                                // Obtener precios de taquilla
+                                string queryTaquilla = @"
+                            SELECT precio_entrada_general, precio_entrada_tribuna, precio_entrada_vip 
+                            FROM taquilla 
+                            WHERE id_equipo = @idEquipo";
+
+                                using (SQLiteCommand cmdTaquilla = new SQLiteCommand(queryTaquilla, conn))
+                                {
+                                    cmdTaquilla.Parameters.AddWithValue("@idEquipo", idEquipoLocal);
+
+                                    using (SQLiteDataReader readerTaquilla = cmdTaquilla.ExecuteReader())
+                                    {
+                                        if (readerTaquilla.Read())
+                                        {
+                                            precioGeneral = Convert.ToInt32(readerTaquilla["precio_entrada_general"]);
+                                            precioTribuna = Convert.ToInt32(readerTaquilla["precio_entrada_tribuna"]);
+                                            precioVIP = Convert.ToInt32(readerTaquilla["precio_entrada_vip"]);
+                                        }
+                                        else
+                                        {
+                                            // Insertar precios por defecto si no existen
+                                            string insertTaquilla = @"
+                                        INSERT INTO taquilla (id_equipo, precio_entrada_general, precio_entrada_tribuna, precio_entrada_vip) 
+                                        VALUES (@idEquipo, @precioGeneral, @precioTribuna, @precioVIP)";
+
+                                            using (SQLiteCommand insertCmd = new SQLiteCommand(insertTaquilla, conn))
+                                            {
+                                                insertCmd.Parameters.AddWithValue("@idEquipo", idEquipoLocal);
+                                                insertCmd.Parameters.AddWithValue("@precioGeneral", precioGeneral);
+                                                insertCmd.Parameters.AddWithValue("@precioTribuna", precioTribuna);
+                                                insertCmd.Parameters.AddWithValue("@precioVIP", precioVIP);
+                                                insertCmd.ExecuteNonQuery();
+                                            }
+                                        }
                                     }
                                 }
 
-                                // Calculamos la asistencia base
+                                // Calcular asistencia base
                                 double asistenciaBase = aforo * (reputacion / 100.0);
 
-                                // Añadimos una variación aleatoria, pero sin que sobrepase el aforo
-                                Random rand = new Random();
-                                double maxVariacion = 0.10; // Variación máxima permitida, hasta un 10% del aforo
-                                double variacion = rand.NextDouble() * maxVariacion; // Variación positiva entre 0% y 10%
+                                // Penalización por precios altos (cada 10€ por encima de 80, se resta un 3%)
+                                double penalizacion = Math.Max(0, ((precioGeneral - 80) / 10.0) * 0.03);
+                                asistenciaBase *= (1 - penalizacion);
 
-                                // La asistencia no puede ser mayor que el aforo
+                                // Asegurar un mínimo del 20% de aforo
+                                double asistenciaMinima = aforo * 0.20;
+                                if (asistenciaBase < asistenciaMinima)
+                                    asistenciaBase = asistenciaMinima;
+
+                                // Variación aleatoria positiva hasta 10%
+                                Random rand = new Random();
+                                double variacion = rand.NextDouble() * 0.10;
                                 double asistenciaFinal = asistenciaBase * (1 + variacion);
 
-                                // Aseguramos que no se exceda el aforo
-                                if (asistenciaFinal > aforo)
-                                {
-                                    asistenciaFinal = aforo;
-                                }
+                                // Límite superior al aforo
+                                asistenciaFinal = Math.Min(asistenciaFinal, aforo);
 
-                                // Redondeamos y devolvemos el valor final
                                 return (int)Math.Round(asistenciaFinal);
                             }
                         }
@@ -280,11 +320,13 @@ namespace ChampionManager25.Datos
             }
             catch (SQLiteException ex)
             {
-                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+                MessageBox.Show($"Error al calcular asistencia: {ex.Message}");
             }
 
             return 0;
         }
+
+
         /*public int CalcularAsistencia(int idEquipoLocal)
         {
             try

@@ -20,8 +20,8 @@ namespace ChampionManager25.MisMetodos
         public static int temporadaActual;
         public static DateTime hoy;
         public static bool SonidoActivado { get; set; } = true;
+        public static bool BotonAbonos = true;
         public static int avisosBancarrota = 0;
-
         #endregion
 
         #region "Variables"

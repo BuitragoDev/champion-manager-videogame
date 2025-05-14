@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ChampionManager25.UserControls"
-             mc:Ignorable="d" d:DesignHeight="1080" d:DesignWidth="1920">
+             mc:Ignorable="d" d:DesignHeight="1080" d:DesignWidth="1920" Loaded="UserControl_Loaded">
     <Grid>
         <!-- Imagen de Fondo del UserControl-->
         <Grid.Background>
@@ -141,42 +141,68 @@
         <!-- BARRA INFERIOR -->
         <Border Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Background="#23282d">
             <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Right">
-                <Button x:Name="btnImportar" VerticalAlignment="Center" HorizontalAlignment="Right"
-                        Height="50" Width="380" Margin="0,0,100,0"
-                        FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnImportar_Click">
+                <Button x:Name="btnReestablecer" VerticalAlignment="Center" HorizontalAlignment="Left" Visibility="Collapsed"
+                        Height="50" Width="506" Content="REESTABLECER BASE DE DATOS ORIGINAL" Margin="0,0,20,0"
+                        FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnReestablecer_Click">
                     <Button.Style>
-                        <Style TargetType="Button">
-                            <!-- Configuración inicial -->
-                            <Setter Property="Background" Value="#1d6a7d"/>
-                            <Setter Property="Foreground" Value="WhiteSmoke"/>
-                            <Setter Property="BorderBrush" Value="Transparent"/>
-                            <Setter Property="BorderThickness" Value="0"/>
-                            <Setter Property="Cursor" Value="Hand"/>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="LightGray" />
+                            <Setter Property="Foreground" Value="#23282d" />
+                            <Setter Property="FontSize" Value="24" />
+                            <Setter Property="SnapsToDevicePixels" Value="True" />
+
                             <Setter Property="Template">
                                 <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border Background="{TemplateBinding Background}"
-                                                BorderBrush="{TemplateBinding BorderBrush}"
-                                                BorderThickness="{TemplateBinding BorderThickness}">
-                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <!-- Texto del botón -->
-                                                <TextBlock Text="IMPORTAR BASE DE DATOS" 
-                                                           Foreground="{TemplateBinding Foreground}" 
-                                                           VerticalAlignment="Center" 
-                                                           Margin="0,0,5,0"/>
-                                            </StackPanel>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                            <Grid>
+                                                <Image x:Name="imgBoton" Source="/Recursos/img/icons/renovarBlack_icon.png" Height="32" Width="32" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Uniform" Margin="17,0,0,0"/>
+                                                <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30,0,0,0" />
+                                            </Grid>
                                         </Border>
+
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="WhiteSmoke" />
+                                                <Setter Property="Foreground" Value="#23282d" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
+                        </Style>
+                    </Button.Style>
+                </Button>
 
-                            <!-- Configuración al pasar el ratón -->
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="BorderBrush" Value="WhiteSmoke"/>
-                                    <Setter Property="BorderThickness" Value="1"/>
-                                </Trigger>
-                            </Style.Triggers>
+                <Button x:Name="btnImportar" VerticalAlignment="Center" HorizontalAlignment="Right"
+                        Height="50" Width="380" Margin="0,0,100,0" Content="IMPORTAR BASE DE DATOS"
+                        FontFamily="Cascadia Code SemiBold" FontSize="18" Cursor="Hand" Click="btnImportar_Click">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="#1d6a7d" />
+                            <Setter Property="Foreground" Value="WhiteSmoke" />
+                            <Setter Property="FontSize" Value="24" />
+                            <Setter Property="SnapsToDevicePixels" Value="True" />
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                            <Grid>
+                                                <Image x:Name="imgBoton" Source="/Recursos/img/icons/load_icon.png" Height="32" Width="32" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Uniform" Margin="17,0,0,0"/>
+                                                <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30,0,0,0" />
+                                            </Grid>
+                                        </Border>
+
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#22798e" />
+                                                <Setter Property="Foreground" Value="WhiteSmoke" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
                         </Style>
                     </Button.Style>
                 </Button>

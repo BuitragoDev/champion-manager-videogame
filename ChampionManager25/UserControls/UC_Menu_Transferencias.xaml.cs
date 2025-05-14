@@ -24,6 +24,7 @@ namespace ChampionManager25.UserControls
         public event Action? MostrarBuscarPorFiltro;
         public event Action? MostrarCartera;
         public event Action? MostrarEstadoOfertas;
+        public event Action? MostrarOfertasRecibidas;
         public event Action? MostrarListaTraspasos;
 
         public UC_Menu_Transferencias()
@@ -39,6 +40,7 @@ namespace ChampionManager25.UserControls
             lblCartera.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             lblEstadoOfertas.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             lblListaTraspasos.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
+            lblOfertasRecibidas.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             MostrarMercado?.Invoke();
         }
 
@@ -51,6 +53,7 @@ namespace ChampionManager25.UserControls
             lblCartera.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             lblEstadoOfertas.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             lblListaTraspasos.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
+            lblOfertasRecibidas.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             MostrarBuscarPorEquipo?.Invoke();
         }
 
@@ -63,6 +66,7 @@ namespace ChampionManager25.UserControls
             lblCartera.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             lblEstadoOfertas.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             lblListaTraspasos.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
+            lblOfertasRecibidas.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             MostrarBuscarPorFiltro?.Invoke();
         }
 
@@ -75,6 +79,7 @@ namespace ChampionManager25.UserControls
             lblMercado.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             lblEstadoOfertas.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             lblListaTraspasos.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
+            lblOfertasRecibidas.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             MostrarCartera?.Invoke();
         }
 
@@ -87,7 +92,21 @@ namespace ChampionManager25.UserControls
             lblCartera.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             lblMercado.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             lblListaTraspasos.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
+            lblOfertasRecibidas.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             MostrarEstadoOfertas?.Invoke();
+        }
+
+        private void lblOfertasRecibidas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Metodos.ReproducirSonidoClick();
+            lblEstadoOfertas.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
+            lblBuscarPorEquipo.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
+            lblBuscarPorFiltro.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
+            lblCartera.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
+            lblMercado.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
+            lblListaTraspasos.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
+            lblOfertasRecibidas.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x6A, 0x7D));
+            MostrarOfertasRecibidas?.Invoke();
         }
 
         private void lblListaTraspasos_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -99,6 +118,7 @@ namespace ChampionManager25.UserControls
             lblCartera.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             lblEstadoOfertas.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             lblMercado.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
+            lblOfertasRecibidas.Foreground = new SolidColorBrush(Colors.WhiteSmoke);
             MostrarListaTraspasos?.Invoke();
         }
     }

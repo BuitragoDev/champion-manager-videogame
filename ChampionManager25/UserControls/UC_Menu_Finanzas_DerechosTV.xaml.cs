@@ -74,7 +74,8 @@ namespace ChampionManager25.UserControls
             {
                 txtTelevision1.Text = cadenatv.Nombre.ToUpper();
                 imgTelevision1.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/cadenaTV/" + cadenatv.IdTelevision + ".png"));
-                txtCantidadTelevision1.Text = cadenatv.Cantidad.ToString("N0") + " $";
+                txtCantidadTelevision1.Text = cadenatv.Cantidad.ToString("N0") + " €";
+                txtMensualidadTelevision1.Text = cadenatv.Mensualidad.ToString("N0") + " €";
                 if (cadenatv.DuracionContrato == 1)
                 {
                     txtDuracionTelevision1.Text = cadenatv.DuracionContrato.ToString() + " año";

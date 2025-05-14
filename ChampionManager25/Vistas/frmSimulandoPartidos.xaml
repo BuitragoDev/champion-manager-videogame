@@ -12,9 +12,9 @@
         </Grid.Background>
 
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="6*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="100"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
@@ -73,7 +73,7 @@
         </Border>
 
         <!-- ÁREA PRINCIPAL -->
-        <Border Grid.Column="1" Grid.Row="1" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Center" Background="WhiteSmoke" Width="1270" Padding="20" Margin="20">
+        <Border Grid.Column="1" Grid.Row="1" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Center" Background="WhiteSmoke" Width="1550" Padding="20" Margin="20">
             <Border.Effect>
                 <DropShadowEffect Color="Black" 
                   BlurRadius="10" 
@@ -82,7 +82,7 @@
                   Opacity="0.5"/>
             </Border.Effect>
             <DockPanel x:Name="panelContenido">
-                <Border x:Name="progressBar" Visibility="Collapsed" Width="1250" Height="200" >
+                <Border x:Name="progressBar" Visibility="Collapsed" Width="1550" Height="200" >
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -101,7 +101,7 @@
                 </Border>
                 
                 <!-- Área con los partidos -->
-                <Border x:Name="areaPartidos" Grid.Row="1" Width="1230" Height="auto"
+                <Border x:Name="areaPartidos" Grid.Row="1" Width="1500" Height="auto"
                         BorderBrush="#1d6a7d" BorderThickness="1" Visibility="Visible">
                     <Grid x:Name="gridPartidos">
                         

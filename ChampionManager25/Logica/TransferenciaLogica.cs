@@ -96,5 +96,23 @@ namespace ChampionManager25.Logica
         {
             _datos.ResetearTransferencias();
         }
+
+        // Llamada al metodo que agrega una oferta recibida
+        public void AgregarOfertaRecibida(int jugador, int equipo, int tipo, int monto, int respuesta)
+        {
+            _datos.AgregarOfertaRecibida(jugador, equipo, tipo, monto, respuesta);
+        }
+
+        // Llamada al método para Mostrar las ofertas recibidas
+        public List<Transferencia> ListarOfertasRecibidas()
+        {
+            return _datos.ListarOfertasRecibidas();
+        }
+
+        // Llamada al metodo que borra una oferta recibida
+        public void BorrarOfertaRecibida(int jugador, int equipo)
+        {
+            _datos.BorrarOfertaRecibida(jugador, equipo);
+        }
     }
 }

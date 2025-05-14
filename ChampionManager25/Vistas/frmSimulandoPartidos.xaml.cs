@@ -46,6 +46,7 @@ namespace ChampionManager25.Vistas
         EstadisticasLogica _logicaEstadisticas = new EstadisticasLogica();
         EntrenadorLogica _logicaEntrenador = new EntrenadorLogica();
         CompeticionLogica _logicaCompeticion = new CompeticionLogica();
+        ManagerLogica _logicaManager = new ManagerLogica();
 
         public frmSimulandoPartidos(Manager manager, int equipo, List<Partido> listaPartidos)
         {
@@ -120,6 +121,57 @@ namespace ChampionManager25.Vistas
 
                     // Generar los partidos de la siguiente ronda
                     GeneralCalendarioCopa(clasificados, ronda);
+
+                    // Comprobar si mi equipo ha pasado de ronda
+                    bool clasificado = false;
+                    foreach (var equipo in clasificados)
+                    {
+                        if (equipo.IdEquipo == _equipo)
+                        {
+                            clasificado = true;
+                        }
+                    }
+                    if (clasificado == true)
+                    {
+                        // Mostrar ventana emergente
+                        string titulo = "INFORMACIÓN";
+                        string mensaje = "Felicidades por el trabajo realizado en la eliminatoria de Copa.\nEl equipo ha logrado el pase a la siguiente ronda, cumpliendo con lo esperado y manteniendo vivas nuestras aspiraciones en esta competición.";
+                        frmVentanaEmergenteDosBotones ventanaPasoDeRonda = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
+                        ventanaPasoDeRonda.ShowDialog();
+
+                        // Actualizar confianza
+                        _logicaManager.ActualizarConfianza(_manager.IdManager, 10, 15, 10);
+                    } 
+                    else
+                    {
+                        int miUltimoRonda = _logicaPartidos.ObtenerUltimaRondaJugadaMiEquipo(_equipo);
+                        if (miUltimoRonda >= ronda)
+                        {
+                            int reputacion = _logicaEquipo.ListarDetallesEquipo(_equipo).Reputacion;
+                            string mensaje = "";
+
+                            if (reputacion > 89)
+                            {
+                                mensaje = "El equipo ha quedado eliminado de la Copa, un resultado que está por debajo de las expectativas marcadas para esta competición.";
+                            }
+                            else if (reputacion > 74)
+                            {
+                                mensaje = "Tras una eliminatoria muy igualada, el equipo ha quedado eliminado de la Copa.";
+                            }
+                            else
+                            {
+                                mensaje = "Pese a la eliminación, queremos reconocer el esfuerzo del equipo en esta edición de la Copa. La imagen ofrecida ha sido competitiva, y se ha luchado hasta el último minuto.";
+                            }
+
+                            // Mostrar ventana emergente
+                            string titulo = "INFORMACIÓN";
+                            frmVentanaEmergenteDosBotones ventanaPasoDeRonda = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
+                            ventanaPasoDeRonda.ShowDialog();
+
+                            // Actualizar confianza
+                            _logicaManager.ActualizarConfianza(_manager.IdManager, -10, -15, -5);
+                        } 
+                    }
                 }
                 if (ronda > 5)
                 {
@@ -388,8 +440,8 @@ namespace ChampionManager25.Vistas
             if (jugadores.Count == 0 || jugadoresRival.Count == 0) return 0; // Evitar errores
 
             // Calcular ataque del equipo y defensa del rival
-            double ataque = jugadores.Average(j => (j.Remate + j.Pase + j.Calidad + j.Tiro + j.Regate + j.EstadoForma + j.Moral) / 7.0);
-            double defensa = jugadoresRival.Average(j => (j.Entradas + j.Resistencia + j.Agresividad + j.EstadoForma + j.Velocidad + j.Moral) / 6.0);
+            double ataque = jugadores.Average(j => (j.Remate + j.Pase + j.Calidad + j.Tiro + j.Regate + j.Velocidad) / 6.0);
+            double defensa = jugadoresRival.Average(j => (j.Entradas + j.Resistencia + j.Agresividad + j.Velocidad) / 4.0);
 
             // Diferencia ajustada con más impacto
             double diferencia = (ataque - defensa) / 5.0; // Reducimos la escala del impacto
@@ -433,8 +485,8 @@ namespace ChampionManager25.Vistas
                 // Selección ponderada de goleador
                 Jugador goleador = SeleccionarJugadorPonderado(pesosGoleadores, totalPesoGoleador, random);
 
-                // 50% de probabilidad de asistencia
-                Jugador? asistente = random.NextDouble() > 0.5 ?
+                // 80% de probabilidad de asistencia
+                Jugador? asistente = random.NextDouble() > 0.2 ?
                     SeleccionarJugadorPonderado(pesosAsistentes, totalPesoAsistente, random) : null;
 
                 lista.Add((goleador, asistente));
@@ -709,144 +761,191 @@ namespace ChampionManager25.Vistas
         {
             // Limpiar la grid antes de cargar los nuevos partidos
             gridPartidos.Children.Clear();
-
-            // Limpiar las filas existentes
             gridPartidos.RowDefinitions.Clear();
+            gridPartidos.ColumnDefinitions.Clear();
 
-            // Agregar x nuevas filas
-            for (int i = 0; i < partidos.Count; i++)
+            // Crear 12 columnas (6 por partido, 2 partidos por fila)
+            for (int i = 0; i < 12; i++)
             {
-                RowDefinition fila = new RowDefinition();
-                fila.Height = new GridLength(1, GridUnitType.Star); // Equivalente a Height="*"
-                gridPartidos.RowDefinitions.Add(fila);
+                gridPartidos.ColumnDefinitions.Add(new ColumnDefinition());
             }
 
-            int indiceVisible = 0;
-            for (int i = 0; i < partidos.Count; i++)
+            // Filtrar los partidos visibles
+            List<Partido> partidosVisibles = new List<Partido>();
+            int miCompeticion = _logicaEquipo.ListarDetallesEquipo(_equipo).IdCompeticion;
+
+            foreach (var partido in partidos)
             {
-                Partido partido = partidos[i];
-                int miCompeticion = _logicaEquipo.ListarDetallesEquipo(_equipo).IdCompeticion;
-                int compPartido = _logicaEquipo.ListarDetallesEquipo(partido.IdPartido).IdCompeticion;
+                if (partido.IdCompeticion == miCompeticion || partido.IdCompeticion == 4)
+                    partidosVisibles.Add(partido);
+            }
 
-                if (partidos[i].IdCompeticion == miCompeticion || partidos[i].IdCompeticion == 4)
+            // Calcular cuántas filas necesitamos (dos partidos por fila)
+            int filasNecesarias = (int)Math.Ceiling(partidosVisibles.Count / 2.0);
+
+            for (int i = 0; i < filasNecesarias; i++)
+            {
+                gridPartidos.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            }
+
+            for (int i = 0; i < partidosVisibles.Count; i++)
+            {
+                Partido partido = partidosVisibles[i];
+                Equipo equipoLocal = _logicaEquipo.ListarDetallesEquipo(partido.IdEquipoLocal);
+                Equipo equipoVisitante = _logicaEquipo.ListarDetallesEquipo(partido.IdEquipoVisitante);
+
+                Brush fondoGolesLocal;
+                Brush fondoGolesVisitante;
+
+                if (partido.Estado != "Pendiente")
                 {
-                    equipoLocal = _logicaEquipo.ListarDetallesEquipo(partido.IdEquipoLocal);
-                    equipoVisitante = _logicaEquipo.ListarDetallesEquipo(partido.IdEquipoVisitante);
+                    if (partido.GolesLocal > partido.GolesVisitante)
+                        fondoGolesLocal = Brushes.DarkGreen; // Ganó el local
+                    else if (partido.GolesLocal < partido.GolesVisitante)
+                        fondoGolesLocal = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF23282D")); // Perdió el local
+                    else
+                        fondoGolesLocal = Brushes.Gray; // Empate
+                }
+                else
+                {
+                    fondoGolesLocal = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF23282D")); // Partido no jugado
+                }
 
-                    int row = indiceVisible % 31;
-                    int column = indiceVisible < 29 ? 0 : 1;
+                if (partido.Estado != "Pendiente")
+                {
+                    if (partido.GolesVisitante > partido.GolesLocal)
+                        fondoGolesVisitante = Brushes.DarkGreen; // Ganó el visitante
+                    else if (partido.GolesVisitante < partido.GolesLocal)
+                        fondoGolesVisitante = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF23282D")); // Perdió el visitante
+                    else
+                        fondoGolesVisitante = Brushes.Gray; // Empate
+                }
+                else
+                {
+                    fondoGolesVisitante = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF23282D")); // Partido no jugado
+                }
 
-                    // Determinar el color de fondo de la fila (alternar entre WhiteSmoke y LightGray)
-                    Brush backgroundColor = (row % 2 == 0) ? Brushes.Gainsboro : Brushes.LightGray;
+                int row = i / 2;
+                int columnOffset = (i % 2 == 0) ? 0 : 6;
 
-                    // Crear un contenedor para la fila con fondo
-                    Border rowBackground = new Border
-                    {
-                        Background = backgroundColor,
-                        BorderThickness = new Thickness(0),
-                        Margin = new Thickness(2),
-                        Height = 50
-                    };
+                // Fondo alterno por fila
+                Brush backgroundColor = (row % 2 == 0) ? Brushes.Gainsboro : Brushes.LightGray;
+                Border rowBackground = new Border
+                {
+                    Background = backgroundColor,
+                    BorderThickness = new Thickness(0),
+                    Margin = new Thickness(2),
+                    Height = 50
+                };
+                Grid.SetRow(rowBackground, row);
+                Grid.SetColumnSpan(rowBackground, 6);
+                Grid.SetColumn(rowBackground, columnOffset);
+                gridPartidos.Children.Add(rowBackground);
 
-                    Grid.SetRow(rowBackground, row);
-                    Grid.SetColumn(rowBackground, column);
-                    gridPartidos.Children.Add(rowBackground);
+                // Crear Grid interno para el partido
+                Grid partidoGrid = new Grid();
+                partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50) });  // Escudo local
+                partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(250) }); // Nombre local
+                partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(70) });  // Goles local
+                partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(70) });  // Goles visitante
+                partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(250) }); // Nombre visitante
+                partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50) }); // Escudo visitante
 
-                    // Crear un Grid para cada partido dentro de su celda
-                    Grid partidoGrid = new Grid();
-                    partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(100) });  // Escudo local
-                    partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(420) }); // Nombre local
-                    partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(70) });  // Goles local
-                    partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(100) });  // Escudo visitante
-                    partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(420) }); // Nombre visitante
-                    partidoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(70) });  // Goles visitante
+                // Escudo local
+                partidoGrid.Children.Add(new Image
+                {
+                    Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoLocal.RutaImagen32)),
+                    Width = 32,
+                    Height = 32,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    HorizontalAlignment = HorizontalAlignment.Center
+                });
+                Grid.SetColumn(partidoGrid.Children[^1], 0);
 
-                    // Escudo equipo local
-                    Image imgLocal = new Image
-                    {
-                        Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoLocal.RutaImagen32)),
-                        Width = 32,
-                        Height = 32,
-                        VerticalAlignment = VerticalAlignment.Center,
-                        HorizontalAlignment = HorizontalAlignment.Center
-                    };
-                    Grid.SetColumn(imgLocal, 0);
-                    partidoGrid.Children.Add(imgLocal);
+                // Nombre local
+                partidoGrid.Children.Add(new TextBlock
+                {
+                    Text = equipoLocal.Nombre,
+                    FontSize = 16,
+                    FontFamily = new FontFamily("Cascadia Code SemiBold"),
+                    Foreground = equipoLocal.IdEquipo == _equipo ? Brushes.DarkRed : Brushes.Black,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    HorizontalAlignment = HorizontalAlignment.Right,
+                    Margin = new Thickness(5)
+                });
+                Grid.SetColumn(partidoGrid.Children[^1], 1);
 
-                    // Nombre equipo local
-                    TextBlock txtLocal = new TextBlock
-                    {
-                        Text = _logicaEquipo.ListarDetallesEquipo(partido.IdEquipoLocal).Nombre,
-                        FontSize = 18,
-                        FontFamily = new FontFamily("Cascadia Code SemiBold"),
-                        Foreground = partido.IdEquipoLocal == _equipo ? Brushes.DarkRed : Brushes.Black,
-                        VerticalAlignment = VerticalAlignment.Center,
-                        HorizontalAlignment = HorizontalAlignment.Left,
-                        Margin = new Thickness(5)
-                    };
-                    Grid.SetColumn(txtLocal, 1);
-                    partidoGrid.Children.Add(txtLocal);
-
-                    // Goles equipo local
-                    TextBlock txtGolesLocal = new TextBlock
+                // Goles local con fondo negro
+                var borderGolesLocal = new Border
+                {
+                    Background = fondoGolesLocal,
+                    Margin = new Thickness(3),
+                    Child = new TextBlock
                     {
                         Text = partido.Estado == "Pendiente" ? "-" : partido.GolesLocal.ToString(),
                         FontSize = 24,
                         FontWeight = FontWeights.Bold,
                         FontFamily = new FontFamily("Cascadia Code SemiBold"),
                         VerticalAlignment = VerticalAlignment.Center,
-                        HorizontalAlignment = HorizontalAlignment.Center
-                    };
-                    Grid.SetColumn(txtGolesLocal, 2);
-                    partidoGrid.Children.Add(txtGolesLocal);
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        Foreground = Brushes.White,
+                        TextAlignment = TextAlignment.Center,
+                        Padding = new Thickness(2, 2, 2, 2)
+                    }
+                };
+                Grid.SetColumn(borderGolesLocal, 2);
+                partidoGrid.Children.Add(borderGolesLocal);
 
-                    // Escudo equipo visitante
-                    Image imgVisitante = new Image
-                    {
-                        Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoVisitante.RutaImagen32)),
-                        Width = 32,
-                        Height = 32,
-                        VerticalAlignment = VerticalAlignment.Center,
-                        HorizontalAlignment = HorizontalAlignment.Center
-                    };
-                    Grid.SetColumn(imgVisitante, 3);
-                    partidoGrid.Children.Add(imgVisitante);
-
-                    // Nombre equipo visitante
-                    TextBlock txtVisitante = new TextBlock
-                    {
-                        Text = _logicaEquipo.ListarDetallesEquipo(partido.IdEquipoVisitante).Nombre,
-                        FontSize = 18,
-                        FontFamily = new FontFamily("Cascadia Code SemiBold"),
-                        Foreground = partido.IdEquipoVisitante == _equipo ? Brushes.DarkRed : Brushes.Black,
-                        VerticalAlignment = VerticalAlignment.Center,
-                        HorizontalAlignment = HorizontalAlignment.Left,
-                        Margin = new Thickness(4)
-                    };
-                    Grid.SetColumn(txtVisitante, 4);
-                    partidoGrid.Children.Add(txtVisitante);
-
-                    // Goles equipo visitante
-                    TextBlock txtGolesVisitante = new TextBlock
+                // Goles visitante con fondo negro
+                var borderGolesVisitante = new Border
+                {
+                    Background = fondoGolesVisitante,
+                    Margin = new Thickness(3),
+                    Child = new TextBlock
                     {
                         Text = partido.Estado == "Pendiente" ? "-" : partido.GolesVisitante.ToString(),
                         FontSize = 24,
                         FontWeight = FontWeights.Bold,
                         FontFamily = new FontFamily("Cascadia Code SemiBold"),
                         VerticalAlignment = VerticalAlignment.Center,
-                        HorizontalAlignment = HorizontalAlignment.Center
-                    };
-                    Grid.SetColumn(txtGolesVisitante, 5);
-                    partidoGrid.Children.Add(txtGolesVisitante);
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        Foreground = Brushes.White,
+                        TextAlignment = TextAlignment.Center,
+                        Padding = new Thickness(2, 2, 2, 2)
+                    }
+                };
+                Grid.SetColumn(borderGolesVisitante, 3);
+                partidoGrid.Children.Add(borderGolesVisitante);
 
-                    // Agregar el partidoGrid dentro del fondo de la celda
-                    Grid.SetRow(partidoGrid, row);
-                    Grid.SetColumn(partidoGrid, column);
-                    gridPartidos.Children.Add(partidoGrid);
 
-                    // Aumentamos solo si el partido es de mi division
-                    indiceVisible++;
-                }
+                // Nombre visitante
+                partidoGrid.Children.Add(new TextBlock
+                {
+                    Text = equipoVisitante.Nombre,
+                    FontSize = 16,
+                    FontFamily = new FontFamily("Cascadia Code SemiBold"),
+                    Foreground = equipoVisitante.IdEquipo == _equipo ? Brushes.DarkRed : Brushes.Black,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Margin = new Thickness(4)
+                });
+                Grid.SetColumn(partidoGrid.Children[^1], 4);
+
+                // Escudo visitante
+                partidoGrid.Children.Add(new Image
+                {
+                    Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + equipoVisitante.RutaImagen32)),
+                    Width = 32,
+                    Height = 32,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    HorizontalAlignment = HorizontalAlignment.Center
+                });
+                Grid.SetColumn(partidoGrid.Children[^1], 5);
+
+                Grid.SetRow(partidoGrid, row);
+                Grid.SetColumn(partidoGrid, columnOffset);
+                Grid.SetColumnSpan(partidoGrid, 6);
+                gridPartidos.Children.Add(partidoGrid);
             }
         }
 

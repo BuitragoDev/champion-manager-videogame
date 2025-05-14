@@ -13,7 +13,7 @@ namespace ChampionManager25.Datos
 {
     public class TransferenciaDatos : Conexion
     {
-        // Metodo que evalua una oferta por un jugador.
+        // ------------------------------------------------------------------------- Metodo que evalua una oferta por un jugador.
         public Transferencia EvaluarOfertaEquipo(int idJugador, int idEquipoComprador, int montoOferta, int tipoFichaje)
         {
             Transferencia oferta = new Transferencia();
@@ -633,6 +633,109 @@ namespace ChampionManager25.Datos
 
                     using (SQLiteCommand command = new SQLiteCommand(query, conn))
                     {
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // ------------------------------------------------------------- Metodo que agrega una oferta recibida
+        public void AgregarOfertaRecibida(int jugador, int equipo, int tipo, int monto, int respuesta)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+                    string query = @"INSERT INTO ofertasRecibidas (
+                                        id_jugador_interesado, id_equipo_interesado, tipo_fichaje, 
+                                        monto_oferta, fecha_oferta, respuesta_equipo) 
+                                     VALUES (
+                                        @idJugador, @idEquipo, @tipoFichaje, 
+                                        @montoOferta, @fechaOferta, @RespuestaEquipo)";
+
+                    using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                    {
+                        // Agregar parámetros
+                        command.Parameters.AddWithValue("@idJugador", jugador);
+                        command.Parameters.AddWithValue("@idEquipo", equipo);
+                        command.Parameters.AddWithValue("@tipoFichaje", tipo);
+                        command.Parameters.AddWithValue("@montoOferta", monto);
+                        command.Parameters.AddWithValue("@fechaOferta", Metodos.hoy.ToString("yyyy-MM-dd"));
+                        command.Parameters.AddWithValue("@RespuestaEquipo", respuesta);
+
+                        // Ejecutar la consulta
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // ---------------------------------------------------------------------- Método para Mostrar las ofertas recibidas
+        public List<Transferencia> ListarOfertasRecibidas()
+        {
+            List<Transferencia> oTransferencia = new List<Transferencia>();
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+                    string query = @"SELECT * FROM ofertasRecibidas WHERE respuesta_equipo = 0";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                oTransferencia.Add(new Transferencia()
+                                {
+                                    // Usamos el operador de coalescencia nula para evitar la asignación de null
+                                    IdJugador = reader.GetInt32(reader.GetOrdinal("id_jugador_interesado")),
+                                    IdEquipoDestino = reader.GetInt32(reader.GetOrdinal("id_equipo_interesado")),
+                                    TipoFichaje = reader.GetInt32(reader.GetOrdinal("tipo_fichaje")),
+                                    FechaOferta = reader["fecha_oferta"]?.ToString() ?? string.Empty,
+                                    RespuestaEquipo = reader.IsDBNull(reader.GetOrdinal("respuesta_equipo"))
+                                                        ? (int?)null
+                                                        : reader.GetInt32(reader.GetOrdinal("respuesta_equipo")),
+                                    MontoOferta = reader.GetInt32(reader.GetOrdinal("monto_oferta")),
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return oTransferencia;
+        }
+
+        // ------------------------------------------------------------- Metodo que borra una oferta recibida
+        public void BorrarOfertaRecibida(int jugador, int equipo)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+                    string query = @"DELETE FROM ofertasRecibidas WHERE id_jugador_interesado = @idJugador AND id_equipo_interesado = @idEquipo";
+
+                    using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@idJugador", jugador);
+                        command.Parameters.AddWithValue("@idEquipo", equipo);
                         command.ExecuteNonQuery();
                     }
                 }
