@@ -979,6 +979,14 @@
     <None Remove="Recursos\img\estadios\8interior.png" />
     <None Remove="Recursos\img\estadios\90exterior.png" />
     <None Remove="Recursos\img\estadios\90interior.png" />
+    <None Remove="Recursos\img\estadios\91exterior.png" />
+    <None Remove="Recursos\img\estadios\91interior.png" />
+    <None Remove="Recursos\img\estadios\92exterior.png" />
+    <None Remove="Recursos\img\estadios\92interior.png" />
+    <None Remove="Recursos\img\estadios\93exterior.png" />
+    <None Remove="Recursos\img\estadios\93interior.png" />
+    <None Remove="Recursos\img\estadios\94exterior.png" />
+    <None Remove="Recursos\img\estadios\94interior.png" />
     <None Remove="Recursos\img\estadios\9exterior.png" />
     <None Remove="Recursos\img\estadios\9interior.png" />
     <None Remove="Recursos\img\estadios\large-construction.png" />
@@ -2180,21 +2188,167 @@
     <None Remove="Recursos\img\jugadores\5148.png" />
     <None Remove="Recursos\img\jugadores\5149.png" />
     <None Remove="Recursos\img\jugadores\515.png" />
+    <None Remove="Recursos\img\jugadores\5150.png" />
+    <None Remove="Recursos\img\jugadores\5151.png" />
+    <None Remove="Recursos\img\jugadores\5152.png" />
+    <None Remove="Recursos\img\jugadores\5153.png" />
+    <None Remove="Recursos\img\jugadores\5154.png" />
+    <None Remove="Recursos\img\jugadores\5155.png" />
+    <None Remove="Recursos\img\jugadores\5156.png" />
+    <None Remove="Recursos\img\jugadores\5157.png" />
+    <None Remove="Recursos\img\jugadores\5158.png" />
+    <None Remove="Recursos\img\jugadores\5159.png" />
     <None Remove="Recursos\img\jugadores\516.png" />
+    <None Remove="Recursos\img\jugadores\5160.png" />
+    <None Remove="Recursos\img\jugadores\5161.png" />
+    <None Remove="Recursos\img\jugadores\5162.png" />
+    <None Remove="Recursos\img\jugadores\5163.png" />
+    <None Remove="Recursos\img\jugadores\5164.png" />
+    <None Remove="Recursos\img\jugadores\5165.png" />
+    <None Remove="Recursos\img\jugadores\5166.png" />
+    <None Remove="Recursos\img\jugadores\5167.png" />
+    <None Remove="Recursos\img\jugadores\5168.png" />
+    <None Remove="Recursos\img\jugadores\5169.png" />
     <None Remove="Recursos\img\jugadores\517.png" />
+    <None Remove="Recursos\img\jugadores\5170.png" />
+    <None Remove="Recursos\img\jugadores\5171.png" />
+    <None Remove="Recursos\img\jugadores\5172.png" />
+    <None Remove="Recursos\img\jugadores\5173.png" />
+    <None Remove="Recursos\img\jugadores\5174.png" />
+    <None Remove="Recursos\img\jugadores\5175.png" />
+    <None Remove="Recursos\img\jugadores\5176.png" />
+    <None Remove="Recursos\img\jugadores\5177.png" />
+    <None Remove="Recursos\img\jugadores\5178.png" />
+    <None Remove="Recursos\img\jugadores\5179.png" />
     <None Remove="Recursos\img\jugadores\518.png" />
+    <None Remove="Recursos\img\jugadores\5180.png" />
+    <None Remove="Recursos\img\jugadores\5181.png" />
+    <None Remove="Recursos\img\jugadores\5182.png" />
+    <None Remove="Recursos\img\jugadores\5183.png" />
+    <None Remove="Recursos\img\jugadores\5184.png" />
+    <None Remove="Recursos\img\jugadores\5185.png" />
+    <None Remove="Recursos\img\jugadores\5186.png" />
+    <None Remove="Recursos\img\jugadores\5187.png" />
+    <None Remove="Recursos\img\jugadores\5188.png" />
+    <None Remove="Recursos\img\jugadores\5189.png" />
     <None Remove="Recursos\img\jugadores\519.png" />
+    <None Remove="Recursos\img\jugadores\5190.png" />
+    <None Remove="Recursos\img\jugadores\5191.png" />
+    <None Remove="Recursos\img\jugadores\5192.png" />
+    <None Remove="Recursos\img\jugadores\5193.png" />
+    <None Remove="Recursos\img\jugadores\5194.png" />
+    <None Remove="Recursos\img\jugadores\5195.png" />
+    <None Remove="Recursos\img\jugadores\5196.png" />
+    <None Remove="Recursos\img\jugadores\5197.png" />
+    <None Remove="Recursos\img\jugadores\5198.png" />
+    <None Remove="Recursos\img\jugadores\5199.png" />
     <None Remove="Recursos\img\jugadores\52.png" />
     <None Remove="Recursos\img\jugadores\520.png" />
+    <None Remove="Recursos\img\jugadores\5200.png" />
+    <None Remove="Recursos\img\jugadores\5201.png" />
+    <None Remove="Recursos\img\jugadores\5202.png" />
+    <None Remove="Recursos\img\jugadores\5203.png" />
+    <None Remove="Recursos\img\jugadores\5204.png" />
+    <None Remove="Recursos\img\jugadores\5205.png" />
+    <None Remove="Recursos\img\jugadores\5206.png" />
+    <None Remove="Recursos\img\jugadores\5207.png" />
+    <None Remove="Recursos\img\jugadores\5208.png" />
+    <None Remove="Recursos\img\jugadores\5209.png" />
     <None Remove="Recursos\img\jugadores\521.png" />
+    <None Remove="Recursos\img\jugadores\5210.png" />
+    <None Remove="Recursos\img\jugadores\5211.png" />
+    <None Remove="Recursos\img\jugadores\5212.png" />
+    <None Remove="Recursos\img\jugadores\5213.png" />
+    <None Remove="Recursos\img\jugadores\5214.png" />
+    <None Remove="Recursos\img\jugadores\5215.png" />
+    <None Remove="Recursos\img\jugadores\5216.png" />
+    <None Remove="Recursos\img\jugadores\5217.png" />
+    <None Remove="Recursos\img\jugadores\5218.png" />
+    <None Remove="Recursos\img\jugadores\5219.png" />
     <None Remove="Recursos\img\jugadores\522.png" />
+    <None Remove="Recursos\img\jugadores\5220.png" />
+    <None Remove="Recursos\img\jugadores\5221.png" />
+    <None Remove="Recursos\img\jugadores\5222.png" />
+    <None Remove="Recursos\img\jugadores\5223.png" />
+    <None Remove="Recursos\img\jugadores\5224.png" />
+    <None Remove="Recursos\img\jugadores\5225.png" />
+    <None Remove="Recursos\img\jugadores\5226.png" />
+    <None Remove="Recursos\img\jugadores\5227.png" />
+    <None Remove="Recursos\img\jugadores\5228.png" />
+    <None Remove="Recursos\img\jugadores\5229.png" />
     <None Remove="Recursos\img\jugadores\523.png" />
+    <None Remove="Recursos\img\jugadores\5230.png" />
+    <None Remove="Recursos\img\jugadores\5231.png" />
+    <None Remove="Recursos\img\jugadores\5232.png" />
+    <None Remove="Recursos\img\jugadores\5233.png" />
+    <None Remove="Recursos\img\jugadores\5234.png" />
+    <None Remove="Recursos\img\jugadores\5235.png" />
+    <None Remove="Recursos\img\jugadores\5236.png" />
+    <None Remove="Recursos\img\jugadores\5237.png" />
+    <None Remove="Recursos\img\jugadores\5238.png" />
+    <None Remove="Recursos\img\jugadores\5239.png" />
     <None Remove="Recursos\img\jugadores\524.png" />
+    <None Remove="Recursos\img\jugadores\5240.png" />
+    <None Remove="Recursos\img\jugadores\5241.png" />
+    <None Remove="Recursos\img\jugadores\5242.png" />
+    <None Remove="Recursos\img\jugadores\5243.png" />
+    <None Remove="Recursos\img\jugadores\5244.png" />
+    <None Remove="Recursos\img\jugadores\5245.png" />
+    <None Remove="Recursos\img\jugadores\5246.png" />
+    <None Remove="Recursos\img\jugadores\5247.png" />
+    <None Remove="Recursos\img\jugadores\5248.png" />
+    <None Remove="Recursos\img\jugadores\5249.png" />
     <None Remove="Recursos\img\jugadores\525.png" />
+    <None Remove="Recursos\img\jugadores\5250.png" />
+    <None Remove="Recursos\img\jugadores\5251.png" />
+    <None Remove="Recursos\img\jugadores\5252.png" />
+    <None Remove="Recursos\img\jugadores\5253.png" />
+    <None Remove="Recursos\img\jugadores\5254.png" />
+    <None Remove="Recursos\img\jugadores\5255.png" />
+    <None Remove="Recursos\img\jugadores\5256.png" />
+    <None Remove="Recursos\img\jugadores\5257.png" />
+    <None Remove="Recursos\img\jugadores\5258.png" />
+    <None Remove="Recursos\img\jugadores\5259.png" />
     <None Remove="Recursos\img\jugadores\526.png" />
+    <None Remove="Recursos\img\jugadores\5260.png" />
+    <None Remove="Recursos\img\jugadores\5261.png" />
+    <None Remove="Recursos\img\jugadores\5262.png" />
+    <None Remove="Recursos\img\jugadores\5263.png" />
+    <None Remove="Recursos\img\jugadores\5264.png" />
+    <None Remove="Recursos\img\jugadores\5265.png" />
+    <None Remove="Recursos\img\jugadores\5266.png" />
+    <None Remove="Recursos\img\jugadores\5267.png" />
+    <None Remove="Recursos\img\jugadores\5268.png" />
+    <None Remove="Recursos\img\jugadores\5269.png" />
     <None Remove="Recursos\img\jugadores\527.png" />
+    <None Remove="Recursos\img\jugadores\5270.png" />
+    <None Remove="Recursos\img\jugadores\5271.png" />
+    <None Remove="Recursos\img\jugadores\5272.png" />
+    <None Remove="Recursos\img\jugadores\5273.png" />
+    <None Remove="Recursos\img\jugadores\5274.png" />
+    <None Remove="Recursos\img\jugadores\5275.png" />
+    <None Remove="Recursos\img\jugadores\5276.png" />
+    <None Remove="Recursos\img\jugadores\5277.png" />
+    <None Remove="Recursos\img\jugadores\5278.png" />
+    <None Remove="Recursos\img\jugadores\5279.png" />
     <None Remove="Recursos\img\jugadores\528.png" />
+    <None Remove="Recursos\img\jugadores\5280.png" />
+    <None Remove="Recursos\img\jugadores\5281.png" />
+    <None Remove="Recursos\img\jugadores\5282.png" />
+    <None Remove="Recursos\img\jugadores\5283.png" />
+    <None Remove="Recursos\img\jugadores\5284.png" />
+    <None Remove="Recursos\img\jugadores\5285.png" />
+    <None Remove="Recursos\img\jugadores\5286.png" />
+    <None Remove="Recursos\img\jugadores\5287.png" />
+    <None Remove="Recursos\img\jugadores\5288.png" />
+    <None Remove="Recursos\img\jugadores\5289.png" />
     <None Remove="Recursos\img\jugadores\529.png" />
+    <None Remove="Recursos\img\jugadores\5290.png" />
+    <None Remove="Recursos\img\jugadores\5291.png" />
+    <None Remove="Recursos\img\jugadores\5292.png" />
+    <None Remove="Recursos\img\jugadores\5293.png" />
+    <None Remove="Recursos\img\jugadores\5294.png" />
+    <None Remove="Recursos\img\jugadores\5295.png" />
     <None Remove="Recursos\img\jugadores\53.png" />
     <None Remove="Recursos\img\jugadores\530.png" />
     <None Remove="Recursos\img\jugadores\531.png" />
@@ -5868,6 +6022,30 @@
     <Content Include="Recursos\img\estadios\90interior.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\estadios\91exterior.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\estadios\91interior.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\estadios\92exterior.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\estadios\92interior.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\estadios\93exterior.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\estadios\93interior.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\estadios\94exterior.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\estadios\94interior.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\estadios\9exterior.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -9471,16 +9649,166 @@
     <Content Include="Recursos\img\jugadores\515.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\jugadores\5150.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5151.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5152.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5153.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5154.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5155.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5156.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5157.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5158.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5159.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\jugadores\516.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5160.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5161.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5162.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5163.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5164.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5165.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5166.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5167.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5168.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5169.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\jugadores\517.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\jugadores\5170.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5171.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5172.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5173.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5174.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5175.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5176.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5177.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5178.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5179.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\jugadores\518.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\jugadores\5180.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5181.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5182.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5183.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5184.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5185.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5186.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5187.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5188.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5189.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\jugadores\519.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5190.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5191.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5192.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5193.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5194.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5195.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5196.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5197.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5198.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5199.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\jugadores\52.png">
@@ -9489,31 +9817,319 @@
     <Content Include="Recursos\img\jugadores\520.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\jugadores\5200.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5201.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5202.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5203.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5204.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5205.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5206.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5207.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5208.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5209.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\jugadores\521.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5210.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5211.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5212.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5213.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5214.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5215.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5216.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5217.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5218.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5219.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\jugadores\522.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\jugadores\5220.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5221.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5222.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5223.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5224.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5225.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5226.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5227.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5228.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5229.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\jugadores\523.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5230.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5231.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5232.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5233.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5234.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5235.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5236.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5237.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5238.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5239.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\jugadores\524.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\jugadores\5240.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5241.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5242.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5243.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5244.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5245.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5246.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5247.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5248.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5249.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\jugadores\525.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5250.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5251.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5252.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5253.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5254.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5255.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5256.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5257.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5258.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5259.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\jugadores\526.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\jugadores\5260.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5261.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5262.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5263.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5264.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5265.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5266.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5267.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5268.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5269.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\jugadores\527.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5270.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5271.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5272.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5273.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5274.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5275.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5276.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5277.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5278.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5279.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\jugadores\528.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\jugadores\5280.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5281.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5282.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5283.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5284.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5285.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5286.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5287.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5288.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5289.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\jugadores\529.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5290.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5291.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5292.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5293.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5294.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\5295.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\jugadores\53.png">
