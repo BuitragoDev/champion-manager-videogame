@@ -82,7 +82,8 @@ namespace ChampionManager25.UserControls
                     int.Parse(txtAnio.Text),
                     int.Parse(txtMes.Text),
                     int.Parse(txtDia.Text)),
-                RutaImagen = $"Recursos/img/managers/{nombreImagenGrande}"
+                RutaImagen = $"Recursos/img/managers/{nombreImagenGrande}",
+                PrimeraTemporada = 0
             };
 
             int idManager = logica.CrearNuevoManager(nuevoManager);

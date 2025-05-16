@@ -78,5 +78,11 @@ namespace ChampionManager25.Logica
         {
             _datos.DespedirManager(idManager);
         }
+
+        // Método que cambia el estado de la Primera Temporada.
+        public void ModificarPrimeraTemporada(int valor)
+        {
+            _datos.ModificarPrimeraTemporada(valor);
+        }
     }
 }

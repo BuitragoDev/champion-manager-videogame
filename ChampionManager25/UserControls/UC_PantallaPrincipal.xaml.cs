@@ -1215,16 +1215,14 @@ namespace ChampionManager25.UserControls
 
                             CargarFecha();
 
-                            // CARGAR EL CONTENIDO DEL PANEL PRINCIPAL
-                            if (DockPanel_Central.Children.Count > 0)
-                            {
-                                DockPanel_Central.Children.Clear();
-                            }
-                            UC_Menu_Home_MenuPrincipal homeMenuPrincipal = new UC_Menu_Home_MenuPrincipal(_manager, _equipo);
-                            DockPanel_Central.Children.Add(homeMenuPrincipal);
-
                             progressBar.Visibility = Visibility.Collapsed;
                             btnAvanzar.Visibility = Visibility.Visible;
+
+                            Metodos.ReproducirSonidoTransicion();
+
+                            // Notificar a MainWindow para cargar el nuevo UserControl
+                            var mainWindow = (MainWindow)Application.Current.MainWindow;
+                            mainWindow.CargarPretemporada(_manager, _equipo);
                         }
                     }
                 }

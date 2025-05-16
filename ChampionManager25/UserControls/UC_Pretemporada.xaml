@@ -101,6 +101,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -121,6 +122,9 @@
 
                 <Image x:Name="imgLiga3" Grid.Column="3" Grid.Row="1" Stretch="Uniform" VerticalAlignment="Center" 
                        HorizontalAlignment="Center" Cursor="Hand" Margin="0,10,0,0" MouseLeftButtonDown="imgLiga3_MouseLeftButtonDown" />
+
+                <Image x:Name="imgLiga5" Grid.Column="4" Grid.Row="1" Stretch="Uniform" VerticalAlignment="Center" 
+                       HorizontalAlignment="Center" Cursor="Hand" Margin="0,10,0,0" MouseLeftButtonDown="imgLiga5_MouseLeftButtonDown" />
 
             </Grid>
         </Border>

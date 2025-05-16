@@ -340,5 +340,27 @@ namespace ChampionManager25.Datos
                 MessageBox.Show("Error al actualizar el Manager: " + ex.Message);
             }
         }
+
+        // ------------------------------------------------------------ Método que cambia el estado de la Primera Temporada
+        public void ModificarPrimeraTemporada(int valor)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+                    string query = "UPDATE managers SET primera_temporada = 1 WHERE id_manager = @Valor";
+                    using (var cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Valor", valor);
+                        cmd.ExecuteNonQuery(); // Ejecuta la consulta
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al conectar con la base de datos: " + ex.Message);
+            }
+        }
     }
 }

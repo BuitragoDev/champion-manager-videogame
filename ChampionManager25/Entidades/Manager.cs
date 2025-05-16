@@ -102,6 +102,7 @@ namespace ChampionManager25.Entidades
                    $"Tactica: {Tactica}\n" +
                    $"Puntos: {Puntos}\n" +
                    $"Despedido: {Despedido}\n" +
+                   $"PrimeraTemporada: {PrimeraTemporada}\n" +
                    $"Ruta: {RutaImagen}";
         }
     }

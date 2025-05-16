@@ -139,83 +139,90 @@ namespace ChampionManager25.UserControls
         // --------------------------------------------------------------------------------- EVENTO CLICK DEL BOTON DECLINAR RUEDA DE PRENSA
         private async void btnDeclinarRueda_Click(object sender, RoutedEventArgs e)
         {
-            btnDeclinarRueda.IsEnabled = false;
-            btnEmpezarRueda.IsEnabled = false;
-            imgBotonAtras.IsEnabled = false;
-            progressBar.Visibility = Visibility.Visible;
-
-            await Task.Run(() =>
-            {
-                // Crear el calendario de las Ligas
-                int temporadaActual = Metodos.temporadaActual;
-                _datosPartido.GenerarCalendario(temporadaActual, _manager.IdManager, 1);
-                _datosPartido.GenerarCalendario(temporadaActual, _manager.IdManager, 2);
-
-                // Generar el calendario de Copa nacional
-                List<Equipo> listaEquipos = _logicaEquipo.ListarTodosLosEquipos();
-                GeneralCalendarioCopa(listaEquipos);
-
-                // Generar las clasificaciones
-                _logicaClasificacion.RellenarClasificacion(1, _manager.IdManager);
-                _logicaClasificacion.RellenarClasificacion2(2, _manager.IdManager);
-
-                // Generar registros de la tabla ESTADÍSTICAS_JUGADORES
-                int numJugadores = _logicaJugador.NumeroJugadoresTotales();
-                _logicaEstadistica.InsertarEstadisticasJugadores(numJugadores, _manager.IdManager);
-
-                // Asignar equipo a la tabla "taquilla"
-                _logicaTaquilla.GenerarTaquilla(_equipo, _manager.IdManager);
-
-                // Generar el primer registro del historial
-                _logicaHistorial.CrearLineaHistorial(_manager.IdManager, _equipo, "2024/2025");
-
-                // Generar la alineacion del equipo
-                _logicaJugador.CrearAlineacion(_equipo);
-
-                // Crear los mensaje de inicio de partida
-                Mensaje mensajeInicio1 = new Mensaje
-                {
-                    Fecha = new DateTime(2024, 7, 15),
-                    Remitente = _logicaEquipo.ListarDetallesEquipo(_equipo).Presidente,
-                    Asunto = "Bienvenido al Club",
-                    Contenido = "Desde la Directiva del " + _logicaEquipo.ListarDetallesEquipo(_equipo).Nombre + " te damos la bienvenida. Tenemos muchas esperanzas puestas en tí, y estamos seguros de que contigo empieza una nueva etapa en nuestro club, y que nos esperan grandes éxitos.\n\nLa junta directiva y los empleados te irán informando a través de correos electrónicos de las cosas que sucedan en el club.",
-                    TipoMensaje = "Notificación",
-                    IdEquipo = _equipo,
-                    IdManager = _manager.IdManager,
-                    Leido = false,
-                    Icono = 0 // 0 es icono de equipo
-                };
-
-                // Crear el mensaje aconsejando poner precio a los abonos de temporada
-                string presidente = _logicaEquipo.ListarDetallesEquipo(_equipo).Presidente;
-
-                Mensaje mensajeAbonados = new Mensaje
-                {
-                    Fecha = Metodos.hoy,
-                    Remitente = presidente,
-                    Asunto = "Campaña de abonados",
-                    Contenido = $"¡Se ha iniciado la campaña de abonados al club!\n\nPuedes establecer los precios de los abonos de temporada en la sección de ESTADIO.\n\nRecuerda que los abonos solamente pueden realizarse antes del inicio de la competición de Liga.",
-                    TipoMensaje = "Notificación",
-                    IdEquipo = _equipo,
-                    IdManager = _manager.IdManager,
-                    Leido = false,
-                    Icono = 0 // 0 es icono de equipo
-                };
-
-                _logicaMensajes.crearMensaje(mensajeAbonados);
-
-                _logicaMensajes.crearMensaje(mensajeInicio1);
-            });
-
-            progressBar.Visibility = Visibility.Collapsed;
-
-            // Aquí ya puedes confirmar la partida, porque ya no se va a usar más la base de datos temporal
-            string rutaFinal = GestorPartidas.ConfirmarPartida(_rutaPartida);
-            Conexion.EstablecerConexionPartida(rutaFinal);
-
-            // Actualizar ruta en MainWindow por si quieres guardarla allí
             var mainWindow = (MainWindow)Application.Current.MainWindow;
-            mainWindow.RutaPartidaActual = rutaFinal;
+            
+            if (_manager.PrimeraTemporada == 0)
+            {
+                // Cambiar primera_temporada a 1
+                _logicaManager.ModificarPrimeraTemporada(1);
+
+                btnDeclinarRueda.IsEnabled = false;
+                btnEmpezarRueda.IsEnabled = false;
+                imgBotonAtras.IsEnabled = false;
+                progressBar.Visibility = Visibility.Visible;
+
+                await Task.Run(() =>
+                {
+                    // Crear el calendario de las Ligas
+                    int temporadaActual = Metodos.temporadaActual;
+                    _datosPartido.GenerarCalendario(temporadaActual, _manager.IdManager, 1);
+                    _datosPartido.GenerarCalendario(temporadaActual, _manager.IdManager, 2);
+
+                    // Generar el calendario de Copa nacional
+                    List<Equipo> listaEquipos = _logicaEquipo.ListarTodosLosEquipos();
+                    GeneralCalendarioCopa(listaEquipos);
+
+                    // Generar las clasificaciones
+                    _logicaClasificacion.RellenarClasificacion(1, _manager.IdManager);
+                    _logicaClasificacion.RellenarClasificacion2(2, _manager.IdManager);
+
+                    // Generar registros de la tabla ESTADÍSTICAS_JUGADORES
+                    int numJugadores = _logicaJugador.NumeroJugadoresTotales();
+                    _logicaEstadistica.InsertarEstadisticasJugadores(numJugadores, _manager.IdManager);
+
+                    // Asignar equipo a la tabla "taquilla"
+                    _logicaTaquilla.GenerarTaquilla(_equipo, _manager.IdManager);
+
+                    // Generar el primer registro del historial
+                    _logicaHistorial.CrearLineaHistorial(_manager.IdManager, _equipo, "2024/2025");
+
+                    // Generar la alineacion del equipo
+                    _logicaJugador.CrearAlineacion(_equipo);
+
+                    // Crear los mensaje de inicio de partida
+                    Mensaje mensajeInicio1 = new Mensaje
+                    {
+                        Fecha = new DateTime(2024, 7, 15),
+                        Remitente = _logicaEquipo.ListarDetallesEquipo(_equipo).Presidente,
+                        Asunto = "Bienvenido al Club",
+                        Contenido = "Desde la Directiva del " + _logicaEquipo.ListarDetallesEquipo(_equipo).Nombre + " te damos la bienvenida. Tenemos muchas esperanzas puestas en tí, y estamos seguros de que contigo empieza una nueva etapa en nuestro club, y que nos esperan grandes éxitos.\n\nLa junta directiva y los empleados te irán informando a través de correos electrónicos de las cosas que sucedan en el club.",
+                        TipoMensaje = "Notificación",
+                        IdEquipo = _equipo,
+                        IdManager = _manager.IdManager,
+                        Leido = false,
+                        Icono = 0 // 0 es icono de equipo
+                    };
+
+                    // Crear el mensaje aconsejando poner precio a los abonos de temporada
+                    string presidente = _logicaEquipo.ListarDetallesEquipo(_equipo).Presidente;
+
+                    Mensaje mensajeAbonados = new Mensaje
+                    {
+                        Fecha = Metodos.hoy,
+                        Remitente = presidente,
+                        Asunto = "Campaña de abonados",
+                        Contenido = $"¡Se ha iniciado la campaña de abonados al club!\n\nPuedes establecer los precios de los abonos de temporada en la sección de ESTADIO.\n\nRecuerda que los abonos solamente pueden realizarse antes del inicio de la competición de Liga.",
+                        TipoMensaje = "Notificación",
+                        IdEquipo = _equipo,
+                        IdManager = _manager.IdManager,
+                        Leido = false,
+                        Icono = 0 // 0 es icono de equipo
+                    };
+
+                    _logicaMensajes.crearMensaje(mensajeAbonados);
+
+                    _logicaMensajes.crearMensaje(mensajeInicio1);
+                });
+
+                progressBar.Visibility = Visibility.Collapsed;
+
+                // Aquí ya puedes confirmar la partida, porque ya no se va a usar más la base de datos temporal
+                string rutaFinal = GestorPartidas.ConfirmarPartida(_rutaPartida);
+                Conexion.EstablecerConexionPartida(rutaFinal);
+
+                // Actualizar ruta en MainWindow por si quieres guardarla allí
+                mainWindow.RutaPartidaActual = rutaFinal;
+            }
 
             Metodos.ReproducirSonidoTransicion();
             mainWindow.CargarPantallaPrincipal(_manager, _equipo);
