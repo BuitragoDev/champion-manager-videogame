@@ -48,8 +48,6 @@ namespace ChampionManager25.UserControls
             imgLiga2.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo2));
             string ruta_logo3 = _logicaCompeticion.ObtenerCompeticion(3).RutaImagen80;
             imgLiga3.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo3));
-            string ruta_logo4 = _logicaCompeticion.ObtenerCompeticion(5).RutaImagen80;
-            imgLiga4.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo4));
         }
 
         // --------------------------------------------- EVENTO CLICK DEL BOTON DIVISIÓN 1 -------------------------------------------------

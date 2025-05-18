@@ -65,7 +65,7 @@
                                        HorizontalAlignment="Center" Margin="10" Cursor="Hand" MouseLeftButtonDown="imgLiga3_MouseLeftButtonDown" />
 
                                 <Image x:Name="imgLiga4" Grid.Column="3" Grid.Row="0" Width="80" Height="80" Stretch="Uniform" VerticalAlignment="Center" 
-                                       HorizontalAlignment="Center" Margin="10" Cursor="Hand" MouseLeftButtonDown="imgLiga4_MouseLeftButtonDown" />
+                                       HorizontalAlignment="Center" Margin="10" Cursor="Hand" Source="/Recursos/img/logos_competiciones/80x80/euLogo.png" MouseLeftButtonDown="imgLiga4_MouseLeftButtonDown" />
 
                                 <Image x:Name="imgLiga5" Grid.Column="4" Grid.Row="0" Width="64" Height="64" Stretch="Uniform" VerticalAlignment="Center" 
                                        HorizontalAlignment="Center" Margin="10" Source="/Recursos/img/icons/freeAgent_icon.png" Cursor="Hand" MouseLeftButtonDown="imgLiga5_MouseLeftButtonDown" />

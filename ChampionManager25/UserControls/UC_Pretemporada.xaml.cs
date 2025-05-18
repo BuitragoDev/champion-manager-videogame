@@ -105,15 +105,6 @@ namespace ChampionManager25.UserControls
             grayBitmap3.EndInit();
             imgLiga3.Source = grayBitmap3;
 
-            string ruta_logo5 = _logicaCompeticion.ObtenerCompeticion(5).RutaImagen;
-            BitmapImage colorImage5 = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo5));
-            FormatConvertedBitmap grayBitmap5 = new FormatConvertedBitmap();
-            grayBitmap5.BeginInit();
-            grayBitmap5.Source = colorImage5;
-            grayBitmap5.DestinationFormat = PixelFormats.Gray8;
-            grayBitmap5.EndInit();
-            imgLiga5.Source = grayBitmap5;
-
             lblNombreMiEquipo.Text = "Rivales de pretemporada del " + miEquipo.Nombre.ToUpper();
             imgLogoMiEquipo.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + miEquipo.RutaImagen64));
 
@@ -222,13 +213,7 @@ namespace ChampionManager25.UserControls
             grayBitmap3.EndInit();
             imgLiga3.Source = grayBitmap3;
 
-            BitmapImage colorImage5 = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo5));
-            FormatConvertedBitmap grayBitmap5 = new FormatConvertedBitmap();
-            grayBitmap5.BeginInit();
-            grayBitmap5.Source = colorImage5;
-            grayBitmap5.DestinationFormat = PixelFormats.Gray8;
-            grayBitmap5.EndInit();
-            imgLiga5.Source = grayBitmap5;
+            imgLiga5.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/logos_competiciones/euLogooff.png"));
 
             imgLiga1.IsEnabled = false;
             imgLiga2.IsEnabled = true;
@@ -266,13 +251,7 @@ namespace ChampionManager25.UserControls
             grayBitmap3.EndInit();
             imgLiga3.Source = grayBitmap3;
 
-            BitmapImage colorImage5 = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo5));
-            FormatConvertedBitmap grayBitmap5 = new FormatConvertedBitmap();
-            grayBitmap5.BeginInit();
-            grayBitmap5.Source = colorImage5;
-            grayBitmap5.DestinationFormat = PixelFormats.Gray8;
-            grayBitmap5.EndInit();
-            imgLiga5.Source = grayBitmap5;
+            imgLiga5.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/logos_competiciones/euLogooff.png"));
 
             imgLiga1.IsEnabled = true;
             imgLiga2.IsEnabled = false;
@@ -310,13 +289,7 @@ namespace ChampionManager25.UserControls
             grayBitmap2.EndInit();
             imgLiga2.Source = grayBitmap2;
 
-            BitmapImage colorImage5 = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo5));
-            FormatConvertedBitmap grayBitmap5 = new FormatConvertedBitmap();
-            grayBitmap5.BeginInit();
-            grayBitmap5.Source = colorImage5;
-            grayBitmap5.DestinationFormat = PixelFormats.Gray8;
-            grayBitmap5.EndInit();
-            imgLiga5.Source = grayBitmap5;
+            imgLiga5.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/logos_competiciones/euLogooff.png"));
 
             imgLiga1.IsEnabled = true;
             imgLiga2.IsEnabled = true;
@@ -336,7 +309,7 @@ namespace ChampionManager25.UserControls
             string ruta_logo3 = _logicaCompeticion.ObtenerCompeticion(3).RutaImagen;
             string ruta_logo5 = _logicaCompeticion.ObtenerCompeticion(5).RutaImagen;
 
-            imgLiga5.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo5));
+            imgLiga5.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/img/logos_competiciones/euLogo.png"));
 
             BitmapImage colorImage = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo1));
             FormatConvertedBitmap grayBitmap = new FormatConvertedBitmap();
