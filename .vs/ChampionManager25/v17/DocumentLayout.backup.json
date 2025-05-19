@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\usercontrols\\uc_pretemporada.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
+      "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\usercontrols\\uc_pretemporada.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|c:\\users\\abuit\\source\\repos\\championmanager25\\championmanager25\\usercontrols\\uc_menu_transferencias_buscarporequipo.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
       "RelativeMoniker": "D:0:0:{D492AC2C-184E-45DF-85BE-4D672D38C3E3}|ChampionManager25\\ChampionManager25.csproj|solutionrelative:championmanager25\\usercontrols\\uc_menu_transferencias_buscarporequipo.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
     },
@@ -22,28 +26,30 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UC_Menu_Transferencias_BuscarPorEquipo.xaml",
-              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Transferencias_BuscarPorEquipo.xaml",
-              "RelativeDocumentMoniker": "ChampionManager25\\UserControls\\UC_Menu_Transferencias_BuscarPorEquipo.xaml",
-              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Transferencias_BuscarPorEquipo.xaml",
-              "RelativeToolTip": "ChampionManager25\\UserControls\\UC_Menu_Transferencias_BuscarPorEquipo.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-05-16T12:01:45.807Z"
+              "DocumentIndex": 0,
+              "Title": "UC_Pretemporada.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Pretemporada.xaml.cs",
+              "RelativeDocumentMoniker": "ChampionManager25\\UserControls\\UC_Pretemporada.xaml.cs",
+              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Pretemporada.xaml.cs",
+              "RelativeToolTip": "ChampionManager25\\UserControls\\UC_Pretemporada.xaml.cs",
+              "ViewState": "AgIAAEkCAAAAAAAAAAAlwEUCAABRAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-19T18:00:12.327Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "UC_Menu_Transferencias_BuscarPorEquipo.xaml.cs",
               "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Transferencias_BuscarPorEquipo.xaml.cs",
               "RelativeDocumentMoniker": "ChampionManager25\\UserControls\\UC_Menu_Transferencias_BuscarPorEquipo.xaml.cs",
               "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Transferencias_BuscarPorEquipo.xaml.cs",
               "RelativeToolTip": "ChampionManager25\\UserControls\\UC_Menu_Transferencias_BuscarPorEquipo.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAHEAAAAAAAAAAAAuwIQAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-16T12:01:24.111Z",
               "EditorCaption": ""
@@ -51,6 +57,18 @@
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "UC_Menu_Transferencias_BuscarPorEquipo.xaml",
+              "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Transferencias_BuscarPorEquipo.xaml",
+              "RelativeDocumentMoniker": "ChampionManager25\\UserControls\\UC_Menu_Transferencias_BuscarPorEquipo.xaml",
+              "ToolTip": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_Menu_Transferencias_BuscarPorEquipo.xaml",
+              "RelativeToolTip": "ChampionManager25\\UserControls\\UC_Menu_Transferencias_BuscarPorEquipo.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-05-16T12:01:45.807Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "UC_PantallaPrincipal.xaml.cs",
               "DocumentMoniker": "C:\\Users\\abuit\\source\\repos\\ChampionManager25\\ChampionManager25\\UserControls\\UC_PantallaPrincipal.xaml.cs",
               "RelativeDocumentMoniker": "ChampionManager25\\UserControls\\UC_PantallaPrincipal.xaml.cs",

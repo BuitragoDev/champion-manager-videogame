@@ -131,7 +131,17 @@ namespace ChampionManager25.UserControls
 
             // Recogemos la lista de equipo.
             List<Equipo> oEquipos = new List<Equipo>();
-            oEquipos = _logicaEquipo.ListarEquiposCompeticion(competicion);
+
+            if (competicion == 5)
+            {
+                oEquipos = _logicaEquipo.ListarEquiposCompeticion(competicion)
+                            .Concat(_logicaEquipo.ListarEquiposCompeticion(6))
+                            .ToList();
+            } 
+            else
+            {
+                oEquipos = _logicaEquipo.ListarEquiposCompeticion(competicion);
+            }
 
             // Variable para rastrear el Border seleccionado
             Border? contenedorSeleccionado = null;

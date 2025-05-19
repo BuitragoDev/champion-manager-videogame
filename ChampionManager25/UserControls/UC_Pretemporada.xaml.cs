@@ -340,7 +340,7 @@ namespace ChampionManager25.UserControls
             imgLiga3.IsEnabled = true;
             imgLiga5.IsEnabled = false;
 
-            CargarEscudos(5, 5);
+            CargarEscudos(5, 6);
         }
         // --------------------------------------------------------------------------------------------------------------------------------
 
@@ -570,11 +570,22 @@ namespace ChampionManager25.UserControls
         #region "Métodos"
         private void CargarEscudos(int minimo, int maximo)
         {
-            // Obtener la lista de equipos
-            List<Equipo> oEquipos = _logicaEquipo.ListarEquiposCompeticion(minimo);
-
             // Limpiar el WrapPanel antes de agregar elementos (opcional)
             wrapPanelEquipos.Children.Clear();
+
+            // Obtener la lista de equipos
+            List<Equipo> oEquipos = new List<Equipo>();
+
+            if (minimo == 5)
+            {
+                oEquipos = _logicaEquipo.ListarEquiposCompeticion(minimo)
+                            .Concat(_logicaEquipo.ListarEquiposCompeticion(maximo))
+                            .ToList();
+            }
+            else
+            {
+                oEquipos = _logicaEquipo.ListarEquiposCompeticion(minimo);
+            }
 
             foreach (var equipo in oEquipos)
             {

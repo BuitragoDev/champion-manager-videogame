@@ -509,7 +509,7 @@ namespace ChampionManager25.UserControls {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ChampionManager25;V1.0.0.0;component/usercontrols/uc_pretemporada.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/ChampionManager25;component/usercontrols/uc_pretemporada.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\UserControls\UC_Pretemporada.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

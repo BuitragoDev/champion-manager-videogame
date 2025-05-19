@@ -125,8 +125,8 @@ namespace ChampionManager25.UserControls {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ChampionManager25;V1.0.0.0;component/usercontrols/uc_menu_transferencias_buscarp" +
-                    "orequipo.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/ChampionManager25;component/usercontrols/uc_menu_transferencias_buscarporequipo." +
+                    "xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\UserControls\UC_Menu_Transferencias_BuscarPorEquipo.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

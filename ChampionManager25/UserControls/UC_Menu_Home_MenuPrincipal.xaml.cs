@@ -397,6 +397,42 @@ namespace ChampionManager25.UserControls
                         new DataTrigger
                         {
                             Binding = new System.Windows.Data.Binding("Posicion"),
+                            Value = 1,
+                            Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.SteelBlue) }
+                        },
+                        new DataTrigger
+                        {
+                            Binding = new System.Windows.Data.Binding("Posicion"),
+                            Value = 2,
+                            Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.SteelBlue) }
+                        },
+                        new DataTrigger
+                        {
+                            Binding = new System.Windows.Data.Binding("Posicion"),
+                            Value = 3,
+                            Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.SteelBlue) }
+                        },
+                        new DataTrigger
+                        {
+                            Binding = new System.Windows.Data.Binding("Posicion"),
+                            Value = 4,
+                            Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.SteelBlue) }
+                        },
+                        new DataTrigger
+                        {
+                            Binding = new System.Windows.Data.Binding("Posicion"),
+                            Value = 5,
+                            Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
+                        },
+                        new DataTrigger
+                        {
+                            Binding = new System.Windows.Data.Binding("Posicion"),
+                            Value = 6,
+                            Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkGreen) }
+                        },
+                        new DataTrigger
+                        {
+                            Binding = new System.Windows.Data.Binding("Posicion"),
                             Value = numeroEquipo - 3,
                             Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.DarkRed) }
                         },
