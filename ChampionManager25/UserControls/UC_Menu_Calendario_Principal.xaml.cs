@@ -80,8 +80,12 @@ namespace ChampionManager25.UserControls
             // Obtiene los partidos del equipo
             List<Partido> _partidosLiga = _logicaPartido.MostrarMisPartidos(_equipo, _manager.IdManager);
             List<Partido> _partidosCopa = _logicaPartido.MostrarMisPartidosCopaNacional(_equipo, _manager.IdManager);
+            List<Partido> _partidosEuropa1 = _logicaPartido.MostrarMisPartidosCopaEuropa1(_equipo, _manager.IdManager);
 
-            _partidos = _partidosLiga.Concat(_partidosCopa).ToList();
+            _partidos = _partidosLiga
+                        .Concat(_partidosCopa)
+                        .Concat(_partidosEuropa1)
+                        .ToList();
 
             // Genera el calendario
             GenerarCalendario();

@@ -94,6 +94,13 @@ namespace ChampionManager25.UserControls
                         List<Equipo> listaEquipos = _logicaEquipo.ListarTodosLosEquipos();
                         GeneralCalendarioCopa(listaEquipos);
 
+                        // Generar el calendario de Champions
+                        List<Equipo> equiposChampions = _logicaEquipo.EquiposJueganEuropa1(1)
+                                                        .Concat(_logicaEquipo.ListarEquiposCompeticion(5))
+                                                        .OrderBy(e => Guid.NewGuid())
+                                                        .ToList();
+                        _datosPartido.GenerarCalendarioChampions(equiposChampions, 5, _manager.IdManager, ObtenerSegundoMiercolesOctubre(Metodos.temporadaActual));
+
                         // Generar las clasificaciones
                         _logicaClasificacion.RellenarClasificacion(1, _manager.IdManager);
                         _logicaClasificacion.RellenarClasificacion2(2, _manager.IdManager);
@@ -270,6 +277,28 @@ namespace ChampionManager25.UserControls
                 {
                     miercolesEncontrados++;
                     if (miercolesEncontrados == 1)
+                    {
+                        return fecha;
+                    }
+                }
+
+                fecha = fecha.AddDays(1);
+            }
+
+            throw new Exception("No se encontró el tercer sábado de agosto.");
+        }
+
+        public static DateTime ObtenerSegundoMiercolesOctubre(int anio)
+        {
+            DateTime fecha = new DateTime(anio, 10, 1);
+            int miercolesEncontrados = 0;
+
+            while (fecha.Month == 10)
+            {
+                if (fecha.DayOfWeek == DayOfWeek.Wednesday)
+                {
+                    miercolesEncontrados++;
+                    if (miercolesEncontrados == 2)
                     {
                         return fecha;
                     }

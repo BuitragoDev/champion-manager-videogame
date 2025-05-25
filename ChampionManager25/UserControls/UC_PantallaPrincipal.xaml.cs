@@ -740,7 +740,7 @@ namespace ChampionManager25.UserControls
                 if (miPartido != null && miPartido.FechaPartido == Metodos.hoy)
                 {
                     int cont = 0;
-                    if (miPartido.IdCompeticion != 4)
+                    if (miPartido.IdCompeticion != 4 || miPartido.IdCompeticion != 5)
                     {
                         // Comprobamos si hay jugadores lesionados o sancionados en la alineacion titular en partidos de Liga
                         List<Jugador> alineacion = _logicaJugador.MostrarAlineacion(1, 11);
@@ -1145,6 +1145,13 @@ namespace ChampionManager25.UserControls
                                 // Generar el calendario de Copa nacional
                                 List<Equipo> listaEquipos = _logicaEquipo.ListarTodosLosEquipos();
                                 GeneralCalendarioCopa(listaEquipos);
+
+                                // Generar el calendario de Champions
+                                List<Equipo> equiposChampions = _logicaEquipo.EquiposJueganEuropa1(1)
+                                                                .Concat(_logicaEquipo.ListarEquiposCompeticion(5))
+                                                                .OrderBy(e => Guid.NewGuid())
+                                                                .ToList();
+                                _logicaPartidos.GenerarCalendarioChampions(equiposChampions, 5, _manager.IdManager, ObtenerSegundoMiercolesOctubre(Metodos.temporadaActual));
 
                                 // Generar las clasificaciones
                                 _logicaClasificacion.RellenarClasificacion(1, _manager.IdManager);
@@ -2002,6 +2009,28 @@ namespace ChampionManager25.UserControls
                 {
                     miercolesEncontrados++;
                     if (miercolesEncontrados == 1)
+                    {
+                        return fecha;
+                    }
+                }
+
+                fecha = fecha.AddDays(1);
+            }
+
+            throw new Exception("No se encontró el tercer sábado de agosto.");
+        }
+
+        public static DateTime ObtenerSegundoMiercolesOctubre(int anio)
+        {
+            DateTime fecha = new DateTime(anio, 10, 1);
+            int miercolesEncontrados = 0;
+
+            while (fecha.Month == 10)
+            {
+                if (fecha.DayOfWeek == DayOfWeek.Wednesday)
+                {
+                    miercolesEncontrados++;
+                    if (miercolesEncontrados == 2)
                     {
                         return fecha;
                     }

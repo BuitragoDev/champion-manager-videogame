@@ -84,5 +84,17 @@ namespace ChampionManager25.Logica
         {
             _datos.ActualizarAforo(equipo, aumento);
         }
+
+        // Llamada al método para Mostrar los equipos que juega Europa 1
+        public List<Equipo> EquiposJueganEuropa1(int competicion)
+        {
+            return _datos.EquiposJueganEuropa1(competicion);
+        }
+
+        // Llamada al método para Mostrar los equipos que juega Europa 2
+        public List<Equipo> EquiposJueganEuropa2(int competicion)
+        {
+            return _datos.EquiposJueganEuropa2(competicion);
+        }
     }
 }

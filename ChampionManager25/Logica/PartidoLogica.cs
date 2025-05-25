@@ -24,6 +24,18 @@ namespace ChampionManager25.Logica
             return _datos.crearPartidoCopa(local, visitante, fecha, competicion, ronda, partidoVuelta, idManager);
         }
 
+        // Llamada al método para insertar un nuevo partido de Copa Europa 1
+        public int CrearPartidoCopaEuropa(int local, int visitante, string fecha, int competicion, int jornada, int idMng)
+        {
+            return _datos.CrearPartidoCopaEuropa(local, visitante, fecha, competicion, jornada, idMng);
+        }
+
+        // Llamada al menerar calendario de Champions
+        public void GenerarCalendarioChampions(List<Equipo> idEquipos, int idCompeticion, int idManager, DateTime fechaInicio)
+        {
+            _datos.GenerarCalendarioChampions(idEquipos, idCompeticion, idManager, fechaInicio);
+        }
+
         // Llamada al método que elimina un partido.
         public void eliminarPartidos(List<int> idsPartidos)
         {
@@ -49,10 +61,16 @@ namespace ChampionManager25.Logica
             return _datos.MostrarMisPartidos(equipo, idManager);
         }
 
-        // Método que devuelve todos los partidos de mi equipo en Copa
+        // Llamada al método que devuelve todos los partidos de mi equipo en Copa
         public List<Partido> MostrarMisPartidosCopaNacional(int equipo, int idManager)
         {
             return _datos.MostrarMisPartidosCopaNacional(equipo, idManager);
+        }
+
+        // Llamada al método que devuelve todos los partidos de mi equipo en Copa de Europa 1
+        public List<Partido> MostrarMisPartidosCopaEuropa1(int equipo, int idManager)
+        {
+            return _datos.MostrarMisPartidosCopaEuropa1(equipo, idManager);
         }
 
         // Llamada al método que devuelve un partido en base a una fecha
