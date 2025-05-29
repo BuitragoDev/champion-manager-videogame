@@ -13,10 +13,22 @@ namespace ChampionManager25.Logica
         // Instanciar EstadisticaDatos dentro de la clase lógica
         private EstadisticaDatos _datos = new EstadisticaDatos();
 
-        // Llamada al método para Crear una fila de estadística para jugador del juego
-        public void InsertarEstadisticasJugadores(int numJugadores, int manager)
+        // Llamada al método para Crear una fila de estadística para jugador de liga
+        public void InsertarEstadisticasJugadores(int manager)
         {
-            _datos.InsertarEstadisticasJugadores(numJugadores, manager);
+            _datos.InsertarEstadisticasJugadores(manager);
+        }
+
+        // Llamada al método para Crear una fila de estadística para jugador de Europa
+        public void InsertarEstadisticasJugadoresEuropa(int manager)
+        {
+            _datos.InsertarEstadisticasJugadoresEuropa(manager);
+        }
+
+        // Llamada al metodo que inserta una fila estadistica de un jugador
+        public void InsertarLineaEstadisticaJugador(int numJugador, int manager)
+        {
+            _datos.InsertarLineaEstadisticaJugador(numJugador, manager);
         }
 
         // Llamada al método que devuelve el jugador con más Goles
@@ -85,6 +97,12 @@ namespace ChampionManager25.Logica
             _datos.ActualizarEstadisticas(estadistica);
         }
 
+        // Llamada al método para actualizar las estadisticas de los jugadores de Europa
+        public void ActualizarEstadisticasEuropa(Estadistica estadistica)
+        {
+            _datos.ActualizarEstadisticasEuropa(estadistica);
+        }
+
         // Llamada al método para resetea la estadistica de un jugador
         public void ResetearEstadisticaJugador(int jugador)
         {
@@ -97,10 +115,28 @@ namespace ChampionManager25.Logica
             _datos.ResetearEstadisticas();
         }
 
-        // Llamada al metodo que muestra los 3 mejores jugadores de la temporada
+        // Llamada al metodo que resetea las estadisticas de los jugadores
+        public void ResetearEstadisticasEuropa()
+        {
+            _datos.ResetearEstadisticasEuropa();
+        }
+
+        // Llamada al metodo que muestra los 3 mejores jugadores de la temporada en Liga
         public List<Jugador> BalonDeOro()
         {
             return _datos.BalonDeOro();
+        }
+
+        // Llamada al metodo que muestra los 3 mejores jugadores de la temporada en Copa de Europa 1
+        public List<Jugador> BalonDeOroEuropa1()
+        {
+            return _datos.BalonDeOroEuropa1();
+        }
+
+        // Llamada al metodo que muestra los 3 mejores jugadores de la temporada en Copa de Europa 2
+        public List<Jugador> BalonDeOroEuropa2()
+        {
+            return _datos.BalonDeOroEuropa2();
         }
 
         // Llamada al metodo que muestra los 3 mejores jugadores de la temporada

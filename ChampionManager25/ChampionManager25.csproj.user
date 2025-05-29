@@ -77,6 +77,12 @@
     <Compile Update="UserControls\UC_Menu_Competicion_PalmaresCopa.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\UC_Menu_Competicion_PalmaresEuropa1.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Competicion_PalmaresEuropa2.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\UC_Menu_Competicion_Palmares_Jugadores.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -84,6 +90,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControls\UC_Menu_Competicion_ResultadosCopa.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Competicion_ResultadosEuropa1.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UC_Menu_Competicion_ResultadosEuropa2.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControls\UC_Menu_Correo.xaml.cs">
@@ -207,6 +219,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Vistas\frmPonerEnMercado.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Vistas\frmResumenCopaEuropa1.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Vistas\frmResumenCopaEuropa2.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Vistas\frmResumenCopaNacional.xaml.cs">

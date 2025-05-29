@@ -33,6 +33,9 @@ namespace ChampionManager25.Vistas
         Equipo equipoVisitante;
 
         public int copaFinalizada = 0;
+        public int copaEuropa1Finalizada = 0;
+        public int copaEuropa2Finalizada = 0;
+        int miCompeticionEuropea;
 
         private static Random random = new Random(); //Random global
         #endregion
@@ -47,6 +50,7 @@ namespace ChampionManager25.Vistas
         EntrenadorLogica _logicaEntrenador = new EntrenadorLogica();
         CompeticionLogica _logicaCompeticion = new CompeticionLogica();
         ManagerLogica _logicaManager = new ManagerLogica();
+        FinanzaLogica _logicaFinanza = new FinanzaLogica();
 
         public frmSimulandoPartidos(Manager manager, int equipo, List<Partido> listaPartidos)
         {
@@ -71,8 +75,38 @@ namespace ChampionManager25.Vistas
 
         private async void simulacionPartidos_Loaded(object sender, RoutedEventArgs e)
         {
+            DayOfWeek diaSemanaIngles = Metodos.hoy.DayOfWeek;
+            string diaSemana = "";
+
+            switch (diaSemanaIngles)
+            {
+                case DayOfWeek.Monday:
+                    diaSemana = "Lunes";
+                    break;
+                case DayOfWeek.Tuesday:
+                    diaSemana = "Martes";
+                    break;
+                case DayOfWeek.Wednesday:
+                    diaSemana = "Miércoles";
+                    break;
+                case DayOfWeek.Thursday:
+                    diaSemana = "Jueves";
+                    break;
+                case DayOfWeek.Friday:
+                    diaSemana = "Viernes";
+                    break;
+                case DayOfWeek.Saturday:
+                    diaSemana = "Sábado";
+                    break;
+                case DayOfWeek.Sunday:
+                    diaSemana = "Domingo";
+                    break;
+            }
+
+            txtSimulando.Text = $"Simulando partidos de la {_logicaCompeticion.MostrarNombreCompeticion(listaPartidos[0].IdCompeticion)} ({diaSemana}, {Metodos.hoy.ToString("dd-MM-yyyy")})...";
             int comp = listaPartidos[0].IdCompeticion; // IdCompeticion del primer partido
             int partidoVuelta = listaPartidos[0].PartidoVuelta ?? 0; // Comprobar si es un partido de vuelta
+            miCompeticionEuropea = _logicaEquipo.ListarDetallesEquipo(_equipo).CompeticionEuropea;
 
             if (comp == 4)
             {
@@ -82,6 +116,46 @@ namespace ChampionManager25.Vistas
                 string ruta_logo = _logicaCompeticion.ObtenerCompeticion(4).RutaImagen80;
                 imgCompeticion.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_logo));
                 lblTituloVentana.Text += $" ({nombreRonda})";
+            }
+            if (comp == 5)
+            {
+                if (listaPartidos[0].Ronda == 0)
+                {
+                    int jornada = listaPartidos[0].Jornada ?? 0; // Jornada de Copa de Europa 1
+                    string ruta_comp = _logicaCompeticion.ObtenerCompeticion(5).RutaImagen80;
+                    imgCompeticion.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_comp));
+                    lblTituloVentana.Text += $" (Jornada {jornada})";
+                }
+                else
+                {
+                    int ronda = listaPartidos[0].Ronda ?? 0; // Ronda de Copa Europa 1
+
+                    string nombreRonda = _logicaPartidos.ObtenerNombreRonda(ronda);
+                    string ruta_comp = _logicaCompeticion.ObtenerCompeticion(5).RutaImagen80;
+                    imgCompeticion.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_comp));
+                    lblTituloVentana.Text += $" ({nombreRonda})";
+                }
+
+            }
+            if (comp == 6)
+            {
+                if (listaPartidos[0].Ronda == 0)
+                {
+                    int jornada = listaPartidos[0].Jornada ?? 0; // Jornada de Copa de Europa 2
+                    string ruta_comp = _logicaCompeticion.ObtenerCompeticion(6).RutaImagen80;
+                    imgCompeticion.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_comp));
+                    lblTituloVentana.Text += $" (Jornada {jornada})";
+                }
+                else
+                {
+                    int ronda = listaPartidos[0].Ronda ?? 0; // Ronda de Copa Europa 2
+
+                    string nombreRonda = _logicaPartidos.ObtenerNombreRonda(ronda);
+                    string ruta_comp = _logicaCompeticion.ObtenerCompeticion(6).RutaImagen80;
+                    imgCompeticion.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_comp));
+                    lblTituloVentana.Text += $" ({nombreRonda})";
+                }
+
             }
             else if (comp >= 1 && comp <= 2) 
             { 
@@ -135,7 +209,7 @@ namespace ChampionManager25.Vistas
                     {
                         // Mostrar ventana emergente
                         string titulo = "INFORMACIÓN";
-                        string mensaje = "Felicidades por el trabajo realizado en la eliminatoria de Copa.\nEl equipo ha logrado el pase a la siguiente ronda, cumpliendo con lo esperado y manteniendo vivas nuestras aspiraciones en esta competición.";
+                        string mensaje = "Felicidades por el trabajo realizado en la eliminatoria de Copa.\n\nEl equipo ha logrado el pase a la siguiente ronda, cumpliendo con lo esperado y manteniendo vivas nuestras aspiraciones en esta competición.";
                         frmVentanaEmergenteDosBotones ventanaPasoDeRonda = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
                         ventanaPasoDeRonda.ShowDialog();
 
@@ -176,6 +250,292 @@ namespace ChampionManager25.Vistas
                 if (ronda > 5)
                 {
                     copaFinalizada = 1;
+                }
+            }
+
+            if (comp == 5)
+            {
+                int ronda = listaPartidos[0].Ronda ?? 0; 
+                int jornada = listaPartidos[0].Jornada ?? 0; 
+
+                if (jornada == 8)
+                {
+                    List<Clasificacion> clasificacionEuropa1 = _logicaClasificacion.MostrarClasificacionCopaEuropa1(5, _manager.IdManager);
+                    List<int> clasificadosEuropa1 = new List<int>();
+
+                    // Se crea la lista con los idEquipo de los 16 primeros
+                    foreach (var equipo in clasificacionEuropa1.Take(16))
+                    {
+                        clasificadosEuropa1.Add(equipo.IdEquipo);
+                    }
+
+                    // Generar los partidos de la siguiente ronda de Copa Europa 1
+                    GenerarCalendarioEuropa1(clasificadosEuropa1, jornada, ronda);
+
+                    if (miCompeticionEuropea == 5)
+                    {
+                        // Comprobar si mi equipo ha pasado de ronda
+                        bool clasificado = false;
+                        foreach (var equipo in clasificadosEuropa1)
+                        {
+                            if (equipo == _equipo)
+                            {
+                                clasificado = true;
+                            }
+                        }
+                        if (clasificado == true)
+                        {
+                            // Mostrar ventana emergente
+                            string titulo = "INFORMACIÓN";
+                            string mensaje = $"Felicidades por el trabajo realizado en la {_logicaCompeticion.MostrarNombreCompeticion(5)}.\n\nEl equipo ha logrado el pase a la siguiente ronda, cumpliendo con lo esperado y manteniendo vivas nuestras aspiraciones en esta competición.";
+                            frmVentanaEmergenteDosBotones ventanaPasoDeRonda = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
+                            ventanaPasoDeRonda.ShowDialog();
+
+                            // Actualizar confianza
+                            _logicaManager.ActualizarConfianza(_manager.IdManager, 10, 15, 10);
+                        }
+                        else
+                        {
+                            int miUltimoRonda = _logicaPartidos.ObtenerUltimaRondaJugadaMiEquipo(_equipo);
+                            if (miUltimoRonda >= ronda)
+                            {
+                                int reputacion = _logicaEquipo.ListarDetallesEquipo(_equipo).Reputacion;
+                                string mensaje = "";
+
+                                if (reputacion > 89)
+                                {
+                                    mensaje = $"El equipo ha quedado eliminado de la {_logicaCompeticion.MostrarNombreCompeticion(5)}, un resultado que está por debajo de las expectativas marcadas para esta competición.";
+                                }
+                                else if (reputacion > 74)
+                                {
+                                    mensaje = $"Tras una participación irregular, el equipo ha quedado eliminado de la {_logicaCompeticion.MostrarNombreCompeticion(5)}.";
+                                }
+                                else
+                                {
+                                    mensaje = $"Pese a la eliminación, queremos reconocer el esfuerzo del equipo en esta edición de la {_logicaCompeticion.MostrarNombreCompeticion(5)}. La imagen ofrecida ha sido competitiva, y se ha luchado hasta el último minuto.";
+                                }
+
+                                // Mostrar ventana emergente
+                                string titulo = "INFORMACIÓN";
+                                frmVentanaEmergenteDosBotones ventanaPasoDeRonda = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
+                                ventanaPasoDeRonda.ShowDialog();
+
+                                // Actualizar confianza
+                                _logicaManager.ActualizarConfianza(_manager.IdManager, -10, -15, -5);
+                            }
+                        }
+                    }
+                } 
+                else if (jornada > 8)
+                {
+                    if (partidoVuelta == 1)
+                    {
+                        List<int> clasificadosEuropa1 = _logicaPartidos.ObtenerEquiposClasificadosEuropa1(ronda, 5, _manager.IdManager);
+
+                        // Generar los partidos de la siguiente ronda
+                        GenerarCalendarioEuropa1(clasificadosEuropa1, jornada, ronda);
+
+                        if (miCompeticionEuropea == 5)
+                        {
+                            // Comprobar si mi equipo ha pasado de ronda
+                            bool clasificado = false;
+                            foreach (var equipo in clasificadosEuropa1)
+                            {
+                                if (equipo == _equipo)
+                                {
+                                    clasificado = true;
+                                }
+                            }
+                            if (clasificado == true)
+                            {
+                                // Mostrar ventana emergente
+                                string titulo = "INFORMACIÓN";
+                                string mensaje = $"Felicidades por el trabajo realizado en la {_logicaCompeticion.MostrarNombreCompeticion(5)}.\n\nEl equipo ha logrado el pase a la siguiente ronda, cumpliendo con lo esperado y manteniendo vivas nuestras aspiraciones en esta competición.";
+                                frmVentanaEmergenteDosBotones ventanaPasoDeRonda = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
+                                ventanaPasoDeRonda.ShowDialog();
+
+                                // Actualizar confianza
+                                _logicaManager.ActualizarConfianza(_manager.IdManager, 10, 15, 10);
+                            }
+                            else
+                            {
+                                int miUltimoRonda = _logicaPartidos.ObtenerUltimaRondaJugadaMiEquipo(_equipo);
+                                if (miUltimoRonda >= ronda)
+                                {
+                                    int reputacion = _logicaEquipo.ListarDetallesEquipo(_equipo).Reputacion;
+                                    string mensaje = "";
+
+                                    if (reputacion > 89)
+                                    {
+                                        mensaje = $"El equipo ha quedado eliminado de la {_logicaCompeticion.MostrarNombreCompeticion(5)}, un resultado que está por debajo de las expectativas marcadas para esta competición.";
+                                    }
+                                    else if (reputacion > 74)
+                                    {
+                                        mensaje = $"Tras una participación irregular, el equipo ha quedado eliminado de la {_logicaCompeticion.MostrarNombreCompeticion(5)}.";
+                                    }
+                                    else
+                                    {
+                                        mensaje = $"Pese a la eliminación, queremos reconocer el esfuerzo del equipo en esta edición de la {_logicaCompeticion.MostrarNombreCompeticion(5)}. La imagen ofrecida ha sido competitiva, y se ha luchado hasta el último minuto.";
+                                    }
+
+                                    // Mostrar ventana emergente
+                                    string titulo = "INFORMACIÓN";
+                                    frmVentanaEmergenteDosBotones ventanaPasoDeRonda = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
+                                    ventanaPasoDeRonda.ShowDialog();
+
+                                    // Actualizar confianza
+                                    _logicaManager.ActualizarConfianza(_manager.IdManager, -10, -15, -5);
+                                }
+                            }
+                        }                 
+                    }
+                }
+                if (ronda > 5)
+                {
+                    copaEuropa1Finalizada = 1;
+                }
+            }
+
+            if (comp == 6)
+            {
+                int ronda2 = listaPartidos[0].Ronda ?? 0;
+                int jornada2 = listaPartidos[0].Jornada ?? 0;
+
+                if (jornada2 == 8)
+                {
+                    List<Clasificacion> clasificacionEuropa2 = _logicaClasificacion.MostrarClasificacionCopaEuropa2(6, _manager.IdManager);
+                    List<int> clasificadosEuropa2 = new List<int>();
+
+                    // Se crea la lista con los idEquipo de los 16 primeros
+                    foreach (var equipo in clasificacionEuropa2.Take(16))
+                    {
+                        clasificadosEuropa2.Add(equipo.IdEquipo);
+                    }
+
+                    // Generar los partidos de la siguiente ronda de Copa Europa 1
+                    GenerarCalendarioEuropa2(clasificadosEuropa2, jornada2, ronda2);
+
+                    if (miCompeticionEuropea == 6)
+                    {
+                        // Comprobar si mi equipo ha pasado de ronda
+                        bool clasificado = false;
+                        foreach (var equipo in clasificadosEuropa2)
+                        {
+                            if (equipo == _equipo)
+                            {
+                                clasificado = true;
+                            }
+                        }
+                        if (clasificado == true)
+                        {
+                            // Mostrar ventana emergente
+                            string titulo = "INFORMACIÓN";
+                            string mensaje = $"Felicidades por el trabajo realizado en la {_logicaCompeticion.MostrarNombreCompeticion(6)}.\n\nEl equipo ha logrado el pase a la siguiente ronda, cumpliendo con lo esperado y manteniendo vivas nuestras aspiraciones en esta competición.";
+                            frmVentanaEmergenteDosBotones ventanaPasoDeRonda = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
+                            ventanaPasoDeRonda.ShowDialog();
+
+                            // Actualizar confianza
+                            _logicaManager.ActualizarConfianza(_manager.IdManager, 10, 15, 10);
+                        }
+                        else
+                        {
+                            int miUltimoRonda = _logicaPartidos.ObtenerUltimaRondaJugadaMiEquipo(_equipo);
+                            if (miUltimoRonda >= ronda2)
+                            {
+                                int reputacion = _logicaEquipo.ListarDetallesEquipo(_equipo).Reputacion;
+                                string mensaje = "";
+
+                                if (reputacion > 89)
+                                {
+                                    mensaje = $"El equipo ha quedado eliminado de la {_logicaCompeticion.MostrarNombreCompeticion(6)}, un resultado que está por debajo de las expectativas marcadas para esta competición.";
+                                }
+                                else if (reputacion > 74)
+                                {
+                                    mensaje = $"Tras una participación irregular, el equipo ha quedado eliminado de la {_logicaCompeticion.MostrarNombreCompeticion(6)}.";
+                                }
+                                else
+                                {
+                                    mensaje = $"Pese a la eliminación, queremos reconocer el esfuerzo del equipo en esta edición de la {_logicaCompeticion.MostrarNombreCompeticion(6)}. La imagen ofrecida ha sido competitiva, y se ha luchado hasta el último minuto.";
+                                }
+
+                                // Mostrar ventana emergente
+                                string titulo = "INFORMACIÓN";
+                                frmVentanaEmergenteDosBotones ventanaPasoDeRonda = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
+                                ventanaPasoDeRonda.ShowDialog();
+
+                                // Actualizar confianza
+                                _logicaManager.ActualizarConfianza(_manager.IdManager, -10, -15, -5);
+                            }
+                        }
+                    }      
+                }
+                else if (jornada2 > 8)
+                {
+                    if (partidoVuelta == 1)
+                    {
+                        List<int> clasificadosEuropa2 = _logicaPartidos.ObtenerEquiposClasificadosEuropa2(ronda2, 6, _manager.IdManager);
+
+                        // Generar los partidos de la siguiente ronda
+                        GenerarCalendarioEuropa2(clasificadosEuropa2, jornada2, ronda2);
+
+                        if (miCompeticionEuropea == 6)
+                        {
+                            // Comprobar si mi equipo ha pasado de ronda
+                            bool clasificado = false;
+                            foreach (var equipo in clasificadosEuropa2)
+                            {
+                                if (equipo == _equipo)
+                                {
+                                    clasificado = true;
+                                }
+                            }
+                            if (clasificado == true)
+                            {
+                                // Mostrar ventana emergente
+                                string titulo = "INFORMACIÓN";
+                                string mensaje = $"Felicidades por el trabajo realizado en la {_logicaCompeticion.MostrarNombreCompeticion(6)}.\n\nEl equipo ha logrado el pase a la siguiente ronda, cumpliendo con lo esperado y manteniendo vivas nuestras aspiraciones en esta competición.";
+                                frmVentanaEmergenteDosBotones ventanaPasoDeRonda = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
+                                ventanaPasoDeRonda.ShowDialog();
+
+                                // Actualizar confianza
+                                _logicaManager.ActualizarConfianza(_manager.IdManager, 10, 15, 10);
+                            }
+                            else
+                            {
+                                int miUltimoRonda = _logicaPartidos.ObtenerUltimaRondaJugadaMiEquipo(_equipo);
+                                if (miUltimoRonda >= ronda2)
+                                {
+                                    int reputacion = _logicaEquipo.ListarDetallesEquipo(_equipo).Reputacion;
+                                    string mensaje = "";
+
+                                    if (reputacion > 89)
+                                    {
+                                        mensaje = $"El equipo ha quedado eliminado de la {_logicaCompeticion.MostrarNombreCompeticion(6)}, un resultado que está por debajo de las expectativas marcadas para esta competición.";
+                                    }
+                                    else if (reputacion > 74)
+                                    {
+                                        mensaje = $"Tras una participación irregular, el equipo ha quedado eliminado de la {_logicaCompeticion.MostrarNombreCompeticion(6)}.";
+                                    }
+                                    else
+                                    {
+                                        mensaje = $"Pese a la eliminación, queremos reconocer el esfuerzo del equipo en esta edición de la {_logicaCompeticion.MostrarNombreCompeticion(6)}. La imagen ofrecida ha sido competitiva, y se ha luchado hasta el último minuto.";
+                                    }
+
+                                    // Mostrar ventana emergente
+                                    string titulo = "INFORMACIÓN";
+                                    frmVentanaEmergenteDosBotones ventanaPasoDeRonda = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
+                                    ventanaPasoDeRonda.ShowDialog();
+
+                                    // Actualizar confianza
+                                    _logicaManager.ActualizarConfianza(_manager.IdManager, -10, -15, -5);
+                                }
+                            }
+                        }                   
+                    }
+                }
+                if (ronda2 > 5)
+                {
+                    copaEuropa2Finalizada = 1;
                 }
             }
         }
@@ -383,6 +743,256 @@ namespace ChampionManager25.Vistas
             if (partido.IdCompeticion == 4)
             {
                 _logicaPartidos.ActualizarPartidoCopaNacional(partido);
+            }
+
+            // ACTUALIZAR DATOS SI ES UN PARTIDO DE COPA DE EUROPA 1
+            if (partido.IdCompeticion == 5)
+            {
+                _logicaPartidos.ActualizarPartidoCopaEuropa1(partido);
+
+                // Actualizar la clasificacion
+                Clasificacion cla_local;
+                Clasificacion cla_visitante;
+                if (golesLocal == golesVisitante)
+                {
+                    cla_local = new Clasificacion
+                    {
+                        IdEquipo = partido.IdEquipoLocal,
+                        Jugados = 1,
+                        Ganados = 0,
+                        Empatados = 1,
+                        Perdidos = 0,
+                        Puntos = 1,
+                        LocalVictorias = 0,
+                        LocalDerrotas = 0,
+                        VisitanteVictorias = 0,
+                        VisitanteDerrotas = 0,
+                        GolesFavor = golesLocal,
+                        GolesContra = golesVisitante,
+                        Racha = 0
+                    };
+                    cla_visitante = new Clasificacion
+                    {
+                        IdEquipo = partido.IdEquipoVisitante,
+                        Jugados = 1,
+                        Ganados = 0,
+                        Empatados = 1,
+                        Perdidos = 0,
+                        Puntos = 1,
+                        LocalVictorias = 0,
+                        LocalDerrotas = 0,
+                        VisitanteVictorias = 0,
+                        VisitanteDerrotas = 0,
+                        GolesFavor = golesVisitante,
+                        GolesContra = golesLocal,
+                        Racha = 0
+                    };
+                }
+                else if (golesLocal > golesVisitante)
+                {
+                    cla_local = new Clasificacion
+                    {
+                        IdEquipo = partido.IdEquipoLocal,
+                        Jugados = 1,
+                        Ganados = 1,
+                        Empatados = 0,
+                        Perdidos = 0,
+                        Puntos = 3,
+                        LocalVictorias = 1,
+                        LocalDerrotas = 0,
+                        VisitanteVictorias = 0,
+                        VisitanteDerrotas = 0,
+                        GolesFavor = golesLocal,
+                        GolesContra = golesVisitante,
+                        Racha = 1
+                    };
+                    cla_visitante = new Clasificacion
+                    {
+                        IdEquipo = partido.IdEquipoVisitante,
+                        Jugados = 1,
+                        Ganados = 0,
+                        Empatados = 0,
+                        Perdidos = 1,
+                        Puntos = 0,
+                        LocalVictorias = 0,
+                        LocalDerrotas = 0,
+                        VisitanteVictorias = 0,
+                        VisitanteDerrotas = 1,
+                        GolesFavor = golesVisitante,
+                        GolesContra = golesLocal,
+                        Racha = -1
+                    };
+                }
+                else
+                {
+                    cla_local = new Clasificacion
+                    {
+                        IdEquipo = partido.IdEquipoLocal,
+                        Jugados = 1,
+                        Ganados = 0,
+                        Empatados = 0,
+                        Perdidos = 1,
+                        Puntos = 0,
+                        LocalVictorias = 0,
+                        LocalDerrotas = 1,
+                        VisitanteVictorias = 0,
+                        VisitanteDerrotas = 0,
+                        GolesFavor = golesLocal,
+                        GolesContra = golesVisitante,
+                        Racha = -1
+                    };
+                    cla_visitante = new Clasificacion
+                    {
+                        IdEquipo = partido.IdEquipoVisitante,
+                        Jugados = 1,
+                        Ganados = 1,
+                        Empatados = 0,
+                        Perdidos = 0,
+                        Puntos = 3,
+                        LocalVictorias = 0,
+                        LocalDerrotas = 0,
+                        VisitanteVictorias = 1,
+                        VisitanteDerrotas = 0,
+                        GolesFavor = golesVisitante,
+                        GolesContra = golesLocal,
+                        Racha = 1
+                    };
+                }
+
+                if (partido.Jornada <= 8)
+                {
+                    // Actualizar la Clasificacion de la Copa de Europa 1
+                    _logicaClasificacion.ActualizarClasificacionEuropa1(cla_local);
+                    _logicaClasificacion.ActualizarClasificacionEuropa1(cla_visitante);
+                }         
+
+                // Actualizar estadísticas de cada jugador en la base de datos
+                ActualizarEstadisticasPartidoEuropa(jugadoresLocal, jugadoresVisitante, golesYAsistencias, tarjetas, mvp);
+            }
+
+            // ACTUALIZAR DATOS SI ES UN PARTIDO DE COPA DE EUROPA 2
+            if (partido.IdCompeticion == 6)
+            {
+                _logicaPartidos.ActualizarPartidoCopaEuropa2(partido);
+
+                // Actualizar la clasificacion
+                Clasificacion cla_local;
+                Clasificacion cla_visitante;
+                if (golesLocal == golesVisitante)
+                {
+                    cla_local = new Clasificacion
+                    {
+                        IdEquipo = partido.IdEquipoLocal,
+                        Jugados = 1,
+                        Ganados = 0,
+                        Empatados = 1,
+                        Perdidos = 0,
+                        Puntos = 1,
+                        LocalVictorias = 0,
+                        LocalDerrotas = 0,
+                        VisitanteVictorias = 0,
+                        VisitanteDerrotas = 0,
+                        GolesFavor = golesLocal,
+                        GolesContra = golesVisitante,
+                        Racha = 0
+                    };
+                    cla_visitante = new Clasificacion
+                    {
+                        IdEquipo = partido.IdEquipoVisitante,
+                        Jugados = 1,
+                        Ganados = 0,
+                        Empatados = 1,
+                        Perdidos = 0,
+                        Puntos = 1,
+                        LocalVictorias = 0,
+                        LocalDerrotas = 0,
+                        VisitanteVictorias = 0,
+                        VisitanteDerrotas = 0,
+                        GolesFavor = golesVisitante,
+                        GolesContra = golesLocal,
+                        Racha = 0
+                    };
+                }
+                else if (golesLocal > golesVisitante)
+                {
+                    cla_local = new Clasificacion
+                    {
+                        IdEquipo = partido.IdEquipoLocal,
+                        Jugados = 1,
+                        Ganados = 1,
+                        Empatados = 0,
+                        Perdidos = 0,
+                        Puntos = 3,
+                        LocalVictorias = 1,
+                        LocalDerrotas = 0,
+                        VisitanteVictorias = 0,
+                        VisitanteDerrotas = 0,
+                        GolesFavor = golesLocal,
+                        GolesContra = golesVisitante,
+                        Racha = 1
+                    };
+                    cla_visitante = new Clasificacion
+                    {
+                        IdEquipo = partido.IdEquipoVisitante,
+                        Jugados = 1,
+                        Ganados = 0,
+                        Empatados = 0,
+                        Perdidos = 1,
+                        Puntos = 0,
+                        LocalVictorias = 0,
+                        LocalDerrotas = 0,
+                        VisitanteVictorias = 0,
+                        VisitanteDerrotas = 1,
+                        GolesFavor = golesVisitante,
+                        GolesContra = golesLocal,
+                        Racha = -1
+                    };
+                }
+                else
+                {
+                    cla_local = new Clasificacion
+                    {
+                        IdEquipo = partido.IdEquipoLocal,
+                        Jugados = 1,
+                        Ganados = 0,
+                        Empatados = 0,
+                        Perdidos = 1,
+                        Puntos = 0,
+                        LocalVictorias = 0,
+                        LocalDerrotas = 1,
+                        VisitanteVictorias = 0,
+                        VisitanteDerrotas = 0,
+                        GolesFavor = golesLocal,
+                        GolesContra = golesVisitante,
+                        Racha = -1
+                    };
+                    cla_visitante = new Clasificacion
+                    {
+                        IdEquipo = partido.IdEquipoVisitante,
+                        Jugados = 1,
+                        Ganados = 1,
+                        Empatados = 0,
+                        Perdidos = 0,
+                        Puntos = 3,
+                        LocalVictorias = 0,
+                        LocalDerrotas = 0,
+                        VisitanteVictorias = 1,
+                        VisitanteDerrotas = 0,
+                        GolesFavor = golesVisitante,
+                        GolesContra = golesLocal,
+                        Racha = 1
+                    };
+                }
+
+                if (partido.Jornada <= 8)
+                {
+                    // Actualizar la Clasificacion de la Copa de Europa 1
+                    _logicaClasificacion.ActualizarClasificacionEuropa2(cla_local);
+                    _logicaClasificacion.ActualizarClasificacionEuropa2(cla_visitante);
+                }         
+
+                // Actualizar estadísticas de cada jugador en la base de datos
+                ActualizarEstadisticasPartidoEuropa(jugadoresLocal, jugadoresVisitante, golesYAsistencias, tarjetas, mvp);
             }
 
             // Comprobar si ha habido algun lesionado y actualizarlo en la BD
@@ -649,6 +1259,79 @@ namespace ChampionManager25.Vistas
             }
         }
 
+        private void ActualizarEstadisticasPartidoEuropa(List<Jugador> jugadoresLocal, List<Jugador> jugadoresVisitante,
+                                           List<(Jugador, Jugador?)> golesYAsistencias,
+                                           List<(Jugador, string)> tarjetas,
+                                           Jugador mvp)
+        {
+            Dictionary<int, Estadistica> estadisticas = new Dictionary<int, Estadistica>();
+
+            // Asegurar que todos los jugadores del partido sumen 1 partido jugado
+            foreach (var jugador in jugadoresLocal.Concat(jugadoresVisitante))
+            {
+                estadisticas[jugador.IdJugador] = new Estadistica
+                {
+                    IdJugador = jugador.IdJugador,
+                    PartidosJugados = 1, // Todos los jugadores suman 1 partido
+                    Goles = 0,
+                    Asistencias = 0,
+                    TarjetasAmarillas = 0,
+                    TarjetasRojas = 0,
+                    MVP = 0
+                };
+
+                // -------------- CREAR GASTO POR PARTIDO
+                Jugador player = _logicaJugador.MostrarDatosJugador(jugador.IdJugador);
+
+                // Bonus
+                int bonusPartido = player.BonusPartido ?? 0;
+                if (bonusPartido != 0)
+                {
+                    Finanza nuevoGasto = new Finanza
+                    {
+                        IdEquipo = _equipo,
+                        IdManager = _manager.IdManager,
+                        Temporada = Metodos.temporadaActual.ToString(),
+                        IdConcepto = 16,
+                        Tipo = 2,
+                        Cantidad = bonusPartido,
+                        Fecha = Metodos.hoy.Date
+                    };
+                    _logicaFinanza.CrearGasto(nuevoGasto);
+
+                    // Restar la indemnización al Presupuesto
+                    _logicaEquipo.RestarCantidadAPresupuesto(_equipo, bonusPartido);
+                }
+            }
+
+            // Sumar goles y asistencias
+            foreach (var (goleador, asistente) in golesYAsistencias)
+            {
+                estadisticas[goleador.IdJugador].Goles++;
+
+                if (asistente != null)
+                {
+                    estadisticas[asistente.IdJugador].Asistencias++;
+                }
+            }
+
+            // Sumar tarjetas
+            foreach (var (jugador, tipoTarjeta) in tarjetas)
+            {
+                if (tipoTarjeta.Contains("roja")) estadisticas[jugador.IdJugador].TarjetasRojas++;
+                if (tipoTarjeta.Contains("amarilla")) estadisticas[jugador.IdJugador].TarjetasAmarillas++;
+            }
+
+            // Sumar MVP
+            estadisticas[mvp.IdJugador].MVP++;
+
+            // Guardar estadísticas en la base de datos
+            foreach (var estadistica in estadisticas.Values)
+            {
+                _logicaEstadisticas.ActualizarEstadisticasEuropa(estadistica);
+            }
+        }
+
         public List<int> SimularLesiones(List<Jugador> jugadoresLocal, List<Jugador> jugadoresVisitante)
         {
             List<int> lesionados = new List<int>();
@@ -776,7 +1459,7 @@ namespace ChampionManager25.Vistas
 
             foreach (var partido in partidos)
             {
-                if (partido.IdCompeticion == miCompeticion || partido.IdCompeticion == 4)
+                if (partido.IdCompeticion == miCompeticion || partido.IdCompeticion == 4 || partido.IdCompeticion == 5 || partido.IdCompeticion == 6)
                     partidosVisibles.Add(partido);
             }
 
@@ -981,6 +1664,70 @@ namespace ChampionManager25.Vistas
             }
         }
 
+        public void GenerarCalendarioEuropa1(List<int> equiposEuropa1, int jornada, int ronda)
+        {
+            // Mezclar aleatoriamente
+            Random rnd = new Random();
+            var equiposMezclados = equiposEuropa1.OrderBy(e => rnd.Next()).ToList();
+
+            // Fechas de ida y vuelta
+            DateTime fechaIda = ObtenerFechaIdaEuropa();
+            DateTime fechaVuelta = fechaIda.AddDays(14);
+
+            // Crear los emparejamientos
+            for (int i = 0; i < equiposMezclados.Count; i += 2)
+            {
+                int idLocal = equiposMezclados[i];
+                int idVisitante = equiposMezclados[i + 1];
+
+                if (ronda < 5)
+                {
+                    // Partido de ida
+                    _logicaPartidos.CrearPartidoCopaEuropa(idLocal, idVisitante, fechaIda.ToString("yyyy-MM-dd"), 5, jornada + 1, ronda != 0 ? ronda + 1 : 3, 0, _manager.IdManager);
+
+                    // Partido de vuelta (se invierte local/visitante)
+                    _logicaPartidos.CrearPartidoCopaEuropa(idVisitante, idLocal, fechaVuelta.ToString("yyyy-MM-dd"), 5, jornada + 1, ronda != 0 ? ronda + 1 : 3, 1, _manager.IdManager);
+                }
+                else
+                {
+                    // Partido unico
+                    _logicaPartidos.CrearPartidoCopaEuropa(idLocal, idVisitante, fechaIda.ToString("yyyy-MM-dd"), 5, jornada + 1, ronda != 0 ? ronda + 1 : 3, 0, _manager.IdManager);
+                }
+            }
+        }
+
+        public void GenerarCalendarioEuropa2(List<int> equiposEuropa1, int jornada, int ronda)
+        {
+            // Mezclar aleatoriamente
+            Random rnd = new Random();
+            var equiposMezclados = equiposEuropa1.OrderBy(e => rnd.Next()).ToList();
+
+            // Fechas de ida y vuelta
+            DateTime fechaIda = ObtenerFechaIdaEuropa();
+            DateTime fechaVuelta = fechaIda.AddDays(14);
+
+            // Crear los emparejamientos
+            for (int i = 0; i < equiposMezclados.Count; i += 2)
+            {
+                int idLocal = equiposMezclados[i];
+                int idVisitante = equiposMezclados[i + 1];
+
+                if (ronda < 5)
+                {
+                    // Partido de ida
+                    _logicaPartidos.CrearPartidoCopaEuropa2(idLocal, idVisitante, fechaIda.ToString("yyyy-MM-dd"), 6, jornada + 1, ronda != 0 ? ronda + 1 : 3, 0, _manager.IdManager);
+
+                    // Partido de vuelta (se invierte local/visitante)
+                    _logicaPartidos.CrearPartidoCopaEuropa2(idVisitante, idLocal, fechaVuelta.ToString("yyyy-MM-dd"), 6, jornada + 1, ronda != 0 ? ronda + 1 : 3, 1, _manager.IdManager);
+                }
+                else
+                {
+                    // Partido unico
+                    _logicaPartidos.CrearPartidoCopaEuropa2(idLocal, idVisitante, fechaIda.ToString("yyyy-MM-dd"), 6, jornada + 1, ronda != 0 ? ronda + 1 : 3, 0, _manager.IdManager);
+                }
+            }
+        }
+
         public DateTime ObtenerFechaIda()
         {
             Fecha fechaObj = _datosFecha.ObtenerFechaHoy();
@@ -992,6 +1739,19 @@ namespace ChampionManager25.Vistas
                 throw new Exception("Formato de fecha inválido en la base de datos.");
 
             return hoy.AddDays(21);
+        }
+
+        public DateTime ObtenerFechaIdaEuropa()
+        {
+            Fecha fechaObj = _datosFecha.ObtenerFechaHoy();
+
+            if (fechaObj == null || string.IsNullOrWhiteSpace(fechaObj.Hoy))
+                throw new Exception("No se pudo obtener una fecha válida.");
+
+            if (!DateTime.TryParse(fechaObj.Hoy, out DateTime hoy))
+                throw new Exception("Formato de fecha inválido en la base de datos.");
+
+            return hoy.AddDays(14);
         }
         #endregion
     }

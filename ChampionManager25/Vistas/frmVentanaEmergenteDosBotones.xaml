@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChampionManager25.Vistas"
-        mc:Ignorable="d" Title="frmVentanaEmergenteDosBotones" Height="300" Width="800"
+        mc:Ignorable="d" Title="frmVentanaEmergenteDosBotones" Height="400" Width="800"
         ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" Loaded="VentanaEmergente_Loaded">
     <Grid Background="#FF23282D">
         <Grid.ColumnDefinitions>
@@ -31,8 +31,8 @@
                 </Border>
 
                 <Border Grid.Column="0" Grid.Row="1">
-                    <TextBlock x:Name="txtMensaje" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="737" TextWrapping="Wrap"
-                               FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Center"/>
+                    <TextBlock x:Name="txtMensaje" Text="" HorizontalAlignment="Left" VerticalAlignment="Center" Width="696" TextWrapping="Wrap"
+                               FontFamily="Cascadia Code Light" FontSize="18" Foreground="#FF23282D" TextAlignment="Left" Margin="41,0,0,0" Height="172"/>
                 </Border>
 
                 <Border Background="#FF23282D" Grid.Column="0" Grid.Row="2">

@@ -55,16 +55,26 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
 
-                                        <Image x:Name="imgLogoLiga" Grid.Row="0" Grid.Column="0" Height="50" Width="50" Stretch="UniformToFill"
+                                        <Image x:Name="imgLogoLiga" Grid.Row="0" Grid.Column="1" Height="50" Width="50" Stretch="UniformToFill"
                                                HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" MouseLeftButtonDown="imgLogoLiga_MouseLeftButtonDown" />
 
-                                        <Image x:Name="imgLogoCopa" Grid.Row="0" Grid.Column="1" Height="50" Width="50" Stretch="UniformToFill" IsEnabled="False"
+                                        <Image x:Name="imgLogoCopa" Grid.Row="0" Grid.Column="2" Height="50" Width="50" Stretch="UniformToFill" IsEnabled="False"
                                                HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" MouseLeftButtonDown="imgLogoCopa_MouseLeftButtonDown" />
+
+                                        <Image x:Name="imgLogoCopaEuropa1" Grid.Row="0" Grid.Column="3" Height="50" Width="50" Stretch="UniformToFill" 
+                                               HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" MouseLeftButtonDown="imgLogoCopaEuropa1_MouseLeftButtonDown" />
+
+                                        <Image x:Name="imgLogoCopaEuropa2" Grid.Row="0" Grid.Column="4" Height="50" Width="50" Stretch="UniformToFill" 
+                                               HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" MouseLeftButtonDown="imgLogoCopaEuropa2_MouseLeftButtonDown" />
                                     </Grid>
                                 </Border>
 

@@ -312,6 +312,12 @@ namespace ChampionManager25.Logica
             _datos.ActivarTratamientoLesion(jugador, valor);
         }
 
+        // Llamada al método que quita al jugador el tipo de lesion
+        public void QuitarTipoLesion(int jugador)
+        {
+            _datos.QuitarTipoLesion(jugador);
+        }
+
         // Llamada al método que pone un jugador Transferible
         public void PonerTransferible(int jugador)
         {

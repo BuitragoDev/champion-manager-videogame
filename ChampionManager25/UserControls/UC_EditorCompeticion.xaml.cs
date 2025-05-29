@@ -31,11 +31,17 @@ namespace ChampionManager25.UserControls
 
         private Competicion competicion;
         private Competicion competicion2;
+        private Competicion competicion5;
+        private Competicion competicion6;
 
         private string imagenGrandeTemporal = null;
         private string imagen80x80Temporal = null;
         private string imagenGrandeLiga2Temporal = null;
         private string imagen80x80Liga2Temporal = null;
+        private string imagenGrandeEuropa1Temporal = null;
+        private string imagen80x80Europa1Temporal = null;
+        private string imagenGrandeEuropa2Temporal = null;
+        private string imagen80x80Europa2Temporal = null;
         #endregion
 
         // Instancias de la Logica
@@ -64,15 +70,22 @@ namespace ChampionManager25.UserControls
 
             competicion = _logicaCompeticion.ObtenerCompeticion(1);
             competicion2 = _logicaCompeticion.ObtenerCompeticion(2);
-
+            competicion5 = _logicaCompeticion.ObtenerCompeticion(5);
+            competicion6 = _logicaCompeticion.ObtenerCompeticion(6);
 
             txtNombreCompeticion.Text = competicion.Nombre;
             txtNombreCompeticion2.Text = competicion2.Nombre;
+            txtNombreCompeticionEuropa1.Text = competicion5.Nombre;
+            txtNombreCompeticionEuropa2.Text = competicion6.Nombre;
 
             string pathGrande = Path.Combine(GestorPartidas.RutaMisDocumentos, $"{competicion.RutaImagen}");
             string path80 = Path.Combine(GestorPartidas.RutaMisDocumentos, $"{competicion.RutaImagen80}");
             string pathGrandeLiga2 = Path.Combine(GestorPartidas.RutaMisDocumentos, $"{competicion2.RutaImagen}");
             string path80Liga2 = Path.Combine(GestorPartidas.RutaMisDocumentos, $"{competicion2.RutaImagen80}");
+            string pathGrandeEuropa1 = Path.Combine(GestorPartidas.RutaMisDocumentos, $"{competicion5.RutaImagen}");
+            string path80Europa1 = Path.Combine(GestorPartidas.RutaMisDocumentos, $"{competicion5.RutaImagen80}");
+            string pathGrandeEuropa2 = Path.Combine(GestorPartidas.RutaMisDocumentos, $"{competicion6.RutaImagen}");
+            string path80Europa2 = Path.Combine(GestorPartidas.RutaMisDocumentos, $"{competicion6.RutaImagen80}");
 
             if (File.Exists(pathGrande))
                 imgGrande.Source = CargarImagenSinBloqueo(pathGrande);
@@ -85,6 +98,18 @@ namespace ChampionManager25.UserControls
 
             if (File.Exists(path80Liga2))
                 img80x80Liga2.Source = CargarImagenSinBloqueo(path80Liga2);
+
+            if (File.Exists(pathGrandeEuropa1))
+                imgGrandeEuropa1.Source = CargarImagenSinBloqueo(pathGrandeEuropa1);
+
+            if (File.Exists(path80Europa1))
+                img80x80Europa1.Source = CargarImagenSinBloqueo(path80Europa1);
+
+            if (File.Exists(pathGrandeEuropa2))
+                imgGrandeEuropa2.Source = CargarImagenSinBloqueo(pathGrandeEuropa2);
+
+            if (File.Exists(path80Europa2))
+                img80x80Europa2.Source = CargarImagenSinBloqueo(path80Europa2);
         }
 
         // ------------------------------------------------------------------------------------- Evento CLICK del boton VOLVER    
@@ -106,6 +131,10 @@ namespace ChampionManager25.UserControls
             string nombreImagen80x80 = "";
             string nombreImagenGrandeLiga2 = "";
             string nombreImagen80x80Liga2 = "";
+            string nombreImagenGrandeEuropa1 = "";
+            string nombreImagen80x80Europa1 = "";
+            string nombreImagenGrandeEuropa2 = "";
+            string nombreImagen80x80Europa2 = "";
 
             try
             {
@@ -132,6 +161,30 @@ namespace ChampionManager25.UserControls
                     string destino80Liga2 = Path.Combine(ruta80x80, $"{competicion2.IdCompeticion}.png");
                     nombreImagen80x80Liga2 = GuardarImagen(imagen80x80Liga2Temporal, destino80Liga2);
                 }
+                
+                if (!string.IsNullOrEmpty(imagenGrandeEuropa1Temporal))
+                {
+                    string destinoGrandeEuropa1 = Path.Combine(rutaGrande, $"{competicion5.IdCompeticion}.png");
+                    nombreImagenGrandeEuropa1 = GuardarImagen(imagenGrandeEuropa1Temporal, destinoGrandeEuropa1);
+                }
+
+                if (!string.IsNullOrEmpty(imagen80x80Europa1Temporal))
+                {
+                    string destino80Europa1 = Path.Combine(ruta80x80, $"{competicion5.IdCompeticion}.png");
+                    nombreImagen80x80Europa1 = GuardarImagen(imagen80x80Europa1Temporal, destino80Europa1);
+                }
+
+                if (!string.IsNullOrEmpty(imagenGrandeEuropa2Temporal))
+                {
+                    string destinoGrandeEuropa2 = Path.Combine(rutaGrande, $"{competicion6.IdCompeticion}.png");
+                    nombreImagenGrandeEuropa2 = GuardarImagen(imagenGrandeEuropa2Temporal, destinoGrandeEuropa2);
+                }
+
+                if (!string.IsNullOrEmpty(imagen80x80Europa2Temporal))
+                {
+                    string destino80Europa2 = Path.Combine(ruta80x80, $"{competicion6.IdCompeticion}.png");
+                    nombreImagen80x80Europa2 = GuardarImagen(imagen80x80Europa2Temporal, destino80Europa2);
+                }
 
                 // Actualizar el nombre y la ruta de las imagenes en la Base de Datos
                 Competicion oCompeticion = new Competicion
@@ -148,16 +201,36 @@ namespace ChampionManager25.UserControls
                     RutaImagen = $"Recursos/img/logos_competiciones/{nombreImagenGrandeLiga2}",
                     RutaImagen80 = $"Recursos/img/logos_competiciones/80x80/{nombreImagen80x80Liga2}"
                 };
+                Competicion oCompeticionEuropa1 = new Competicion
+                {
+                    IdCompeticion = 5,
+                    Nombre = txtNombreCompeticionEuropa1.Text.Trim(),
+                    RutaImagen = $"Recursos/img/logos_competiciones/{nombreImagenGrandeEuropa1}",
+                    RutaImagen80 = $"Recursos/img/logos_competiciones/80x80/{nombreImagen80x80Europa1}"
+                };
+                Competicion oCompeticionEuropa2 = new Competicion
+                {
+                    IdCompeticion = 6,
+                    Nombre = txtNombreCompeticionEuropa2.Text.Trim(),
+                    RutaImagen = $"Recursos/img/logos_competiciones/{nombreImagenGrandeEuropa2}",
+                    RutaImagen80 = $"Recursos/img/logos_competiciones/80x80/{nombreImagen80x80Europa2}"
+                };
                 _logicaCompeticion.EditarCompeticion(oCompeticion);
                 _logicaCompeticion.EditarCompeticion(oCompeticion2);
+                _logicaCompeticion.EditarCompeticion(oCompeticionEuropa1);
+                _logicaCompeticion.EditarCompeticion(oCompeticionEuropa2);
 
                 // Limpiar imagenes temporales
                 imagenGrandeTemporal = null;
                 imagen80x80Temporal = null;
                 imagenGrandeLiga2Temporal = null;
                 imagen80x80Liga2Temporal = null;
+                imagenGrandeEuropa1Temporal = null;
+                imagen80x80Europa1Temporal = null;
+                imagenGrandeEuropa2Temporal = null;
+                imagen80x80Europa2Temporal = null;
 
-            string titulo = "INFORMACIÓN";
+                string titulo = "INFORMACIÓN";
                 string mensaje = "La competición ha sido actualizada correctamente";
                 frmVentanaEmergenteDosBotones ventanaEmergente = new frmVentanaEmergenteDosBotones(titulo, mensaje, 2);
                 ventanaEmergente.ShowDialog();
@@ -220,6 +293,58 @@ namespace ChampionManager25.UserControls
             {
                 img80x80Liga2.Source = CargarImagenSinBloqueo(path);
                 imagen80x80Liga2Temporal = path;
+            }
+        }
+
+        // ---------------------------------------------------------------------------------- Evento CLICK del boton CARGAR IMAGEN 200x200 EUROPA 1
+        private void imgGrandeEuropa1_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Metodos.ReproducirSonidoClick();
+
+            string path = AbrirSelectorImagen();
+            if (path != null && ValidarImagen(path, 200, 200))
+            {
+                imgGrandeEuropa1.Source = CargarImagenSinBloqueo(path);
+                imagenGrandeEuropa1Temporal = path;
+            }
+        }
+
+        // ------------------------------------------------------------------------------------- Evento CLICK del boton CARGAR IMAGEN 80x80 EUROPA 1
+        private void img80x80Europa1_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Metodos.ReproducirSonidoClick();
+
+            string path = AbrirSelectorImagen();
+            if (path != null && ValidarImagen(path, 80, 80))
+            {
+                img80x80Europa1.Source = CargarImagenSinBloqueo(path);
+                imagen80x80Europa1Temporal = path;
+            }
+        }
+
+        // ---------------------------------------------------------------------------------- Evento CLICK del boton CARGAR IMAGEN 200x200 EUROPA 2
+        private void imgGrandeEuropa2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Metodos.ReproducirSonidoClick();
+
+            string path = AbrirSelectorImagen();
+            if (path != null && ValidarImagen(path, 200, 200))
+            {
+                imgGrandeEuropa2.Source = CargarImagenSinBloqueo(path);
+                imagenGrandeEuropa2Temporal = path;
+            }
+        }
+
+        // ------------------------------------------------------------------------------------- Evento CLICK del boton CARGAR IMAGEN 80x80 EUROPA 2
+        private void img80x80Europa2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Metodos.ReproducirSonidoClick();
+
+            string path = AbrirSelectorImagen();
+            if (path != null && ValidarImagen(path, 80, 80))
+            {
+                img80x80Europa2.Source = CargarImagenSinBloqueo(path);
+                imagen80x80Europa2Temporal = path;
             }
         }
 

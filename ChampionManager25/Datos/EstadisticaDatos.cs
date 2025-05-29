@@ -11,8 +11,102 @@ namespace ChampionManager25.Datos
 {
     public class EstadisticaDatos : Conexion
     {
-        // ------------------------------------------------------ MÉTODO QUE INSERTA UNA FILA DE ESTADÍSTICA POR CADA JUGADOR DEL JUEGO
-        public void InsertarEstadisticasJugadores(int numJugadores, int manager)
+        // ------------------------------------------------------ MÉTODO QUE INSERTA UNA FILA DE ESTADÍSTICA POR CADA JUGADOR DE LIGA 
+        public void InsertarEstadisticasJugadores(int manager)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Obtener todos los id_jugador de la tabla jugadores
+                    string selectQuery = "SELECT id_jugador FROM jugadores WHERE id_jugador < 5000";
+                    List<int> listaJugadores = new List<int>();
+
+                    using (SQLiteCommand selectCommand = new SQLiteCommand(selectQuery, conn))
+                    using (SQLiteDataReader reader = selectCommand.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            listaJugadores.Add(reader.GetInt32(0));
+                        }
+                    }
+
+                    // Insertar una fila en estadisticas_jugadores por cada jugador
+                    string insertQuery = @"INSERT INTO estadisticas_jugadores (id_jugador, id_manager)
+                                           VALUES (@IdJugador, @IdManager)";
+                    using (SQLiteCommand insertCommand = new SQLiteCommand(insertQuery, conn))
+                    {
+                        insertCommand.Parameters.Add(new SQLiteParameter("@IdJugador"));
+                        insertCommand.Parameters.Add(new SQLiteParameter("@IdManager", manager));
+
+                        foreach (int idJugador in listaJugadores)
+                        {
+                            insertCommand.Parameters["@IdJugador"].Value = idJugador;
+                            insertCommand.ExecuteNonQuery();
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                // En caso de error, mostrar el mensaje con la excepción
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // ------------------------------------------------------ MÉTODO QUE INSERTA UNA FILA DE ESTADÍSTICA POR CADA JUGADOR DE EQUIPO EUROPEO
+        public void InsertarEstadisticasJugadoresEuropa(int manager)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Consulta combinada: jugadores con id_jugador >= 5000 O jugadores cuyo equipo compite en Europa
+                    string selectQuery = @"SELECT j.id_jugador
+                                           FROM jugadores j
+                                           INNER JOIN equipos e ON j.id_equipo = e.id_equipo
+                                           WHERE j.id_jugador >= 5000 OR e.competicion_europea != 0";
+
+                    List<int> listaJugadores = new List<int>();
+
+                    using (SQLiteCommand selectCommand = new SQLiteCommand(selectQuery, conn))
+                    using (SQLiteDataReader reader = selectCommand.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            listaJugadores.Add(reader.GetInt32(0));
+                        }
+                    }
+
+                    // Insertar una fila en estadisticas_jugadores_europa por cada jugador
+                    string insertQuery = @"INSERT INTO estadisticas_jugadores_europa (id_jugador, id_manager)
+                                           VALUES (@IdJugador, @IdManager)";
+                    using (SQLiteCommand insertCommand = new SQLiteCommand(insertQuery, conn))
+                    {
+                        insertCommand.Parameters.Add(new SQLiteParameter("@IdJugador"));
+                        insertCommand.Parameters.Add(new SQLiteParameter("@IdManager", manager));
+
+                        foreach (int idJugador in listaJugadores)
+                        {
+                            insertCommand.Parameters["@IdJugador"].Value = idJugador;
+                            insertCommand.ExecuteNonQuery();
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+
+        // ------------------------------------------------------ MÉTODO QUE INSERTA UNA FILA DE ESTADÍSTICA DE UN JUGADOR DEL JUEGO
+        public void InsertarLineaEstadisticaJugador(int numJugador, int manager)
         {
             try
             {
@@ -25,13 +119,10 @@ namespace ChampionManager25.Datos
                     // Ejecutar la inserción de numJugadores registros
                     using (SQLiteCommand command = new SQLiteCommand(query, conn))
                     {
-                        for (int i = 1; i <= numJugadores; i++) // Crear numJugadores registros
-                        {
-                            command.Parameters.Clear(); // Limpiar los parámetros antes de cada inserción
-                            command.Parameters.AddWithValue("@IdJugador", i); // Asignar el valor de i a id_equipo
-                            command.Parameters.AddWithValue("@IdManager", manager);
-                            command.ExecuteNonQuery(); // Ejecutar la consulta de inserción
-                        }
+                        command.Parameters.Clear(); // Limpiar los parámetros antes de cada inserción
+                        command.Parameters.AddWithValue("@IdJugador", numJugador); // Asignar el valor de i a id_equipo
+                        command.Parameters.AddWithValue("@IdManager", manager);
+                        command.ExecuteNonQuery(); // Ejecutar la consulta de inserción
                     }
                 }
             }
@@ -626,6 +717,41 @@ namespace ChampionManager25.Datos
             }
         }
 
+        // --------------------------------------------------------------- Método para actualizar las estadisticas de los jugadores
+        public void ActualizarEstadisticasEuropa(Estadistica estadistica)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+                    string query = @"UPDATE estadisticas_jugadores_europa
+                                     SET partidosJugados = partidosJugados + @PartidosJugados,
+                                         goles = goles + @Goles,
+                                         asistencias = asistencias + @Asistencias,
+                                         tarjetasAmarillas = tarjetasAmarillas + @TarjetasAmarillas,
+                                         tarjetasRojas = tarjetasRojas + @TarjetasRojas,
+                                         mvp = mvp + @MVPs
+                                     WHERE id_jugador = @IdJugador";
+                    using (var cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@IdJugador", estadistica.IdJugador);
+                        cmd.Parameters.AddWithValue("@Goles", estadistica.Goles);
+                        cmd.Parameters.AddWithValue("@Asistencias", estadistica.Asistencias);
+                        cmd.Parameters.AddWithValue("@TarjetasAmarillas", estadistica.TarjetasAmarillas);
+                        cmd.Parameters.AddWithValue("@TarjetasRojas", estadistica.TarjetasRojas);
+                        cmd.Parameters.AddWithValue("@MVPs", estadistica.MVP);
+                        cmd.Parameters.AddWithValue("@PartidosJugados", estadistica.PartidosJugados);
+                        cmd.ExecuteNonQuery(); // Ejecuta la consulta
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al añadir el equipo al Manager: " + ex.Message);
+            }
+        }
+
         // --------------------------------------------------------------- Método para resetea la estadistica de un jugador
         public void ResetearEstadisticaJugador(int jugador)
         {
@@ -669,7 +795,8 @@ namespace ChampionManager25.Datos
                                          asistencias = 0,
                                          tarjetasAmarillas = 0,
                                          tarjetasRojas = 0,
-                                         mvp = 0";
+                                         mvp = 0,
+                                         semanas_lesionado = 0";
 
                     using (SQLiteCommand command = new SQLiteCommand(query, conn))
                     {
@@ -684,7 +811,37 @@ namespace ChampionManager25.Datos
             }
         }
 
-        // --------------------------------------------------------------------- Metodo que muestra los 3 mejores jugadores de la temporada
+        // -------------------------------------------------------------------- Metodo que resetea las estadisticas de los jugadores de Europa
+        public void ResetearEstadisticasEuropa()
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+                    string query = @"UPDATE estadisticas_jugadores_europa
+                                     SET partidosJugados = 0,
+                                         goles = 0,
+                                         asistencias = 0,
+                                         tarjetasAmarillas = 0,
+                                         tarjetasRojas = 0,
+                                         mvp = 0,
+                                         semanas_lesionado = 0";
+
+                    using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                    {
+                        command.ExecuteNonQuery(); // Ejecutar la consulta de inserción
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                // En caso de error, mostrar el mensaje con la excepción
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // --------------------------------------------------------------- Metodo que muestra los 3 mejores jugadores de la temporada en la Liga
         public List<Jugador> BalonDeOro()
         {
             List<Jugador> lista = new List<Jugador>();
@@ -746,7 +903,131 @@ namespace ChampionManager25.Datos
             return lista;
         }
 
-        // --------------------------------------------------------------------- Metodo que muestra los 3 mejores jugadores de la temporada
+        // --------------------------------------------------------------- Metodo que muestra los 3 mejores jugadores de la Copa Europa 1
+        public List<Jugador> BalonDeOroEuropa1()
+        {
+            List<Jugador> lista = new List<Jugador>();
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+                    string query = @"SELECT 
+                                        ej.id_jugador,
+                                        j.nombre,
+                                        j.apellido,
+                                        j.ruta_imagen,
+                                        j.id_equipo,
+                                        CAST( 
+                                            (ej.goles * 2) +
+                                            (ej.asistencias * 2.5) +
+                                            (ej.partidosJugados) +
+                                            (ej.mvp * 3) -
+                                            (ej.tarjetasAmarillas * 0.5) -
+                                            (ej.tarjetasRojas * 2) 
+                                        AS INTEGER) AS puntos
+                                     FROM estadisticas_jugadores_europa ej
+                                     JOIN jugadores j ON ej.id_jugador = j.id_jugador
+                                     JOIN equipos e ON j.id_equipo = e.id_equipo
+                                     WHERE e.id_competicion = 5 OR e.competicion_europea = 5
+                                     ORDER BY puntos DESC
+                                     LIMIT 3";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            lista.Clear();  // Asegura que la lista esté vacía antes de llenarla
+
+                            while (reader.Read())
+                            {
+                                lista.Add(new Jugador
+                                {
+                                    IdJugador = reader.GetInt32(reader.GetOrdinal("id_jugador")),
+                                    Nombre = reader.GetString(reader.GetOrdinal("nombre")),
+                                    Apellido = reader.GetString(reader.GetOrdinal("apellido")),
+                                    RutaImagen = reader.GetString(reader.GetOrdinal("ruta_imagen")),
+                                    Valoracion = reader.GetInt32(reader.GetOrdinal("puntos")),
+                                    IdEquipo = reader.GetInt32(reader.GetOrdinal("id_equipo"))
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                // En caso de error, mostrar el mensaje con la excepción
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return lista;
+        }
+
+        // --------------------------------------------------------------- Metodo que muestra los 3 mejores jugadores de la Copa Europa 2
+        public List<Jugador> BalonDeOroEuropa2()
+        {
+            List<Jugador> lista = new List<Jugador>();
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+                    string query = @"SELECT 
+                                        ej.id_jugador,
+                                        j.nombre,
+                                        j.apellido,
+                                        j.ruta_imagen,
+                                        j.id_equipo,
+                                        CAST( 
+                                            (ej.goles * 2) +
+                                            (ej.asistencias * 2.5) +
+                                            (ej.partidosJugados) +
+                                            (ej.mvp * 3) -
+                                            (ej.tarjetasAmarillas * 0.5) -
+                                            (ej.tarjetasRojas * 2) 
+                                        AS INTEGER) AS puntos
+                                     FROM estadisticas_jugadores_europa ej
+                                     JOIN jugadores j ON ej.id_jugador = j.id_jugador
+                                     JOIN equipos e ON j.id_equipo = e.id_equipo
+                                     WHERE e.id_competicion = 6 OR e.competicion_europea = 6
+                                     ORDER BY puntos DESC
+                                     LIMIT 3";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            lista.Clear();  // Asegura que la lista esté vacía antes de llenarla
+
+                            while (reader.Read())
+                            {
+                                lista.Add(new Jugador
+                                {
+                                    IdJugador = reader.GetInt32(reader.GetOrdinal("id_jugador")),
+                                    Nombre = reader.GetString(reader.GetOrdinal("nombre")),
+                                    Apellido = reader.GetString(reader.GetOrdinal("apellido")),
+                                    RutaImagen = reader.GetString(reader.GetOrdinal("ruta_imagen")),
+                                    Valoracion = reader.GetInt32(reader.GetOrdinal("puntos")),
+                                    IdEquipo = reader.GetInt32(reader.GetOrdinal("id_equipo"))
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                // En caso de error, mostrar el mensaje con la excepción
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return lista;
+        }
+
+        // --------------------------------------------------------------------- Metodo que muestra los 3 maximo goleadores de la temporada
         public List<Jugador> BotaDeOro()
         {
             List<Jugador> lista = new List<Jugador>();

@@ -313,12 +313,12 @@ namespace ChampionManager25.Vistas
 
             if (chkDemandaBonusPartido.IsChecked == true)
             {
-                txtOfertaBonusPartidos.Text = string.Format(new CultureInfo("es-ES"), "{0:N0}", ((salario / 38) * 13));
+                txtOfertaBonusPartidos.Text = string.Format(new CultureInfo("es-ES"), "{0:N0}", (salario / 50));
             }
 
             if (chkDemandaBonusGoles.IsChecked == true)
             {
-                txtOfertaBonusGoles.Text = string.Format(new CultureInfo("es-ES"), "{0:N0}", (salario / 50));
+                txtOfertaBonusGoles.Text = string.Format(new CultureInfo("es-ES"), "{0:N0}", (salario / 35));
             }
         }
 

@@ -92,7 +92,7 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,20"
+                        <TextBlock x:Name="txtSimulando" Grid.Column="0" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,20"
                                    Text="Simulando partidos..." Foreground="#FF23282D" FontSize="16" FontFamily="Cascadia Code Light" />
                         
                         <ProgressBar Grid.Column="0" Grid.Row="1" IsIndeterminate="True" BorderBrush="#1d6a7d" BorderThickness="1"

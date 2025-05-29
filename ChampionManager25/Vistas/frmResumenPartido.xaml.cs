@@ -30,6 +30,8 @@ namespace ChampionManager25.Vistas
         Equipo equipoVisitante;
 
         public int copaFinalizada = 0;
+        public int copaEuropa1Finalizada = 0;
+        public int copaEuropa2Finalizada = 0;
 
         private static Random random = new Random(); //Random global
         private static MediaPlayer mediaPlayer = new MediaPlayer();
@@ -73,6 +75,7 @@ namespace ChampionManager25.Vistas
         {
             int comp = _partido.IdCompeticion; // IdCompeticion del primer partido
             int miCompeticion = _logicaEquipo.ListarDetallesEquipo(_equipo).IdCompeticion;
+            int miCompeticionEuropea = _logicaEquipo.ListarDetallesEquipo(_equipo).CompeticionEuropea;
 
             if (comp == 4)
             {
@@ -82,6 +85,46 @@ namespace ChampionManager25.Vistas
                 string ruta_comp = _logicaCompeticion.ObtenerCompeticion(4).RutaImagen80;
                 imgCompeticion.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_comp));
                 lblTituloVentana.Text += $" ({nombreRonda})";
+            }
+            if (comp == 5)
+            {
+                if (_partido.Ronda == 0)
+                {
+                    int jornada = _partido.Jornada ?? 0; // Jornada de Copa de Europa 1
+                    string ruta_comp = _logicaCompeticion.ObtenerCompeticion(5).RutaImagen80;
+                    imgCompeticion.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_comp));
+                    lblTituloVentana.Text += $" (Jornada {jornada})";
+                } 
+                else
+                {
+                    int ronda = _partido.Ronda ?? 0; // Ronda de Copa Europa 1
+
+                    string nombreRonda = _logicaPartidos.ObtenerNombreRonda(ronda);
+                    string ruta_comp = _logicaCompeticion.ObtenerCompeticion(5).RutaImagen80;
+                    imgCompeticion.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_comp));
+                    lblTituloVentana.Text += $" ({nombreRonda})";
+                }
+                    
+            }
+            if (comp == 6)
+            {
+                if (_partido.Ronda == 0)
+                {
+                    int jornada = _partido.Jornada ?? 0; // Jornada de Copa de Europa 2
+                    string ruta_comp = _logicaCompeticion.ObtenerCompeticion(6).RutaImagen80;
+                    imgCompeticion.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_comp));
+                    lblTituloVentana.Text += $" (Jornada {jornada})";
+                }
+                else
+                {
+                    int ronda = _partido.Ronda ?? 0; // Ronda de Copa Europa 2
+
+                    string nombreRonda = _logicaPartidos.ObtenerNombreRonda(ronda);
+                    string ruta_comp = _logicaCompeticion.ObtenerCompeticion(6).RutaImagen80;
+                    imgCompeticion.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_comp));
+                    lblTituloVentana.Text += $" ({nombreRonda})";
+                }
+
             }
             else if (comp >= 1 && comp <= 2)
             {
@@ -123,6 +166,26 @@ namespace ChampionManager25.Vistas
                 if (ronda > 5)
                 {
                     copaFinalizada = 1;
+                }
+            }
+
+            // Comprobar si es la final de Copa Europa 1
+            if (_partido.IdCompeticion == 5)
+            {
+                int ronda = _partido.Ronda ?? 0; // Ronda de Copa
+                if (ronda > 5)
+                {
+                    copaEuropa1Finalizada = 1;
+                }
+            }
+
+            // Comprobar si es la final de Copa Europa 2
+            if (_partido.IdCompeticion == 6)
+            {
+                int ronda = _partido.Ronda ?? 0; // Ronda de Copa
+                if (ronda > 5)
+                {
+                    copaEuropa2Finalizada = 1;
                 }
             }
 
@@ -404,66 +467,6 @@ namespace ChampionManager25.Vistas
                 // Actualizar estadísticas de cada jugador en la base de datos
                 ActualizarEstadisticasPartido(jugadoresLocal, jugadoresVisitante, golesYAsistencias, tarjetas, mvp);
 
-                // Comprobar si ha habido algun lesionado y actualizarlo en la BD
-                List<int> lesionados = SimularLesiones(jugadoresLocal, jugadoresVisitante);
-                foreach (int jugador in lesionados)
-                {
-                    List<(string Descripcion, int MinSemanas, int MaxSemanas)> lesiones = new List<(string, int, int)>
-                    {
-                        ("Contusión leve", 1, 1),
-                        ("Distensión muscular leve", 2, 3),
-                        ("Contractura lumbar", 2, 4),
-                        ("Esguince de tobillo grado 1", 2, 4),
-                        ("Tendinitis rotuliana", 3, 5),
-                        ("Rotura fibrilar leve", 3, 5),
-                        ("Esguince de rodilla grado 2", 5, 7),
-                        ("Fractura de dedo del pie", 6, 8),
-                        ("Rotura fibrilar moderada", 6, 9),
-                        ("Desgarro isquiotibial", 7, 10),
-                        ("Lesión del ligamento colateral medial", 8, 11),
-                        ("Fractura de costilla", 9, 12),
-                        ("Lesión meniscal", 10, 14),
-                        ("Luxación de hombro", 11, 15),
-                        ("Rotura parcial del ligamento cruzado anterior", 13, 17),
-                        ("Fractura de metatarsiano", 14, 18),
-                        ("Rotura de menisco con cirugía", 16, 20),
-                        ("Rotura completa del ligamento cruzado anterior", 20, 28),
-                        ("Fractura de tibia", 25, 32),
-                        ("Doble rotura ligamentosa con cirugía", 30, 40)
-                    };
-
-                    int numeroAleatorio = random.Next(1, 41); // de 1 a 40
-                    var lesion = lesiones.FirstOrDefault(l => numeroAleatorio >= l.MinSemanas && numeroAleatorio <= l.MaxSemanas);
-
-                    // En caso de no encontrar ninguna (aunque no debería pasar con rangos bien cubiertos)
-                    if (lesion.Descripcion == null)
-                    {
-                        lesion = ("Lesión desconocida", numeroAleatorio, numeroAleatorio);
-                    }
-
-                    _logicaJugador.PonerJugadorLesionado(jugador, numeroAleatorio, lesion.Descripcion);
-
-                    // Si es un jugador de mi equipo...
-                    if (_logicaJugador.EsDeMiEquipo(jugador, _equipo))
-                    {
-                        // Crear el mensaje
-                        Mensaje mensajeInicio = new Mensaje
-                        {
-                            Fecha = Metodos.hoy,
-                            Remitente = _logicaJugador.MostrarDatosJugador(jugador).NombreCompleto,
-                            Asunto = "Jugador Lesionado",
-                            Contenido = "Desde el equipo médico del " + _logicaEquipo.ListarDetallesEquipo(_equipo).Nombre + " te informamos de que " + _logicaJugador.MostrarDatosJugador(jugador).NombreCompleto + " se ha lesionado (" + lesion.Descripcion + "), y permanecerá de baja durante " + numeroAleatorio + " semanas.",
-                            TipoMensaje = "Notificación",
-                            IdEquipo = _equipo,
-                            IdManager = _manager.IdManager,
-                            Leido = false,
-                            Icono = jugador // 0 es icono de equipo
-                        };
-
-                        _logicaMensajes.crearMensaje(mensajeInicio);
-                    }
-                }
-
                 // Actualizar la BD de jugadores sancionados
                 foreach (var tarjeta in tarjetas)
                 {
@@ -525,13 +528,6 @@ namespace ChampionManager25.Vistas
                         }
                     } 
                 }
-
-                // Actualizar las confianzas
-                ActualizarConfianzaManager(partido, golesLocal, golesVisitante);
-
-                // Actualizar atributos de los jugadores
-                ActualizacionAtributos(jugadoresLocal, jugadoresVisitante, partido.IdEquipoLocal, 
-                                       partido.IdEquipoVisitante, golesLocal, golesVisitante, golesYAsistencias, mvp);
             }
 
             // ACTUALIZAR DATOS SI ES UN PARTIDO DE COPA
@@ -539,6 +535,329 @@ namespace ChampionManager25.Vistas
             {
                 _logicaPartidos.ActualizarPartidoCopaNacional(partido);
             }
+
+            // ACTUALIZAR DATOS SI ES UN PARTIDO DE COPA DE EUROPA 1
+            if (partido.IdCompeticion == 5)
+            {
+                _logicaPartidos.ActualizarPartidoCopaEuropa1(partido);
+
+                // Actualizar la clasificacion
+                Clasificacion cla_local;
+                Clasificacion cla_visitante;
+                if (golesLocal == golesVisitante)
+                {
+                    cla_local = new Clasificacion
+                    {
+                        IdEquipo = partido.IdEquipoLocal,
+                        Jugados = 1,
+                        Ganados = 0,
+                        Empatados = 1,
+                        Perdidos = 0,
+                        Puntos = 1,
+                        LocalVictorias = 0,
+                        LocalDerrotas = 0,
+                        VisitanteVictorias = 0,
+                        VisitanteDerrotas = 0,
+                        GolesFavor = golesLocal,
+                        GolesContra = golesVisitante,
+                        Racha = 0
+                    };
+                    cla_visitante = new Clasificacion
+                    {
+                        IdEquipo = partido.IdEquipoVisitante,
+                        Jugados = 1,
+                        Ganados = 0,
+                        Empatados = 1,
+                        Perdidos = 0,
+                        Puntos = 1,
+                        LocalVictorias = 0,
+                        LocalDerrotas = 0,
+                        VisitanteVictorias = 0,
+                        VisitanteDerrotas = 0,
+                        GolesFavor = golesVisitante,
+                        GolesContra = golesLocal,
+                        Racha = 0
+                    };
+                }
+                else if (golesLocal > golesVisitante)
+                {
+                    cla_local = new Clasificacion
+                    {
+                        IdEquipo = partido.IdEquipoLocal,
+                        Jugados = 1,
+                        Ganados = 1,
+                        Empatados = 0,
+                        Perdidos = 0,
+                        Puntos = 3,
+                        LocalVictorias = 1,
+                        LocalDerrotas = 0,
+                        VisitanteVictorias = 0,
+                        VisitanteDerrotas = 0,
+                        GolesFavor = golesLocal,
+                        GolesContra = golesVisitante,
+                        Racha = 1
+                    };
+                    cla_visitante = new Clasificacion
+                    {
+                        IdEquipo = partido.IdEquipoVisitante,
+                        Jugados = 1,
+                        Ganados = 0,
+                        Empatados = 0,
+                        Perdidos = 1,
+                        Puntos = 0,
+                        LocalVictorias = 0,
+                        LocalDerrotas = 0,
+                        VisitanteVictorias = 0,
+                        VisitanteDerrotas = 1,
+                        GolesFavor = golesVisitante,
+                        GolesContra = golesLocal,
+                        Racha = -1
+                    };
+                }
+                else
+                {
+                    cla_local = new Clasificacion
+                    {
+                        IdEquipo = partido.IdEquipoLocal,
+                        Jugados = 1,
+                        Ganados = 0,
+                        Empatados = 0,
+                        Perdidos = 1,
+                        Puntos = 0,
+                        LocalVictorias = 0,
+                        LocalDerrotas = 1,
+                        VisitanteVictorias = 0,
+                        VisitanteDerrotas = 0,
+                        GolesFavor = golesLocal,
+                        GolesContra = golesVisitante,
+                        Racha = -1
+                    };
+                    cla_visitante = new Clasificacion
+                    {
+                        IdEquipo = partido.IdEquipoVisitante,
+                        Jugados = 1,
+                        Ganados = 1,
+                        Empatados = 0,
+                        Perdidos = 0,
+                        Puntos = 3,
+                        LocalVictorias = 0,
+                        LocalDerrotas = 0,
+                        VisitanteVictorias = 1,
+                        VisitanteDerrotas = 0,
+                        GolesFavor = golesVisitante,
+                        GolesContra = golesLocal,
+                        Racha = 1
+                    };
+                }
+
+                // Comprobar si es un partido de grupo
+                if (partido.Jornada <= 8)
+                {
+                    // Actualizar la Clasificacion de la Copa de Europa 1
+                    _logicaClasificacion.ActualizarClasificacionEuropa1(cla_local);
+                    _logicaClasificacion.ActualizarClasificacionEuropa1(cla_visitante);
+                }
+                
+                // Actualizar estadísticas de cada jugador en la base de datos
+                ActualizarEstadisticasPartidoEuropa(jugadoresLocal, jugadoresVisitante, golesYAsistencias, tarjetas, mvp);
+
+            }
+
+            // ACTUALIZAR DATOS SI ES UN PARTIDO DE COPA DE EUROPA 2
+            if (partido.IdCompeticion == 6)
+            {
+                _logicaPartidos.ActualizarPartidoCopaEuropa2(partido);
+
+                // Actualizar la clasificacion
+                Clasificacion cla_local;
+                Clasificacion cla_visitante;
+                if (golesLocal == golesVisitante)
+                {
+                    cla_local = new Clasificacion
+                    {
+                        IdEquipo = partido.IdEquipoLocal,
+                        Jugados = 1,
+                        Ganados = 0,
+                        Empatados = 1,
+                        Perdidos = 0,
+                        Puntos = 1,
+                        LocalVictorias = 0,
+                        LocalDerrotas = 0,
+                        VisitanteVictorias = 0,
+                        VisitanteDerrotas = 0,
+                        GolesFavor = golesLocal,
+                        GolesContra = golesVisitante,
+                        Racha = 0
+                    };
+                    cla_visitante = new Clasificacion
+                    {
+                        IdEquipo = partido.IdEquipoVisitante,
+                        Jugados = 1,
+                        Ganados = 0,
+                        Empatados = 1,
+                        Perdidos = 0,
+                        Puntos = 1,
+                        LocalVictorias = 0,
+                        LocalDerrotas = 0,
+                        VisitanteVictorias = 0,
+                        VisitanteDerrotas = 0,
+                        GolesFavor = golesVisitante,
+                        GolesContra = golesLocal,
+                        Racha = 0
+                    };
+                }
+                else if (golesLocal > golesVisitante)
+                {
+                    cla_local = new Clasificacion
+                    {
+                        IdEquipo = partido.IdEquipoLocal,
+                        Jugados = 1,
+                        Ganados = 1,
+                        Empatados = 0,
+                        Perdidos = 0,
+                        Puntos = 3,
+                        LocalVictorias = 1,
+                        LocalDerrotas = 0,
+                        VisitanteVictorias = 0,
+                        VisitanteDerrotas = 0,
+                        GolesFavor = golesLocal,
+                        GolesContra = golesVisitante,
+                        Racha = 1
+                    };
+                    cla_visitante = new Clasificacion
+                    {
+                        IdEquipo = partido.IdEquipoVisitante,
+                        Jugados = 1,
+                        Ganados = 0,
+                        Empatados = 0,
+                        Perdidos = 1,
+                        Puntos = 0,
+                        LocalVictorias = 0,
+                        LocalDerrotas = 0,
+                        VisitanteVictorias = 0,
+                        VisitanteDerrotas = 1,
+                        GolesFavor = golesVisitante,
+                        GolesContra = golesLocal,
+                        Racha = -1
+                    };
+                }
+                else
+                {
+                    cla_local = new Clasificacion
+                    {
+                        IdEquipo = partido.IdEquipoLocal,
+                        Jugados = 1,
+                        Ganados = 0,
+                        Empatados = 0,
+                        Perdidos = 1,
+                        Puntos = 0,
+                        LocalVictorias = 0,
+                        LocalDerrotas = 1,
+                        VisitanteVictorias = 0,
+                        VisitanteDerrotas = 0,
+                        GolesFavor = golesLocal,
+                        GolesContra = golesVisitante,
+                        Racha = -1
+                    };
+                    cla_visitante = new Clasificacion
+                    {
+                        IdEquipo = partido.IdEquipoVisitante,
+                        Jugados = 1,
+                        Ganados = 1,
+                        Empatados = 0,
+                        Perdidos = 0,
+                        Puntos = 3,
+                        LocalVictorias = 0,
+                        LocalDerrotas = 0,
+                        VisitanteVictorias = 1,
+                        VisitanteDerrotas = 0,
+                        GolesFavor = golesVisitante,
+                        GolesContra = golesLocal,
+                        Racha = 1
+                    };
+                }
+
+                // Comprobar si es un partido de grupo
+                if (partido.Jornada <= 8)
+                {
+                    // Actualizar la Clasificacion de la Copa de Europa 1
+                    _logicaClasificacion.ActualizarClasificacionEuropa2(cla_local);
+                    _logicaClasificacion.ActualizarClasificacionEuropa2(cla_visitante);
+                }
+                
+                // Actualizar estadísticas de cada jugador en la base de datos
+                ActualizarEstadisticasPartidoEuropa(jugadoresLocal, jugadoresVisitante, golesYAsistencias, tarjetas, mvp);
+            }
+
+            // Comprobar si ha habido algun lesionado y actualizarlo en la BD
+            List<int> lesionados = SimularLesiones(jugadoresLocal, jugadoresVisitante);
+
+            List<(string Descripcion, int MinSemanas, int MaxSemanas)> lesionesComunes = new List<(string, int, int)>
+            {
+                ("Contusión leve", 1, 1),
+                ("Distensión muscular leve", 2, 3),
+                ("Contractura lumbar", 2, 4),
+                ("Esguince de tobillo grado 1", 2, 4),
+                ("Tendinitis rotuliana", 3, 5),
+                ("Rotura fibrilar leve", 3, 5),
+                ("Esguince de rodilla grado 2", 5, 7),
+                ("Fractura de dedo del pie", 6, 8),
+                ("Rotura fibrilar moderada", 6, 9),
+                ("Desgarro isquiotibial", 7, 10)
+            };
+
+            List<(string Descripcion, int MinSemanas, int MaxSemanas)> lesionesGraves = new List<(string, int, int)>
+            {
+                ("Rotura completa del ligamento cruzado anterior", 20, 28),
+                ("Fractura de tibia", 25, 32),
+                ("Doble rotura ligamentosa con cirugía", 30, 40)
+            };
+
+            foreach (int jugador in lesionados)
+            {
+                bool esLesionGrave = random.NextDouble() < 0.1; // 10% de probabilidad de lesión grave
+
+                (string Descripcion, int MinSemanas, int MaxSemanas) lesion;
+
+                if (esLesionGrave)
+                {
+                    lesion = lesionesGraves[random.Next(lesionesGraves.Count)];
+                }
+                else
+                {
+                    lesion = lesionesComunes[random.Next(lesionesComunes.Count)];
+                }
+
+                int semanasLesion = random.Next(lesion.MinSemanas, lesion.MaxSemanas + 1);
+
+                _logicaJugador.PonerJugadorLesionado(jugador, semanasLesion, lesion.Descripcion);
+
+                if (_logicaJugador.EsDeMiEquipo(jugador, _equipo))
+                {
+                    Mensaje mensajeInicio = new Mensaje
+                    {
+                        Fecha = Metodos.hoy,
+                        Remitente = _logicaJugador.MostrarDatosJugador(jugador).NombreCompleto,
+                        Asunto = "Jugador Lesionado",
+                        Contenido = $"Desde el equipo médico del {_logicaEquipo.ListarDetallesEquipo(_equipo).Nombre} te informamos de que {_logicaJugador.MostrarDatosJugador(jugador).NombreCompleto} se ha lesionado ({lesion.Descripcion}), y permanecerá de baja durante {semanasLesion} semanas.",
+                        TipoMensaje = "Notificación",
+                        IdEquipo = _equipo,
+                        IdManager = _manager.IdManager,
+                        Leido = false,
+                        Icono = jugador
+                    };
+
+                    _logicaMensajes.crearMensaje(mensajeInicio);
+                }
+            }
+
+
+            // Actualizar las confianzas
+            ActualizarConfianzaManager(partido, golesLocal, golesVisitante);
+
+            // Actualizar atributos de los jugadores
+            ActualizacionAtributos(jugadoresLocal, jugadoresVisitante, partido.IdEquipoLocal,
+                                   partido.IdEquipoVisitante, golesLocal, golesVisitante, golesYAsistencias, mvp);
 
             // Mostrar los goleadores y amonestados en la ventana.
             ActualizarPanels(golesYAsistencias, tarjetas);
@@ -824,29 +1143,101 @@ namespace ChampionManager25.Vistas
             }
         }
 
+        private void ActualizarEstadisticasPartidoEuropa(List<Jugador> jugadoresLocal, List<Jugador> jugadoresVisitante,
+                                           List<(Jugador, Jugador?)> golesYAsistencias,
+                                           List<(Jugador, string)> tarjetas,
+                                           Jugador mvp)
+        {
+            Dictionary<int, Estadistica> estadisticas = new Dictionary<int, Estadistica>();
+
+            // Asegurar que todos los jugadores del partido sumen 1 partido jugado
+            foreach (var jugador in jugadoresLocal.Concat(jugadoresVisitante))
+            {
+                estadisticas[jugador.IdJugador] = new Estadistica
+                {
+                    IdJugador = jugador.IdJugador,
+                    PartidosJugados = 1, // Todos los jugadores suman 1 partido
+                    Goles = 0,
+                    Asistencias = 0,
+                    TarjetasAmarillas = 0,
+                    TarjetasRojas = 0,
+                    MVP = 0
+                };
+
+                // -------------- CREAR GASTO POR PARTIDO
+                Jugador player = _logicaJugador.MostrarDatosJugador(jugador.IdJugador);
+
+                // Bonus
+                int bonusPartido = player.BonusPartido ?? 0;
+                if (bonusPartido != 0)
+                {
+                    Finanza nuevoGasto = new Finanza
+                    {
+                        IdEquipo = _equipo,
+                        IdManager = _manager.IdManager,
+                        Temporada = Metodos.temporadaActual.ToString(),
+                        IdConcepto = 16,
+                        Tipo = 2,
+                        Cantidad = bonusPartido,
+                        Fecha = Metodos.hoy.Date
+                    };
+                    _logicaFinanza.CrearGasto(nuevoGasto);
+
+                    // Restar la indemnización al Presupuesto
+                    _logicaEquipo.RestarCantidadAPresupuesto(_equipo, bonusPartido);
+                }
+            }
+
+            // Sumar goles y asistencias
+            foreach (var (goleador, asistente) in golesYAsistencias)
+            {
+                estadisticas[goleador.IdJugador].Goles++;
+
+                if (asistente != null)
+                {
+                    estadisticas[asistente.IdJugador].Asistencias++;
+                }
+            }
+
+            // Sumar tarjetas
+            foreach (var (jugador, tipoTarjeta) in tarjetas)
+            {
+                if (tipoTarjeta.Contains("roja")) estadisticas[jugador.IdJugador].TarjetasRojas++;
+                if (tipoTarjeta.Contains("amarilla")) estadisticas[jugador.IdJugador].TarjetasAmarillas++;
+            }
+
+            // Sumar MVP
+            estadisticas[mvp.IdJugador].MVP++;
+
+            // Guardar estadísticas en la base de datos
+            foreach (var estadistica in estadisticas.Values)
+            {
+                _logicaEstadisticas.ActualizarEstadisticasEuropa(estadistica);
+            }
+        }
+
         public List<int> SimularLesiones(List<Jugador> jugadoresLocal, List<Jugador> jugadoresVisitante)
         {
             List<int> lesionados = new List<int>();
+            int maxLesionesPorPartido = random.Next(0, 2); // 0 o 1 lesiones
 
-            // Recorrer jugadores locales y visitantes
-            foreach (var jugador in jugadoresLocal)
+            List<Jugador> todos = jugadoresLocal.Concat(jugadoresVisitante).OrderBy(j => random.Next()).ToList();
+
+            foreach (var jugador in todos)
             {
-                if (random.Next(0, 51) == 13) // Generar número entre 0 y 50, si es 13 -> lesión
+                if (maxLesionesPorPartido == 0)
+                    break;
+
+                if (random.Next(0, 100) < 5) // 5% probabilidad
                 {
                     lesionados.Add(jugador.IdJugador);
+                    maxLesionesPorPartido--;
                 }
             }
 
-            foreach (var jugador in jugadoresVisitante)
-            {
-                if (random.Next(0, 51) == 13)
-                {
-                    lesionados.Add(jugador.IdJugador);
-                }
-            }
-
-            return lesionados; // Devuelve la lista con los ID de jugadores lesionados
+            return lesionados;
         }
+
 
         private void ActualizarSancionesYLesiones(List<Jugador> jugadores)
         {
@@ -920,15 +1311,18 @@ namespace ChampionManager25.Vistas
                 }
 
                 _logicaManager.ActualizarResultadoManager(_manager.IdManager, 1, 1, 0, 0, 3);
-                _logicaManager.ActualizarManagerTemporal(new Historial
+                if (partido.IdCompeticion == 1 || partido.IdCompeticion == 2)
                 {
-                    PartidosJugados = 1,
-                    PartidosGanados = 1,
-                    PartidosEmpatados = 0,
-                    PartidosPerdidos = 0,
-                    GolesMarcados = golesEquipo,
-                    GolesRecibidos = golesRival
-                });
+                    _logicaManager.ActualizarManagerTemporal(new Historial
+                    {
+                        PartidosJugados = 1,
+                        PartidosGanados = 1,
+                        PartidosEmpatados = 0,
+                        PartidosPerdidos = 0,
+                        GolesMarcados = golesEquipo,
+                        GolesRecibidos = golesRival
+                    });
+                }     
             }
             else if (derrota)
             {
@@ -950,15 +1344,18 @@ namespace ChampionManager25.Vistas
                 }
 
                 _logicaManager.ActualizarResultadoManager(_manager.IdManager, 1, 0, 0, 1, 0);
-                _logicaManager.ActualizarManagerTemporal(new Historial
+                if (partido.IdCompeticion == 1 || partido.IdCompeticion == 2)
                 {
-                    PartidosJugados = 1,
-                    PartidosGanados = 0,
-                    PartidosEmpatados = 0,
-                    PartidosPerdidos = 1,
-                    GolesMarcados = golesEquipo,
-                    GolesRecibidos = golesRival
-                });
+                    _logicaManager.ActualizarManagerTemporal(new Historial
+                    {
+                        PartidosJugados = 1,
+                        PartidosGanados = 0,
+                        PartidosEmpatados = 0,
+                        PartidosPerdidos = 1,
+                        GolesMarcados = golesEquipo,
+                        GolesRecibidos = golesRival
+                    });
+                }      
             }
             else if (empate)
             {
@@ -973,15 +1370,18 @@ namespace ChampionManager25.Vistas
                 }
 
                 _logicaManager.ActualizarResultadoManager(_manager.IdManager, 1, 0, 1, 0, 1);
-                _logicaManager.ActualizarManagerTemporal(new Historial
+                if (partido.IdCompeticion == 1 || partido.IdCompeticion == 2)
                 {
-                    PartidosJugados = 1,
-                    PartidosGanados = 0,
-                    PartidosEmpatados = 1,
-                    PartidosPerdidos = 0,
-                    GolesMarcados = golesEquipo,
-                    GolesRecibidos = golesRival
-                });
+                    _logicaManager.ActualizarManagerTemporal(new Historial
+                    {
+                        PartidosJugados = 1,
+                        PartidosGanados = 0,
+                        PartidosEmpatados = 1,
+                        PartidosPerdidos = 0,
+                        GolesMarcados = golesEquipo,
+                        GolesRecibidos = golesRival
+                    });
+                } 
             }
 
             // Limitar el rango de impacto según tipo de confianza

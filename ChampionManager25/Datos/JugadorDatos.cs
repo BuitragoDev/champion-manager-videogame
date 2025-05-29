@@ -1,4 +1,5 @@
 ﻿using ChampionManager25.Entidades;
+using ChampionManager25.Entidades;
 using ChampionManager25.MisMetodos;
 using System;
 using System.Collections.Generic;
@@ -2238,6 +2239,32 @@ namespace ChampionManager25.Datos
                         // Agregar parámetro para evitar inyección SQL
                         cmd.Parameters.AddWithValue("@IdJugador", jugador);
                         cmd.Parameters.AddWithValue("@Valor", valor);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // --------------------------------------------------------------------- Método que quita al jugador el tipo de lesion
+        public void QuitarTipoLesion(int jugador)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Consulta SQL para obtener las finanzas del equipo
+                    string query = @"UPDATE jugadores SET tipo_lesion = '' WHERE id_jugador = @IdJugador";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        // Agregar parámetro para evitar inyección SQL
+                        cmd.Parameters.AddWithValue("@IdJugador", jugador);
                         cmd.ExecuteNonQuery();
                     }
                 }

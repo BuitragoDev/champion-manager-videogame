@@ -88,6 +88,8 @@
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*"/>
@@ -98,6 +100,12 @@
 
                                         <Image x:Name="imgLogoLiga2" Grid.Row="0" Grid.Column="2" Height="80" Width="80" Stretch="UniformToFill" 
                                                HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" MouseLeftButtonDown="imgLogoLiga2_MouseLeftButtonDown" />
+
+                                        <Image x:Name="imgLogoLiga5" Grid.Row="0" Grid.Column="3" Height="80" Width="80" Stretch="UniformToFill" 
+                                               HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" MouseLeftButtonDown="imgLogoLiga5_MouseLeftButtonDown" />
+
+                                        <Image x:Name="imgLogoLiga6" Grid.Row="0" Grid.Column="4" Height="80" Width="80" Stretch="UniformToFill" 
+                                               HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" MouseLeftButtonDown="imgLogoLiga6_MouseLeftButtonDown" />
                                     </Grid>
                                 </Border>
                                 

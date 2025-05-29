@@ -167,15 +167,24 @@ namespace ChampionManager25.UserControls
                                                     .Concat(_logicaEquipo.ListarEquiposCompeticion(5))
                                                     .OrderBy(e => Guid.NewGuid())
                                                     .ToList();
-                    _logicaPartido.GenerarCalendarioChampions(equiposChampions, 5, _manager.IdManager, ObtenerSegundoMiercolesOctubre(Metodos.temporadaActual));
+                    _logicaPartido.GenerarCalendarioChampions(equiposChampions, 5, _manager.IdManager, ObtenerPrimerMartesOctubre(Metodos.temporadaActual));
+
+                    // Generar el calendario de Europa League
+                    List<Equipo> equiposUefa = _logicaEquipo.EquiposJueganEuropa2(1)
+                                                    .Concat(_logicaEquipo.ListarEquiposCompeticion(6))
+                                                    .OrderBy(e => Guid.NewGuid())
+                                                    .ToList();
+                    _logicaPartido.GenerarCalendarioChampions2(equiposUefa, 6, _manager.IdManager, ObtenerPrimerJuevesOctubre(Metodos.temporadaActual));
 
                     // Generar las clasificaciones
                     _logicaClasificacion.RellenarClasificacion(1, _manager.IdManager);
                     _logicaClasificacion.RellenarClasificacion2(2, _manager.IdManager);
+                    _logicaClasificacion.RellenarClasificacionEuropa1(_manager.IdManager, equiposChampions);
+                    _logicaClasificacion.RellenarClasificacionEuropa2(_manager.IdManager, equiposUefa);
 
-                    // Generar registros de la tabla ESTADÍSTICAS_JUGADORES
-                    int numJugadores = _logicaJugador.NumeroJugadoresTotales();
-                    _logicaEstadistica.InsertarEstadisticasJugadores(numJugadores, _manager.IdManager);
+                    // Generar registros de la tabla ESTADÍSTICAS_JUGADORES y ESTADISTICAS_JUGADORES_EUROPA
+                    _logicaEstadistica.InsertarEstadisticasJugadores(_manager.IdManager);
+                    _logicaEstadistica.InsertarEstadisticasJugadoresEuropa(_manager.IdManager);
 
                     // Asignar equipo a la tabla "taquilla"
                     _logicaTaquilla.GenerarTaquilla(_equipo, _manager.IdManager);
@@ -370,17 +379,39 @@ namespace ChampionManager25.UserControls
             throw new Exception("No se encontró el tercer sábado de agosto.");
         }
 
-        public static DateTime ObtenerSegundoMiercolesOctubre(int anio)
+        public static DateTime ObtenerPrimerMartesOctubre(int anio)
         {
             DateTime fecha = new DateTime(anio, 10, 1);
             int miercolesEncontrados = 0;
 
             while (fecha.Month == 10)
             {
-                if (fecha.DayOfWeek == DayOfWeek.Wednesday)
+                if (fecha.DayOfWeek == DayOfWeek.Tuesday)
                 {
                     miercolesEncontrados++;
-                    if (miercolesEncontrados == 2)
+                    if (miercolesEncontrados == 1)
+                    {
+                        return fecha;
+                    }
+                }
+
+                fecha = fecha.AddDays(1);
+            }
+
+            throw new Exception("No se encontró el tercer sábado de agosto.");
+        }
+
+        public static DateTime ObtenerPrimerJuevesOctubre(int anio)
+        {
+            DateTime fecha = new DateTime(anio, 10, 1);
+            int miercolesEncontrados = 0;
+
+            while (fecha.Month == 10)
+            {
+                if (fecha.DayOfWeek == DayOfWeek.Thursday)
+                {
+                    miercolesEncontrados++;
+                    if (miercolesEncontrados == 1)
                     {
                         return fecha;
                     }

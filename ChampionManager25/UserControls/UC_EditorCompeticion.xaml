@@ -55,6 +55,7 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="150"/>
@@ -156,6 +157,102 @@
 
                         <!-- Imagen 80x80 -->
                         <Image x:Name="img80x80Liga2" Grid.Column="1" Grid.Row="1" Width="80" Height="80" Stretch="Uniform" MouseLeftButtonDown="img80x80Liga2_MouseLeftButtonDown" Cursor="Hand" />
+                    </Grid>
+                </Border>
+                
+                <!-- Nombre de Competicion Europa 1 -->
+                <Border Grid.Column="1" Grid.Row="0" BorderBrush="#23282d" BorderThickness="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Background="SteelBlue" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+                            <TextBlock Text="NOMBRE DE LA COPA DE EUROPA 1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                        </Border>
+
+                        <TextBox x:Name="txtNombreCompeticionEuropa1" Grid.Row="1" FontFamily="Cascadia Code SemiBold" FontSize="32" 
+                                 Width="700" Height="44" VerticalContentAlignment="Center" TextAlignment="Center" 
+                                 MaxLength="25" VerticalAlignment="Center" HorizontalAlignment="Center" BorderBrush="#23282d" BorderThickness="1" />
+                    </Grid>
+                </Border>
+
+                <!-- Logotipo Europa 1 -->
+                <Border Grid.Column="1" Grid.Row="1" BorderBrush="#23282d" BorderThickness="1" Margin="0,10,0,10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Titulo -->
+                        <Border Background="SteelBlue" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+                            <TextBlock Text="LOGOTIPO" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                        </Border>
+
+                        <!-- Imagen grande -->
+                        <Image x:Name="imgGrandeEuropa1" Grid.Column="0" Grid.Row="1" Width="200" Height="200" Stretch="Uniform" MouseLeftButtonDown="imgGrandeEuropa1_MouseLeftButtonDown" Cursor="Hand" />
+
+                        <!-- Imagen 80x80 -->
+                        <Image x:Name="img80x80Europa1" Grid.Column="1" Grid.Row="1" Width="80" Height="80" Stretch="Uniform" MouseLeftButtonDown="img80x80Europa1_MouseLeftButtonDown" Cursor="Hand" />
+                    </Grid>
+                </Border>
+
+                <!-- Nombre de Competicion Europa 2 -->
+                <Border Grid.Column="1" Grid.Row="2" BorderBrush="#23282d" BorderThickness="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Background="SteelBlue" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+                            <TextBlock Text="NOMBRE DE LA COPA DE EUROPA 2" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                        </Border>
+
+                        <TextBox x:Name="txtNombreCompeticionEuropa2" Grid.Row="1" FontFamily="Cascadia Code SemiBold" FontSize="32" 
+                                 Width="700" Height="44" VerticalContentAlignment="Center" TextAlignment="Center" 
+                                 MaxLength="25" VerticalAlignment="Center" HorizontalAlignment="Center" BorderBrush="#23282d" BorderThickness="1" />
+                    </Grid>
+                </Border>
+
+                <!-- Logotipo Europa 2 -->
+                <Border Grid.Column="1" Grid.Row="3" BorderBrush="#23282d" BorderThickness="1" Margin="0,10,0,10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Titulo -->
+                        <Border Background="SteelBlue" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+                            <TextBlock Text="LOGOTIPO" HorizontalAlignment="Center" VerticalAlignment="Center"
+                       FontFamily="Cascadia Code SemiBold" FontSize="18" Foreground="WhiteSmoke" TextAlignment="Center"/>
+                        </Border>
+
+                        <!-- Imagen grande -->
+                        <Image x:Name="imgGrandeEuropa2" Grid.Column="0" Grid.Row="1" Width="200" Height="200" Stretch="Uniform" MouseLeftButtonDown="imgGrandeEuropa2_MouseLeftButtonDown" Cursor="Hand" />
+
+                        <!-- Imagen 80x80 -->
+                        <Image x:Name="img80x80Europa2" Grid.Column="1" Grid.Row="1" Width="80" Height="80" Stretch="Uniform" MouseLeftButtonDown="img80x80Europa2_MouseLeftButtonDown" Cursor="Hand" />
                     </Grid>
                 </Border>
             </Grid>

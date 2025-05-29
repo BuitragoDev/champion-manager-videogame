@@ -37,6 +37,18 @@ namespace ChampionManager25.Logica
             return _datos.MostrarPalmaresCompletoCopa();
         }
 
+        // Llamada al método para Mostrar el Palmarés Completo de Copa Europa 1
+        public List<Palmares> MostrarPalmaresCompletoCopaEuropa1()
+        {
+            return _datos.MostrarPalmaresCompletoCopaEuropa1();
+        }
+
+        // Llamada al método para Mostrar el Palmarés Completo de Copa Europa 2
+        public List<Palmares> MostrarPalmaresCompletoCopaEuropa2()
+        {
+            return _datos.MostrarPalmaresCompletoCopaEuropa2();
+        }
+
         // Llamada al método para Mostrar el Palmarés del Balon de Oro
         public List<PalmaresJugador> MostrarPalmaresBalonOroTotal()
         {
@@ -59,6 +71,18 @@ namespace ChampionManager25.Logica
         public List<HistorialFinales> MostrarHistorialFinalesCopa()
         {
             return _datos.MostrarHistorialFinalesCopa();
+        }
+
+        // Llamada al método para Mostrar el Historial de las Finales de Copa Europa 1
+        public List<HistorialFinales> MostrarHistorialFinalesCopaEuropa1()
+        {
+            return _datos.MostrarHistorialFinalesCopaEuropa1();
+        }
+
+        // Llamada al método para Mostrar el Historial de las Finales de Copa Europa 2
+        public List<HistorialFinales> MostrarHistorialFinalesCopaEuropa2()
+        {
+            return _datos.MostrarHistorialFinalesCopaEuropa2();
         }
 
         // Llamada al metodo que suma un titulo al manager si gana la Liga
@@ -125,6 +149,30 @@ namespace ChampionManager25.Logica
         public void AnadirCampeonFinalistaCopa(int temporada, int campeon, int finalista)
         {
             _datos.AnadirCampeonFinalistaCopa(temporada, campeon, finalista);
+        }
+
+        // Llamada al metodo que suma un titulo al campeon de Copa Europa 1
+        public void AnadirTituloCampeonCopaEuropa1(int equipo)
+        {
+            _datos.AnadirTituloCampeonCopaEuropa1(equipo);
+        }
+
+        // Llamada al metodo que agrega el campeon y subcampeon de Copa Europa 1
+        public void AnadirCampeonFinalistaCopaEuropa1(int temporada, int campeon, int finalista)
+        {
+            _datos.AnadirCampeonFinalistaCopaEuropa1(temporada, campeon, finalista);
+        }
+
+        // Llamada al metodo que suma un titulo al campeon de Copa Europa 2
+        public void AnadirTituloCampeonCopaEuropa2(int equipo)
+        {
+            _datos.AnadirTituloCampeonCopaEuropa2(equipo);
+        }
+
+        // Llamada al metodo que agrega el campeon y subcampeon de Copa Europa 2
+        public void AnadirCampeonFinalistaCopaEuropa2(int temporada, int campeon, int finalista)
+        {
+            _datos.AnadirCampeonFinalistaCopaEuropa2(temporada, campeon, finalista);
         }
     }
 }

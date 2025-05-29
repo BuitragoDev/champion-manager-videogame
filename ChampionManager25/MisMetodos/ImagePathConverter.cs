@@ -30,7 +30,7 @@ namespace ChampionManager25.MisMetodos
                         "ChampionsManager",
                         equipo.RutaImagen64
                     );
-
+ 
                     // Verificar si la imagen existe y devolver la ruta
                     if (File.Exists(rutaCompleta))
                     {

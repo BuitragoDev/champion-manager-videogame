@@ -613,6 +613,34 @@ namespace ChampionManager25.Datos
             }
         }
 
+        // ---------------------------------------------------------------- Método que cambia un equipo de competicion europea
+        public void AscenderDescenderEquipoEuropa(int equipo, int competicion)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Consulta SQL para obtener las finanzas del equipo
+                    string query = @"UPDATE equipos
+                                     SET competicion_europea = @IdCompeticion
+                                     WHERE id_equipo = @IdEquipo";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@IdCompeticion", competicion);
+                        cmd.Parameters.AddWithValue("@IdEquipo", equipo);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
         // ---------------------------------------------------------------- Método que cambia un Objetivo de Temporada
         public void CambiarObjetivoTemporada(int equipo, string objetivo)
         {

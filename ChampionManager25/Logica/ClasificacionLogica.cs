@@ -25,15 +25,40 @@ namespace ChampionManager25.Logica
             _datos.RellenarClasificacion2(competicion, manager);
         }
 
-        // Llamada al método que muestra una lista de equipo para la clasificación
+        // Llamada al método para Rellenar la Clasificación de Copa de Europa 1
+        public void RellenarClasificacionEuropa1(int manager, List<Equipo> equiposEuropa1)
+        {
+            _datos.RellenarClasificacionEuropa1(manager, equiposEuropa1);
+        }
+
+        // Llamada al método para Rellenar la Clasificación de Copa de Europa 2
+        public void RellenarClasificacionEuropa2(int manager, List<Equipo> equiposEuropa2)
+        {
+            _datos.RellenarClasificacionEuropa2(manager, equiposEuropa2);
+        }
+
+        // Llamada al método que muestra una lista de equipo para la clasificación de Liga 1
         public List<Clasificacion> MostrarClasificacion(int competicion, int manager)
         {
             return _datos.MostrarClasificacion(competicion, manager);
         }
 
+        // Llamada al método que muestra una lista de equipo para la clasificación de Liga 2
         public List<Clasificacion> MostrarClasificacion2(int competicion, int manager)
         {
             return _datos.MostrarClasificacion2(competicion, manager);
+        }
+
+        // Llamada al método para Mostrar la Clasificacion Europa 1
+        public List<Clasificacion> MostrarClasificacionCopaEuropa1(int competicion, int manager)
+        {
+            return _datos.MostrarClasificacionCopaEuropa1(competicion, manager);
+        }
+
+        // Llamada al método para Mostrar la Clasificacion Europa 2
+        public List<Clasificacion> MostrarClasificacionCopaEuropa2(int competicion, int manager)
+        {
+            return _datos.MostrarClasificacionCopaEuropa2(competicion, manager);
         }
 
         // Llamada al método que crea un objeto Clasificacion de un equipo
@@ -78,9 +103,22 @@ namespace ChampionManager25.Logica
             _datos.ActualizarClasificacion(clasificacion);
         }
 
+        // Llamada al método para actualizar la Clasificacion de la 2 division
         public void ActualizarClasificacion2(Clasificacion clasificacion)
         {
             _datos.ActualizarClasificacion2(clasificacion);
+        }
+
+        // Llamada al metodo para actualizar la clasificacion de la Copa de Europa 1
+        public void ActualizarClasificacionEuropa1(Clasificacion clasificacion)
+        {
+            _datos.ActualizarClasificacionEuropa1(clasificacion);
+        }
+
+        // Llamada al metodo para actualizar la clasificacion de la Copa de Europa 2
+        public void ActualizarClasificacionEuropa2(Clasificacion clasificacion)
+        {
+            _datos.ActualizarClasificacionEuropa2(clasificacion);
         }
 
         // Llamada al método para RESETEAR la Clasificación

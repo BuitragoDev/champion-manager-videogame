@@ -63,7 +63,7 @@ namespace ChampionManager25.Datos
         }
 
         // ===================================================================== Método para insertar un nuevo partido de Copa
-        public int crearPartidoCopa(int local, int visitante, string fecha, int competicion, int ronda, int partidoVuelta,  int idMng)
+        public int crearPartidoCopa(int local, int visitante, string fecha, int competicion, int ronda, int partidoVuelta, int idMng)
         {
             try
             {
@@ -103,8 +103,8 @@ namespace ChampionManager25.Datos
             }
         }
 
-        // ===================================================================== Método para insertar un nuevo partido de Copa Europa 1
-        public int CrearPartidoCopaEuropa(int local, int visitante, string fecha, int competicion, int jornada, int idMng)
+        // -------------------------------------------------------------------- Método para insertar un nuevo partido de Copa Europa 1
+        public int CrearPartidoCopaEuropa(int local, int visitante, string fecha, int competicion, int jornada, int ronda, int partidoVuelta, int idMng)
         {
             try
             {
@@ -113,16 +113,55 @@ namespace ChampionManager25.Datos
                     conn.Open();
 
                     string query = @"INSERT INTO partidos_copaEuropa1 
-                            (fecha, id_equipo_local, id_equipo_visitante, id_competicion, jornada, id_manager, estado) 
-                            VALUES (@Fecha, @IdEquipoLocal, @IdEquipoVisitante, @Competicion, @Jornada, @idManager, 'Pendiente')";
+                            (partido_vuelta, fecha, id_equipo_local, id_equipo_visitante, id_competicion, jornada, id_ronda, id_manager, estado) 
+                            VALUES (@PartidoVuelta, @Fecha, @IdEquipoLocal, @IdEquipoVisitante, @Competicion, @Jornada, @Ronda, @idManager, 'Pendiente')";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                     {
+                        cmd.Parameters.AddWithValue("@PartidoVuelta", partidoVuelta);
                         cmd.Parameters.AddWithValue("@Fecha", fecha);
                         cmd.Parameters.AddWithValue("@IdEquipoLocal", local);
                         cmd.Parameters.AddWithValue("@IdEquipoVisitante", visitante);
                         cmd.Parameters.AddWithValue("@Competicion", competicion);
                         cmd.Parameters.AddWithValue("@Jornada", jornada);
+                        cmd.Parameters.AddWithValue("@Ronda", ronda);
+                        cmd.Parameters.AddWithValue("@idManager", idMng);
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    return (int)conn.LastInsertRowId;
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al crear partido: {ex.Message}");
+                return -1;
+            }
+        }
+
+        // -------------------------------------------------------------------- Método para insertar un nuevo partido de Copa Europa 2
+        public int CrearPartidoCopaEuropa2(int local, int visitante, string fecha, int competicion, int jornada, int ronda, int partidoVuelta, int idMng)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    string query = @"INSERT INTO partidos_copaEuropa2 
+                            (partido_vuelta, fecha, id_equipo_local, id_equipo_visitante, id_competicion, jornada, id_ronda, id_manager, estado) 
+                            VALUES (@PartidoVuelta, @Fecha, @IdEquipoLocal, @IdEquipoVisitante, @Competicion, @Jornada, @Ronda, @idManager, 'Pendiente')";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@PartidoVuelta", partidoVuelta);
+                        cmd.Parameters.AddWithValue("@Fecha", fecha);
+                        cmd.Parameters.AddWithValue("@IdEquipoLocal", local);
+                        cmd.Parameters.AddWithValue("@IdEquipoVisitante", visitante);
+                        cmd.Parameters.AddWithValue("@Competicion", competicion);
+                        cmd.Parameters.AddWithValue("@Jornada", jornada);
+                        cmd.Parameters.AddWithValue("@Ronda", ronda);
                         cmd.Parameters.AddWithValue("@idManager", idMng);
 
                         cmd.ExecuteNonQuery();
@@ -142,164 +181,328 @@ namespace ChampionManager25.Datos
         public void GenerarCalendarioChampions(List<Equipo> equipos, int idCompeticion, int idManager, DateTime fechaInicio)
         {
             // Jornada 1
-            CrearPartidoCopaEuropa(equipos[35].IdEquipo, equipos[7].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, idManager);
-            CrearPartidoCopaEuropa(equipos[19].IdEquipo, equipos[13].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, idManager);
-            CrearPartidoCopaEuropa(equipos[12].IdEquipo, equipos[0].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, idManager);
-            CrearPartidoCopaEuropa(equipos[11].IdEquipo, equipos[24].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, idManager);
-            CrearPartidoCopaEuropa(equipos[10].IdEquipo, equipos[25].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, idManager);
-            CrearPartidoCopaEuropa(equipos[22].IdEquipo, equipos[6].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, idManager);
-            CrearPartidoCopaEuropa(equipos[30].IdEquipo, equipos[33].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, idManager);
-            CrearPartidoCopaEuropa(equipos[27].IdEquipo, equipos[26].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, idManager);
-            CrearPartidoCopaEuropa(equipos[20].IdEquipo, equipos[34].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, idManager);
-            CrearPartidoCopaEuropa(equipos[23].IdEquipo, equipos[9].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, idManager);
-            CrearPartidoCopaEuropa(equipos[21].IdEquipo, equipos[3].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, idManager);
-            CrearPartidoCopaEuropa(equipos[14].IdEquipo, equipos[32].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, idManager);
-            CrearPartidoCopaEuropa(equipos[18].IdEquipo, equipos[5].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, idManager);
-            CrearPartidoCopaEuropa(equipos[28].IdEquipo, equipos[15].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, idManager);
-            CrearPartidoCopaEuropa(equipos[16].IdEquipo, equipos[1].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, idManager);
-            CrearPartidoCopaEuropa(equipos[8].IdEquipo, equipos[2].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, idManager);
-            CrearPartidoCopaEuropa(equipos[4].IdEquipo, equipos[31].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, idManager);
-            CrearPartidoCopaEuropa(equipos[17].IdEquipo, equipos[29].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, idManager);
+            CrearPartidoCopaEuropa(equipos[35].IdEquipo, equipos[7].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[19].IdEquipo, equipos[13].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[12].IdEquipo, equipos[0].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[11].IdEquipo, equipos[24].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[10].IdEquipo, equipos[25].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[22].IdEquipo, equipos[6].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[30].IdEquipo, equipos[33].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[27].IdEquipo, equipos[26].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[20].IdEquipo, equipos[34].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[23].IdEquipo, equipos[9].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[21].IdEquipo, equipos[3].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[14].IdEquipo, equipos[32].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[18].IdEquipo, equipos[5].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[28].IdEquipo, equipos[15].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[16].IdEquipo, equipos[1].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[8].IdEquipo, equipos[2].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[4].IdEquipo, equipos[31].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[17].IdEquipo, equipos[29].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
 
             // Jornada 2
-            CrearPartidoCopaEuropa(equipos[33].IdEquipo, equipos[17].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, idManager);
-            CrearPartidoCopaEuropa(equipos[25].IdEquipo, equipos[30].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, idManager);
-            CrearPartidoCopaEuropa(equipos[2].IdEquipo, equipos[14].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, idManager);
-            CrearPartidoCopaEuropa(equipos[5].IdEquipo, equipos[12].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, idManager);
-            CrearPartidoCopaEuropa(equipos[9].IdEquipo, equipos[20].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, idManager);
-            CrearPartidoCopaEuropa(equipos[1].IdEquipo, equipos[35].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, idManager);
-            CrearPartidoCopaEuropa(equipos[3].IdEquipo, equipos[28].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, idManager);
-            CrearPartidoCopaEuropa(equipos[13].IdEquipo, equipos[22].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, idManager);
-            CrearPartidoCopaEuropa(equipos[34].IdEquipo, equipos[21].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, idManager);
-            CrearPartidoCopaEuropa(equipos[26].IdEquipo, equipos[8].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, idManager);
-            CrearPartidoCopaEuropa(equipos[32].IdEquipo, equipos[18].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, idManager);
-            CrearPartidoCopaEuropa(equipos[7].IdEquipo, equipos[11].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, idManager);
-            CrearPartidoCopaEuropa(equipos[24].IdEquipo, equipos[16].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, idManager);
-            CrearPartidoCopaEuropa(equipos[0].IdEquipo, equipos[27].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, idManager);
-            CrearPartidoCopaEuropa(equipos[6].IdEquipo, equipos[10].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, idManager);
-            CrearPartidoCopaEuropa(equipos[31].IdEquipo, equipos[19].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, idManager);
-            CrearPartidoCopaEuropa(equipos[29].IdEquipo, equipos[23].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, idManager);
-            CrearPartidoCopaEuropa(equipos[15].IdEquipo, equipos[4].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, idManager);
+            CrearPartidoCopaEuropa(equipos[33].IdEquipo, equipos[17].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[25].IdEquipo, equipos[30].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[2].IdEquipo, equipos[14].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[5].IdEquipo, equipos[12].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[9].IdEquipo, equipos[20].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[1].IdEquipo, equipos[35].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[3].IdEquipo, equipos[28].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[13].IdEquipo, equipos[22].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[34].IdEquipo, equipos[21].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[26].IdEquipo, equipos[8].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[32].IdEquipo, equipos[18].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[7].IdEquipo, equipos[11].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[24].IdEquipo, equipos[16].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[0].IdEquipo, equipos[27].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[6].IdEquipo, equipos[10].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[31].IdEquipo, equipos[19].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[29].IdEquipo, equipos[23].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[15].IdEquipo, equipos[4].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
 
             // Jornada 3
-            CrearPartidoCopaEuropa(equipos[12].IdEquipo, equipos[23].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, idManager);
-            CrearPartidoCopaEuropa(equipos[16].IdEquipo, equipos[28].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, idManager);
-            CrearPartidoCopaEuropa(equipos[2].IdEquipo, equipos[26].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, idManager);
-            CrearPartidoCopaEuropa(equipos[7].IdEquipo, equipos[27].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, idManager);
-            CrearPartidoCopaEuropa(equipos[32].IdEquipo, equipos[34].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, idManager);
-            CrearPartidoCopaEuropa(equipos[19].IdEquipo, equipos[25].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, idManager);
-            CrearPartidoCopaEuropa(equipos[14].IdEquipo, equipos[13].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, idManager);
-            CrearPartidoCopaEuropa(equipos[10].IdEquipo, equipos[9].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, idManager);
-            CrearPartidoCopaEuropa(equipos[29].IdEquipo, equipos[22].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, idManager);
-            CrearPartidoCopaEuropa(equipos[8].IdEquipo, equipos[20].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, idManager);
-            CrearPartidoCopaEuropa(equipos[17].IdEquipo, equipos[5].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, idManager);
-            CrearPartidoCopaEuropa(equipos[4].IdEquipo, equipos[6].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, idManager);
-            CrearPartidoCopaEuropa(equipos[35].IdEquipo, equipos[3].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, idManager);
-            CrearPartidoCopaEuropa(equipos[1].IdEquipo, equipos[11].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, idManager);
-            CrearPartidoCopaEuropa(equipos[33].IdEquipo, equipos[24].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, idManager);
-            CrearPartidoCopaEuropa(equipos[21].IdEquipo, equipos[30].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, idManager);
-            CrearPartidoCopaEuropa(equipos[31].IdEquipo, equipos[0].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, idManager);
-            CrearPartidoCopaEuropa(equipos[15].IdEquipo, equipos[18].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, idManager);
+            CrearPartidoCopaEuropa(equipos[12].IdEquipo, equipos[23].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[16].IdEquipo, equipos[28].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[2].IdEquipo, equipos[26].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[7].IdEquipo, equipos[27].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[32].IdEquipo, equipos[34].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[19].IdEquipo, equipos[25].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[14].IdEquipo, equipos[13].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[10].IdEquipo, equipos[9].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[29].IdEquipo, equipos[22].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[8].IdEquipo, equipos[20].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[17].IdEquipo, equipos[5].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[4].IdEquipo, equipos[6].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[35].IdEquipo, equipos[3].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[1].IdEquipo, equipos[11].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[33].IdEquipo, equipos[24].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[21].IdEquipo, equipos[30].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[31].IdEquipo, equipos[0].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[15].IdEquipo, equipos[18].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
 
             // Jornada 4
-            CrearPartidoCopaEuropa(equipos[13].IdEquipo, equipos[32].IdEquipo, fechaInicio.AddDays(42).ToString("yyyy-MM-dd"), idCompeticion, 4, idManager);
-            CrearPartidoCopaEuropa(equipos[34].IdEquipo, equipos[24].IdEquipo, fechaInicio.AddDays(42).ToString("yyyy-MM-dd"), idCompeticion, 4, idManager);
-            CrearPartidoCopaEuropa(equipos[27].IdEquipo, equipos[16].IdEquipo, fechaInicio.AddDays(42).ToString("yyyy-MM-dd"), idCompeticion, 4, idManager);
-            CrearPartidoCopaEuropa(equipos[9].IdEquipo, equipos[29].IdEquipo, fechaInicio.AddDays(42).ToString("yyyy-MM-dd"), idCompeticion, 4, idManager);
-            CrearPartidoCopaEuropa(equipos[20].IdEquipo, equipos[31].IdEquipo, fechaInicio.AddDays(42).ToString("yyyy-MM-dd"), idCompeticion, 4, idManager);
-            CrearPartidoCopaEuropa(equipos[0].IdEquipo, equipos[5].IdEquipo, fechaInicio.AddDays(42).ToString("yyyy-MM-dd"), idCompeticion, 4, idManager);
-            CrearPartidoCopaEuropa(equipos[6].IdEquipo, equipos[19].IdEquipo, fechaInicio.AddDays(42).ToString("yyyy-MM-dd"), idCompeticion, 4, idManager);
-            CrearPartidoCopaEuropa(equipos[10].IdEquipo, equipos[12].IdEquipo, fechaInicio.AddDays(42).ToString("yyyy-MM-dd"), idCompeticion, 4, idManager);
-            CrearPartidoCopaEuropa(equipos[22].IdEquipo, equipos[21].IdEquipo, fechaInicio.AddDays(42).ToString("yyyy-MM-dd"), idCompeticion, 4, idManager);
-            CrearPartidoCopaEuropa(equipos[23].IdEquipo, equipos[7].IdEquipo, fechaInicio.AddDays(42).ToString("yyyy-MM-dd"), idCompeticion, 4, idManager);
-            CrearPartidoCopaEuropa(equipos[26].IdEquipo, equipos[35].IdEquipo, fechaInicio.AddDays(42).ToString("yyyy-MM-dd"), idCompeticion, 4, idManager);
-            CrearPartidoCopaEuropa(equipos[30].IdEquipo, equipos[17].IdEquipo, fechaInicio.AddDays(42).ToString("yyyy-MM-dd"), idCompeticion, 4, idManager);
-            CrearPartidoCopaEuropa(equipos[11].IdEquipo, equipos[15].IdEquipo, fechaInicio.AddDays(42).ToString("yyyy-MM-dd"), idCompeticion, 4, idManager);
-            CrearPartidoCopaEuropa(equipos[3].IdEquipo, equipos[2].IdEquipo, fechaInicio.AddDays(42).ToString("yyyy-MM-dd"), idCompeticion, 4, idManager);
-            CrearPartidoCopaEuropa(equipos[18].IdEquipo, equipos[33].IdEquipo, fechaInicio.AddDays(42).ToString("yyyy-MM-dd"), idCompeticion, 4, idManager);
-            CrearPartidoCopaEuropa(equipos[28].IdEquipo, equipos[1].IdEquipo, fechaInicio.AddDays(42).ToString("yyyy-MM-dd"), idCompeticion, 4, idManager);
-            CrearPartidoCopaEuropa(equipos[14].IdEquipo, equipos[4].IdEquipo, fechaInicio.AddDays(42).ToString("yyyy-MM-dd"), idCompeticion, 4, idManager);
-            CrearPartidoCopaEuropa(equipos[25].IdEquipo, equipos[8].IdEquipo, fechaInicio.AddDays(42).ToString("yyyy-MM-dd"), idCompeticion, 4, idManager);
+            CrearPartidoCopaEuropa(equipos[13].IdEquipo, equipos[32].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[34].IdEquipo, equipos[24].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[27].IdEquipo, equipos[16].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[9].IdEquipo, equipos[29].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[20].IdEquipo, equipos[31].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[0].IdEquipo, equipos[5].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[6].IdEquipo, equipos[19].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[10].IdEquipo, equipos[12].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[22].IdEquipo, equipos[21].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[23].IdEquipo, equipos[7].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[26].IdEquipo, equipos[35].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[30].IdEquipo, equipos[17].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[11].IdEquipo, equipos[15].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[3].IdEquipo, equipos[2].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[18].IdEquipo, equipos[33].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[28].IdEquipo, equipos[1].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[14].IdEquipo, equipos[4].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[25].IdEquipo, equipos[8].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
 
             // Jornada 5
-            CrearPartidoCopaEuropa(equipos[34].IdEquipo, equipos[12].IdEquipo, fechaInicio.AddDays(56).ToString("yyyy-MM-dd"), idCompeticion, 5, idManager);
-            CrearPartidoCopaEuropa(equipos[30].IdEquipo, equipos[4].IdEquipo, fechaInicio.AddDays(56).ToString("yyyy-MM-dd"), idCompeticion, 5, idManager);
-            CrearPartidoCopaEuropa(equipos[1].IdEquipo, equipos[17].IdEquipo, fechaInicio.AddDays(56).ToString("yyyy-MM-dd"), idCompeticion, 5, idManager);
-            CrearPartidoCopaEuropa(equipos[5].IdEquipo, equipos[33].IdEquipo, fechaInicio.AddDays(56).ToString("yyyy-MM-dd"), idCompeticion, 5, idManager);
-            CrearPartidoCopaEuropa(equipos[11].IdEquipo, equipos[14].IdEquipo, fechaInicio.AddDays(56).ToString("yyyy-MM-dd"), idCompeticion, 5, idManager);
-            CrearPartidoCopaEuropa(equipos[3].IdEquipo, equipos[31].IdEquipo, fechaInicio.AddDays(56).ToString("yyyy-MM-dd"), idCompeticion, 5, idManager);
-            CrearPartidoCopaEuropa(equipos[21].IdEquipo, equipos[18].IdEquipo, fechaInicio.AddDays(56).ToString("yyyy-MM-dd"), idCompeticion, 5, idManager);
-            CrearPartidoCopaEuropa(equipos[22].IdEquipo, equipos[2].IdEquipo, fechaInicio.AddDays(56).ToString("yyyy-MM-dd"), idCompeticion, 5, idManager);
-            CrearPartidoCopaEuropa(equipos[35].IdEquipo, equipos[8].IdEquipo, fechaInicio.AddDays(56).ToString("yyyy-MM-dd"), idCompeticion, 5, idManager);
-            CrearPartidoCopaEuropa(equipos[28].IdEquipo, equipos[25].IdEquipo, fechaInicio.AddDays(56).ToString("yyyy-MM-dd"), idCompeticion, 5, idManager);
-            CrearPartidoCopaEuropa(equipos[29].IdEquipo, equipos[32].IdEquipo, fechaInicio.AddDays(56).ToString("yyyy-MM-dd"), idCompeticion, 5, idManager);
-            CrearPartidoCopaEuropa(equipos[7].IdEquipo, equipos[19].IdEquipo, fechaInicio.AddDays(56).ToString("yyyy-MM-dd"), idCompeticion, 5, idManager);
-            CrearPartidoCopaEuropa(equipos[27].IdEquipo, equipos[6].IdEquipo, fechaInicio.AddDays(56).ToString("yyyy-MM-dd"), idCompeticion, 5, idManager);
-            CrearPartidoCopaEuropa(equipos[20].IdEquipo, equipos[23].IdEquipo, fechaInicio.AddDays(56).ToString("yyyy-MM-dd"), idCompeticion, 5, idManager);
-            CrearPartidoCopaEuropa(equipos[24].IdEquipo, equipos[9].IdEquipo, fechaInicio.AddDays(56).ToString("yyyy-MM-dd"), idCompeticion, 5, idManager);
-            CrearPartidoCopaEuropa(equipos[0].IdEquipo, equipos[10].IdEquipo, fechaInicio.AddDays(56).ToString("yyyy-MM-dd"), idCompeticion, 5, idManager);
-            CrearPartidoCopaEuropa(equipos[16].IdEquipo, equipos[15].IdEquipo, fechaInicio.AddDays(56).ToString("yyyy-MM-dd"), idCompeticion, 5, idManager);
-            CrearPartidoCopaEuropa(equipos[13].IdEquipo, equipos[26].IdEquipo, fechaInicio.AddDays(56).ToString("yyyy-MM-dd"), idCompeticion, 5, idManager);
+            CrearPartidoCopaEuropa(equipos[34].IdEquipo, equipos[12].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[30].IdEquipo, equipos[4].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[1].IdEquipo, equipos[17].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[5].IdEquipo, equipos[33].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[11].IdEquipo, equipos[14].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[3].IdEquipo, equipos[31].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[21].IdEquipo, equipos[18].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[22].IdEquipo, equipos[2].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[35].IdEquipo, equipos[8].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[28].IdEquipo, equipos[25].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[29].IdEquipo, equipos[32].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[7].IdEquipo, equipos[19].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[27].IdEquipo, equipos[6].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[20].IdEquipo, equipos[23].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[24].IdEquipo, equipos[9].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[0].IdEquipo, equipos[10].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[16].IdEquipo, equipos[15].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[13].IdEquipo, equipos[26].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
 
             // Jornada 6
-            CrearPartidoCopaEuropa(equipos[32].IdEquipo, equipos[0].IdEquipo, fechaInicio.AddDays(70).ToString("yyyy-MM-dd"), idCompeticion, 6, idManager);
-            CrearPartidoCopaEuropa(equipos[24].IdEquipo, equipos[20].IdEquipo, fechaInicio.AddDays(70).ToString("yyyy-MM-dd"), idCompeticion, 6, idManager);
-            CrearPartidoCopaEuropa(equipos[8].IdEquipo, equipos[10].IdEquipo, fechaInicio.AddDays(70).ToString("yyyy-MM-dd"), idCompeticion, 6, idManager);
-            CrearPartidoCopaEuropa(equipos[5].IdEquipo, equipos[3].IdEquipo, fechaInicio.AddDays(70).ToString("yyyy-MM-dd"), idCompeticion, 6, idManager);
-            CrearPartidoCopaEuropa(equipos[23].IdEquipo, equipos[22].IdEquipo, fechaInicio.AddDays(70).ToString("yyyy-MM-dd"), idCompeticion, 6, idManager);
-            CrearPartidoCopaEuropa(equipos[33].IdEquipo, equipos[14].IdEquipo, fechaInicio.AddDays(70).ToString("yyyy-MM-dd"), idCompeticion, 6, idManager);
-            CrearPartidoCopaEuropa(equipos[26].IdEquipo, equipos[11].IdEquipo, fechaInicio.AddDays(70).ToString("yyyy-MM-dd"), idCompeticion, 6, idManager);
-            CrearPartidoCopaEuropa(equipos[31].IdEquipo, equipos[7].IdEquipo, fechaInicio.AddDays(70).ToString("yyyy-MM-dd"), idCompeticion, 6, idManager);
-            CrearPartidoCopaEuropa(equipos[17].IdEquipo, equipos[13].IdEquipo, fechaInicio.AddDays(70).ToString("yyyy-MM-dd"), idCompeticion, 6, idManager);
-            CrearPartidoCopaEuropa(equipos[4].IdEquipo, equipos[34].IdEquipo, fechaInicio.AddDays(70).ToString("yyyy-MM-dd"), idCompeticion, 6, idManager);
-            CrearPartidoCopaEuropa(equipos[6].IdEquipo, equipos[29].IdEquipo, fechaInicio.AddDays(70).ToString("yyyy-MM-dd"), idCompeticion, 6, idManager);
-            CrearPartidoCopaEuropa(equipos[12].IdEquipo, equipos[28].IdEquipo, fechaInicio.AddDays(70).ToString("yyyy-MM-dd"), idCompeticion, 6, idManager);
-            CrearPartidoCopaEuropa(equipos[2].IdEquipo, equipos[16].IdEquipo, fechaInicio.AddDays(70).ToString("yyyy-MM-dd"), idCompeticion, 6, idManager);
-            CrearPartidoCopaEuropa(equipos[9].IdEquipo, equipos[1].IdEquipo, fechaInicio.AddDays(70).ToString("yyyy-MM-dd"), idCompeticion, 6, idManager);
-            CrearPartidoCopaEuropa(equipos[18].IdEquipo, equipos[30].IdEquipo, fechaInicio.AddDays(70).ToString("yyyy-MM-dd"), idCompeticion, 6, idManager);
-            CrearPartidoCopaEuropa(equipos[19].IdEquipo, equipos[21].IdEquipo, fechaInicio.AddDays(70).ToString("yyyy-MM-dd"), idCompeticion, 6, idManager);
-            CrearPartidoCopaEuropa(equipos[15].IdEquipo, equipos[27].IdEquipo, fechaInicio.AddDays(70).ToString("yyyy-MM-dd"), idCompeticion, 6, idManager);
-            CrearPartidoCopaEuropa(equipos[25].IdEquipo, equipos[35].IdEquipo, fechaInicio.AddDays(70).ToString("yyyy-MM-dd"), idCompeticion, 6, idManager);
+            CrearPartidoCopaEuropa(equipos[32].IdEquipo, equipos[0].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[24].IdEquipo, equipos[20].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[8].IdEquipo, equipos[10].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[5].IdEquipo, equipos[3].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[23].IdEquipo, equipos[22].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[33].IdEquipo, equipos[14].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[26].IdEquipo, equipos[11].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[31].IdEquipo, equipos[7].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[17].IdEquipo, equipos[13].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[4].IdEquipo, equipos[34].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[6].IdEquipo, equipos[29].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[12].IdEquipo, equipos[28].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[2].IdEquipo, equipos[16].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[9].IdEquipo, equipos[1].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[18].IdEquipo, equipos[30].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[19].IdEquipo, equipos[21].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[15].IdEquipo, equipos[27].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[25].IdEquipo, equipos[35].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
 
             // Jornada 7
-            CrearPartidoCopaEuropa(equipos[16].IdEquipo, equipos[7].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 7, idManager);
-            CrearPartidoCopaEuropa(equipos[8].IdEquipo, equipos[29].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 7, idManager);
-            CrearPartidoCopaEuropa(equipos[4].IdEquipo, equipos[5].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 7, idManager);
-            CrearPartidoCopaEuropa(equipos[27].IdEquipo, equipos[9].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 7, idManager);
-            CrearPartidoCopaEuropa(equipos[23].IdEquipo, equipos[19].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 7, idManager);
-            CrearPartidoCopaEuropa(equipos[28].IdEquipo, equipos[13].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 7, idManager);
-            CrearPartidoCopaEuropa(equipos[0].IdEquipo, equipos[6].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 7, idManager);
-            CrearPartidoCopaEuropa(equipos[34].IdEquipo, equipos[25].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 7, idManager);
-            CrearPartidoCopaEuropa(equipos[15].IdEquipo, equipos[1].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 7, idManager);
-            CrearPartidoCopaEuropa(equipos[26].IdEquipo, equipos[17].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 7, idManager);
-            CrearPartidoCopaEuropa(equipos[31].IdEquipo, equipos[22].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 7, idManager);
-            CrearPartidoCopaEuropa(equipos[12].IdEquipo, equipos[32].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 7, idManager);
-            CrearPartidoCopaEuropa(equipos[30].IdEquipo, equipos[3].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 7, idManager);
-            CrearPartidoCopaEuropa(equipos[2].IdEquipo, equipos[24].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 7, idManager);
-            CrearPartidoCopaEuropa(equipos[20].IdEquipo, equipos[35].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 7, idManager);
-            CrearPartidoCopaEuropa(equipos[18].IdEquipo, equipos[11].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 7, idManager);
-            CrearPartidoCopaEuropa(equipos[14].IdEquipo, equipos[21].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 7, idManager);
-            CrearPartidoCopaEuropa(equipos[10].IdEquipo, equipos[33].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 7, idManager);
+            CrearPartidoCopaEuropa(equipos[16].IdEquipo, equipos[7].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[8].IdEquipo, equipos[29].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[4].IdEquipo, equipos[5].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[27].IdEquipo, equipos[9].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[23].IdEquipo, equipos[19].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[28].IdEquipo, equipos[13].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[0].IdEquipo, equipos[6].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[34].IdEquipo, equipos[25].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[15].IdEquipo, equipos[1].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[26].IdEquipo, equipos[17].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[31].IdEquipo, equipos[22].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[12].IdEquipo, equipos[32].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[30].IdEquipo, equipos[3].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[2].IdEquipo, equipos[24].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[20].IdEquipo, equipos[35].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[18].IdEquipo, equipos[11].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[14].IdEquipo, equipos[21].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[10].IdEquipo, equipos[33].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
 
             // Jornada 8
-            CrearPartidoCopaEuropa(equipos[7].IdEquipo, equipos[20].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 8, idManager);
-            CrearPartidoCopaEuropa(equipos[5].IdEquipo, equipos[30].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 8, idManager);
-            CrearPartidoCopaEuropa(equipos[9].IdEquipo, equipos[26].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 8, idManager);
-            CrearPartidoCopaEuropa(equipos[35].IdEquipo, equipos[28].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 8, idManager);
-            CrearPartidoCopaEuropa(equipos[1].IdEquipo, equipos[8].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 8, idManager);
-            CrearPartidoCopaEuropa(equipos[11].IdEquipo, equipos[34].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 8, idManager);
-            CrearPartidoCopaEuropa(equipos[3].IdEquipo, equipos[16].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 8, idManager);
-            CrearPartidoCopaEuropa(equipos[33].IdEquipo, equipos[4].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 8, idManager);
-            CrearPartidoCopaEuropa(equipos[32].IdEquipo, equipos[2].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 8, idManager);
-            CrearPartidoCopaEuropa(equipos[24].IdEquipo, equipos[12].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 8, idManager);
-            CrearPartidoCopaEuropa(equipos[19].IdEquipo, equipos[15].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 8, idManager);
-            CrearPartidoCopaEuropa(equipos[6].IdEquipo, equipos[18].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 8, idManager);
-            CrearPartidoCopaEuropa(equipos[21].IdEquipo, equipos[23].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 8, idManager);
-            CrearPartidoCopaEuropa(equipos[13].IdEquipo, equipos[0].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 8, idManager);
-            CrearPartidoCopaEuropa(equipos[29].IdEquipo, equipos[31].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 8, idManager);
-            CrearPartidoCopaEuropa(equipos[22].IdEquipo, equipos[27].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 8, idManager);
-            CrearPartidoCopaEuropa(equipos[17].IdEquipo, equipos[10].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 8, idManager);
-            CrearPartidoCopaEuropa(equipos[25].IdEquipo, equipos[14].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 8, idManager);
+            CrearPartidoCopaEuropa(equipos[7].IdEquipo, equipos[20].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[5].IdEquipo, equipos[30].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[9].IdEquipo, equipos[26].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[35].IdEquipo, equipos[28].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[1].IdEquipo, equipos[8].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[11].IdEquipo, equipos[34].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[3].IdEquipo, equipos[16].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[33].IdEquipo, equipos[4].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[32].IdEquipo, equipos[2].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[24].IdEquipo, equipos[12].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[19].IdEquipo, equipos[15].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[6].IdEquipo, equipos[18].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[21].IdEquipo, equipos[23].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[13].IdEquipo, equipos[0].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[29].IdEquipo, equipos[31].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[22].IdEquipo, equipos[27].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[17].IdEquipo, equipos[10].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa(equipos[25].IdEquipo, equipos[14].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+        }
+
+        // ----------------------------------------------------------------------- Generar calendario de Copa de Europa 2
+        public void GenerarCalendarioChampions2(List<Equipo> equipos, int idCompeticion, int idManager, DateTime fechaInicio)
+        {
+            // Jornada 1
+            CrearPartidoCopaEuropa2(equipos[35].IdEquipo, equipos[7].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[19].IdEquipo, equipos[13].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[12].IdEquipo, equipos[0].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[11].IdEquipo, equipos[24].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[10].IdEquipo, equipos[25].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[22].IdEquipo, equipos[6].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[30].IdEquipo, equipos[33].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[27].IdEquipo, equipos[26].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[20].IdEquipo, equipos[34].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[23].IdEquipo, equipos[9].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[21].IdEquipo, equipos[3].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[14].IdEquipo, equipos[32].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[18].IdEquipo, equipos[5].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[28].IdEquipo, equipos[15].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[16].IdEquipo, equipos[1].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[8].IdEquipo, equipos[2].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[4].IdEquipo, equipos[31].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[17].IdEquipo, equipos[29].IdEquipo, fechaInicio.ToString("yyyy-MM-dd"), idCompeticion, 1, 0, 0, idManager);
+
+            // Jornada 2
+            CrearPartidoCopaEuropa2(equipos[33].IdEquipo, equipos[17].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[25].IdEquipo, equipos[30].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[2].IdEquipo, equipos[14].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[5].IdEquipo, equipos[12].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[9].IdEquipo, equipos[20].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[1].IdEquipo, equipos[35].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[3].IdEquipo, equipos[28].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[13].IdEquipo, equipos[22].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[34].IdEquipo, equipos[21].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[26].IdEquipo, equipos[8].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[32].IdEquipo, equipos[18].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[7].IdEquipo, equipos[11].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[24].IdEquipo, equipos[16].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[0].IdEquipo, equipos[27].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[6].IdEquipo, equipos[10].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[31].IdEquipo, equipos[19].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[29].IdEquipo, equipos[23].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[15].IdEquipo, equipos[4].IdEquipo, fechaInicio.AddDays(14).ToString("yyyy-MM-dd"), idCompeticion, 2, 0, 0, idManager);
+
+            // Jornada 3
+            CrearPartidoCopaEuropa2(equipos[12].IdEquipo, equipos[23].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[16].IdEquipo, equipos[28].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[2].IdEquipo, equipos[26].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[7].IdEquipo, equipos[27].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[32].IdEquipo, equipos[34].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[19].IdEquipo, equipos[25].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[14].IdEquipo, equipos[13].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[10].IdEquipo, equipos[9].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[29].IdEquipo, equipos[22].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[8].IdEquipo, equipos[20].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[17].IdEquipo, equipos[5].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[4].IdEquipo, equipos[6].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[35].IdEquipo, equipos[3].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[1].IdEquipo, equipos[11].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[33].IdEquipo, equipos[24].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[21].IdEquipo, equipos[30].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[31].IdEquipo, equipos[0].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[15].IdEquipo, equipos[18].IdEquipo, fechaInicio.AddDays(28).ToString("yyyy-MM-dd"), idCompeticion, 3, 0, 0, idManager);
+
+            // Jornada 4
+            CrearPartidoCopaEuropa2(equipos[13].IdEquipo, equipos[32].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[34].IdEquipo, equipos[24].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[27].IdEquipo, equipos[16].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[9].IdEquipo, equipos[29].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[20].IdEquipo, equipos[31].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[0].IdEquipo, equipos[5].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[6].IdEquipo, equipos[19].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[10].IdEquipo, equipos[12].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[22].IdEquipo, equipos[21].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[23].IdEquipo, equipos[7].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[26].IdEquipo, equipos[35].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[30].IdEquipo, equipos[17].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[11].IdEquipo, equipos[15].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[3].IdEquipo, equipos[2].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[18].IdEquipo, equipos[33].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[28].IdEquipo, equipos[1].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[14].IdEquipo, equipos[4].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[25].IdEquipo, equipos[8].IdEquipo, fechaInicio.AddDays(49).ToString("yyyy-MM-dd"), idCompeticion, 4, 0, 0, idManager);
+
+            // Jornada 5
+            CrearPartidoCopaEuropa2(equipos[34].IdEquipo, equipos[12].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[30].IdEquipo, equipos[4].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[1].IdEquipo, equipos[17].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[5].IdEquipo, equipos[33].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[11].IdEquipo, equipos[14].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[3].IdEquipo, equipos[31].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[21].IdEquipo, equipos[18].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[22].IdEquipo, equipos[2].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[35].IdEquipo, equipos[8].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[28].IdEquipo, equipos[25].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[29].IdEquipo, equipos[32].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[7].IdEquipo, equipos[19].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[27].IdEquipo, equipos[6].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[20].IdEquipo, equipos[23].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[24].IdEquipo, equipos[9].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[0].IdEquipo, equipos[10].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[16].IdEquipo, equipos[15].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[13].IdEquipo, equipos[26].IdEquipo, fechaInicio.AddDays(63).ToString("yyyy-MM-dd"), idCompeticion, 5, 0, 0, idManager);
+
+            // Jornada 6
+            CrearPartidoCopaEuropa2(equipos[32].IdEquipo, equipos[0].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[24].IdEquipo, equipos[20].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[8].IdEquipo, equipos[10].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[5].IdEquipo, equipos[3].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[23].IdEquipo, equipos[22].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[33].IdEquipo, equipos[14].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[26].IdEquipo, equipos[11].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[31].IdEquipo, equipos[7].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[17].IdEquipo, equipos[13].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[4].IdEquipo, equipos[34].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[6].IdEquipo, equipos[29].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[12].IdEquipo, equipos[28].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[2].IdEquipo, equipos[16].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[9].IdEquipo, equipos[1].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[18].IdEquipo, equipos[30].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[19].IdEquipo, equipos[21].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[15].IdEquipo, equipos[27].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[25].IdEquipo, equipos[35].IdEquipo, fechaInicio.AddDays(84).ToString("yyyy-MM-dd"), idCompeticion, 6, 0, 0, idManager);
+
+            // Jornada 7
+            CrearPartidoCopaEuropa2(equipos[16].IdEquipo, equipos[7].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[8].IdEquipo, equipos[29].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[4].IdEquipo, equipos[5].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[27].IdEquipo, equipos[9].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[23].IdEquipo, equipos[19].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[28].IdEquipo, equipos[13].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[0].IdEquipo, equipos[6].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[34].IdEquipo, equipos[25].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[15].IdEquipo, equipos[1].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[26].IdEquipo, equipos[17].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[31].IdEquipo, equipos[22].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[12].IdEquipo, equipos[32].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[30].IdEquipo, equipos[3].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[2].IdEquipo, equipos[24].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[20].IdEquipo, equipos[35].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[18].IdEquipo, equipos[11].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[14].IdEquipo, equipos[21].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[10].IdEquipo, equipos[33].IdEquipo, fechaInicio.AddDays(98).ToString("yyyy-MM-dd"), idCompeticion, 7, 0, 0, idManager);
+
+            // Jornada 8
+            CrearPartidoCopaEuropa2(equipos[7].IdEquipo, equipos[20].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[5].IdEquipo, equipos[30].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[9].IdEquipo, equipos[26].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[35].IdEquipo, equipos[28].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[1].IdEquipo, equipos[8].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[11].IdEquipo, equipos[34].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[3].IdEquipo, equipos[16].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[33].IdEquipo, equipos[4].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[32].IdEquipo, equipos[2].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[24].IdEquipo, equipos[12].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[19].IdEquipo, equipos[15].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[6].IdEquipo, equipos[18].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[21].IdEquipo, equipos[23].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[13].IdEquipo, equipos[0].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[29].IdEquipo, equipos[31].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[22].IdEquipo, equipos[27].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[17].IdEquipo, equipos[10].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
+            CrearPartidoCopaEuropa2(equipos[25].IdEquipo, equipos[14].IdEquipo, fechaInicio.AddDays(119).ToString("yyyy-MM-dd"), idCompeticion, 8, 0, 0, idManager);
         }
 
         // ===================================================================== Método para eliminar un partido
@@ -493,48 +696,71 @@ namespace ChampionManager25.Datos
                     conn.Open();
 
                     string query = @"SELECT * FROM (SELECT 
-                                                        p.id_partido,
-                                                        p.fecha, 
-                                                        p.jornada,
-                                                        NULL AS id_ronda,
-                                                        NULL AS partido_vuelta, 
-                                                        el.nombre AS nombreEquipoLocal, 
-                                                        ev.nombre AS nombreEquipoVisitante, 
-                                                        p.id_equipo_local, 
-                                                        p.id_equipo_visitante,
-                                                        p.goles_local,
-                                                        p.goles_visitante,
-                                                        p.id_competicion
-                                                    FROM partidos p
-                                                    JOIN equipos el ON p.id_equipo_local = el.id_equipo
-                                                    JOIN equipos ev ON p.id_equipo_visitante = ev.id_equipo
-                                                    WHERE 
-                                                        (p.id_equipo_local = @IdEquipo OR p.id_equipo_visitante = @IdEquipo)
-                                                        AND p.id_manager = @IdManager
-                                                        AND DATE(p.fecha) >= DATE(@Hoy)
+                                                            p.id_partido,
+                                                            p.fecha, 
+                                                            p.jornada,
+                                                            NULL AS id_ronda,
+                                                            NULL AS partido_vuelta, 
+                                                            el.nombre AS nombreEquipoLocal, 
+                                                            ev.nombre AS nombreEquipoVisitante, 
+                                                            p.id_equipo_local, 
+                                                            p.id_equipo_visitante,
+                                                            p.goles_local,
+                                                            p.goles_visitante,
+                                                            p.id_competicion
+                                                        FROM partidos p
+                                                        JOIN equipos el ON p.id_equipo_local = el.id_equipo
+                                                        JOIN equipos ev ON p.id_equipo_visitante = ev.id_equipo
+                                                        WHERE 
+                                                            (p.id_equipo_local = @IdEquipo OR p.id_equipo_visitante = @IdEquipo)
+                                                            AND p.id_manager = @IdManager
+                                                            AND DATE(p.fecha) >= DATE(@Hoy)
 
                                                     UNION ALL
 
-                                                    SELECT 
-                                                        pc.id_partido,
-                                                        pc.fecha, 
-                                                        NULL AS jornada,
-                                                        pc.id_ronda,
-                                                        pc.partido_vuelta,
-                                                        el.nombre AS nombreEquipoLocal, 
-                                                        ev.nombre AS nombreEquipoVisitante, 
-                                                        pc.id_equipo_local, 
-                                                        pc.id_equipo_visitante,
-                                                        pc.goles_local,
-                                                        pc.goles_visitante,
-                                                        pc.id_competicion
-                                                    FROM partidos_copaNacional pc
-                                                    JOIN equipos el ON pc.id_equipo_local = el.id_equipo
-                                                    JOIN equipos ev ON pc.id_equipo_visitante = ev.id_equipo
-                                                    WHERE 
-                                                        (pc.id_equipo_local = @IdEquipo OR pc.id_equipo_visitante = @IdEquipo)
-                                                        AND pc.id_manager = @IdManager
-                                                        AND DATE(pc.fecha) >= DATE(@Hoy)
+                                                        SELECT 
+                                                            pc.id_partido,
+                                                            pc.fecha, 
+                                                            NULL AS jornada,
+                                                            pc.id_ronda,
+                                                            pc.partido_vuelta,
+                                                            el.nombre AS nombreEquipoLocal, 
+                                                            ev.nombre AS nombreEquipoVisitante, 
+                                                            pc.id_equipo_local, 
+                                                            pc.id_equipo_visitante,
+                                                            pc.goles_local,
+                                                            pc.goles_visitante,
+                                                            pc.id_competicion
+                                                        FROM partidos_copaNacional pc
+                                                        JOIN equipos el ON pc.id_equipo_local = el.id_equipo
+                                                        JOIN equipos ev ON pc.id_equipo_visitante = ev.id_equipo
+                                                        WHERE 
+                                                            (pc.id_equipo_local = @IdEquipo OR pc.id_equipo_visitante = @IdEquipo)
+                                                            AND pc.id_manager = @IdManager
+                                                            AND DATE(pc.fecha) >= DATE(@Hoy)
+
+                                                    UNION ALL
+
+                                                        SELECT 
+                                                            pe1.id_partido,
+                                                            pe1.fecha, 
+                                                            pe1.jornada,
+                                                            pe1.id_ronda,
+                                                            pe1.partido_vuelta, 
+                                                            el.nombre AS nombreEquipoLocal, 
+                                                            ev.nombre AS nombreEquipoVisitante, 
+                                                            pe1.id_equipo_local, 
+                                                            pe1.id_equipo_visitante,
+                                                            pe1.goles_local,
+                                                            pe1.goles_visitante,
+                                                            pe1.id_competicion
+                                                        FROM partidos_copaEuropa1 pe1
+                                                        JOIN equipos el ON pe1.id_equipo_local = el.id_equipo
+                                                        JOIN equipos ev ON pe1.id_equipo_visitante = ev.id_equipo
+                                                        WHERE 
+                                                            (pe1.id_equipo_local = @IdEquipo OR pe1.id_equipo_visitante = @IdEquipo)
+                                                            AND pe1.id_manager = @IdManager
+                                                            AND DATE(pe1.fecha) >= DATE(@Hoy)
                                                 )
                                                 ORDER BY fecha ASC
                                                 LIMIT 1";
@@ -590,9 +816,16 @@ namespace ChampionManager25.Datos
 
                     string query = @"SELECT fecha, id_equipo_local, id_equipo_visitante, goles_local, goles_visitante, id_competicion, 
                                            CASE WHEN source = 'liga' THEN jornada ELSE 0 END AS jornada,
-                                           CASE WHEN source = 'copa' THEN id_ronda ELSE NULL END AS ronda
-                                     FROM (
-                                        SELECT fecha, id_equipo_local, id_equipo_visitante, goles_local, goles_visitante, id_competicion, jornada, NULL as id_ronda, 'liga' as source
+                                           CASE 
+                                               WHEN source = 'copa' THEN id_ronda 
+                                               WHEN source = 'europa1' THEN id_ronda 
+                                               WHEN source = 'europa2' THEN id_ronda 
+                                               ELSE NULL 
+                                           END AS ronda
+                                    FROM (
+                                        -- Liga
+                                        SELECT fecha, id_equipo_local, id_equipo_visitante, goles_local, goles_visitante, id_competicion, 
+                                               jornada, NULL AS id_ronda, 'liga' AS source
                                         FROM partidos
                                         WHERE 
                                             (id_equipo_local = @IdEquipo OR id_equipo_visitante = @IdEquipo)
@@ -601,15 +834,39 @@ namespace ChampionManager25.Datos
 
                                         UNION ALL
 
-                                        SELECT fecha, id_equipo_local, id_equipo_visitante, goles_local, goles_visitante, id_competicion, 0 as jornada, id_ronda, 'copa' as source
+                                        -- Copa Nacional
+                                        SELECT fecha, id_equipo_local, id_equipo_visitante, goles_local, goles_visitante, id_competicion, 
+                                               0 AS jornada, id_ronda, 'copa' AS source
                                         FROM partidos_copaNacional
                                         WHERE 
                                             (id_equipo_local = @IdEquipo OR id_equipo_visitante = @IdEquipo)
                                             AND id_manager = @IdManager
                                             AND DATE(fecha) < DATE(@Hoy)
-                                     )
-                                     ORDER BY fecha DESC
-                                     LIMIT 1";
+
+                                        UNION ALL
+
+                                        -- Copa Europa 1
+                                        SELECT fecha, id_equipo_local, id_equipo_visitante, goles_local, goles_visitante, id_competicion, 
+                                               0 AS jornada, id_ronda, 'europa1' AS source
+                                        FROM partidos_copaEuropa1
+                                        WHERE 
+                                            (id_equipo_local = @IdEquipo OR id_equipo_visitante = @IdEquipo)
+                                            AND id_manager = @IdManager
+                                            AND DATE(fecha) < DATE(@Hoy)
+
+                                        UNION ALL
+
+                                        -- Copa Europa 2
+                                        SELECT fecha, id_equipo_local, id_equipo_visitante, goles_local, goles_visitante, id_competicion, 
+                                               0 AS jornada, id_ronda, 'europa2' AS source
+                                        FROM partidos_copaEuropa2
+                                        WHERE 
+                                            (id_equipo_local = @IdEquipo OR id_equipo_visitante = @IdEquipo)
+                                            AND id_manager = @IdManager
+                                            AND DATE(fecha) < DATE(@Hoy)
+                                    )
+                                    ORDER BY fecha DESC
+                                    LIMIT 1";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                     {
@@ -690,7 +947,44 @@ namespace ChampionManager25.Datos
                                         (pc.id_equipo_local = @IdEquipo OR pc.id_equipo_visitante = @IdEquipo)
                                         AND pc.id_manager = @IdManager
 
+                                    UNION ALL
+
+                                    SELECT 
+                                        pe1.fecha, 
+                                        el.nombre AS nombreEquipoLocal, 
+                                        ev.nombre AS nombreEquipoVisitante, 
+                                        pe1.id_equipo_local, 
+                                        pe1.id_equipo_visitante,
+                                        pe1.goles_local,
+                                        pe1.goles_visitante,
+                                        pe1.id_competicion
+                                    FROM partidos_copaEuropa1 pe1
+                                    JOIN equipos el ON pe1.id_equipo_local = el.id_equipo
+                                    JOIN equipos ev ON pe1.id_equipo_visitante = ev.id_equipo
+                                    WHERE 
+                                        (pe1.id_equipo_local = @IdEquipo OR pe1.id_equipo_visitante = @IdEquipo)
+                                        AND pe1.id_manager = @IdManager
+
+                                    UNION ALL
+
+                                    SELECT 
+                                        pe2.fecha, 
+                                        el.nombre AS nombreEquipoLocal, 
+                                        ev.nombre AS nombreEquipoVisitante, 
+                                        pe2.id_equipo_local, 
+                                        pe2.id_equipo_visitante,
+                                        pe2.goles_local,
+                                        pe2.goles_visitante,
+                                        pe2.id_competicion
+                                    FROM partidos_copaEuropa2 pe2
+                                    JOIN equipos el ON pe2.id_equipo_local = el.id_equipo
+                                    JOIN equipos ev ON pe2.id_equipo_visitante = ev.id_equipo
+                                    WHERE 
+                                        (pe2.id_equipo_local = @IdEquipo OR pe2.id_equipo_visitante = @IdEquipo)
+                                        AND pe2.id_manager = @IdManager
+
                                     ORDER BY fecha";
+
 
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                     {
@@ -878,6 +1172,15 @@ namespace ChampionManager25.Datos
                                             (id_equipo_local = @IdEquipo OR id_equipo_visitante = @IdEquipo)
                                             AND id_manager = @IdManager
                                             AND DATE(fecha) = DATE(@Fecha)
+
+                                        UNION ALL
+
+                                        SELECT fecha, id_equipo_local, id_equipo_visitante, goles_local, goles_visitante, id_competicion, jornada
+                                        FROM partidos_copaEuropa2
+                                        WHERE 
+                                            (id_equipo_local = @IdEquipo OR id_equipo_visitante = @IdEquipo)
+                                            AND id_manager = @IdManager
+                                            AND DATE(fecha) = DATE(@Fecha)
                                      )
                                      ORDER BY fecha DESC
                                      LIMIT 1";
@@ -926,50 +1229,95 @@ namespace ChampionManager25.Datos
                 {
                     conn.Open();
 
-                    string query = @"SELECT * FROM (SELECT 
-                                                        p.id_partido,
-                                                        p.id_equipo_local,
-                                                        p.id_equipo_visitante,
-                                                        p.fecha,
-                                                        p.id_manager,
-                                                        p.goles_local,
-                                                        p.goles_visitante,
-                                                        p.id_competicion,
-                                                        p.jornada,
-                                                        NULL AS id_ronda,
-                                                        el.nombre AS nombre_local, 
-                                                        ev.nombre AS nombre_visitante 
-                                                    FROM partidos p
-                                                    JOIN equipos el ON p.id_equipo_local = el.id_equipo
-                                                    JOIN equipos ev ON p.id_equipo_visitante = ev.id_equipo
-                                                    WHERE p.id_equipo_local = @IdEquipo 
-                                                      AND p.id_manager = @IdManager 
-                                                      AND p.fecha > @Fecha
+                    string query = @"SELECT * FROM (
+                                        SELECT 
+                                            p.id_partido,
+                                            p.id_equipo_local,
+                                            p.id_equipo_visitante,
+                                            p.fecha,
+                                            p.id_manager,
+                                            p.goles_local,
+                                            p.goles_visitante,
+                                            p.id_competicion,
+                                            p.jornada,
+                                            NULL AS id_ronda,
+                                            el.nombre AS nombre_local, 
+                                            ev.nombre AS nombre_visitante 
+                                        FROM partidos p
+                                        JOIN equipos el ON p.id_equipo_local = el.id_equipo
+                                        JOIN equipos ev ON p.id_equipo_visitante = ev.id_equipo
+                                        WHERE p.id_equipo_local = @IdEquipo 
+                                          AND p.id_manager = @IdManager 
+                                          AND p.fecha > @Fecha
 
-                                                    UNION ALL
+                                        UNION ALL
 
-                                                    SELECT 
-                                                        pc.id_partido,
-                                                        pc.id_equipo_local,
-                                                        pc.id_equipo_visitante,
-                                                        pc.fecha,
-                                                        pc.id_manager,
-                                                        pc.goles_local,
-                                                        pc.goles_visitante,
-                                                        pc.id_competicion,
-                                                        NULL AS jornada,
-                                                        pc.id_ronda,
-                                                        el.nombre AS nombre_local, 
-                                                        ev.nombre AS nombre_visitante 
-                                                    FROM partidos_copaNacional pc
-                                                    JOIN equipos el ON pc.id_equipo_local = el.id_equipo
-                                                    JOIN equipos ev ON pc.id_equipo_visitante = ev.id_equipo
-                                                    WHERE pc.id_equipo_local = @IdEquipo 
-                                                      AND pc.id_manager = @IdManager 
-                                                      AND pc.fecha > @Fecha
-                                                )
-                                                ORDER BY fecha ASC
-                                                LIMIT 1";
+                                        SELECT 
+                                            pc.id_partido,
+                                            pc.id_equipo_local,
+                                            pc.id_equipo_visitante,
+                                            pc.fecha,
+                                            pc.id_manager,
+                                            pc.goles_local,
+                                            pc.goles_visitante,
+                                            pc.id_competicion,
+                                            NULL AS jornada,
+                                            pc.id_ronda,
+                                            el.nombre AS nombre_local, 
+                                            ev.nombre AS nombre_visitante 
+                                        FROM partidos_copaNacional pc
+                                        JOIN equipos el ON pc.id_equipo_local = el.id_equipo
+                                        JOIN equipos ev ON pc.id_equipo_visitante = ev.id_equipo
+                                        WHERE pc.id_equipo_local = @IdEquipo 
+                                          AND pc.id_manager = @IdManager 
+                                          AND pc.fecha > @Fecha
+
+                                        UNION ALL
+
+                                        SELECT 
+                                            pe1.id_partido,
+                                            pe1.id_equipo_local,
+                                            pe1.id_equipo_visitante,
+                                            pe1.fecha,
+                                            pe1.id_manager,
+                                            pe1.goles_local,
+                                            pe1.goles_visitante,
+                                            pe1.id_competicion,
+                                            NULL AS jornada,
+                                            pe1.id_ronda,
+                                            el.nombre AS nombre_local, 
+                                            ev.nombre AS nombre_visitante 
+                                        FROM partidos_copaEuropa1 pe1
+                                        JOIN equipos el ON pe1.id_equipo_local = el.id_equipo
+                                        JOIN equipos ev ON pe1.id_equipo_visitante = ev.id_equipo
+                                        WHERE pe1.id_equipo_local = @IdEquipo 
+                                          AND pe1.id_manager = @IdManager 
+                                          AND pe1.fecha > @Fecha
+
+                                        UNION ALL
+
+                                        SELECT 
+                                            pe2.id_partido,
+                                            pe2.id_equipo_local,
+                                            pe2.id_equipo_visitante,
+                                            pe2.fecha,
+                                            pe2.id_manager,
+                                            pe2.goles_local,
+                                            pe2.goles_visitante,
+                                            pe2.id_competicion,
+                                            NULL AS jornada,
+                                            pe2.id_ronda,
+                                            el.nombre AS nombre_local, 
+                                            ev.nombre AS nombre_visitante 
+                                        FROM partidos_copaEuropa2 pe2
+                                        JOIN equipos el ON pe2.id_equipo_local = el.id_equipo
+                                        JOIN equipos ev ON pe2.id_equipo_visitante = ev.id_equipo
+                                        WHERE pe2.id_equipo_local = @IdEquipo 
+                                          AND pe2.id_manager = @IdManager 
+                                          AND pe2.fecha > @Fecha
+                                    )
+                                    ORDER BY fecha ASC
+                                    LIMIT 1";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                     {
@@ -1106,6 +1454,108 @@ namespace ChampionManager25.Datos
             return oPartido;
         }
 
+        // ------------------------------------------------------------------ Metodo que carga los partidos de una Ronda de Copa Europa 1
+        public List<Partido> CargarJornadaCopaEuropa1(int jornada, int manager, int competicion)
+        {
+            List<Partido> oPartido = new List<Partido>();
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    string query = @"SELECT fecha, jornada, id_ronda, partido_vuelta, id_equipo_local, id_equipo_visitante, goles_local, goles_visitante, estado, id_competicion
+                                     FROM partidos_copaEuropa1
+                                     WHERE jornada = @Jornada AND id_manager = @IdManager AND id_competicion = @IdCompeticion";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Jornada", jornada);
+                        cmd.Parameters.AddWithValue("@IdManager", manager);
+                        cmd.Parameters.AddWithValue("@IdCompeticion", competicion);
+
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                oPartido.Add(new Partido()
+                                {
+                                    FechaPartido = DateTime.Parse(reader["fecha"]?.ToString() ?? "2000-01-01"),
+                                    IdEquipoLocal = Convert.ToInt32(reader["id_equipo_local"]),
+                                    IdEquipoVisitante = Convert.ToInt32(reader["id_equipo_visitante"]),
+                                    Estado = reader.GetString(reader.GetOrdinal("estado")),
+                                    GolesLocal = reader["goles_local"] != DBNull.Value ? Convert.ToInt32(reader["goles_local"]) : 0,
+                                    GolesVisitante = reader["goles_visitante"] != DBNull.Value ? Convert.ToInt32(reader["goles_visitante"]) : 0,
+                                    IdCompeticion = reader["id_competicion"] != DBNull.Value ? Convert.ToInt32(reader["id_competicion"]) : 0,
+                                    Ronda = Convert.ToInt32(reader["id_ronda"]),
+                                    Jornada = Convert.ToInt32(reader["jornada"]),
+                                    PartidoVuelta = Convert.ToInt32(reader["partido_vuelta"])
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return oPartido;
+        }
+
+        // ------------------------------------------------------------------ Metodo que carga los partidos de una Ronda de Copa Europa 2
+        public List<Partido> CargarJornadaCopaEuropa2(int jornada, int manager, int competicion)
+        {
+            List<Partido> oPartido = new List<Partido>();
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    string query = @"SELECT fecha, jornada, id_ronda, partido_vuelta, id_equipo_local, id_equipo_visitante, goles_local, goles_visitante, estado, id_competicion
+                                     FROM partidos_copaEuropa2
+                                     WHERE jornada = @Jornada AND id_manager = @IdManager AND id_competicion = @IdCompeticion";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Jornada", jornada);
+                        cmd.Parameters.AddWithValue("@IdManager", manager);
+                        cmd.Parameters.AddWithValue("@IdCompeticion", competicion);
+
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                oPartido.Add(new Partido()
+                                {
+                                    FechaPartido = DateTime.Parse(reader["fecha"]?.ToString() ?? "2000-01-01"),
+                                    IdEquipoLocal = Convert.ToInt32(reader["id_equipo_local"]),
+                                    IdEquipoVisitante = Convert.ToInt32(reader["id_equipo_visitante"]),
+                                    Estado = reader.GetString(reader.GetOrdinal("estado")),
+                                    GolesLocal = reader["goles_local"] != DBNull.Value ? Convert.ToInt32(reader["goles_local"]) : 0,
+                                    GolesVisitante = reader["goles_visitante"] != DBNull.Value ? Convert.ToInt32(reader["goles_visitante"]) : 0,
+                                    IdCompeticion = reader["id_competicion"] != DBNull.Value ? Convert.ToInt32(reader["id_competicion"]) : 0,
+                                    Ronda = Convert.ToInt32(reader["id_ronda"]),
+                                    Jornada = Convert.ToInt32(reader["jornada"]),
+                                    PartidoVuelta = Convert.ToInt32(reader["partido_vuelta"])
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return oPartido;
+        }
+
         // --------------------------------------------------------- Método que devuelve los ultimos 5 partidos de un equipo
         public List<Partido> UltimosCincoPartidos(int equipo, int idManager)
         {
@@ -1117,42 +1567,79 @@ namespace ChampionManager25.Datos
                 {
                     conn.Open();
 
-                    string query = @"SELECT * FROM (SELECT 
-                                                            p.fecha, 
-                                                            el.nombre AS nombreEquipoLocal, 
-                                                            ev.nombre AS nombreEquipoVisitante, 
-                                                            p.id_equipo_local, 
-                                                            p.id_equipo_visitante,
-                                                            p.goles_local,
-                                                            p.goles_visitante,
-                                                            p.id_competicion
-                                                        FROM partidos p
-                                                        JOIN equipos el ON p.id_equipo_local = el.id_equipo
-                                                        JOIN equipos ev ON p.id_equipo_visitante = ev.id_equipo
-                                                        WHERE p.fecha < @Hoy
-                                                          AND (p.id_equipo_local = @IdEquipo OR p.id_equipo_visitante = @IdEquipo)
-                                                          AND p.id_manager = @IdManager
+                    string query = @"SELECT * FROM (
+                                        SELECT 
+                                            p.fecha, 
+                                            el.nombre AS nombreEquipoLocal, 
+                                            ev.nombre AS nombreEquipoVisitante, 
+                                            p.id_equipo_local, 
+                                            p.id_equipo_visitante,
+                                            p.goles_local,
+                                            p.goles_visitante,
+                                            p.id_competicion
+                                        FROM partidos p
+                                        JOIN equipos el ON p.id_equipo_local = el.id_equipo
+                                        JOIN equipos ev ON p.id_equipo_visitante = ev.id_equipo
+                                        WHERE p.fecha < @Hoy
+                                          AND (p.id_equipo_local = @IdEquipo OR p.id_equipo_visitante = @IdEquipo)
+                                          AND p.id_manager = @IdManager
 
-                                                        UNION ALL
+                                        UNION ALL
 
-                                                        SELECT 
-                                                            pc.fecha, 
-                                                            el.nombre AS nombreEquipoLocal, 
-                                                            ev.nombre AS nombreEquipoVisitante, 
-                                                            pc.id_equipo_local, 
-                                                            pc.id_equipo_visitante,
-                                                            pc.goles_local,
-                                                            pc.goles_visitante,
-                                                            pc.id_competicion
-                                                        FROM partidos_copaNacional pc
-                                                        JOIN equipos el ON pc.id_equipo_local = el.id_equipo
-                                                        JOIN equipos ev ON pc.id_equipo_visitante = ev.id_equipo
-                                                        WHERE pc.fecha < @Hoy
-                                                          AND (pc.id_equipo_local = @IdEquipo OR pc.id_equipo_visitante = @IdEquipo)
-                                                          AND pc.id_manager = @IdManager
-                                                    )
-                                                    ORDER BY fecha DESC
-                                                    LIMIT 5";
+                                        SELECT 
+                                            pc.fecha, 
+                                            el.nombre AS nombreEquipoLocal, 
+                                            ev.nombre AS nombreEquipoVisitante, 
+                                            pc.id_equipo_local, 
+                                            pc.id_equipo_visitante,
+                                            pc.goles_local,
+                                            pc.goles_visitante,
+                                            pc.id_competicion
+                                        FROM partidos_copaNacional pc
+                                        JOIN equipos el ON pc.id_equipo_local = el.id_equipo
+                                        JOIN equipos ev ON pc.id_equipo_visitante = ev.id_equipo
+                                        WHERE pc.fecha < @Hoy
+                                          AND (pc.id_equipo_local = @IdEquipo OR pc.id_equipo_visitante = @IdEquipo)
+                                          AND pc.id_manager = @IdManager
+
+                                        UNION ALL
+
+                                        SELECT 
+                                            pe1.fecha, 
+                                            el.nombre AS nombreEquipoLocal, 
+                                            ev.nombre AS nombreEquipoVisitante, 
+                                            pe1.id_equipo_local, 
+                                            pe1.id_equipo_visitante,
+                                            pe1.goles_local,
+                                            pe1.goles_visitante,
+                                            pe1.id_competicion
+                                        FROM partidos_copaEuropa1 pe1
+                                        JOIN equipos el ON pe1.id_equipo_local = el.id_equipo
+                                        JOIN equipos ev ON pe1.id_equipo_visitante = ev.id_equipo
+                                        WHERE pe1.fecha < @Hoy
+                                          AND (pe1.id_equipo_local = @IdEquipo OR pe1.id_equipo_visitante = @IdEquipo)
+                                          AND pe1.id_manager = @IdManager
+
+                                        UNION ALL
+
+                                        SELECT 
+                                            pe2.fecha, 
+                                            el.nombre AS nombreEquipoLocal, 
+                                            ev.nombre AS nombreEquipoVisitante, 
+                                            pe2.id_equipo_local, 
+                                            pe2.id_equipo_visitante,
+                                            pe2.goles_local,
+                                            pe2.goles_visitante,
+                                            pe2.id_competicion
+                                        FROM partidos_copaEuropa2 pe2
+                                        JOIN equipos el ON pe2.id_equipo_local = el.id_equipo
+                                        JOIN equipos ev ON pe2.id_equipo_visitante = ev.id_equipo
+                                        WHERE pe2.fecha < @Hoy
+                                          AND (pe2.id_equipo_local = @IdEquipo OR pe2.id_equipo_visitante = @IdEquipo)
+                                          AND pe2.id_manager = @IdManager
+                                    )
+                                    ORDER BY fecha DESC
+                                    LIMIT 5";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                     {
@@ -1197,49 +1684,94 @@ namespace ChampionManager25.Datos
                 {
                     conn.Open();
 
-                    string query = @"SELECT * FROM (SELECT 
-                                                        p.id_partido,
-                                                        p.fecha, 
-                                                        NULL AS id_ronda, 
-                                                        NULL AS partido_vuelta, 
-                                                        p.jornada,
-                                                        el.nombre AS nombreEquipoLocal, 
-                                                        ev.nombre AS nombreEquipoVisitante, 
-                                                        p.id_equipo_local, 
-                                                        p.id_equipo_visitante,
-                                                        p.goles_local,
-                                                        p.goles_visitante,
-                                                        p.id_competicion
-                                                    FROM partidos p
-                                                    JOIN equipos el ON p.id_equipo_local = el.id_equipo
-                                                    JOIN equipos ev ON p.id_equipo_visitante = ev.id_equipo
-                                                    WHERE p.fecha = @Hoy
-                                                      AND (p.id_equipo_local <> @IdEquipo AND p.id_equipo_visitante <> @IdEquipo)
-                                                      AND p.id_manager = @IdManager
+                    string query = @"SELECT * FROM (
+                                        SELECT 
+                                            p.id_partido,
+                                            p.fecha, 
+                                            NULL AS id_ronda, 
+                                            NULL AS partido_vuelta, 
+                                            p.jornada,
+                                            el.nombre AS nombreEquipoLocal, 
+                                            ev.nombre AS nombreEquipoVisitante, 
+                                            p.id_equipo_local, 
+                                            p.id_equipo_visitante,
+                                            p.goles_local,
+                                            p.goles_visitante,
+                                            p.id_competicion
+                                        FROM partidos p
+                                        JOIN equipos el ON p.id_equipo_local = el.id_equipo
+                                        JOIN equipos ev ON p.id_equipo_visitante = ev.id_equipo
+                                        WHERE p.fecha = @Hoy
+                                          AND (p.id_equipo_local <> @IdEquipo AND p.id_equipo_visitante <> @IdEquipo)
+                                          AND p.id_manager = @IdManager
 
-                                                    UNION ALL
+                                        UNION ALL
 
-                                                    SELECT 
-                                                        pc.id_partido,
-                                                        pc.fecha, 
-                                                        pc.id_ronda,
-                                                        pc.partido_vuelta,
-                                                        NULL AS jornada,
-                                                        el.nombre AS nombreEquipoLocal, 
-                                                        ev.nombre AS nombreEquipoVisitante, 
-                                                        pc.id_equipo_local, 
-                                                        pc.id_equipo_visitante,
-                                                        pc.goles_local,
-                                                        pc.goles_visitante,
-                                                        pc.id_competicion
-                                                    FROM partidos_copaNacional pc
-                                                    JOIN equipos el ON pc.id_equipo_local = el.id_equipo
-                                                    JOIN equipos ev ON pc.id_equipo_visitante = ev.id_equipo
-                                                    WHERE pc.fecha = @Hoy
-                                                      AND (pc.id_equipo_local <> @IdEquipo AND pc.id_equipo_visitante <> @IdEquipo)
-                                                      AND pc.id_manager = @IdManager
-                                                )
-                                                ORDER BY fecha DESC, id_partido ASC";
+                                        SELECT 
+                                            pc.id_partido,
+                                            pc.fecha, 
+                                            pc.id_ronda,
+                                            pc.partido_vuelta,
+                                            NULL AS jornada,
+                                            el.nombre AS nombreEquipoLocal, 
+                                            ev.nombre AS nombreEquipoVisitante, 
+                                            pc.id_equipo_local, 
+                                            pc.id_equipo_visitante,
+                                            pc.goles_local,
+                                            pc.goles_visitante,
+                                            pc.id_competicion
+                                        FROM partidos_copaNacional pc
+                                        JOIN equipos el ON pc.id_equipo_local = el.id_equipo
+                                        JOIN equipos ev ON pc.id_equipo_visitante = ev.id_equipo
+                                        WHERE pc.fecha = @Hoy
+                                          AND (pc.id_equipo_local <> @IdEquipo AND pc.id_equipo_visitante <> @IdEquipo)
+                                          AND pc.id_manager = @IdManager
+
+                                        UNION ALL
+
+                                        SELECT 
+                                            pe1.id_partido,
+                                            pe1.fecha, 
+                                            pe1.id_ronda,
+                                            pe1.partido_vuelta,
+                                            pe1.jornada,
+                                            el.nombre AS nombreEquipoLocal, 
+                                            ev.nombre AS nombreEquipoVisitante, 
+                                            pe1.id_equipo_local, 
+                                            pe1.id_equipo_visitante,
+                                            pe1.goles_local,
+                                            pe1.goles_visitante,
+                                            pe1.id_competicion
+                                        FROM partidos_copaEuropa1 pe1
+                                        JOIN equipos el ON pe1.id_equipo_local = el.id_equipo
+                                        JOIN equipos ev ON pe1.id_equipo_visitante = ev.id_equipo
+                                        WHERE pe1.fecha = @Hoy
+                                          AND (pe1.id_equipo_local <> @IdEquipo AND pe1.id_equipo_visitante <> @IdEquipo)
+                                          AND pe1.id_manager = @IdManager
+
+                                        UNION ALL
+
+                                        SELECT 
+                                            pe2.id_partido,
+                                            pe2.fecha, 
+                                            pe2.id_ronda,
+                                            pe2.partido_vuelta,
+                                            pe2.jornada,
+                                            el.nombre AS nombreEquipoLocal, 
+                                            ev.nombre AS nombreEquipoVisitante, 
+                                            pe2.id_equipo_local, 
+                                            pe2.id_equipo_visitante,
+                                            pe2.goles_local,
+                                            pe2.goles_visitante,
+                                            pe2.id_competicion
+                                        FROM partidos_copaEuropa2 pe2
+                                        JOIN equipos el ON pe2.id_equipo_local = el.id_equipo
+                                        JOIN equipos ev ON pe2.id_equipo_visitante = ev.id_equipo
+                                        WHERE pe2.fecha = @Hoy
+                                          AND (pe2.id_equipo_local <> @IdEquipo AND pe2.id_equipo_visitante <> @IdEquipo)
+                                          AND pe2.id_manager = @IdManager
+                                    )
+                                    ORDER BY fecha DESC, id_partido ASC";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                     {
@@ -1337,6 +1869,62 @@ namespace ChampionManager25.Datos
             }
         }
 
+        // ----------------------------------------------------------- Método que actualiza con el resultado de un partido de Copa de Europa 1
+        public void ActualizarPartidoCopaEuropa1(Partido partido)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+                    string query = @"UPDATE partidos_copaEuropa1 
+                                     SET goles_local = @GolesLocal, goles_visitante = @GolesVisitante, asistencia = @Asistencia, estado = @Estado
+                                     WHERE id_partido = @IdPartido";
+                    using (var cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@GolesLocal", partido.GolesLocal);
+                        cmd.Parameters.AddWithValue("@GolesVisitante", partido.GolesVisitante);
+                        cmd.Parameters.AddWithValue("@Asistencia", partido.Asistencia);
+                        cmd.Parameters.AddWithValue("@Estado", "Finalizado");
+                        cmd.Parameters.AddWithValue("@IdPartido", partido.IdPartido);
+                        cmd.ExecuteNonQuery(); // Ejecuta la consulta
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al añadir el equipo al Manager: " + ex.Message);
+            }
+        }
+
+        // ----------------------------------------------------------- Método que actualiza con el resultado de un partido de Copa de Europa 2
+        public void ActualizarPartidoCopaEuropa2(Partido partido)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+                    string query = @"UPDATE partidos_copaEuropa2 
+                                     SET goles_local = @GolesLocal, goles_visitante = @GolesVisitante, asistencia = @Asistencia, estado = @Estado
+                                     WHERE id_partido = @IdPartido";
+                    using (var cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@GolesLocal", partido.GolesLocal);
+                        cmd.Parameters.AddWithValue("@GolesVisitante", partido.GolesVisitante);
+                        cmd.Parameters.AddWithValue("@Asistencia", partido.Asistencia);
+                        cmd.Parameters.AddWithValue("@Estado", "Finalizado");
+                        cmd.Parameters.AddWithValue("@IdPartido", partido.IdPartido);
+                        cmd.ExecuteNonQuery(); // Ejecuta la consulta
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al añadir el equipo al Manager: " + ex.Message);
+            }
+        }
+
         // ===================================================================== Método para obtener la fecha del ultimo partido
         public string ultimoPartidoCalendario()
         {
@@ -1349,6 +1937,10 @@ namespace ChampionManager25.Datos
                     string query = @"SELECT fecha FROM (SELECT fecha FROM partidos
                                                         UNION ALL
                                                         SELECT fecha FROM partidos_copaNacional
+                                                        UNION ALL
+                                                        SELECT fecha FROM partidos_copaEuropa1
+                                                        UNION ALL
+                                                        SELECT fecha FROM partidos_copaEuropa2
                                                         )
                                                         ORDER BY fecha DESC
                                                         LIMIT 1";
@@ -1392,6 +1984,18 @@ namespace ChampionManager25.Datos
 
                     string queryCopa = @"DELETE FROM partidos_copaNacional";
                     using (var cmd = new SQLiteCommand(queryCopa, conn))
+                    {
+                        cmd.ExecuteNonQuery(); // Ejecuta la consulta
+                    }
+
+                    string queryCopaEuropa1 = @"DELETE FROM partidos_copaEuropa1";
+                    using (var cmd = new SQLiteCommand(queryCopaEuropa1, conn))
+                    {
+                        cmd.ExecuteNonQuery(); // Ejecuta la consulta
+                    }
+
+                    string queryCopaEuropa2 = @"DELETE FROM partidos_copaEuropa2";
+                    using (var cmd = new SQLiteCommand(queryCopaEuropa2, conn))
                     {
                         cmd.ExecuteNonQuery(); // Ejecuta la consulta
                     }
@@ -1501,6 +2105,156 @@ namespace ChampionManager25.Datos
             return clasificados;
         }
 
+        // ---------------------------------------------------- Metodo que devuelve una lista con los equipos clasificados de Copa Europa 1
+        public List<int> ObtenerEquiposClasificadosEuropa1(int idRonda, int idCompeticion, int idManager)
+        {
+            List<int> clasificados = new List<int>();
+
+            using (var conn = new SQLiteConnection(Conexion.Cadena))
+            {
+                conn.Open();
+
+                string query = @"SELECT 
+                                    ida.id_equipo_local AS equipo_ida_local,
+                                    ida.id_equipo_visitante AS equipo_ida_visitante,
+                                    ida.goles_local AS goles_ida_local,
+                                    ida.goles_visitante AS goles_ida_visitante,
+                                    vuelta.goles_local AS goles_vuelta_local,
+                                    vuelta.goles_visitante AS goles_vuelta_visitante,
+                                    vuelta.id_equipo_local AS equipo_vuelta_local,
+                                    vuelta.id_equipo_visitante AS equipo_vuelta_visitante
+                                 FROM partidos_copaEuropa1 ida
+                                 JOIN partidos_copaEuropa1 vuelta
+                                    ON ida.id_ronda = vuelta.id_ronda 
+                                 AND ida.id_competicion = vuelta.id_competicion
+                                 AND ida.partido_vuelta = 0
+                                 AND vuelta.partido_vuelta = 1
+                                 AND ida.id_equipo_local = vuelta.id_equipo_visitante
+                                 AND ida.id_equipo_visitante = vuelta.id_equipo_local
+                                 WHERE ida.id_ronda = @IdRonda AND ida.id_competicion = @IdCompeticion AND ida.id_manager = @IdManager";
+
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@IdRonda", idRonda);
+                    cmd.Parameters.AddWithValue("@IdCompeticion", idCompeticion);
+                    cmd.Parameters.AddWithValue("@IdManager", idManager);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int idaLocal = Convert.ToInt32(reader["goles_ida_local"]);
+                            int idaVisitante = Convert.ToInt32(reader["goles_ida_visitante"]);
+                            int vueltaLocal = Convert.ToInt32(reader["goles_vuelta_local"]);
+                            int vueltaVisitante = Convert.ToInt32(reader["goles_vuelta_visitante"]);
+
+                            int equipoA = Convert.ToInt32(reader["equipo_ida_local"]);
+                            int equipoB = Convert.ToInt32(reader["equipo_ida_visitante"]);
+
+                            int globalA = idaLocal + vueltaVisitante;
+                            int globalB = idaVisitante + vueltaLocal;
+
+                            int clasificadoId;
+
+                            if (globalA > globalB)
+                                clasificadoId = equipoA;
+                            else if (globalB > globalA)
+                                clasificadoId = equipoB;
+                            else
+                            {
+                                // Desempate (penales, sorteo, etc.)
+                                // Aquí puedes hacer lo que prefieras, por ejemplo:
+                                clasificadoId = new Random().Next(0, 2) == 0 ? equipoA : equipoB;
+                            }
+
+                            // Obtener objeto Equipo (ejemplo simple si tienes un método GetEquipoPorId)
+                            // Instancias de la LOGICA
+                            EquipoLogica _logicaEquipo = new EquipoLogica();
+                            int clasificado = _logicaEquipo.ListarDetallesEquipo(clasificadoId).IdEquipo;
+                            clasificados.Add(clasificado);
+                        }
+                    }
+                }
+            }
+
+            return clasificados;
+        }
+
+        // ---------------------------------------------------- Metodo que devuelve una lista con los equipos clasificados de Copa Europa 2
+        public List<int> ObtenerEquiposClasificadosEuropa2(int idRonda, int idCompeticion, int idManager)
+        {
+            List<int> clasificados = new List<int>();
+
+            using (var conn = new SQLiteConnection(Conexion.Cadena))
+            {
+                conn.Open();
+
+                string query = @"SELECT 
+                                    ida.id_equipo_local AS equipo_ida_local,
+                                    ida.id_equipo_visitante AS equipo_ida_visitante,
+                                    ida.goles_local AS goles_ida_local,
+                                    ida.goles_visitante AS goles_ida_visitante,
+                                    vuelta.goles_local AS goles_vuelta_local,
+                                    vuelta.goles_visitante AS goles_vuelta_visitante,
+                                    vuelta.id_equipo_local AS equipo_vuelta_local,
+                                    vuelta.id_equipo_visitante AS equipo_vuelta_visitante
+                                 FROM partidos_copaEuropa2 ida
+                                 JOIN partidos_copaEuropa2 vuelta
+                                    ON ida.id_ronda = vuelta.id_ronda 
+                                 AND ida.id_competicion = vuelta.id_competicion
+                                 AND ida.partido_vuelta = 0
+                                 AND vuelta.partido_vuelta = 1
+                                 AND ida.id_equipo_local = vuelta.id_equipo_visitante
+                                 AND ida.id_equipo_visitante = vuelta.id_equipo_local
+                                 WHERE ida.id_ronda = @IdRonda AND ida.id_competicion = @IdCompeticion AND ida.id_manager = @IdManager";
+
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@IdRonda", idRonda);
+                    cmd.Parameters.AddWithValue("@IdCompeticion", idCompeticion);
+                    cmd.Parameters.AddWithValue("@IdManager", idManager);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int idaLocal = Convert.ToInt32(reader["goles_ida_local"]);
+                            int idaVisitante = Convert.ToInt32(reader["goles_ida_visitante"]);
+                            int vueltaLocal = Convert.ToInt32(reader["goles_vuelta_local"]);
+                            int vueltaVisitante = Convert.ToInt32(reader["goles_vuelta_visitante"]);
+
+                            int equipoA = Convert.ToInt32(reader["equipo_ida_local"]);
+                            int equipoB = Convert.ToInt32(reader["equipo_ida_visitante"]);
+
+                            int globalA = idaLocal + vueltaVisitante;
+                            int globalB = idaVisitante + vueltaLocal;
+
+                            int clasificadoId;
+
+                            if (globalA > globalB)
+                                clasificadoId = equipoA;
+                            else if (globalB > globalA)
+                                clasificadoId = equipoB;
+                            else
+                            {
+                                // Desempate (penales, sorteo, etc.)
+                                // Aquí puedes hacer lo que prefieras, por ejemplo:
+                                clasificadoId = new Random().Next(0, 2) == 0 ? equipoA : equipoB;
+                            }
+
+                            // Obtener objeto Equipo (ejemplo simple si tienes un método GetEquipoPorId)
+                            // Instancias de la LOGICA
+                            EquipoLogica _logicaEquipo = new EquipoLogica();
+                            int clasificado = _logicaEquipo.ListarDetallesEquipo(clasificadoId).IdEquipo;
+                            clasificados.Add(clasificado);
+                        }
+                    }
+                }
+            }
+
+            return clasificados;
+        }
+
         // ----------------------------------------------------------------------- Método que devuelve la final de Copa Nacional
         public Partido ObtenerFinalCopa()
         {
@@ -1522,6 +2276,118 @@ namespace ChampionManager25.Datos
                                             goles_visitante,
                                             id_competicion
                                      FROM partidos_copaNacional
+                                     WHERE id_ronda = 6";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                partido = new Partido
+                                {
+                                    IdPartido = Convert.ToInt32(reader["id_partido"]),
+                                    FechaPartido = reader["fecha"] != DBNull.Value && DateTime.TryParse(reader["fecha"].ToString(), out DateTime fecha)
+                                                   ? fecha
+                                                   : DateTime.Parse("2000-01-01"),
+                                    Ronda = reader["id_ronda"] != DBNull.Value ? Convert.ToInt32(reader["id_ronda"]) : 0,
+                                    PartidoVuelta = reader["partido_vuelta"] != DBNull.Value ? Convert.ToInt32(reader["partido_vuelta"]) : 0,
+                                    IdEquipoLocal = Convert.ToInt32(reader["id_equipo_local"]),
+                                    IdEquipoVisitante = Convert.ToInt32(reader["id_equipo_visitante"]),
+                                    GolesLocal = reader["goles_local"] != DBNull.Value ? Convert.ToInt32(reader["goles_local"]) : 0,
+                                    GolesVisitante = reader["goles_visitante"] != DBNull.Value ? Convert.ToInt32(reader["goles_visitante"]) : 0,
+                                    IdCompeticion = reader["id_competicion"] != DBNull.Value ? Convert.ToInt32(reader["id_competicion"]) : 0
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return partido;
+        }
+
+        // ----------------------------------------------------------------------- Método que devuelve la final de Copa Europa 1
+        public Partido ObtenerFinalCopaEuropa1()
+        {
+            Partido partido = null;
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    string query = @"SELECT id_partido,
+                                            fecha, 
+                                            id_ronda,
+                                            partido_vuelta,
+                                            id_equipo_local, 
+                                            id_equipo_visitante,
+                                            goles_local,
+                                            goles_visitante,
+                                            id_competicion
+                                     FROM partidos_copaEuropa1
+                                     WHERE id_ronda = 6";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                partido = new Partido
+                                {
+                                    IdPartido = Convert.ToInt32(reader["id_partido"]),
+                                    FechaPartido = reader["fecha"] != DBNull.Value && DateTime.TryParse(reader["fecha"].ToString(), out DateTime fecha)
+                                                   ? fecha
+                                                   : DateTime.Parse("2000-01-01"),
+                                    Ronda = reader["id_ronda"] != DBNull.Value ? Convert.ToInt32(reader["id_ronda"]) : 0,
+                                    PartidoVuelta = reader["partido_vuelta"] != DBNull.Value ? Convert.ToInt32(reader["partido_vuelta"]) : 0,
+                                    IdEquipoLocal = Convert.ToInt32(reader["id_equipo_local"]),
+                                    IdEquipoVisitante = Convert.ToInt32(reader["id_equipo_visitante"]),
+                                    GolesLocal = reader["goles_local"] != DBNull.Value ? Convert.ToInt32(reader["goles_local"]) : 0,
+                                    GolesVisitante = reader["goles_visitante"] != DBNull.Value ? Convert.ToInt32(reader["goles_visitante"]) : 0,
+                                    IdCompeticion = reader["id_competicion"] != DBNull.Value ? Convert.ToInt32(reader["id_competicion"]) : 0
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return partido;
+        }
+
+        // ----------------------------------------------------------------------- Método que devuelve la final de Copa Europa 2
+        public Partido ObtenerFinalCopaEuropa2()
+        {
+            Partido partido = null;
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    string query = @"SELECT id_partido,
+                                            fecha, 
+                                            id_ronda,
+                                            partido_vuelta,
+                                            id_equipo_local, 
+                                            id_equipo_visitante,
+                                            goles_local,
+                                            goles_visitante,
+                                            id_competicion
+                                     FROM partidos_copaEuropa2
                                      WHERE id_ronda = 6";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
@@ -1623,6 +2489,61 @@ namespace ChampionManager25.Datos
                 conn.Open();
                 string query = @"SELECT MAX(id_ronda) 
                                  FROM partidos_copaNacional
+                                 WHERE estado != 'Pendiente'";
+
+                using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@IdEquipo", equipo);
+
+                    object result = cmd.ExecuteScalar();
+                    if (result != DBNull.Value && result != null)
+                    {
+                        ultimaJornada = Convert.ToInt32(result);
+                    }
+                }
+            }
+
+            return ultimaJornada;
+        }
+
+
+        // ----------------------------------------------------------------- Metodo que devuelve la ultima jornada de Copa Europa 1 jugada
+        public int ObtenerUltimaJornadaEuropa1Jugada(int equipo)
+        {
+            int ultimaJornada = 0;
+
+            using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+            {
+                conn.Open();
+                string query = @"SELECT MAX(jornada) 
+                                 FROM partidos_copaEuropa1 
+                                 WHERE estado != 'Pendiente'";
+
+                using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@IdEquipo", equipo);
+
+                    object result = cmd.ExecuteScalar();
+                    if (result != DBNull.Value && result != null)
+                    {
+                        ultimaJornada = Convert.ToInt32(result);
+                    }
+                }
+            }
+
+            return ultimaJornada;
+        }
+
+        // ----------------------------------------------------------------- Metodo que devuelve la ultima jornada de Copa Europa 2 jugada
+        public int ObtenerUltimaJornadaEuropa2Jugada(int equipo)
+        {
+            int ultimaJornada = 0;
+
+            using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+            {
+                conn.Open();
+                string query = @"SELECT MAX(jornada) 
+                                 FROM partidos_copaEuropa2 
                                  WHERE estado != 'Pendiente'";
 
                 using (SQLiteCommand cmd = new SQLiteCommand(query, conn))

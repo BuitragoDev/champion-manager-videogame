@@ -40,8 +40,7 @@ namespace ChampionManager25.UserControls
             _manager = manager;
             _equipo = equipo;
             _panelCentral = panelCentral;
-            equipos = _logicaEquipos.ListarEquipos(0)
-                        .Concat(_logicaEquipos.ListarEquipos(1))
+            equipos = _logicaEquipos.ListarEquipos(1)
                         .Concat(_logicaEquipos.ListarEquipos(2))
                         .Concat(_logicaEquipos.ListarEquipos(3))
                         .ToList();
@@ -54,11 +53,15 @@ namespace ChampionManager25.UserControls
             ConfigurarDataGridPalmares();
             ConfigurarDataGridHistorial();
 
-            string ruta_liga = _logicaCompeticion.ObtenerCompeticion(1).RutaImagen80;
             lblTitulo.Text += " (" + _logicaCompeticion.MostrarNombreCompeticion(1).ToUpper() + ")";
+            string ruta_liga = _logicaCompeticion.ObtenerCompeticion(1).RutaImagen80;  
             imgLogoLiga.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_liga));
             string ruta_copa = _logicaCompeticion.ObtenerCompeticion(4).RutaImagen80;
             imgLogoCopa.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_copa));
+            string ruta_copaEuropa1 = _logicaCompeticion.ObtenerCompeticion(5).RutaImagen80;
+            imgLogoCopaEuropa1.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_copaEuropa1));
+            string ruta_copaEuropa2 = _logicaCompeticion.ObtenerCompeticion(6).RutaImagen80;
+            imgLogoCopaEuropa2.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_copaEuropa2));
         }
 
         // ------------------------------------------------------------------------------- Evento CLICK del boton LIGA
@@ -72,6 +75,8 @@ namespace ChampionManager25.UserControls
 
             imgLogoLiga.IsEnabled = false;
             imgLogoCopa.IsEnabled = true;
+            imgLogoCopaEuropa1.IsEnabled = true;
+            imgLogoCopaEuropa2.IsEnabled = true;
         }
 
         // ------------------------------------------------------------------------------- Evento CLICK del boton COPA
@@ -85,6 +90,38 @@ namespace ChampionManager25.UserControls
 
             imgLogoLiga.IsEnabled = true;
             imgLogoCopa.IsEnabled = false;
+            imgLogoCopaEuropa1.IsEnabled = true;
+            imgLogoCopaEuropa2.IsEnabled = true;
+        }
+
+        // ------------------------------------------------------------------------------- Evento CLICK del boton COPA EUROPA 1
+        private void imgLogoCopaEuropa1_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Metodos.ReproducirSonidoClick();
+
+            UC_Menu_Competicion_PalmaresEuropa1 ucCopa = new UC_Menu_Competicion_PalmaresEuropa1(_manager, _equipo, _panelCentral);
+            _panelCentral.Children.Clear();
+            _panelCentral.Children.Add(ucCopa);
+
+            imgLogoLiga.IsEnabled = true;
+            imgLogoCopa.IsEnabled = true;
+            imgLogoCopaEuropa1.IsEnabled = false;
+            imgLogoCopaEuropa2.IsEnabled = true;
+        }
+
+        // ------------------------------------------------------------------------------- Evento CLICK del boton COPA EUROPA 2
+        private void imgLogoCopaEuropa2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Metodos.ReproducirSonidoClick();
+
+            UC_Menu_Competicion_PalmaresEuropa2 ucCopa = new UC_Menu_Competicion_PalmaresEuropa2(_manager, _equipo, _panelCentral);
+            _panelCentral.Children.Clear();
+            _panelCentral.Children.Add(ucCopa);
+
+            imgLogoLiga.IsEnabled = true;
+            imgLogoCopa.IsEnabled = true;
+            imgLogoCopaEuropa1.IsEnabled = true;
+            imgLogoCopaEuropa2.IsEnabled = false;
         }
 
         #region "Metodos"

@@ -66,11 +66,13 @@ namespace ChampionManager25.UserControls
                 txtJornadaActual.Text = $"{_logicaPartido.ObtenerNombreRonda(rondaActual)} (Vuelta)";
             }
 
+            lblTitulo.Text += " (" + _logicaCompeticion.MostrarNombreCompeticion(4).ToUpper() + ")";
             string ruta_liga = _logicaCompeticion.ObtenerCompeticion(1).RutaImagen80;
             imgLogoLiga.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_liga));
-            lblTitulo.Text += " (" + _logicaCompeticion.MostrarNombreCompeticion(4).ToUpper() + ")";
-            string ruta_copa = _logicaCompeticion.ObtenerCompeticion(4).RutaImagen80;
-            imgLogoCopa.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_copa));
+            string ruta_europa1 = _logicaCompeticion.ObtenerCompeticion(5).RutaImagen80;
+            imgLogoCopaEuropa1.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_europa1));
+            string ruta_europa2 = _logicaCompeticion.ObtenerCompeticion(6).RutaImagen80;
+            imgLogoCopaEuropa2.Source = new BitmapImage(new Uri(GestorPartidas.RutaMisDocumentos + "/" + ruta_europa2));
         }
 
         // ---------------------------------------------------------------------------- Evento CLICK del boton LIGA
@@ -79,6 +81,22 @@ namespace ChampionManager25.UserControls
             UC_Menu_Competicion_Resultados ucLiga = new UC_Menu_Competicion_Resultados(_manager, _equipo, _panelCentral);
             _panelCentral.Children.Clear();
             _panelCentral.Children.Add(ucLiga);
+        }
+
+        // ----------------------------------------------------------------------------- Evento CLICK del boton COPA EUROPA 1
+        private void imgLogoCopaEuropa1_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            UC_Menu_Competicion_ResultadosEuropa1 ucEuropa1 = new UC_Menu_Competicion_ResultadosEuropa1(_manager, _equipo, _panelCentral);
+            _panelCentral.Children.Clear();
+            _panelCentral.Children.Add(ucEuropa1);
+        }
+
+        // ----------------------------------------------------------------------------- Evento CLICK del boton COPA EUROPA 2
+        private void imgLogoCopaEuropa2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            UC_Menu_Competicion_ResultadosEuropa2 ucEuropa2 = new UC_Menu_Competicion_ResultadosEuropa2(_manager, _equipo, _panelCentral);
+            _panelCentral.Children.Clear();
+            _panelCentral.Children.Add(ucEuropa2);
         }
 
         // ---------------------------------------------------------------------------- Evento CLICK del boton JORNADA ANTERIOR

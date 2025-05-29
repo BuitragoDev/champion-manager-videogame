@@ -25,15 +25,27 @@ namespace ChampionManager25.Logica
         }
 
         // Llamada al método para insertar un nuevo partido de Copa Europa 1
-        public int CrearPartidoCopaEuropa(int local, int visitante, string fecha, int competicion, int jornada, int idMng)
+        public int CrearPartidoCopaEuropa(int local, int visitante, string fecha, int competicion, int jornada, int ronda, int partidoVuelta, int idMng)
         {
-            return _datos.CrearPartidoCopaEuropa(local, visitante, fecha, competicion, jornada, idMng);
+            return _datos.CrearPartidoCopaEuropa(local, visitante, fecha, competicion, jornada, ronda, partidoVuelta, idMng);
         }
 
         // Llamada al menerar calendario de Champions
         public void GenerarCalendarioChampions(List<Equipo> idEquipos, int idCompeticion, int idManager, DateTime fechaInicio)
         {
             _datos.GenerarCalendarioChampions(idEquipos, idCompeticion, idManager, fechaInicio);
+        }
+
+        // Llamada al método para insertar un nuevo partido de Copa Europa 2
+        public int CrearPartidoCopaEuropa2(int local, int visitante, string fecha, int competicion, int jornada, int ronda, int partidoVuelta, int idMng)
+        {
+            return _datos.CrearPartidoCopaEuropa2(local, visitante, fecha, competicion, jornada, ronda, partidoVuelta, idMng);
+        }
+
+        // Llamada al menerar calendario de Champions 2
+        public void GenerarCalendarioChampions2(List<Equipo> idEquipos, int idCompeticion, int idManager, DateTime fechaInicio)
+        {
+            _datos.GenerarCalendarioChampions2(idEquipos, idCompeticion, idManager, fechaInicio);
         }
 
         // Llamada al método que elimina un partido.
@@ -97,6 +109,18 @@ namespace ChampionManager25.Logica
             return _datos.CargarRondaCopa(ronda, vuelta, manager, competicion);
         }
 
+        // Llamada al metodo que carga los partidos de una Ronda de Copa Europa 1
+        public List<Partido> CargarJornadaCopaEuropa1(int jornada, int manager, int competicion)
+        {
+            return _datos.CargarJornadaCopaEuropa1(jornada, manager, competicion);
+        }
+
+        // Llamada al metodo que carga los partidos de una Ronda de Copa Europa 2
+        public List<Partido> CargarJornadaCopaEuropa2(int jornada, int manager, int competicion)
+        {
+            return _datos.CargarJornadaCopaEuropa2(jornada, manager, competicion);
+        }
+
         // Llamada al método que devuelve los ultimos 5 partidos de un equipo
         public List<Partido> UltimosCincoPartidos(int equipo, int idManager)
         {
@@ -119,6 +143,18 @@ namespace ChampionManager25.Logica
         public void ActualizarPartidoCopaNacional(Partido partido)
         {
             _datos.ActualizarPartidoCopaNacional(partido);
+        }
+
+        // Llamada al método que actualiza con el resultado de un partido de Copa Europa 1
+        public void ActualizarPartidoCopaEuropa1(Partido partido)
+        {
+            _datos.ActualizarPartidoCopaEuropa1(partido);
+        }
+
+        // Llamada al método que actualiza con el resultado de un partido de Copa Europa 2
+        public void ActualizarPartidoCopaEuropa2(Partido partido)
+        {
+            _datos.ActualizarPartidoCopaEuropa2(partido);
         }
 
         // Llamada al método para obtener la fecha del ultimo partido
@@ -151,10 +187,34 @@ namespace ChampionManager25.Logica
             return _datos.ObtenerEquiposClasificados(idRonda, idCompeticion, idManager);
         }
 
+        // Llamada al metodo que devuelve una lista con los equipos clasificados de Copa Europa 1
+        public List<int> ObtenerEquiposClasificadosEuropa1(int idRonda, int idCompeticion, int idManager)
+        {
+            return _datos.ObtenerEquiposClasificadosEuropa1(idRonda, idCompeticion, idManager);
+        }
+
+        // Llamada al metodo que devuelve una lista con los equipos clasificados de Copa Europa 2
+        public List<int> ObtenerEquiposClasificadosEuropa2(int idRonda, int idCompeticion, int idManager)
+        {
+            return _datos.ObtenerEquiposClasificadosEuropa2(idRonda, idCompeticion, idManager);
+        }
+
         // Llamada al método que devuelve la final de Copa Nacional
         public Partido ObtenerFinalCopa()
         {
             return _datos.ObtenerFinalCopa();
+        }
+
+        // Llamada al método que devuelve la final de Copa Europa 1
+        public Partido ObtenerFinalCopaEuropa1()
+        {
+            return _datos.ObtenerFinalCopaEuropa1();
+        }
+
+        // Llamada al método que devuelve la final de Copa Europa 2
+        public Partido ObtenerFinalCopaEuropa2()
+        {
+            return _datos.ObtenerFinalCopaEuropa2();
         }
 
         // Llamada al metodo que devuelve la ultima ronda de mi equipo en Copa nacional
@@ -173,6 +233,18 @@ namespace ChampionManager25.Logica
         public int ObtenerUltimaRondaJugada(int equipo)
         {
             return _datos.ObtenerUltimaRondaJugada(equipo);
+        }
+
+        // Llamada al metodo que devuelve la ultima jornada de Copa Europa 1 jugada
+        public int ObtenerUltimaJornadaEuropa1Jugada(int equipo)
+        {
+            return _datos.ObtenerUltimaJornadaEuropa1Jugada(equipo);
+        }
+
+        // Llamada al metodo que devuelve la ultima jornada de Copa Europa 2 jugada
+        public int ObtenerUltimaJornadaEuropa2Jugada(int equipo)
+        {
+            return _datos.ObtenerUltimaJornadaEuropa2Jugada(equipo);
         }
 
         // Llamada al metodo que devuelve la ultima ronda de Copa jugada por mi equipo

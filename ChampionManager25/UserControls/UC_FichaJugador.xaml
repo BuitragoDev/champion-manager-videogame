@@ -348,7 +348,7 @@
                                 </Border>
 
                                 <Border Background="LightGray" Grid.Column="0" Grid.Row="6" Margin="5">
-                                    <TextBlock Text="BONUS POR PARTIDOS" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                    <TextBlock Text="BONUS POR PARTIDO" HorizontalAlignment="Center" VerticalAlignment="Center" 
                                                FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="#FF23282D" TextAlignment="Center"/>
                                 </Border>
 

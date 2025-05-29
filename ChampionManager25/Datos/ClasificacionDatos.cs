@@ -12,7 +12,7 @@ namespace ChampionManager25.Datos
 {
     public class ClasificacionDatos : Conexion
     {
-        // ===================================================================== Método para Rellenar la Clasificación de Primera Division
+        // --------------------------------------------------------------------- Método para Rellenar la Clasificación de Primera Division
         public void RellenarClasificacion(int competicion, int manager)
         {
             try
@@ -65,7 +65,7 @@ namespace ChampionManager25.Datos
             }
         }
 
-        // ===================================================================== Método para Rellenar la Clasificación de Segunda Division
+        // --------------------------------------------------------------------- Método para Rellenar la Clasificación de Segunda Division
         public void RellenarClasificacion2(int competicion, int manager)
         {
             try
@@ -118,8 +118,66 @@ namespace ChampionManager25.Datos
             }
         }
 
+        // --------------------------------------------------------------------- Método para Rellenar la Clasificación de Copa de Europa 1
+        public void RellenarClasificacionEuropa1(int manager, List<Equipo> equiposEuropa1)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
 
-        // ===================================================================== Método para Mostrar la Clasificacion
+                    // Insertar cada equipo en la tabla clasificacion
+                    string query = @"INSERT INTO clasificacion_europa1 (id_equipo, id_manager) VALUES (@idEquipo, @idManager)";
+                    using (SQLiteCommand insertCommand = new SQLiteCommand(query, conn))
+                    {
+                        foreach (Equipo equipo in equiposEuropa1)
+                        {
+                            insertCommand.Parameters.Clear();
+                            insertCommand.Parameters.AddWithValue("@idEquipo", equipo.IdEquipo);
+                            insertCommand.Parameters.AddWithValue("@idManager", manager);
+                            insertCommand.ExecuteNonQuery();
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+        // --------------------------------------------------------------------- Método para Rellenar la Clasificación de Copa de Europa 2
+        public void RellenarClasificacionEuropa2(int manager, List<Equipo> equiposEuropa2)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+
+                    // Insertar cada equipo en la tabla clasificacion
+                    string query = @"INSERT INTO clasificacion_europa2 (id_equipo, id_manager) VALUES (@idEquipo, @idManager)";
+                    using (SQLiteCommand insertCommand = new SQLiteCommand(query, conn))
+                    {
+                        foreach (Equipo equipo in equiposEuropa2)
+                        {
+                            insertCommand.Parameters.Clear();
+                            insertCommand.Parameters.AddWithValue("@idEquipo", equipo.IdEquipo);
+                            insertCommand.Parameters.AddWithValue("@idManager", manager);
+                            insertCommand.ExecuteNonQuery();
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+
+
+        // ------------------------------------------------------------------- Método para Mostrar la Clasificacion Liga 1
         public List<Clasificacion> MostrarClasificacion(int competicion, int manager)
         {
             List<Clasificacion> clasificaciones = new List<Clasificacion>();
@@ -199,7 +257,7 @@ namespace ChampionManager25.Datos
             return clasificaciones;
         }
 
-        // ===================================================================== Método para Mostrar la Clasificacion
+        // ------------------------------------------------------------------- Método para Mostrar la Clasificacion Liga 2
         public List<Clasificacion> MostrarClasificacion2(int competicion, int manager)
         {
             List<Clasificacion> clasificaciones = new List<Clasificacion>();
@@ -226,6 +284,144 @@ namespace ChampionManager25.Datos
                              FROM clasificacion2 c
                              INNER JOIN equipos e ON c.id_equipo = e.id_equipo
                              WHERE e.id_competicion = @competicion AND c.id_manager = @manager
+                             ORDER BY c.puntos DESC, (c.goles_favor - c.goles_contra) DESC";
+
+                    using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@competicion", competicion);
+                        command.Parameters.AddWithValue("@manager", manager);
+
+                        using (SQLiteDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                clasificaciones.Add(new Clasificacion
+                                {
+                                    Posicion = reader.GetInt32(0),
+                                    IdEquipo = reader.GetInt32(1),
+                                    Jugados = reader.GetInt32(2),
+                                    Ganados = reader.GetInt32(3),
+                                    Empatados = reader.GetInt32(4),
+                                    Perdidos = reader.GetInt32(5),
+                                    Puntos = reader.GetInt32(6),
+                                    LocalVictorias = reader.GetInt32(7),
+                                    LocalDerrotas = reader.GetInt32(8),
+                                    VisitanteVictorias = reader.GetInt32(9),
+                                    VisitanteDerrotas = reader.GetInt32(10),
+                                    GolesFavor = reader.GetInt32(11),
+                                    GolesContra = reader.GetInt32(12),
+                                    Racha = reader.GetInt32(13),
+                                    NombreEquipo = reader.GetString(14)
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return clasificaciones;
+        }
+
+        // ------------------------------------------------------------------- Método para Mostrar la Clasificacion Europa 1
+        public List<Clasificacion> MostrarClasificacionCopaEuropa1(int competicion, int manager)
+        {
+            List<Clasificacion> clasificaciones = new List<Clasificacion>();
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+                    string query = @"SELECT ROW_NUMBER() OVER (ORDER BY c.puntos DESC, (c.goles_favor - c.goles_contra) DESC) AS Posicion,
+                                c.id_equipo AS IdEquipo,
+                                c.jugados AS Jugados,
+                                c.ganados AS Ganados,
+                                c.empatados AS Empatados,
+                                c.perdidos AS Perdidos,
+                                c.puntos AS Puntos,
+                                c.local_victorias AS LocalVictorias,
+                                c.local_derrotas AS LocalDerrotas,
+                                c.visitante_victorias AS VisitanteVictorias,
+                                c.visitante_derrotas AS VisitanteDerrotas,
+                                c.goles_favor AS GolesFavor,
+                                c.goles_contra AS GolesContra,
+                                c.racha AS Racha,
+                                e.nombre AS NombreEquipo
+                             FROM clasificacion_europa1 c
+                             INNER JOIN equipos e ON c.id_equipo = e.id_equipo
+                             WHERE c.id_manager = @manager
+                             ORDER BY c.puntos DESC, (c.goles_favor - c.goles_contra) DESC";
+
+                    using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@competicion", competicion);
+                        command.Parameters.AddWithValue("@manager", manager);
+
+                        using (SQLiteDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                clasificaciones.Add(new Clasificacion
+                                {
+                                    Posicion = reader.GetInt32(0),
+                                    IdEquipo = reader.GetInt32(1),
+                                    Jugados = reader.GetInt32(2),
+                                    Ganados = reader.GetInt32(3),
+                                    Empatados = reader.GetInt32(4),
+                                    Perdidos = reader.GetInt32(5),
+                                    Puntos = reader.GetInt32(6),
+                                    LocalVictorias = reader.GetInt32(7),
+                                    LocalDerrotas = reader.GetInt32(8),
+                                    VisitanteVictorias = reader.GetInt32(9),
+                                    VisitanteDerrotas = reader.GetInt32(10),
+                                    GolesFavor = reader.GetInt32(11),
+                                    GolesContra = reader.GetInt32(12),
+                                    Racha = reader.GetInt32(13),
+                                    NombreEquipo = reader.GetString(14)
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+
+            return clasificaciones;
+        }
+
+        // ------------------------------------------------------------------- Método para Mostrar la Clasificacion Europa 2
+        public List<Clasificacion> MostrarClasificacionCopaEuropa2(int competicion, int manager)
+        {
+            List<Clasificacion> clasificaciones = new List<Clasificacion>();
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+                    string query = @"SELECT ROW_NUMBER() OVER (ORDER BY c.puntos DESC, (c.goles_favor - c.goles_contra) DESC) AS Posicion,
+                                c.id_equipo AS IdEquipo,
+                                c.jugados AS Jugados,
+                                c.ganados AS Ganados,
+                                c.empatados AS Empatados,
+                                c.perdidos AS Perdidos,
+                                c.puntos AS Puntos,
+                                c.local_victorias AS LocalVictorias,
+                                c.local_derrotas AS LocalDerrotas,
+                                c.visitante_victorias AS VisitanteVictorias,
+                                c.visitante_derrotas AS VisitanteDerrotas,
+                                c.goles_favor AS GolesFavor,
+                                c.goles_contra AS GolesContra,
+                                c.racha AS Racha,
+                                e.nombre AS NombreEquipo
+                             FROM clasificacion_europa2 c
+                             INNER JOIN equipos e ON c.id_equipo = e.id_equipo
+                             WHERE c.id_manager = @manager
                              ORDER BY c.puntos DESC, (c.goles_favor - c.goles_contra) DESC";
 
                     using (SQLiteCommand command = new SQLiteCommand(query, conn))
@@ -299,7 +495,51 @@ namespace ChampionManager25.Datos
                                      INNER JOIN equipos e ON c.id_equipo = e.id_equipo
                                      WHERE c.id_equipo = @IdEquipo AND c.id_manager = @manager
                                      ORDER BY c.puntos DESC";
-                    } 
+                    }
+                    else if (competicion == 5)
+                    {
+                        query = @"SELECT ROW_NUMBER() OVER (ORDER BY c.puntos DESC) AS Posicion,
+                                        c.id_equipo AS IdEquipo,
+                                        c.jugados AS Jugados,
+                                        c.ganados AS Ganados,
+                                        c.empatados AS Empatados,
+                                        c.perdidos AS Perdidos,
+                                        c.puntos AS Puntos,
+                                        c.local_victorias AS LocalVictorias,
+                                        c.local_derrotas AS LocalDerrotas,
+                                        c.visitante_victorias AS VisitanteVictorias,
+                                        c.visitante_derrotas AS VisitanteDerrotas,
+                                        c.goles_favor AS PuntosFavor,
+                                        c.goles_contra AS PuntosContra,
+                                        c.racha AS Racha,
+                                        e.nombre AS NombreEquipo
+                                     FROM clasificacion_europa1 c
+                                     INNER JOIN equipos e ON c.id_equipo = e.id_equipo
+                                     WHERE c.id_equipo = @IdEquipo AND c.id_manager = @manager
+                                     ORDER BY c.puntos DESC";
+                    }
+                    else if (competicion == 6)
+                    {
+                        query = @"SELECT ROW_NUMBER() OVER (ORDER BY c.puntos DESC) AS Posicion,
+                                        c.id_equipo AS IdEquipo,
+                                        c.jugados AS Jugados,
+                                        c.ganados AS Ganados,
+                                        c.empatados AS Empatados,
+                                        c.perdidos AS Perdidos,
+                                        c.puntos AS Puntos,
+                                        c.local_victorias AS LocalVictorias,
+                                        c.local_derrotas AS LocalDerrotas,
+                                        c.visitante_victorias AS VisitanteVictorias,
+                                        c.visitante_derrotas AS VisitanteDerrotas,
+                                        c.goles_favor AS PuntosFavor,
+                                        c.goles_contra AS PuntosContra,
+                                        c.racha AS Racha,
+                                        e.nombre AS NombreEquipo
+                                     FROM clasificacion_europa2 c
+                                     INNER JOIN equipos e ON c.id_equipo = e.id_equipo
+                                     WHERE c.id_equipo = @IdEquipo AND c.id_manager = @manager
+                                     ORDER BY c.puntos DESC";
+                    }
                     else
                     {
                         query = @"SELECT ROW_NUMBER() OVER (ORDER BY c.puntos DESC) AS Posicion,
@@ -396,7 +636,51 @@ namespace ChampionManager25.Datos
                                      WHERE c.id_manager = @manager
                                      ORDER BY c.goles_favor DESC
                                      LIMIT 1";
-                    } 
+                    }
+                    else if (competicion == 5)
+                    {
+                        query = @"SELECT c.id_equipo AS IdEquipo,
+                                        c.jugados AS Jugados,
+                                        c.ganados AS Ganados,
+                                        c.empatados AS Empatados,
+                                        c.perdidos AS Perdidos,
+                                        c.puntos AS Puntos,
+                                        c.local_victorias AS LocalVictorias,
+                                        c.local_derrotas AS LocalDerrotas,
+                                        c.visitante_victorias AS VisitanteVictorias,
+                                        c.visitante_derrotas AS VisitanteDerrotas,
+                                        c.goles_favor AS PuntosFavor,
+                                        c.goles_contra AS PuntosContra,
+                                        c.racha AS Racha,
+                                        e.nombre AS NombreEquipo
+                                     FROM clasificacion_europa1 c
+                                     INNER JOIN equipos e ON c.id_equipo = e.id_equipo
+                                     WHERE c.id_manager = @manager
+                                     ORDER BY c.goles_favor DESC
+                                     LIMIT 1";
+                    }
+                    else if (competicion == 6)
+                    {
+                        query = @"SELECT c.id_equipo AS IdEquipo,
+                                        c.jugados AS Jugados,
+                                        c.ganados AS Ganados,
+                                        c.empatados AS Empatados,
+                                        c.perdidos AS Perdidos,
+                                        c.puntos AS Puntos,
+                                        c.local_victorias AS LocalVictorias,
+                                        c.local_derrotas AS LocalDerrotas,
+                                        c.visitante_victorias AS VisitanteVictorias,
+                                        c.visitante_derrotas AS VisitanteDerrotas,
+                                        c.goles_favor AS PuntosFavor,
+                                        c.goles_contra AS PuntosContra,
+                                        c.racha AS Racha,
+                                        e.nombre AS NombreEquipo
+                                     FROM clasificacion_europa2 c
+                                     INNER JOIN equipos e ON c.id_equipo = e.id_equipo
+                                     WHERE c.id_manager = @manager
+                                     ORDER BY c.goles_favor DESC
+                                     LIMIT 1";
+                    }
                     else
                     {
                         query = @"SELECT c.id_equipo AS IdEquipo,
@@ -490,7 +774,51 @@ namespace ChampionManager25.Datos
                                      WHERE c.id_manager = @manager
                                      ORDER BY c.goles_contra ASC
                                      LIMIT 1";
-                    } 
+                    }
+                    else if (competicion == 5)
+                    {
+                        query = @"SELECT c.id_equipo AS IdEquipo,
+                                        c.jugados AS Jugados,
+                                        c.ganados AS Ganados,
+                                        c.empatados AS Empatados,
+                                        c.perdidos AS Perdidos,
+                                        c.puntos AS Puntos,
+                                        c.local_victorias AS LocalVictorias,
+                                        c.local_derrotas AS LocalDerrotas,
+                                        c.visitante_victorias AS VisitanteVictorias,
+                                        c.visitante_derrotas AS VisitanteDerrotas,
+                                        c.goles_favor AS PuntosFavor,
+                                        c.goles_contra AS PuntosContra,
+                                        c.racha AS Racha,
+                                        e.nombre AS NombreEquipo
+                                     FROM clasificacion_europa1 c
+                                     INNER JOIN equipos e ON c.id_equipo = e.id_equipo
+                                     WHERE c.id_manager = @manager
+                                     ORDER BY c.goles_contra ASC
+                                     LIMIT 1";
+                    }
+                    else if (competicion == 6)
+                    {
+                        query = @"SELECT c.id_equipo AS IdEquipo,
+                                        c.jugados AS Jugados,
+                                        c.ganados AS Ganados,
+                                        c.empatados AS Empatados,
+                                        c.perdidos AS Perdidos,
+                                        c.puntos AS Puntos,
+                                        c.local_victorias AS LocalVictorias,
+                                        c.local_derrotas AS LocalDerrotas,
+                                        c.visitante_victorias AS VisitanteVictorias,
+                                        c.visitante_derrotas AS VisitanteDerrotas,
+                                        c.goles_favor AS PuntosFavor,
+                                        c.goles_contra AS PuntosContra,
+                                        c.racha AS Racha,
+                                        e.nombre AS NombreEquipo
+                                     FROM clasificacion_europa2 c
+                                     INNER JOIN equipos e ON c.id_equipo = e.id_equipo
+                                     WHERE c.id_manager = @manager
+                                     ORDER BY c.goles_contra ASC
+                                     LIMIT 1";
+                    }
                     else
                     {
                         query = @"SELECT c.id_equipo AS IdEquipo,
@@ -584,7 +912,51 @@ namespace ChampionManager25.Datos
                                      WHERE c.id_manager = @manager
                                      ORDER BY c.racha DESC
                                      LIMIT 1";
-                    } 
+                    }
+                    else if (competicion == 5)
+                    {
+                        query = @"SELECT c.id_equipo AS IdEquipo,
+                                        c.jugados AS Jugados,
+                                        c.ganados AS Ganados,
+                                        c.empatados AS Empatados,
+                                        c.perdidos AS Perdidos,
+                                        c.puntos AS Puntos,
+                                        c.local_victorias AS LocalVictorias,
+                                        c.local_derrotas AS LocalDerrotas,
+                                        c.visitante_victorias AS VisitanteVictorias,
+                                        c.visitante_derrotas AS VisitanteDerrotas,
+                                        c.goles_favor AS PuntosFavor,
+                                        c.goles_contra AS PuntosContra,
+                                        c.racha AS Racha,
+                                        e.nombre AS NombreEquipo
+                                     FROM clasificacion_europa1 c
+                                     INNER JOIN equipos e ON c.id_equipo = e.id_equipo
+                                     WHERE c.id_manager = @manager
+                                     ORDER BY c.racha DESC
+                                     LIMIT 1";
+                    }
+                    else if (competicion == 6)
+                    {
+                        query = @"SELECT c.id_equipo AS IdEquipo,
+                                        c.jugados AS Jugados,
+                                        c.ganados AS Ganados,
+                                        c.empatados AS Empatados,
+                                        c.perdidos AS Perdidos,
+                                        c.puntos AS Puntos,
+                                        c.local_victorias AS LocalVictorias,
+                                        c.local_derrotas AS LocalDerrotas,
+                                        c.visitante_victorias AS VisitanteVictorias,
+                                        c.visitante_derrotas AS VisitanteDerrotas,
+                                        c.goles_favor AS PuntosFavor,
+                                        c.goles_contra AS PuntosContra,
+                                        c.racha AS Racha,
+                                        e.nombre AS NombreEquipo
+                                     FROM clasificacion_europa2 c
+                                     INNER JOIN equipos e ON c.id_equipo = e.id_equipo
+                                     WHERE c.id_manager = @manager
+                                     ORDER BY c.racha DESC
+                                     LIMIT 1";
+                    }
                     else
                     {
                         query = @"SELECT c.id_equipo AS IdEquipo,
@@ -678,7 +1050,51 @@ namespace ChampionManager25.Datos
                                      WHERE c.id_manager = @manager
                                      ORDER BY c.local_victorias DESC
                                      LIMIT 1";
-                    } 
+                    }
+                    else if (competicion == 5)
+                    {
+                        query = @"SELECT c.id_equipo AS IdEquipo,
+                                        c.jugados AS Jugados,
+                                        c.ganados AS Ganados,
+                                        c.empatados AS Empatados,
+                                        c.perdidos AS Perdidos,
+                                        c.puntos AS Puntos,
+                                        c.local_victorias AS LocalVictorias,
+                                        c.local_derrotas AS LocalDerrotas,
+                                        c.visitante_victorias AS VisitanteVictorias,
+                                        c.visitante_derrotas AS VisitanteDerrotas,
+                                        c.goles_favor AS PuntosFavor,
+                                        c.goles_contra AS PuntosContra,
+                                        c.racha AS Racha,
+                                        e.nombre AS NombreEquipo
+                                     FROM clasificacion_europa1 c
+                                     INNER JOIN equipos e ON c.id_equipo = e.id_equipo
+                                     WHERE c.id_manager = @manager
+                                     ORDER BY c.local_victorias DESC
+                                     LIMIT 1";
+                    }
+                    else if (competicion == 6)
+                    {
+                        query = @"SELECT c.id_equipo AS IdEquipo,
+                                        c.jugados AS Jugados,
+                                        c.ganados AS Ganados,
+                                        c.empatados AS Empatados,
+                                        c.perdidos AS Perdidos,
+                                        c.puntos AS Puntos,
+                                        c.local_victorias AS LocalVictorias,
+                                        c.local_derrotas AS LocalDerrotas,
+                                        c.visitante_victorias AS VisitanteVictorias,
+                                        c.visitante_derrotas AS VisitanteDerrotas,
+                                        c.goles_favor AS PuntosFavor,
+                                        c.goles_contra AS PuntosContra,
+                                        c.racha AS Racha,
+                                        e.nombre AS NombreEquipo
+                                     FROM clasificacion_europa2 c
+                                     INNER JOIN equipos e ON c.id_equipo = e.id_equipo
+                                     WHERE c.id_manager = @manager
+                                     ORDER BY c.local_victorias DESC
+                                     LIMIT 1";
+                    }
                     else
                     {
                         query = @"SELECT c.id_equipo AS IdEquipo,
@@ -772,7 +1188,51 @@ namespace ChampionManager25.Datos
                                      WHERE c.id_manager = @manager
                                      ORDER BY c.visitante_victorias DESC
                                      LIMIT 1";
-                    } 
+                    }
+                    else if (competicion == 5)
+                    {
+                        query = @"SELECT c.id_equipo AS IdEquipo,
+                                        c.jugados AS Jugados,
+                                        c.ganados AS Ganados,
+                                        c.empatados AS Empatados,
+                                        c.perdidos AS Perdidos,
+                                        c.puntos AS Puntos,
+                                        c.local_victorias AS LocalVictorias,
+                                        c.local_derrotas AS LocalDerrotas,
+                                        c.visitante_victorias AS VisitanteVictorias,
+                                        c.visitante_derrotas AS VisitanteDerrotas,
+                                        c.goles_favor AS PuntosFavor,
+                                        c.goles_contra AS PuntosContra,
+                                        c.racha AS Racha,
+                                        e.nombre AS NombreEquipo
+                                     FROM clasificacion_europa1 c
+                                     INNER JOIN equipos e ON c.id_equipo = e.id_equipo
+                                     WHERE c.id_manager = @manager
+                                     ORDER BY c.visitante_victorias DESC
+                                     LIMIT 1";
+                    }
+                    else if (competicion == 6)
+                    {
+                        query = @"SELECT c.id_equipo AS IdEquipo,
+                                        c.jugados AS Jugados,
+                                        c.ganados AS Ganados,
+                                        c.empatados AS Empatados,
+                                        c.perdidos AS Perdidos,
+                                        c.puntos AS Puntos,
+                                        c.local_victorias AS LocalVictorias,
+                                        c.local_derrotas AS LocalDerrotas,
+                                        c.visitante_victorias AS VisitanteVictorias,
+                                        c.visitante_derrotas AS VisitanteDerrotas,
+                                        c.goles_favor AS PuntosFavor,
+                                        c.goles_contra AS PuntosContra,
+                                        c.racha AS Racha,
+                                        e.nombre AS NombreEquipo
+                                     FROM clasificacion_europa2 c
+                                     INNER JOIN equipos e ON c.id_equipo = e.id_equipo
+                                     WHERE c.id_manager = @manager
+                                     ORDER BY c.visitante_victorias DESC
+                                     LIMIT 1";
+                    }
                     else
                     {
                         query = @"SELECT c.id_equipo AS IdEquipo,
@@ -936,6 +1396,107 @@ namespace ChampionManager25.Datos
             }
         }
 
+        // ------------------------------------------------------------------- Metodo para actualizar la clasificacion de la Copa de Europa 1
+        public void ActualizarClasificacionEuropa1(Clasificacion clasificacion)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+                    string query = @"UPDATE clasificacion_europa1 
+                                    SET jugados = jugados + @Jugados,
+                                        ganados = ganados + @Ganados,
+                                        empatados = empatados + @Empatados,
+                                        perdidos = perdidos + @Perdidos,
+                                        puntos = puntos + @Puntos,
+                                        local_victorias = local_victorias + @LocalVictorias,
+                                        local_derrotas = local_derrotas + @LocalDerrotas,
+                                        visitante_victorias = visitante_victorias + @VisitanteVictorias,
+                                        visitante_derrotas = visitante_derrotas + @VisitanteDerrotas,
+                                        goles_favor = goles_favor + @GolesFavor,
+                                        goles_contra = goles_contra + @GolesContra,
+                                        racha = CASE
+                                                    WHEN @Racha = 0 THEN 0
+                                                    WHEN (racha > 0 AND @Racha > 0) OR (racha < 0 AND @Racha < 0) THEN racha + @Racha
+                                                    ELSE @Racha
+                                                END
+                                WHERE id_equipo = @IdEquipo";
+                    using (var cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Jugados", clasificacion.Jugados);
+                        cmd.Parameters.AddWithValue("@Ganados", clasificacion.Ganados);
+                        cmd.Parameters.AddWithValue("@Empatados", clasificacion.Empatados);
+                        cmd.Parameters.AddWithValue("@Perdidos", clasificacion.Perdidos);
+                        cmd.Parameters.AddWithValue("@Puntos", clasificacion.Puntos);
+                        cmd.Parameters.AddWithValue("@LocalVictorias", clasificacion.LocalVictorias);
+                        cmd.Parameters.AddWithValue("@LocalDerrotas", clasificacion.LocalDerrotas);
+                        cmd.Parameters.AddWithValue("@VisitanteVictorias", clasificacion.VisitanteVictorias);
+                        cmd.Parameters.AddWithValue("@VisitanteDerrotas", clasificacion.VisitanteDerrotas);
+                        cmd.Parameters.AddWithValue("@GolesFavor", clasificacion.GolesFavor);
+                        cmd.Parameters.AddWithValue("@GolesContra", clasificacion.GolesContra);
+                        cmd.Parameters.AddWithValue("@Racha", clasificacion.Racha);
+                        cmd.Parameters.AddWithValue("@IdEquipo", clasificacion.IdEquipo);
+                        cmd.ExecuteNonQuery(); // Ejecuta la consulta
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al añadir el equipo al Manager: " + ex.Message);
+            }
+        }
+
+        // ------------------------------------------------------------------- Metodo para actualizar la clasificacion de la Copa de Europa 2
+        public void ActualizarClasificacionEuropa2(Clasificacion clasificacion)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(Conexion.Cadena))
+                {
+                    conn.Open();
+                    string query = @"UPDATE clasificacion_europa2 
+                                    SET jugados = jugados + @Jugados,
+                                        ganados = ganados + @Ganados,
+                                        empatados = empatados + @Empatados,
+                                        perdidos = perdidos + @Perdidos,
+                                        puntos = puntos + @Puntos,
+                                        local_victorias = local_victorias + @LocalVictorias,
+                                        local_derrotas = local_derrotas + @LocalDerrotas,
+                                        visitante_victorias = visitante_victorias + @VisitanteVictorias,
+                                        visitante_derrotas = visitante_derrotas + @VisitanteDerrotas,
+                                        goles_favor = goles_favor + @GolesFavor,
+                                        goles_contra = goles_contra + @GolesContra,
+                                        racha = CASE
+                                                    WHEN @Racha = 0 THEN 0
+                                                    WHEN (racha > 0 AND @Racha > 0) OR (racha < 0 AND @Racha < 0) THEN racha + @Racha
+                                                    ELSE @Racha
+                                                END
+                                WHERE id_equipo = @IdEquipo";
+                    using (var cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Jugados", clasificacion.Jugados);
+                        cmd.Parameters.AddWithValue("@Ganados", clasificacion.Ganados);
+                        cmd.Parameters.AddWithValue("@Empatados", clasificacion.Empatados);
+                        cmd.Parameters.AddWithValue("@Perdidos", clasificacion.Perdidos);
+                        cmd.Parameters.AddWithValue("@Puntos", clasificacion.Puntos);
+                        cmd.Parameters.AddWithValue("@LocalVictorias", clasificacion.LocalVictorias);
+                        cmd.Parameters.AddWithValue("@LocalDerrotas", clasificacion.LocalDerrotas);
+                        cmd.Parameters.AddWithValue("@VisitanteVictorias", clasificacion.VisitanteVictorias);
+                        cmd.Parameters.AddWithValue("@VisitanteDerrotas", clasificacion.VisitanteDerrotas);
+                        cmd.Parameters.AddWithValue("@GolesFavor", clasificacion.GolesFavor);
+                        cmd.Parameters.AddWithValue("@GolesContra", clasificacion.GolesContra);
+                        cmd.Parameters.AddWithValue("@Racha", clasificacion.Racha);
+                        cmd.Parameters.AddWithValue("@IdEquipo", clasificacion.IdEquipo);
+                        cmd.ExecuteNonQuery(); // Ejecuta la consulta
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al añadir el equipo al Manager: " + ex.Message);
+            }
+        }
 
         // ===================================================================== Método para RESETEAR la Clasificación
         public void ResetearClasificacion(int competicion)
@@ -961,7 +1522,39 @@ namespace ChampionManager25.Datos
                                     goles_favor = 0,
                                     goles_contra = 0,
                                     racha = 0";
-                    } 
+                    }
+                    else if (competicion == 5)
+                    {
+                        query = @"UPDATE clasificacion_europa1
+                                  SET jugados = 0,
+                                    ganados = 0,
+                                    empatados = 0,
+                                    perdidos = 0,
+                                    puntos = 0,
+                                    local_victorias = 0,
+                                    local_derrotas = 0,
+                                    visitante_victorias = 0,
+                                    visitante_derrotas = 0,
+                                    goles_favor = 0,
+                                    goles_contra = 0,
+                                    racha = 0";
+                    }
+                    else if (competicion == 6)
+                    {
+                        query = @"UPDATE clasificacion_europa2 
+                                  SET jugados = 0,
+                                    ganados = 0,
+                                    empatados = 0,
+                                    perdidos = 0,
+                                    puntos = 0,
+                                    local_victorias = 0,
+                                    local_derrotas = 0,
+                                    visitante_victorias = 0,
+                                    visitante_derrotas = 0,
+                                    goles_favor = 0,
+                                    goles_contra = 0,
+                                    racha = 0";
+                    }
                     else
                     {
                         query = @"UPDATE clasificacion2 

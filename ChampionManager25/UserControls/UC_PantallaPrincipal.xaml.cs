@@ -192,7 +192,15 @@ namespace ChampionManager25.UserControls
                         }
                         else
                         {
-                            _logicaJugador.ActivarTratamientoLesion(jugador.IdJugador, 0);
+                            if (jugador.LesionTratada != 0)
+                            {
+                                _logicaJugador.ActivarTratamientoLesion(jugador.IdJugador, 0);
+                            }
+
+                            if (jugador.TipoLesion != "")
+                            {
+                                _logicaJugador.QuitarTipoLesion(jugador.IdJugador);
+                            }
                         }
 
                         // COMPROBAR TRANSFERIBLES
@@ -250,6 +258,28 @@ namespace ChampionManager25.UserControls
                             if (jugador.AniosContrato == 1 && partidosEquipo > 10 && partidosJugador <= (partidosEquipo * 0.50))
                             {
                                 indiceTransferibilidad += 1;
+                            }
+
+                            // ❌ Factor 6: Equipos europeos
+                            int idEquipo = _logicaJugador.MostrarDatosJugador(jugador.IdJugador).IdEquipo;
+                            int idComp = _logicaEquipo.ListarDetallesEquipo(idEquipo).IdCompeticion;
+                            if (idComp ==5 || idComp ==6)
+                            {
+                                if (jugador.Status == 4)
+                                {
+                                    if (jugador.Moral < 60)
+                                    {
+                                        indiceTransferibilidad += 4;
+                                    }
+                                    else
+                                    {
+                                        indiceTransferibilidad += 2;
+                                    }
+                                }
+                                else
+                                {
+                                    indiceTransferibilidad -= 4;
+                                }       
                             }
 
                             // 📌 RESULTADOS DE TRANSFERIBILIDAD
@@ -318,9 +348,16 @@ namespace ChampionManager25.UserControls
                         {
                             // Añadimos al jugador a la tabla alineaciones
                             _logicaJugador.AgregarJugadorAlineacion(traspaso.IdJugador);
+
+
+                            // Añadimos al jugador a la lista de estadisticas
+                            if (_logicaEquipo.ListarDetallesEquipo(traspaso.IdEquipoOrigen).IdCompeticion > 2)
+                            {
+                                _logicaEstadisticas.InsertarLineaEstadisticaJugador(traspaso.IdJugador, _manager.IdManager);
+                            }
                         }
 
-                        // Comprobar si es un equipo que vende mi equipo
+                        // Comprobar si es un jugador que vende mi equipo
                         if (traspaso.IdEquipoOrigen == _equipo)
                         {
                             // Quitar jugador de la alineacion
@@ -740,14 +777,24 @@ namespace ChampionManager25.UserControls
                 if (miPartido != null && miPartido.FechaPartido == Metodos.hoy)
                 {
                     int cont = 0;
-                    if (miPartido.IdCompeticion != 4 || miPartido.IdCompeticion != 5)
-                    {
-                        // Comprobamos si hay jugadores lesionados o sancionados en la alineacion titular en partidos de Liga
-                        List<Jugador> alineacion = _logicaJugador.MostrarAlineacion(1, 11);
+                    // Comprobamos si hay jugadores lesionados o sancionados en la alineacion titular en partidos de Liga
+                    List<Jugador> alineacion = _logicaJugador.MostrarAlineacion(1, 11);
 
+                    if (miPartido.IdCompeticion >= 1 && miPartido.IdCompeticion >= 2)
+                    {
                         foreach (var jugador in alineacion)
                         {
                             if (jugador.Lesion > 0 || jugador.Sancionado > 0)
+                            {
+                                cont++;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach (var jugador in alineacion)
+                        {
+                            if (jugador.Lesion > 0)
                             {
                                 cont++;
                             }
@@ -768,11 +815,28 @@ namespace ChampionManager25.UserControls
                         frmResumenPartido ventanaResumenPartido = new frmResumenPartido(_manager, _equipo, miPartido);
                         ventanaResumenPartido.ShowDialog();
 
+                        // Comprobar si la Copa Nacional ha terminado
                         if (ventanaResumenPartido.copaFinalizada == 1)
                         {
                             // Cargar Pantalla de Final de Copa
                             frmResumenCopaNacional ventanaResumenCopaNacional = new frmResumenCopaNacional(_manager, _equipo);
                             ventanaResumenCopaNacional.ShowDialog();
+                        }
+
+                        // Comprobar si la Copa de Europa 1 ha terminado
+                        if (ventanaResumenPartido.copaEuropa1Finalizada == 1)
+                        {
+                            // Cargar Pantalla de Final de Copa Europa 1
+                            frmResumenCopaEuropa1 ventanaResumenCopaEuropa1 = new frmResumenCopaEuropa1(_manager, _equipo);
+                            ventanaResumenCopaEuropa1.ShowDialog();
+                        }
+
+                        // Comprobar si la Copa de Europa 2 ha terminado
+                        if (ventanaResumenPartido.copaEuropa2Finalizada == 1)
+                        {
+                            // Cargar Pantalla de Final de Copa Europa 2
+                            frmResumenCopaEuropa2 ventanaResumenCopaEuropa2 = new frmResumenCopaEuropa2(_manager, _equipo);
+                            ventanaResumenCopaEuropa2.ShowDialog();
                         }
 
                         // Comprobamos si hay otros partidos hoy
@@ -858,6 +922,22 @@ namespace ChampionManager25.UserControls
                             // Cargar Pantalla de Final de Copa
                             frmResumenCopaNacional ventanaResumenCopaNacional = new frmResumenCopaNacional(_manager, _equipo);
                             ventanaResumenCopaNacional.ShowDialog();
+                        }
+
+                        // Comprobar si la Copa de Europa 1 ha terminado
+                        if (ventanaSimulacion.copaEuropa1Finalizada == 1)
+                        {
+                            // Cargar Pantalla de Final de Copa Europa 1
+                            frmResumenCopaEuropa1 ventanaResumenCopaEuropa1 = new frmResumenCopaEuropa1(_manager, _equipo);
+                            ventanaResumenCopaEuropa1.ShowDialog();
+                        }
+
+                        // Comprobar si la Copa de Europa 2 ha terminado
+                        if (ventanaSimulacion.copaEuropa2Finalizada == 1)
+                        {
+                            // Cargar Pantalla de Final de Copa Europa 2
+                            frmResumenCopaEuropa2 ventanaResumenCopaEuropa2 = new frmResumenCopaEuropa2(_manager, _equipo);
+                            ventanaResumenCopaEuropa2.ShowDialog();
                         }
                     }
                     else
@@ -992,6 +1072,8 @@ namespace ChampionManager25.UserControls
                                 // Crear clasificaciones para descensos y ascensos
                                 List<Clasificacion> clasificacion1Final = _logicaClasificacion.MostrarClasificacion(1, _manager.IdManager);
                                 List<Clasificacion> clasificacion2Final = _logicaClasificacion.MostrarClasificacion2(2, _manager.IdManager);
+                                List<Clasificacion> clasificacionEuropa1Final = _logicaClasificacion.MostrarClasificacionCopaEuropa1(5, _manager.IdManager);
+                                List<Clasificacion> clasificacionEuropa2Final = _logicaClasificacion.MostrarClasificacionCopaEuropa2(6, _manager.IdManager);
                                 List<Equipo> listaReservas = _logicaEquipo.ListarEquiposCompeticion(3);
 
                                 // Resetear Moral y Estado de Forma a 50
@@ -1130,10 +1212,51 @@ namespace ChampionManager25.UserControls
                                     _logicaEquipo.CambiarObjetivoTemporada(equipo, "Descenso");
                                 }
 
+                                // Descender a Copa de Europa 2
+                                int totalEquiposEuropa1 = clasificacionEuropa1Final.Count();
+                                foreach (var equipo in clasificacionEuropa1Final)
+                                {
+                                    if (equipo.Posicion > (totalEquipos - 4) && equipo.Posicion <= totalEquipos)
+                                    {
+                                        _logicaEquipo.AscenderDescenderEquipoEuropa(equipo.IdEquipo, 6);                                   
+                                    }
+                                }
+
+                                // Ascender a Copa de Europa 1
+                                int totalEquiposEuropa2 = clasificacionEuropa2Final.Count();
+                                foreach (var equipo in clasificacionEuropa2Final)
+                                {
+                                    if (equipo.Posicion >= 1 && equipo.Posicion <= 4)
+                                    {
+                                        _logicaEquipo.AscenderDescenderEquipoEuropa(equipo.IdEquipo, 5);
+                                    }
+                                }
+
+                                // Actualizar equipos que juegan Europa en la Liga local
+                                int totalEquiposLiga1 = clasificacion1Final.Count();
+                                foreach (var equipo in clasificacion1Final)
+                                {
+                                    if (equipo.Posicion >= 1 && equipo.Posicion <= 4)
+                                    {
+                                        _logicaEquipo.AscenderDescenderEquipoEuropa(equipo.IdEquipo, 5);
+                                    }
+                                    else if (equipo.Posicion >= 5 && equipo.Posicion <= 6)
+                                    {
+                                        _logicaEquipo.AscenderDescenderEquipoEuropa(equipo.IdEquipo, 6);
+                                    }
+                                    else
+                                    {
+                                        _logicaEquipo.AscenderDescenderEquipoEuropa(equipo.IdEquipo, 0);
+                                    }
+                                }
+
                                 // Resetear tablas clasificacion, estadisticas_jugadores, historial_manager_temp, partidos y ofertas
                                 _logicaClasificacion.ResetearClasificacion(1);
                                 _logicaClasificacion.ResetearClasificacion(2);
+                                _logicaClasificacion.ResetearClasificacion(5);
+                                _logicaClasificacion.ResetearClasificacion(6);
                                 _logicaEstadisticas.ResetearEstadisticas();
+                                _logicaEstadisticas.ResetearEstadisticasEuropa();
                                 _logicaHistorial.ResetearHistorialTemporal();
                                 _logicaPartidos.ResetearPartidos();
 
@@ -1151,11 +1274,20 @@ namespace ChampionManager25.UserControls
                                                                 .Concat(_logicaEquipo.ListarEquiposCompeticion(5))
                                                                 .OrderBy(e => Guid.NewGuid())
                                                                 .ToList();
-                                _logicaPartidos.GenerarCalendarioChampions(equiposChampions, 5, _manager.IdManager, ObtenerSegundoMiercolesOctubre(Metodos.temporadaActual));
+                                _logicaPartidos.GenerarCalendarioChampions(equiposChampions, 5, _manager.IdManager, ObtenerPrimerMartesOctubre(Metodos.temporadaActual));
+
+                                // Generar el calendario de Europa League
+                                List<Equipo> equiposUefa = _logicaEquipo.EquiposJueganEuropa2(1)
+                                                                .Concat(_logicaEquipo.ListarEquiposCompeticion(6))
+                                                                .OrderBy(e => Guid.NewGuid())
+                                                                .ToList();
+                                _logicaPartidos.GenerarCalendarioChampions2(equiposUefa, 6, _manager.IdManager, ObtenerPrimerJuevesOctubre(Metodos.temporadaActual));
 
                                 // Generar las clasificaciones
                                 _logicaClasificacion.RellenarClasificacion(1, _manager.IdManager);
                                 _logicaClasificacion.RellenarClasificacion2(2, _manager.IdManager);
+                                _logicaClasificacion.RellenarClasificacionEuropa1(_manager.IdManager, equiposChampions);
+                                _logicaClasificacion.RellenarClasificacionEuropa2(_manager.IdManager, equiposUefa);
 
                                 // Generar el primer registro del historial
                                 string temporadaFormateada = $"{temporadaActual}/{temporadaActual + 1}";
@@ -2020,17 +2152,61 @@ namespace ChampionManager25.UserControls
             throw new Exception("No se encontró el tercer sábado de agosto.");
         }
 
-        public static DateTime ObtenerSegundoMiercolesOctubre(int anio)
+        public static DateTime ObtenerPrimerMartesOctubre(int anio)
         {
             DateTime fecha = new DateTime(anio, 10, 1);
             int miercolesEncontrados = 0;
 
             while (fecha.Month == 10)
             {
-                if (fecha.DayOfWeek == DayOfWeek.Wednesday)
+                if (fecha.DayOfWeek == DayOfWeek.Tuesday)
                 {
                     miercolesEncontrados++;
-                    if (miercolesEncontrados == 2)
+                    if (miercolesEncontrados == 1)
+                    {
+                        return fecha;
+                    }
+                }
+
+                fecha = fecha.AddDays(1);
+            }
+
+            throw new Exception("No se encontró el tercer sábado de agosto.");
+        }
+
+        public static DateTime ObtenerPrimerJuevesOctubre(int anio)
+        {
+            DateTime fecha = new DateTime(anio, 10, 1);
+            int miercolesEncontrados = 0;
+
+            while (fecha.Month == 10)
+            {
+                if (fecha.DayOfWeek == DayOfWeek.Thursday)
+                {
+                    miercolesEncontrados++;
+                    if (miercolesEncontrados == 1)
+                    {
+                        return fecha;
+                    }
+                }
+
+                fecha = fecha.AddDays(1);
+            }
+
+            throw new Exception("No se encontró el tercer sábado de agosto.");
+        }
+
+        public static DateTime ObtenerTercerMartesFebrero(int anio)
+        {
+            DateTime fecha = new DateTime((anio + 1), 2, 1);
+            int martesEncontrados = 0;
+
+            while (fecha.Month == 2)
+            {
+                if (fecha.DayOfWeek == DayOfWeek.Tuesday)
+                {
+                    martesEncontrados++;
+                    if (martesEncontrados == 3)
                     {
                         return fecha;
                     }

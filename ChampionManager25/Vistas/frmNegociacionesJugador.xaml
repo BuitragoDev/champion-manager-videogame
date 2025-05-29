@@ -225,7 +225,7 @@
                                     </CheckBox.Style>
                                 </CheckBox>
 
-                                <TextBlock Grid.Column="1" Grid.Row="0" Text="Bonus por partidos" HorizontalAlignment="Left" 
+                                <TextBlock Grid.Column="1" Grid.Row="0" Text="Bonus por partido" HorizontalAlignment="Left" 
                                            VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="16" 
                                            Foreground="#FF23282D" TextAlignment="Left" Margin="20,0,0,0"/>
                             </Grid>
@@ -973,7 +973,7 @@
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
 
-                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Bonus jugar 25 partidos:" HorizontalAlignment="Left" Margin="20,0,0,0" 
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Bonus por partido:" HorizontalAlignment="Left" Margin="20,0,0,0" 
                                            VerticalAlignment="Center" FontFamily="Cascadia Code SemiBold" FontSize="16" 
                                            Foreground="#FF23282D" TextAlignment="Left"/>
 

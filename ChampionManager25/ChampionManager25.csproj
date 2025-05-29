@@ -1345,6 +1345,7 @@
     <None Remove="Recursos\img\estadios\small.png" />
     <None Remove="Recursos\img\fondoDockPanelSuperior.png" />
     <None Remove="Recursos\img\fondoResultados.png" />
+    <None Remove="Recursos\img\fondoResultadosEuropa.png" />
     <None Remove="Recursos\img\gradas3D.png" />
     <None Remove="Recursos\img\icons\abajo_icon.png" />
     <None Remove="Recursos\img\icons\abono_icon.png" />
@@ -1966,6 +1967,9 @@
     <None Remove="Recursos\img\jugadores\1401.png" />
     <None Remove="Recursos\img\jugadores\1402.png" />
     <None Remove="Recursos\img\jugadores\1403.png" />
+    <None Remove="Recursos\img\jugadores\1404.png" />
+    <None Remove="Recursos\img\jugadores\1405.png" />
+    <None Remove="Recursos\img\jugadores\1406.png" />
     <None Remove="Recursos\img\jugadores\141.png" />
     <None Remove="Recursos\img\jugadores\142.png" />
     <None Remove="Recursos\img\jugadores\143.png" />
@@ -8888,6 +8892,9 @@
     <Content Include="Recursos\img\fondoResultados.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Recursos\img\fondoResultadosEuropa.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\img\gradas3D.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -10749,6 +10756,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\jugadores\1403.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\1404.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\1405.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\img\jugadores\1406.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\img\jugadores\141.png">
