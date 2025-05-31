@@ -1,4 +1,4 @@
-﻿
+﻿C:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\App.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\MainWindow.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_CargarPartida.xaml;;
@@ -26,9 +26,13 @@ FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_Estadisticas.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_Palmares.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_PalmaresCopa.xaml;;
+FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_PalmaresEuropa1.xaml;;
+FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_PalmaresEuropa2.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_Palmares_Jugadores.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_Resultados.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_ResultadosCopa.xaml;;
+FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_ResultadosEuropa1.xaml;;
+FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_ResultadosEuropa2.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Correo.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Correo_Principal.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Entrenador.xaml;;
@@ -70,6 +74,8 @@ FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmLista
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmMenuOpciones.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmNegociacionesJugador.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmPonerEnMercado.xaml;;
+FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmResumenCopaEuropa1.xaml;;
+FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmResumenCopaEuropa2.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmResumenCopaNacional.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmResumenPartido.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmResumenTemporada.xaml;;
@@ -83,10 +89,4 @@ FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmVenta
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmVentanaPremioJugadores.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmVentanaRenovarJugador.xaml;;
 FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmVerDetallesEquipo.xaml;;
-FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_ResultadosEuropa1.xaml;;
-FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_ResultadosEuropa2.xaml;;
-FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmResumenCopaEuropa1.xaml;;
-FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\Vistas\frmResumenCopaEuropa2.xaml;;
-FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_PalmaresEuropa1.xaml;;
-FC:\Users\abuit\source\repos\ChampionManager25\ChampionManager25\UserControls\UC_Menu_Competicion_PalmaresEuropa2.xaml;;
 
